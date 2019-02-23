@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Wrangling</title>
+
+<script src="Wrangling_practical_files/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="Wrangling_practical_files/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="Wrangling_practical_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="Wrangling_practical_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="Wrangling_practical_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="Wrangling_practical_files/navigation-1.1/tabsets.js"></script>
+<link href="Wrangling_practical_files/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="Wrangling_practical_files/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="practical.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Wrangling</h1>
+<h4 class="author"><em><table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'>
+<col width='10%'>
+<col width='10%'>
+<tr style="border:none">
+<td style="display:block;width:100%;text-align:left;vertical-align:bottom;padding:0;margin:0;border:none" nowrap>
+<font style='font-style:normal'>R for Data Science</font><br> <a href='https://therbootcamp.github.io/R4DS_2019Feb/'> <i class='fas fa-clock' style='font-size:.9em;' ></i> </a> <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;'></i> </a> <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a> <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a> <a href='https://therbootcamp.github.io'> <font style='font-style:normal'>Basel R Bootcamp</font> </a>
+</td>
+<td style="width:100%;vertical-align:bottom;text-align:right;padding:0;margin:0;border:none">
+<img src='https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png' style='height:15px;width:80px'/>
+</td>
+</tr>
+</table></em></h4>
+
+</div>
+
+
+<p align="center" width="100%">
+<img src="image/trial.jpg" alt="Trulli" style="width:100%;height:280px"> <br> <font style="font-size:10px">from <a href="https://parkinsonsnewstoday.com/2016/02/24/promising-respiratory-drug-focus-of-new-clinical-trial-for-parkinsons-disease">parkinsonsnewstoday.com</a></font>
+</p>
+<p><img src="" width="70%" style="display: block; margin: auto;" /></p>
+<div id="section" class="section level1 tabset">
+<h1></h1>
+<div id="overview" class="section level2">
+<h2>Overview</h2>
+<p>In this practical you’ll practice “data wrangling” with the <code>dplyr</code> and <code>tidyr</code> packages (part of the <code>tidyverse</code> collection of packages).</p>
+<p>By the end of this practical you will know how to:</p>
+<ol style="list-style-type: decimal">
+<li>Change column names, select specific columns</li>
+<li>Create new columns</li>
+<li>Filter rows of data based on multiple criteria</li>
+<li>Combine (aka, ‘join’) multiple data sets through key columns</li>
+<li>Convert data between wide and long formats</li>
+</ol>
+</div>
+<div id="tasks" class="section level2">
+<h2>Tasks</h2>
+<div id="a---setup" class="section level3">
+<h3>A - Setup</h3>
+<ol style="list-style-type: decimal">
+<li><p>Open your <code>BaselRBootcamp</code> R project. It should already have the folders <code>1_Data</code> and <code>2_Code</code>. Make sure that the data files listed in the <code>Datasets</code> section above are in your <code>1_Data</code> folder</p></li>
+<li><p>Open a new R script. At the top of the script, using comments, write your name and the date. Save it as a new file called <code>wrangling_practical.R</code> in the <code>2_Code</code> folder.</p></li>
+<li><p>Using <code>library()</code> load the <code>tidyverse</code> package (if you don’t have it, you’ll need to install it with <code>install.packages()</code>)!</p></li>
+</ol>
+<pre class="r"><code># Load packages necessary for this script
+library(tidyverse)</code></pre>
+<p>For this practical, we’ll use the <code>trial_act</code> data, this is the result of a randomized clinical trial comparing the effects of different medications on adults infected with the human immunodeficiency virus (You can learn more about the trial <a href="https://www.nejm.org/doi/full/10.1056/NEJM199610103351501">here</a>).</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Using the following template, load the <code>trial_act.csv</code> data into R and store it as a new object called <code>trial_act</code> (Hint: Don’t type the path directly! Use the “tab” completion!).</li>
+</ol>
+<pre class="r"><code># Load trial_act.csv from the data folder in your 
+#  working directory as a new object called trial_act
+
+trial_act &lt;- read_csv(file = &quot;XX/XX&quot;)</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Using the same code structure, load the <code>trial_act_demo_fake.csv</code> data as a new dataframe called <code>trial_act_demo</code>.</li>
+</ol>
+<pre class="r"><code># Load trial_act_demo_fake.csv from the data folder in your 
+#  working directory as a new object called trial_act_demo
+
+XX &lt;- XX(XX = &quot;XX/XX&quot;)</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>Take a look at the first few rows of the datasets by printing them to the console.</li>
+</ol>
+<pre class="r"><code># Print trial_act object
+trial_act</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li><p>Use the the <code>summary()</code> function to print more details on the columns of the datasets.</p></li>
+<li><p>Use the <code>View()</code> function to view the entire dataframes in new windows</p></li>
+</ol>
+<pre class="r"><code>View(trial_act)
+View(trial_act_demo)</code></pre>
+</div>
+<div id="b---change-column-names-with-rename" class="section level3">
+<h3>B - Change column names with rename()</h3>
+<ol style="list-style-type: decimal">
+<li>Print the names of the <code>trial_act</code> data with <code>names(XXX)</code></li>
+</ol>
+<pre class="r"><code>names(XXX)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>One of the columns is currently called <code>wtkg</code>. Using <code>rename()</code>, change the name of this column to <code>weight_kg</code>. Be sure to assign the result back to <code>trial_act</code> to change it!</li>
+</ol>
+<pre class="r"><code># Change the name to weight_kg from wtkg
+
+trial_act &lt;- trial_act %&gt;%
+  rename(XX = XX)   # NEW = OLD</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Look at the names of your <code>trial_act</code> dataframe again using <code>names()</code>, do you now see the column <code>weight_kg</code>?</p></li>
+<li><p>One of the columns is called <code>age</code>, change it to <code>age_y</code> (to specify that age is in years).</p></li>
+</ol>
+</div>
+<div id="c---select-columns-with-select" class="section level3">
+<h3>C - Select columns with select()</h3>
+<ol style="list-style-type: decimal">
+<li>Using the <code>select()</code> function, select only the column <code>age_y</code> and print the result (but don’t assign it to anything). Do you see only the <code>age_y</code> column now?</li>
+</ol>
+<pre class="r"><code>XX %&gt;%
+  select(XX)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Using <code>select()</code> select the columns <code>pidnum</code>, <code>age_y</code>, <code>gender</code>, and <code>weight_kg</code> (but don’t assign the result to anything)</li>
+</ol>
+<pre class="r"><code>XX %&gt;%
+  select(XX, XX, XX, XX)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Imagine that a colleague of yours wants an anonymised dataframe called <code>trial_act_anon_</code> that does <em>not</em> contain the columns <code>pidnum</code> and <code>age</code>. Create this dataframe by selecting all columns in <code>trial_act</code> <em>except</em> <code>pidnum</code> and <code>age</code> (hint: use the notation <code>select(-XXX, -XXX))</code> to select everything <em>except</em> specified columns). Assign the result to a new object called <code>trial_act_anon</code></li>
+</ol>
+<pre class="r"><code>XX &lt;- XX %&gt;%
+  select(-XX, -XX)</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Create a new dataframe called <code>CD4_wide</code> which contains the following columns: <code>pidnum</code>, <code>arms</code>, <code>cd40</code>, <code>cd420</code>, and <code>cd496</code>. The <code>cd40</code>, <code>cd420</code>, and <code>cd496</code> columns show patient’s CD4 T cell counts at baseline, 20 weeks, and 96 weeks. After you create <code>CD4_wide</code>, print it to make sure it worked!</li>
+</ol>
+<pre class="r"><code>XX &lt;- trial_act %&gt;% 
+  select(XX, XX, XX, XX, XX)</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Did you know you can easily select all columns that start with specific characters using <code>starts_with()</code>? Try adapting the following code to get the same result you got before.</li>
+</ol>
+<pre class="r"><code>CD4_wide &lt;- trial_act %&gt;% 
+  select(pidnum, arms, starts_with(&quot;XXX&quot;))</code></pre>
+</div>
+<div id="d---add-new-columns-with-mutate" class="section level3">
+<h3>D - Add new columns with mutate()</h3>
+<ol style="list-style-type: decimal">
+<li>Using the <code>mutate()</code> function, add the column <code>age_m</code> which shows each patient’s age in months instead of years (Hint: Just multiply <code>age_y</code> by 12!)</li>
+</ol>
+<pre class="r"><code>trial_act &lt;- trial_act %&gt;%
+  mutate(XX = XX * 12)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Using <code>mutate</code>, add the following new columns to <code>trial_act</code>. (Try combining these into <em>one</em> call to the <code>mutate()</code> function!)</li>
+</ol>
+<ul>
+<li><code>weight_lb</code>: Weight in lbs instead of kilograms. You can do this by multiplying <code>weight_kg</code> by 2.2.</li>
+<li><code>cd_change_20</code>: Change in CD4 T cell count from baseline to 20 weeks. You can do this by taking <code>cd420 - cd40</code></li>
+<li><code>cd_change_960</code>: Change in CD4 T cell count from baseline to 96 weeks. You can do this by taking <code>cd496 - cd40</code></li>
+</ul>
+<pre class="r"><code>XXX &lt;- XXX %&gt;% 
+  mutate(weight_lb = XXX,
+         cd_change_20 = XXX,
+         XXX = XXX)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>If you look at the <code>gender</code> column, you will see that it is numeric (0s and 1s). Using the <code>mutate()</code> and <code>case_when()</code> functions, create a new column called <code>gender_char</code> which shows the gender as a string, where 0 = “female” and 1 = “male”:</li>
+</ol>
+<pre class="r"><code># Create gender_char which shows gender as a string
+trial_act &lt;- trial_act %&gt;%
+  mutate(
+  gender_char = case_when(
+    gender == XX ~ &quot;XX&quot;,
+    gender == XX ~ &quot;XX&quot;))</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>The column <code>arms</code> is also numeric and not very meaningful. Create a new column <code>arms_char</code> contains the names of the arms. Here is a table of the mapping</li>
+</ol>
+<table>
+<thead>
+<tr class="header">
+<th align="left">arms</th>
+<th align="left">arms_char</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">0</td>
+<td align="left">zidovudine</td>
+</tr>
+<tr class="even">
+<td align="left">1</td>
+<td align="left">zidovudine and didanosine</td>
+</tr>
+<tr class="odd">
+<td align="left">2</td>
+<td align="left">zidovudine and zalcitabine</td>
+</tr>
+<tr class="even">
+<td align="left">3</td>
+<td align="left">didanosine</td>
+</tr>
+</tbody>
+</table>
+<ol start="5" style="list-style-type: decimal">
+<li>If you haven’t already, try putting all the code for your previous questions in one call to <code>mutate()</code>. That is, in one block of code, create <code>age_m</code>, <code>weight_lb</code>, <code>cd_change_20</code>, <code>cd_change_960</code>, <code>gender_char</code> and <code>over50</code> using the <code>mutate()</code> function only once. Here’s how your code should look:</li>
+</ol>
+<pre class="r"><code>trial_act &lt;- trial_act %&gt;%
+  mutate(
+    age_m = XXX,
+    weight_lb = XXX,
+    cd_change_20 = XXX,
+    XXX = XXX,
+    XXX = case_when(XXX),
+    XXX = case_when(XXX)
+  )</code></pre>
+</div>
+<div id="e---arrange-rows-with-arrange" class="section level3">
+<h3>E - Arrange rows with arrange()</h3>
+<ol style="list-style-type: decimal">
+<li>Using the <code>arrange()</code> function, arrange the <code>trial_act</code> data in ascending order of <code>age_y</code> (from lowest to highest). After you do, print the data to make sure it worked!</li>
+</ol>
+<pre class="r"><code>trial_act &lt;- trial_act %&gt;% 
+ arrange(XXX)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Now arrange the data in <em>descending</em> order of <code>age_y</code> (from highest to lowest). After, look the data to make sure it worked. To arrange data in descending order, just include <code>desc()</code> around the variable</li>
+</ol>
+<pre class="r"><code>trial_act &lt;- trial_act %&gt;% 
+ arrange(desc(XXX))</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>You can sort the rows of dataframes with multiple columns by including many arguments to <code>arrange()</code>. Now sort the data by arms (<code>arms</code>) and then age_y (<code>age_y</code>). Print the result to make sure it looks right!</li>
+</ol>
+<pre class="r"><code>trial_act &lt;- trial_act %&gt;% 
+ arrange(XXX, XXX)</code></pre>
+</div>
+<div id="f---filter-specific-rows-with-filter" class="section level3">
+<h3>F - Filter specific rows with <code>filter()</code></h3>
+<ol style="list-style-type: decimal">
+<li>Using the <code>filter()</code> function, filter only the rows from males but don’t save the result (Hint: <code>gender_char == &quot;male&quot;</code>)</li>
+</ol>
+<pre class="r"><code>trial_act %&gt;%
+  filter(XXX == &quot;XXX&quot;)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Create a new dataframe called <code>trial_act_male</code> that only contains rows from males (hint: just assign what you did in the previous question to a new object!). After you create the object, print it to make sure it looks right.</p></li>
+<li><p>Filter only rows for patients under the age of 60 and save the result to <code>trial_act_young</code>. After you create it, print the object to make sure it looks right.</p></li>
+<li><p>A colleague of yours named Tracy wants a dataframe only containing data from females over the age of 40. Create this dataframe with <code>filter()</code> and call it <code>trial_act_tracy</code>. After you create the object, print it to make sure it looks right.</p></li>
+</ol>
+<pre class="r"><code>trial_act_tracy &lt;- XXX %&gt;%
+  filter(XXX &gt; XXX &amp; XXX == XXX)</code></pre>
+</div>
+<div id="g---combine-dataframes-with-left_join" class="section level3">
+<h3>G - Combine dataframes with <code>left_join()</code></h3>
+<p>The <code>trial_act_demo.csv</code> file contains additional (fictional) demographic data about the patients, namely the number of days of exercise they get per week, and their highest level of education. Our goal is to add the demographic information to our <code>trial_act</code> data.</p>
+<ol style="list-style-type: decimal">
+<li><p>In order to combine the two dataframes, we need to find one ‘key’ column that we can use to match rows. Look at both the <code>trial_act</code> and <code>trial_act_demo</code> dataframes. Which column can we use as the ‘key’ column?</p></li>
+<li><p>Use the <code>left_join()</code> function to combine the <code>trial_act</code> and <code>trial_act_demo</code> datasets, set the <code>by</code> argument to the name of the key column that is common in both data sets. Assign the result to <code>trial_act</code>.</p></li>
+</ol>
+<pre class="r"><code>trial_act &lt;- trial_act %&gt;%
+  left_join(XX, by = &quot;XX&quot;)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Print your new <code>trial_act</code> dataframe. Do you now see the demographic data?</li>
+</ol>
+</div>
+<div id="h---reshaping-with-gather-and-spread" class="section level3">
+<h3>H - Reshaping with gather() and spread()</h3>
+<p>Remember the <code>CD4_wide</code> dataframe you created before? Currently it is in the <em>wide</em> format, where each row is a patient, where key data (different CD4 T cell counts) are in different columns like this:</p>
+<pre class="r"><code># Data is in a &#39;wide&#39; format
+CD4_wide</code></pre>
+<pre><code># A tibble: 2,139 x 5
+   pidnum  arms  cd40 cd420 cd496
+    &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1  10056     2   422   477   660
+ 2  10059     3   162   218    NA
+ 3  10089     3   326   274   122
+ 4  10093     3   287   394    NA
+ 5  10124     0   504   353   660
+ 6  10140     1   235   339   264
+ 7  10165     0   244   225   106
+ 8  10190     0   401   366   453
+ 9  10198     3   214   107     8
+10  10229     0   221   132    NA
+# … with 2,129 more rows</code></pre>
+<p>Our goal is to convert this data to a ‘long’ format, where each row represents a single CD4 T cell count for a specific patient, like this:</p>
+<pre class="r"><code># This is the same data in &#39;long&#39; format
+CD4_long</code></pre>
+<pre><code># A tibble: 6,417 x 4
+   pidnum  arms time  value
+    &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;
+ 1  10056     2 cd40    422
+ 2  10059     3 cd40    162
+ 3  10089     3 cd40    326
+ 4  10093     3 cd40    287
+ 5  10124     0 cd40    504
+ 6  10140     1 cd40    235
+ 7  10165     0 cd40    244
+ 8  10190     0 cd40    401
+ 9  10198     3 cd40    214
+10  10229     0 cd40    221
+# … with 6,407 more rows</code></pre>
+<ol style="list-style-type: decimal">
+<li>Using the <code>gather()</code> function, create a new dataframe called <code>CD4_long</code> that shows the <code>CD4_wide</code> data in the ‘long’ format. To do this, use the following template. Set the grouping column to <code>time</code> and the new data column to <code>value</code>.</li>
+</ol>
+<pre class="r"><code>CD4_long &lt;- CD4_wide %&gt;% 
+  gather(XX,  # New grouping column
+         XX,  # New data column
+         -pidnum, -arms)  # Names of columns to replicate</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Print your <code>CD4_long</code> dataframe! Do you now see that each row is a specific observation for a patient?</p></li>
+<li><p>Now use the <code>spread()</code> function to convert the long data bring the data <em>back</em> into the wide format! To do this, make the first argument <code>time</code>, and the second argument <code>value</code> (you don’t need to save the object)</p></li>
+</ol>
+<pre class="r"><code>CD4_long %&gt;%
+  spread(XX,   # Grouping column
+         XX)   # Value columnn</code></pre>
+</div>
+<div id="practice" class="section level3">
+<h3>Practice!</h3>
+<ol style="list-style-type: decimal">
+<li>Create a new dataframe called <code>trial_A</code> from <code>trial_act</code> with the following restrictions:</li>
+</ol>
+<ul>
+<li>Only patients who take intravenous drugs (<code>drugs == 1</code>) <em>and</em>…</li>
+<li>Only patients younger than 60 <em>and</em>…</li>
+<li>Only patients whose baseline CD4 T cell counts <code>cd40</code> were greater than 250 <em>and</em> less than 400.</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Add a new column to <code>trial_act</code> called <code>drugs_char</code> which is <code>&quot;User&quot;</code> when drugs == 1, and <code>&quot;Non User&quot;</code> when drugs == 0.</p></li>
+<li><p>Create a new dataframe called <code>trial_B</code> from <code>trial_act</code> with the following restrictions:</p></li>
+</ol>
+<ul>
+<li>Only patients whose CD4 T cell counts increase <em>more</em> than 200 between baseline (<code>cd40</code>) and after 96 weeks (<code>cd496</code>)</li>
+<li>Only drug users</li>
+</ul>
+</div>
+</div>
+<div id="examples" class="section level2">
+<h2>Examples</h2>
+<pre class="r"><code># Wrangling with dplyr and tidyr ---------------------------
+
+library(tidyverse)    # Load tidyverse for dplyr and tidyr
+
+# Load baselers data
+baselers &lt;- read_csv(&quot;https://raw.githubusercontent.com/therbootcamp/baselers/master/inst/extdata/baselers.txt&quot;)
+
+# Perform many dplyr operations in a row
+
+baselers %&gt;%
+  
+  # Change some names
+  rename(age_y = age,
+         swimming = rhine) %&gt;%
+  
+  # Only include people over 30
+  filter(age_y &gt; 30) %&gt;%
+  
+  # Calculate some new columns
+  mutate(weight_lbs = weight * 2.22,
+         height_m = height / 100,
+         BMI = weight / height_m ^ 2,
+         
+         # Make binary version of sex
+         sex_bin = case_when(
+                      sex == &quot;male&quot; ~ 0,
+                      sex == &quot;female&quot; ~ 1),
+
+        # Show when height is greater than 150
+        height_lt_150 = case_when(
+                                height &lt; 150 ~ 1,
+                                height &gt;= 150 ~ 0)) %&gt;%
+  
+  # Sort in ascending order of sex, then
+  #  descending order of age
+  arrange(sex, desc(age_y)))
+
+# TIPP -------
+# In this practical you will do many operations on dataframes. Remember: when using `dplyr`, you can chain
+# multiple functions together with the pipe `%&gt;%`. When giving your answers to the questions in this practical,
+# see how many operations you can chain with the pipe!
+
+baselers &lt;- read_csv(&quot;1_Data/baselers.csv&quot;)
+
+# Method 1: Separate operations
+
+baselers &lt;- baselers %&gt;%
+              rename(Age_y = age)   # Change age to Age__y
+
+baselers &lt;- baselers %&gt;%
+              mutate(food_p = food / income)  # calculate food_p
+
+baselers &lt;- baselers %&gt;%
+              filter(sex == &quot;m&quot;)    # Only include males
+
+# Method 2: Chain with the pipe!
+
+baselers &lt;- read_csv(&quot;1_Data/baselers.csv&quot;)
+
+baselers &lt;- baselers %&gt;%
+              rename(Age_y = age) %&gt;%             # Change age to Age__y
+              mutate(food_p = food / income) %&gt;%  # calculate food_p
+              filter(sex == &quot;m&quot;)                  # Only include males</code></pre>
+</div>
+<div id="datasets" class="section level2">
+<h2>Datasets</h2>
+<table>
+<thead>
+<tr class="header">
+<th align="left">File</th>
+<th align="left">Rows</th>
+<th align="left">Columns</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="https://raw.githubusercontent.com/therbootcamp/BaselRBootcamp_2018July/master/_sessions/_data/baselrbootcamp_data/trial_act.csv">trial_act.csv</a></td>
+<td align="left">2139</td>
+<td align="left">27</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="https://raw.githubusercontent.com/therbootcamp/BaselRBootcamp_2018July/master/_sessions/_data/baselrbootcamp_data/trial_act_demo_fake.csv">trial_act_demo_fake.csv</a></td>
+<td align="left">2139</td>
+<td align="left">3</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>trial_act</code> data set contains a randomized clinical trial to compare monotherapy with zidovudine or didanosine with combination therapy with zidovudine and didanosine or zidovudine and zalcitabine in adults infected with the human immunodeficiency virus type I whose CD4 T cell counts were between 200 and 500 per cubic millimeter.</p>
+<table>
+<colgroup>
+<col width="26%" />
+<col width="73%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">File</th>
+<th align="left">Rows</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">pidnum</td>
+<td align="left">patient’s ID number</td>
+</tr>
+<tr class="even">
+<td align="left">age</td>
+<td align="left">age in years at baseline</td>
+</tr>
+<tr class="odd">
+<td align="left">wtkg</td>
+<td align="left">weight in kg at baseline</td>
+</tr>
+<tr class="even">
+<td align="left">hemo</td>
+<td align="left">hemophilia (0=no, 1=yes)</td>
+</tr>
+<tr class="odd">
+<td align="left">homo</td>
+<td align="left">homosexual activity (0=no, 1=yes)</td>
+</tr>
+<tr class="even">
+<td align="left">drugs</td>
+<td align="left">history of intravenous drug use (0=no, 1=yes)</td>
+</tr>
+<tr class="odd">
+<td align="left">karnof</td>
+<td align="left">Karnofsky score (on a scale of 0-100)</td>
+</tr>
+<tr class="even">
+<td align="left">oprior</td>
+<td align="left">non-zidovudine antiretroviral therapy prior to initiation of study treatment (0=no, 1=yes)</td>
+</tr>
+<tr class="odd">
+<td align="left">z30</td>
+<td align="left">zidovudine use in the 30 days prior to treatment initiation (0=no, 1=yes)</td>
+</tr>
+<tr class="even">
+<td align="left">zprior</td>
+<td align="left">zidovudine use prior to treatment initiation (0=no, 1=yes)</td>
+</tr>
+<tr class="odd">
+<td align="left">preanti</td>
+<td align="left">number of days of previously received antiretroviral therapy</td>
+</tr>
+<tr class="even">
+<td align="left">race</td>
+<td align="left">race (0=white, 1=non-white)</td>
+</tr>
+<tr class="odd">
+<td align="left">gender</td>
+<td align="left">gender (0=female, 1=male)</td>
+</tr>
+<tr class="even">
+<td align="left">str2</td>
+<td align="left">antiretroviral history (0=naive, 1=experienced)</td>
+</tr>
+<tr class="odd">
+<td align="left">strat</td>
+<td align="left">antiretroviral history stratification (1=’antiretroviral naive’, 2=’&gt; 1 but ≤ 52 weeks of prior antiretroviral therapy’, 3=’&gt; 52 weeks’)</td>
+</tr>
+<tr class="even">
+<td align="left">symptom</td>
+<td align="left">symptomatic indicator (0=asymptomatic, 1=symptomatic)</td>
+</tr>
+<tr class="odd">
+<td align="left">treat</td>
+<td align="left">treatment indicator (0=zidovudine only, 1=other therapies)</td>
+</tr>
+<tr class="even">
+<td align="left">offtrt</td>
+<td align="left">indicator of off-treatment before 96±5 weeks (0=no,1=yes)</td>
+</tr>
+<tr class="odd">
+<td align="left">cd40</td>
+<td align="left">CD4 T cell count at baseline</td>
+</tr>
+<tr class="even">
+<td align="left">cd420</td>
+<td align="left">CD4 T cell count at 20±5 weeks</td>
+</tr>
+<tr class="odd">
+<td align="left">cd496</td>
+<td align="left">CD4 T cell count at 96±5 weeks (=NA if missing)</td>
+</tr>
+<tr class="even">
+<td align="left">r</td>
+<td align="left">missing CD4 T cell count at 96±5 weeks (0=missing, 1=observed)</td>
+</tr>
+<tr class="odd">
+<td align="left">cd80</td>
+<td align="left">CD8 T cell count at baseline</td>
+</tr>
+<tr class="even">
+<td align="left">cd820</td>
+<td align="left">CD8 T cell count at 20±5 weeks</td>
+</tr>
+<tr class="odd">
+<td align="left">cens</td>
+<td align="left">indicator of observing the event in days</td>
+</tr>
+<tr class="even">
+<td align="left">days</td>
+<td align="left">number of days until the first occurrence of: (i) a decline in CD4 T cell count of at least 50 (ii) an event indicating progression to AIDS, or (iii) death.</td>
+</tr>
+<tr class="odd">
+<td align="left">arms</td>
+<td align="left">treatment arm (0=zidovudine, 1=zidovudine and didanosine, 2=zidovudine and zalcitabine, 3=didanosine).</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="functions" class="section level2">
+<h2>Functions</h2>
+<div id="packages" class="section level3">
+<h3>Packages</h3>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Package</th>
+<th align="left">Installation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>tidyverse</code></td>
+<td align="left"><code>install.packages(&quot;tidyverse&quot;)</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="functions-1" class="section level3">
+<h3>Functions</h3>
+<table>
+<colgroup>
+<col width="7%" />
+<col width="12%" />
+<col width="80%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Function</th>
+<th align="left">Package</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>rename()</code></td>
+<td align="left"><code>dplyr</code></td>
+<td align="left">Rename columns</td>
+</tr>
+<tr class="even">
+<td align="left"><code>select()</code></td>
+<td align="left"><code>dplyr</code></td>
+<td align="left">Select columns based on name or index</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>filter()</code></td>
+<td align="left"><code>dplyr</code></td>
+<td align="left">Select rows based on some logical criteria</td>
+</tr>
+<tr class="even">
+<td align="left"><code>arrange()</code></td>
+<td align="left"><code>dplyr</code></td>
+<td align="left">Sort rows</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>mutate()</code></td>
+<td align="left"><code>dplyr</code></td>
+<td align="left">Add new columns</td>
+</tr>
+<tr class="even">
+<td align="left"><code>case_when()</code></td>
+<td align="left"><code>dplyr</code></td>
+<td align="left">Recode values of a column</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>group_by(), summarise()</code></td>
+<td align="left"><code>dplyr</code></td>
+<td align="left">Group data and then calculate summary statistics</td>
+</tr>
+<tr class="even">
+<td align="left"><code>left_join()</code></td>
+<td align="left"><code>dplyr</code></td>
+<td align="left">Combine multiple data sets using a key column</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>spread()</code></td>
+<td align="left"><code>tidyr</code></td>
+<td align="left">Convert long data to wide format - from rows to columns</td>
+</tr>
+<tr class="even">
+<td align="left"><code>gather()</code></td>
+<td align="left"><code>tidyr</code></td>
+<td align="left">Convert wide data to long format - from columns to rows</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="resources" class="section level2">
+<h2>Resources</h2>
+<div id="dplyr-vignette" class="section level3">
+<h3><code>dplyr</code> vignette</h3>
+<p>See <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html">https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html</a> for the full dplyr vignette with lots of wrangling tips and tricks.</p>
+</div>
+<div id="cheatsheets" class="section level3">
+<h3>Cheatsheets</h3>
+<p align="center" width="100%">
+<a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf"> <img src="https://image.slidesharecdn.com/data-wrangling-cheatsheet-160705210122/95/data-wrangling-with-dplyr-and-tidyr-cheat-sheet-1-638.jpg?cb=1467752577" style="width:70%"></a> <br> <font style="font-size:10px">from <a href="https://www.rstudio.com/resources/cheatsheets/">R Studio</a></font>
+</p>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

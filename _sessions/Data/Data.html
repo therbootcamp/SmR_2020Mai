@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Data</title>
+    <meta charset="utf-8">
+    <meta name="author" content="R for Data Science   Basel R Bootcamp" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="baselrbootcamp.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Data
+### R for Data Science<br> <a href='https://therbootcamp.github.io'> Basel R Bootcamp </a> <br> <a href='https://therbootcamp.github.io/R4DS_2019Feb/'> <i class='fas fa-clock' style='font-size:.9em;'></i> </a>  <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;' ></i> </a>  <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a>  <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a>
+### February 2019
+
+---
+
+
+layout: true
+
+&lt;div class="my-footer"&gt;
+  &lt;span style="text-align:center"&gt;
+    &lt;span&gt; 
+      &lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png" height=14 style="vertical-align: middle"/&gt;
+    &lt;/span&gt;
+    &lt;a href="https://therbootcamp.github.io/"&gt;
+      &lt;span style="padding-left:82px"&gt; 
+        &lt;font color="#7E7E7E"&gt;
+          www.therbootcamp.com
+        &lt;/font&gt;
+      &lt;/span&gt;
+    &lt;/a&gt;
+    &lt;a href="https://therbootcamp.github.io/"&gt;
+      &lt;font color="#7E7E7E"&gt;
+       R For Data Science | February 2019
+      &lt;/font&gt;
+    &lt;/a&gt;
+    &lt;/span&gt;
+  &lt;/div&gt; 
+
+---
+
+
+
+
+# Data
+
+.pull-left45[
+&lt;br2&gt;
+&lt;font size=5&gt;
+In this session you will get to know...
+&lt;ul&gt;
+  &lt;li&gt; R's 3 main &lt;high&gt;data types&lt;/high&gt; &lt;/li&gt;&lt;br2&gt;
+  &lt;li&gt; a little more about &lt;high&gt;functions&lt;/high&gt; &lt;/li&gt;&lt;br2&gt;
+  &lt;li&gt; R's &lt;high&gt;Import/Export&lt;/high&gt; functions &lt;/li&gt;&lt;br2&gt;
+&lt;/font&gt;
+
+]
+
+.pull-right45[
+
+&lt;p align = "center"&gt;
+&lt;img src="image/bigdata.jpg" height=440px&gt;&lt;br&gt;
+&lt;font style="font-size:10px"&gt;from &lt;a href="https://cloudtweaks.com/"&gt;cloudtweaks.com&lt;/a&gt;&lt;/font&gt;
+&lt;/p&gt;
+
+]
+---
+
+# 3 Object types for data
+
+.pull-left4[
+
+R has 3 main data objects...
+
+&lt;high&gt;`list`&lt;/high&gt; - R's multi-purpose container
+- Can carry any data, incl. lists
+- Often used for function outputs
+
+&lt;high&gt;`data_frame`&lt;/high&gt; - R's spreadsheet
+- Specific type of `list`
+- Typical data format
+- For multi-variable data sets
+
+&lt;high&gt;`vectors`&lt;/high&gt; - R's data container
+- Actually carries the data
+- Contain data of 1 of many types
+
+]
+
+.pull-right55[
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/main_objects.png"&gt;&lt;/img&gt;
+]
+
+
+---
+
+# `list`
+
+.pull-left45[
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+1 - Can &lt;high&gt;carry any data&lt;/high&gt;, incl. `list`s, `data_frame`s, `vector`s, etc.
+&lt;br&gt;&lt;br&gt;
+2 - Are often used for &lt;high&gt;function outputs&lt;/high&gt;
+&lt;br&gt;&lt;br&gt;
+3 - Have &lt;high&gt;named elements&lt;/high&gt;.
+&lt;br&gt;&lt;br&gt;
+4 - Elements can be &lt;high&gt;inspect&lt;/high&gt;ed via `names()` or `str()`.
+&lt;br&gt;&lt;br&gt;
+5 - Elements are (typically) &lt;high&gt;select&lt;/high&gt;ed by `$`.
+
+]
+
+.pull-right5[
+  &lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/list.png"&gt;&lt;/img&gt;
+  ]
+
+---
+
+# `list`: Select element using &lt;high&gt;`$`&lt;/high&gt;
+
+.pull-left45[
+
+
+
+
+```r
+# regression
+reg_model &lt;- lm(height ~ sex + age,
+               data = baselers)
+reg_results &lt;- summary(reg_model)
+
+# get element names
+names(reg_results)
+```
+
+
+```
+## [1] "call"         "terms"       
+## [3] "residuals"    "coefficients"
+## [5] "aliased"      "sigma"       
+## [7] "df"           "r.squared"
+```
+
+
+```r
+# select element using $
+reg_results$coefficients
+```
+
+
+```
+##               Estimate  t value
+## (Intercept) 164.171266 499.5339
+## sexmale      13.993699  66.4724
+## age          -0.003753  -0.5819
+```
+
+]
+
+.pull-right5[
+  &lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/list.png"&gt;&lt;/img&gt;
+  ]
+
+---
+
+.pull-left45[
+
+# `data_frame`
+
+&lt;br&gt;&lt;br&gt;
+1 - Are `list`s containing &lt;high&gt;`vector`s of equal length&lt;/high&gt; representing the variables.
+&lt;br&gt;&lt;br&gt;
+2 - Contain `vector`s of different types: `numeric`, `character`, etc.
+&lt;br&gt;&lt;br&gt;
+3 - Have named elements.
+&lt;br&gt;&lt;br&gt;
+4 - Elements can be &lt;high&gt;inspect&lt;/high&gt;ed via `names()`, `str()`, `print()`, `View()`, or `skimr::skim()`.
+&lt;br&gt;&lt;br&gt;
+5 - Elements are (typically) &lt;high&gt;select&lt;/high&gt;ed by `$`.
+&lt;br&gt;&lt;br&gt;
+6 - Come in different flavors: `data.frame()`, `data.table()`, `tibble()`.
+
+]
+
+.pull-right45[
+  &lt;br&gt;&lt;br&gt;&lt;br&gt;
+  &lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/data_frame.png"&gt;&lt;/img&gt;
+  ]
+
+---
+
+.pull-left45[
+
+# Inspect content
+
+
+
+
+```r
+# inspect baselers via print
+baselers
+```
+
+```
+## # A tibble: 10,000 x 20
+##      id sex     age height weight income
+##   &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1     1 male     44   174.  113.    6300
+## 2     2 male     65   180.   75.2  10900
+## 3     3 fema…    31   168.   55.5   5100
+## 4     4 male     27   209    93.8   4200
+## 5     5 male     24   177.   NA     4000
+##   education confession children
+##   &lt;chr&gt;     &lt;chr&gt;         &lt;dbl&gt;
+## 1 SEK_III   catholic          2
+## 2 obligato… confessio…        2
+## 3 SEK_III   &lt;NA&gt;              2
+## 4 SEK_III   catholic          2
+## 5 SEK_III   catholic          1
+## # … with 9,995 more rows, and 11 more
+## #   variables
+```
+]
+
+.pull-right45[
+  &lt;br&gt;&lt;br&gt;&lt;br&gt;
+  &lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/data_frame.png"&gt;&lt;/img&gt;
+  ]
+
+---
+
+.pull-left45[
+
+# Inspect content
+
+
+```r
+# View dataframe in a new window
+View(baselers)
+```
+
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/view.png"&gt;&lt;/img&gt;
+]
+
+.pull-right45[
+  &lt;br&gt;&lt;br&gt;&lt;br&gt;
+  &lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/data_frame.png"&gt;&lt;/img&gt;
+  ]
+
+---
+
+.pull-left45[
+
+# Select via &lt;high&gt;`$`&lt;/high&gt;
+
+
+```r
+# Access age column from baselers
+baselers$age
+```
+
+
+```
+##  [1] 44 65 31 27 24 63 71 41 43 31 42 31
+## [13] 38 49 39 54 78 62 88 74
+```
+
+
+```r
+# Access education column from baselers
+baselers$education
+```
+
+
+```
+##  [1] "SEK_III"          
+##  [2] "obligatory_school"
+##  [3] "SEK_III"          
+##  [4] "SEK_III"          
+##  [5] "SEK_III"          
+##  [6] "SEK_III"          
+##  [7] "SEK_III"          
+##  [8] "SEK_III"          
+##  [9] "apprenticeship"   
+## [10] "SEK_II"
+```
+
+]
+
+.pull-right45[
+  &lt;br&gt;&lt;br&gt;&lt;br&gt;
+  &lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/data_frame.png"&gt;&lt;/img&gt;
+  ]
+
+---
+
+.pull-left45[
+
+# Change/Add via &lt;high&gt;`$`&lt;/high&gt;
+
+
+```r
+# Divide income by 1000
+baselers$income &lt;- baselers$income / 1000
+
+# inspect baselers
+baselers
+```
+
+```
+## # A tibble: 10,000 x 20
+##      id sex     age height weight income
+##   &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1     1 male     44   174.  113.     6.3
+## 2     2 male     65   180.   75.2   10.9
+## 3     3 fema…    31   168.   55.5    5.1
+## 4     4 male     27   209    93.8    4.2
+## 5     5 male     24   177.   NA      4  
+##   education confession children
+##   &lt;chr&gt;     &lt;chr&gt;         &lt;dbl&gt;
+## 1 SEK_III   catholic          2
+## 2 obligato… confessio…        2
+## 3 SEK_III   &lt;NA&gt;              2
+## 4 SEK_III   catholic          2
+## 5 SEK_III   catholic          1
+## # … with 9,995 more rows, and 11 more
+## #   variables
+```
+
+]
+
+.pull-right45[
+  &lt;br&gt;&lt;br&gt;&lt;br&gt;
+  &lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/data_frame.png"&gt;&lt;/img&gt;
+  ]
+
+---
+
+# `vector`
+
+.pull-left45[
+
+1 - R's &lt;high&gt;basic and, in a way, only data container&lt;/high&gt;. 
+&lt;br&gt;&lt;br&gt;
+2 - Can contain only a &lt;high&gt;single type of data&lt;/high&gt; and missing values. 
+&lt;br&gt;&lt;br&gt;
+3 - Data types
+
+&amp;emsp; &lt;high&gt;`numeric`&lt;/high&gt; - All numbers&lt;br&gt;
+&amp;emsp; &lt;high&gt;`character`&lt;/high&gt; - All characters (e.g., names)&lt;br&gt;
+&amp;emsp; &lt;high&gt;`logical`&lt;/high&gt; - `TRUE` or `FALSE`&lt;br&gt;
+&amp;emsp; ...&lt;br&gt;
+&amp;emsp; &lt;high&gt;`NA`&lt;/high&gt; - missing values&lt;br&gt;
+
+]
+
+.pull-right4[
+  &lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/vector.png"&gt;&lt;/img&gt;
+  ]
+
+
+---
+
+# Select/Change/(Add) via `[ ]`
+
+.pull-left45[
+
+
+```r
+# extract vector containing age
+age &lt;- baselers$age
+age
+```
+
+
+```
+## [1] 44 65 31 27 24 63 71 41 43
+```
+
+
+```r
+# select value
+age[2]
+```
+
+```
+## [1] 65
+```
+
+
+```r
+# change value
+age[2] &lt;- 100
+age
+```
+
+
+```
+## [1]  44 100  31  27  24  63  71  41  43
+```
+
+&lt;br&gt;
+Find more info on indexing [here](http://rspatial.org/intr/rst/4-indexing.html).
+
+]
+
+.pull-right4[
+  &lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/vector.png"&gt;&lt;/img&gt;
+  ]
+
+
+---
+
+# Data types: `numeric`
+
+.pull-left45[
+
+`numeric` vectors are used to store numbers and only numbers.
+
+
+```r
+baselers$age
+```
+
+
+```
+## [1] 44 65 31 27 24 63 71 41 43
+```
+
+
+```r
+# evaluate class
+class(baselers$age)
+```
+
+```
+## [1] "numeric"
+```
+
+```r
+# is age numeric?
+is.numeric(baselers$age)
+```
+
+```
+## [1] TRUE
+```
+
+]
+
+.pull-right4[
+  &lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/vector_types.png"&gt;&lt;/img&gt;
+  ]
+
+
+---
+
+# Data types: `character`
+
+.pull-left45[
+
+`character` vectors are used to store data represented by &lt;high&gt;letters and symbols, and all other data&lt;/high&gt;. 
+
+You can always recognise character vectors by &lt;high&gt;quotation marks " "&lt;/high&gt; 
+
+
+```r
+baselers$sex
+```
+
+
+```
+## [1] "male"   "male"   "female" "male"  
+## [5] "male"   "male"   "male"   "female"
+```
+
+
+```r
+baselers$education
+```
+
+
+```
+## [1] "SEK_III"          
+## [2] "obligatory_school"
+## [3] "SEK_III"          
+## [4] "SEK_III"          
+## [5] "SEK_III"          
+## [6] "SEK_III"          
+## [7] "SEK_III"          
+## [8] "SEK_III"
+```
+
+
+]
+
+.pull-right4[
+  &lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/vector_types.png"&gt;&lt;/img&gt;
+  ]
+
+
+---
+
+# Data types: `character`
+
+.pull-left45[
+
+`character` vectors are used to store data represented by &lt;high&gt;letters and symbols, and all other data&lt;/high&gt;. 
+
+You can always recognise character vectors by &lt;high&gt;quotation marks " "&lt;/high&gt; 
+
+
+```r
+baselers$age
+```
+
+
+```
+## [1] 44 65 31 27 24 63 71 41
+```
+
+
+```r
+# convert age to character
+as.character(baselers$age)
+```
+
+
+```
+## [1] "44" "65" "31" "27" "24" "63" "71"
+## [8] "41" "43"
+```
+
+]
+
+.pull-right4[
+  &lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/vector_types.png"&gt;&lt;/img&gt;
+  ]
+
+
+---
+
+# Data types: `logical`
+
+.pull-left45[
+
+`logical` vector are used to &lt;high&gt;*slice* data&lt;/high&gt; aka to select elements or rows. `logical` are typically created from other vectors via &lt;high&gt;logical comparisons&lt;/high&gt;. 
+
+
+```r
+# which sex values are male?
+baselers$sex == "male"
+```
+
+
+```
+## [1]  TRUE  TRUE FALSE  TRUE  TRUE  TRUE
+## [7]  TRUE FALSE
+```
+
+
+```r
+# which ages are less than 30?
+baselers$age &lt; 30
+```
+
+
+```
+## [1] FALSE FALSE FALSE  TRUE  TRUE FALSE
+## [7] FALSE FALSE FALSE
+```
+
+]
+
+.pull-right4[
+  &lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/vector_types.png"&gt;&lt;/img&gt;
+  ]
+
+---
+
+# Data types: `logical`
+
+.pull-left45[
+
+`logical` vector are used to &lt;high&gt;*slice* data&lt;/high&gt; aka to select elements or rows. `logical` are typically created from other vectors via &lt;high&gt;logical comparisons&lt;/high&gt;. 
+
+&lt;u&gt;Logical operators&lt;/u&gt;
+
+&lt;high&gt;`==`&lt;/high&gt; - is equal to&lt;br&gt;
+&lt;high&gt;`&lt;`&lt;/high&gt;, &lt;high&gt;`&gt;`&lt;/high&gt; - smaller/greater than&lt;br&gt;
+&lt;high&gt;`≤`&lt;/high&gt;, &lt;high&gt;`≥`&lt;/high&gt; - smaller/greater than or equal&lt;br&gt;
+&lt;high&gt;`&amp;`&lt;/high&gt;, &lt;high&gt;`&amp;&amp;`&lt;/high&gt; - logical AND&lt;br&gt;
+&lt;high&gt;`|`&lt;/high&gt;, &lt;high&gt;`||`&lt;/high&gt; - logical OR&lt;br&gt;
+
+]
+
+.pull-right4[
+  &lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/vector_types.png"&gt;&lt;/img&gt;
+  ]
+
+---
+
+&lt;div class="center_text"&gt;
+  &lt;span&gt;
+  Data I/O
+  &lt;/span&gt;
+&lt;/div&gt; 
+
+
+---
+
+# Raw (structured) Data
+
+.pull-left45[
+
+&lt;high&gt;delim-separated data&lt;/high&gt;
+*.csv, .txt, etc.*
+
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/baselers_raw.png"&gt;
+
+]
+
+.pull-right45[
+
+&lt;high&gt;markup data&lt;/high&gt;
+*.xml, .xls, .html, (.json), etc.*
+
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/rbootcamp_raw.png"&gt;
+
+]
+
+---
+
+# Delim-separated data 
+
+.pull-left45[
+
+1 - Most typical file format.
+
+2 - Requires &lt;high&gt;delimiter&lt;/high&gt; to separate entries. 
+
+&lt;br&gt;
+&lt;p align="center"&gt;
+  &lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/PNG/readr.png" height=200&gt;
+&lt;/p&gt;
+
+]
+
+.pull-right45[
+
+&lt;high&gt;delim-separated data&lt;/high&gt;
+*.csv, .txt, etc.*
+
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/baselers_raw.png"&gt;
+
+]
+
+---
+
+# `readr`
+
+`readr` is a `tidyverse` package that provides convenient functions to **read in** *flat* (non-nested) data files into data frames (`tibble`s to be precise):
+
+.pull-left3[
+&lt;br&gt;
+&lt;p align="center"&gt;
+  &lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/PNG/readr.png" height=200&gt;
+&lt;/p&gt;
+] 
+
+.pull-right65[
+&lt;br&gt;
+
+```r
+# Importing data from a file
+
+data &lt;- read_csv(file, ...)   # comma-delimited
+data &lt;- read_csv2(file, ...)  # semicolon-delimeted
+data &lt;- read_delim(file, ...) # arbitrary-delimited
+
+# Writing a data frame to a file
+
+write_csv(data_object, file, ...)    # comma-delimited
+write_delim(data_object, file, ...)  # arbitrary-delimited
+```
+]
+
+---
+
+# Finding the file path
+
+.pull-left4[
+
+1 - Identify the file path using the &lt;high&gt;auto-complete&lt;/high&gt;.  
+
+2 - Initiate auto-complete and browse through the folder structure by placing the cursor between two quotation marks and using the &lt;high&gt;tab key&lt;/high&gt;.
+
+&lt;p align="center"&gt;
+  &lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/tab.png" height="80px"&gt;&lt;/img&gt;
+&lt;/p&gt;
+
+3 - Auto-complete begins with the project folder - &lt;high&gt;place your data inside your project folder!&lt;/high&gt;
+
+] 
+
+.pull-right55[
+
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/load_baselers_ss.jpg"&gt;&lt;/img&gt;
+
+]
+
+---
+
+# Identifying the delimiter
+
+.pull-left5[
+
+1 - &lt;high&gt;Find the file&lt;/high&gt; on your hard drive. Should be in your data folder inside your project.
+
+2 - &lt;high&gt;Open the file&lt;/high&gt; in RStudio (right-click on the file in the *Files* pane) a text viewer, e.g., *TextEdit* (Mac), *TextWrangler* (Mac), *WordPad* (Windows).
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/find_data.png"&gt;
+
+]
+
+.pull-right45[
+
+&lt;center&gt;`baselers.csv`
+
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/baselers_raw.png"&gt;
+
+]
+
+---
+
+# Identifying the delimiter
+
+.pull-left5[
+
+1 - &lt;high&gt;Find the file&lt;/high&gt; on your hard drive. Should be in your data folder inside your project.
+
+2 - &lt;high&gt;Open the file&lt;/high&gt; in RStudio (right-click on the file in the *Files* pane) a text viewer, e.g., *TextEdit* (Mac), *TextWranger* (Mac), *WordPad* (Windows).
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+```r
+# Read with explicit column names
+baselers &lt;-read_delim(file = ".../baselers.csv",
+                      delim = c(","))
+```
+
+]
+
+.pull-right45[
+
+&lt;center&gt;`baselers.csv`
+
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/baselers_raw.png"&gt;
+
+]
+
+
+---
+
+# Handling headers
+
+.pull-left5[
+
+1 - `readr`- functions typically expect the &lt;high&gt;column names&lt;/high&gt; in the first line.
+
+2 - If no column names are available, use the &lt;high&gt;`col_names`-argument&lt;/high&gt; to provide them.
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+```r
+# Read with explicit column names
+baselers &lt;- read_csv(file = ".../baselers.csv",
+                     col_names = c("id",
+                                  "age",
+                                   ...))
+```
+
+]
+
+.pull-right45[
+
+&lt;center&gt;`baselers.csv`
+
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/baselers_raw.png"&gt;
+
+]
+
+---
+
+# Handling data types
+
+.pull-left5[
+
+Reading in data, &lt;high&gt; `readr` infers the type of data &lt;/high&gt; for each column. 
+
+
+```r
+# Read baselers
+read_csv(file = "1_Data/baselers.csv")
+```
+
+```
+## Parsed with column specification:
+## cols(
+##   .default = col_double(),
+##   sex = col_character(),
+##   education = col_character(),
+##   confession = col_character(),
+##   fasnacht = col_character(),
+##   eyecor = col_character()
+## )
+```
+
+```
+## See spec(...) for full column specifications.
+```
+
+```
+## # A tibble: 10,000 x 20
+##      id sex     age height weight income
+##   &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1     1 male     44   174.  113.    6300
+## 2     2 male     65   180.   75.2  10900
+## 3     3 fema…    31   168.   55.5   5100
+## 4     4 male     27   209    93.8   4200
+## 5     5 male     24   177.   NA     4000
+##   education confession children
+##   &lt;chr&gt;     &lt;chr&gt;         &lt;dbl&gt;
+## 1 SEK_III   catholic          2
+## 2 obligato… confessio…        2
+## 3 SEK_III   &lt;NA&gt;              2
+## 4 SEK_III   catholic          2
+## 5 SEK_III   catholic          1
+## # … with 9,995 more rows, and 11 more
+## #   variables
+```
+
+]
+
+.pull-right45[
+
+&lt;center&gt;`baselers.csv`
+
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/baselers_raw.png"&gt;
+
+]
+
+---
+
+# Handling data types
+
+.pull-left5[
+
+Incorrect data types can be fixed. Typically this involves:
+
+1 - &lt;high&gt;removing character elements&lt;/high&gt; from otherwise numeric variables.&lt;br&gt;&lt;br2&gt;
+2 - Setting &lt;high&gt;explicit `NA` strings&lt;/high&gt; using the `na`-argument.&lt;br&gt;&lt;br2&gt;
+3 - Re-running &lt;high&gt;`type_convert`&lt;/high&gt;.&lt;br&gt;&lt;br&gt;
+
+
+```r
+# Read baselers
+baseslers &lt;- read_csv(file = ".../baselers.csv",
+                      na = c('NA'))
+
+# Try to fix incorrect data types
+baselers &lt;- type_convert(baselers)
+```
+
+]
+
+.pull-right45[
+
+&lt;center&gt; `baselers.csv`
+
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/baselers_raw.png"&gt;
+
+]
+
+---
+
+# Other data
+
+R provides &lt;high&gt;read and write functions&lt;/high&gt; for practically all data file formats. See [rio](https://cran.r-project.org/web/packages/rio/vignettes/rio.html).
+
+.pull-left45[
+### `readr` &lt;img src="http://d33wubrfki0l68.cloudfront.net/66d3133b4a19949d0b9ddb95fc48da074b69fb07/7dfb6/images/hex-readr.png" width="50", align="right"&gt; 
+
+```r
+# read fixed width files (can be fast)
+data &lt;- read_fwf(file, ...)
+
+# read Apache style log files
+data &lt;- read_log(file, ...)
+```
+
+### `haven` &lt;img src="http://haven.tidyverse.org/logo.png" width="50" align="right"&gt;
+
+```r
+# read SAS's .sas7bat and sas7bcat files
+data &lt;- read_sas(file, ...)
+
+# read SPSS's .sav files
+data &lt;- read_sav(file, ...)
+
+# etc
+```
+]
+
+.pull-right45[
+### `readxl` &lt;img src="https://www.rstudio.com/wp-content/uploads/2017/05/readxl-259x300.png" width="50" align="right"&gt;
+
+```r
+# read Excel's .xls and xlsx files
+data &lt;- read_excel(file, ...)
+```
+&lt;br&gt;
+### Other
+
+```r
+# Read Matlab .mat files
+data &lt;- R.matlab::readMat(file, ...)
+
+# Read and wrangle .xml and .html
+data &lt;- XML::xmlParseParse(file, ...)
+
+# from package jsonlite: read .json files
+data &lt;- jsonlite::read_json(file, ...)
+```
+]
+
+
+---
+
+class: middle, center
+
+&lt;h1&gt;&lt;a href="https://therbootcamp.github.io/R4DS_2019Feb/_sessions/Data/Data_practical.html"&gt;Practical&lt;/a&gt;&lt;/h1&gt;
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
