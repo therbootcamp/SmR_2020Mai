@@ -1,11 +1,11 @@
 ---
 title: "Welcome!"
-author: "R for Data Science<br>
+author: "Statistics with R<br>
   <a href='https://therbootcamp.github.io'>
     Basel R Bootcamp
   </a>
   <br>
-  <a href='https://therbootcamp.github.io/R4DS_2019Feb/'>
+  <a href='https://therbootcamp.github.io/SwR_2019Apr/'>
     <i class='fas fa-clock' style='font-size:.9em;'></i>
   </a>&#8239; 
   <a href='https://therbootcamp.github.io'>
@@ -45,7 +45,7 @@ layout: true
     </a>
     <a href="https://therbootcamp.github.io/">
       <font color="#7E7E7E">
-       R For Data Science | February 2019
+       Statistics with R | April 2019
       </font>
     </a>
     </span>
@@ -70,10 +70,11 @@ knitr::opts_chunk$set(fig.align = 'center')
 
 .pull-right6[
 <br><br>
-<p align="center"><img src="https://img.myswitzerland.com/mys/n64497/images/buehne/basel_winter.jpg" width="500"  height="400"><br>
+<p align="center"><img src="https://therbootcamp.github.io/assets/img/640px-Middle_Bridge,_Basel,_Switzerland.jpeg" width="500"  height="400"><br>
 <font style="font-size:10px">from <a href="">Wikipedia</a></font>
 </p>
 ]
+
 ---
 
 
@@ -96,24 +97,6 @@ Click the "Bootcamp running" link on our homepage!
 
 
 ---
-
-.pull-left25[
-
-# What is Data Science?
-
-]
-
-.pull-right75[
-<br>
-<p align = "center">
-<img src="http://sudeep.co/images/post_images/2018-02-09-Understanding-the-Data-Science-Lifecycle/chart.png" height="540"><br>
-<font style="font-size:10px">from <a href="http://sudeep.co/">http://sudeep.co/</a></font>
-</p>
-]
-
----
-
-
 
 .pull-left6[
 
@@ -141,9 +124,9 @@ Click the "Bootcamp running" link on our homepage!
 
 We have an <high>ambitious schedule</high>!
 
->2 days, 3 sessions per day, 2 hours per session, on a variety of topics.
+- 2 days, 3-4 sessions per day, 1.5 - 2 hours per session, on a variety of topics.
 
->Each session contains a slide-based <high>introduction</high> and a hands-on <high>programming practical</high>
+- Each session contains a slide-based <high>introduction</high> and a hands-on <high>programming interactive or practical</high>
 
 <br>
 
@@ -152,7 +135,7 @@ We have an <high>ambitious schedule</high>!
 
 .pull-right4[
 
-<img src="https://therbootcamp.github.io/R4DS_2019Feb/_sessions/Welcome/image/schedule.png" height="550" align="center">
+<img src="https://therbootcamp.github.io/SwR_2019Apr/_sessions/Welcome/image/schedule.png" height="550" align="center">
 
 
 ]
@@ -332,11 +315,20 @@ At any time, you can <high>request a 15 minute 1-1 intensive</high> coaching ses
 
 # Photography
 
-```{r, fig.align="center", echo = FALSE, out.width = "90%"}
-knitr::include_graphics("https://amp.businessinsider.com/images/5af9eea4965f4c30008b4acb-750-375.jpg")
-```
+.pull-left7[
+<p align="center"><img src="https://amp.businessinsider.com/images/5af9eea4965f4c30008b4acb-750-375.jpg" width="700"><br>
+<font style="font-size:10px">from <a href="https://amp.businessinsider.com/images/5af9eea4965f4c30008b4acb-750-375.jpg">businessinsider.com</a></font>
+</p>
 
+]
 
+.pull-right25[
+
+<br><br><br>
+
+<font style="font-size:32px"><high>Let us know, personally or via mail, if you don't want be published.</high></font>
+
+]
 
 
 ---

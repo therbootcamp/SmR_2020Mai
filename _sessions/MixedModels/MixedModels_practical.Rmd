@@ -1,0 +1,207 @@
+---
+title: "Mixed Models"
+author: "<table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'><col width='10%'><col width='10%'>
+  <tr style='border:none'>
+    <td style='display:block;width:100%;text-align:left;vertical-align:bottom;padding:0;margin:0;border:none' nowrap>
+      <font style='font-style:normal'>Statistics with R</font><br>
+      <a href='https://therbootcamp.github.io/SWR_2019Apr/'>
+        <i class='fas fa-clock' style='font-size:.9em;' ></i>
+      </a>
+      <a href='https://therbootcamp.github.io'>
+        <i class='fas fa-home' style='font-size:.9em;'></i>
+      </a>
+      <a href='mailto:therbootcamp@gmail.com'>
+        <i class='fas fa-envelope' style='font-size: .9em;'></i>
+      </a>
+      <a href='https://www.linkedin.com/company/basel-r-bootcamp/'>
+        <i class='fab fa-linkedin' style='font-size: .9em;'></i>
+      </a>
+      <a href='https://therbootcamp.github.io'>
+        <font style='font-style:normal'>Basel R Bootcamp</font>
+      </a>
+    </td>
+    <td style='width:100%;vertical-align:bottom;text-align:right;padding:0;margin:0;border:none'>
+      <img src='https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png' style='height:15px;width:80px'/>
+    </td>
+  </tr></table>"
+output:
+  html_document:
+    css: practical.css
+    self_contained: no
+---
+
+```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
+knitr::opts_chunk$set(comment = NA, 
+                      fig.width = 6, 
+                      fig.height = 6,
+                      fig.align = 'center',
+                      echo = FALSE, 
+                      eval = FALSE, 
+                      warning = FALSE)
+
+options(digits = 3)
+
+# Load packages
+library(tidyverse)
+
+# Load packages
+#read_csv("1_Data/...")
+
+```
+
+<p align="center" width="100%">
+  <img src="image/placeholder.png" alt="Trulli" style="width:100%;height:280px">
+  <br>
+  <font style="font-size:10px">from <a href="">shorted URL</a></font>
+</p>
+
+
+# {.tabset}
+
+## Overview
+
+In this practical you'll practice "XXX" with the `XXX` packages.
+
+By the end of this practical you will know how to:
+
+1. 
+2. 
+3.
+
+## Tasks
+
+### A - Setup
+
+1. Open your `BaselRBootcamp` R project. It should already have the folders `1_Data` and `2_Code`. Make sure that the data files listed in the `Datasets` section above are in your `1_Data` folder
+
+```{r}
+# Done!
+```
+
+2. Open a new R script. At the top of the script, using comments, write your name and the date. Save it as a new file called `wrangling_practical.R` in the `2_Code` folder.  
+
+```{r}
+# Done!
+```
+
+3. Using `library()` load the `tidyverse` package (if you don't have it, you'll need to install it with `install.packages()`)!
+
+```{r, echo = TRUE, eval = FALSE}
+# Load packages necessary for this script
+library(tidyverse)
+```
+
+4. Using the following template, load the `XXX` data into R and store it as a new object called `XXX` (Hint: Don't type the path directly! Use the "tab" completion!).
+
+```{r, echo = TRUE}
+# Load XXX.csv from the 1_Data folder
+
+XX <- read_csv(file = "XX/XX")
+```
+
+5. Take a look at the first few rows of the datasets by printing them to the console.
+
+```{r, echo = TRUE}
+# Print XXX object
+XXX
+```
+
+7. Use the the `summary()` function to print more details on the columns of the datasets.
+
+```{r}
+summary(XXX)
+summary(XXX)
+```
+
+8. Use the `View()` function to view the entire dataframes in new windows
+
+```{r, echo = TRUE, eval = FALSE}
+View(XXX)
+View(XXX)
+```
+
+
+### B - XXX
+
+### X - Advanced: XXX
+
+## Examples
+
+```{r, eval = FALSE, echo = TRUE}
+
+# EXAMPLE CODE
+
+```
+
+
+## Datasets
+
+|File | Rows | Columns |
+|:----|:-----|:------|
+|[XXX]() | Nrow | Ncol |
+|[XXX]() | Nrow | Ncol |
+
+SHORT VERBAL DESCRIPTION OF DATA SETS
+
+#### Variable description
+
+| Name | Description |
+|:-------------|:-------------------------------------|
+| XXX | XXX |
+| XXX | age in years at baseline|
+|wtkg| weight in kg at baseline|
+|hemo| hemophilia (0=no, 1=yes)|
+|homo| homosexual activity (0=no, 1=yes)|
+|drugs| history of intravenous drug use (0=no, 1=yes)|
+|karnof| Karnofsky score (on a scale of 0-100)|
+|oprior| non-zidovudine antiretroviral therapy prior to initiation of study treatment (0=no, 1=yes)|
+|z30| zidovudine use in the 30 days prior to treatment initiation (0=no, 1=yes)|
+|zprior| zidovudine use prior to treatment initiation (0=no, 1=yes)|
+|preanti| number of days of previously received antiretroviral therapy|
+|race| race (0=white, 1=non-white)|
+|gender| gender (0=female, 1=male)|
+|str2| antiretroviral history (0=naive, 1=experienced)|
+|strat| antiretroviral history stratification (1=’antiretroviral naive’, 2=’> 1 but ≤ 52 weeks of prior antiretroviral therapy’, 3=’> 52 weeks’)|
+|symptom| symptomatic indicator (0=asymptomatic, 1=symptomatic)|
+|treat| treatment indicator (0=zidovudine only, 1=other therapies)|
+|offtrt| indicator of off-treatment before 96±5 weeks (0=no,1=yes)|
+|cd40| CD4 T cell count at baseline|
+|cd420| CD4 T cell count at 20±5 weeks|
+|cd496| CD4 T cell count at 96±5 weeks (=NA if missing)|
+|r| missing CD4 T cell count at 96±5 weeks (0=missing, 1=observed)|
+|cd80| CD8 T cell count at baseline|
+|cd820| CD8 T cell count at 20±5 weeks|
+|cens| indicator of observing the event in days|
+|days| number of days until the first occurrence of: (i) a decline in CD4 T cell count of at least 50 (ii) an event indicating progression to AIDS, or (iii) death.|
+|arms| treatment arm (0=zidovudine, 1=zidovudine and didanosine, 2=zidovudine and zalcitabine, 3=didanosine).|
+
+## Functions
+
+### Packages
+
+|Package| Installation|
+|:------|:------|
+|`tidyverse`|`install.packages("tidyverse")`|
+| `XX` | `XX` |
+
+### Functions
+
+| Function| Package | Description |
+|:---|:------|:---------------------------------------------|
+|     `XXX`|`XXX`| XXX | 
+|     `XXX`|`XXX`| XXX | 
+
+## Resources
+
+### vignettes
+
+TEXT and LINKS
+
+### Cheatsheets
+
+<p align="center" width="100%">
+<a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">
+  <img src="https://image.slidesharecdn.com/data-wrangling-cheatsheet-160705210122/95/data-wrangling-with-dplyr-and-tidyr-cheat-sheet-1-638.jpg?cb=1467752577" style="width:70%"></a>
+  <br>
+  <font style="font-size:10px">from <a href="https://www.rstudio.com/resources/cheatsheets/">R Studio</a></font>
+</p>

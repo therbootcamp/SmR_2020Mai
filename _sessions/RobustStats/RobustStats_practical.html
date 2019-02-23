@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Robust Statistics</title>
+
+<script src="RobustStats_practical_files/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="RobustStats_practical_files/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="RobustStats_practical_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="RobustStats_practical_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="RobustStats_practical_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="RobustStats_practical_files/navigation-1.1/tabsets.js"></script>
+<link href="RobustStats_practical_files/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="RobustStats_practical_files/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="practical.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Robust Statistics</h1>
+<h4 class="author"><em><table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'>
+<col width='10%'>
+<col width='10%'>
+<tr style="border:none">
+<td style="display:block;width:100%;text-align:left;vertical-align:bottom;padding:0;margin:0;border:none" nowrap>
+<font style='font-style:normal'>Statistics with R</font><br> <a href='https://therbootcamp.github.io/SWR_2019Apr/'> <i class='fas fa-clock' style='font-size:.9em;' ></i> </a> <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;'></i> </a> <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a> <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a> <a href='https://therbootcamp.github.io'> <font style='font-style:normal'>Basel R Bootcamp</font> </a>
+</td>
+<td style="width:100%;vertical-align:bottom;text-align:right;padding:0;margin:0;border:none">
+<img src='https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png' style='height:15px;width:80px'/>
+</td>
+</tr>
+</table></em></h4>
+
+</div>
+
+
+<p align="center" width="100%">
+<img src="image/placeholder.png" alt="Trulli" style="width:100%;height:280px"> <br> <font style="font-size:10px">from <a href="">shorted URL</a></font>
+</p>
+<div id="section" class="section level1 tabset">
+<h1></h1>
+<div id="overview" class="section level2">
+<h2>Overview</h2>
+<p>In this practical you’ll practice “XXX” with the <code>XXX</code> packages.</p>
+<p>By the end of this practical you will know how to:</p>
+<ol style="list-style-type: decimal">
+<li></li>
+<li></li>
+<li></li>
+</ol>
+</div>
+<div id="tasks" class="section level2">
+<h2>Tasks</h2>
+<div id="a---setup" class="section level3">
+<h3>A - Setup</h3>
+<ol style="list-style-type: decimal">
+<li><p>Open your <code>BaselRBootcamp</code> R project. It should already have the folders <code>1_Data</code> and <code>2_Code</code>. Make sure that the data files listed in the <code>Datasets</code> section above are in your <code>1_Data</code> folder</p></li>
+<li><p>Open a new R script. At the top of the script, using comments, write your name and the date. Save it as a new file called <code>wrangling_practical.R</code> in the <code>2_Code</code> folder.</p></li>
+<li><p>Using <code>library()</code> load the <code>tidyverse</code> package (if you don’t have it, you’ll need to install it with <code>install.packages()</code>)!</p></li>
+</ol>
+<pre class="r"><code># Load packages necessary for this script
+library(tidyverse)</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Using the following template, load the <code>XXX</code> data into R and store it as a new object called <code>XXX</code> (Hint: Don’t type the path directly! Use the “tab” completion!).</li>
+</ol>
+<pre class="r"><code># Load XXX.csv from the 1_Data folder
+
+XX &lt;- read_csv(file = &quot;XX/XX&quot;)</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Take a look at the first few rows of the datasets by printing them to the console.</li>
+</ol>
+<pre class="r"><code># Print XXX object
+XXX</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li><p>Use the the <code>summary()</code> function to print more details on the columns of the datasets.</p></li>
+<li><p>Use the <code>View()</code> function to view the entire dataframes in new windows</p></li>
+</ol>
+<pre class="r"><code>View(XXX)
+View(XXX)</code></pre>
+</div>
+<div id="b---xxx" class="section level3">
+<h3>B - XXX</h3>
+</div>
+<div id="x---advanced-xxx" class="section level3">
+<h3>X - Advanced: XXX</h3>
+</div>
+</div>
+<div id="examples" class="section level2">
+<h2>Examples</h2>
+<pre class="r"><code># EXAMPLE CODE</code></pre>
+</div>
+<div id="datasets" class="section level2">
+<h2>Datasets</h2>
+<table>
+<thead>
+<tr class="header">
+<th align="left">File</th>
+<th align="left">Rows</th>
+<th align="left">Columns</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="">XXX</a></td>
+<td align="left">Nrow</td>
+<td align="left">Ncol</td>
+</tr>
+<tr class="even">
+<td align="left"><a href="">XXX</a></td>
+<td align="left">Nrow</td>
+<td align="left">Ncol</td>
+</tr>
+</tbody>
+</table>
+<p>SHORT VERBAL DESCRIPTION OF DATA SETS</p>
+<div id="variable-description" class="section level4">
+<h4>Variable description</h4>
+<table style="width:75%;">
+<colgroup>
+<col width="20%" />
+<col width="54%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">XXX</td>
+<td align="left">XXX</td>
+</tr>
+<tr class="even">
+<td align="left">XXX</td>
+<td align="left">age in years at baseline</td>
+</tr>
+<tr class="odd">
+<td align="left">wtkg</td>
+<td align="left">weight in kg at baseline</td>
+</tr>
+<tr class="even">
+<td align="left">hemo</td>
+<td align="left">hemophilia (0=no, 1=yes)</td>
+</tr>
+<tr class="odd">
+<td align="left">homo</td>
+<td align="left">homosexual activity (0=no, 1=yes)</td>
+</tr>
+<tr class="even">
+<td align="left">drugs</td>
+<td align="left">history of intravenous drug use (0=no, 1=yes)</td>
+</tr>
+<tr class="odd">
+<td align="left">karnof</td>
+<td align="left">Karnofsky score (on a scale of 0-100)</td>
+</tr>
+<tr class="even">
+<td align="left">oprior</td>
+<td align="left">non-zidovudine antiretroviral therapy prior to initiation of study treatment (0=no, 1=yes)</td>
+</tr>
+<tr class="odd">
+<td align="left">z30</td>
+<td align="left">zidovudine use in the 30 days prior to treatment initiation (0=no, 1=yes)</td>
+</tr>
+<tr class="even">
+<td align="left">zprior</td>
+<td align="left">zidovudine use prior to treatment initiation (0=no, 1=yes)</td>
+</tr>
+<tr class="odd">
+<td align="left">preanti</td>
+<td align="left">number of days of previously received antiretroviral therapy</td>
+</tr>
+<tr class="even">
+<td align="left">race</td>
+<td align="left">race (0=white, 1=non-white)</td>
+</tr>
+<tr class="odd">
+<td align="left">gender</td>
+<td align="left">gender (0=female, 1=male)</td>
+</tr>
+<tr class="even">
+<td align="left">str2</td>
+<td align="left">antiretroviral history (0=naive, 1=experienced)</td>
+</tr>
+<tr class="odd">
+<td align="left">strat</td>
+<td align="left">antiretroviral history stratification (1=’antiretroviral naive’, 2=’&gt; 1 but ≤ 52 weeks of prior antiretroviral therapy’, 3=’&gt; 52 weeks’)</td>
+</tr>
+<tr class="even">
+<td align="left">symptom</td>
+<td align="left">symptomatic indicator (0=asymptomatic, 1=symptomatic)</td>
+</tr>
+<tr class="odd">
+<td align="left">treat</td>
+<td align="left">treatment indicator (0=zidovudine only, 1=other therapies)</td>
+</tr>
+<tr class="even">
+<td align="left">offtrt</td>
+<td align="left">indicator of off-treatment before 96±5 weeks (0=no,1=yes)</td>
+</tr>
+<tr class="odd">
+<td align="left">cd40</td>
+<td align="left">CD4 T cell count at baseline</td>
+</tr>
+<tr class="even">
+<td align="left">cd420</td>
+<td align="left">CD4 T cell count at 20±5 weeks</td>
+</tr>
+<tr class="odd">
+<td align="left">cd496</td>
+<td align="left">CD4 T cell count at 96±5 weeks (=NA if missing)</td>
+</tr>
+<tr class="even">
+<td align="left">r</td>
+<td align="left">missing CD4 T cell count at 96±5 weeks (0=missing, 1=observed)</td>
+</tr>
+<tr class="odd">
+<td align="left">cd80</td>
+<td align="left">CD8 T cell count at baseline</td>
+</tr>
+<tr class="even">
+<td align="left">cd820</td>
+<td align="left">CD8 T cell count at 20±5 weeks</td>
+</tr>
+<tr class="odd">
+<td align="left">cens</td>
+<td align="left">indicator of observing the event in days</td>
+</tr>
+<tr class="even">
+<td align="left">days</td>
+<td align="left">number of days until the first occurrence of: (i) a decline in CD4 T cell count of at least 50 (ii) an event indicating progression to AIDS, or (iii) death.</td>
+</tr>
+<tr class="odd">
+<td align="left">arms</td>
+<td align="left">treatment arm (0=zidovudine, 1=zidovudine and didanosine, 2=zidovudine and zalcitabine, 3=didanosine).</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="functions" class="section level2">
+<h2>Functions</h2>
+<div id="packages" class="section level3">
+<h3>Packages</h3>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Package</th>
+<th align="left">Installation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>tidyverse</code></td>
+<td align="left"><code>install.packages(&quot;tidyverse&quot;)</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>XX</code></td>
+<td align="left"><code>XX</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="functions-1" class="section level3">
+<h3>Functions</h3>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Function</th>
+<th align="left">Package</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>XXX</code></td>
+<td align="left"><code>XXX</code></td>
+<td align="left">XXX</td>
+</tr>
+<tr class="even">
+<td align="left"><code>XXX</code></td>
+<td align="left"><code>XXX</code></td>
+<td align="left">XXX</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="resources" class="section level2">
+<h2>Resources</h2>
+<div id="vignettes" class="section level3">
+<h3>vignettes</h3>
+<p>TEXT and LINKS</p>
+</div>
+<div id="cheatsheets" class="section level3">
+<h3>Cheatsheets</h3>
+<p align="center" width="100%">
+<a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf"> <img src="https://image.slidesharecdn.com/data-wrangling-cheatsheet-160705210122/95/data-wrangling-with-dplyr-and-tidyr-cheat-sheet-1-638.jpg?cb=1467752577" style="width:70%"></a> <br> <font style="font-size:10px">from <a href="https://www.rstudio.com/resources/cheatsheets/">R Studio</a></font>
+</p>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
