@@ -81,7 +81,7 @@ baselers <- readr::read_csv("1_Data/baselers.csv")
 # Regression <i>applied</i>
 
 .pull-left45[
-
+blablabla
 
 ]
 
