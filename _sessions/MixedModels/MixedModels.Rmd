@@ -1,5 +1,5 @@
 ---
-title: "Mixed Models"
+title: "Mixed Effects Models"
 author: "Statistics with R<br>
   <a href='https://therbootcamp.github.io'>
     Basel R Bootcamp
@@ -17,7 +17,7 @@ author: "Statistics with R<br>
   <a href='https://www.linkedin.com/company/basel-r-bootcamp/'>
     <i class='fab fa-linkedin' style='font-size: .9em;'></i>
   </a>"
-date: "February 2019"
+date: "April 2019"
 output:
   xaringan::moon_reader:
     css: ["default", "baselrbootcamp.css"]
@@ -69,19 +69,201 @@ options(width = 110)
 options(digits = 4)
 
 # Load packages
-require(tidyverse)
-
-
-# Load data
-baselers <- readr::read_csv("1_Data/baselers.csv")
+library(tidyverse)
+library(lme4)
 
 ```
 
 
-# Regression <i>applied</i>
+
+
+# [iid](https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables) assumption
 
 .pull-left45[
-blablabla
+Previous regression models assumed that the data points are independent and identically distributed (<high>iid</high>).
+
+* Independent: The occurrence of one value does not affect the occurrence of another value.
+* Identically distributed: All data points stem from the same probability distribution.
+
+
+]
+
+.pull-right45[
+
+picture for one (ratings of action movies by different persons)
+
+picture for distribution (picture of normal distribution from which values are sampled)
+
+
+]
+
+---
+
+# Data Example
+
+.pull-left45[
+repeated measures example that shows that data points are not independent
+-> classical statistical procedures are not robutst to violations of independence
+
+we need to controll for this and can do so by using mixed effects models
+fixed and random effects
+
+possibilities:
+- complete pooling -> ignore dependency in data (e.g. averaging) -> check
+- no pooling -> fit separate regressions to each participant separately
+- partial pooling -> compromise done in mixed effects models (-> check details again)
+
+the data we will use
+
+subjects rate action movies and someone wants to find out how alcohol influences these ratings
+movie ratings when sober and after two beers
+same movies rated multiple times
+
+]
+
+.pull-right45[
+
+picture of example data
+
+]
+
+---
+
+# Mixed Effects
+
+.pull-left45[
+Mixed effects models combine two kinds of effects that serve different purposes:
+
+* <high>Fixed effects</high>
+* <high>Random effects</high>
+
+
+]
+
+.pull-right45[
+
+mixed effects model example picture
+
+]
+
+---
+
+# Fixed Effects
+
+.pull-left45[
+Fixed effects represent the overall effect (main effect or interaction) of a predictor.
+
+So far we only considered "fixed effects only" models.
+
+
+]
+
+.pull-right45[
+
+fixed effect example in our data
+
+
+]
+
+---
+
+# Random Effects
+
+.pull-left45[
+With random effects, we can account for random variability in the data that comes from different sources.
+
+Random effects:
+
+* are often part of what we want to generalize over
+* are always categorical variables
+
+As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/2017/04/introduction-mixed-models.pdf):
+
+> By specifying random effects in our model, we are able to factor out the idiosyncasies of our sample and obtain a more general estimate of the fixed effects of interest.
+
+
+]
+
+.pull-right45[
+
+random effects example in our data
+
+]
+
+---
+
+# Fixed Effects Only Model
+
+.pull-left45[
+
+
+
+
+
+]
+
+.pull-right45[
+
+picture of data with fixed effects model
+
+]
+
+```{r, echo = FALSE, out.width = "80%"}
+knitr::include_graphics("image/FE_only.png")
+```
+
+---
+
+# Random Intercepts Model
+
+.pull-left45[
+
+
+random intercepts model
+add shrinkage
+
+]
+
+.pull-right45[
+
+picture of data with fixed effects model
+
+]
+
+```{r, echo = FALSE, out.width = "80%"}
+knitr::include_graphics("image/RI_only.png")
+```
+
+---
+
+# Estimating Random Effects
+
+.pull-left45[
+
+shrinkage
+
+variance is estimated
+
+person intercepts are posteriors
+
+]
+
+.pull-right45[
+
+picture of data with fixed effects model
+
+]
+
+---
+
+# Random Intercepts and Slopes Model
+
+.pull-left45[
+
+
+
+
+random intercepts and slopes model
 
 ]
 
@@ -90,7 +272,116 @@ blablabla
 
 ]
 
+```{r, echo = FALSE, out.width = "80%"}
+knitr::include_graphics("image/RI_RS.png")
+```
+---
 
+# Crossed Random Effects Model
+
+.pull-left45[
+
+
+
+
+crossed random effects
+
+]
+
+.pull-right45[
+
+
+]
+
+```{r, echo = FALSE, out.width = "80%"}
+knitr::include_graphics("image/Cr_RI_RS.png")
+```
+
+---
+
+# Nested Random Effects
+
+.pull-left45[
+nested vs crossed random effects
+
+]
+
+.pull-right45[
+
+
+]
+
+---
+
+# Keep It Maximal
+
+.pull-left45[
+Always justify the maximal random effects structure justified by the design [Barr et al., 2014](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3881361/pdf/nihms533954.pdf)
+
+]
+
+.pull-right45[
+
+
+]
+
+---
+
+# Fitting Mixed Effects Models in R
+
+.pull-left45[
+fitting LMEMs in R
+lme4
+afex
+rstanarm
+-> provide table with functions from the packages to use for LMEM
+
+| Package| Function|
+|:------|:----|
+| <high>lme4</high>| `glmer()` / `lmer()`|
+| <high>afex</high>| `mixed()`|
+| <high>rstanarm</high>| `stan_glmer()` / `stan_lmer()` |
+
+
+]
+
+.pull-right45[
+
+
+]
+
+---
+
+# Specifying Random Effects in <high>lme4</high>
+
+
+
+Random effects are specified with a new element to the formulas:
+
+
+| Formula | Meaning |
+|:------|:----|
+| `(1 `&#124;` S)` | Random intercepts by `S` |
+| `(1 `&#124;` S) + (1 `&#124;` I)` | Random intercepts by `S` and `I`|
+| `(X1 `&#124;` S)` / `(1 + X1`&#124;` S)`| Random intercepts by `S` and random slopes for `X1` by `S` with correlations  |
+| `(X1 * X2 `&#124;` S)`| Random intercepts by `S` and random slopes for `X1`, `X2`, and their interaction `X1:X2` by `S` with correlations  |
+| `(0 + X1 `&#124;` S)`| Random slopes for `X1`by `S`, no random intercepts |
+| `(X1 `&#124;&#124;` S)`| Random intercepts by `S` and random slopes for `X1` by `S` no correlations |
+
+
+---
+
+# Regression <i>applied</i>
+
+.pull-left45[
+other error distributions and link functions
+
+]
+
+.pull-right45[
+
+
+]
 ---
 
 class: middle, center
