@@ -71,13 +71,14 @@ options(digits = 4)
 # Load packages
 library(tidyverse)
 library(lme4)
-
+df <- read_csv("MEM_example.csv")
+grand_mean <- mean(df$tomatometer)
 ```
 
 
 
 
-# [iid](https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables) assumption
+# [iid](https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables) Assumption
 
 .pull-left45[
 Previous regression models assumed that the data points are independent and identically distributed (<high>iid</high>).
@@ -123,7 +124,10 @@ same movies rated multiple times
 
 .pull-right45[
 
-picture of example data
+```{r echo = FALSE}
+knitr::include_graphics("image/dat_plot.png")
+```
+
 
 ]
 
@@ -160,7 +164,10 @@ So far we only considered "fixed effects only" models.
 
 .pull-right45[
 
-fixed effect example in our data
+
+```{r echo = FALSE}
+knitr::include_graphics("image/FE_plot.png")
+```
 
 
 ]
@@ -186,53 +193,122 @@ As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/
 
 .pull-right45[
 
-random effects example in our data
+```{r echo = FALSE}
+knitr::include_graphics("image/dat_plot.png")
+```
+
 
 ]
 
 ---
 
-# Fixed Effects Only Model
+# Fixed Effects Only Model - Math
+
+<br><br><br>
+<img src="image/FE_only.png" width="80%" style="display: block; margin: auto;" />
+
+
+---
+
+# Fixed Effects Only Model - Data Example
+
+<img src="image/FE_plot.png" width="70%" style="display: block; margin: auto;" />
+
+
+
+
+---
+
+# Random Intercepts Model - Math
+
+<br><br><br>
+<img src="image/RI_only.png" width="80%" style="display: block; margin: auto;" />
+
+
+---
+
+# Random Intercepts Model - Data Example
 
 .pull-left45[
 
 
-
+<img src="image/subj_RI_plot.png" width="100%" style="display: block; margin: auto;" />
+<figcaption align = "center" style="display: block; margin: auto;">By-Subject Random Intercepts</figcaption>
 
 
 ]
 
 .pull-right45[
 
-picture of data with fixed effects model
+
+<img src="image/mov_RI_plot.png" width="100%" style="display: block; margin: auto;" />
+<figcaption align = "center" style="display: block; margin: auto;">By-Movie Random Intercepts</figcaption>
+
 
 ]
 
-```{r, echo = FALSE, out.width = "80%"}
-knitr::include_graphics("image/FE_only.png")
-```
+
 
 ---
 
-# Random Intercepts Model
+# Random Intercepts and Slopes Model - Math
+
+<br><br><br>
+<img src="image/RI_RS.png" width="80%" style="display: block; margin: auto;" />
+
+
+---
+
+# Random Intercepts and Slopes Model - Data Example
 
 .pull-left45[
 
 
-random intercepts model
-add shrinkage
+<img src="image/subj_RI_RS_plot.png" width="100%" style="display: block; margin: auto;" />
+<figcaption align = "center" style="display: block; margin: auto;">By-Subject Random Intercepts and Slopes</figcaption>
+
 
 ]
 
 .pull-right45[
 
-picture of data with fixed effects model
+
+<img src="image/mov_RI_RS_plot.png" width="100%" style="display: block; margin: auto;" />
+<figcaption align = "center" style="display: block; margin: auto;">By-Movie Random Intercepts and Slopes</figcaption>
+
 
 ]
 
-```{r, echo = FALSE, out.width = "80%"}
-knitr::include_graphics("image/RI_only.png")
-```
+
+
+---
+
+# Crossed Random Effects Model - Math
+
+<br><br><br>
+<img src="image/Cr_RI_RS.png" width="80%" style="display: block; margin: auto;" />
+
+
+---
+
+# Crossed Random Effects Model - Data Example
+
+<img src="image/cr_RI_RS_plot.png" width="70%" style="display: block; margin: auto;" />
+
+
+---
+
+# Nested Random Effects
+
+.pull-left45[
+nested vs crossed random effects
+
+]
+
+.pull-right45[
+
+
+]
 
 ---
 
@@ -253,64 +329,6 @@ person intercepts are posteriors
 picture of data with fixed effects model
 
 ]
-
----
-
-# Random Intercepts and Slopes Model
-
-.pull-left45[
-
-
-
-
-random intercepts and slopes model
-
-]
-
-.pull-right45[
-
-
-]
-
-```{r, echo = FALSE, out.width = "80%"}
-knitr::include_graphics("image/RI_RS.png")
-```
----
-
-# Crossed Random Effects Model
-
-.pull-left45[
-
-
-
-
-crossed random effects
-
-]
-
-.pull-right45[
-
-
-]
-
-```{r, echo = FALSE, out.width = "80%"}
-knitr::include_graphics("image/Cr_RI_RS.png")
-```
-
----
-
-# Nested Random Effects
-
-.pull-left45[
-nested vs crossed random effects
-
-]
-
-.pull-right45[
-
-
-]
-
 ---
 
 # Keep It Maximal

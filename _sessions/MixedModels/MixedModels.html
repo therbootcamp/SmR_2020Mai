@@ -49,7 +49,7 @@ layout: true
 
 
 
-# [iid](https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables) assumption
+# [iid](https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables) Assumption
 
 .pull-left45[
 Previous regression models assumed that the data points are independent and identically distributed (&lt;high&gt;iid&lt;/high&gt;).
@@ -95,7 +95,8 @@ same movies rated multiple times
 
 .pull-right45[
 
-picture of example data
+&lt;img src="image/dat_plot.png" width="6400" /&gt;
+
 
 ]
 
@@ -132,7 +133,8 @@ So far we only considered "fixed effects only" models.
 
 .pull-right45[
 
-fixed effect example in our data
+
+&lt;img src="image/FE_plot.png" width="6400" /&gt;
 
 
 ]
@@ -158,49 +160,120 @@ As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/
 
 .pull-right45[
 
-random effects example in our data
+&lt;img src="image/dat_plot.png" width="6400" /&gt;
+
 
 ]
 
 ---
 
-# Fixed Effects Only Model
+# Fixed Effects Only Model - Math
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&lt;img src="image/FE_only.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Fixed Effects Only Model - Data Example
+
+&lt;img src="image/FE_plot.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+
+
+---
+
+# Random Intercepts Model - Math
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&lt;img src="image/RI_only.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Random Intercepts Model - Data Example
 
 .pull-left45[
 
 
-
+&lt;img src="image/subj_RI_plot.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;figcaption align = "center" style="display: block; margin: auto;"&gt;By-Subject Random Intercepts&lt;/figcaption&gt;
 
 
 ]
 
 .pull-right45[
 
-picture of data with fixed effects model
+
+&lt;img src="image/mov_RI_plot.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;figcaption align = "center" style="display: block; margin: auto;"&gt;By-Movie Random Intercepts&lt;/figcaption&gt;
+
 
 ]
 
-&lt;img src="image/FE_only.png" width="80%" /&gt;
+
 
 ---
 
-# Random Intercepts Model
+# Random Intercepts and Slopes Model - Math
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&lt;img src="image/RI_RS.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Random Intercepts and Slopes Model - Data Example
 
 .pull-left45[
 
 
-random intercepts model
-add shrinkage
+&lt;img src="image/subj_RI_RS_plot.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;figcaption align = "center" style="display: block; margin: auto;"&gt;By-Subject Random Intercepts and Slopes&lt;/figcaption&gt;
+
 
 ]
 
 .pull-right45[
 
-picture of data with fixed effects model
+
+&lt;img src="image/mov_RI_RS_plot.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;figcaption align = "center" style="display: block; margin: auto;"&gt;By-Movie Random Intercepts and Slopes&lt;/figcaption&gt;
+
 
 ]
 
-&lt;img src="image/RI_only.png" width="80%" /&gt;
+
+
+---
+
+# Crossed Random Effects Model - Math
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&lt;img src="image/Cr_RI_RS.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Crossed Random Effects Model - Data Example
+
+&lt;img src="image/cr_RI_RS_plot.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+---
+
+# Nested Random Effects
+
+.pull-left45[
+nested vs crossed random effects
+
+]
+
+.pull-right45[
+
+
+]
 
 ---
 
@@ -221,60 +294,6 @@ person intercepts are posteriors
 picture of data with fixed effects model
 
 ]
-
----
-
-# Random Intercepts and Slopes Model
-
-.pull-left45[
-
-
-
-
-random intercepts and slopes model
-
-]
-
-.pull-right45[
-
-
-]
-
-&lt;img src="image/RI_RS.png" width="80%" /&gt;
----
-
-# Crossed Random Effects Model
-
-.pull-left45[
-
-
-
-
-crossed random effects
-
-]
-
-.pull-right45[
-
-
-]
-
-&lt;img src="image/Cr_RI_RS.png" width="80%" /&gt;
-
----
-
-# Nested Random Effects
-
-.pull-left45[
-nested vs crossed random effects
-
-]
-
-.pull-right45[
-
-
-]
-
 ---
 
 # Keep It Maximal
