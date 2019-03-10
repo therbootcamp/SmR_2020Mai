@@ -444,7 +444,7 @@ For this reason, you should specify the <high>maximal random effects structure j
 
 .pull-right45[
 
-
+PROCEDURE OF SPECIFYING MAXIMAL RANDOM EFFECTS STRUCTURE
 
 ]
 
@@ -518,15 +518,18 @@ Random effects are specified with a new element to the formulas:
 .pull-left45[
 other error distributions and link functions
 
+OTHER ERROR DISTRIBUTIONS AND LINK FUNCTIONS
+
 ]
 
 .pull-right45[
 
+IMAGE OF LOG LINK FUNCTION
 
 ]
 ---
 
 class: middle, center
 
-<h1><a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/RegressionI/RegressionI_practical.html">Practical</a></h1>
+<h1><a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/MixedModels/MixedModels_practical.html">Practical</a></h1>
 
