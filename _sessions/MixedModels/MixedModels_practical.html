@@ -97,6 +97,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -104,14 +107,74 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -157,6 +220,20 @@ $(document).ready(function () {
 <h2>Tasks</h2>
 <div id="a---setup" class="section level3">
 <h3>A - Setup</h3>
+<p>cite this (5 section intro with R to MEM): <a href="https://www.ssc.wisc.edu/sscc/pubs/MM/MM_Introduction.html" class="uri">https://www.ssc.wisc.edu/sscc/pubs/MM/MM_Introduction.html</a> -&gt; Create more movie data once with nested and once with crossed design - also include single random effects desing</p>
+<p>possibilities: - complete pooling -&gt; ignore dependency in data (e.g. averaging) -&gt; check - no pooling -&gt; fit separate regressions to each participant separately - partial pooling -&gt; compromise done in mixed effects models (-&gt; check details again)</p>
+<ul>
+<li>fixed effects model vs mixed effects</li>
+<li>aggregated fit vs mixed effects fit vs overall fit with ignoring the independence assumptin</li>
+<li>shrinkage -&gt; show shrinkage in comparison to separate fits</li>
+<li>crossed vs nested random effects</li>
+<li>intro</li>
+<li>examples -&gt; run both</li>
+<li>use this example <a href="https://www.ssc.wisc.edu/sscc/pubs/MM/MM_MultRand.html" class="uri">https://www.ssc.wisc.edu/sscc/pubs/MM/MM_MultRand.html</a></li>
+<li>maximal random effects structure</li>
+<li>when no convergence, specify structure without correlation</li>
+</ul>
+<p>Datasets: - psych: sai - lme4: penicillin - blogposts/ rstanarm/ arm: schools example</p>
 <ol style="list-style-type: decimal">
 <li><p>Open your <code>BaselRBootcamp</code> R project. It should already have the folders <code>1_Data</code> and <code>2_Code</code>. Make sure that the data files listed in the <code>Datasets</code> section above are in your <code>1_Data</code> folder</p></li>
 <li><p>Open a new R script. At the top of the script, using comments, write your name and the date. Save it as a new file called <code>wrangling_practical.R</code> in the <code>2_Code</code> folder.</p></li>

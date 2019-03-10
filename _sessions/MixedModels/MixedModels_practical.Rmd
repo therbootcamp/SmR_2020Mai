@@ -72,6 +72,114 @@ By the end of this practical you will know how to:
 
 ### A - Setup
 
+https://projecteuclid.org/download/pdf_1/euclid.cbms/1462106081
+
+significance tests for fixed effects
+functions from the pbkrtest to get p-values
+pbnm (for glmer only?)
+PBmodcomp (for lmer only?)
+
+other significance tests:
+  - LRT -> obtained by either using drop1() or just fit a nested model (without one fixed effect) and compare with anova() for signigicance of the fixed effect
+  - confit() function
+  
+significance tests for random effects
+- LRT -> conservative because on the boundary
+```
+gmmG2 <- glmer(bin ~ x1 + x2 + (1|g1) + (1|g2),
+               family=binomial, data=pbDat)
+
+# LRT calculated using the loglik() function
+#
+G2 = -2 * logLik(gmm) + 2 * logLik(gmmG2)
+pchisq(as.numeric(G2), df=1, lower.tail=F)
+```
+also LRT but better approx than above (but only works for linear models)
+`exactRLRT(mm)`
+Test if random effect is needed: 
+```
+mmG2 <- lmer(y ~ x1 + x2 + (1|g1) + (1|g2), data=pbDat)
+mmR <- lmer(y ~ x1 + x2 + (1|g2), data=pbDat)
+exactRLRT(m=mmR,mA=mmG2,m0=mm)
+```
+- confint() -> see if 0 is included
+- parametric bootstrap (pbnm):
+```
+# for the glm:
+gmmDG1 <- glm(bin ~ x1 + x2,
+               family=binomial, data=pbDat)
+pbgmmDg1 <- pbnm(gmm,gmmDG1,nsim=1000,tasks=10,cores=2,seed=3400835) 
+summary(pbgmmDg1)
+
+# linear example as in the exactRLRT test above
+fm <- lm(y ~ x1 + x2, data=pbDat)
+pbfm <- pbnm(mmMLE,fm,nsim=1000,tasks=10,cores=2,seed=98731307)
+summary(pbfm)
+
+pbmmG2 <- pbnm(mmG2,mm,nsim=1000,tasks=10,cores=2,seed=4642782)
+summary(pbmmG2)
+```
+
+get variances using the sjstats package (see ftp://cran.r-project.org/pub/R/web/packages/sjstats/vignettes/mixedmodels-statistics.html):
+```
+# get residual variance
+get_re_var(m, "sigma_2")
+#> [1] 654.941
+
+# get all random effect variances
+re_var(m)
+#>       Within-group-variance:  654.941
+#>      Between-group-variance:  612.090 (Subject)
+#>       Random-slope-variance:   35.072 (Subject.Days)
+#>  Slope-Intercept-covariance:    9.604 (Subject.(Intercept))
+#> Slope-Intercept-correlation:    0.066 (Subject)
+
+
+# get all variance components of mixed models
+re_var(m, adjusted = TRUE)
+#> 
+#> Variance Components of Mixed Models
+#> 
+#> Family : gaussian (identity)
+#> Formula: Reaction ~ Days + (Days | Subject)
+#> 
+#>          fixed:  908.953
+#>         random: 1698.071
+#>       residual:  654.941
+#>     dispersion:    0.000
+#>   distribution:  654.941
+```
+
+also r- squared and iccs:
+r2() and icc() (latter possibly with adjusted = TRUE)
+
+
+
+cite this (5 section intro with R to MEM): https://www.ssc.wisc.edu/sscc/pubs/MM/MM_Introduction.html
+-> Create more movie data once with nested and once with crossed design
+- also include single random effects desing
+
+possibilities:
+- complete pooling -> ignore dependency in data (e.g. averaging) -> check
+- no pooling -> fit separate regressions to each participant separately
+- partial pooling -> compromise done in mixed effects models (-> check details again)
+
+
+- fixed effects model vs mixed effects
+  - aggregated fit vs mixed effects fit vs overall fit with ignoring the independence assumptin
+  - shrinkage -> show shrinkage in comparison to separate fits
+- crossed vs nested random effects
+  - intro
+  - examples -> run both
+  - use this example https://www.ssc.wisc.edu/sscc/pubs/MM/MM_MultRand.html
+- maximal random effects structure
+  - when no convergence, specify structure without correlation
+  
+Datasets:
+  - psych: sai
+  - lme4: penicillin
+  - blogposts/ rstanarm/ arm: schools example
+
 1. Open your `BaselRBootcamp` R project. It should already have the folders `1_Data` and `2_Code`. Make sure that the data files listed in the `Datasets` section above are in your `1_Data` folder
 
 ```{r}

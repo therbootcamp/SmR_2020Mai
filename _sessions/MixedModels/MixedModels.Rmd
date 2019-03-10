@@ -71,8 +71,37 @@ options(digits = 4)
 # Load packages
 library(tidyverse)
 library(lme4)
+tomato_df <- read_csv("Tomatometer_dat.csv")
 df <- read_csv("MEM_example.csv")
 grand_mean <- mean(df$tomatometer)
+
+baselers <- read_csv("https://raw.githubusercontent.com/therbootcamp/baselers/master/inst/extdata/baselers.txt")
+baselers <- baselers %>% 
+  filter(!is.na(income),!is.na(age),!is.na(height)) %>%
+  slice(sample(1:nrow(baselers),1000)) %>% 
+  mutate(sex01 = sex == 'male')
+source("https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_materials/code/baselrbootcamp_palettes.R")
+set.seed(102)
+x <- rnorm(10)
+y <- .7 * x + rnorm(10, sd = .3) + 2
+data <- data.frame(x, y)
+mod <- lm(y ~ x, data = data)
+
+great_intercept <- mod$coefficients[1]
+great_slope <- mod$coefficients[2]
+dat_great <- data.frame(x0 = x, x1 = x,
+                        y0 = y, y1 = great_intercept + great_slope * x)
+great_raw <- ggplot(dat_great, aes(x = x0, y = y0)) + geom_point(col = baselrbootcamp_cols("grey"), size = 2) +
+  geom_abline(slope = great_slope, intercept = great_intercept, size = .5, linetype = 3) +
+  theme_minimal() + xlim(c(-2, 3)) + ylim(c(0, 5)) +
+  labs(subtitle = paste("Or this?"), x = "Predictor", y = "Criterion")
+great_err <- great_raw + 
+  geom_linerange(data = dat_great, aes(x = x0, ymin = y0, ymax = y1), col = baselrbootcamp_cols("magenta")) +
+  geom_point(data = dat_great, aes(x = x0, y = y1, size = 2), col = baselrbootcamp_cols("green"), pch = "X", size = 4) +
+  labs(subtitle = paste("Mean Squared Error (MSE) = ", round(mean((dat_great$y1 - dat_great$y0) ^ 2), 2)),
+       x = "Predictor", y = "Criterion")
+
+
 ```
 
 
@@ -83,60 +112,88 @@ grand_mean <- mean(df$tomatometer)
 .pull-left45[
 Previous regression models assumed that the data points are independent and identically distributed (<high>iid</high>).
 
-* Independent: The occurrence of one value does not affect the occurrence of another value.
-* Identically distributed: All data points stem from the same probability distribution.
+* <high>Independent</high>: The occurrence of one value does not affect the occurrence of another value.
+* <high>Identically distributed</high>: All data points stem from the same probability distribution.
+
+
+Previously considered models are <high>not robust</high> to violations of the independence assumption.
 
 
 ]
 
 .pull-right45[
 
-picture for one (ratings of action movies by different persons)
-
-picture for distribution (picture of normal distribution from which values are sampled)
+<img src="image/iid_plot.png" width="100%" style="display: block; margin: auto;" />
 
 
 ]
 
 ---
 
-# Data Example
+# Example Data
 
 .pull-left45[
-repeated measures example that shows that data points are not independent
--> classical statistical procedures are not robutst to violations of independence
 
-we need to controll for this and can do so by using mixed effects models
-fixed and random effects
+In this introduction we will work with the following data:
 
-possibilities:
-- complete pooling -> ignore dependency in data (e.g. averaging) -> check
-- no pooling -> fit separate regressions to each participant separately
-- partial pooling -> compromise done in mixed effects models (-> check details again)
+You are a researcher and want to gauge whether alcohol influences movie ratings on [Rotten Tomatoes](https://www.rottentomatoes.com/).
 
-the data we will use
+You let two subjectes rate two movies once when they are sober and once when they've had 4 beers (we'll call this drunk; more alcohol would count as binge drinking and you don't get ethics approval for that.)
 
-subjects rate action movies and someone wants to find out how alcohol influences these ratings
-movie ratings when sober and after two beers
-same movies rated multiple times
+* Repeated measures (i.e., within subjects design)
+* The same two movies at all time points for both participants
+
 
 ]
 
 .pull-right45[
 
-```{r echo = FALSE}
-knitr::include_graphics("image/dat_plot.png")
-```
+
+<img src="image/dat_plot.png" width="100%" style="display: block; margin: auto;" />
+
+
 
 
 ]
+
+---
+
+# Example Data
+
+.pull-left45[
+
+Because we have repeated measures, the independence assumption is violated. Several possibilities exist:
+
+<br>
+
+* Run separate regression models so only independent data points are used (<high>no pooling</high>)
+* Average repeated measures and run a fixed effects model
+* Treat observations as separate and just run a simple regression (<high>complete pooling</high>)
+* Use mixed effects model (<high>partial pooling</high>)
+we need to controll for this and can do so by using mixed effects models
+fixed and random effects
+
+
+]
+
+.pull-right45[
+
+<img src="image/dat_plot.png" width="100%" style="display: block; margin: auto;" />
+
+
+]
+
+
 
 ---
 
 # Mixed Effects
 
-.pull-left45[
+.pull-left35[
+
+
 Mixed effects models combine two kinds of effects that serve different purposes:
+
 
 * <high>Fixed effects</high>
 * <high>Random effects</high>
@@ -144,9 +201,11 @@ Mixed effects models combine two kinds of effects that serve different purposes:
 
 ]
 
-.pull-right45[
+.pull-right55[
 
-mixed effects model example picture
+
+<img src="image/MEM_example.png" width="100%" style="display: block; margin: auto;" />
+
 
 ]
 
@@ -155,9 +214,22 @@ mixed effects model example picture
 # Fixed Effects
 
 .pull-left45[
-Fixed effects represent the overall effect (main effect or interaction) of a predictor.
 
-So far we only considered "fixed effects only" models.
+Fixed effects represent the overall effect (main effect or interaction) of a predictor. For example the effect of a treatment.
+
+So far we only considered "fixed effects only" models (e.g., simple regression, t-tests, ANOVA).
+
+```{r eval = FALSE}
+
+# continuous predictor
+FE_cont <- lm(income ~ age,
+              data = baselers)
+
+# discrete predictor
+FE_disc <- lm(income ~ sex,
+              data = baselers)
+
+```
 
 
 ]
@@ -165,10 +237,11 @@ So far we only considered "fixed effects only" models.
 .pull-right45[
 
 
-```{r echo = FALSE}
-knitr::include_graphics("image/FE_plot.png")
+<p align="center">
+```{r, echo = FALSE, fig.width = 4.2, fig.height = 2.7, dpi = 400, out.width = "100%"}
+great_err
 ```
-
+</p>
 
 ]
 
@@ -177,12 +250,13 @@ knitr::include_graphics("image/FE_plot.png")
 # Random Effects
 
 .pull-left45[
-With random effects, we can account for random variability in the data that comes from different sources.
+With random effects, we can account for random variability in the data that comes from different sources. We are not interested in the concrete instantiation of a particular level.
 
 Random effects:
 
 * are often part of what we want to generalize over
-* are always categorical variables
+* are always categorical variables (<high>factors</high>)
+* are thought to be randomly drawn from the population 
 
 As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/2017/04/introduction-mixed-models.pdf):
 
@@ -193,10 +267,8 @@ As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/
 
 .pull-right45[
 
-```{r echo = FALSE}
-knitr::include_graphics("image/dat_plot.png")
-```
 
+<img src="image/MEM_example.png" width="100%" style="display: block; margin: auto;" />
 
 ]
 
@@ -233,7 +305,9 @@ knitr::include_graphics("image/dat_plot.png")
 
 
 <img src="image/subj_RI_plot.png" width="100%" style="display: block; margin: auto;" />
+<p align = "center">
 <figcaption align = "center" style="display: block; margin: auto;">By-Subject Random Intercepts</figcaption>
+</p>
 
 
 ]
@@ -242,8 +316,9 @@ knitr::include_graphics("image/dat_plot.png")
 
 
 <img src="image/mov_RI_plot.png" width="100%" style="display: block; margin: auto;" />
+<p align = "center">
 <figcaption align = "center" style="display: block; margin: auto;">By-Movie Random Intercepts</figcaption>
-
+</p>
 
 ]
 
@@ -265,7 +340,9 @@ knitr::include_graphics("image/dat_plot.png")
 
 
 <img src="image/subj_RI_RS_plot.png" width="100%" style="display: block; margin: auto;" />
+<p align = "center">
 <figcaption align = "center" style="display: block; margin: auto;">By-Subject Random Intercepts and Slopes</figcaption>
+</p>
 
 
 ]
@@ -274,7 +351,9 @@ knitr::include_graphics("image/dat_plot.png")
 
 
 <img src="image/mov_RI_RS_plot.png" width="100%" style="display: block; margin: auto;" />
+<p align = "center">
 <figcaption align = "center" style="display: block; margin: auto;">By-Movie Random Intercepts and Slopes</figcaption>
+</p>
 
 
 ]
@@ -298,35 +377,54 @@ knitr::include_graphics("image/dat_plot.png")
 
 ---
 
-# Nested Random Effects
+# Crossed vs. Nested Random Effects
+<br>
+.pull-left35[
+<img src="image/crossed_RE.png" width="86%" style="display: block; margin: auto;" />
+<p align = "center">
+<figcaption align = "center" style="display: block; margin: auto;">Crossed Random Effects</figcaption>
+</p>
 
-.pull-left45[
-nested vs crossed random effects
+<br><br>
+
+Crossed random effects are all multiple random effects structures that are not nested.
 
 ]
 
-.pull-right45[
+.pull-right55[
 
+<img src="image/nested_RE.png" width="100%" style="display: block; margin: auto;" />
+<p align = "center">
+<figcaption align = "center" style="display: block; margin: auto;">Nested Random Effects</figcaption>
+</p>
+
+<br><br>
+
+Every level of the nested factor only appears within a single level of the higher order factor.
 
 ]
 
 ---
 
-# Estimating Random Effects
+# More on Random Effects
 
 .pull-left45[
 
-shrinkage
+* <high>Hierarchical shrinkage</high>: Individual parameter estimates that are on the extremes of the distribution are adjusted (shrinked) towards the mean. Because of this, predicted cell means need not necessarily coincide with the observed cell means.
 
-variance is estimated
+* Intra-Class Correlation <high>ICC</high>: The ICC is the proportion of within group (random effect) variance of the total variance.
 
-person intercepts are posteriors
+
+* Random effects parameters are harder to estimate numerically. Thus, mixed effects model much more frequently exhibit the problem of <high>non-convergence</high> than fixed effects only models.
 
 ]
 
 .pull-right45[
 
-picture of data with fixed effects model
+<img src="image/shrinkage_plot.png" width="100%" style="display: block; margin: auto;" />
+<p align = "center">
+<figcaption align = "center" style="display: block; margin: auto;">Example of Hierarchical Shrinkage</figcaption>
+</p>
 
 ]
 ---
@@ -334,11 +432,18 @@ picture of data with fixed effects model
 # Keep It Maximal
 
 .pull-left45[
-Always justify the maximal random effects structure justified by the design [Barr et al., 2014](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3881361/pdf/nihms533954.pdf)
+
+Specifying the correct random effects structure is important. Failure to do so can result in
+
+* biased estimates
+* inflate Type I errors
+
+For this reason, you should specify the <high>maximal random effects structure justified by the design</high> [Barr et al., 2014](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3881361/pdf/nihms533954.pdf)
 
 ]
 
 .pull-right45[
+
 
 
 ]
@@ -348,22 +453,40 @@ Always justify the maximal random effects structure justified by the design [Bar
 # Fitting Mixed Effects Models in R
 
 .pull-left45[
-fitting LMEMs in R
-lme4
-afex
-rstanarm
--> provide table with functions from the packages to use for LMEM
+
+Several packages exist to run mixed effects models in R. Here are some of them:
+
+<br>
 
 | Package| Function|
 |:------|:----|
-| <high>lme4</high>| `glmer()` / `lmer()`|
-| <high>afex</high>| `mixed()`|
-| <high>rstanarm</high>| `stan_glmer()` / `stan_lmer()` |
+| [lme4](https://CRAN.R-project.org/package=lme4)| `glmer()` / `lmer()`|
+| [afex](https://CRAN.R-project.org/package=afex)| `mixed()`|
+| [rstanarm](https://CRAN.R-project.org/package=rstanarm)| `stan_glmer()` / `stan_lmer()` |
 
 
 ]
 
 .pull-right45[
+
+<br>
+
+```{r eval = FALSE}
+# mixed model using lme4::lmer()
+
+# fixed effects
+LMM_out <- lmer(Tomatometer ~ State +
+# by-ID random slopes and intercepts
+                  (State|ID) +
+# by-ID random slopes and intercepts
+                  (State|Movie),
+# define data
+                data = tomato_df)
+
+# show output
+summary(LMM_out)
+```
+
 
 
 ]
@@ -378,13 +501,14 @@ Random effects are specified with a new element to the formulas:
 
 
 | Formula | Meaning |
-|:------|:----|
+|:----------|:-------------------|
 | `(1 `&#124;` S)` | Random intercepts by `S` |
 | `(1 `&#124;` S) + (1 `&#124;` I)` | Random intercepts by `S` and `I`|
 | `(X1 `&#124;` S)` / `(1 + X1`&#124;` S)`| Random intercepts by `S` and random slopes for `X1` by `S` with correlations  |
 | `(X1 * X2 `&#124;` S)`| Random intercepts by `S` and random slopes for `X1`, `X2`, and their interaction `X1:X2` by `S` with correlations  |
 | `(0 + X1 `&#124;` S)`| Random slopes for `X1`by `S`, no random intercepts |
 | `(X1 `&#124;&#124;` S)`| Random intercepts by `S` and random slopes for `X1` by `S` no correlations |
+| `(1 `&#124;` S/C)` / `(1 `&#124;` S) + (1 `&#124;` S:C)`| Random intercepts by `S` and `C` with `C` nested under `S` |
 
 
 ---

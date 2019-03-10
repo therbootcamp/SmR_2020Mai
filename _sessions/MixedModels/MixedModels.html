@@ -54,58 +54,88 @@ layout: true
 .pull-left45[
 Previous regression models assumed that the data points are independent and identically distributed (&lt;high&gt;iid&lt;/high&gt;).
 
-* Independent: The occurrence of one value does not affect the occurrence of another value.
-* Identically distributed: All data points stem from the same probability distribution.
+* &lt;high&gt;Independent&lt;/high&gt;: The occurrence of one value does not affect the occurrence of another value.
+* &lt;high&gt;Identically distributed&lt;/high&gt;: All data points stem from the same probability distribution.
+
+
+Previously considered models are &lt;high&gt;not robust&lt;/high&gt; to violations of the independence assumption.
 
 
 ]
 
 .pull-right45[
 
-picture for one (ratings of action movies by different persons)
-
-picture for distribution (picture of normal distribution from which values are sampled)
+&lt;img src="image/iid_plot.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 
 ]
 
 ---
 
-# Data Example
+# Example Data
 
 .pull-left45[
-repeated measures example that shows that data points are not independent
--&gt; classical statistical procedures are not robutst to violations of independence
 
-we need to controll for this and can do so by using mixed effects models
-fixed and random effects
+In this introduction we will work with the following data:
 
-possibilities:
-- complete pooling -&gt; ignore dependency in data (e.g. averaging) -&gt; check
-- no pooling -&gt; fit separate regressions to each participant separately
-- partial pooling -&gt; compromise done in mixed effects models (-&gt; check details again)
+You are a researcher and want to gauge whether alcohol influences movie ratings on [Rotten Tomatoes](https://www.rottentomatoes.com/).
 
-the data we will use
+You let two subjectes rate two movies once when they are sober and once when they've had 4 beers (we'll call this drunk; more alcohol would count as binge drinking and you don't get ethics approval for that.)
 
-subjects rate action movies and someone wants to find out how alcohol influences these ratings
-movie ratings when sober and after two beers
-same movies rated multiple times
+* Repeated measures (i.e., within subjects design)
+* The same two movies at all time points for both participants
+
 
 ]
 
 .pull-right45[
 
-&lt;img src="image/dat_plot.png" width="6400" /&gt;
+
+&lt;img src="image/dat_plot.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+
 
 
 ]
+
+---
+
+# Example Data
+
+.pull-left45[
+
+Because we have repeated measures, the independence assumption is violated. Several possibilities exist:
+
+&lt;br&gt;
+
+* Run separate regression models so only independent data points are used (&lt;high&gt;no pooling&lt;/high&gt;)
+* Average repeated measures and run a fixed effects model
+* Treat observations as separate and just run a simple regression (&lt;high&gt;complete pooling&lt;/high&gt;)
+* Use mixed effects model (&lt;high&gt;partial pooling&lt;/high&gt;)
+we need to controll for this and can do so by using mixed effects models
+fixed and random effects
+
+
+]
+
+.pull-right45[
+
+&lt;img src="image/dat_plot.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+
 
 ---
 
 # Mixed Effects
 
-.pull-left45[
+.pull-left35[
+
+
 Mixed effects models combine two kinds of effects that serve different purposes:
+
 
 * &lt;high&gt;Fixed effects&lt;/high&gt;
 * &lt;high&gt;Random effects&lt;/high&gt;
@@ -113,9 +143,11 @@ Mixed effects models combine two kinds of effects that serve different purposes:
 
 ]
 
-.pull-right45[
+.pull-right55[
 
-mixed effects model example picture
+
+&lt;img src="image/MEM_example.png" width="100%" style="display: block; margin: auto;" /&gt;
+
 
 ]
 
@@ -124,9 +156,21 @@ mixed effects model example picture
 # Fixed Effects
 
 .pull-left45[
-Fixed effects represent the overall effect (main effect or interaction) of a predictor.
 
-So far we only considered "fixed effects only" models.
+Fixed effects represent the overall effect (main effect or interaction) of a predictor. For example the effect of a treatment.
+
+So far we only considered "fixed effects only" models (e.g., simple regression, t-tests, ANOVA).
+
+
+```r
+# continuous predictor
+FE_cont &lt;- lm(income ~ age,
+              data = baselers)
+
+# discrete predictor
+FE_disc &lt;- lm(income ~ sex,
+              data = baselers)
+```
 
 
 ]
@@ -134,8 +178,9 @@ So far we only considered "fixed effects only" models.
 .pull-right45[
 
 
-&lt;img src="image/FE_plot.png" width="6400" /&gt;
-
+&lt;p align="center"&gt;
+&lt;img src="MixedModels_files/figure-html/unnamed-chunk-3-1.png" width="100%" /&gt;
+&lt;/p&gt;
 
 ]
 
@@ -144,12 +189,13 @@ So far we only considered "fixed effects only" models.
 # Random Effects
 
 .pull-left45[
-With random effects, we can account for random variability in the data that comes from different sources.
+With random effects, we can account for random variability in the data that comes from different sources. We are not interested in the concrete instantiation of a particular level.
 
 Random effects:
 
 * are often part of what we want to generalize over
-* are always categorical variables
+* are always categorical variables (&lt;high&gt;factors&lt;/high&gt;)
+* are thought to be randomly drawn from the population 
 
 As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/2017/04/introduction-mixed-models.pdf):
 
@@ -160,8 +206,8 @@ As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/
 
 .pull-right45[
 
-&lt;img src="image/dat_plot.png" width="6400" /&gt;
 
+&lt;img src="image/MEM_example.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -198,7 +244,9 @@ As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/
 
 
 &lt;img src="image/subj_RI_plot.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;p align = "center"&gt;
 &lt;figcaption align = "center" style="display: block; margin: auto;"&gt;By-Subject Random Intercepts&lt;/figcaption&gt;
+&lt;/p&gt;
 
 
 ]
@@ -207,8 +255,9 @@ As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/
 
 
 &lt;img src="image/mov_RI_plot.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;p align = "center"&gt;
 &lt;figcaption align = "center" style="display: block; margin: auto;"&gt;By-Movie Random Intercepts&lt;/figcaption&gt;
-
+&lt;/p&gt;
 
 ]
 
@@ -230,7 +279,9 @@ As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/
 
 
 &lt;img src="image/subj_RI_RS_plot.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;p align = "center"&gt;
 &lt;figcaption align = "center" style="display: block; margin: auto;"&gt;By-Subject Random Intercepts and Slopes&lt;/figcaption&gt;
+&lt;/p&gt;
 
 
 ]
@@ -239,7 +290,9 @@ As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/
 
 
 &lt;img src="image/mov_RI_RS_plot.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;p align = "center"&gt;
 &lt;figcaption align = "center" style="display: block; margin: auto;"&gt;By-Movie Random Intercepts and Slopes&lt;/figcaption&gt;
+&lt;/p&gt;
 
 
 ]
@@ -263,35 +316,54 @@ As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/
 
 ---
 
-# Nested Random Effects
+# Crossed vs. Nested Random Effects
+&lt;br&gt;
+.pull-left35[
+&lt;img src="image/crossed_RE.png" width="86%" style="display: block; margin: auto;" /&gt;
+&lt;p align = "center"&gt;
+&lt;figcaption align = "center" style="display: block; margin: auto;"&gt;Crossed Random Effects&lt;/figcaption&gt;
+&lt;/p&gt;
 
-.pull-left45[
-nested vs crossed random effects
+&lt;br&gt;&lt;br&gt;
+
+Crossed random effects are all multiple random effects structures that are not nested.
 
 ]
 
-.pull-right45[
+.pull-right55[
 
+&lt;img src="image/nested_RE.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;p align = "center"&gt;
+&lt;figcaption align = "center" style="display: block; margin: auto;"&gt;Nested Random Effects&lt;/figcaption&gt;
+&lt;/p&gt;
+
+&lt;br&gt;&lt;br&gt;
+
+Every level of the nested factor only appears within a single level of the higher order factor.
 
 ]
 
 ---
 
-# Estimating Random Effects
+# More on Random Effects
 
 .pull-left45[
 
-shrinkage
+* &lt;high&gt;Hierarchical shrinkage&lt;/high&gt;: Individual parameter estimates that are on the extremes of the distribution are adjusted (shrinked) towards the mean. Because of this, predicted cell means need not necessarily coincide with the observed cell means.
 
-variance is estimated
+* Intra-Class Correlation &lt;high&gt;ICC&lt;/high&gt;: The ICC is the proportion of within group (random effect) variance of the total variance.
 
-person intercepts are posteriors
+
+* Random effects parameters are harder to estimate numerically. Thus, mixed effects model much more frequently exhibit the problem of &lt;high&gt;non-convergence&lt;/high&gt; than fixed effects only models.
 
 ]
 
 .pull-right45[
 
-picture of data with fixed effects model
+&lt;img src="image/shrinkage_plot.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;p align = "center"&gt;
+&lt;figcaption align = "center" style="display: block; margin: auto;"&gt;Example of Hierarchical Shrinkage&lt;/figcaption&gt;
+&lt;/p&gt;
 
 ]
 ---
@@ -299,11 +371,18 @@ picture of data with fixed effects model
 # Keep It Maximal
 
 .pull-left45[
-Always justify the maximal random effects structure justified by the design [Barr et al., 2014](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3881361/pdf/nihms533954.pdf)
+
+Specifying the correct random effects structure is important. Failure to do so can result in
+
+* biased estimates
+* inflate Type I errors
+
+For this reason, you should specify the &lt;high&gt;maximal random effects structure justified by the design&lt;/high&gt; [Barr et al., 2014](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3881361/pdf/nihms533954.pdf)
 
 ]
 
 .pull-right45[
+
 
 
 ]
@@ -313,22 +392,41 @@ Always justify the maximal random effects structure justified by the design [Bar
 # Fitting Mixed Effects Models in R
 
 .pull-left45[
-fitting LMEMs in R
-lme4
-afex
-rstanarm
--&gt; provide table with functions from the packages to use for LMEM
+
+Several packages exist to run mixed effects models in R. Here are some of them:
+
+&lt;br&gt;
 
 | Package| Function|
 |:------|:----|
-| &lt;high&gt;lme4&lt;/high&gt;| `glmer()` / `lmer()`|
-| &lt;high&gt;afex&lt;/high&gt;| `mixed()`|
-| &lt;high&gt;rstanarm&lt;/high&gt;| `stan_glmer()` / `stan_lmer()` |
+| [lme4](https://CRAN.R-project.org/package=lme4)| `glmer()` / `lmer()`|
+| [afex](https://CRAN.R-project.org/package=afex)| `mixed()`|
+| [rstanarm](https://CRAN.R-project.org/package=rstanarm)| `stan_glmer()` / `stan_lmer()` |
 
 
 ]
 
 .pull-right45[
+
+&lt;br&gt;
+
+
+```r
+# mixed model using lme4::lmer()
+
+# fixed effects
+LMM_out &lt;- lmer(Tomatometer ~ State +
+# by-ID random slopes and intercepts
+                  (State|ID) +
+# by-ID random slopes and intercepts
+                  (State|Movie),
+# define data
+                data = tomato_df)
+
+# show output
+summary(LMM_out)
+```
+
 
 
 ]
@@ -343,13 +441,14 @@ Random effects are specified with a new element to the formulas:
 
 
 | Formula | Meaning |
-|:------|:----|
+|:----------|:-------------------|
 | `(1 `&amp;#124;` S)` | Random intercepts by `S` |
 | `(1 `&amp;#124;` S) + (1 `&amp;#124;` I)` | Random intercepts by `S` and `I`|
 | `(X1 `&amp;#124;` S)` / `(1 + X1`&amp;#124;` S)`| Random intercepts by `S` and random slopes for `X1` by `S` with correlations  |
 | `(X1 * X2 `&amp;#124;` S)`| Random intercepts by `S` and random slopes for `X1`, `X2`, and their interaction `X1:X2` by `S` with correlations  |
 | `(0 + X1 `&amp;#124;` S)`| Random slopes for `X1`by `S`, no random intercepts |
 | `(X1 `&amp;#124;&amp;#124;` S)`| Random intercepts by `S` and random slopes for `X1` by `S` no correlations |
+| `(1 `&amp;#124;` S/C)` / `(1 `&amp;#124;` S) + (1 `&amp;#124;` S:C)`| Random intercepts by `S` and `C` with `C` nested under `S` |
 
 
 ---
