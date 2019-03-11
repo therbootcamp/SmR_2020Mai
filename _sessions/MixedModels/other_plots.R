@@ -1,6 +1,7 @@
 # general plots for MEM session
 library(tidyverse)
 library(lme4)
+library(patchwork)
 
 # normal distribution to draw data from 
 # parameters that will be passed to ``stat_function``
@@ -131,3 +132,68 @@ ggplot(lmm_dat %>% filter(State == "Sober"), aes(Means, Data)) +
 
 ggsave("_sessions/MixedModels/image/shrinkage_plot.png", width = 8,
        height = 5, device = "png", dpi = 600)
+
+
+
+# distributions functions -----------------
+
+
+p1 <- ggplot(data = data.frame(x = c(-3, 3)), aes(x)) +
+  stat_function(fun = dnorm, n = 101, args = list(mean = 0, sd = 1),
+                col = "#EA4B68", alpha = .8, size = 3) + ylab("") +
+  scale_y_continuous(breaks = NULL) + scale_x_continuous(breaks = NULL) +
+  xlab("Gaussian") +
+  theme_bw() +
+  theme(
+    strip.text = element_text(size = 12, face = "bold"),
+    axis.text = element_text(size = 14),
+    axis.title = element_text(size = 16,face = "bold")
+  )
+p1
+
+
+x1  <- 3:17
+df <- data.frame(x = x1, y = dbinom(x1, 20, 0.3))
+
+p2 <- ggplot(data.frame(x=c(0:20)), aes(x)) +
+  geom_point(aes(y=dbinom(x, 20, .5)), colour="#EA4B68", alpha = .8, size = 5) +  
+  scale_y_continuous(breaks = NULL) + scale_x_continuous(breaks = NULL) +
+  xlab("Binomial") + ylab("") + theme_bw() + theme(
+    strip.text = element_text(size = 12, face = "bold"),
+    axis.text = element_text(size = 14),
+    axis.title = element_text(size = 16,face = "bold")
+  )
+
+p2
+
+p3 <- ggplot(data = data.frame(x = c(0, 10)), aes(x)) +
+  stat_function(fun = dgamma, n = 101, args = list(shape = 1),
+                col = "#EA4B68", alpha = .8, size = 3) + ylab("") +
+  scale_y_continuous(breaks = NULL) + scale_x_continuous(breaks = NULL) +
+  xlab("Gamma") +
+  theme_bw() +
+  theme(
+    strip.text = element_text(size = 12, face = "bold"),
+    axis.text = element_text(size = 14),
+    axis.title = element_text(size = 16,face = "bold")
+  )
+p3
+
+p4 <- ggplot(data.frame(x=c(0:10)), aes(x)) +
+  geom_point(aes(y=dpois(x, 1)), colour="#EA4B68", alpha = .8, size = 5) +
+  scale_y_continuous(breaks = NULL) + scale_x_continuous(breaks = NULL) +
+  ylab("") +
+  xlab("Poisson") +
+  theme_bw() +
+  theme(
+    strip.text = element_text(size = 12, face = "bold"),
+    axis.text = element_text(size = 14),
+    axis.title = element_text(size = 16,face = "bold")
+  )
+p4
+
+
+p1 + p2 + p3 + p4 + plot_layout(ncol = 2)
+
+ggsave("_sessions/MixedModels/image/dist_ex_plot.png", width = 8,
+       height = 6, device = "png", dpi = 600)

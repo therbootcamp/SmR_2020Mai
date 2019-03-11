@@ -79,7 +79,7 @@ baselers <- read_csv("https://raw.githubusercontent.com/therbootcamp/baselers/ma
 baselers <- baselers %>% 
   filter(!is.na(income),!is.na(age),!is.na(height)) %>%
   slice(sample(1:nrow(baselers),1000)) %>% 
-  mutate(sex01 = sex == 'male')
+  mutate(sex01 = as.numeric(sex == 'male'))
 source("https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_materials/code/baselrbootcamp_palettes.R")
 set.seed(102)
 x <- rnorm(10)
@@ -189,7 +189,7 @@ fixed and random effects
 
 # Mixed Effects
 
-.pull-left35[
+.pull-left45[
 
 
 Mixed effects models combine two kinds of effects that serve different purposes:
@@ -199,9 +199,22 @@ Mixed effects models combine two kinds of effects that serve different purposes:
 * <high>Random effects</high>
 
 
+```{r eval = FALSE}
+### Structure of a mixed effects model:
+
+            # Fixed effects part
+LMM <- lmer(y ~ FE1 + FE2 +
+            # Random effects part
+              (FE1|RE) + (FE2|RE),
+            # Data
+            data = df)
+```
+
+
+
 ]
 
-.pull-right55[
+.pull-right45[
 
 
 <img src="image/MEM_example.png" width="100%" style="display: block; margin: auto;" />
@@ -274,7 +287,7 @@ As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/
 
 ---
 
-# Fixed Effects Only Model - Math
+# Fixed Effects Only Model - Equations
 
 <br><br><br>
 <img src="image/FE_only.png" width="80%" style="display: block; margin: auto;" />
@@ -291,7 +304,7 @@ As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/
 
 ---
 
-# Random Intercepts Model - Math
+# Random Intercepts Model - Equations
 
 <br><br><br>
 <img src="image/RI_only.png" width="80%" style="display: block; margin: auto;" />
@@ -326,7 +339,7 @@ As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/
 
 ---
 
-# Random Intercepts and Slopes Model - Math
+# Random Intercepts and Slopes Model - Equations
 
 <br><br><br>
 <img src="image/RI_RS.png" width="80%" style="display: block; margin: auto;" />
@@ -362,7 +375,7 @@ As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/
 
 ---
 
-# Crossed Random Effects Model - Math
+# Crossed Random Effects Model - Equations
 
 <br><br><br>
 <img src="image/Cr_RI_RS.png" width="80%" style="display: block; margin: auto;" />
@@ -380,7 +393,7 @@ As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/
 # Crossed vs. Nested Random Effects
 <br>
 .pull-left35[
-<img src="image/crossed_RE.png" width="86%" style="display: block; margin: auto;" />
+<img src="image/crossed_RE.png" width="85%" style="display: block; margin: auto;" />
 <p align = "center">
 <figcaption align = "center" style="display: block; margin: auto;">Crossed Random Effects</figcaption>
 </p>
@@ -433,18 +446,52 @@ Every level of the nested factor only appears within a single level of the highe
 
 .pull-left45[
 
-Specifying the correct random effects structure is important. Failure to do so can result in
+Specifying the correct random effects structure is important. Failure to do so can result in inflated Type I errors
 
-* biased estimates
-* inflate Type I errors
+Therefore, you should specify the <high>maximal random effects structure justified by the design</high> (maximal model; [Barr et al., 2014](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3881361/pdf/nihms533954.pdf)).
 
-For this reason, you should specify the <high>maximal random effects structure justified by the design</high> [Barr et al., 2014](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3881361/pdf/nihms533954.pdf)
+Note that this often leads to convergence problems and the random effects structure then has to be adapted.
 
 ]
 
 .pull-right45[
 
-PROCEDURE OF SPECIFYING MAXIMAL RANDOM EFFECTS STRUCTURE
+<p align = "center">
+<img src="image/maximal.jpg" height=200px><br>
+<font style="font-size:10px">from <a href="https://www.vorsorge-3a.ch/vorsorge-saeule-3a/einzahlung-maximal-betrag-beitrag-steuerabzug.html">vorsoge-3a.ch</a></font>
+</p>
+
+
+]
+
+
+---
+
+# Keep It Maximal
+
+.pull-left45[
+
+Specifying the maximal model in our example:
+
+* By-subject random effects: Random intercepts and slopes, with correlations, for all within-subject factors (<high>state</high> in our case).
+
+* By-item random effects: Ignore the participant effect. Then the random effects structure of the item effect is the combination of all factors varying within items (again <high>state</high> in our case).
+
+]
+
+.pull-right45[
+
+<p align = "center">
+<img src="image/participants.jpg" height=150px><br>
+<font style="font-size:10px">from <a href="https://www.simpleusability.com/inspiration/2018/07/when-and-how-you-should-reuse-research-participants/">simpleusability.com</a></font>
+</p>
+
+<p align = "center">
+<img src="image/items.jpg" height=150px><br>
+<font style="font-size:10px">from <a href="https://www.bachelorprint.de/fragebogen-erstellen/">bachelorprint.de</a></font>
+</p>
+
+
 
 ]
 
@@ -513,18 +560,31 @@ Random effects are specified with a new element to the formulas:
 
 ---
 
-# Regression <i>applied</i>
+# Generalized Mixed Effects Models
 
-.pull-left45[
-other error distributions and link functions
+.pull-left55[
 
-OTHER ERROR DISTRIBUTIONS AND LINK FUNCTIONS
+In our example we used a <high>linear mixed effects model</high> fitted with `lmer()`. This model assumes a <high>Gaussian</high> (normal) distribution of responses, and an <high>identity</high> link function. But other scenarios are possible. For these we use `glmer()`.
+
+For example, if we had binary data to predict:
+
+```{r eval=FALSE}
+# example of a mixed model with binomial
+# distribution of the responses and a logit
+# link function
+glmm_out <- glmer(fasnacht ~ alcohol + (alcohol|id),
+                  data = baselers,
+                  family = binomial(link = "logit"))
+
+```
+
+
 
 ]
 
 .pull-right45[
 
-IMAGE OF LOG LINK FUNCTION
+<img src="image/dist_ex_plot.png" width="100%" style="display: block; margin: auto;" />
 
 ]
 ---
