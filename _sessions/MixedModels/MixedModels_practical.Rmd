@@ -188,28 +188,30 @@ tom_df <- tom_df %>%
 
 ```{r}
 # Use lm, as lmer only works if at least one random effect is specified
-FE_mod <- lm(Tomatometer ~ State, data = tom_df)
+FE_mod <- glm(Tomatometer ~ State, data = tom_df)
 
 # look at the resuts
 summary(FE_mod)
 ```
 
 
-4. In the talk, you have learned that if we have repeated measures, the indepence assumption is violated. We can account for this by running a mixed effects model. Run a model with by-subjects random intercepts (subjects identifiers are stored in the `ID` variable). *Hint*: Random effects are specified in parenthesis in the formula in the following way `(`[design_matrix](https://en.wikipedia.org/wiki/Design_matrix)`|grouping_variable)`.
+4. In the talk, you have learned that if we have repeated measures, the indepence assumption is violated. We can account for this by running a mixed effects model. Run a model with by-subjects random intercepts (subjects identifiers are stored in the `ID` variable). *Hint*: Random effects are specified in parenthesis in the formula in the following way `(`[design_matrix](https://en.wikipedia.org/wiki/Design_matrix)`|grouping_variable)`. **Note**: Do you see the `REML = FALSE` in the model specification? It tells R to fit the model using maximum likelihood (ML), rather than restricted maximul likelihood (REML; for more information on this in a technical approach see [here](https://projecteuclid.org/euclid.cbms/1462106081) and [here](http://www.stats.net.au/Maths_REML_manual.pdf), for a less technical approach see [here](https://en.wikipedia.org/wiki/Restricted_maximum_likelihood)). This will later be important for certain model comparisons that only work if the model was fitted using ML.
 
 
 ```{r echo = TRUE, eval = FALSE}
 # Mixed effects model with by-subject random intercepts
 subj_RI_mod <- lmer(XXX ~ XXX +           # These are the fixed effects
                     (1|XXX),              # These are the random effects
-                    data = tom_df)        # Specify the data used
+                    data = XXX,           # Specify the data used
+                    REML = FALSE)
 ```
 
 ```{r}
 # Mixed effects model with by-subject random intercepts
 subj_RI_mod <- lmer(Tomatometer ~ State + # These are the fixed effects
                     (1|ID),               # These are the random effects
-                    data = tom_df)        # Specify the data used
+                    data = tom_df,        # Specify the data used
+                    REML = FALSE)
 ```
 
 
@@ -249,14 +251,16 @@ ranef(subj_RI_mod)
 # Mixed effects model with by-subject random intercepts and slopes
 subj_RI_RS_mod <- lmer(XXX ~ XXX +          # These are the fixed effects
                       (XXX|XXX),            # These are the random effects
-                      data = tom_df)        # Specify the data used
+                      data = XXX,           # Specify the data used
+                      REML = FALSE)
 ```
 
 ```{r}
 # Mixed effects model with by-subject random intercepts and slopes
 subj_RI_RS_mod <- lmer(Tomatometer ~ State + # These are the fixed effects
                       (State|ID),            # These are the random effects
-                      data = tom_df)         # Specify the data used
+                      data = tom_df,         # Specify the data used
+                      REML = FALSE)
 ```
 
 9. Compare the outputs of the fixed effects only model, of the by-subjects random intercepts model, and of the by-subjects random intercepts and slopes model. Did the coefficients change? Why not? What did change?
@@ -279,14 +283,16 @@ summary(FE_mod)
 # Mixed effects model with by-subject and by-movie random intercepts and slopes
 max_mod <- lmer(XXX ~ XXX +           # These are the fixed effects
                (XXX|XXX) + (XXX|XXX), # These are the random effects
-               data = tom_df)         # Specify the data used
+               data = XXX,            # Specify the data used
+               REML = FALSE)
 ```
 
 ```{r}
 # Mixed effects model with by-subject and by-movie random intercepts and slopes
 max_mod <- lmer(Tomatometer ~ State +       # These are the fixed effects
                (State|ID) + (State|Movie),  # These are the random effects
-               data = tom_df)               # Specify the data used
+               data = tom_df,               # Specify the data used
+               REML = FALSE)
 ```
 
 11. Compare the results with those of the earlier models.
@@ -311,22 +317,24 @@ As you probably noticed, the `lmer()` summary output does not include p-values. 
 
 #### Likelihood Ration Test
 
-One possibility to obtain p-values is by running a likelihood ration test ([LRT](https://en.wikipedia.org/wiki/Likelihood-ratio_test)). In an LRT, the model is fitted once with and once without the fixed effect of interest, all else being equal. These two models are then compared in using the LRT. However, LRTs tend to slightly underestimate the p-values of fixed effects, so if the p-value is just below the threshold (often .05), you may want to use a more accurate, more conservative method. Using this test with linear mixed effects models adds a slight complication (which you won't really notice as R will take care of it in the background): In `lme4`, linear mixed models are fitted by restricted maximum likelihood (REML), rather than maximul likelihood (ML; for more information on this in a technical approach see [here](https://projecteuclid.org/euclid.cbms/1462106081) and [here](http://www.stats.net.au/Maths_REML_manual.pdf), for a less technical approach see [here](https://en.wikipedia.org/wiki/Restricted_maximum_likelihood)).
+One possibility to obtain p-values is by running a likelihood ration test ([LRT](https://en.wikipedia.org/wiki/Likelihood-ratio_test)). In an LRT, the model is fitted once with and once without the fixed effect of interest, all else being equal. These two models are then compared in using the LRT. However, LRTs tend to slightly underestimate the p-values of fixed effects, so if the p-value is just below the threshold (often .05), you may want to use a more accurate, more conservative method. This test is why we used `REML = FALSE` when fitting the mixed effects models.
 
-1. For this test, we will use the maximal model, that is, `max_mod` from B10. We first need to fit the model without the fixed effect of interest (i.e., without `State`). Run this model and save it as IO_mod (for Intercept Only model).
+1. For this test, we will use the a model with by-subject and by-item random intercepts, and compare it to the same model without the fixed effect of interest (i.e., without `State`). First, fit the intercept only model (`IO_mod`).
 
 ```{r echo = TRUE, eval = FALSE}
 # Intercept only mixed effects model with by-subject and by-movie random intercepts
 IO_mod <- lmer(XXX ~ 1 +         # There are no fixed effects so add 1 to fit the intercept
               (1|XXX) + (1|XXX), # These are the random effects
-              data = tom_df)     # Specify the data used
+              data = XXX,        # Specify the data used
+              REML = FALSE)
 ```
 
 ```{r}
 # Intercept only mixed effects model with by-subject and by-movie random intercepts
 IO_mod <- lmer(Tomatometer ~ 1 +    # There are no fixed effects so add 1 to fit the intercept
                (1|ID) + (1|Movie),  # These are the random effects
-               data = tom_df)       # Specify the data used
+               data = tom_df,       # Specify the data used
+               REML = FALSE)
 ```
 
 
@@ -336,7 +344,25 @@ IO_mod <- lmer(Tomatometer ~ 1 +    # There are no fixed effects so add 1 to fit
 summary(IO_mod)
 ```
 
-3. Perform an LRT using the `anova()` function, by entering both model outputs as arguments.
+3. Now fit the by-subject and by-item random intercepts. Call this `RI_mod`
+
+```{r echo = TRUE, eval = FALSE}
+# Intercept only mixed effects model with by-subject and by-movie random intercepts
+RI_mod <- lmer(XXX ~ XXX +         # The fixed effects
+              (1|XXX) + (1|XXX),   # These are the random effects
+              data = XXX,          # Specify the data used
+              REML = FALSE)
+```
+
+```{r}
+# Intercept only mixed effects model with by-subject and by-movie random intercepts
+RI_mod <- lmer(Tomatometer ~ State +    # The fixed effects
+               (1|ID) + (1|Movie),  # These are the random effects
+               data = tom_df,       # Specify the data used
+               REML = FALSE)
+```
+
+4. Perform an LRT using the `anova()` function, by entering both model outputs as arguments.
 
 ```{r echo = TRUE, eval = FALSE}
 # Perform an LRT using the anova() function
@@ -346,7 +372,7 @@ anova(XXX, XXX)
 
 ```{r}
 # Perform an LRT using the anova() function
-anova(IO_mod, max_mod)
+anova(IO_mod, RI_mod)
 ```
 
  
@@ -395,7 +421,7 @@ pb_mod <- bootMer(max_mod, IO_mod, nsim = 100)
 
 8. Print the `pb_mod` object and inspect the results. Are the results different from the other tests you've performed before?
   
-#### Other Test
+#### Other Tests
 
 9. Another way of obtaining p-values with the t-statistic and a [Wald test](https://en.wikipedia.org/wiki/Wald_test) by using the `p_value()` function of the `sjstats` package. Enter `max_mod` to the `p_value()` function.
 
@@ -419,32 +445,106 @@ p_value(max_mod, p.kr = TRUE)
 
 11. Compare the output of the tasks C9. and C10. Did things change? The reason why not is that the assumptions were all satisfied as the data was simulated with these assumptions, but with noisier real life data this may look different.
 
-### D - Determining the Importance of Random Effects
+### D - Determining the "Significance" of Random Effects (Model Selection)
 
-Just as we may be interested whether the fixed effects are significantly related to the outcome variable, we may also be interested whether the variance in the random effects is substantial, that is, whether it is significantly different from zero. This may help deciding whether a random effect should be included or not. You may remember the *keep it maximal* principle, which states that you should always specify the maximal random effects structure justified by the design to guard against type I error inflation ([Barr, Levy, Scheepers, & Tily, 2013](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3881361/)). However, the maximal model may come with a loss of power and it may make sense to select which random effects structure to use ([Matuschek, Kliegl, Vasishth. Baayen, & Bates](https://www.sciencedirect.com/science/article/pii/S0749596X17300013)). To express it with the words of Matuschek and Colleagues: "[A] parsimonious mixed model [...] containing only variance components supported by the data improves the balance between Type I error and power" (p. 305).
+Just as we may be interested whether the fixed effects are significantly related to the outcome variable, we may also be interested whether the variance in the random effects is substantial, that is, whether it is significantly different from zero. This may help deciding whether a random effect should be included or not. You may remember the *keep it maximal* principle, which states that you should always specify the maximal random effects structure justified by the design to guard against type I error inflation ([Barr, Levy, Scheepers, & Tily, 2013](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3881361/)). However, the maximal model may come with a loss of power to detect fixed effects and it may make sense to select which random effects structure to use ([Matuschek, Kliegl, Vasishth, Baayen, & Bates, 2017](https://www.sciencedirect.com/science/article/pii/S0749596X17300013)). To express it with the words of Matuschek and Colleagues: "[A] parsimonious mixed model [...] containing only variance components supported by the data improves the balance between Type I error and power" (p. 305). To select which model to use, we will use LRTs.
+
+When performing this LRT, we cannot use the usual alpha limit of .05. To see why, read the following quote from [Matuschek and colleagues (2017; p. 308)](https://www.sciencedirect.com/science/article/pii/S0749596X17300013)
+
+> Within the context of model selection, it is important to resist the reflex of choosing $\alpha_{LRT} = 0.05$. The $\alpha_{LRT}$ cannot be interpreted as the ‘‘expected model-selection Type I error-rate” but rather as the relative weight of model complexity and goodness-of-fit. For example, choosing $\alpha_{LRT} = 0$, an infinite penalty on the model complexity is implied and consequently the minimal model is always chosen as the best, irrespective of the evidence provided by the data. Choosing $\alpha_{LRT} = 1$ implies an infinite penalty on the goodness-of-fit, and the maximal model is always chosen as the best. Therefore, choosing $\alpha_{LRT} = 0.05$ may imply an overly strong penalty on the model complexity and hence select a reduced model even if data favor a more complex one.
+
+We will follow their example and use $\alpha_{LRT} = 0.2$. As the `anova()` function uses $\alpha = 0.05$ we will have to implement this procedure ourselves.
 
 
+1. First, we have to fit the model whose complexity is one step lower compared to the maximal model. Think about which model this would be and write down the answer as a comment in your script. Don't cheat by looking at the next task!
 
-#### Likelihood Ratio Test
+```{r echo = TRUE}
+# This is just a placeholder to increase the space to the next task to make it 
+# easier to not cheat.
 
-To this end, we can perform an LRT and inspect the confidence intervals of the random effect parameters. Note that because zero is the lower boundary of the variance, this is a special case where tests we usually perform may not yield precise results, as they are not intended for use on boundary conditions.
+# There is nothing to see here...
 
-Again we will start with the LRT. Because we are dealing with a boundary condition, the LRT is conservative, that is, if it is significant, you can be reasonably confident, that the random effects capture a significant amount of variance.
+# Just a random sidenote (which is actually very interesting, so you may want to
+# to read on even if this kind of defies the purpos of this part to prevent you from
+# looking at the answers first; so consider first completing the task and then reading
+# the random but somehow terribly interesting sidenote):
+#     Did you know that the reason why R uses the arrow "<-" as assignment
+#     operator is because it is based on S, which in turn is based on APL.
+#     Now apparently, APL was designed on a specific keyboard that had a
+#     "<-" key and there was no "==" implemented to test equality. So equality
+#     was tested using "=" and "<-" was chosen as asignment operator
+#     (info obtained from this blogpost: https://colinfay.me/r-assignment/)
+```
 
-1. 
- 
+
+2. The answer to the last task is that you can constrain the correlation of the random intercepts and random slopes to zero. To do this you can use the double bar `||` in the random effects structure, that is `(design_matrix||grouping_variable)`. Fit the maximal model but constrain the correlations to zero. **Note**: We have to use a different optimizer here because otherwise the model fails to converge.
+
+```{r echo = TRUE, eval = FALSE}
+# Constrained mixed effects model with by-subject and by-movie random intercepts and slopes
+con_mod <- lmer(XXX ~ XXX +             # These are the fixed effects
+               (XXX||XXX) + (XXX||XXX), # These are the random effects
+               data = XXX,              # Specify the data used
+               REML = FALSE,
+               control = lmerControl(optimizer = "bobyqa")) # use a different optimizer
+                                                            # to avoid non convergence
+```
+
 ```{r}
-# Intercept only mixed effects model with by-subject and by-movie random intercepts
-ID_mod <- lmer(Tomatometer ~ State +    # There are no fixed effects so add 1 to fit the intercept
-               (State|ID),  # These are the random effects
-               data = tom_df)       # Specify the data used
+# Constrained mixed effects model with by-subject and by-movie random intercepts and slopes
+con_mod <- lmer(Tomatometer ~ State +         # These are the fixed effects
+               (State||ID) + (State||Movie),  # These are the random effects
+               data = tom_df,                 # Specify the data used
+               REML = FALSE,
+               control = lmerControl(optimizer = "bobyqa")) # use a different optimizer
+                                                            # to avoid non convergence
+```
 
+3. Now that we have both model outputs ready we can prepare the setup for the LRT.
+
+```{r}
+
+deviance(IO_mod) - deviance(max_mod)
+  alpha <- 0.20
+  s1 <- qchisq(1-alpha, df=1)
+  s2 <- qchisq(1-alpha, df=2)
+
+deviance(max_mod)
+# Intercept only mixed effects model with by-subject and by-movie random intercepts
+NC_mod <- lmer(Tomatometer ~ State +    # There are no fixed effects so add 1 to fit the intercept
+               (State||ID) + (State||Movie),  # These are the random effects
+               data = tom_df, REML = FALSE)       # Specify the data used
+max_mod <- lmer(Tomatometer ~ State +    # There are no fixed effects so add 1 to fit the intercept
+               (State|ID) + (State|Movie),  # These are the random effects
+               data = tom_df, REML = FALSE)  
+xx <- anova(IO_mod, max_mod)
+deviance(IO_mod) - deviance(max_mod)
 # LRT calculated using the loglik() function
 #
 G2 = -2 * logLik(ID_mod) + 2 * logLik(max_mod)
 pchisq(as.numeric(G2), df=1, lower.tail=F)
 
-anova(max_mod, ID_mod)
+anova(max_mod, NC_mod)
+
+barr_modsel_backward <- function(stat) {
+  # Backward scheme: 
+  #  Choose the more complex model only if there is 
+  #  a sig. difference between the two models (LRT, alpha = 0.20)
+  alpha <- 0.20
+  s1 <- qchisq(1-alpha, df=1)
+  s2 <- qchisq(1-alpha, df=2)
+  
+  # if model 1 is better than 2 -> choose 1
+  if ( (stat[2,"Dev"]-stat[1,"Dev"])>s2 ) { return(1); }
+  # if model 2 is better than either 3 or 4 -> choose 2
+  if ( ((stat[3,"Dev"]-stat[2,"Dev"])>s1) || ((stat[4,"Dev"]-stat[2,"Dev"])>s1) ) { return(2); }
+  # else if model 3 is better than 5  -> choose 3
+  if ( (stat[5,"Dev"]-stat[3,"Dev"])>s1 ) { return(3); }
+  # else if model 4 is better than 5  -> choose 4
+  if ( (stat[5,"Dev"]-stat[4,"Dev"])>s1 ) { return(4); }
+  # else choose 5
+  return(5);
+}
+
 ```
  
  

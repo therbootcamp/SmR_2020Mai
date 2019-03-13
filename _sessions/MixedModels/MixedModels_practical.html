@@ -260,7 +260,7 @@ XXX</code></pre>
 <li>Run fixed effects only model predicting <code>Tomatometer</code> with <code>State</code> and save the result as <code>FE_mod</code>. Then inspect the results.</li>
 </ol>
 <pre class="r"><code># Use lm, as lmer only works if at least one random effect is specified
-FE_mod &lt;- lm(XXX ~ XXX, data = XXX)
+FE_mod &lt;- glm(XXX ~ XXX, data = XXX)
 
 # Inspect the resuts
 summary(FE_mod)</code></pre>
@@ -272,12 +272,13 @@ tom_df &lt;- tom_df %&gt;%
   mutate(State = factor(State, levels = c(&quot;Sober&quot;, &quot;Drunk&quot;)))</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li><p>Now rerun your model from task B1 (the only thing that should change is that your coefficient is now called <code>StateDrunk</code> and now has a positive sign, and that your Intercept now shows the mean of the Sober condition).</p></li>
-<li><p>In the talk, you have learned that if we have repeated measures, the indepence assumption is violated. We can account for this by running a mixed effects model. Run a model with by-subjects random intercepts (subjects identifiers are stored in the <code>ID</code> variable). <em>Hint</em>: Random effects are specified in parenthesis in the formula in the following way <code>(</code><a href="https://en.wikipedia.org/wiki/Design_matrix">design_matrix</a><code>|grouping_variable)</code>.</p></li>
+<li><p>In the talk, you have learned that if we have repeated measures, the indepence assumption is violated. We can account for this by running a mixed effects model. Run a model with by-subjects random intercepts (subjects identifiers are stored in the <code>ID</code> variable). <em>Hint</em>: Random effects are specified in parenthesis in the formula in the following way <code>(</code><a href="https://en.wikipedia.org/wiki/Design_matrix">design_matrix</a><code>|grouping_variable)</code>. <strong>Note</strong>: Do you see the <code>REML = FALSE</code> in the model specification? It tells R to fit the model using maximum likelihood (ML), rather than restricted maximul likelihood (REML; for more information on this in a technical approach see <a href="https://projecteuclid.org/euclid.cbms/1462106081">here</a> and <a href="http://www.stats.net.au/Maths_REML_manual.pdf">here</a>, for a less technical approach see <a href="https://en.wikipedia.org/wiki/Restricted_maximum_likelihood">here</a>). This will later be important for certain model comparisons that only work if the model was fitted using ML.</p></li>
 </ol>
 <pre class="r"><code># Mixed effects model with by-subject random intercepts
 subj_RI_mod &lt;- lmer(XXX ~ XXX +           # These are the fixed effects
                     (1|XXX),              # These are the random effects
-                    data = tom_df)        # Specify the data used</code></pre>
+                    data = XXX,           # Specify the data used
+                    REML = FALSE)</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li><p>Using <code>summary()</code>, inspect the results of the mixed effects model. Did the effect of <code>State</code> change, now that you incorporated the random effects? Can you find out what did change from the model outputs? (Did you note that there were no p-values in the output? We will look into that later in this practical)</p></li>
 <li><p>Sometimes when we want to make plots or tables, it is usefull if we can extract the estimates from the model output so we don’t have to manually type them (which is error prone). The <code>lme4</code> package provides functions for this. Extract the fixed effects of your model using the <code>fixef()</code> function.</p></li>
@@ -290,7 +291,8 @@ subj_RI_mod &lt;- lmer(XXX ~ XXX +           # These are the fixed effects
 <pre class="r"><code># Mixed effects model with by-subject random intercepts and slopes
 subj_RI_RS_mod &lt;- lmer(XXX ~ XXX +          # These are the fixed effects
                       (XXX|XXX),            # These are the random effects
-                      data = tom_df)        # Specify the data used</code></pre>
+                      data = XXX,           # Specify the data used
+                      REML = FALSE)</code></pre>
 <ol start="9" style="list-style-type: decimal">
 <li><p>Compare the outputs of the fixed effects only model, of the by-subjects random intercepts model, and of the by-subjects random intercepts and slopes model. Did the coefficients change? Why not? What did change?</p></li>
 <li><p>Because each movie was rated in both states, there is also a repetition in the items. This again leads to a violation of the independence assumption. To account for this, we also have to include by-item (i.e. by-movie) random effects. Expand the model from task B8. by adding by-movie random intercepts and slopes. This is now the <em>maximal model justified by the design</em> as it incorporates all possible random effects structures.</p></li>
@@ -298,7 +300,8 @@ subj_RI_RS_mod &lt;- lmer(XXX ~ XXX +          # These are the fixed effects
 <pre class="r"><code># Mixed effects model with by-subject and by-movie random intercepts and slopes
 max_mod &lt;- lmer(XXX ~ XXX +           # These are the fixed effects
                (XXX|XXX) + (XXX|XXX), # These are the random effects
-               data = tom_df)         # Specify the data used</code></pre>
+               data = XXX,            # Specify the data used
+               REML = FALSE)</code></pre>
 <ol start="11" style="list-style-type: decimal">
 <li>Compare the results with those of the earlier models.</li>
 </ol>
@@ -308,17 +311,26 @@ max_mod &lt;- lmer(XXX ~ XXX +           # These are the fixed effects
 <p>As you probably noticed, the <code>lmer()</code> summary output does not include p-values. This is not because the authors of <code>lme4</code> were lazy, but because how to best compute p-values for mixed effects models is a still ongoing discussion. However, several possibilities exist of how to test whether a variable is a significant predictor (i.e., for now, a significant fixed effect).</p>
 <div id="likelihood-ration-test" class="section level4">
 <h4>Likelihood Ration Test</h4>
-<p>One possibility to obtain p-values is by running a likelihood ration test (<a href="https://en.wikipedia.org/wiki/Likelihood-ratio_test">LRT</a>). In an LRT, the model is fitted once with and once without the fixed effect of interest, all else being equal. These two models are then compared in using the LRT. However, LRTs tend to slightly underestimate the p-values of fixed effects, so if the p-value is just below the threshold (often .05), you may want to use a more accurate, more conservative method. Using this test with linear mixed effects models adds a slight complication (which you won’t really notice as R will take care of it in the background): In <code>lme4</code>, linear mixed models are fitted by restricted maximum likelihood (REML), rather than maximul likelihood (ML; for more information on this in a technical approach see <a href="https://projecteuclid.org/euclid.cbms/1462106081">here</a> and <a href="http://www.stats.net.au/Maths_REML_manual.pdf">here</a>, for a less technical approach see <a href="https://en.wikipedia.org/wiki/Restricted_maximum_likelihood">here</a>).</p>
+<p>One possibility to obtain p-values is by running a likelihood ration test (<a href="https://en.wikipedia.org/wiki/Likelihood-ratio_test">LRT</a>). In an LRT, the model is fitted once with and once without the fixed effect of interest, all else being equal. These two models are then compared in using the LRT. However, LRTs tend to slightly underestimate the p-values of fixed effects, so if the p-value is just below the threshold (often .05), you may want to use a more accurate, more conservative method. This test is why we used <code>REML = FALSE</code> when fitting the mixed effects models.</p>
 <ol style="list-style-type: decimal">
-<li>For this test, we will use the maximal model, that is, <code>max_mod</code> from B10. We first need to fit the model without the fixed effect of interest (i.e., without <code>State</code>). Run this model and save it as IO_mod (for Intercept Only model).</li>
+<li>For this test, we will use the a model with by-subject and by-item random intercepts, and compare it to the same model without the fixed effect of interest (i.e., without <code>State</code>). First, fit the intercept only model (<code>IO_mod</code>).</li>
 </ol>
 <pre class="r"><code># Intercept only mixed effects model with by-subject and by-movie random intercepts
 IO_mod &lt;- lmer(XXX ~ 1 +         # There are no fixed effects so add 1 to fit the intercept
               (1|XXX) + (1|XXX), # These are the random effects
-              data = tom_df)     # Specify the data used</code></pre>
+              data = XXX,        # Specify the data used
+              REML = FALSE)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li><p>Look at the model output using <code>summary()</code>.</p></li>
-<li><p>Perform an LRT using the <code>anova()</code> function, by entering both model outputs as arguments.</p></li>
+<li><p>Now fit the by-subject and by-item random intercepts. Call this <code>RI_mod</code></p></li>
+</ol>
+<pre class="r"><code># Intercept only mixed effects model with by-subject and by-movie random intercepts
+RI_mod &lt;- lmer(XXX ~ XXX +         # The fixed effects
+              (1|XXX) + (1|XXX),   # These are the random effects
+              data = XXX,          # Specify the data used
+              REML = FALSE)</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Perform an LRT using the <code>anova()</code> function, by entering both model outputs as arguments.</li>
 </ol>
 <pre class="r"><code># Perform an LRT using the anova() function
 anova(XXX, XXX)</code></pre>
@@ -338,32 +350,73 @@ ci_mod &lt;- confint(XXX)</code></pre>
 <div id="parametric-bootstrap" class="section level4">
 <h4>Parametric Bootstrap</h4>
 <p>Yet another test of significance, and the one you should prefer in an uncertain case (i.e., if p-values are on the border of your alpha-level), is to use parametric bootstrap, where, many times, data is resampled with replacement and then the model fitted again, to obtain an empirical distribution of the effect or parameter of interest. The drawback of this technique is that it can take rather long because it reestimates the model many times to generate a distribution.</p>
-<ol style="list-style-type: decimal">
+<ol start="6" style="list-style-type: decimal">
 <li>For linear mixed effects models (fit using <code>lmer()</code>) you can also use the <code>PBmodcomp()</code> function from the <code>pbkrtest</code> package. Check out the help function of <code>PBmodcomp()</code> like this.</li>
 </ol>
 <pre class="r"><code>?PBmodcomp</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Now use the <code>PBmodcomp()</code> function to get p-values for the model. As you surely noticed from the help page, you will have to specify a smaller model against which to test. Use <code>IO_mod</code> for this. Also, because this procedure can take rather long, only use 100 simulations.</li>
+<ol start="7" style="list-style-type: decimal">
+<li>Now use the <code>PBmodcomp()</code> function to get p-values for the model. As you surely noticed from the help page, you will have to specify a smaller model against which to test. Use <code>IO_mod</code> for this. Also, because this procedure can take rather long, only use 100 simulations (when you perform your “real” analyses you may want to increase this number to 1000 or more).</li>
 </ol>
 <pre class="r"><code># perform parametric bootstrap
 pb_mod &lt;- PBmodcomp(XXX, XXX, XXX = XXX)</code></pre>
-<ol start="3" style="list-style-type: decimal">
+<ol start="8" style="list-style-type: decimal">
 <li>Print the <code>pb_mod</code> object and inspect the results. Are the results different from the other tests you’ve performed before?</li>
 </ol>
 </div>
+<div id="other-tests" class="section level4">
+<h4>Other Tests</h4>
+<ol start="9" style="list-style-type: decimal">
+<li>Another way of obtaining p-values with the t-statistic and a <a href="https://en.wikipedia.org/wiki/Wald_test">Wald test</a> by using the <code>p_value()</code> function of the <code>sjstats</code> package. Enter <code>max_mod</code> to the <code>p_value()</code> function.</li>
+</ol>
+<pre class="r"><code># Compute p-values for the fixed effects
+p_value(XXX)</code></pre>
+<ol start="10" style="list-style-type: decimal">
+<li><p>As this test may not be appropriate for mixed effects models, we can extend the <code>p_value()</code> function with an additional argument <code>p.kr = TRUE</code>. Then the function will compute p-values based on conditional F-tests with <a href="https://www.jstatsoft.org/article/view/v059i09">Kenward-Roger approximation</a> for the degrees of freedom. Repeat the previous task by extending the function with <code>p.kr = TRUE</code> (Note that this approach is computationally rather expensive and thus will take a while to complete).</p></li>
+<li><p>Compare the output of the tasks C9. and C10. Did things change? The reason why not is that the assumptions were all satisfied as the data was simulated with these assumptions, but with noisier real life data this may look different.</p></li>
+</ol>
 </div>
-<div id="d---computing-p-values-for-random-effects" class="section level3">
-<h3>D - Computing p-Values for Random Effects</h3>
-<p>Just as we may be interested whether the fixed effects are significantly related to the outcome variable, we may also be interested whether the variance in the random effects is substantial, that is, whether it is significantly different from zero. This may help deciding whether a random effect should be included or not (although, remember the keep it maximal principle, but sometimes, the maximal model does not converge and one has to reduce it to a simpler model). Note that because zero is the lower boundary of the variance, this is a special case where tests we usually perform may not yield precise results, as they are not intended for use on boundary conditions. The methods we can use to obtain p-values are, among others, the same as used in the last section on p-values for fixed effects.</p>
-<div id="likelihood-ratio-test" class="section level4">
-<h4>Likelihood Ratio Test</h4>
-<p>Again we will start with the LRT. Because we are dealing with a boundary condition, the LRT is conservative, that is, if it is significant, you can be reasonably confident, that the random effects capture a significant amount of variance.</p>
+</div>
+<div id="d---determining-the-significance-of-random-effects-model-selection" class="section level3">
+<h3>D - Determining the “Significance” of Random Effects (Model Selection)</h3>
+<p>Just as we may be interested whether the fixed effects are significantly related to the outcome variable, we may also be interested whether the variance in the random effects is substantial, that is, whether it is significantly different from zero. This may help deciding whether a random effect should be included or not. You may remember the <em>keep it maximal</em> principle, which states that you should always specify the maximal random effects structure justified by the design to guard against type I error inflation (<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3881361/">Barr, Levy, Scheepers, &amp; Tily, 2013</a>). However, the maximal model may come with a loss of power to detect fixed effects and it may make sense to select which random effects structure to use (<a href="https://www.sciencedirect.com/science/article/pii/S0749596X17300013">Matuschek, Kliegl, Vasishth, Baayen, &amp; Bates, 2017</a>). To express it with the words of Matuschek and Colleagues: “[A] parsimonious mixed model […] containing only variance components supported by the data improves the balance between Type I error and power” (p. 305). To select which model to use, we will use LRTs.</p>
+<p>When performing this LRT, we cannot use the usual alpha limit of .05. To see why, read the following quote from <a href="https://www.sciencedirect.com/science/article/pii/S0749596X17300013">Matuschek and colleagues (2017; p. 308)</a></p>
+<blockquote>
+<p>Within the context of model selection, it is important to resist the reflex of choosing <span class="math inline">\(\alpha_{LRT} = 0.05\)</span>. The <span class="math inline">\(\alpha_{LRT}\)</span> cannot be interpreted as the ‘‘expected model-selection Type I error-rate” but rather as the relative weight of model complexity and goodness-of-fit. For example, choosing <span class="math inline">\(\alpha_{LRT} = 0\)</span>, an infinite penalty on the model complexity is implied and consequently the minimal model is always chosen as the best, irrespective of the evidence provided by the data. Choosing <span class="math inline">\(\alpha_{LRT} = 1\)</span> implies an infinite penalty on the goodness-of-fit, and the maximal model is always chosen as the best. Therefore, choosing <span class="math inline">\(\alpha_{LRT} = 0.05\)</span> may imply an overly strong penalty on the model complexity and hence select a reduced model even if data favor a more complex one.</p>
+</blockquote>
+<p>We will follow their example and use <span class="math inline">\(\alpha_{LRT} = 0.2\)</span>. As the <code>anova()</code> function uses <span class="math inline">\(\alpha = 0.05\)</span> we will have to implement this procedure ourselves.</p>
 <ol style="list-style-type: decimal">
-<li></li>
+<li>First, we have to fit the model whose complexity is one step lower compared to the maximal model. Think about which model this would be and write down the answer as a comment in your script. Don’t cheat by looking at the next task!</li>
+</ol>
+<pre class="r"><code># This is just a placeholder to increase the space to the next task to make it 
+# easier to not cheat.
+
+# There is nothing to see here...
+
+# Just a random sidenote (which is actually very interesting, so you may want to
+# to read on even if this kind of defies the purpos of this part to prevent you from
+# looking at the answers first; so consider first completing the task and then reading
+# the random but somehow terribly interesting sidenote):
+#     Did you know that the reason why R uses the arrow &quot;&lt;-&quot; as assignment
+#     operator is because it is based on S, which in turn is based on APL.
+#     Now apparently, APL was designed on a specific keyboard that had a
+#     &quot;&lt;-&quot; key and there was no &quot;==&quot; implemented to test equality. So equality
+#     was tested using &quot;=&quot; and &quot;&lt;-&quot; was chosen as asignment operator
+#     (info obtained from this blogpost: https://colinfay.me/r-assignment/)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>The answer to the last task is that you can constrain the correlation of the random intercepts and random slopes to zero. To do this you can use the double bar <code>||</code> in the random effects structure, that is <code>(design_matrix||grouping_variable)</code>. Fit the maximal model but constrain the correlations to zero.</li>
+</ol>
+<pre class="r"><code># Constrained mixed effects model with by-subject and by-movie random intercepts and slopes
+con_mod &lt;- lmer(XXX ~ XXX +             # These are the fixed effects
+               (XXX||XXX) + (XXX||XXX), # These are the random effects
+               data = XXX,              # Specify the data used
+               REML = FALSE,
+               control = lmerControl(optimizer = &quot;bobyqa&quot;)) # use a different optimizer
+                                                            # to avoid non convergence</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>You can ignore the warning for now</li>
 </ol>
 <p>significance tests for random effects - LRT -&gt; conservative because on the boundary</p>
-<p>also LRT but better approx than above (but only works for linear models -&gt; by Crainiceanu, C. and Ruppert, D. ( 2004 )) <code>exactRLRT(mm)</code> Test if random effect is needed:</p>
-</div>
+<p>also LRT but better approx than above (but only works for linear models -&gt; by Crainiceanu, C. and Ruppert, D. ( 2004 )) <code>exactRLRT(mm)</code></p>
 <div id="confidence-intervals-1" class="section level4">
 <h4>Confidence Intervals</h4>
 <p>In the previous section we learned that we can, instead of computing a p-value, obtain confidence intervals for fixed effects and check if they include zero. For random effects we can do exactly the same.</p>
@@ -371,21 +424,17 @@ pb_mod &lt;- PBmodcomp(XXX, XXX, XXX = XXX)</code></pre>
 <li>You can obtain confidence intervals for the random effects with the same function you’ve used before for the fixed effects: teh <code>confint()</code> function of the <code>lme4</code> package. You should still have the output stored as <code>ci_mod</code>. Print this object again and inspect the confidence intervals of the random effects.</li>
 </ol>
 </div>
-<div id="parametric-bootstrap-1" class="section level4">
-<h4>Parametric Bootstrap</h4>
-<p>The same logic as in the previous section on p-values for fixed effects applies for the random effects. We need two models, the model you want to test and a simpler one without the effect of interest, to test against each other.</p>
+</div>
+<div id="e---r2-and-residual-variances" class="section level3">
+<h3>E - <span class="math inline">\(R^2\)</span> and Residual Variances</h3>
+<p>When fitting statistical models, we are usually interested in how much systematic variation they can capture. In linear (mixed effects) models this is the <span class="math inline">\(R^2\)</span> value, for generalized (mixed effects) models, we can compute pseudo <span class="math inline">\(R^2\)</span> values. The <code>sjstats</code> package comes with methods to obtain such <em>goodness-of fit measures</em> for regression models.</p>
 <ol style="list-style-type: decimal">
-<li>Compare the fixed effects only model from task B1. with the by-subjects random intercepts model from task B</li>
+<li><p>To obtain the <span class="math inline">\(R^2\)</span> of our model, we will use the <code>r2()</code> function from the <code>sjstats</code> package. Look at the help menue of the function to get an overview of what models you can use it for.</p></li>
+<li><p>Compute the <span class="math inline">\(R^2\)</span> of the</p></li>
 </ol>
-<ul>
-<li>parametric bootstrap (pbnm):</li>
-</ul>
-</div>
-</div>
-<div id="e---r2-values" class="section level3">
-<h3>E - <span class="math inline">\(R^2\)</span> Values</h3>
 <p>get variances using the sjstats package (see <a href="ftp://cran.r-project.org/pub/R/web/packages/sjstats/vignettes/mixedmodels-statistics.html" class="uri">ftp://cran.r-project.org/pub/R/web/packages/sjstats/vignettes/mixedmodels-statistics.html</a>):</p>
 <p>also r- squared and iccs: r2() and (latter possibly with adjusted = TRUE)</p>
+<p>cod() -&gt; get Tjurs D for binary outcome models</p>
 </div>
 <div id="f---intra-class-correlation" class="section level3">
 <h3>F - Intra-Class Correlation</h3>
