@@ -211,56 +211,200 @@ $(document).ready(function () {
 <p>In this practical you’ll practice “XXX” with the <code>XXX</code> packages.</p>
 <p>By the end of this practical you will know how to:</p>
 <ol style="list-style-type: decimal">
-<li></li>
-<li></li>
-<li></li>
+<li>Run mixed effects models in R.</li>
+<li>Extract p-values for fixed and random effects.</li>
+<li>Specify crossed vs. nested random effects and what implications this has.</li>
+<li>Extract variance components and compute the intra-class correlation</li>
+<li>Visualize your linear mixed effects model.</li>
+<li>Run a generalized mixed effects model.</li>
 </ol>
 </div>
 <div id="tasks" class="section level2">
 <h2>Tasks</h2>
 <div id="a---setup" class="section level3">
 <h3>A - Setup</h3>
-<p>cite this (5 section intro with R to MEM): <a href="https://www.ssc.wisc.edu/sscc/pubs/MM/MM_Introduction.html" class="uri">https://www.ssc.wisc.edu/sscc/pubs/MM/MM_Introduction.html</a> -&gt; Create more movie data once with nested and once with crossed design - also include single random effects desing</p>
-<p>possibilities: - complete pooling -&gt; ignore dependency in data (e.g. averaging) -&gt; check - no pooling -&gt; fit separate regressions to each participant separately - partial pooling -&gt; compromise done in mixed effects models (-&gt; check details again)</p>
-<ul>
-<li>fixed effects model vs mixed effects</li>
-<li>aggregated fit vs mixed effects fit vs overall fit with ignoring the independence assumptin</li>
-<li>shrinkage -&gt; show shrinkage in comparison to separate fits</li>
-<li>crossed vs nested random effects</li>
-<li>intro</li>
-<li>examples -&gt; run both</li>
-<li>use this example <a href="https://www.ssc.wisc.edu/sscc/pubs/MM/MM_MultRand.html" class="uri">https://www.ssc.wisc.edu/sscc/pubs/MM/MM_MultRand.html</a></li>
-<li>maximal random effects structure</li>
-<li>when no convergence, specify structure without correlation</li>
-</ul>
 <p>Datasets: - psych: sai - lme4: penicillin - blogposts/ rstanarm/ arm: schools example</p>
 <ol style="list-style-type: decimal">
 <li><p>Open your <code>BaselRBootcamp</code> R project. It should already have the folders <code>1_Data</code> and <code>2_Code</code>. Make sure that the data files listed in the <code>Datasets</code> section above are in your <code>1_Data</code> folder</p></li>
-<li><p>Open a new R script. At the top of the script, using comments, write your name and the date. Save it as a new file called <code>wrangling_practical.R</code> in the <code>2_Code</code> folder.</p></li>
-<li><p>Using <code>library()</code> load the <code>tidyverse</code> package (if you don’t have it, you’ll need to install it with <code>install.packages()</code>)!</p></li>
+<li><p>Open a new R script. At the top of the script, using comments, write your name and the date. Save it as a new file called <code>MixedModels_practical.R</code> in the <code>2_Code</code> folder.</p></li>
+<li><p>Using <code>library()</code> load the <code>tidyverse</code>, <code>lme4</code>, and <code>sjstats</code> packages (if you don’t have them, you’ll need to install them with <code>install.packages()</code>)!</p></li>
 </ol>
 <pre class="r"><code># Load packages necessary for this script
-library(tidyverse)</code></pre>
+library(tidyverse)
+library(lme4)
+library(sjstats)</code></pre>
 <ol start="4" style="list-style-type: decimal">
-<li>Using the following template, load the <code>XXX</code> data into R and store it as a new object called <code>XXX</code> (Hint: Don’t type the path directly! Use the “tab” completion!).</li>
+<li>Using the following template, load the <code>Tomatometer_dat.csv</code> data into R and store it as a new object called <code>tom_df</code> (Hint: Don’t type the path directly! Use the “tab” completion!).</li>
 </ol>
-<pre class="r"><code># Load XXX.csv from the 1_Data folder
+<pre class="r"><code># Load Tomatometer_dat.csv from the 1_Data folder
 
 XX &lt;- read_csv(file = &quot;XX/XX&quot;)</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>Take a look at the first few rows of the datasets by printing them to the console.</li>
 </ol>
-<pre class="r"><code># Print XXX object
+<pre class="r"><code># Print the tom_df object
 XXX</code></pre>
 <ol start="7" style="list-style-type: decimal">
-<li><p>Use the the <code>summary()</code> function to print more details on the columns of the datasets.</p></li>
-<li><p>Use the <code>View()</code> function to view the entire dataframes in new windows</p></li>
+<li>Use the the <code>summary()</code> function to print more details on the columns of the datasets.</li>
 </ol>
-<pre class="r"><code>View(XXX)
-View(XXX)</code></pre>
+<pre class="r"><code>summary(XXX)</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li>Use the <code>View()</code> function to view the entire dataframe in a new window.</li>
+</ol>
+<pre class="r"><code>View(XXX)</code></pre>
 </div>
-<div id="b---xxx" class="section level3">
-<h3>B - XXX</h3>
+<div id="b---running-a-linear-mixed-effects-model" class="section level3">
+<h3>B - Running a Linear Mixed Effects Model</h3>
+<p>In the first part of this practical we will work with the data example from the slides and test the effect of a person’s <code>State</code> (“Sober” vs. “Drunk”) on his or her <code>Tomatometer</code> rating.</p>
+<ol style="list-style-type: decimal">
+<li>Run fixed effects only model predicting <code>Tomatometer</code> with <code>State</code> and save the result as <code>FE_mod</code>. Then inspect the results.</li>
+</ol>
+<pre class="r"><code># Use lm, as lmer only works if at least one random effect is specified
+FE_mod &lt;- lm(XXX ~ XXX, data = XXX)
+
+# Inspect the resuts
+summary(FE_mod)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>In your model, it took “Drunk” as base state, so the regression coefficient you obtained shows how much lower the ratings in <code>State == &quot;Sober&quot;</code> are. It may be more intuitive to have “Sober” as the base level. To do this we have to coerce the <code>State</code> variable into a factor and set the levels. Do this by running the following code.</li>
+</ol>
+<pre class="r"><code># Coerce the State variable into a factor
+tom_df &lt;- tom_df %&gt;%
+  mutate(State = factor(State, levels = c(&quot;Sober&quot;, &quot;Drunk&quot;)))</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Now rerun your model from task B1 (the only thing that should change is that your coefficient is now called <code>StateDrunk</code> and now has a positive sign, and that your Intercept now shows the mean of the Sober condition).</p></li>
+<li><p>In the talk, you have learned that if we have repeated measures, the indepence assumption is violated. We can account for this by running a mixed effects model. Run a model with by-subjects random intercepts (subjects identifiers are stored in the <code>ID</code> variable). <em>Hint</em>: Random effects are specified in parenthesis in the formula in the following way <code>(</code><a href="https://en.wikipedia.org/wiki/Design_matrix">design_matrix</a><code>|grouping_variable)</code>.</p></li>
+</ol>
+<pre class="r"><code># Mixed effects model with by-subject random intercepts
+subj_RI_mod &lt;- lmer(XXX ~ XXX +           # These are the fixed effects
+                    (1|XXX),              # These are the random effects
+                    data = tom_df)        # Specify the data used</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li><p>Using <code>summary()</code>, inspect the results of the mixed effects model. Did the effect of <code>State</code> change, now that you incorporated the random effects? Can you find out what did change from the model outputs? (Did you note that there were no p-values in the output? We will look into that later in this practical)</p></li>
+<li><p>Sometimes when we want to make plots or tables, it is usefull if we can extract the estimates from the model output so we don’t have to manually type them (which is error prone). The <code>lme4</code> package provides functions for this. Extract the fixed effects of your model using the <code>fixef()</code> function.</p></li>
+</ol>
+<pre class="r"><code>fixef(XXX)</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li><p>Now extract the random effects using the <code>ranef()</code> function.</p></li>
+<li><p>Now expand your mixed effects model from task B4. by adding by-subjects slopes. To do this add the <code>State</code> variable to the left side of the bar <code>|</code> in the random effects part of the formula.</p></li>
+</ol>
+<pre class="r"><code># Mixed effects model with by-subject random intercepts and slopes
+subj_RI_RS_mod &lt;- lmer(XXX ~ XXX +          # These are the fixed effects
+                      (XXX|XXX),            # These are the random effects
+                      data = tom_df)        # Specify the data used</code></pre>
+<ol start="9" style="list-style-type: decimal">
+<li><p>Compare the outputs of the fixed effects only model, of the by-subjects random intercepts model, and of the by-subjects random intercepts and slopes model. Did the coefficients change? Why not? What did change?</p></li>
+<li><p>Because each movie was rated in both states, there is also a repetition in the items. This again leads to a violation of the independence assumption. To account for this, we also have to include by-item (i.e. by-movie) random effects. Expand the model from task B8. by adding by-movie random intercepts and slopes. This is now the <em>maximal model justified by the design</em> as it incorporates all possible random effects structures.</p></li>
+</ol>
+<pre class="r"><code># Mixed effects model with by-subject and by-movie random intercepts and slopes
+max_mod &lt;- lmer(XXX ~ XXX +           # These are the fixed effects
+               (XXX|XXX) + (XXX|XXX), # These are the random effects
+               data = tom_df)         # Specify the data used</code></pre>
+<ol start="11" style="list-style-type: decimal">
+<li>Compare the results with those of the earlier models.</li>
+</ol>
+</div>
+<div id="c---computing-p-values-for-fixed-effects" class="section level3">
+<h3>C - Computing p-Values for Fixed Effects</h3>
+<p>As you probably noticed, the <code>lmer()</code> summary output does not include p-values. This is not because the authors of <code>lme4</code> were lazy, but because how to best compute p-values for mixed effects models is a still ongoing discussion. However, several possibilities exist of how to test whether a variable is a significant predictor (i.e., for now, a significant fixed effect).</p>
+<div id="likelihood-ration-test" class="section level4">
+<h4>Likelihood Ration Test</h4>
+<p>One possibility to obtain p-values is by running a likelihood ration test (<a href="https://en.wikipedia.org/wiki/Likelihood-ratio_test">LRT</a>). In an LRT, the model is fitted once with and once without the fixed effect of interest, all else being equal. These two models are then compared in using the LRT. However, LRTs tend to slightly underestimate the p-values of fixed effects, so if the p-value is just below the threshold (often .05), you may want to use a more accurate, more conservative method. Using this test with linear mixed effects models adds a slight complication (which you won’t really notice as R will take care of it in the background): In <code>lme4</code>, linear mixed models are fitted by restricted maximum likelihood (REML), rather than maximul likelihood (ML; for more information on this in a technical approach see <a href="https://projecteuclid.org/euclid.cbms/1462106081">here</a> and <a href="http://www.stats.net.au/Maths_REML_manual.pdf">here</a>, for a less technical approach see <a href="https://en.wikipedia.org/wiki/Restricted_maximum_likelihood">here</a>).</p>
+<ol style="list-style-type: decimal">
+<li>For this test, we will use the maximal model, that is, <code>max_mod</code> from B10. We first need to fit the model without the fixed effect of interest (i.e., without <code>State</code>). Run this model and save it as IO_mod (for Intercept Only model).</li>
+</ol>
+<pre class="r"><code># Intercept only mixed effects model with by-subject and by-movie random intercepts
+IO_mod &lt;- lmer(XXX ~ 1 +         # There are no fixed effects so add 1 to fit the intercept
+              (1|XXX) + (1|XXX), # These are the random effects
+              data = tom_df)     # Specify the data used</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Look at the model output using <code>summary()</code>.</p></li>
+<li><p>Perform an LRT using the <code>anova()</code> function, by entering both model outputs as arguments.</p></li>
+</ol>
+<pre class="r"><code># Perform an LRT using the anova() function
+anova(XXX, XXX)</code></pre>
+</div>
+<div id="confidence-intervals" class="section level4">
+<h4>Confidence Intervals</h4>
+<p>This method is not a formal way of testing significance, as it does not produce a p-value. In this method, confidence intervalls are obtained and checked if they include zero. If they don’t, this is interpreted as a significant result.</p>
+<ol start="4" style="list-style-type: decimal">
+<li>We can obtain confidence intervals for our fixed effects using the <code>confint()</code> function of the <code>lme4</code> package. Do this by entering your <code>max_mod</code> into the <code>confint()</code> function.</li>
+</ol>
+<pre class="r"><code># Compute confidence intervals for the fixed effects
+ci_mod &lt;- confint(XXX)</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Print the <code>ci_mod</code> object. Do the confidence intervals you obtained match the conclusion you drew from inspecting the t-values and the LRT?</li>
+</ol>
+</div>
+<div id="parametric-bootstrap" class="section level4">
+<h4>Parametric Bootstrap</h4>
+<p>Yet another test of significance, and the one you should prefer in an uncertain case (i.e., if p-values are on the border of your alpha-level), is to use parametric bootstrap, where, many times, data is resampled with replacement and then the model fitted again, to obtain an empirical distribution of the effect or parameter of interest. The drawback of this technique is that it can take rather long because it reestimates the model many times to generate a distribution.</p>
+<ol style="list-style-type: decimal">
+<li>For linear mixed effects models (fit using <code>lmer()</code>) you can also use the <code>PBmodcomp()</code> function from the <code>pbkrtest</code> package. Check out the help function of <code>PBmodcomp()</code> like this.</li>
+</ol>
+<pre class="r"><code>?PBmodcomp</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Now use the <code>PBmodcomp()</code> function to get p-values for the model. As you surely noticed from the help page, you will have to specify a smaller model against which to test. Use <code>IO_mod</code> for this. Also, because this procedure can take rather long, only use 100 simulations.</li>
+</ol>
+<pre class="r"><code># perform parametric bootstrap
+pb_mod &lt;- PBmodcomp(XXX, XXX, XXX = XXX)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Print the <code>pb_mod</code> object and inspect the results. Are the results different from the other tests you’ve performed before?</li>
+</ol>
+</div>
+</div>
+<div id="d---computing-p-values-for-random-effects" class="section level3">
+<h3>D - Computing p-Values for Random Effects</h3>
+<p>Just as we may be interested whether the fixed effects are significantly related to the outcome variable, we may also be interested whether the variance in the random effects is substantial, that is, whether it is significantly different from zero. This may help deciding whether a random effect should be included or not (although, remember the keep it maximal principle, but sometimes, the maximal model does not converge and one has to reduce it to a simpler model). Note that because zero is the lower boundary of the variance, this is a special case where tests we usually perform may not yield precise results, as they are not intended for use on boundary conditions. The methods we can use to obtain p-values are, among others, the same as used in the last section on p-values for fixed effects.</p>
+<div id="likelihood-ratio-test" class="section level4">
+<h4>Likelihood Ratio Test</h4>
+<p>Again we will start with the LRT. Because we are dealing with a boundary condition, the LRT is conservative, that is, if it is significant, you can be reasonably confident, that the random effects capture a significant amount of variance.</p>
+<ol style="list-style-type: decimal">
+<li></li>
+</ol>
+<p>significance tests for random effects - LRT -&gt; conservative because on the boundary</p>
+<p>also LRT but better approx than above (but only works for linear models -&gt; by Crainiceanu, C. and Ruppert, D. ( 2004 )) <code>exactRLRT(mm)</code> Test if random effect is needed:</p>
+</div>
+<div id="confidence-intervals-1" class="section level4">
+<h4>Confidence Intervals</h4>
+<p>In the previous section we learned that we can, instead of computing a p-value, obtain confidence intervals for fixed effects and check if they include zero. For random effects we can do exactly the same.</p>
+<ol style="list-style-type: decimal">
+<li>You can obtain confidence intervals for the random effects with the same function you’ve used before for the fixed effects: teh <code>confint()</code> function of the <code>lme4</code> package. You should still have the output stored as <code>ci_mod</code>. Print this object again and inspect the confidence intervals of the random effects.</li>
+</ol>
+</div>
+<div id="parametric-bootstrap-1" class="section level4">
+<h4>Parametric Bootstrap</h4>
+<p>The same logic as in the previous section on p-values for fixed effects applies for the random effects. We need two models, the model you want to test and a simpler one without the effect of interest, to test against each other.</p>
+<ol style="list-style-type: decimal">
+<li>Compare the fixed effects only model from task B1. with the by-subjects random intercepts model from task B</li>
+</ol>
+<ul>
+<li>parametric bootstrap (pbnm):</li>
+</ul>
+</div>
+</div>
+<div id="e---r2-values" class="section level3">
+<h3>E - <span class="math inline">\(R^2\)</span> Values</h3>
+<p>get variances using the sjstats package (see <a href="ftp://cran.r-project.org/pub/R/web/packages/sjstats/vignettes/mixedmodels-statistics.html" class="uri">ftp://cran.r-project.org/pub/R/web/packages/sjstats/vignettes/mixedmodels-statistics.html</a>):</p>
+<p>also r- squared and iccs: r2() and (latter possibly with adjusted = TRUE)</p>
+</div>
+<div id="f---intra-class-correlation" class="section level3">
+<h3>F - Intra-Class Correlation</h3>
+<p>icc()</p>
+</div>
+<div id="g---crossed-versus-nested-random-effects" class="section level3">
+<h3>G - Crossed Versus Nested Random Effects</h3>
+<ul>
+<li>crossed vs nested random effects</li>
+<li>intro</li>
+<li>examples -&gt; run both</li>
+<li>use this example <a href="https://www.ssc.wisc.edu/sscc/pubs/MM/MM_MultRand.html" class="uri">https://www.ssc.wisc.edu/sscc/pubs/MM/MM_MultRand.html</a></li>
+</ul>
+</div>
+<div id="h---visualize-your-model" class="section level3">
+<h3>H - Visualize Your Model</h3>
+</div>
+<div id="i---generalized-mixed-effects-models" class="section level3">
+<h3>I - Generalized Mixed Effects Models</h3>
 </div>
 <div id="x---advanced-xxx" class="section level3">
 <h3>X - Advanced: XXX</h3>
@@ -437,8 +581,12 @@ View(XXX)</code></pre>
 <td align="left"><code>install.packages(&quot;tidyverse&quot;)</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>XX</code></td>
-<td align="left"><code>XX</code></td>
+<td align="left"><code>lme4</code></td>
+<td align="left"><code>install.packages(&quot;lme4&quot;)</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>sjstats</code></td>
+<td align="left"><code>install.packages(&quot;sjstats&quot;)</code></td>
 </tr>
 </tbody>
 </table>
@@ -455,13 +603,33 @@ View(XXX)</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><code>XXX</code></td>
-<td align="left"><code>XXX</code></td>
+<td align="left"><code>lmer</code></td>
+<td align="left"><code>lme4</code></td>
 <td align="left">XXX</td>
 </tr>
 <tr class="even">
-<td align="left"><code>XXX</code></td>
-<td align="left"><code>XXX</code></td>
+<td align="left"><code>glmer</code></td>
+<td align="left"><code>lme4</code></td>
+<td align="left">XXX</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>fixef</code></td>
+<td align="left"><code>lme4</code></td>
+<td align="left">XXX</td>
+</tr>
+<tr class="even">
+<td align="left"><code>ranef</code></td>
+<td align="left"><code>lme4</code></td>
+<td align="left">XXX</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>anova</code></td>
+<td align="left"><code>stats</code></td>
+<td align="left">XXX</td>
+</tr>
+<tr class="even">
+<td align="left"><code>confint</code></td>
+<td align="left"><code>stats</code></td>
 <td align="left">XXX</td>
 </tr>
 </tbody>
@@ -470,15 +638,14 @@ View(XXX)</code></pre>
 </div>
 <div id="resources" class="section level2">
 <h2>Resources</h2>
-<div id="vignettes" class="section level3">
-<h3>vignettes</h3>
-<p>TEXT and LINKS</p>
-</div>
-<div id="cheatsheets" class="section level3">
-<h3>Cheatsheets</h3>
-<p align="center" width="100%">
-<a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf"> <img src="https://image.slidesharecdn.com/data-wrangling-cheatsheet-160705210122/95/data-wrangling-with-dplyr-and-tidyr-cheat-sheet-1-638.jpg?cb=1467752577" style="width:70%"></a> <br> <font style="font-size:10px">from <a href="https://www.rstudio.com/resources/cheatsheets/">R Studio</a></font>
-</p>
+<div id="further-reading" class="section level3">
+<h3>Further Reading</h3>
+<p>A nice and non-technical introduction to mixed effects models can be found in a chapter titled <a href="http://davidkellen.org/wp-content/uploads/2017/04/introduction-mixed-models.pdf"><strong>An introduction to linear mixed modeling in experimental psychology</strong></a> by <strong>Henrik Singmann</strong> and <strong>David Kellen</strong>.</p>
+<p>A more technical introduction can be found in the mixed effects models chapter of <a href="https://projecteuclid.org/euclid.cbms/1462106081"><strong>Analysis of Longitudinal and Cluster-Correlated Data</strong></a> by <strong>Nan Laird</strong>.</p>
+<p>A nice freely available tutorial on mixed effects models can be found <a href="https://www.ssc.wisc.edu/sscc/pubs/MM/MM_Introduction.html">here</a>.</p>
+<p>A rather technical introduction to mixed effects model with <code>lme4</code> is given in <a href="https://cran.r-project.org/web/packages/lme4/vignettes/lmer.pdf"><strong>Fitting Linear Mixed-Effects Models Using lme4</strong></a> by <strong>Douglas Bates</strong>, <strong>Martin Mächler</strong>, <strong>Benjamin Bolker</strong>, and <strong>Steven Walker</strong>.</p>
+<p>One of the classic introductions to regression models, including mixed effects models, is <a href="https://www.cambridge.org/ch/academic/subjects/statistics-probability/statistical-theory-and-methods/data-analysis-using-regression-and-multilevelhierarchical-models?format=PB&amp;isbn=9780521686891"><strong>Data Analysis Using Regression and Multilevel/Hierarchical Models</strong></a> by <strong>Andrew Gelman</strong> and <strong>Jennifer Hill</strong>.</p>
+<p>Another great introduction to regression, including mixed effects models, is <a href="https://xcelab.net/rm/statistical-rethinking/"><strong>Statistical Rethinking</strong></a> by <strong>Richard McElreath</strong>.</p>
 </div>
 </div>
 </div>

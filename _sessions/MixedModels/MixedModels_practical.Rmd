@@ -43,9 +43,12 @@ options(digits = 3)
 
 # Load packages
 library(tidyverse)
+library(lme4)
+library(sjstats)
+library(pbkrtest)
 
-# Load packages
-#read_csv("1_Data/...")
+# Load data
+tom_df <- read_csv("1_Data/Tomatometer_dat.csv")
 
 ```
 
@@ -64,28 +67,390 @@ In this practical you'll practice "XXX" with the `XXX` packages.
 
 By the end of this practical you will know how to:
 
-1. 
-2. 
-3.
+1. Run mixed effects models in R.
+2. Extract p-values for fixed and random effects.
+3. Specify crossed vs. nested random effects and what implications this has.
+4. Extract variance components and compute the intra-class correlation
+5. Visualize your linear mixed effects model.
+6. Run a generalized mixed effects model.
 
 ## Tasks
 
 ### A - Setup
 
-https://projecteuclid.org/download/pdf_1/euclid.cbms/1462106081
 
-significance tests for fixed effects
-functions from the pbkrtest to get p-values
-pbnm (for glmer only?)
-PBmodcomp (for lmer only?)
-
-other significance tests:
-  - LRT -> obtained by either using drop1() or just fit a nested model (without one fixed effect) and compare with anova() for signigicance of the fixed effect
-  - confit() function
   
+Datasets:
+  - psych: sai
+  - lme4: penicillin
+  - blogposts/ rstanarm/ arm: schools example
+
+1. Open your `BaselRBootcamp` R project. It should already have the folders `1_Data` and `2_Code`. Make sure that the data files listed in the `Datasets` section above are in your `1_Data` folder
+
+```{r}
+# Done!
+```
+
+2. Open a new R script. At the top of the script, using comments, write your name and the date. Save it as a new file called `MixedModels_practical.R` in the `2_Code` folder.  
+
+```{r}
+# Done!
+```
+
+3. Using `library()` load the `tidyverse`, `lme4`, and `sjstats` packages (if you don't have them, you'll need to install them with `install.packages()`)!
+
+```{r, echo = TRUE, eval = FALSE}
+# Load packages necessary for this script
+library(tidyverse)
+library(lme4)
+library(sjstats)
+```
+
+4. Using the following template, load the `Tomatometer_dat.csv` data into R and store it as a new object called `tom_df` (Hint: Don't type the path directly! Use the "tab" completion!).
+
+```{r, echo = TRUE, eval = FALSE}
+# Load Tomatometer_dat.csv from the 1_Data folder
+
+XX <- read_csv(file = "XX/XX")
+```
+
+
+```{r}
+# Load Tomatometer_dat.csv from the 1_Data folder
+
+tom_df <- read_csv(file = "1_Data/Tomatometer_dat.csv")
+```
+
+5. Take a look at the first few rows of the datasets by printing them to the console.
+
+```{r, echo = TRUE, eval = FALSE}
+# Print the tom_df object
+XXX
+```
+
+```{r}
+# Print the tom_df object
+tom_df
+```
+
+7. Use the the `summary()` function to print more details on the columns of the datasets.
+
+```{r, echo=TRUE, eval = FALSE}
+summary(XXX)
+```
+
+```{r}
+summary(tom_df)
+```
+
+
+
+8. Use the `View()` function to view the entire dataframe in a new window.
+
+```{r, echo = TRUE, eval = FALSE}
+View(XXX)
+```
+
+```{r}
+View(tom_df)
+```
+
+### B - Running a Linear Mixed Effects Model
+
+In the first part of this practical we will work with the data example from the slides and test the effect of a person's `State` ("Sober" vs. "Drunk") on his or her `Tomatometer` rating.
+
+1. Run fixed effects only model predicting `Tomatometer` with `State` and save the result as `FE_mod`. Then inspect the results.
+
+```{r, echo = TRUE, eval = FALSE}
+# Use lm, as lmer only works if at least one random effect is specified
+FE_mod <- glm(XXX ~ XXX, data = XXX)
+
+# Inspect the resuts
+summary(FE_mod)
+```
+
+```{r}
+# Use lm, as lmer only works if at least one random effect is specified
+FE_mod <- glm(Tomatometer ~ State, data = tom_df)
+
+# look at the resuts
+summary(FE_mod)
+```
+2. In your model, it took "Drunk" as base state, so the regression coefficient you obtained shows how much lower the ratings in `State == "Sober"` are. It may be more intuitive to have "Sober" as the base level. To do this we have to coerce the `State` variable into a factor and set the levels. Do this by running the following code.
+
+```{r, echo = TRUE}
+# Coerce the State variable into a factor
+tom_df <- tom_df %>%
+  mutate(State = factor(State, levels = c("Sober", "Drunk")))
+```
+
+3. Now rerun your model from task B1 (the only thing that should change is that your coefficient is now called `StateDrunk` and now has a positive sign, and that your Intercept now shows the mean of the Sober condition).
+
+```{r}
+# Use lm, as lmer only works if at least one random effect is specified
+FE_mod <- lm(Tomatometer ~ State, data = tom_df)
+
+# look at the resuts
+summary(FE_mod)
+```
+
+
+4. In the talk, you have learned that if we have repeated measures, the indepence assumption is violated. We can account for this by running a mixed effects model. Run a model with by-subjects random intercepts (subjects identifiers are stored in the `ID` variable). *Hint*: Random effects are specified in parenthesis in the formula in the following way `(`[design_matrix](https://en.wikipedia.org/wiki/Design_matrix)`|grouping_variable)`.
+
+
+```{r echo = TRUE, eval = FALSE}
+# Mixed effects model with by-subject random intercepts
+subj_RI_mod <- lmer(XXX ~ XXX +           # These are the fixed effects
+                    (1|XXX),              # These are the random effects
+                    data = tom_df)        # Specify the data used
+```
+
+```{r}
+# Mixed effects model with by-subject random intercepts
+subj_RI_mod <- lmer(Tomatometer ~ State + # These are the fixed effects
+                    (1|ID),               # These are the random effects
+                    data = tom_df)        # Specify the data used
+```
+
+
+5. Using `summary()`, inspect the results of the mixed effects model. Did the effect of `State` change, now that you incorporated the random effects? Can you find out what did change from the model outputs? (Did you note that there were no p-values in the output? We will look into that later in this practical)
+
+
+```{r}
+summary(subj_RI_mod)
+summary(FE_mod)
+
+# While the estimates of the fixed effects did not change, the t-values did change
+# substantially (the t-value for StateDrunk in FE_mod is higher than the one in
+# subj_RI_mod, and the one for the intercept dropped by 50%).
+```
+
+
+6. Sometimes when we want to make plots or tables, it is usefull if we can extract the estimates from the model output so we don't have to manually type them (which is error prone). The `lme4` package provides functions for this. Extract the fixed effects of your model using the `fixef()` function.
+
+```{r echo = TRUE, eval = FALSE}
+fixef(XXX)
+```
+
+```{r}
+fixef(subj_RI_mod)
+```
+
+7. Now extract the random effects using the `ranef()` function.
+```{r}
+ranef(subj_RI_mod)
+```
+
+
+
+8. Now expand your mixed effects model from task B4. by adding by-subjects slopes. To do this add the `State` variable to the left side of the bar `|` in the random effects part of the formula.
+
+```{r echo = TRUE, eval = FALSE}
+# Mixed effects model with by-subject random intercepts and slopes
+subj_RI_RS_mod <- lmer(XXX ~ XXX +          # These are the fixed effects
+                      (XXX|XXX),            # These are the random effects
+                      data = tom_df)        # Specify the data used
+```
+
+```{r}
+# Mixed effects model with by-subject random intercepts and slopes
+subj_RI_RS_mod <- lmer(Tomatometer ~ State + # These are the fixed effects
+                      (State|ID),            # These are the random effects
+                      data = tom_df)         # Specify the data used
+```
+
+9. Compare the outputs of the fixed effects only model, of the by-subjects random intercepts model, and of the by-subjects random intercepts and slopes model. Did the coefficients change? Why not? What did change?
+
+```{r}
+summary(subj_RI_RS_mod)
+summary(subj_RI_mod)
+summary(FE_mod)
+
+# For FE_mod and subj_RI_mod the answer is the same as in task B5. The coefficients
+# again didn't change, as the group means obviously also didn't change. But again
+# the t-values changed considerably (e.g. the StateDrunk t-value in subj_RI_mod
+# is 48.34, the on in subj_RI_RS_mod is 34.29).
+```
+
+
+10. Because each movie was rated in both states, there is also a repetition in the items. This again leads to a violation of the independence assumption. To account for this, we also have to include by-item (i.e. by-movie) random effects. Expand the model from task B8. by adding by-movie random intercepts and slopes. This is now the *maximal model justified by the design* as it incorporates all possible random effects structures.
+
+```{r echo = TRUE, eval = FALSE}
+# Mixed effects model with by-subject and by-movie random intercepts and slopes
+max_mod <- lmer(XXX ~ XXX +           # These are the fixed effects
+               (XXX|XXX) + (XXX|XXX), # These are the random effects
+               data = tom_df)         # Specify the data used
+```
+
+```{r}
+# Mixed effects model with by-subject and by-movie random intercepts and slopes
+max_mod <- lmer(Tomatometer ~ State +       # These are the fixed effects
+               (State|ID) + (State|Movie),  # These are the random effects
+               data = tom_df)               # Specify the data used
+```
+
+11. Compare the results with those of the earlier models.
+
+```{r}
+summary(max_mod)
+summary(subj_RI_RS_mod)
+summary(subj_RI_mod)
+summary(FE_mod)
+
+# oops. See how the t-value for the State effect changed? Now it is "only" 8.59.
+# While still substantial, this illustrates the point Barr et al. 2013 make in their
+# paper where they argue that for confirmatory hypothesis testing one should always
+# specify the maximal random effects structure justified by the design, as otherwise
+# the Type I error rate is inflated.
+```
+
+
+### C - Computing p-Values for Fixed Effects
+
+As you probably noticed, the `lmer()` summary output does not include p-values. This is not because the authors of `lme4` were lazy, but because how to best compute p-values for mixed effects models is a still ongoing discussion. However, several possibilities exist of how to test whether a variable is a significant predictor (i.e., for now, a significant fixed effect).
+
+#### Likelihood Ration Test
+
+One possibility to obtain p-values is by running a likelihood ration test ([LRT](https://en.wikipedia.org/wiki/Likelihood-ratio_test)). In an LRT, the model is fitted once with and once without the fixed effect of interest, all else being equal. These two models are then compared in using the LRT. However, LRTs tend to slightly underestimate the p-values of fixed effects, so if the p-value is just below the threshold (often .05), you may want to use a more accurate, more conservative method. Using this test with linear mixed effects models adds a slight complication (which you won't really notice as R will take care of it in the background): In `lme4`, linear mixed models are fitted by restricted maximum likelihood (REML), rather than maximul likelihood (ML; for more information on this in a technical approach see [here](https://projecteuclid.org/euclid.cbms/1462106081) and [here](http://www.stats.net.au/Maths_REML_manual.pdf), for a less technical approach see [here](https://en.wikipedia.org/wiki/Restricted_maximum_likelihood)).
+
+1. For this test, we will use the maximal model, that is, `max_mod` from B10. We first need to fit the model without the fixed effect of interest (i.e., without `State`). Run this model and save it as IO_mod (for Intercept Only model).
+
+```{r echo = TRUE, eval = FALSE}
+# Intercept only mixed effects model with by-subject and by-movie random intercepts
+IO_mod <- lmer(XXX ~ 1 +         # There are no fixed effects so add 1 to fit the intercept
+              (1|XXX) + (1|XXX), # These are the random effects
+              data = tom_df)     # Specify the data used
+```
+
+```{r}
+# Intercept only mixed effects model with by-subject and by-movie random intercepts
+IO_mod <- lmer(Tomatometer ~ 1 +    # There are no fixed effects so add 1 to fit the intercept
+               (1|ID) + (1|Movie),  # These are the random effects
+               data = tom_df)       # Specify the data used
+```
+
+
+2. Look at the model output using `summary()`.
+
+```{r}
+summary(IO_mod)
+```
+
+3. Perform an LRT using the `anova()` function, by entering both model outputs as arguments.
+
+```{r echo = TRUE, eval = FALSE}
+# Perform an LRT using the anova() function
+anova(XXX, XXX)
+```
+
+
+```{r}
+# Perform an LRT using the anova() function
+anova(IO_mod, max_mod)
+```
+
+ 
+#### Confidence Intervals
+
+This method is not a formal way of testing significance, as it does not produce a p-value. In this method, confidence intervalls are obtained and checked if they include zero. If they don't, this is interpreted as a significant result.
+
+4. We can obtain confidence intervals for our fixed effects using the `confint()` function of the `lme4` package. Do this by entering your `max_mod` into the `confint()` function.
+
+```{r echo = TRUE, eval = FALSE}
+# Compute confidence intervals for the fixed effects
+ci_mod <- confint(XXX)
+```
+
+
+```{r}
+# Compute confidence intervals for the fixed effects
+ci_mod <- confint(max_mod)
+```
+
+5. Print the `ci_mod` object. Do the confidence intervals you obtained match the conclusion you drew from inspecting the t-values and the LRT?
+
+#### Parametric Bootstrap
+
+Yet another test of significance, and the one you should prefer in an uncertain case (i.e., if p-values are on the border of your alpha-level), is to use parametric bootstrap, where, many times, data is resampled with replacement and then the model fitted again, to obtain an empirical distribution of the effect or parameter of interest. The drawback of this technique is that it can take rather long because it reestimates the model many times to generate a distribution.
+
+
+6. For linear mixed effects models (fit using `lmer()`) you can also use the `PBmodcomp()` function from the `pbkrtest` package. Check out the help function of `PBmodcomp()` like this.
+
+```{r eval = FALSE, echo=TRUE}
+?PBmodcomp
+```
+
+7. Now use the `PBmodcomp()` function to get p-values for the model. As you surely noticed from the help page, you will have to specify a smaller model against which to test. Use `IO_mod` for this. Also, because this procedure can take rather long, only use 100 simulations (when you perform your "real" analyses you may want to increase this number to 1000 or more).
+
+```{r eval = FALSE, echo=TRUE}
+# perform parametric bootstrap
+pb_mod <- PBmodcomp(XXX, XXX, XXX = XXX)
+```
+
+
+```{r}
+# perform parametric bootstrap
+pb_mod <- bootMer(max_mod, IO_mod, nsim = 100)
+```
+
+8. Print the `pb_mod` object and inspect the results. Are the results different from the other tests you've performed before?
+  
+#### Other Test
+
+9. Another way of obtaining p-values with the t-statistic and a [Wald test](https://en.wikipedia.org/wiki/Wald_test) by using the `p_value()` function of the `sjstats` package. Enter `max_mod` to the `p_value()` function.
+
+```{r echo = TRUE, eval = FALSE}
+# Compute p-values for the fixed effects
+p_value(XXX)
+```
+
+```{r}
+# Compute p-values for the fixed effects
+p_value(max_mod)
+```
+
+10. As this test may not be appropriate for mixed effects models, we can extend the `p_value()` function with an additional argument `p.kr = TRUE`. Then the function will compute p-values based on conditional F-tests with [Kenward-Roger approximation](https://www.jstatsoft.org/article/view/v059i09) for the degrees of freedom. Repeat the previous task by extending the function with `p.kr = TRUE` (Note that this approach is computationally rather expensive and thus will take a while to complete).
+
+
+```{r}
+# Compute p-values for the fixed effects with Kenward-Roger approximation
+p_value(max_mod, p.kr = TRUE)
+```
+
+11. Compare the output of the tasks C9. and C10. Did things change? The reason why not is that the assumptions were all satisfied as the data was simulated with these assumptions, but with noisier real life data this may look different.
+
+### D - Determining the Importance of Random Effects
+
+Just as we may be interested whether the fixed effects are significantly related to the outcome variable, we may also be interested whether the variance in the random effects is substantial, that is, whether it is significantly different from zero. This may help deciding whether a random effect should be included or not. You may remember the *keep it maximal* principle, which states that you should always specify the maximal random effects structure justified by the design to guard against type I error inflation ([Barr, Levy, Scheepers, & Tily, 2013](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3881361/)). However, the maximal model may come with a loss of power and it may make sense to select which random effects structure to use ([Matuschek, Kliegl, Vasishth. Baayen, & Bates](https://www.sciencedirect.com/science/article/pii/S0749596X17300013)). To express it with the words of Matuschek and Colleagues: "[A] parsimonious mixed model [...] containing only variance components supported by the data improves the balance between Type I error and power" (p. 305).
+
+
+
+#### Likelihood Ratio Test
+
+To this end, we can perform an LRT and inspect the confidence intervals of the random effect parameters. Note that because zero is the lower boundary of the variance, this is a special case where tests we usually perform may not yield precise results, as they are not intended for use on boundary conditions.
+
+Again we will start with the LRT. Because we are dealing with a boundary condition, the LRT is conservative, that is, if it is significant, you can be reasonably confident, that the random effects capture a significant amount of variance.
+
+1. 
+ 
+```{r}
+# Intercept only mixed effects model with by-subject and by-movie random intercepts
+ID_mod <- lmer(Tomatometer ~ State +    # There are no fixed effects so add 1 to fit the intercept
+               (State|ID),  # These are the random effects
+               data = tom_df)       # Specify the data used
+
+# LRT calculated using the loglik() function
+#
+G2 = -2 * logLik(ID_mod) + 2 * logLik(max_mod)
+pchisq(as.numeric(G2), df=1, lower.tail=F)
+
+anova(max_mod, ID_mod)
+```
+ 
+ 
 significance tests for random effects
 - LRT -> conservative because on the boundary
-```
+```{r, eval = FALSE}
 gmmG2 <- glmer(bin ~ x1 + x2 + (1|g1) + (1|g2),
                family=binomial, data=pbDat)
 
@@ -94,34 +459,36 @@ gmmG2 <- glmer(bin ~ x1 + x2 + (1|g1) + (1|g2),
 G2 = -2 * logLik(gmm) + 2 * logLik(gmmG2)
 pchisq(as.numeric(G2), df=1, lower.tail=F)
 ```
-also LRT but better approx than above (but only works for linear models)
+also LRT but better approx than above (but only works for linear models -> by Crainiceanu, C. and Ruppert, D. ( 2004 ))
 `exactRLRT(mm)`
-Test if random effect is needed: 
-```
-mmG2 <- lmer(y ~ x1 + x2 + (1|g1) + (1|g2), data=pbDat)
-mmR <- lmer(y ~ x1 + x2 + (1|g2), data=pbDat)
-exactRLRT(m=mmR,mA=mmG2,m0=mm)
-```
-- confint() -> see if 0 is included
-- parametric bootstrap (pbnm):
-```
-# for the glm:
-gmmDG1 <- glm(bin ~ x1 + x2,
-               family=binomial, data=pbDat)
-pbgmmDg1 <- pbnm(gmm,gmmDG1,nsim=1000,tasks=10,cores=2,seed=3400835) 
-summary(pbgmmDg1)
 
-# linear example as in the exactRLRT test above
-fm <- lm(y ~ x1 + x2, data=pbDat)
-pbfm <- pbnm(mmMLE,fm,nsim=1000,tasks=10,cores=2,seed=98731307)
-summary(pbfm)
+#### Confidence Intervals
 
-pbmmG2 <- pbnm(mmG2,mm,nsim=1000,tasks=10,cores=2,seed=4642782)
-summary(pbmmG2)
+In the previous section we learned that we can, instead of computing a p-value, obtain confidence intervals for fixed effects and check if they include zero. For random effects we can do exactly the same.
+
+1. You can obtain confidence intervals for the random effects with the same function you've used before for the fixed effects: teh `confint()` function of the `lme4` package. You should still have the output stored as `ci_mod`. Print this object again and inspect the confidence intervals of the random effects.
+
+```{r}
+ci_mod
 ```
+
+
+
+### E - $R^2$ and Residual Variances
+
+When fitting statistical models, we are usually interested in how much systematic variation they can capture. In linear (mixed effects) models this is the $R^2$ value, for generalized (mixed effects) models, we can compute pseudo $R^2$ values. The `sjstats` package comes with methods to obtain such *goodness-of fit measures* for regression models.
+
+1. To obtain the $R^2$ of our model, we will use the `r2()` function from the `sjstats` package. Look at the help menue of the function to get an overview of what models you can use it for.
+
+```{r}
+?r2
+```
+
+
+2. Compute the $R^2$ of the 
 
 get variances using the sjstats package (see ftp://cran.r-project.org/pub/R/web/packages/sjstats/vignettes/mixedmodels-statistics.html):
-```
+```{r, eval = FALSE}
 # get residual variance
 get_re_var(m, "sigma_2")
 #> [1] 654.941
@@ -151,85 +518,25 @@ re_var(m, adjusted = TRUE)
 ```
 
 also r- squared and iccs:
-r2() and icc() (latter possibly with adjusted = TRUE)
+r2() and  (latter possibly with adjusted = TRUE)
+
+cod() -> get Tjurs D for binary outcome models
 
 
+### F - Intra-Class Correlation
 
-cite this (5 section intro with R to MEM): https://www.ssc.wisc.edu/sscc/pubs/MM/MM_Introduction.html
--> Create more movie data once with nested and once with crossed design
-- also include single random effects desing
+icc()
 
-possibilities:
-- complete pooling -> ignore dependency in data (e.g. averaging) -> check
-- no pooling -> fit separate regressions to each participant separately
-- partial pooling -> compromise done in mixed effects models (-> check details again)
+### G - Crossed Versus Nested Random Effects
 
-
-- fixed effects model vs mixed effects
-  - aggregated fit vs mixed effects fit vs overall fit with ignoring the independence assumptin
-  - shrinkage -> show shrinkage in comparison to separate fits
 - crossed vs nested random effects
   - intro
   - examples -> run both
   - use this example https://www.ssc.wisc.edu/sscc/pubs/MM/MM_MultRand.html
-- maximal random effects structure
-  - when no convergence, specify structure without correlation
-  
-Datasets:
-  - psych: sai
-  - lme4: penicillin
-  - blogposts/ rstanarm/ arm: schools example
 
-1. Open your `BaselRBootcamp` R project. It should already have the folders `1_Data` and `2_Code`. Make sure that the data files listed in the `Datasets` section above are in your `1_Data` folder
+### H - Visualize Your Model
 
-```{r}
-# Done!
-```
-
-2. Open a new R script. At the top of the script, using comments, write your name and the date. Save it as a new file called `wrangling_practical.R` in the `2_Code` folder.  
-
-```{r}
-# Done!
-```
-
-3. Using `library()` load the `tidyverse` package (if you don't have it, you'll need to install it with `install.packages()`)!
-
-```{r, echo = TRUE, eval = FALSE}
-# Load packages necessary for this script
-library(tidyverse)
-```
-
-4. Using the following template, load the `XXX` data into R and store it as a new object called `XXX` (Hint: Don't type the path directly! Use the "tab" completion!).
-
-```{r, echo = TRUE}
-# Load XXX.csv from the 1_Data folder
-
-XX <- read_csv(file = "XX/XX")
-```
-
-5. Take a look at the first few rows of the datasets by printing them to the console.
-
-```{r, echo = TRUE}
-# Print XXX object
-XXX
-```
-
-7. Use the the `summary()` function to print more details on the columns of the datasets.
-
-```{r}
-summary(XXX)
-summary(XXX)
-```
-
-8. Use the `View()` function to view the entire dataframes in new windows
-
-```{r, echo = TRUE, eval = FALSE}
-View(XXX)
-View(XXX)
-```
-
-
-### B - XXX
+### I - Generalized Mixed Effects Models
 
 ### X - Advanced: XXX
 
@@ -290,26 +597,33 @@ SHORT VERBAL DESCRIPTION OF DATA SETS
 |Package| Installation|
 |:------|:------|
 |`tidyverse`|`install.packages("tidyverse")`|
-| `XX` | `XX` |
+| `lme4` | `install.packages("lme4")` |
+| `sjstats` | `install.packages("sjstats")` |
 
 ### Functions
 
 | Function| Package | Description |
 |:---|:------|:---------------------------------------------|
-|     `XXX`|`XXX`| XXX | 
-|     `XXX`|`XXX`| XXX | 
+|     `lmer`|`lme4`| XXX | 
+|     `glmer`|`lme4`| XXX | 
+|     `fixef`|`lme4`| XXX | 
+|     `ranef`|`lme4`| XXX | 
+|     `anova`|`stats`| XXX | 
+|     `confint`|`stats`| XXX | 
 
 ## Resources
 
-### vignettes
+### Further Reading
 
-TEXT and LINKS
+A nice and non-technical introduction to mixed effects models can be found in a chapter titled  [**An introduction to linear mixed modeling in experimental psychology**](http://davidkellen.org/wp-content/uploads/2017/04/introduction-mixed-models.pdf) by **Henrik Singmann** and **David Kellen**.
 
-### Cheatsheets
+A more technical introduction can be found in the mixed effects models chapter of  [**Analysis of Longitudinal and Cluster-Correlated Data**](https://projecteuclid.org/euclid.cbms/1462106081) by **Nan Laird**.
 
-<p align="center" width="100%">
-<a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">
-  <img src="https://image.slidesharecdn.com/data-wrangling-cheatsheet-160705210122/95/data-wrangling-with-dplyr-and-tidyr-cheat-sheet-1-638.jpg?cb=1467752577" style="width:70%"></a>
-  <br>
-  <font style="font-size:10px">from <a href="https://www.rstudio.com/resources/cheatsheets/">R Studio</a></font>
-</p>
+A nice freely available tutorial on mixed effects models can be found [here](https://www.ssc.wisc.edu/sscc/pubs/MM/MM_Introduction.html).
+
+A rather technical introduction to mixed effects model with `lme4` is given in [**Fitting Linear Mixed-Effects Models Using lme4**](https://cran.r-project.org/web/packages/lme4/vignettes/lmer.pdf) by **Douglas Bates**, **Martin Mächler**, **Benjamin Bolker**, and **Steven Walker**.
+
+One of the classic introductions to regression models, including mixed effects models, is [**Data Analysis Using Regression and Multilevel/Hierarchical Models**](https://www.cambridge.org/ch/academic/subjects/statistics-probability/statistical-theory-and-methods/data-analysis-using-regression-and-multilevelhierarchical-models?format=PB&isbn=9780521686891) by **Andrew Gelman** and **Jennifer Hill**.
+
+Another great introduction to regression, including mixed effects models, is [**Statistical Rethinking**](https://xcelab.net/rm/statistical-rethinking/) by **Richard McElreath**.
+

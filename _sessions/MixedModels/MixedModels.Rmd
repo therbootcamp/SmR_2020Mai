@@ -446,11 +446,13 @@ Every level of the nested factor only appears within a single level of the highe
 
 .pull-left45[
 
-Specifying the correct random effects structure is important. Failure to do so can result in inflated Type I errors
+Specifying the correct random effects structure is important. Failure to do so can result in inflated Type I errors and loss of power.
 
-Therefore, you should specify the <high>maximal random effects structure justified by the design</high> (maximal model; [Barr et al., 2014](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3881361/pdf/nihms533954.pdf)).
+Therefore, it has been argued that one should specify the <high>maximal random effects structure justified by the design</high> (maximal model; [Barr et al., 2014](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3881361/pdf/nihms533954.pdf)).
 
 Note that this often leads to convergence problems and the random effects structure then has to be adapted.
+
+But there is also criticism to this approach ([Matuschek, Kliegl, Vasishth. Baayen, & Bates](https://www.sciencedirect.com/science/article/pii/S0749596X17300013); but more on this in the practical).
 
 ]
 
