@@ -5,11 +5,11 @@ require(ggplot2)
 
 form<-as.formula(c("~State+(State|ID) + (State|Movie)"))
 
-set.seed(11)
+set.seed(113)
 # number of individuals
-N.ind<-100
-N.obs<-20
-Movies <- 10
+N.ind<-200
+N.obs<-30
+Movies <- 15
 simdat <-data.frame(ID = factor(rep(1:N.ind,each = N.obs)),
                     Movie = factor(rep(paste0("M", 1:Movies), N.ind*2)),
                     State = factor(rep(c("Sober", "Drunk"), each=Movies,
@@ -24,15 +24,15 @@ V.ind0 <- 22
 V.inde <- 45
 
 # Movie random variance
-V.m.0 <- 35
+V.m.0 <- 25
 V.m.e <- 32
 
 # Error variance  
-V.err0 <- 40
+V.err0 <- 52
 
 # Covariances
-COVind0.ind1e <- 0.2 * sqrt(V.ind0*V.inde)
-COVm0.m1e <- 0.1 * sqrt(V.m.0 * V.m.e)
+COVind0.ind1e <- 0.023 * sqrt(V.ind0*V.inde)
+COVm0.m1e <- 0.058 * sqrt(V.m.0 * V.m.e)
 
 vcov1<-matrix(c(V.ind0,COVind0.ind1e,
                 COVind0.ind1e,V.inde), 2, 2)

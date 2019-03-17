@@ -425,7 +425,7 @@ Every level of the nested factor only appears within a single level of the highe
 
 * <high>Hierarchical shrinkage</high>: Individual parameter estimates that are on the extremes of the distribution are adjusted (shrinked) towards the mean. Because of this, predicted cell means need not necessarily coincide with the observed cell means.
 
-* Intra-Class Correlation <high>ICC</high>: The ICC is the proportion of within group (random effect) variance of the total variance.
+* Intra-Class Correlation <high>ICC</high>: The ICC is the proportion of variance explained by a grouping factor (random effect).
 
 
 * Random effects parameters are harder to estimate numerically. Thus, mixed effects model much more frequently exhibit the problem of <high>non-convergence</high> than fixed effects only models.

@@ -54,7 +54,7 @@ df <- df %>%
   select(-mov_mean_diff, -subj_mean_diff) %>%
   mutate(x_cat = c(1,2, 4, 5, 8, 9, 11, 12))
 
-write_csv(df, "_sessions/MixedModels/MEM_example.csv")
+# write_csv(df, "_sessions/MixedModels/MEM_example.csv")
 
 # Plots ========================================
 
