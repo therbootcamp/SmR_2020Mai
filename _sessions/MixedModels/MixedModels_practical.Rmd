@@ -50,7 +50,7 @@ library(pbkrtest)
 # Load data
 tom_df <- read_csv("1_Data/Tomatometer_dat.csv")
 schools <- read_csv("1_Data/schools.csv")
-
+cr <- read_csv("1_Data/cancer_remission.csv")
 ```
 
 <p align="center" width="100%">
@@ -64,16 +64,17 @@ schools <- read_csv("1_Data/schools.csv")
 
 ## Overview
 
-In this practical you'll practice "XXX" with the `XXX` packages.
+In this practical you'll practice "mixed effects modeling" with the `lme4`, `sjstats`, `stats`, and `pbkrtest` packages.
 
 By the end of this practical you will know how to:
 
 1. Run mixed effects models in R.
-2. Extract p-values for fixed and random effects.
-3. Specify crossed vs. nested random effects and what implications this has.
-4. Extract variance components and compute the intra-class correlation
-5. Visualize your linear mixed effects model.
-6. Run a generalized mixed effects model.
+2. Extract p-values for fixed effects.
+3. Select the appropriate random effects structure.
+4. Specify crossed vs. nested random effects.
+5. Extract variance components and compute the explained variance and intra-class correlation
+6. Visualize your linear mixed effects model.
+7. Run a generalized mixed effects model.
 
 ## Tasks
 
@@ -766,12 +767,13 @@ Running and interpreting generalized linerar mixed effects models can be quite c
 
 |File | Rows | Columns |
 |:----|:-----|:------|
-|[XXX]() | Nrow | Ncol |
-|[XXX]() | Nrow | Ncol |
+|[Tomatometer_dat.csv](https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/Tomatometer_dat.csv?token=AZQb9iWcc8yUCbFwBliP5UfVzAooM3okks5cmQ96wA%3D%3D) | `r nrow(tom_df)` | `r ncol(tom_df)` |
+|[schools.csv](https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/schools.csv?token=AZQb9mdlio2aNiTgfaddDHxpENKWm3Hhks5cmQ9jwA%3D%3D) | `r nrow(schools)` | `r ncol(schools)` |
+|[cancer_remission.csv](https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/cancer_remission.csv?token=AZQb9ic1yv1-UdOtMITu0HyaW1xRMdV9ks5cmQ-bwA%3D%3D) | `r nrow(cr)` | `r ncol(cr)` |
 
-SHORT VERBAL DESCRIPTION OF DATA SETS
+The *Tomatometer_dat.csv* dataset contains tomatometer ratings from 
 
-#### Variable description
+#### Tomatometer_dat.csv
 
 | Name | Description |
 |:-------------|:-------------------------------------|

@@ -213,13 +213,14 @@ $(document).ready(function () {
 <h1></h1>
 <div id="overview" class="section level2">
 <h2>Overview</h2>
-<p>In this practical you’ll practice “XXX” with the <code>XXX</code> packages.</p>
+<p>In this practical you’ll practice “mixed effects modeling” with the <code>lme4</code>, <code>sjstats</code>, <code>stats</code>, and <code>pbkrtest</code> packages.</p>
 <p>By the end of this practical you will know how to:</p>
 <ol style="list-style-type: decimal">
 <li>Run mixed effects models in R.</li>
-<li>Extract p-values for fixed and random effects.</li>
-<li>Specify crossed vs. nested random effects and what implications this has.</li>
-<li>Extract variance components and compute the intra-class correlation</li>
+<li>Extract p-values for fixed effects.</li>
+<li>Select the appropriate random effects structure.</li>
+<li>Specify crossed vs. nested random effects.</li>
+<li>Extract variance components and compute the explained variance and intra-class correlation</li>
 <li>Visualize your linear mixed effects model.</li>
 <li>Run a generalized mixed effects model.</li>
 </ol>
@@ -540,20 +541,25 @@ LMM_plot</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><a href="">XXX</a></td>
-<td align="left">Nrow</td>
-<td align="left">Ncol</td>
+<td align="left"><a href="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/Tomatometer_dat.csv?token=AZQb9iWcc8yUCbFwBliP5UfVzAooM3okks5cmQ96wA%3D%3D">Tomatometer_dat.csv</a></td>
+<td align="left">5995</td>
+<td align="left">4</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="">XXX</a></td>
-<td align="left">Nrow</td>
-<td align="left">Ncol</td>
+<td align="left"><a href="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/schools.csv?token=AZQb9mdlio2aNiTgfaddDHxpENKWm3Hhks5cmQ9jwA%3D%3D">schools.csv</a></td>
+<td align="left">1200</td>
+<td align="left">7</td>
+</tr>
+<tr class="odd">
+<td align="left"><a href="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/cancer_remission.csv?token=AZQb9ic1yv1-UdOtMITu0HyaW1xRMdV9ks5cmQ-bwA%3D%3D">cancer_remission.csv</a></td>
+<td align="left">8525</td>
+<td align="left">27</td>
 </tr>
 </tbody>
 </table>
-<p>SHORT VERBAL DESCRIPTION OF DATA SETS</p>
-<div id="variable-description" class="section level4">
-<h4>Variable description</h4>
+<p>The <em>Tomatometer_dat.csv</em> dataset contains tomatometer ratings from</p>
+<div id="tomatometer_dat.csv" class="section level4">
+<h4>Tomatometer_dat.csv</h4>
 <table style="width:75%;">
 <colgroup>
 <col width="20%" />
