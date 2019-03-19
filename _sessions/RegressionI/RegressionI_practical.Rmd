@@ -672,6 +672,12 @@ hitters_new_pred
 
 7. Does the first value match the value you calculated by hand?
 
+### X - Challenges
+
+1. A colleague of yours wants to know which variable is better at predicting a player's salary, RBI (Number of runs batted) or Walks (Number of walks). Conduct the appropriate regression analysis to answer the question.
+
+2. Look at the coefficients in your `all_glm` model, you'll notice that there is one called `NewLeagueN`, even though there is no such variable in your `hitters` dataframe (though there is one called `NewLeague`). Using the `table()` function, look at all possible values of `hitters$NewLeague`. What do you see? Based on this, what do you think the `NewLeagueN` variable means? Why is it called `NewLeagueN`?
+
 ## Examples
 
 ```{r, eval = FALSE, echo = TRUE}
