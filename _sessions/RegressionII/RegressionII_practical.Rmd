@@ -120,10 +120,34 @@ View(XXX)
 View(XXX)
 ```
 
+### B - Correlation
 
-### B - XXX
+`cor.test()`
+
+#### vs. Regression
+
+### C - T-test
+
+`t.test()`
+
+#### vs. Regression
+
+### D - ANOVA
+
+`aov()`
+
+*Post-hoc tests, with bonferonni correction*
+
+`TukeyHSD()`
+
+#### E - You choose the test
 
 ### X - Advanced: XXX
+
+#### Anscombe's quartet
+
+#### Simpson's Paradox
+
 
 ## Examples
 

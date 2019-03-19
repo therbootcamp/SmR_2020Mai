@@ -97,6 +97,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -104,14 +107,74 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -182,11 +245,37 @@ XXX</code></pre>
 <pre class="r"><code>View(XXX)
 View(XXX)</code></pre>
 </div>
-<div id="b---xxx" class="section level3">
-<h3>B - XXX</h3>
+<div id="b---correlation" class="section level3">
+<h3>B - Correlation</h3>
+<p><code>cor.test()</code></p>
+<div id="vs.regression" class="section level4">
+<h4>vs. Regression</h4>
+</div>
+</div>
+<div id="c---t-test" class="section level3">
+<h3>C - T-test</h3>
+<p><code>t.test()</code></p>
+<div id="vs.regression-1" class="section level4">
+<h4>vs. Regression</h4>
+</div>
+</div>
+<div id="d---anova" class="section level3">
+<h3>D - ANOVA</h3>
+<p><code>aov()</code></p>
+<p><em>Post-hoc tests, with bonferonni correction</em></p>
+<p><code>TukeyHSD()</code></p>
+<div id="e---you-choose-the-test" class="section level4">
+<h4>E - You choose the test</h4>
+</div>
 </div>
 <div id="x---advanced-xxx" class="section level3">
 <h3>X - Advanced: XXX</h3>
+<div id="anscombes-quartet" class="section level4">
+<h4>Anscombe’s quartet</h4>
+</div>
+<div id="simpsons-paradox" class="section level4">
+<h4>Simpson’s Paradox</h4>
+</div>
 </div>
 </div>
 <div id="examples" class="section level2">
@@ -219,10 +308,10 @@ View(XXX)</code></pre>
 <p>SHORT VERBAL DESCRIPTION OF DATA SETS</p>
 <div id="variable-description" class="section level4">
 <h4>Variable description</h4>
-<table style="width:75%;">
+<table>
 <colgroup>
-<col width="20%" />
-<col width="54%" />
+<col width="26%" />
+<col width="73%" />
 </colgroup>
 <thead>
 <tr class="header">
