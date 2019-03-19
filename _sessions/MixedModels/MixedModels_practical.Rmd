@@ -54,9 +54,9 @@ cr <- read_csv("1_Data/cancer_remission.csv")
 ```
 
 <p align="center" width="100%">
-  <img src="image/placeholder.png" alt="Trulli" style="width:100%;height:280px">
+  <img src="image/rottentomatoes.png" alt="Trulli" style="width:100%;height:280px">
   <br>
-  <font style="font-size:10px">from <a href="">shorted URL</a></font>
+  <font style="font-size:10px">from <a href="https://www.rottentomatoes.com/">rottentomatoes.com</a></font>
 </p>
 
 
@@ -289,7 +289,9 @@ summary(FE_mod)
 max_mod <- lmer(XXX ~ XXX +           # These are the fixed effects
                (XXX|XXX) + (XXX|XXX), # These are the random effects
                data = XXX,            # Specify the data used
-               REML = FALSE)
+               REML = FALSE,
+              control = lmerControl(optimizer = "bobyqa")) # use a different optimizer
+                                                            # to avoid non convergence
 ```
 
 ```{r}
@@ -297,7 +299,9 @@ max_mod <- lmer(XXX ~ XXX +           # These are the fixed effects
 max_mod <- lmer(Tomatometer ~ State +       # These are the fixed effects
                (State|ID) + (State|Movie),  # These are the random effects
                data = tom_df,               # Specify the data used
-               REML = FALSE)
+               REML = FALSE,
+              control = lmerControl(optimizer = "bobyqa")) # use a different optimizer
+                                                            # to avoid non convergence
 ```
 
 11. Compare the results with those of the earlier models.
@@ -315,6 +319,12 @@ summary(FE_mod)
 # the Type I error rate is inflated (i.e., the fixed effects are too often classified
 # as being significant, even though they are in truth not related to the outcome
 # variable).
+```
+
+12. The `converge_ok()` function from the `sjstaty` package let's you check whether the model converged or not. If the functions returns `TRUE` you're good. Test whether `max_mod` converged.
+
+```{r}
+converge_ok(max_mod)
 ```
 
 
@@ -619,11 +629,11 @@ table(XXX, XXX)
 table(schools$school, schools$class)
 ```
 
-2. Fit a mixed effects model predicting extraversion ("extra") with openness ("open") and aggreeableness ("agree") with random intercepts for classes nested in school and save it as `hier_mod`. *Hint*: The nested random effects structure is specified with the following syntax `(1|higher_level_variable/lower_level_variable)`.
+2. Fit a mixed effects model predicting extraversion ("extra") with openness ("open") and the social score ("social") with random intercepts for classes nested in school and save it as `hier_mod`. *Hint*: The nested random effects structure is specified with the following syntax `(1|higher_level_variable/lower_level_variable)`.
 
 ```{r}
 # Hierarchical mixed effects model
-hier_mod <- lmer(extra ~ open + agree + # These are the fixed effects
+hier_mod <- lmer(extra ~ open + social + # These are the fixed effects
                (1|school/class),        # These are the nested random effects
                data = schools,          # Specify the data used
                REML = FALSE)
@@ -743,8 +753,8 @@ View(cr)
 5. Predict cancer remission (`remission`) by the cancer stage (`CancerStage`), the length of the patients stay (`LengthofStay`), the doctors experience (`Experience`), and by specifying by doctor (`DID`) random intercepts. Use the `glmer` function with `family = binomial` to do this. Also, use the "bobyqa" optimizer as in some examples before.
 
 ```{r}
-cr_mod <- glmer(remission ~ IL6 + CRP + CancerStage + LengthofStay + Experience +
-                (1 | DID), data = hdp, family = binomial,
+cr_mod <- glmer(remission ~ CancerStage + LengthofStay + Experience +
+                (1 | DID), data = cr, family = binomial,
                 control = glmerControl(optimizer = "bobyqa"), nAGQ = 10)
 ```
 
@@ -758,8 +768,127 @@ Running and interpreting generalized linerar mixed effects models can be quite c
 
 ```{r, eval = FALSE, echo = TRUE}
 
-# EXAMPLE CODE
+# load packages
+library(lme4)
+library(sjstats)
 
+# look at sleepstudy data contained in lme4
+head(sleepstudy)
+
+# look at describtion of sleepstudy
+?sleepstudy
+
+# fixed effects only model predicting the reaction time
+# from the number of days with sleep deprivation
+sleep_FE <- glm(Reaction ~ Days, data = sleepstudy)
+
+# inspect model
+summary(sleep_FE)
+
+# intercept only model mixed effects model
+sleep_IO <- lmer(Reaction ~ 1 + (1|Subject),
+                 data = sleepstudy,
+                 REML = FALSE)
+
+# inspect model
+summary(sleep_IO)
+
+# run random interceptes model
+sleep_RI <- lmer(Reaction ~ Days + (1|Subject),
+                 data = sleepstudy,
+                 REML = FALSE)
+
+# inspect output
+summary(sleep_RI)
+
+# check whether model converged
+converge_ok(sleep_RI)
+
+# get p_values for fixed effects using Kenward-Roger approximation
+p_value(sleep_RI, p.kr = TRUE)
+
+# alternatively, get p-value using anova() function
+anova(sleep_IO, sleep_RI)
+
+# run mixed effects model without correlations between random effects parameters
+sleep_nc <- lmer(Reaction ~ Days + (Days||Subject),
+                 data = sleepstudy,
+                 REML = FALSE)
+
+# check whether the model converged
+converge_ok(sleep_nc)
+
+# check model output
+summary(sleep_nc)
+
+# run maximal model (by-subjects random slopes and intercepts)
+sleep_max <- lmer(Reaction ~ Days + (Days|Subject),
+                 data = sleepstudy,
+                 REML = FALSE)
+
+# check whether the model converged
+converge_ok(sleep_max)
+
+# check model output
+summary(sleep_max)
+
+### select the random effects structure
+
+# set alpha to .2
+alpha <- .2
+
+# derive the critical value above which the difference is significant.
+st1 <- qchisq(1 - alpha, df = 1)
+
+# get the difference in deviance between the two models
+d_diff <- deviance(sleep_nc) - deviance(sleep_max)
+
+# Test whether this difference is large enough to be considered significant
+d_diff > st1
+
+# correlation is not necessary. Now test whether the random slopes are necessary
+d_diff <- deviance(sleep_RI) - deviance(sleep_nc)
+
+# Test whether this difference is large enough to be considered significant
+d_diff > st1 # -> keep sleep_nc model
+
+# compute r-squared
+r2(sleep_nc)
+
+# compute icc
+icc(sleep_nc, adjusted = TRUE)
+
+### Visualize Model
+
+# extract fixed effects
+m_line <- fixef(sleep_nc)
+
+# extract random effects
+ranefs <- ranef(sleep_nc)
+predicted <- tibble(
+  intercept = ranefs$Subject[,1] + fixef(sleep_nc)[1],
+  slope = ranefs$Subject[,2] + fixef(sleep_nc)[2])
+
+# randomly draw 10 subjects to plot the fitted lines
+rand10 <- sample(1:nrow(predicted), 10)
+
+LMM_plot <- ggplot(sleepstudy, aes(Days, Reaction)) +
+  geom_point(colour= "#606061", alpha = .15, size = 2.5)+
+  geom_segment(aes(x = 0, y = intercept, xend = 9, yend = intercept + slope * 9),
+               data = predicted %>% slice(rand10), colour = "#EA4B68", size = 1.5,
+               alpha = .8) +
+  geom_segment(aes(x = 0, y = m_line[1], xend = 9, yend = m_line[1] + 9 * m_line[2]),
+               colour = "black", size = 2, alpha = 1) +
+  theme(axis.title.x = element_text(vjust = -1),
+        axis.title.y = element_text(vjust = 1)) +
+  theme_bw() +
+  theme(
+    strip.text = element_text(size = 12, face = "bold"),
+    axis.text = element_text(size = 16),
+    axis.title = element_text(size = 18,face = "bold")
+  )
+
+LMM_plot
 ```
 
 
@@ -771,39 +900,43 @@ Running and interpreting generalized linerar mixed effects models can be quite c
 |[schools.csv](https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/schools.csv?token=AZQb9mdlio2aNiTgfaddDHxpENKWm3Hhks5cmQ9jwA%3D%3D) | `r nrow(schools)` | `r ncol(schools)` |
 |[cancer_remission.csv](https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/cancer_remission.csv?token=AZQb9ic1yv1-UdOtMITu0HyaW1xRMdV9ks5cmQ-bwA%3D%3D) | `r nrow(cr)` | `r ncol(cr)` |
 
-The *Tomatometer_dat.csv* dataset contains tomatometer ratings from 
+The *Tomatometer_dat.csv* dataset contains tomatometer ratings from 200 raters who each rated 15 movies, once while they were sober and once while they were drunk.
+
+The *schools.csv* dataset contains ratings of extraversion, openness to experience, agreeableness, and a social score of 1200 students from different classes of 6 different schools.
+
+The *cancer_remission.csv* dataset contains data on lung cancer remission from patients nested within doctors
 
 #### Tomatometer_dat.csv
 
 | Name | Description |
 |:-------------|:-------------------------------------|
-| XXX | XXX |
-| XXX | age in years at baseline|
-|wtkg| weight in kg at baseline|
-|hemo| hemophilia (0=no, 1=yes)|
-|homo| homosexual activity (0=no, 1=yes)|
-|drugs| history of intravenous drug use (0=no, 1=yes)|
-|karnof| Karnofsky score (on a scale of 0-100)|
-|oprior| non-zidovudine antiretroviral therapy prior to initiation of study treatment (0=no, 1=yes)|
-|z30| zidovudine use in the 30 days prior to treatment initiation (0=no, 1=yes)|
-|zprior| zidovudine use prior to treatment initiation (0=no, 1=yes)|
-|preanti| number of days of previously received antiretroviral therapy|
-|race| race (0=white, 1=non-white)|
-|gender| gender (0=female, 1=male)|
-|str2| antiretroviral history (0=naive, 1=experienced)|
-|strat| antiretroviral history stratification (1=’antiretroviral naive’, 2=’> 1 but ≤ 52 weeks of prior antiretroviral therapy’, 3=’> 52 weeks’)|
-|symptom| symptomatic indicator (0=asymptomatic, 1=symptomatic)|
-|treat| treatment indicator (0=zidovudine only, 1=other therapies)|
-|offtrt| indicator of off-treatment before 96±5 weeks (0=no,1=yes)|
-|cd40| CD4 T cell count at baseline|
-|cd420| CD4 T cell count at 20±5 weeks|
-|cd496| CD4 T cell count at 96±5 weeks (=NA if missing)|
-|r| missing CD4 T cell count at 96±5 weeks (0=missing, 1=observed)|
-|cd80| CD8 T cell count at baseline|
-|cd820| CD8 T cell count at 20±5 weeks|
-|cens| indicator of observing the event in days|
-|days| number of days until the first occurrence of: (i) a decline in CD4 T cell count of at least 50 (ii) an event indicating progression to AIDS, or (iii) death.|
-|arms| treatment arm (0=zidovudine, 1=zidovudine and didanosine, 2=zidovudine and zalcitabine, 3=didanosine).|
+| ID | Participant id code |
+| Movie | Movie ID from M1 to M15 |
+|State| the state in which the rating was done ("sober", or "drunk") |
+|Tomatometer| tomatometer rating from 0 to 100|
+
+#### schools.csv
+
+| Name | Description |
+|:-------------|:-------------------------------------|
+| id | pupil id |
+| extra | extraversion rating of pupil from 0 to 100|
+|open| openness to experience rating of pupil from 0 to 100|
+|agree| agreeableness rating of pupil from 0 to 100|
+|social| social score of pupil |
+|class| the class a pupil is in (nested under school; levels "a", "b", "c", and "d") |
+|school| the school a pupil / class is in (levels "I", "II", "III", "IV") |
+
+#### cancer_remission.csv
+
+| Name | Description |
+|:-------------|:-------------------------------------|
+| remission | whether the cancer is in remission (0 = No, 1 = Yes) |
+| CancerStage | four different cancer stages (levels "I", "II", "III", "IV") |
+|LengthofStay| how long a participant stayed in hospital (score ranging from 1 to 10) |
+|Experience| experiene of the doctor (ranging from 7 to 29, probably years of experience)|
+|DID| doctor id |
+
 
 ## Functions
 
@@ -829,6 +962,7 @@ The *Tomatometer_dat.csv* dataset contains tomatometer ratings from
 |     `deviance`|`stats`| Extract the deviance of various statistical outputs | 
 |     `qchisq`|`stats`| Quantile function of the $\chi^2$ distribution to get critical $\chi^2$ values | 
 |     `PBmodcomp`|`pbkrtest`| Perform parametric bootstrap to obtain p-values from linear mixed effects models | 
+|     `converge_ok`|`sjstats`| Test whether a model converged or not (some warnings produced by lmer and glmer may be informative but not necessarily mean you need to worry, so this function is a good proxy to use. If it yields `FALSE` you may want to investigate things and try to take measures to improve your model) | 
 |     `p_value`|`sjstats`| Compute p-values for fixe effects of mixed effects models using Wald's test or conditional F-tests with Kenward-Roger approximation for the degrees of freedom | 
 |     `r2`|`sjstats`| Extract $R^2$ value from (generalized) linear (mixed effects) model outputs | 
 |     `icc`|`sjstats`| Compute ICCs from (generalized) linear mixed effects model outputs | 

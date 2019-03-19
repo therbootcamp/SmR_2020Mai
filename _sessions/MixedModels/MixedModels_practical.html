@@ -207,7 +207,7 @@ $(document).ready(function () {
 
 
 <p align="center" width="100%">
-<img src="image/placeholder.png" alt="Trulli" style="width:100%;height:280px"> <br> <font style="font-size:10px">from <a href="">shorted URL</a></font>
+<img src="image/rottentomatoes.png" alt="Trulli" style="width:100%;height:280px"> <br> <font style="font-size:10px">from <a href="https://www.rottentomatoes.com/">rottentomatoes.com</a></font>
 </p>
 <div id="section" class="section level1 tabset">
 <h1></h1>
@@ -311,9 +311,12 @@ subj_RI_RS_mod &lt;- lmer(XXX ~ XXX +          # These are the fixed effects
 max_mod &lt;- lmer(XXX ~ XXX +           # These are the fixed effects
                (XXX|XXX) + (XXX|XXX), # These are the random effects
                data = XXX,            # Specify the data used
-               REML = FALSE)</code></pre>
+               REML = FALSE,
+              control = lmerControl(optimizer = &quot;bobyqa&quot;)) # use a different optimizer
+                                                            # to avoid non convergence</code></pre>
 <ol start="11" style="list-style-type: decimal">
-<li>Compare the results with those of the earlier models.</li>
+<li><p>Compare the results with those of the earlier models.</p></li>
+<li><p>The <code>converge_ok()</code> function from the <code>sjstaty</code> package let’s you check whether the model converged or not. If the functions returns <code>TRUE</code> you’re good. Test whether <code>max_mod</code> converged.</p></li>
 </ol>
 </div>
 <div id="c---computing-p-values-for-fixed-effects" class="section level3">
@@ -469,7 +472,7 @@ st &lt;- qchisq(1 - alpha, df = 2) # derive the critical value above which the d
 </ol>
 <pre class="r"><code>table(XXX, XXX)</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li><p>Fit a mixed effects model predicting extraversion (“extra”) with openness (“open”) and aggreeableness (“agree”) with random intercepts for classes nested in school and save it as <code>hier_mod</code>. <em>Hint</em>: The nested random effects structure is specified with the following syntax <code>(1|higher_level_variable/lower_level_variable)</code>.</p></li>
+<li><p>Fit a mixed effects model predicting extraversion (“extra”) with openness (“open”) and the social score (“social”) with random intercepts for classes nested in school and save it as <code>hier_mod</code>. <em>Hint</em>: The nested random effects structure is specified with the following syntax <code>(1|higher_level_variable/lower_level_variable)</code>.</p></li>
 <li><p>Inspect the model output using <code>summary()</code>.</p></li>
 <li><p>Now fit the same model but with crossed random intercepts as in the sections before, rather than with nested random intercepts. Save the output as <code>cross_mod</code>.</p></li>
 <li><p>Inspect the output using the <code>summary()</code> function. Did the results change compared to the ones for the nested random effects structure.</p></li>
@@ -527,7 +530,127 @@ LMM_plot</code></pre>
 </div>
 <div id="examples" class="section level2">
 <h2>Examples</h2>
-<pre class="r"><code># EXAMPLE CODE</code></pre>
+<pre class="r"><code># load packages
+library(lme4)
+library(sjstats)
+
+# look at sleepstudy data contained in lme4
+head(sleepstudy)
+
+# look at describtion of sleepstudy
+?sleepstudy
+
+# fixed effects only model predicting the reaction time
+# from the number of days with sleep deprivation
+sleep_FE &lt;- glm(Reaction ~ Days, data = sleepstudy)
+
+# inspect model
+summary(sleep_FE)
+
+# intercept only model mixed effects model
+sleep_IO &lt;- lmer(Reaction ~ 1 + (1|Subject),
+                 data = sleepstudy,
+                 REML = FALSE)
+
+# inspect model
+summary(sleep_IO)
+
+# run random interceptes model
+sleep_RI &lt;- lmer(Reaction ~ Days + (1|Subject),
+                 data = sleepstudy,
+                 REML = FALSE)
+
+# inspect output
+summary(sleep_RI)
+
+# check whether model converged
+converge_ok(sleep_RI)
+
+# get p_values for fixed effects using Kenward-Roger approximation
+p_value(sleep_RI, p.kr = TRUE)
+
+# alternatively, get p-value using anova() function
+anova(sleep_IO, sleep_RI)
+
+# run mixed effects model without correlations between random effects parameters
+sleep_nc &lt;- lmer(Reaction ~ Days + (Days||Subject),
+                 data = sleepstudy,
+                 REML = FALSE)
+
+# check whether the model converged
+converge_ok(sleep_nc)
+
+# check model output
+summary(sleep_nc)
+
+# run maximal model (by-subjects random slopes and intercepts)
+sleep_max &lt;- lmer(Reaction ~ Days + (Days|Subject),
+                 data = sleepstudy,
+                 REML = FALSE)
+
+# check whether the model converged
+converge_ok(sleep_max)
+
+# check model output
+summary(sleep_max)
+
+### select the random effects structure
+
+# set alpha to .2
+alpha &lt;- .2
+
+# derive the critical value above which the difference is significant.
+st1 &lt;- qchisq(1 - alpha, df = 1)
+
+# get the difference in deviance between the two models
+d_diff &lt;- deviance(sleep_nc) - deviance(sleep_max)
+
+# Test whether this difference is large enough to be considered significant
+d_diff &gt; st1
+
+# correlation is not necessary. Now test whether the random slopes are necessary
+d_diff &lt;- deviance(sleep_RI) - deviance(sleep_nc)
+
+# Test whether this difference is large enough to be considered significant
+d_diff &gt; st1 # -&gt; keep sleep_nc model
+
+# compute r-squared
+r2(sleep_nc)
+
+# compute icc
+icc(sleep_nc, adjusted = TRUE)
+
+### Visualize Model
+
+# extract fixed effects
+m_line &lt;- fixef(sleep_nc)
+
+# extract random effects
+ranefs &lt;- ranef(sleep_nc)
+predicted &lt;- tibble(
+  intercept = ranefs$Subject[,1] + fixef(sleep_nc)[1],
+  slope = ranefs$Subject[,2] + fixef(sleep_nc)[2])
+
+# randomly draw 10 subjects to plot the fitted lines
+rand10 &lt;- sample(1:nrow(predicted), 10)
+
+LMM_plot &lt;- ggplot(sleepstudy, aes(Days, Reaction)) +
+  geom_point(colour= &quot;#606061&quot;, alpha = .15, size = 2.5)+
+  geom_segment(aes(x = 0, y = intercept, xend = 9, yend = intercept + slope * 9),
+               data = predicted %&gt;% slice(rand10), colour = &quot;#EA4B68&quot;, size = 1.5,
+               alpha = .8) +
+  geom_segment(aes(x = 0, y = m_line[1], xend = 9, yend = m_line[1] + 9 * m_line[2]),
+               colour = &quot;black&quot;, size = 2, alpha = 1) +
+  theme(axis.title.x = element_text(vjust = -1),
+        axis.title.y = element_text(vjust = 1)) +
+  theme_bw() +
+  theme(
+    strip.text = element_text(size = 12, face = &quot;bold&quot;),
+    axis.text = element_text(size = 16),
+    axis.title = element_text(size = 18,face = &quot;bold&quot;)
+  )
+
+LMM_plot</code></pre>
 </div>
 <div id="datasets" class="section level2">
 <h2>Datasets</h2>
@@ -553,13 +676,44 @@ LMM_plot</code></pre>
 <tr class="odd">
 <td align="left"><a href="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/cancer_remission.csv?token=AZQb9ic1yv1-UdOtMITu0HyaW1xRMdV9ks5cmQ-bwA%3D%3D">cancer_remission.csv</a></td>
 <td align="left">8525</td>
-<td align="left">27</td>
+<td align="left">5</td>
 </tr>
 </tbody>
 </table>
-<p>The <em>Tomatometer_dat.csv</em> dataset contains tomatometer ratings from</p>
+<p>The <em>Tomatometer_dat.csv</em> dataset contains tomatometer ratings from 200 raters who each rated 15 movies, once while they were sober and once while they were drunk.</p>
+<p>The <em>schools.csv</em> dataset contains ratings of extraversion, openness to experience, agreeableness, and a social score of 1200 students from different classes of 6 different schools.</p>
+<p>The <em>cancer_remission.csv</em> dataset contains data on lung cancer remission from patients nested within doctors</p>
 <div id="tomatometer_dat.csv" class="section level4">
 <h4>Tomatometer_dat.csv</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">ID</td>
+<td align="left">Participant id code</td>
+</tr>
+<tr class="even">
+<td align="left">Movie</td>
+<td align="left">Movie ID from M1 to M15</td>
+</tr>
+<tr class="odd">
+<td align="left">State</td>
+<td align="left">the state in which the rating was done (“sober”, or “drunk”)</td>
+</tr>
+<tr class="even">
+<td align="left">Tomatometer</td>
+<td align="left">tomatometer rating from 0 to 100</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="schools.csv" class="section level4">
+<h4>schools.csv</h4>
 <table style="width:75%;">
 <colgroup>
 <col width="20%" />
@@ -573,112 +727,69 @@ LMM_plot</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">XXX</td>
-<td align="left">XXX</td>
+<td align="left">id</td>
+<td align="left">pupil id</td>
 </tr>
 <tr class="even">
-<td align="left">XXX</td>
-<td align="left">age in years at baseline</td>
+<td align="left">extra</td>
+<td align="left">extraversion rating of pupil from 0 to 100</td>
 </tr>
 <tr class="odd">
-<td align="left">wtkg</td>
-<td align="left">weight in kg at baseline</td>
+<td align="left">open</td>
+<td align="left">openness to experience rating of pupil from 0 to 100</td>
 </tr>
 <tr class="even">
-<td align="left">hemo</td>
-<td align="left">hemophilia (0=no, 1=yes)</td>
+<td align="left">agree</td>
+<td align="left">agreeableness rating of pupil from 0 to 100</td>
 </tr>
 <tr class="odd">
-<td align="left">homo</td>
-<td align="left">homosexual activity (0=no, 1=yes)</td>
+<td align="left">social</td>
+<td align="left">social score of pupil</td>
 </tr>
 <tr class="even">
-<td align="left">drugs</td>
-<td align="left">history of intravenous drug use (0=no, 1=yes)</td>
+<td align="left">class</td>
+<td align="left">the class a pupil is in (nested under school; levels “a”, “b”, “c”, and “d”)</td>
 </tr>
 <tr class="odd">
-<td align="left">karnof</td>
-<td align="left">Karnofsky score (on a scale of 0-100)</td>
+<td align="left">school</td>
+<td align="left">the school a pupil / class is in (levels “I”, “II”, “III”, “IV”)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="cancer_remission.csv" class="section level4">
+<h4>cancer_remission.csv</h4>
+<table style="width:75%;">
+<colgroup>
+<col width="20%" />
+<col width="54%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">remission</td>
+<td align="left">whether the cancer is in remission (0 = No, 1 = Yes)</td>
 </tr>
 <tr class="even">
-<td align="left">oprior</td>
-<td align="left">non-zidovudine antiretroviral therapy prior to initiation of study treatment (0=no, 1=yes)</td>
+<td align="left">CancerStage</td>
+<td align="left">four different cancer stages (levels “I”, “II”, “III”, “IV”)</td>
 </tr>
 <tr class="odd">
-<td align="left">z30</td>
-<td align="left">zidovudine use in the 30 days prior to treatment initiation (0=no, 1=yes)</td>
+<td align="left">LengthofStay</td>
+<td align="left">how long a participant stayed in hospital (score ranging from 1 to 10)</td>
 </tr>
 <tr class="even">
-<td align="left">zprior</td>
-<td align="left">zidovudine use prior to treatment initiation (0=no, 1=yes)</td>
+<td align="left">Experience</td>
+<td align="left">experiene of the doctor (ranging from 7 to 29, probably years of experience)</td>
 </tr>
 <tr class="odd">
-<td align="left">preanti</td>
-<td align="left">number of days of previously received antiretroviral therapy</td>
-</tr>
-<tr class="even">
-<td align="left">race</td>
-<td align="left">race (0=white, 1=non-white)</td>
-</tr>
-<tr class="odd">
-<td align="left">gender</td>
-<td align="left">gender (0=female, 1=male)</td>
-</tr>
-<tr class="even">
-<td align="left">str2</td>
-<td align="left">antiretroviral history (0=naive, 1=experienced)</td>
-</tr>
-<tr class="odd">
-<td align="left">strat</td>
-<td align="left">antiretroviral history stratification (1=’antiretroviral naive’, 2=’&gt; 1 but ≤ 52 weeks of prior antiretroviral therapy’, 3=’&gt; 52 weeks’)</td>
-</tr>
-<tr class="even">
-<td align="left">symptom</td>
-<td align="left">symptomatic indicator (0=asymptomatic, 1=symptomatic)</td>
-</tr>
-<tr class="odd">
-<td align="left">treat</td>
-<td align="left">treatment indicator (0=zidovudine only, 1=other therapies)</td>
-</tr>
-<tr class="even">
-<td align="left">offtrt</td>
-<td align="left">indicator of off-treatment before 96±5 weeks (0=no,1=yes)</td>
-</tr>
-<tr class="odd">
-<td align="left">cd40</td>
-<td align="left">CD4 T cell count at baseline</td>
-</tr>
-<tr class="even">
-<td align="left">cd420</td>
-<td align="left">CD4 T cell count at 20±5 weeks</td>
-</tr>
-<tr class="odd">
-<td align="left">cd496</td>
-<td align="left">CD4 T cell count at 96±5 weeks (=NA if missing)</td>
-</tr>
-<tr class="even">
-<td align="left">r</td>
-<td align="left">missing CD4 T cell count at 96±5 weeks (0=missing, 1=observed)</td>
-</tr>
-<tr class="odd">
-<td align="left">cd80</td>
-<td align="left">CD8 T cell count at baseline</td>
-</tr>
-<tr class="even">
-<td align="left">cd820</td>
-<td align="left">CD8 T cell count at 20±5 weeks</td>
-</tr>
-<tr class="odd">
-<td align="left">cens</td>
-<td align="left">indicator of observing the event in days</td>
-</tr>
-<tr class="even">
-<td align="left">days</td>
-<td align="left">number of days until the first occurrence of: (i) a decline in CD4 T cell count of at least 50 (ii) an event indicating progression to AIDS, or (iii) death.</td>
-</tr>
-<tr class="odd">
-<td align="left">arms</td>
-<td align="left">treatment arm (0=zidovudine, 1=zidovudine and didanosine, 2=zidovudine and zalcitabine, 3=didanosine).</td>
+<td align="left">DID</td>
+<td align="left">doctor id</td>
 </tr>
 </tbody>
 </table>
@@ -777,21 +888,26 @@ LMM_plot</code></pre>
 <td align="left">Perform parametric bootstrap to obtain p-values from linear mixed effects models</td>
 </tr>
 <tr class="even">
+<td align="left"><code>converge_ok</code></td>
+<td align="left"><code>sjstats</code></td>
+<td align="left">Test whether a model converged or not (some warnings produced by lmer and glmer may be informative but not necessarily mean you need to worry, so this function is a good proxy to use. If it yields <code>FALSE</code> you may want to investigate things and try to take measures to improve your model)</td>
+</tr>
+<tr class="odd">
 <td align="left"><code>p_value</code></td>
 <td align="left"><code>sjstats</code></td>
 <td align="left">Compute p-values for fixe effects of mixed effects models using Wald’s test or conditional F-tests with Kenward-Roger approximation for the degrees of freedom</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>r2</code></td>
 <td align="left"><code>sjstats</code></td>
 <td align="left">Extract <span class="math inline">\(R^2\)</span> value from (generalized) linear (mixed effects) model outputs</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left"><code>icc</code></td>
 <td align="left"><code>sjstats</code></td>
 <td align="left">Compute ICCs from (generalized) linear mixed effects model outputs</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left"><code>re_var</code></td>
 <td align="left"><code>sjstats</code></td>
 <td align="left">Extract random effects and residual variances from (generalized) linear mixed effects model outputs</td>
