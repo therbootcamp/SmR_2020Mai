@@ -1,5 +1,5 @@
 ---
-title: "Robust Statistics"
+title: "Intro to Statistics"
 author: "Statistics with R<br>
   <a href='https://therbootcamp.github.io'>
     Basel R Bootcamp
@@ -78,15 +78,9 @@ baselers <- readr::read_csv("1_Data/baselers.csv")
 ```
 
 
-# Robust statistics
+# Statistics
 
 .pull-left45[
-
-### Assumptions
-
-
-
-### Non-parametric
 
 
 ]
@@ -94,69 +88,9 @@ baselers <- readr::read_csv("1_Data/baselers.csv")
 .pull-right45[
 
 <p align = "center">
-<img src="image/artifact.png" height=440px><br>
+<img src="image/XX" height=440px><br>
 <font style="font-size:10px">from <a href="https://xkcd.com/1781/">xkcd.com</a></font>
 </p>
-
-
-]
-
----
-
-# Assumptions
-
-.pull-left45[
-
-#### In "plain" English...
-
-<high>Have the right variables</high> (A1-A3)
-
-- Quantitative or dichotomous (binary)
-- Nonzero variance
-- Not too highly correlated
-
-<high>Have the right model</high> (A4-A8)
-
-- Linear relationship
-- Normally distributed errors
-- Uncorrelated errors
-- Constant error variance
-
-]
-
-.pull-right45[
-
-<p align = "center">
-<img src="image/assumptions.png" height=440px><br>
-<font style="font-size:10px">from <a href="">Berry (1993)</a></font>
-</p>
-
-
-]
-
----
-
-# Have the right model
-
-.pull-left45[
-
-#### In "plain" English...
-
-<high>Have the right variables</high> (A1-A3)
-
-- Quantitative or dichotomous (binary)
-- Nonzero variance
-- Not too highly correlated
-
-]
-
-.pull-right45[
-
-```{r}
-
-
-
-```
 
 ]
 
