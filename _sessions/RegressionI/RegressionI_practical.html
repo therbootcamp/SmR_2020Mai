@@ -236,8 +236,146 @@ library(ggpubr)</code></pre>
 
 XX &lt;- read_csv(file = &quot;XX/XX&quot;)</code></pre>
 <ol start="5" style="list-style-type: decimal">
-<li>Take a look at the first few rows of the dataset(s) by printing it/them to the console.</li>
+<li>Take a look at the first few rows of the dataset(s) by printing it/them to the console, it should look like the table below:</li>
 </ol>
+<table>
+<thead>
+<tr class="header">
+<th align="right">AtBat</th>
+<th align="right">Hits</th>
+<th align="right">HmRun</th>
+<th align="right">Runs</th>
+<th align="right">RBI</th>
+<th align="right">Walks</th>
+<th align="right">Years</th>
+<th align="right">CAtBat</th>
+<th align="right">CHits</th>
+<th align="right">CHmRun</th>
+<th align="right">CRuns</th>
+<th align="right">CRBI</th>
+<th align="right">CWalks</th>
+<th align="left">League</th>
+<th align="left">Division</th>
+<th align="right">PutOuts</th>
+<th align="right">Assists</th>
+<th align="right">Errors</th>
+<th align="right">Salary</th>
+<th align="left">NewLeague</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">215</td>
+<td align="right">51</td>
+<td align="right">4</td>
+<td align="right">19</td>
+<td align="right">18</td>
+<td align="right">11</td>
+<td align="right">1</td>
+<td align="right">215</td>
+<td align="right">51</td>
+<td align="right">4</td>
+<td align="right">19</td>
+<td align="right">18</td>
+<td align="right">11</td>
+<td align="left">A</td>
+<td align="left">E</td>
+<td align="right">116</td>
+<td align="right">5</td>
+<td align="right">12</td>
+<td align="right">70</td>
+<td align="left">A</td>
+</tr>
+<tr class="even">
+<td align="right">458</td>
+<td align="right">114</td>
+<td align="right">13</td>
+<td align="right">67</td>
+<td align="right">57</td>
+<td align="right">48</td>
+<td align="right">4</td>
+<td align="right">1350</td>
+<td align="right">298</td>
+<td align="right">28</td>
+<td align="right">160</td>
+<td align="right">123</td>
+<td align="right">122</td>
+<td align="left">A</td>
+<td align="left">W</td>
+<td align="right">246</td>
+<td align="right">389</td>
+<td align="right">18</td>
+<td align="right">475</td>
+<td align="left">A</td>
+</tr>
+<tr class="odd">
+<td align="right">586</td>
+<td align="right">159</td>
+<td align="right">12</td>
+<td align="right">72</td>
+<td align="right">79</td>
+<td align="right">53</td>
+<td align="right">9</td>
+<td align="right">3082</td>
+<td align="right">880</td>
+<td align="right">83</td>
+<td align="right">363</td>
+<td align="right">477</td>
+<td align="right">295</td>
+<td align="left">N</td>
+<td align="left">E</td>
+<td align="right">181</td>
+<td align="right">13</td>
+<td align="right">4</td>
+<td align="right">1043</td>
+<td align="left">N</td>
+</tr>
+<tr class="even">
+<td align="right">568</td>
+<td align="right">158</td>
+<td align="right">20</td>
+<td align="right">89</td>
+<td align="right">75</td>
+<td align="right">73</td>
+<td align="right">15</td>
+<td align="right">8068</td>
+<td align="right">2273</td>
+<td align="right">177</td>
+<td align="right">1045</td>
+<td align="right">993</td>
+<td align="right">732</td>
+<td align="left">N</td>
+<td align="left">W</td>
+<td align="right">105</td>
+<td align="right">290</td>
+<td align="right">10</td>
+<td align="right">775</td>
+<td align="left">N</td>
+</tr>
+<tr class="odd">
+<td align="right">399</td>
+<td align="right">102</td>
+<td align="right">3</td>
+<td align="right">56</td>
+<td align="right">34</td>
+<td align="right">34</td>
+<td align="right">5</td>
+<td align="right">670</td>
+<td align="right">167</td>
+<td align="right">4</td>
+<td align="right">89</td>
+<td align="right">48</td>
+<td align="right">54</td>
+<td align="left">A</td>
+<td align="left">W</td>
+<td align="right">211</td>
+<td align="right">9</td>
+<td align="right">3</td>
+<td align="right">80</td>
+<td align="left">A</td>
+</tr>
+</tbody>
+</table>
 <pre class="r"><code># Print hitters object
 XXX</code></pre>
 <ol start="7" style="list-style-type: decimal">
@@ -294,7 +432,7 @@ Hits_fit &lt;- fitted(XXX)
 # Print results
 Hits_fit</code></pre>
 <ol start="10" style="list-style-type: decimal">
-<li>Using <code>min()</code>, <code>max()</code>, <code>mean()</code>, <code>median()</code>, and <code>sd()</code>, calculte summary statistics for the fits. Do the values look like they make sense?</li>
+<li>Using <code>min()</code>, <code>max()</code>, <code>mean()</code>, <code>median()</code>, and <code>sd()</code>, calculate summary statistics for the fits. Do the values look like they make sense?</li>
 </ol>
 <pre class="r"><code># Print summary statistics from Hits_fit
 
@@ -322,16 +460,16 @@ ggplot(data = data, aes(x = truth, y = fitted)) +
   xlim(c(-300, 3000)) +
   ylim(c(-300, 3000))</code></pre>
 <ol start="12" style="list-style-type: decimal">
-<li>Using the <code>rsq()</code> function, print the r-squared value from your object. How much of the variance in Salary can your model account for? Is this high or low?</li>
+<li>Using the <code>rsq()</code> function, print the r-squared value from your <code>hits_glm</code> object. What does this tell you? How much of the variance in Salary can your model account for? Is this high or low?</li>
 </ol>
 <pre class="r"><code># Print r-squared value from hits_glm object
 rsq(XXX)</code></pre>
 </div>
-<div id="hmrun" class="section level4">
-<h4>HmRun</h4>
+<div id="home-runs-hmrun-and-salary" class="section level4">
+<h4>Home Runs (HmRun) and Salary</h4>
 <p>In this section, we will answer the question: &quot;Is there a relationship between the number of home runs a player scores in 1986 his salary in 1987?</p>
 <ol style="list-style-type: decimal">
-<li>Using the code below, create a scattplot showing the relationship between HmRun and Salary. Based on this plot, what do you expect the relationship to be between HmRun and Salary?</li>
+<li>Using the code below, create a scatterplot showing the relationship between HmRun and Salary. Based on this plot, what do you expect the relationship to be between HmRun and Salary?</li>
 </ol>
 <pre class="r"><code>ggplot(hitters, aes(x = HmRun, y = Salary)) +
   geom_point() +
@@ -339,24 +477,34 @@ rsq(XXX)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Conduct a regression analysis predicting a diamond’s <code>Salary</code> as a function of its <code>HmRun</code> value. Save the result to an object called <code>HmRun_glm</code>.</li>
 </ol>
-<pre class="r"><code>HmRun_glm &lt;- glm(formula = XXX ~ XXX,
+<pre class="r"><code># Create HmRun_glm, a glm model predicting Salary as a function of HmRun
+HmRun_glm &lt;- glm(formula = XXX ~ XXX,
                  data = XXX)</code></pre>
 <ol start="3" style="list-style-type: decimal">
+<li>Look at the class of your <code>HmRun_glm</code> object using the <code>class()</code> function. What class is the object? Is it ‘glm’?</li>
+</ol>
+<pre class="r"><code># Print the class of the HmRun_glm object
+
+class(XXX)</code></pre>
+<ol start="4" style="list-style-type: decimal">
 <li><p>Print your <code>HmRun_glm</code> object to see summary information. What is the value of the beta weight for HmRun and what does it mean? Is it consistent with what you saw in the plot?</p></li>
 <li><p>Use the <code>summary()</code> function to print additional summary information from your <code>HmRun_glm</code> object.</p></li>
 </ol>
-<pre class="r"><code>summary(XXX)</code></pre>
-<ol start="5" style="list-style-type: decimal">
+<pre class="r"><code># Print summary information from HmRun_glm
+summary(XXX)</code></pre>
+<ol start="6" style="list-style-type: decimal">
 <li>Using the <code>tidy()</code> function (from the broom package), create a new object called <code>HmRun_tidy</code> which contains all ‘tidy’ results from your <code>HmRun_glm</code> object.</li>
 </ol>
-<pre class="r"><code>HmRun_tidy &lt;- tidy(XXX)</code></pre>
-<ol start="6" style="list-style-type: decimal">
+<pre class="r"><code># Save &#39;tidy&#39; results from HmRun_glm as HmRun_tidy
+HmRun_tidy &lt;- tidy(XXX)</code></pre>
+<ol start="7" style="list-style-type: decimal">
 <li><p>Print your <code>HmRun_tidy</code> object, which statistical outputs do you see?</p></li>
 <li><p>What is the p-value associated with your <code>HmRun</code> coefficient? How do you interpret this? Do you think that, in the general population of players, that there is a non-zero relationship between HmRun and Salary?</p></li>
 <li><p>Using the <code>confint()</code> function, print a 95% confidence interval for the regression coefficients in your <code>HmRun_glm</code> object. What does this mean?</p></li>
 </ol>
-<pre class="r"><code>confint(XXX)</code></pre>
-<ol start="9" style="list-style-type: decimal">
+<pre class="r"><code># Print confidence inverval(s) from HmRun_glm
+confint(XXX)</code></pre>
+<ol start="10" style="list-style-type: decimal">
 <li>Using the <code>fitted()</code> function, save the fitted values of your <code>glm</code> object as <code>HmRun_fit</code>. Then print the results to see how they look.</li>
 </ol>
 <pre class="r"><code># Save fitted values from HmRun_glm as HmRun_fit
@@ -364,20 +512,24 @@ HmRun_fit &lt;- fitted(XXX)
 
 # Print results
 HmRun_fit</code></pre>
-<ol start="10" style="list-style-type: decimal">
-<li>Using <code>min()</code>, <code>max()</code>, <code>mean()</code>, <code>median()</code>, and <code>sd()</code>, calculte summary statistics for the fits. Do the values look like they make sense?</li>
+<ol start="11" style="list-style-type: decimal">
+<li>Using <code>min()</code>, <code>max()</code>, <code>mean()</code>, <code>median()</code>, and <code>sd()</code>, calculate summary statistics for the fits. Do the values look like they make sense?</li>
 </ol>
-<pre class="r"><code>min(XXX)
+<pre class="r"><code># Print summary statitics from HmRun_fit
+
+min(XXX)
 max(XXX)
 mean(XXX)
 median(XXX)
 sd(XXX)</code></pre>
-<ol start="11" style="list-style-type: decimal">
+<ol start="12" style="list-style-type: decimal">
 <li>Using the code below, plot the relationship between the model fitted values and the true values</li>
 </ol>
-<pre class="r"><code>data &lt;- tibble(truth = hitters$Salary,
+<pre class="r"><code># Create a dataframe containing true and fitted values
+data &lt;- tibble(truth = hitters$Salary,
                fitted  = HmRun_fit)
 
+# Create scatterplot
 ggplot(data = data, aes(x = truth, y = fitted)) +  
   geom_point() +
   geom_abline(slope = 1, intercept = 0) +
@@ -387,18 +539,20 @@ ggplot(data = data, aes(x = truth, y = fitted)) +
                col = &quot;red&quot;) +
   xlim(c(-300, 3000)) +
   ylim(c(-300, 3000))</code></pre>
-<ol start="12" style="list-style-type: decimal">
-<li>Using the <code>rsq()</code> function, print the r-squared value from your object. What does this tell you?</li>
+<ol start="13" style="list-style-type: decimal">
+<li>Using the <code>rsq()</code> function, print the r-squared value from your <code>HmRun_glm</code> object. What does this tell you?</li>
 </ol>
-<pre class="r"><code>rsq(XXX)</code></pre>
+<pre class="r"><code># Print r-squared value from HmRun_glm
+rsq(XXX)</code></pre>
 </div>
 </div>
-<div id="c---multiple-ivs" class="section level3">
-<h3>C - Multiple IVs</h3>
+<div id="c---multiple-regression" class="section level3">
+<h3>C - Multiple Regression</h3>
 <ol style="list-style-type: decimal">
 <li>Create an object called <code>Salary_glm</code> which predicts price based on <em>all</em> variables in the <code>hitters</code> dataframe. Assign the result to an object called <code>all_glm</code>.Use the following guide to help you:</li>
 </ol>
-<pre class="r"><code>all_glm &lt;- glm(formula = XXX ~ .,
+<pre class="r"><code># Create all_glm, a glm object modelling Salary based on ALL variables in hitters
+all_glm &lt;- glm(formula = XXX ~ .,
               data = XXX)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li><p>Using the <code>tidy()</code> function (from the broom package), create a new object called <code>all_tidy</code> which contains all ‘tidy’ results from your <code>all_glm</code> object.</p></li>
@@ -413,9 +567,11 @@ All_fit &lt;- fitted(XXX)
 # Print results
 All_fit</code></pre>
 <ol start="10" style="list-style-type: decimal">
-<li>Using <code>min()</code>, <code>max()</code>, <code>mean()</code>, <code>median()</code>, and <code>sd()</code>, calculte summary statistics for the fits. Do the values look like they make sense?</li>
+<li>Using <code>min()</code>, <code>max()</code>, <code>mean()</code>, <code>median()</code>, and <code>sd()</code>, calculate summary statistics for the fits. Do the values look like they make sense?</li>
 </ol>
-<pre class="r"><code>min(XXX)
+<pre class="r"><code># Print summary statistics from All_fit
+
+min(XXX)
 max(XXX)
 mean(XXX)
 median(XXX)
@@ -423,9 +579,11 @@ sd(XXX)</code></pre>
 <ol start="11" style="list-style-type: decimal">
 <li>Using the code below, plot the relationship between the model fitted values and the true values</li>
 </ol>
-<pre class="r"><code>data &lt;- tibble(truth = hitters$Salary,
+<pre class="r"><code># Create dataframe containing true and fitted values
+data &lt;- tibble(truth = hitters$Salary,
                fitted  = All_fit)
 
+# Create a scatterplot
 ggplot(data = data, aes(x = truth, y = fitted)) +  
   geom_point() +
   geom_abline(slope = 1, intercept = 0) +
@@ -436,9 +594,10 @@ ggplot(data = data, aes(x = truth, y = fitted)) +
   xlim(c(-300, 3000)) +
   ylim(c(-300, 3000))</code></pre>
 <ol start="12" style="list-style-type: decimal">
-<li>Using the <code>rsq()</code> function, print the r-squared value from your object. What does this tell you?</li>
+<li>Using the <code>rsq()</code> function, print the r-squared value from your <code>all_glm</code> object. What does this tell you?</li>
 </ol>
-<pre class="r"><code>rsq(XXX)</code></pre>
+<pre class="r"><code># Print r-squared value from all_glm
+rsq(XXX)</code></pre>
 </div>
 <div id="e---exploring-model-residuals" class="section level3">
 <h3>E - Exploring model residuals</h3>
@@ -462,7 +621,7 @@ ggplot(data, aes(x = resid)) +
 </ol>
 <pre class="r"><code>all_resid &lt;- abs(resid(XXX))</code></pre>
 <ol start="5" style="list-style-type: decimal">
-<li><p>Using <code>min()</code>, <code>max()</code>, <code>mean()</code>, <code>median()</code>, and <code>sd()</code>, calculte summary statistics for the absolute residuals <code>all_abs_resid</code>. Do the values look like they make sense?</p></li>
+<li><p>Using <code>min()</code>, <code>max()</code>, <code>mean()</code>, <code>median()</code>, and <code>sd()</code>, calculate summary statistics for the absolute residuals <code>all_abs_resid</code>. Do the values look like they make sense?</p></li>
 <li><p>Using the following code, Create a histogram of the absolute residuals <code>all_abs_resid</code>. How do you interpret this plot?</p></li>
 </ol>
 <pre class="r"><code># Create a dataframe containing absolute errors

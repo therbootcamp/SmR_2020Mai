@@ -105,12 +105,19 @@ XX <- read_csv(file = "XX/XX")
 hitters <- read_csv("1_Data/hitters.csv")
 ```
 
-5. Take a look at the first few rows of the dataset(s) by printing it/them to the console.
+5. Take a look at the first few rows of the dataset(s) by printing it/them to the console, it should look like the table below:
+
+```{r, eval = TRUE, echo = FALSE}
+knitr::kable(hitters %>% slice(1:5))
+```
+
 
 ```{r, echo = TRUE}
 # Print hitters object
 XXX
 ```
+
+
 
 ```{r}
 hitters
@@ -231,7 +238,7 @@ Hits_fit <- fitted(hits_glm)
 Hits_fit
 ```
 
-10. Using `min()`, `max()`, `mean()`, `median()`, and `sd()`, calculte summary statistics for the fits. Do the values look like they make sense?
+10. Using `min()`, `max()`, `mean()`, `median()`, and `sd()`, calculate summary statistics for the fits. Do the values look like they make sense?
 
 ```{r, echo = TRUE, eval = FALSE}
 # Print summary statistics from Hits_fit
@@ -271,7 +278,7 @@ ggplot(data = data, aes(x = truth, y = fitted)) +
   ylim(c(-300, 3000))
 ```
 
-12. Using the `rsq()` function, print the r-squared value from your object. How much of the variance in Salary can your model account for? Is this high or low?
+12. Using the `rsq()` function, print the r-squared value from your `hits_glm` object. What does this tell you? How much of the variance in Salary can your model account for? Is this high or low?
 
 ```{r, echo = TRUE, eval = FALSE}
 # Print r-squared value from hits_glm object
@@ -282,11 +289,11 @@ rsq(XXX)
 rsq(hits_glm)
 ```
 
-#### HmRun 
+#### Home Runs (HmRun) and Salary
 
 In this section, we will answer the question: "Is there a relationship between the number of home runs a player scores in 1986 his salary in 1987?
 
-1. Using the code below, create a scattplot showing the relationship between HmRun and Salary. Based on this plot, what do you expect the relationship to be between HmRun and Salary?
+1. Using the code below, create a scatterplot showing the relationship between HmRun and Salary. Based on this plot, what do you expect the relationship to be between HmRun and Salary?
 
 ```{r, echo = TRUE, eval = FALSE}
 ggplot(hitters, aes(x = HmRun, y = Salary)) +
@@ -297,6 +304,7 @@ ggplot(hitters, aes(x = HmRun, y = Salary)) +
 2. Conduct a regression analysis predicting a diamond's `Salary` as a function of its `HmRun` value. Save the result to an object called `HmRun_glm`.
 
 ```{r, echo = TRUE, eval = FALSE}
+# Create HmRun_glm, a glm model predicting Salary as a function of HmRun
 HmRun_glm <- glm(formula = XXX ~ XXX,
                  data = XXX)
 ```
@@ -306,15 +314,28 @@ HmRun_glm <- glm(formula = Salary ~ HmRun,
                  data = hitters)
 ```
 
-3. Print your `HmRun_glm` object to see summary information. What is the value of the beta weight for HmRun and what does it mean? Is it consistent with what you saw in the plot?
+3. Look at the class of your `HmRun_glm` object using the `class()` function. What class is the object? Is it 'glm'?
+
+```{r, echo = TRUE, eval = FALSE}
+# Print the class of the HmRun_glm object
+
+class(XXX)
+```
+
+```{r}
+class(HmRun_glm)
+```
+
+4. Print your `HmRun_glm` object to see summary information. What is the value of the beta weight for HmRun and what does it mean? Is it consistent with what you saw in the plot?
 
 ```{r}
 HmRun_glm
 ```
 
-4. Use the `summary()` function to print additional summary information from your `HmRun_glm` object.
+5. Use the `summary()` function to print additional summary information from your `HmRun_glm` object.
 
 ```{r, echo = TRUE, eval = FALSE}
+# Print summary information from HmRun_glm
 summary(XXX)
 ```
 
@@ -322,9 +343,10 @@ summary(XXX)
 summary(HmRun_glm)
 ```
 
-5. Using the `tidy()` function (from the broom package), create a new object called `HmRun_tidy` which contains all 'tidy' results from your `HmRun_glm` object.
+6. Using the `tidy()` function (from the broom package), create a new object called `HmRun_tidy` which contains all 'tidy' results from your `HmRun_glm` object.
 
 ```{r, echo = TRUE, eval = FALSE}
+# Save 'tidy' results from HmRun_glm as HmRun_tidy
 HmRun_tidy <- tidy(XXX)
 ```
 
@@ -332,17 +354,18 @@ HmRun_tidy <- tidy(XXX)
 HmRun_tidy <- tidy(HmRun_glm)
 ```
 
-6. Print your `HmRun_tidy` object, which statistical outputs do you see?
+7. Print your `HmRun_tidy` object, which statistical outputs do you see?
 
 ```{r}
 HmRun_tidy
 ```
 
-7. What is the p-value associated with your `HmRun` coefficient? How do you interpret this? Do you think that, in the general population of players, that there is a non-zero relationship between HmRun and Salary?
+8. What is the p-value associated with your `HmRun` coefficient? How do you interpret this? Do you think that, in the general population of players, that there is a non-zero relationship between HmRun and Salary?
 
-8. Using the `confint()` function, print a 95% confidence interval for the regression coefficients in your `HmRun_glm` object. What does this mean?
+9. Using the `confint()` function, print a 95% confidence interval for the regression coefficients in your `HmRun_glm` object. What does this mean?
 
 ```{r, echo = TRUE, eval = FALSE}
+# Print confidence inverval(s) from HmRun_glm
 confint(XXX)
 ```
 
@@ -350,7 +373,7 @@ confint(XXX)
 confint(HmRun_glm)
 ```
 
-9. Using the `fitted()` function, save the fitted values of your `glm` object as `HmRun_fit`. Then print the results to see how they look.
+10. Using the `fitted()` function, save the fitted values of your `glm` object as `HmRun_fit`. Then print the results to see how they look.
 
 ```{r, echo = TRUE, eval = FALSE}
 # Save fitted values from HmRun_glm as HmRun_fit
@@ -366,9 +389,11 @@ HmRun_fit <- fitted(HmRun_glm)
 HmRun_fit
 ```
 
-10. Using `min()`, `max()`, `mean()`, `median()`, and `sd()`, calculte summary statistics for the fits. Do the values look like they make sense?
+11. Using `min()`, `max()`, `mean()`, `median()`, and `sd()`, calculate summary statistics for the fits. Do the values look like they make sense?
 
 ```{r, echo = TRUE, eval = FALSE}
+# Print summary statitics from HmRun_fit
+
 min(XXX)
 max(XXX)
 mean(XXX)
@@ -384,12 +409,14 @@ median(HmRun_fit)
 sd(HmRun_fit)
 ```
 
-11. Using the code below, plot the relationship between the model fitted values and the true values
+12. Using the code below, plot the relationship between the model fitted values and the true values
 
 ```{r, echo = TRUE, eval = FALSE}
+# Create a dataframe containing true and fitted values
 data <- tibble(truth = hitters$Salary,
                fitted  = HmRun_fit)
 
+# Create scatterplot
 ggplot(data = data, aes(x = truth, y = fitted)) +  
   geom_point() +
   geom_abline(slope = 1, intercept = 0) +
@@ -401,9 +428,10 @@ ggplot(data = data, aes(x = truth, y = fitted)) +
   ylim(c(-300, 3000))
 ```
 
-12. Using the `rsq()` function, print the r-squared value from your object. What does this tell you?
+13. Using the `rsq()` function, print the r-squared value from your `HmRun_glm` object. What does this tell you?
 
 ```{r, echo = TRUE, eval = FALSE}
+# Print r-squared value from HmRun_glm
 rsq(XXX)
 ```
 
@@ -411,11 +439,12 @@ rsq(XXX)
 rsq(HmRun_glm)
 ```
 
-### C - Multiple IVs
+### C - Multiple Regression
 
 1. Create an object called `Salary_glm` which predicts price based on *all* variables in the `hitters` dataframe. Assign the result to an object called `all_glm`.Use the following guide to help you:
 
 ```{r, eval = FALSE, echo = TRUE}
+# Create all_glm, a glm object modelling Salary based on ALL variables in hitters
 all_glm <- glm(formula = XXX ~ .,
               data = XXX)
 ```
@@ -428,6 +457,7 @@ all_glm <- glm(formula = Salary ~ .,
 2. Using the `tidy()` function (from the broom package), create a new object called `all_tidy` which contains all 'tidy' results from your `all_glm` object.
 
 ```{r}
+# Save 'tidy' version of all_glm as all_tidy
 all_tidy <- tidy(all_glm)
 ```
 
@@ -442,6 +472,7 @@ all_tidy
 5. Using the `confint()` function, print a 95% confidence interval for the regression coefficients in your `all_glm` object. What does this mean?
 
 ```{r}
+# Print confidence interval(s) of coefficients from all_glm
 confint(XXX)
 ```
 
@@ -465,10 +496,12 @@ All_fit <- fitted(all_glm)
 All_fit
 ```
 
-10. Using `min()`, `max()`, `mean()`, `median()`, and `sd()`, calculte summary statistics for the fits. Do the values look like they make sense?
+10. Using `min()`, `max()`, `mean()`, `median()`, and `sd()`, calculate summary statistics for the fits. Do the values look like they make sense?
 
 
 ```{r, echo = TRUE, eval = FALSE}
+# Print summary statistics from All_fit
+
 min(XXX)
 max(XXX)
 mean(XXX)
@@ -487,9 +520,11 @@ sd(All_fit)
 11. Using the code below, plot the relationship between the model fitted values and the true values
 
 ```{r, echo = TRUE, eval = FALSE}
+# Create dataframe containing true and fitted values
 data <- tibble(truth = hitters$Salary,
                fitted  = All_fit)
 
+# Create a scatterplot
 ggplot(data = data, aes(x = truth, y = fitted)) +  
   geom_point() +
   geom_abline(slope = 1, intercept = 0) +
@@ -501,9 +536,10 @@ ggplot(data = data, aes(x = truth, y = fitted)) +
   ylim(c(-300, 3000))
 ```
 
-12. Using the `rsq()` function, print the r-squared value from your object. What does this tell you?
+12. Using the `rsq()` function, print the r-squared value from your `all_glm` object. What does this tell you?
 
 ```{r, echo = TRUE, eval = FALSE}
+# Print r-squared value from all_glm
 rsq(XXX)
 ```
 
@@ -547,7 +583,7 @@ all_resid <- abs(resid(XXX))
 all_abs_resid <- abs(resid(all_glm))
 ```
 
-5. Using `min()`, `max()`, `mean()`, `median()`, and `sd()`, calculte summary statistics for the absolute residuals `all_abs_resid`. Do the values look like they make sense?
+5. Using `min()`, `max()`, `mean()`, `median()`, and `sd()`, calculate summary statistics for the absolute residuals `all_abs_resid`. Do the values look like they make sense?
 
 ```{r}
 min(all_abs_resid)
