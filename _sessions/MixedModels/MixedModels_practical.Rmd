@@ -103,6 +103,9 @@ library(sjstats)
 
 4. Using the following template, load the `Tomatometer_dat.csv` and `schools.csv` data into R and store it as a new object called `tom_df` and `schools`, respectively (Hint: Don't type the path directly! Use the "tab" completion!).
 
+**Nathaniel: Is there a reason to use the _df suffix for one object but not the other?**
+
+
 ```{r, echo = TRUE, eval = FALSE}
 # Load Tomatometer_dat.csv from the 1_Data folder
 XX <- read_csv(file = "XX/XX")
@@ -123,9 +126,9 @@ schools <- read_csv("1_Data/schools.csv")
 5. Take a look at the first few rows of the datasets by printing them to the console.
 
 ```{r, echo = TRUE, eval = FALSE}
-# Print the tom_df object
+# Print the object(s)
 XXX
-XX
+XXX
 ```
 
 ```{r}
@@ -146,9 +149,7 @@ summary(tom_df)
 summary(schools)
 ```
 
-
-
-8. Use the `View()` function to view the entire dataframe in a new window.
+8. Use the `View()` function to view the entire dataframe(s) in a new window.
 
 ```{r, echo = TRUE, eval = FALSE}
 View(XXX)
@@ -168,19 +169,22 @@ In the first part of this practical we will work with the `tom_df` data example 
 
 ```{r, echo = TRUE, eval = FALSE}
 # Use lm, as lmer only works if at least one random effect is specified
-FE_mod <- glm(XXX ~ XXX, data = XXX)
+FE_mod <- glm(XXX ~ XXX, 
+              data = XXX)
 
-# Inspect the resuts
+# Inspect the results
 summary(XXX)
 ```
 
 ```{r}
 # Use lm, as lmer only works if at least one random effect is specified
-FE_mod <- glm(Tomatometer ~ State, data = tom_df)
+FE_mod <- glm(Tomatometer ~ State, 
+              data = tom_df)
 
 # look at the resuts
 summary(FE_mod)
 ```
+
 2. Currently "Drunk" is taken as base state, so the intercept shows the mean at state "Drunk" and the slope shows how much lower the ratings in `State == "Sober"` are. To obtain a more intuitive model with "Sober" as the base level, *coerce* the `State` variable into a factor and set the levels. Do this by running the following code.
 
 ```{r, echo = TRUE}
@@ -193,13 +197,14 @@ tom_df <- tom_df %>%
 
 ```{r}
 # Use lm, as lmer only works if at least one random effect is specified
-FE_mod <- glm(Tomatometer ~ State, data = tom_df)
+FE_mod <- glm(Tomatometer ~ State, 
+              data = tom_df)
 
 # look at the resuts
 summary(FE_mod)
 ```
 
-4. Compare the model output of B3 with the one you obtained in B1.
+4. Compare the model output of B3 with the one you obtained in B1. **Nathaniel: Maybe add a brief sentence telling them what to look for**
 
 5. Now run a model with by-subjects random intercepts (subjects identifiers are stored in the `ID` variable). *Hint*: Random effects are specified in parenthesis in the formula in the following way `(`[design_matrix](https://en.wikipedia.org/wiki/Design_matrix)`|grouping_variable)`. **Note**: The `REML = FALSE` in the model specification tells R to fit the model using maximum likelihood (ML), rather than restricted maximal likelihood (REML; for more information on this in a technical approach see [here](https://projecteuclid.org/euclid.cbms/1462106081) and [here](http://www.stats.net.au/Maths_REML_manual.pdf), for a less technical approach see [here](https://en.wikipedia.org/wiki/Restricted_maximum_likelihood)). This will later be important for certain model comparisons that only work if the model was fitted using ML.
 
@@ -220,14 +225,11 @@ subj_RI_mod <- lmer(Tomatometer ~ State + # These are the fixed effects
                     REML = FALSE)
 ```
 
-
-5. Using `summary()`, inspect the results of the mixed effects model.
-
+5. Using `summary()`, inspect the results of the mixed effects model. **Nathaniel: Maybe add a brief sentence telling them what to look for**
 
 ```{r}
 summary(subj_RI_mod)
 summary(FE_mod)
-
 ```
 
 6. Did the effect of `State` change, now that you incorporated the random effects? Can you find out what did change from the model outputs? 
@@ -249,11 +251,10 @@ fixef(subj_RI_mod)
 ```
 
 8. Now extract the random effects using the `ranef()` function.
+
 ```{r}
 ranef(subj_RI_mod)
 ```
-
-
 
 9. Expand your mixed effects model from task B4 by adding by-subjects slopes. *Hint*: add the `State` variable to the left side of the bar `|` in the random effects part of the formula.
 
@@ -285,7 +286,6 @@ summary(FE_mod)
 # the t-values changed considerably (e.g. the StateDrunk t-value in subj_RI_mod
 # is 98.31, the on in subj_RI_RS_mod is 51.81).
 ```
-
 
 11. Each movie was rated in both states, so there is also a repetition in the items, which again leads to a violation of the independence assumption. To account for this, expand the model from task B8 by adding by-movie random intercepts and slopes. *Note*: The additional argument specifies a different optimizer such that the model converges.
 
@@ -324,15 +324,13 @@ converge_ok(max_mod)
 # there is a tradeoff, as we will learn later on.
 ```
 
-
-14. Compare the results with those of the earlier models.
+14. Compare the results with those of the earlier models. **Nathaniel: Maybe add a brief sentence telling them how to do this**
 
 ```{r}
 summary(max_mod)
 summary(subj_RI_RS_mod)
 summary(subj_RI_mod)
 summary(FE_mod)
-
 ```
 
 15. What changed with the increasingly complex random effects structure?
@@ -346,7 +344,6 @@ summary(FE_mod)
 # as being significant, even though they are in truth not related to the outcome
 # variable).
 ```
-
 
 ### C - Computing p-Values for Fixed Effects
 
@@ -409,21 +406,18 @@ RI_mod <- lmer(Tomatometer ~ State +    # The fixed effects
 converge_ok(RI_mod)
 ```
 
-
-5. Perform an LRT using the `anova()` function, by entering both model outputs (`IO_mod`, and `RI_mod`) as arguments.
+5. Perform an LRT using the `anova()` function, by entering both model outputs (`IO_mod`, and `RI_mod`) as arguments. **Nathaniel: Maybe add a brief sentence telling them what to look for in the output**
 
 ```{r echo = TRUE, eval = FALSE}
 # Perform an LRT using the anova() function
 anova(XXX, XXX)
 ```
 
-
 ```{r}
 # Perform an LRT using the anova() function
 anova(IO_mod, RI_mod)
 ```
 
- 
 #### Confidence Intervals
 
 This method is not a formal way of testing significance, as it does not produce a p-value. In this method, confidence intervals are obtained and checked if they include zero. If they don't, this is interpreted as a significant result.
@@ -435,7 +429,6 @@ This method is not a formal way of testing significance, as it does not produce 
 ci_mod <- confint(XXX)
 ```
 
-
 ```{r}
 # Compute confidence intervals for the fixed effects
 ci_mod <- confint(max_mod)
@@ -445,8 +438,10 @@ ci_mod <- confint(max_mod)
 
 #### Parametric Bootstrap
 
-Another test of significance, and the one you should prefer in an uncertain case (i.e., if p-values are on the border of your alpha-level), is to use parametric bootstrap, where, many times, data is resampled with replacement and then the model is fitted again, to obtain an empirical distribution of the effect or parameter of interest. The drawback of this technique is that it can take rather long.
+**Nathaniel: Looks pretty advanced, maybe move to the advanced / challenges section?**
 
+
+Another test of significance, and the one you should prefer in an uncertain case (i.e., if p-values are on the border of your alpha-level), is to use parametric bootstrap, where, many times, data is resampled with replacement and then the model is fitted again, to obtain an empirical distribution of the effect or parameter of interest. The drawback of this technique is that it can take rather long.
 
 8. For linear mixed effects models (fit using `lmer()`) you can use the `PBmodcomp()` function from the `pbkrtest` package. Check out the help function of `PBmodcomp()` like this.
 
@@ -458,16 +453,19 @@ Another test of significance, and the one you should prefer in an uncertain case
 
 ```{r eval = FALSE, echo=TRUE}
 # perform parametric bootstrap
-pb_mod <- PBmodcomp(XXX, XXX, XXX = XXX)
+pb_mod <- PBmodcomp(largeModel = XXX, 
+                    smallModel = XXX, 
+                    nsim = XXX)
 ```
 
+**Nathaniel: It looks like in the answer below you are using a different function from the example above. Which one is correct?**
 
 ```{r}
 # perform parametric bootstrap
 pb_mod <- bootMer(max_mod, IO_mod, nsim = 100)
 ```
 
-10. Print the `pb_mod` object and inspect the results. Are the results different from the other tests you've performed before?
+10. Print the `pb_mod` object and inspect the results. Are the results different from the other tests you've performed before? **Nathaniel: Maybe add a brief sentence telling them what to look for in the output**
   
 #### Other Tests
 
@@ -475,20 +473,19 @@ pb_mod <- bootMer(max_mod, IO_mod, nsim = 100)
 
 ```{r echo = TRUE, eval = FALSE}
 # Compute p-values for the fixed effects
-p_value(XXX)
+p_value(fit = XXX)
 ```
 
 ```{r}
 # Compute p-values for the fixed effects
-p_value(max_mod)
+p_value(fit = max_mod)
 ```
 
 12. As this test may not be appropriate for mixed effects models, we can extend the `p_value()` function with an additional argument, `p.kr = TRUE`. Then the function will compute p-values based on conditional F-tests with [Kenward-Roger approximation](https://www.jstatsoft.org/article/view/v059i09) for the degrees of freedom. Repeat the previous task by extending the function with `p.kr = TRUE`.
 
-
 ```{r}
 # Compute p-values for the fixed effects with Kenward-Roger approximation
-p_value(max_mod, p.kr = TRUE)
+p_value(fit = max_mod, p.kr = TRUE)
 ```
 
 13. Compare the output of the tasks C11 and C12 Did things change? The reason why not is that the assumptions were all satisfied as the data was simulated with these assumptions, but with noisier real life data this may look different.
@@ -554,7 +551,6 @@ converge_ok(con_mod)
 
 4. This model didn't converge. This can happen and it's not always easy to find out how to get the model to converge. One way would be to use different Bayesian methods with the `rstanarm` package. This is rather advanced and we will ignore it for now, but should this happen to you in your work you may not want to interpret this model.
 
-
 5. Now let's prepare the setup for the LRT. The difference in the deviances of two models (defined as negative two times the log-likelihood) approximately follows a $\chi^2$ distribution. Therefore we can test the significance by testing whether the $\chi^2$ value is larger than a threshold value. To do this we set up our $\alpha_{LRT}$ and derive the threshold value. Do this by running the following code.
 
 ```{r echo = TRUE}
@@ -570,7 +566,6 @@ st <- qchisq(1 - alpha, df = 2) # derive the critical value above which the diff
 d_diff <- deviance(XXX) - deviance(XXX)
 ```
 
-
 ```{r}
 d_diff <- deviance(con_mod) - deviance(max_mod)
 ```
@@ -583,7 +578,6 @@ d_diff <- deviance(con_mod) - deviance(max_mod)
 d_diff > st
 ```
 
-
 8. The output of the previous task was `FALSE`. What does that mean? Do you keep the maximal model in this case? What would it mean if the result were `TRUE`, how would your next steps look?
 
 ```{r}
@@ -593,6 +587,8 @@ d_diff > st
 
 ### E - $R^2$ and Variances
 
+**Nathaniel: I think this is pretty useful and maybe should come earlier in the practical so people can start using it after building their first models**
+
 When fitting statistical models, we are often interested in how much systematic variation they can capture. In linear (mixed effects) models this is the $R^2$ value (the coefficient of determination); for generalized (mixed effects) models, we can compute pseudo $R^2$ values. 
 
 1. We will use the `r2()` function from the `sjstats` package to compute $R^2$ values. Look at the help menu of the function to get an overview of what models you can use it for.
@@ -600,7 +596,6 @@ When fitting statistical models, we are often interested in how much systematic 
 ```{r}
 ?r2
 ```
-
 
 2. Compute the $R^2$ of the maximal model.
 
@@ -630,6 +625,8 @@ re_var(max_mod)
 
 
 ### F - Intra-Class Correlation
+
+**Nathaniel: Looks pretty advanced, maybe move to the advanced / challenges section?**
 
 The intra-class correlation (ICC) is "the proportion of the variance explained by the grouping structure in the population" (Hox 2002, p.15). It is calculated by dividing the between-group variance by the sum of the within-group and the between-group variance (i.e., the total variance).
 
@@ -662,6 +659,8 @@ icc(RI_mod)
 5. Compare the outputs of the last two tasks. Did things change? Think about what these changes mean.
 
 ### G - Crossed Versus Nested Random Effects
+
+**Nathaniel: Looks pretty advanced, maybe move to the advanced / challenges section?**
 
 So far we only considered crossed random effects. Now we will also look at data with *nested random effects*, where every level of a nested factor only appears within a single level of a higher order factor. A popular example is the case of classes within schools. Every class is only part of a single school and thus class is nested within schools.
 
@@ -735,10 +734,11 @@ summary(cross_mod)
 
 ### H - Visualize Your Model
 
+**Nathaniel: This looks really useful! Maybe move to an earlier section**
+
 It is often useful to visualize your model's output. Run the code below to extract coefficients from `max_mod` and plot the data along with a few sample lines to visualize the variability in the slopes and intercepts. As plotting is not the topic of this bootcamp we don't have time to go into details here. If you are interested in learning more about plotting, there are many books and tutorials about it, and we also cover it in the *R for Data Science* bootcamp.
 
 1. Run the following code to visualize your `max_mod` data.
-
 
 ```{r echo = TRUE}
 # extract fixed effects

@@ -70,7 +70,9 @@ h6 {
 
 <link rel="stylesheet" href="practical.css" type="text/css" />
 
+</head>
 
+<body>
 
 <style type = "text/css">
 .main-container {
@@ -101,6 +103,8 @@ summary {
 </style>
 
 
+
+<div class="container-fluid main-container">
 
 <!-- tabsets -->
 
@@ -175,22 +179,13 @@ $(document).ready(function () {
 
 
 
-</head>
-
-<body>
-
-
-<div class="container-fluid main-container">
-
-
-
 
 <div class="fluid-row" id="header">
 
 
 
 <h1 class="title toc-ignore">Mixed Models</h1>
-<h4 class="author"><table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'>
+<h4 class="author"><em><table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'>
 <col width='10%'>
 <col width='10%'>
 <tr style="border:none">
@@ -201,7 +196,7 @@ $(document).ready(function () {
 <img src='https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png' style='height:15px;width:80px'/>
 </td>
 </tr>
-</table></h4>
+</table></em></h4>
 
 </div>
 
@@ -241,6 +236,7 @@ library(sjstats)</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Using the following template, load the <code>Tomatometer_dat.csv</code> and <code>schools.csv</code> data into R and store it as a new object called <code>tom_df</code> and <code>schools</code>, respectively (Hint: Don’t type the path directly! Use the “tab” completion!).</li>
 </ol>
+<p>**Nathaniel: Is there a reason to use the _df suffix for one object but not the other?**</p>
 <pre class="r"><code># Load Tomatometer_dat.csv from the 1_Data folder
 XX &lt;- read_csv(file = &quot;XX/XX&quot;)
 
@@ -249,16 +245,16 @@ XX&lt;- read_csv(&quot;XX/XX&quot;)</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>Take a look at the first few rows of the datasets by printing them to the console.</li>
 </ol>
-<pre class="r"><code># Print the tom_df object
+<pre class="r"><code># Print the object(s)
 XXX
-XX</code></pre>
+XXX</code></pre>
 <ol start="7" style="list-style-type: decimal">
 <li>Use the the <code>summary()</code> function to print more details on the columns of the datasets.</li>
 </ol>
 <pre class="r"><code>summary(XXX)
 summary(XXX)</code></pre>
 <ol start="8" style="list-style-type: decimal">
-<li>Use the <code>View()</code> function to view the entire dataframe in a new window.</li>
+<li>Use the <code>View()</code> function to view the entire dataframe(s) in a new window.</li>
 </ol>
 <pre class="r"><code>View(XXX)
 View(XXX)</code></pre>
@@ -270,9 +266,10 @@ View(XXX)</code></pre>
 <li>Run fixed effects only model predicting <code>Tomatometer</code> with <code>State</code> and save the result as <code>FE_mod</code>. Then inspect the results.</li>
 </ol>
 <pre class="r"><code># Use lm, as lmer only works if at least one random effect is specified
-FE_mod &lt;- glm(XXX ~ XXX, data = XXX)
+FE_mod &lt;- glm(XXX ~ XXX, 
+              data = XXX)
 
-# Inspect the resuts
+# Inspect the results
 summary(XXX)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Currently “Drunk” is taken as base state, so the intercept shows the mean at state “Drunk” and the slope shows how much lower the ratings in <code>State == &quot;Sober&quot;</code> are. To obtain a more intuitive model with “Sober” as the base level, <em>coerce</em> the <code>State</code> variable into a factor and set the levels. Do this by running the following code.</li>
@@ -282,7 +279,7 @@ tom_df &lt;- tom_df %&gt;%
   mutate(State = factor(State, levels = c(&quot;Sober&quot;, &quot;Drunk&quot;)))</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li><p>Now rerun your model from task B1.</p></li>
-<li><p>Compare the model output of B3 with the one you obtained in B1.</p></li>
+<li><p>Compare the model output of B3 with the one you obtained in B1. <strong>Nathaniel: Maybe add a brief sentence telling them what to look for</strong></p></li>
 <li><p>Now run a model with by-subjects random intercepts (subjects identifiers are stored in the <code>ID</code> variable). <em>Hint</em>: Random effects are specified in parenthesis in the formula in the following way <code>(</code><a href="https://en.wikipedia.org/wiki/Design_matrix">design_matrix</a><code>|grouping_variable)</code>. <strong>Note</strong>: The <code>REML = FALSE</code> in the model specification tells R to fit the model using maximum likelihood (ML), rather than restricted maximal likelihood (REML; for more information on this in a technical approach see <a href="https://projecteuclid.org/euclid.cbms/1462106081">here</a> and <a href="http://www.stats.net.au/Maths_REML_manual.pdf">here</a>, for a less technical approach see <a href="https://en.wikipedia.org/wiki/Restricted_maximum_likelihood">here</a>). This will later be important for certain model comparisons that only work if the model was fitted using ML.</p></li>
 </ol>
 <pre class="r"><code># Mixed effects model with by-subject random intercepts
@@ -291,7 +288,7 @@ subj_RI_mod &lt;- lmer(XXX ~ XXX +           # These are the fixed effects
                     data = XXX,           # Specify the data used
                     REML = FALSE)</code></pre>
 <ol start="5" style="list-style-type: decimal">
-<li><p>Using <code>summary()</code>, inspect the results of the mixed effects model.</p></li>
+<li><p>Using <code>summary()</code>, inspect the results of the mixed effects model. <strong>Nathaniel: Maybe add a brief sentence telling them what to look for</strong></p></li>
 <li><p>Did the effect of <code>State</code> change, now that you incorporated the random effects? Can you find out what did change from the model outputs?</p></li>
 <li><p>Sometimes it is useful to extract the estimates from the model output (e.g., so we don’t have to manually type them, which would be error prone). Extract the fixed effects from <code>subj_RI_mod</code> using the <code>fixef()</code> function.</p></li>
 </ol>
@@ -319,7 +316,7 @@ max_mod &lt;- lmer(XXX ~ XXX +           # These are the fixed effects
 <ol start="12" style="list-style-type: decimal">
 <li><p>The <code>converge_ok()</code> function from the <code>sjstats</code> package let’s you check whether the model converged or not. If the functions returns <code>TRUE</code> you’re good. Test whether <code>max_mod</code> converged.</p></li>
 <li><p><code>max_mod</code> is now the <em>maximal model justified by the design</em>. What does this mean? Why is it a good thing to specify this model?</p></li>
-<li><p>Compare the results with those of the earlier models.</p></li>
+<li><p>Compare the results with those of the earlier models. <strong>Nathaniel: Maybe add a brief sentence telling them how to do this</strong></p></li>
 <li><p>What changed with the increasingly complex random effects structure?</p></li>
 </ol>
 </div>
@@ -350,7 +347,7 @@ RI_mod &lt;- lmer(XXX ~ XXX +         # The fixed effects
                                                             # to avoid non convergence</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li><p>Check whether <code>RI_mod</code> converged using the <code>converge_ok()</code> function.</p></li>
-<li><p>Perform an LRT using the <code>anova()</code> function, by entering both model outputs (<code>IO_mod</code>, and <code>RI_mod</code>) as arguments.</p></li>
+<li><p>Perform an LRT using the <code>anova()</code> function, by entering both model outputs (<code>IO_mod</code>, and <code>RI_mod</code>) as arguments. <strong>Nathaniel: Maybe add a brief sentence telling them what to look for in the output</strong></p></li>
 </ol>
 <pre class="r"><code># Perform an LRT using the anova() function
 anova(XXX, XXX)</code></pre>
@@ -369,6 +366,7 @@ ci_mod &lt;- confint(XXX)</code></pre>
 </div>
 <div id="parametric-bootstrap" class="section level4">
 <h4>Parametric Bootstrap</h4>
+<p><strong>Nathaniel: Looks pretty advanced, maybe move to the advanced / challenges section?</strong></p>
 <p>Another test of significance, and the one you should prefer in an uncertain case (i.e., if p-values are on the border of your alpha-level), is to use parametric bootstrap, where, many times, data is resampled with replacement and then the model is fitted again, to obtain an empirical distribution of the effect or parameter of interest. The drawback of this technique is that it can take rather long.</p>
 <ol start="8" style="list-style-type: decimal">
 <li>For linear mixed effects models (fit using <code>lmer()</code>) you can use the <code>PBmodcomp()</code> function from the <code>pbkrtest</code> package. Check out the help function of <code>PBmodcomp()</code> like this.</li>
@@ -378,9 +376,12 @@ ci_mod &lt;- confint(XXX)</code></pre>
 <li>Now use the <code>PBmodcomp()</code> function to get p-values for the model. You will have to specify a less complex model against which to test. Use <code>IO_mod</code> for this. Also, because this procedure can take rather long, only use 100 simulations.</li>
 </ol>
 <pre class="r"><code># perform parametric bootstrap
-pb_mod &lt;- PBmodcomp(XXX, XXX, XXX = XXX)</code></pre>
+pb_mod &lt;- PBmodcomp(largeModel = XXX, 
+                    smallModel = XXX, 
+                    nsim = XXX)</code></pre>
+<p><strong>Nathaniel: It looks like in the answer below you are using a different function from the example above. Which one is correct?</strong></p>
 <ol start="10" style="list-style-type: decimal">
-<li>Print the <code>pb_mod</code> object and inspect the results. Are the results different from the other tests you’ve performed before?</li>
+<li>Print the <code>pb_mod</code> object and inspect the results. Are the results different from the other tests you’ve performed before? <strong>Nathaniel: Maybe add a brief sentence telling them what to look for in the output</strong></li>
 </ol>
 </div>
 <div id="other-tests" class="section level4">
@@ -389,7 +390,7 @@ pb_mod &lt;- PBmodcomp(XXX, XXX, XXX = XXX)</code></pre>
 <li>Another way of obtaining p-values with the t-statistic and a <a href="https://en.wikipedia.org/wiki/Wald_test">Wald test</a> by using the <code>p_value()</code> function of the <code>sjstats</code> package. Enter <code>max_mod</code> to the <code>p_value()</code> function.</li>
 </ol>
 <pre class="r"><code># Compute p-values for the fixed effects
-p_value(XXX)</code></pre>
+p_value(fit = XXX)</code></pre>
 <ol start="12" style="list-style-type: decimal">
 <li><p>As this test may not be appropriate for mixed effects models, we can extend the <code>p_value()</code> function with an additional argument, <code>p.kr = TRUE</code>. Then the function will compute p-values based on conditional F-tests with <a href="https://www.jstatsoft.org/article/view/v059i09">Kenward-Roger approximation</a> for the degrees of freedom. Repeat the previous task by extending the function with <code>p.kr = TRUE</code>.</p></li>
 <li><p>Compare the output of the tasks C11 and C12 Did things change? The reason why not is that the assumptions were all satisfied as the data was simulated with these assumptions, but with noisier real life data this may look different.</p></li>
@@ -452,6 +453,7 @@ st &lt;- qchisq(1 - alpha, df = 2) # derive the critical value above which the d
 </div>
 <div id="e---r2-and-variances" class="section level3">
 <h3>E - <span class="math inline">\(R^2\)</span> and Variances</h3>
+<p><strong>Nathaniel: I think this is pretty useful and maybe should come earlier in the practical so people can start using it after building their first models</strong></p>
 <p>When fitting statistical models, we are often interested in how much systematic variation they can capture. In linear (mixed effects) models this is the <span class="math inline">\(R^2\)</span> value (the coefficient of determination); for generalized (mixed effects) models, we can compute pseudo <span class="math inline">\(R^2\)</span> values.</p>
 <ol style="list-style-type: decimal">
 <li><p>We will use the <code>r2()</code> function from the <code>sjstats</code> package to compute <span class="math inline">\(R^2\)</span> values. Look at the help menu of the function to get an overview of what models you can use it for.</p></li>
@@ -463,6 +465,7 @@ st &lt;- qchisq(1 - alpha, df = 2) # derive the critical value above which the d
 </div>
 <div id="f---intra-class-correlation" class="section level3">
 <h3>F - Intra-Class Correlation</h3>
+<p><strong>Nathaniel: Looks pretty advanced, maybe move to the advanced / challenges section?</strong></p>
 <p>The intra-class correlation (ICC) is “the proportion of the variance explained by the grouping structure in the population” (Hox 2002, p.15). It is calculated by dividing the between-group variance by the sum of the within-group and the between-group variance (i.e., the total variance).</p>
 <ol style="list-style-type: decimal">
 <li><p>Compute the ICC of the maximal model using the <code>icc()</code> function from the <code>sjstats</code> package.</p></li>
@@ -475,6 +478,7 @@ st &lt;- qchisq(1 - alpha, df = 2) # derive the critical value above which the d
 </div>
 <div id="g---crossed-versus-nested-random-effects" class="section level3">
 <h3>G - Crossed Versus Nested Random Effects</h3>
+<p><strong>Nathaniel: Looks pretty advanced, maybe move to the advanced / challenges section?</strong></p>
 <p>So far we only considered crossed random effects. Now we will also look at data with <em>nested random effects</em>, where every level of a nested factor only appears within a single level of a higher order factor. A popular example is the case of classes within schools. Every class is only part of a single school and thus class is nested within schools.</p>
 <p>To know whether random effects are crossed or nested, you usually need to know the design, as the structure is often not obvious from the factor levels. For example, even though class may be nested in schools, the classes may be numbered from 1 to the number of classes in that school. So school 1 may have classes 1 to 10, and school 2 may have classes from 1 to 6. Obviously class 1 of school 1 is not the same as class 1 of school 2. However, what is obvious for you is not obvious for R. It doesn’t know about the concept of schools and classes, so you have to tell it whether these factors are nested or not, using the appropriate syntax in the formula. Now consider the case where the classes are nested in schools, but numbered from 1 to total number of classes, that is, such that every class has a unique label. In this case it does not matter what structure you specify.</p>
 <ol style="list-style-type: decimal">
@@ -493,6 +497,7 @@ st &lt;- qchisq(1 - alpha, df = 2) # derive the critical value above which the d
 </div>
 <div id="h---visualize-your-model" class="section level3">
 <h3>H - Visualize Your Model</h3>
+<p><strong>Nathaniel: This looks really useful! Maybe move to an earlier section</strong></p>
 <p>It is often useful to visualize your model’s output. Run the code below to extract coefficients from <code>max_mod</code> and plot the data along with a few sample lines to visualize the variability in the slopes and intercepts. As plotting is not the topic of this bootcamp we don’t have time to go into details here. If you are interested in learning more about plotting, there are many books and tutorials about it, and we also cover it in the <em>R for Data Science</em> bootcamp.</p>
 <ol style="list-style-type: decimal">
 <li>Run the following code to visualize your <code>max_mod</code> data.</li>
@@ -730,10 +735,10 @@ LMM_plot</code></pre>
 </div>
 <div id="schools.csv" class="section level4">
 <h4>schools.csv</h4>
-<table style="width:75%;">
+<table>
 <colgroup>
-<col width="20%" />
-<col width="54%" />
+<col width="26%" />
+<col width="73%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -775,10 +780,10 @@ LMM_plot</code></pre>
 </div>
 <div id="cancer_remission.csv" class="section level4">
 <h4>cancer_remission.csv</h4>
-<table style="width:75%;">
+<table>
 <colgroup>
-<col width="20%" />
-<col width="54%" />
+<col width="26%" />
+<col width="73%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -844,11 +849,11 @@ LMM_plot</code></pre>
 </div>
 <div id="functions-1" class="section level3">
 <h3>Functions</h3>
-<table style="width:83%;">
+<table>
 <colgroup>
-<col width="6%" />
-<col width="11%" />
-<col width="65%" />
+<col width="7%" />
+<col width="12%" />
+<col width="80%" />
 </colgroup>
 <thead>
 <tr class="header">
