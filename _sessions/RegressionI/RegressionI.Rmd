@@ -17,7 +17,7 @@ author: "Statistics with R<br>
   <a href='https://www.linkedin.com/company/basel-r-bootcamp/'>
     <i class='fab fa-linkedin' style='font-size: .9em;'></i>
   </a>"
-date: "February 2019"
+date: "April 2019"
 output:
   xaringan::moon_reader:
     css: ["default", "baselrbootcamp.css"]
@@ -72,9 +72,6 @@ options(digits = 4)
 require(tidyverse)
 
 
-# Load data
-baselers <- readr::read_csv("1_Data/baselers.csv")
-
 ```
 
 
@@ -89,6 +86,50 @@ baselers <- readr::read_csv("1_Data/baselers.csv")
 
 
 ]
+
+
+---
+
+.pull-left45[
+# Topics
+
+- Generalised linear model
+   - Formula
+   - Coefficients
+
+- Model fitting and evaluation
+   - Tests of coefficients
+       - Estimate, Std.error, statistic, p.value
+   - Residuals
+       - Signed vs. Absolute
+   - R-square
+
+]
+
+.pull-right45[
+# Functions
+
+### Model Building
+
+- glm()
+    - formula
+    - data
+
+### Evaluation
+
+- summary()
+- coef()
+- broom::tidy()
+- fitted()
+- resid()
+- confint()
+- rsq::rsq()
+- predict()
+
+]
+
+
+
 
 
 ---

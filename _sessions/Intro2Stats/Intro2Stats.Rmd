@@ -74,7 +74,6 @@ require(tidyverse)
 
 # Load data
 baselers <- readr::read_csv("1_Data/baselers.csv")
-
 ```
 
 
@@ -91,6 +90,49 @@ baselers <- readr::read_csv("1_Data/baselers.csv")
 <img src="image/XX" height=440px><br>
 <font style="font-size:10px">from <a href="https://xkcd.com/1781/">xkcd.com</a></font>
 </p>
+
+]
+
+---
+
+.pull-left45[
+# Topics
+
+- Motivating example
+- Samples versus populations
+- Variables
+    - Something of interest that varies
+- Distributions (random variables)
+    - Definition
+    - Examples
+        - Normal distribution
+        - Uniform
+    - Parameters
+- Estimating parameters
+    - Standard deviation
+    - Mean
+- Likelihood
+   - How likely is an observation given an assumption.
+- Null hypothesis testing
+    - Null versus alternative hypothesis
+    - test-statistic
+    - p-value (How likely was I to get a result as extreme or more extreme than the one I got assuming the null is true)
+- Decision making
+    - p < .05 convention
+- Correlation versus causation
+    - Classic fails:
+        - Ice cream and forest fires.
+        - Chocolate and IQ
+    - Inferring causation requires an experiment and/or causal modelling
+
+]
+
+.pull-right45[
+# Examples
+
+- Classic tests (ESP, 'fields')
+- Effect of a drug on life expectancy
+- World happiness / economic indicators 
 
 ]
 

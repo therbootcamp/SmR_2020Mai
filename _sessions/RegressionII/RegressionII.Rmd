@@ -17,7 +17,7 @@ author: "Statistics with R<br>
   <a href='https://www.linkedin.com/company/basel-r-bootcamp/'>
     <i class='fab fa-linkedin' style='font-size: .9em;'></i>
   </a>"
-date: "February 2019"
+date: "April 2019"
 output:
   xaringan::moon_reader:
     css: ["default", "baselrbootcamp.css"]
@@ -87,6 +87,45 @@ baselers <- readr::read_csv("1_Data/baselers.csv")
 
 .pull-right45[
 
+]
+
+---
+
+.pull-left45[
+# Topics
+
+- 1 and 2 sample hypothesis tests
+- How they relate to the glm
+- ANOVA
+- Post-hoc tests
+- Simulation functions
+
+]
+
+.pull-right45[
+# Functions
+
+### Hypothesis tests
+
+- t.test()
+- cor.test()
+- aov()
+- TukeyHSD()
+- prop.test()
+
+### Interactions
+
+- formula
+
+### Simulations
+
+- rnorm()
+    - runif(), rbinom(), sample()
+
+### Evaluation
+
+- summary()
+- broom::tidy()
 
 ]
 
