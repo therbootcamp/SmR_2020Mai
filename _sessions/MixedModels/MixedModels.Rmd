@@ -104,10 +104,30 @@ great_err <- great_raw +
 
 ```
 
+# Data Collection Example
+
+<br>
+
+.pull-left45[
+
+<p align = "center">
+<img src="image/example1.png" width=450px><br>
+</p>
+
+]
+
+.pull-right45[
+
+<p align = "center">
+<img src="image/example2.png" width=450px><br>
+</p>
+
+]
+
+---
 
 
-
-# [iid](https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables) Assumption
+# [IID](https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables) Assumption
 
 .pull-left45[
 Previous regression models assumed that the data points are independent and identically distributed (<high>iid</high>).
@@ -124,6 +144,47 @@ Previously considered models are <high>not robust</high> to violations of the in
 .pull-right45[
 
 <img src="image/iid_plot.png" width="100%" style="display: block; margin: auto;" />
+
+
+]
+
+---
+
+# Examples of Data Where the IID Assumption Is Violated
+
+
+.pull-left55[
+
+<br>
+
+- Test of student performance in the PISA study (<high>students within classes within schools within countries</high>).
+- Test of a drug in a clinical trial over multiple sites (<high>patients within doctors within sites</high>).
+- Test of the best design or taste of different versions of a product with <high>multiple ratings from the same persons</high>.
+
+
+*Failure to run the statistical model might lead to missleading results, such as overestimation of an effect.*
+
+
+]
+
+.pull-right35[
+
+
+<p align = "center">
+<img src="image/pisa.png" height=100px><br>
+<font style="font-size:10px">from <a href="https://de.wikipedia.org/wiki/PISA-Studien">wikipedia.org</a></font>
+</p>
+
+<p align = "center">
+<img src="image/multi-arm-trial.jpg" height=100px><br>
+<font style="font-size:10px">from <a href="https://www.mssociety.org.uk/research/latest-research/latest-research-news-and-blogs/first-multi-drug-clinical-trial-in-ms-successfully-completed">mssociety.org.uk</a></font>
+</p>
+
+<p align = "center">
+<img src="image/sweets.jpg" height=100px><br>
+<font style="font-size:10px">from <a href="https://londonist.com/london/free-and-cheap/this-5-metre-high-pick-n-mix-wall-has-half-a-tonne-of-free-sweets">londonist.com</a></font>
+</p>
+
 
 
 ]
@@ -446,7 +507,7 @@ Every level of the nested factor only appears within a single level of the highe
 
 .pull-left45[
 
-Specifying the correct random effects structure is important. Failure to do so can result in inflated Type I errors and loss of power.
+Specifying the correct random effects structure is important. Failure to do so can result in inflated Type I errors.
 
 Therefore, it has been argued that one should specify the <high>maximal random effects structure justified by the design</high> (maximal model; [Barr et al., 2014](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3881361/pdf/nihms533954.pdf)).
 
@@ -553,16 +614,24 @@ Random effects are specified with a new element to the formulas:
 |:----------|:-------------------|
 | `(1 `&#124;` S)` | Random intercepts by `S` |
 | `(1 `&#124;` S) + (1 `&#124;` I)` | Random intercepts by `S` and `I`|
-| `(X1 `&#124;` S)` / `(1 + X1`&#124;` S)`| Random intercepts by `S` and random slopes for `X1` by `S` with correlations  |
+| `(X1 `&#124;` S)` OR `(1 + X1`&#124;` S)`| Random intercepts by `S` and random slopes for `X1` by `S` with correlations  |
 | `(X1 * X2 `&#124;` S)`| Random intercepts by `S` and random slopes for `X1`, `X2`, and their interaction `X1:X2` by `S` with correlations  |
 | `(0 + X1 `&#124;` S)`| Random slopes for `X1`by `S`, no random intercepts |
 | `(X1 `&#124;&#124;` S)`| Random intercepts by `S` and random slopes for `X1` by `S` no correlations |
-| `(1 `&#124;` S/C)` / `(1 `&#124;` S) + (1 `&#124;` S:C)`| Random intercepts by `S` and `C` with `C` nested under `S` |
+| `(1 `&#124;` S/C)` OR `(1 `&#124;` S) + (1 `&#124;` S:C)`| Random intercepts by `S` and `C` with `C` nested under `S` |
 
+---
+
+# `lmer()` Output
+
+
+<img src="image/lmer_output.png" width="58%" style="display: block; margin: auto;" />
 
 ---
 
 # Generalized Mixed Effects Models
+
+<br>
 
 .pull-left55[
 
@@ -589,6 +658,28 @@ glmm_out <- glmer(fasnacht ~ alcohol + (alcohol|id),
 <img src="image/dist_ex_plot.png" width="100%" style="display: block; margin: auto;" />
 
 ]
+
+---
+
+# Summary
+
+*What are mixed effects models and when do we use them?*
+
+- Mixed effects models are <high>regression models</high> that contain <high>both fixed and random effects</high>.
+- They are used when we have <high>repeated measures</high> or <high>clusters</high> in the data, both of which could lead to violation of the IID assumption.
+
+*Examples of when to apply them:*
+
+- Comparison of students <high>across schools and classes</high>.
+- Evaluating the effectiveness of a new drug in a clinical trial where <high>multiple sites are involved</high>.
+- In political science studies to take into account the effect of <high>different countries or regions</high>.
+
+*When do we add a variable as fixed effect and when as random effect?*
+
+- We add a variable as fixed effect when we are interested in the <high>effects of the specific levels</high> in that variable.
+- We add a variable as random effect when we want to <high>generalize over the levels to the population</high> these levels came from.
+
+
 ---
 
 class: middle, center
