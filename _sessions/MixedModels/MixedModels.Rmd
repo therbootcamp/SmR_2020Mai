@@ -71,8 +71,8 @@ options(digits = 4)
 # Load packages
 library(tidyverse)
 library(lme4)
-tomato_df <- read_csv("Tomatometer_dat.csv")
-df <- read_csv("MEM_example.csv")
+tomato_df <- read_csv("1_Data/Tomatometer_dat.csv")
+df <- read_csv("1_Data/MEM_example.csv")
 grand_mean <- mean(df$tomatometer)
 
 baselers <- read_csv("https://raw.githubusercontent.com/therbootcamp/baselers/master/inst/extdata/baselers.txt")
