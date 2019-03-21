@@ -70,9 +70,7 @@ h6 {
 
 <link rel="stylesheet" href="practical.css" type="text/css" />
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -103,8 +101,6 @@ summary {
 </style>
 
 
-
-<div class="container-fluid main-container">
 
 <!-- tabsets -->
 
@@ -179,13 +175,22 @@ $(document).ready(function () {
 
 
 
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
 
 <div class="fluid-row" id="header">
 
 
 
 <h1 class="title toc-ignore">Mixed Models</h1>
-<h4 class="author"><em><table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'>
+<h4 class="author"><table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'>
 <col width='10%'>
 <col width='10%'>
 <tr style="border:none">
@@ -196,7 +201,7 @@ $(document).ready(function () {
 <img src='https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png' style='height:15px;width:80px'/>
 </td>
 </tr>
-</table></em></h4>
+</table></h4>
 
 </div>
 
@@ -234,9 +239,8 @@ library(tidyverse)
 library(lme4)
 library(sjstats)</code></pre>
 <ol start="4" style="list-style-type: decimal">
-<li>Using the following template, load the <code>Tomatometer_dat.csv</code> and <code>schools.csv</code> data into R and store it as a new object called <code>tom_df</code> and <code>schools</code>, respectively (Hint: Don’t type the path directly! Use the “tab” completion!).</li>
+<li>Using the following template, load the <code>Tomatometer_dat.csv</code> and <code>schools.csv</code> data into R and store it as a new object called <code>tom</code> and <code>schools</code>, respectively (Hint: Don’t type the path directly! Use the “tab” completion!).</li>
 </ol>
-<p>**Nathaniel: Is there a reason to use the _df suffix for one object but not the other?**</p>
 <pre class="r"><code># Load Tomatometer_dat.csv from the 1_Data folder
 XX &lt;- read_csv(file = &quot;XX/XX&quot;)
 
@@ -261,7 +265,7 @@ View(XXX)</code></pre>
 </div>
 <div id="b---running-a-linear-mixed-effects-model" class="section level3">
 <h3>B - Running a Linear Mixed Effects Model</h3>
-<p>In the first part of this practical we will work with the <code>tom_df</code> data example from the slides and test the effect of a person’s <code>State</code> (“Sober” vs. “Drunk”) on his or her <code>Tomatometer</code> rating.</p>
+<p>In the first part of this practical we will work with the <code>tom</code> data example from the slides and test the effect of a person’s <code>State</code> (“Sober” vs. “Drunk”) on his or her <code>Tomatometer</code> rating.</p>
 <ol style="list-style-type: decimal">
 <li>Run fixed effects only model predicting <code>Tomatometer</code> with <code>State</code> and save the result as <code>FE_mod</code>. Then inspect the results.</li>
 </ol>
@@ -275,11 +279,11 @@ summary(XXX)</code></pre>
 <li>Currently “Drunk” is taken as base state, so the intercept shows the mean at state “Drunk” and the slope shows how much lower the ratings in <code>State == &quot;Sober&quot;</code> are. To obtain a more intuitive model with “Sober” as the base level, <em>coerce</em> the <code>State</code> variable into a factor and set the levels. Do this by running the following code.</li>
 </ol>
 <pre class="r"><code># Coerce the State variable into a factor
-tom_df &lt;- tom_df %&gt;%
+tom &lt;- tom %&gt;%
   mutate(State = factor(State, levels = c(&quot;Sober&quot;, &quot;Drunk&quot;)))</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li><p>Now rerun your model from task B1.</p></li>
-<li><p>Compare the model output of B3 with the one you obtained in B1. <strong>Nathaniel: Maybe add a brief sentence telling them what to look for</strong></p></li>
+<li><p>Compare the model output of B3 with the one you obtained in B1. How did the coefficients change? Why?</p></li>
 <li><p>Now run a model with by-subjects random intercepts (subjects identifiers are stored in the <code>ID</code> variable). <em>Hint</em>: Random effects are specified in parenthesis in the formula in the following way <code>(</code><a href="https://en.wikipedia.org/wiki/Design_matrix">design_matrix</a><code>|grouping_variable)</code>. <strong>Note</strong>: The <code>REML = FALSE</code> in the model specification tells R to fit the model using maximum likelihood (ML), rather than restricted maximal likelihood (REML; for more information on this in a technical approach see <a href="https://projecteuclid.org/euclid.cbms/1462106081">here</a> and <a href="http://www.stats.net.au/Maths_REML_manual.pdf">here</a>, for a less technical approach see <a href="https://en.wikipedia.org/wiki/Restricted_maximum_likelihood">here</a>). This will later be important for certain model comparisons that only work if the model was fitted using ML.</p></li>
 </ol>
 <pre class="r"><code># Mixed effects model with by-subject random intercepts
@@ -287,13 +291,13 @@ subj_RI_mod &lt;- lmer(XXX ~ XXX +           # These are the fixed effects
                     (1|XXX),              # These are the random effects
                     data = XXX,           # Specify the data used
                     REML = FALSE)</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li><p>Using <code>summary()</code>, inspect the results of the mixed effects model. <strong>Nathaniel: Maybe add a brief sentence telling them what to look for</strong></p></li>
+<ol start="6" style="list-style-type: decimal">
+<li><p>Using <code>summary()</code>, inspect the results of the mixed effects model.</p></li>
 <li><p>Did the effect of <code>State</code> change, now that you incorporated the random effects? Can you find out what did change from the model outputs?</p></li>
 <li><p>Sometimes it is useful to extract the estimates from the model output (e.g., so we don’t have to manually type them, which would be error prone). Extract the fixed effects from <code>subj_RI_mod</code> using the <code>fixef()</code> function.</p></li>
 </ol>
 <pre class="r"><code>fixef(XXX)</code></pre>
-<ol start="8" style="list-style-type: decimal">
+<ol start="9" style="list-style-type: decimal">
 <li><p>Now extract the random effects using the <code>ranef()</code> function.</p></li>
 <li><p>Expand your mixed effects model from task B4 by adding by-subjects slopes. <em>Hint</em>: add the <code>State</code> variable to the left side of the bar <code>|</code> in the random effects part of the formula.</p></li>
 </ol>
@@ -302,9 +306,9 @@ subj_RI_RS_mod &lt;- lmer(XXX ~ XXX +          # These are the fixed effects
                       (XXX|XXX),            # These are the random effects
                       data = XXX,           # Specify the data used
                       REML = FALSE)</code></pre>
-<ol start="10" style="list-style-type: decimal">
+<ol start="11" style="list-style-type: decimal">
 <li><p>Compare the outputs of the fixed effects only model, of the by-subjects random intercepts model, and of the by-subjects random intercepts and slopes model. Did the coefficients change? Why not? What did change?</p></li>
-<li><p>Each movie was rated in both states, so there is also a repetition in the items, which again leads to a violation of the independence assumption. To account for this, expand the model from task B8 by adding by-movie random intercepts and slopes. <em>Note</em>: The additional argument specifies a different optimizer such that the model converges.</p></li>
+<li><p>Each movie was rated in both states, so there is also a repetition in the items, which again leads to a violation of the independence assumption. To account for this, expand the model from task B9 by adding by-movie random intercepts and slopes. <em>Note</em>: The additional argument specifies a different optimizer such that the model converges.</p></li>
 </ol>
 <pre class="r"><code># Mixed effects model with by-subject and by-movie random intercepts and slopes
 max_mod &lt;- lmer(XXX ~ XXX +           # These are the fixed effects
@@ -313,15 +317,62 @@ max_mod &lt;- lmer(XXX ~ XXX +           # These are the fixed effects
                REML = FALSE,
                control = lmerControl(optimizer = &quot;bobyqa&quot;)) # use a different optimizer
                                                             # to avoid non convergence</code></pre>
-<ol start="12" style="list-style-type: decimal">
+<ol start="13" style="list-style-type: decimal">
 <li><p>The <code>converge_ok()</code> function from the <code>sjstats</code> package let’s you check whether the model converged or not. If the functions returns <code>TRUE</code> you’re good. Test whether <code>max_mod</code> converged.</p></li>
 <li><p><code>max_mod</code> is now the <em>maximal model justified by the design</em>. What does this mean? Why is it a good thing to specify this model?</p></li>
-<li><p>Compare the results with those of the earlier models. <strong>Nathaniel: Maybe add a brief sentence telling them how to do this</strong></p></li>
+<li><p>Compare the results with those of the earlier models by looking at their summary outputs using <code>summary()</code>.</p></li>
 <li><p>What changed with the increasingly complex random effects structure?</p></li>
 </ol>
 </div>
-<div id="c---computing-p-values-for-fixed-effects" class="section level3">
-<h3>C - Computing p-Values for Fixed Effects</h3>
+<div id="c---r2" class="section level3">
+<h3>C - <span class="math inline">\(R^2\)</span></h3>
+<p>When fitting statistical models, we are often interested in how much systematic variation they can capture. In linear (mixed effects) models this is the <span class="math inline">\(R^2\)</span> value (the coefficient of determination); for generalized (mixed effects) models, we can compute pseudo <span class="math inline">\(R^2\)</span> values.</p>
+<ol style="list-style-type: decimal">
+<li><p>We will use the <code>r2()</code> function from the <code>sjstats</code> package to compute <span class="math inline">\(R^2\)</span> values. Look at the help menu of the function to get an overview of what models you can use it for.</p></li>
+<li><p>Compute the <span class="math inline">\(R^2\)</span> of the maximal model.</p></li>
+<li><p>What does the output of the last task mean? What is the marginal <span class="math inline">\(R^2\)</span> and what is the conditional <span class="math inline">\(R^2\)</span>?</p></li>
+<li><p>Compare the <span class="math inline">\(R^2\)</span> values of <code>max_mod</code> with those of less complex models. Are the changes large? Which <span class="math inline">\(R^2\)</span> values changed?</p></li>
+</ol>
+</div>
+<div id="d---visualize-your-model" class="section level3">
+<h3>D - Visualize Your Model</h3>
+<p>It is often useful to visualize your model’s output. Run the code below to extract coefficients from <code>max_mod</code> and plot the data along with a few sample lines to visualize the variability in the slopes and intercepts. As plotting is not the topic of this bootcamp we don’t have time to go into details here. If you are interested in learning more about plotting, there are many books and tutorials about it, and we also cover it in the <em>R for Data Science</em> bootcamp.</p>
+<ol style="list-style-type: decimal">
+<li>Run the following code to visualize your <code>max_mod</code> data.</li>
+</ol>
+<pre class="r"><code># extract fixed effects
+m_line &lt;- fixef(max_mod)
+
+# extract random effects
+ranefs &lt;- ranef(max_mod)
+predicted &lt;- tibble(
+  intercept = ranefs$ID[,1] + fixef(max_mod)[1],
+  slope = ranefs$ID[,2] + fixef(max_mod)[2])
+
+# randomly draw 15 subjects to plot the fitted lines
+rand15 &lt;- sample(1:nrow(predicted), 15)
+
+LMM_plot &lt;- ggplot(tom, aes(State, Tomatometer)) +
+  geom_point(colour= &quot;#606061&quot;, alpha = .15, size = 2.5)+
+  geom_segment(aes(x = 1, y = intercept, xend = 2, yend = intercept + slope),
+               data = predicted %&gt;% slice(rand15), colour = &quot;#EA4B68&quot;, size = 1.5,
+               alpha = .8) +
+  geom_segment(aes(x = 1, y = m_line[1], xend = 2, yend = sum(m_line)),
+               colour = &quot;black&quot;, size = 2, alpha = 1) +
+  theme(axis.title.x = element_text(vjust = -1),
+        axis.title.y = element_text(vjust = 1)) +
+  theme_bw() +
+  ylim(0, 100) +
+  theme(
+    strip.text = element_text(size = 12, face = &quot;bold&quot;),
+    axis.text = element_text(size = 16),
+    axis.title = element_text(size = 18,face = &quot;bold&quot;)
+  )
+
+LMM_plot</code></pre>
+</div>
+<div id="e---computing-p-values-for-fixed-effects" class="section level3">
+<h3>E - Computing p-Values for Fixed Effects</h3>
 <p>As you probably noticed, the <code>lmer()</code> summary output does not include p-values. This is not because the authors of <code>lme4</code> were lazy, but because how to best compute p-values for mixed effects models is a still ongoing discussion. However, several possibilities exist of how to test whether a variable is a significant predictor (i.e., a significant fixed effect). We will look at a couple of them.</p>
 <div id="likelihood-ratio-test" class="section level4">
 <h4>Likelihood Ratio Test</h4>
@@ -336,7 +387,7 @@ IO_mod &lt;- lmer(XXX ~ 1 +         # There are no fixed effects so add 1 to fit
               REML = FALSE)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li><p>Look at the model output using <code>summary()</code>.</p></li>
-<li><p>Now fit the same model as in task C1, but add the <code>State</code> variables. Save the output as <code>RI_mod</code>. Note that we again need to use another optimizer to avoid convergence problems (You don’t need to worry about this now, you can use the code template below).</p></li>
+<li><p>Now fit the same model as in task E1, but add the <code>State</code> variables. Save the output as <code>RI_mod</code>. Note that we again need to use another optimizer to avoid convergence problems (You don’t need to worry about this now, you can use the code template below).</p></li>
 </ol>
 <pre class="r"><code># Intercept only mixed effects model with by-subject and by-movie random intercepts
 RI_mod &lt;- lmer(XXX ~ XXX +         # The fixed effects
@@ -347,7 +398,7 @@ RI_mod &lt;- lmer(XXX ~ XXX +         # The fixed effects
                                                             # to avoid non convergence</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li><p>Check whether <code>RI_mod</code> converged using the <code>converge_ok()</code> function.</p></li>
-<li><p>Perform an LRT using the <code>anova()</code> function, by entering both model outputs (<code>IO_mod</code>, and <code>RI_mod</code>) as arguments. <strong>Nathaniel: Maybe add a brief sentence telling them what to look for in the output</strong></p></li>
+<li><p>Perform an LRT using the <code>anova()</code> function, by entering both model outputs (<code>IO_mod</code>, and <code>RI_mod</code>) as arguments. Is the difference significant? What does this mean?</p></li>
 </ol>
 <pre class="r"><code># Perform an LRT using the anova() function
 anova(XXX, XXX)</code></pre>
@@ -364,41 +415,21 @@ ci_mod &lt;- confint(XXX)</code></pre>
 <li>Print the <code>ci_mod</code> object. Do the confidence intervals you obtained match the conclusion you drew from inspecting the t-values and the LRT?</li>
 </ol>
 </div>
-<div id="parametric-bootstrap" class="section level4">
-<h4>Parametric Bootstrap</h4>
-<p><strong>Nathaniel: Looks pretty advanced, maybe move to the advanced / challenges section?</strong></p>
-<p>Another test of significance, and the one you should prefer in an uncertain case (i.e., if p-values are on the border of your alpha-level), is to use parametric bootstrap, where, many times, data is resampled with replacement and then the model is fitted again, to obtain an empirical distribution of the effect or parameter of interest. The drawback of this technique is that it can take rather long.</p>
-<ol start="8" style="list-style-type: decimal">
-<li>For linear mixed effects models (fit using <code>lmer()</code>) you can use the <code>PBmodcomp()</code> function from the <code>pbkrtest</code> package. Check out the help function of <code>PBmodcomp()</code> like this.</li>
-</ol>
-<pre class="r"><code>?PBmodcomp</code></pre>
-<ol start="9" style="list-style-type: decimal">
-<li>Now use the <code>PBmodcomp()</code> function to get p-values for the model. You will have to specify a less complex model against which to test. Use <code>IO_mod</code> for this. Also, because this procedure can take rather long, only use 100 simulations.</li>
-</ol>
-<pre class="r"><code># perform parametric bootstrap
-pb_mod &lt;- PBmodcomp(largeModel = XXX, 
-                    smallModel = XXX, 
-                    nsim = XXX)</code></pre>
-<p><strong>Nathaniel: It looks like in the answer below you are using a different function from the example above. Which one is correct?</strong></p>
-<ol start="10" style="list-style-type: decimal">
-<li>Print the <code>pb_mod</code> object and inspect the results. Are the results different from the other tests you’ve performed before? <strong>Nathaniel: Maybe add a brief sentence telling them what to look for in the output</strong></li>
-</ol>
-</div>
 <div id="other-tests" class="section level4">
 <h4>Other Tests</h4>
-<ol start="11" style="list-style-type: decimal">
+<ol start="8" style="list-style-type: decimal">
 <li>Another way of obtaining p-values with the t-statistic and a <a href="https://en.wikipedia.org/wiki/Wald_test">Wald test</a> by using the <code>p_value()</code> function of the <code>sjstats</code> package. Enter <code>max_mod</code> to the <code>p_value()</code> function.</li>
 </ol>
 <pre class="r"><code># Compute p-values for the fixed effects
 p_value(fit = XXX)</code></pre>
-<ol start="12" style="list-style-type: decimal">
+<ol start="9" style="list-style-type: decimal">
 <li><p>As this test may not be appropriate for mixed effects models, we can extend the <code>p_value()</code> function with an additional argument, <code>p.kr = TRUE</code>. Then the function will compute p-values based on conditional F-tests with <a href="https://www.jstatsoft.org/article/view/v059i09">Kenward-Roger approximation</a> for the degrees of freedom. Repeat the previous task by extending the function with <code>p.kr = TRUE</code>.</p></li>
-<li><p>Compare the output of the tasks C11 and C12 Did things change? The reason why not is that the assumptions were all satisfied as the data was simulated with these assumptions, but with noisier real life data this may look different.</p></li>
+<li><p>Compare the output of the tasks E8 and E9 Did things change? The reason why not is that the assumptions were all satisfied as the data was simulated with these assumptions, but with noisier real life data this may look different.</p></li>
 </ol>
 </div>
 </div>
-<div id="d---determining-the-significance-of-random-effects-model-selection" class="section level3">
-<h3>D - Determining the “Significance” of Random Effects (Model Selection)</h3>
+<div id="f---determining-the-significance-of-random-effects-model-selection" class="section level3">
+<h3>F - Determining the “Significance” of Random Effects (Model Selection)</h3>
 <p>You may remember the <em>keep it maximal</em> principle, which states that you should always specify the maximal random effects structure justified by the design to guard against type I error inflation (<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3881361/">Barr, Levy, Scheepers, &amp; Tily, 2013</a>). However, the maximal model may come with a loss of power to detect fixed effects and it may make sense to select which random effects structure to use (<a href="https://www.sciencedirect.com/science/article/pii/S0749596X17300013">Matuschek, Kliegl, Vasishth, Baayen, &amp; Bates, 2017</a>). To express it with the words of Matuschek and Colleagues: “[A] parsimonious mixed model […] containing only variance components supported by the data improves the balance between Type I error and power” (p. 305). To select which model to use, we will use LRTs.</p>
 <p>When performing this LRT, we cannot use the usual alpha limit of .05. To see why, read the following quote from <a href="https://www.sciencedirect.com/science/article/pii/S0749596X17300013">Matuschek and colleagues (2017; p. 308)</a></p>
 <blockquote>
@@ -451,21 +482,35 @@ st &lt;- qchisq(1 - alpha, df = 2) # derive the critical value above which the d
 <li><p>The output of the previous task was <code>FALSE</code>. What does that mean? Do you keep the maximal model in this case? What would it mean if the result were <code>TRUE</code>, how would your next steps look?</p></li>
 </ol>
 </div>
-<div id="e---r2-and-variances" class="section level3">
-<h3>E - <span class="math inline">\(R^2\)</span> and Variances</h3>
-<p><strong>Nathaniel: I think this is pretty useful and maybe should come earlier in the practical so people can start using it after building their first models</strong></p>
-<p>When fitting statistical models, we are often interested in how much systematic variation they can capture. In linear (mixed effects) models this is the <span class="math inline">\(R^2\)</span> value (the coefficient of determination); for generalized (mixed effects) models, we can compute pseudo <span class="math inline">\(R^2\)</span> values.</p>
+<div id="g---residual-variances" class="section level3">
+<h3>G - Residual Variances</h3>
 <ol style="list-style-type: decimal">
-<li><p>We will use the <code>r2()</code> function from the <code>sjstats</code> package to compute <span class="math inline">\(R^2\)</span> values. Look at the help menu of the function to get an overview of what models you can use it for.</p></li>
-<li><p>Compute the <span class="math inline">\(R^2\)</span> of the maximal model.</p></li>
-<li><p>What does the output of the last task mean? What is the marginal <span class="math inline">\(R^2\)</span> and what is the conditional <span class="math inline">\(R^2\)</span>?</p></li>
 <li><p>We may be interested in knowing the residual variance (the error; denoted as within group variance in the output), and the random effects variances. Extract this information from the maximal model output by using the <code>re_var()</code> function from the <code>sjstats</code> package.</p></li>
 <li><p>Look at the output from the last task. Are the different variances large? Is the within group variance or the between group variance larger and how do you interpret this information?</p></li>
 </ol>
 </div>
-<div id="f---intra-class-correlation" class="section level3">
-<h3>F - Intra-Class Correlation</h3>
-<p><strong>Nathaniel: Looks pretty advanced, maybe move to the advanced / challenges section?</strong></p>
+<div id="x---challenges" class="section level3">
+<h3>X - Challenges</h3>
+<div id="more-on-p-values-for-fixed-effects-parametric-bootstrap" class="section level4">
+<h4>More on p-Values for Fixed Effects: Parametric Bootstrap</h4>
+<p>Another test of the significance of fixed effects, and the one you should prefer in an uncertain case (i.e., if p-values are on the border of your alpha-level), is to use parametric bootstrap, where, many times, data is resampled with replacement and then the model is fitted again, to obtain an empirical distribution of the effect or parameter of interest. The drawback of this technique is that it can take rather long.</p>
+<ol style="list-style-type: decimal">
+<li>For linear mixed effects models (fit using <code>lmer()</code>) you can use the <code>PBmodcomp()</code> function from the <code>pbkrtest</code> package. Check out the help function of <code>PBmodcomp()</code> like this.</li>
+</ol>
+<pre class="r"><code>?PBmodcomp</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Now use the <code>PBmodcomp()</code> function to get p-values for the model. You will have to specify a less complex model against which to test. Use <code>IO_mod</code> for this. Also, because this procedure can take rather long, only use 100 simulations.</li>
+</ol>
+<pre class="r"><code># perform parametric bootstrap
+pb_mod &lt;- PBmodcomp(largeModel = XXX, 
+                    smallModel = XXX, 
+                    nsim = XXX)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Print the <code>pb_mod</code> object and inspect the results. Are the results different from the other tests you’ve performed before? How does the p-value from the parametric bootstrap test compare to the one obtained from the likelihood test?</li>
+</ol>
+</div>
+<div id="intra-class-correlation" class="section level4">
+<h4>Intra-Class Correlation</h4>
 <p>The intra-class correlation (ICC) is “the proportion of the variance explained by the grouping structure in the population” (Hox 2002, p.15). It is calculated by dividing the between-group variance by the sum of the within-group and the between-group variance (i.e., the total variance).</p>
 <ol style="list-style-type: decimal">
 <li><p>Compute the ICC of the maximal model using the <code>icc()</code> function from the <code>sjstats</code> package.</p></li>
@@ -476,9 +521,8 @@ st &lt;- qchisq(1 - alpha, df = 2) # derive the critical value above which the d
 <li><p>Compare the outputs of the last two tasks. Did things change? Think about what these changes mean.</p></li>
 </ol>
 </div>
-<div id="g---crossed-versus-nested-random-effects" class="section level3">
-<h3>G - Crossed Versus Nested Random Effects</h3>
-<p><strong>Nathaniel: Looks pretty advanced, maybe move to the advanced / challenges section?</strong></p>
+<div id="crossed-versus-nested-random-effects" class="section level4">
+<h4>Crossed Versus Nested Random Effects</h4>
 <p>So far we only considered crossed random effects. Now we will also look at data with <em>nested random effects</em>, where every level of a nested factor only appears within a single level of a higher order factor. A popular example is the case of classes within schools. Every class is only part of a single school and thus class is nested within schools.</p>
 <p>To know whether random effects are crossed or nested, you usually need to know the design, as the structure is often not obvious from the factor levels. For example, even though class may be nested in schools, the classes may be numbered from 1 to the number of classes in that school. So school 1 may have classes 1 to 10, and school 2 may have classes from 1 to 6. Obviously class 1 of school 1 is not the same as class 1 of school 2. However, what is obvious for you is not obvious for R. It doesn’t know about the concept of schools and classes, so you have to tell it whether these factors are nested or not, using the appropriate syntax in the formula. Now consider the case where the classes are nested in schools, but numbered from 1 to total number of classes, that is, such that every class has a unique label. In this case it does not matter what structure you specify.</p>
 <ol style="list-style-type: decimal">
@@ -495,50 +539,17 @@ st &lt;- qchisq(1 - alpha, df = 2) # derive the critical value above which the d
 <li><p>Did the results change compared to the ones for the nested random effects structure?</p></li>
 </ol>
 </div>
-<div id="h---visualize-your-model" class="section level3">
-<h3>H - Visualize Your Model</h3>
-<p><strong>Nathaniel: This looks really useful! Maybe move to an earlier section</strong></p>
-<p>It is often useful to visualize your model’s output. Run the code below to extract coefficients from <code>max_mod</code> and plot the data along with a few sample lines to visualize the variability in the slopes and intercepts. As plotting is not the topic of this bootcamp we don’t have time to go into details here. If you are interested in learning more about plotting, there are many books and tutorials about it, and we also cover it in the <em>R for Data Science</em> bootcamp.</p>
+<div id="more-random-effects-selection" class="section level4">
+<h4>More Random Effects Selection</h4>
 <ol style="list-style-type: decimal">
-<li>Run the following code to visualize your <code>max_mod</code> data.</li>
-</ol>
-<pre class="r"><code># extract fixed effects
-m_line &lt;- fixef(max_mod)
-
-# extract random effects
-ranefs &lt;- ranef(max_mod)
-predicted &lt;- tibble(
-  intercept = ranefs$ID[,1] + fixef(max_mod)[1],
-  slope = ranefs$ID[,2] + fixef(max_mod)[2])
-
-# randomly draw 15 subjects to plot the fitted lines
-rand15 &lt;- sample(1:nrow(predicted), 15)
-
-LMM_plot &lt;- ggplot(tom_df, aes(State, Tomatometer)) +
-  geom_point(colour= &quot;#606061&quot;, alpha = .15, size = 2.5)+
-  geom_segment(aes(x = 1, y = intercept, xend = 2, yend = intercept + slope),
-               data = predicted %&gt;% slice(rand15), colour = &quot;#EA4B68&quot;, size = 1.5,
-               alpha = .8) +
-  geom_segment(aes(x = 1, y = m_line[1], xend = 2, yend = sum(m_line)),
-               colour = &quot;black&quot;, size = 2, alpha = 1) +
-  theme(axis.title.x = element_text(vjust = -1),
-        axis.title.y = element_text(vjust = 1)) +
-  theme_bw() +
-  ylim(0, 100) +
-  theme(
-    strip.text = element_text(size = 12, face = &quot;bold&quot;),
-    axis.text = element_text(size = 16),
-    axis.title = element_text(size = 18,face = &quot;bold&quot;)
-  )
-
-LMM_plot</code></pre>
-</div>
-<div id="x---advanced" class="section level3">
-<h3>X - Advanced</h3>
-<ol style="list-style-type: decimal">
-<li><p>In task D6 you found out that the constrained model with correlations between random effects set to zero is not significantly worse than the maximal model. Thus, if you were testing a confirmatory hypothesis, you should choose this model rather than the maximal model. What we didn’t do in section D is to proceed with our backward selection procedure. This is now your task. Fit a model with by-subject random intercepts and slopes, but without their correlation, and with by-movie random intercepts.</p></li>
+<li><p>In task D6 you found out that the constrained model with correlations between random effects set to zero is not significantly worse than the maximal model. Thus, if you were testing a confirmatory hypothesis, you should choose this model rather than the maximal model. What we didn’t do in section F is to proceed with our backward selection procedure. This is now your task. Fit a model with by-subject random intercepts and slopes, but without their correlation, and with by-movie random intercepts.</p></li>
 <li><p>Now perform the procedure of Section D. to evaluate which of the two models to keep. <em>Note</em>: You will have to set the <code>df</code> argument in the <code>qchisq()</code> function to <code>df = 1</code> because these two models only differ in one degree of freedom.</p></li>
 <li><p>What is your conclusion which model to keep and work with?</p></li>
+</ol>
+</div>
+<div id="generalized-linear-mixed-effects-models" class="section level4">
+<h4>Generalized Linear Mixed Effects Models</h4>
+<ol style="list-style-type: decimal">
 <li><p>Now we will look at generalized linear mixed effects model. Load the <code>cancer_remission.csv</code> data into R and save it as <code>cr</code>.</p></li>
 <li><p>Take a look at the data. It is a subset of simulated data from <a href="https://stats.idre.ucla.edu/">UCLA Institute for Digital Research and Education Search this website</a>.</p></li>
 <li><p>Predict cancer remission (<code>remission</code>) by the cancer stage (<code>CancerStage</code>), the length of the patients stay (<code>LengthofStay</code>), the doctors experience (<code>Experience</code>), and by specifying by doctor (<code>DID</code>) random intercepts. Use the <code>glmer</code> function with <code>family = binomial</code> to do this. Also, use the “bobyqa” optimizer as in some examples before.</p></li>
@@ -547,6 +558,7 @@ LMM_plot</code></pre>
 <li><p>Extract the <span class="math inline">\(R^2\)</span> value for this model, once using the <code>r2()</code> and once using the <code>cod()</code> function. Are the results the same? Find out what the differences are by checking the help pages.</p></li>
 </ol>
 <p><strong>Note</strong>: Running and interpreting generalized linear mixed effects models can be quite challenging and we don’t have the time here to cover them in more detail. You can check out this <a href="https://stats.idre.ucla.edu/other/mult-pkg/introduction-to-generalized-linear-mixed-models/">tutorial</a> or the references listed under resources if you want to learn more about this.</p>
+</div>
 </div>
 </div>
 <div id="examples" class="section level2">
@@ -735,10 +747,10 @@ LMM_plot</code></pre>
 </div>
 <div id="schools.csv" class="section level4">
 <h4>schools.csv</h4>
-<table>
+<table style="width:75%;">
 <colgroup>
-<col width="26%" />
-<col width="73%" />
+<col width="20%" />
+<col width="54%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -780,10 +792,10 @@ LMM_plot</code></pre>
 </div>
 <div id="cancer_remission.csv" class="section level4">
 <h4>cancer_remission.csv</h4>
-<table>
+<table style="width:75%;">
 <colgroup>
-<col width="26%" />
-<col width="73%" />
+<col width="20%" />
+<col width="54%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -849,11 +861,11 @@ LMM_plot</code></pre>
 </div>
 <div id="functions-1" class="section level3">
 <h3>Functions</h3>
-<table>
+<table style="width:83%;">
 <colgroup>
-<col width="7%" />
-<col width="12%" />
-<col width="80%" />
+<col width="6%" />
+<col width="11%" />
+<col width="65%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -939,6 +951,11 @@ LMM_plot</code></pre>
 </div>
 <div id="resources" class="section level2">
 <h2>Resources</h2>
+<div id="vignettes" class="section level3">
+<h3>Vignettes</h3>
+<p><a href="https://strengejacke.github.io/sjstats/">sjstats webpage</a></p>
+<p><a href="https://cran.r-project.org/web/packages/lme4/vignettes/lmer.pdf">lme4 vignette</a></p>
+</div>
 <div id="further-reading" class="section level3">
 <h3>Further Reading</h3>
 <p>A nice and non-technical introduction to mixed effects models can be found in a chapter titled <a href="http://davidkellen.org/wp-content/uploads/2017/04/introduction-mixed-models.pdf"><strong>An introduction to linear mixed modeling in experimental psychology</strong></a> by <strong>Henrik Singmann</strong> and <strong>David Kellen</strong>.</p>

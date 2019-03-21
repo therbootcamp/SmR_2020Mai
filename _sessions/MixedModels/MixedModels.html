@@ -46,10 +46,30 @@ layout: true
 
 
 
+# Data Collection Example
+
+&lt;br&gt;
+
+.pull-left45[
+
+&lt;p align = "center"&gt;
+&lt;img src="image/example1.png" width=450px&gt;&lt;br&gt;
+&lt;/p&gt;
+
+]
+
+.pull-right45[
+
+&lt;p align = "center"&gt;
+&lt;img src="image/example2.png" width=450px&gt;&lt;br&gt;
+&lt;/p&gt;
+
+]
+
+---
 
 
-
-# [iid](https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables) Assumption
+# [IID](https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables) Assumption
 
 .pull-left45[
 Previous regression models assumed that the data points are independent and identically distributed (&lt;high&gt;iid&lt;/high&gt;).
@@ -66,6 +86,47 @@ Previously considered models are &lt;high&gt;not robust&lt;/high&gt; to violatio
 .pull-right45[
 
 &lt;img src="image/iid_plot.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+---
+
+# Examples of Data Where the IID Assumption Is Violated
+
+
+.pull-left55[
+
+&lt;br&gt;
+
+- Test of student performance in the PISA study (&lt;high&gt;students within classes within schools within countries&lt;/high&gt;).
+- Test of a drug in a clinical trial over multiple sites (&lt;high&gt;patients within doctors within sites&lt;/high&gt;).
+- Test of the best design or taste of different versions of a product with &lt;high&gt;multiple ratings from the same persons&lt;/high&gt;.
+
+
+*Failure to run the statistical model might lead to missleading results, such as overestimation of an effect.*
+
+
+]
+
+.pull-right35[
+
+
+&lt;p align = "center"&gt;
+&lt;img src="image/pisa.png" height=100px&gt;&lt;br&gt;
+&lt;font style="font-size:10px"&gt;from &lt;a href="https://de.wikipedia.org/wiki/PISA-Studien"&gt;wikipedia.org&lt;/a&gt;&lt;/font&gt;
+&lt;/p&gt;
+
+&lt;p align = "center"&gt;
+&lt;img src="image/multi-arm-trial.jpg" height=100px&gt;&lt;br&gt;
+&lt;font style="font-size:10px"&gt;from &lt;a href="https://www.mssociety.org.uk/research/latest-research/latest-research-news-and-blogs/first-multi-drug-clinical-trial-in-ms-successfully-completed"&gt;mssociety.org.uk&lt;/a&gt;&lt;/font&gt;
+&lt;/p&gt;
+
+&lt;p align = "center"&gt;
+&lt;img src="image/sweets.jpg" height=100px&gt;&lt;br&gt;
+&lt;font style="font-size:10px"&gt;from &lt;a href="https://londonist.com/london/free-and-cheap/this-5-metre-high-pick-n-mix-wall-has-half-a-tonne-of-free-sweets"&gt;londonist.com&lt;/a&gt;&lt;/font&gt;
+&lt;/p&gt;
+
 
 
 ]
@@ -386,7 +447,7 @@ Every level of the nested factor only appears within a single level of the highe
 
 .pull-left45[
 
-Specifying the correct random effects structure is important. Failure to do so can result in inflated Type I errors and loss of power.
+Specifying the correct random effects structure is important. Failure to do so can result in inflated Type I errors.
 
 Therefore, it has been argued that one should specify the &lt;high&gt;maximal random effects structure justified by the design&lt;/high&gt; (maximal model; [Barr et al., 2014](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3881361/pdf/nihms533954.pdf)).
 
@@ -494,16 +555,24 @@ Random effects are specified with a new element to the formulas:
 |:----------|:-------------------|
 | `(1 `&amp;#124;` S)` | Random intercepts by `S` |
 | `(1 `&amp;#124;` S) + (1 `&amp;#124;` I)` | Random intercepts by `S` and `I`|
-| `(X1 `&amp;#124;` S)` / `(1 + X1`&amp;#124;` S)`| Random intercepts by `S` and random slopes for `X1` by `S` with correlations  |
+| `(X1 `&amp;#124;` S)` OR `(1 + X1`&amp;#124;` S)`| Random intercepts by `S` and random slopes for `X1` by `S` with correlations  |
 | `(X1 * X2 `&amp;#124;` S)`| Random intercepts by `S` and random slopes for `X1`, `X2`, and their interaction `X1:X2` by `S` with correlations  |
 | `(0 + X1 `&amp;#124;` S)`| Random slopes for `X1`by `S`, no random intercepts |
 | `(X1 `&amp;#124;&amp;#124;` S)`| Random intercepts by `S` and random slopes for `X1` by `S` no correlations |
-| `(1 `&amp;#124;` S/C)` / `(1 `&amp;#124;` S) + (1 `&amp;#124;` S:C)`| Random intercepts by `S` and `C` with `C` nested under `S` |
+| `(1 `&amp;#124;` S/C)` OR `(1 `&amp;#124;` S) + (1 `&amp;#124;` S:C)`| Random intercepts by `S` and `C` with `C` nested under `S` |
 
+---
+
+# `lmer()` Output
+
+
+&lt;img src="image/lmer_output.png" width="58%" style="display: block; margin: auto;" /&gt;
 
 ---
 
 # Generalized Mixed Effects Models
+
+&lt;br&gt;
 
 .pull-left55[
 
@@ -530,6 +599,28 @@ glmm_out &lt;- glmer(fasnacht ~ alcohol + (alcohol|id),
 &lt;img src="image/dist_ex_plot.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
+
+---
+
+# Summary
+
+*What are mixed effects models and when do we use them?*
+
+- Mixed effects models are &lt;high&gt;regression models&lt;/high&gt; that contain &lt;high&gt;both fixed and random effects&lt;/high&gt;.
+- They are used when we have &lt;high&gt;repeated measures&lt;/high&gt; or &lt;high&gt;clusters&lt;/high&gt; in the data, both of which could lead to violation of the IID assumption.
+
+*Examples of when to apply them:*
+
+- Comparison of students &lt;high&gt;across schools and classes&lt;/high&gt;.
+- Evaluating the effectiveness of a new drug in a clinical trial where &lt;high&gt;multiple sites are involved&lt;/high&gt;.
+- In political science studies to take into account the effect of &lt;high&gt;different countries or regions&lt;/high&gt;.
+
+*When do we add a variable as fixed effect and when as random effect?*
+
+- We add a variable as fixed effect when we are interested in the &lt;high&gt;effects of the specific levels&lt;/high&gt; in that variable.
+- We add a variable as random effect when we want to &lt;high&gt;generalize over the levels to the population&lt;/high&gt; these levels came from.
+
+
 ---
 
 class: middle, center
