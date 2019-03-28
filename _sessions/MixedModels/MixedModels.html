@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
   <head>
     <title>Mixed Effects Models</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <meta name="author" content="Statistics with R   Basel R Bootcamp" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="baselrbootcamp.css" type="text/css" />
@@ -451,9 +451,7 @@ Specifying the correct random effects structure is important. Failure to do so c
 
 Therefore, it has been argued that one should specify the &lt;high&gt;maximal random effects structure justified by the design&lt;/high&gt; (maximal model; [Barr et al., 2014](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3881361/pdf/nihms533954.pdf)).
 
-Note that this often leads to convergence problems and the random effects structure then has to be adapted.
-
-But there is also criticism to this approach ([Matuschek, Kliegl, Vasishth. Baayen, &amp; Bates](https://www.sciencedirect.com/science/article/pii/S0749596X17300013); but more on this in the practical).
+On the other hand, specifying the random effects structure when it is not apparent in the data can be overconservative. That is why it has been argued that one should use a &lt;high&gt;backwards selection procedure&lt;/high&gt; (see [Matuschek, Kliegl, Vasishth, Baayen, &amp; Bates](https://www.sciencedirect.com/science/article/pii/S0749596X17300013)).
 
 ]
 
@@ -468,35 +466,35 @@ But there is also criticism to this approach ([Matuschek, Kliegl, Vasishth. Baay
 ]
 
 
----
+&lt;!-- --- --&gt;
 
-# Keep It Maximal
+&lt;!-- # Keep It Maximal --&gt;
 
-.pull-left45[
+&lt;!-- .pull-left45[ --&gt;
 
-Specifying the maximal model in our example:
+&lt;!-- Specifying the maximal model in our example: --&gt;
 
-* By-subject random effects: Random intercepts and slopes, with correlations, for all within-subject factors (&lt;high&gt;state&lt;/high&gt; in our case).
+&lt;!-- * By-subject random effects: Random intercepts and slopes, with correlations, for all within-subject factors (&lt;high&gt;State&lt;/high&gt; in our case). --&gt;
 
-* By-item random effects: Ignore the participant effect. Then the random effects structure of the item effect is the combination of all factors varying within items (again &lt;high&gt;state&lt;/high&gt; in our case).
+&lt;!-- * By-item random effects: Ignore the participant effect. Then the random effects structure of the item effect is the combination of all factors varying within items (again &lt;high&gt;State&lt;/high&gt; in our case). --&gt;
 
-]
+&lt;!-- ] --&gt;
 
-.pull-right45[
+&lt;!-- .pull-right45[ --&gt;
 
-&lt;p align = "center"&gt;
-&lt;img src="image/participants.jpg" height=150px&gt;&lt;br&gt;
-&lt;font style="font-size:10px"&gt;from &lt;a href="https://www.simpleusability.com/inspiration/2018/07/when-and-how-you-should-reuse-research-participants/"&gt;simpleusability.com&lt;/a&gt;&lt;/font&gt;
-&lt;/p&gt;
+&lt;!-- &lt;p align = "center"&gt; --&gt;
+&lt;!-- &lt;img src="image/participants.jpg" height=150px&gt;&lt;br&gt; --&gt;
+&lt;!-- &lt;font style="font-size:10px"&gt;from &lt;a href="https://www.simpleusability.com/inspiration/2018/07/when-and-how-you-should-reuse-research-participants/"&gt;simpleusability.com&lt;/a&gt;&lt;/font&gt; --&gt;
+&lt;!-- &lt;/p&gt; --&gt;
 
-&lt;p align = "center"&gt;
-&lt;img src="image/items.jpg" height=150px&gt;&lt;br&gt;
-&lt;font style="font-size:10px"&gt;from &lt;a href="https://www.bachelorprint.de/fragebogen-erstellen/"&gt;bachelorprint.de&lt;/a&gt;&lt;/font&gt;
-&lt;/p&gt;
+&lt;!-- &lt;p align = "center"&gt; --&gt;
+&lt;!-- &lt;img src="image/items.jpg" height=150px&gt;&lt;br&gt; --&gt;
+&lt;!-- &lt;font style="font-size:10px"&gt;from &lt;a href="https://www.bachelorprint.de/fragebogen-erstellen/"&gt;bachelorprint.de&lt;/a&gt;&lt;/font&gt; --&gt;
+&lt;!-- &lt;/p&gt; --&gt;
 
 
 
-]
+&lt;!-- ] --&gt;
 
 ---
 
@@ -532,7 +530,7 @@ LMM_out &lt;- lmer(Tomatometer ~ State +
 # by-ID random slopes and intercepts
                   (State|Movie),
 # define data
-                data = tomato_df)
+                data = tomato)
 
 # show output
 summary(LMM_out)
@@ -560,6 +558,82 @@ Random effects are specified with a new element to the formulas:
 | `(0 + X1 `&amp;#124;` S)`| Random slopes for `X1`by `S`, no random intercepts |
 | `(X1 `&amp;#124;&amp;#124;` S)`| Random intercepts by `S` and random slopes for `X1` by `S` no correlations |
 | `(1 `&amp;#124;` S/C)` OR `(1 `&amp;#124;` S) + (1 `&amp;#124;` S:C)`| Random intercepts by `S` and `C` with `C` nested under `S` |
+
+---
+
+# Fitting Mixed Effects Models in R - An Example
+
+.pull-left45[
+
+&lt;br&gt;
+
+We want to predict the &lt;high&gt;Tomatometer&lt;/high&gt; rating with &lt;high&gt;State&lt;/high&gt; as fixed effect and with by-Subjects (&lt;high&gt;ID&lt;/high&gt;) and by-Item (&lt;high&gt;Movie&lt;/high&gt;) random slopes and intercepts. 
+
+]
+
+.pull-right45[
+
+&lt;br&gt;
+
+*What do you think is the correct model specification?*
+
+
+```r
+# mixed model using lme4::lmer()
+
+# fixed effects
+LMM_out &lt;- XXX(XXX ~ XXX +
+# by-ID random slopes and intercepts
+                  (XXX) +
+# by-ID random slopes and intercepts
+                  (XXX),
+# define data
+                data = tomato)
+
+# show output
+summary(LMM_out)
+```
+
+]
+
+
+---
+
+# Fitting Mixed Effects Models in R - An Example
+
+.pull-left45[
+
+&lt;br&gt;
+
+We want to predict the &lt;high&gt;Tomatometer&lt;/high&gt; rating with &lt;high&gt;State&lt;/high&gt; as fixed effect and with by-Subjects (&lt;high&gt;ID&lt;/high&gt;) and by-Item (&lt;high&gt;Movie&lt;/high&gt;) random slopes and intercepts. 
+
+]
+
+.pull-right45[
+
+&lt;br&gt;
+
+
+```r
+# mixed model using lme4::lmer()
+
+# fixed effects
+LMM_out &lt;- lmer(Tomatometer ~ State +
+# by-ID random slopes and intercepts
+                  (State|ID) +
+# by-ID random slopes and intercepts
+                  (State|Movie),
+# define data
+                data = tomato)
+
+# show output
+summary(LMM_out)
+```
+
+
+
+]
+
 
 ---
 
@@ -606,19 +680,19 @@ glmm_out &lt;- glmer(fasnacht ~ alcohol + (alcohol|id),
 
 *What are mixed effects models and when do we use them?*
 
-- Mixed effects models are &lt;high&gt;regression models&lt;/high&gt; that contain &lt;high&gt;both fixed and random effects&lt;/high&gt;.
-- They are used when we have &lt;high&gt;repeated measures&lt;/high&gt; or &lt;high&gt;clusters&lt;/high&gt; in the data, both of which could lead to violation of the IID assumption.
+- They are &lt;high&gt;regression models&lt;/high&gt; that contain &lt;high&gt;both fixed and random effects&lt;/high&gt;.
+- They are used when we have &lt;high&gt;repeated measures&lt;/high&gt; or &lt;high&gt;clusters&lt;/high&gt; in the data.
 
 *Examples of when to apply them:*
 
 - Comparison of students &lt;high&gt;across schools and classes&lt;/high&gt;.
-- Evaluating the effectiveness of a new drug in a clinical trial where &lt;high&gt;multiple sites are involved&lt;/high&gt;.
-- In political science studies to take into account the effect of &lt;high&gt;different countries or regions&lt;/high&gt;.
+- Evaluating the effectiveness of a new drug over &lt;high&gt;multiple sites&lt;/high&gt;.
+- In political science studies where questions are analysed over &lt;high&gt;different countries or regions&lt;/high&gt;.
 
 *When do we add a variable as fixed effect and when as random effect?*
 
-- We add a variable as fixed effect when we are interested in the &lt;high&gt;effects of the specific levels&lt;/high&gt; in that variable.
-- We add a variable as random effect when we want to &lt;high&gt;generalize over the levels to the population&lt;/high&gt; these levels came from.
+- Fixed effect: when we are interested in the &lt;high&gt;effects of the specific levels&lt;/high&gt; in that variable.
+- Random effect: when we want to &lt;high&gt;generalize over the levels to the population&lt;/high&gt; these levels came from.
 
 
 ---
@@ -627,6 +701,7 @@ class: middle, center
 
 &lt;h1&gt;&lt;a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/MixedModels/MixedModels_practical.html"&gt;Practical&lt;/a&gt;&lt;/h1&gt;
     </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
@@ -637,26 +712,79 @@ class: middle, center
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
 });
-(function() {
-  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
   if (!r) return;
   s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
   d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
 })();</script>
 
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
   }
-});
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
 (function () {
   var script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
   if (location.protocol !== 'file:' && /^https?:/.test(script.src))
     script.src  = script.src.replace(/^https?:/, '');
   document.getElementsByTagName('head')[0].appendChild(script);

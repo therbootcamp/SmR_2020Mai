@@ -72,7 +72,7 @@ options(digits = 4)
 library(tidyverse)
 library(lme4)
 tomato_df <- read_csv("1_Data/Tomatometer_dat.csv")
-df <- read_csv("1_Data/MEM_example.csv")
+df <- read_csv("MEM_example.csv")
 grand_mean <- mean(df$tomatometer)
 
 baselers <- read_csv("https://raw.githubusercontent.com/therbootcamp/baselers/master/inst/extdata/baselers.txt")
@@ -511,9 +511,7 @@ Specifying the correct random effects structure is important. Failure to do so c
 
 Therefore, it has been argued that one should specify the <high>maximal random effects structure justified by the design</high> (maximal model; [Barr et al., 2014](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3881361/pdf/nihms533954.pdf)).
 
-Note that this often leads to convergence problems and the random effects structure then has to be adapted.
-
-But there is also criticism to this approach ([Matuschek, Kliegl, Vasishth. Baayen, & Bates](https://www.sciencedirect.com/science/article/pii/S0749596X17300013); but more on this in the practical).
+On the other hand, specifying the random effects structure when it is not apparent in the data can be overconservative. That is why it has been argued that one should use a <high>backwards selection procedure</high> (see [Matuschek, Kliegl, Vasishth, Baayen, & Bates](https://www.sciencedirect.com/science/article/pii/S0749596X17300013)).
 
 ]
 
@@ -528,35 +526,35 @@ But there is also criticism to this approach ([Matuschek, Kliegl, Vasishth. Baay
 ]
 
 
----
+<!-- --- -->
 
-# Keep It Maximal
+<!-- # Keep It Maximal -->
 
-.pull-left45[
+<!-- .pull-left45[ -->
 
-Specifying the maximal model in our example:
+<!-- Specifying the maximal model in our example: -->
 
-* By-subject random effects: Random intercepts and slopes, with correlations, for all within-subject factors (<high>state</high> in our case).
+<!-- * By-subject random effects: Random intercepts and slopes, with correlations, for all within-subject factors (<high>State</high> in our case). -->
 
-* By-item random effects: Ignore the participant effect. Then the random effects structure of the item effect is the combination of all factors varying within items (again <high>state</high> in our case).
+<!-- * By-item random effects: Ignore the participant effect. Then the random effects structure of the item effect is the combination of all factors varying within items (again <high>State</high> in our case). -->
 
-]
+<!-- ] -->
 
-.pull-right45[
+<!-- .pull-right45[ -->
 
-<p align = "center">
-<img src="image/participants.jpg" height=150px><br>
-<font style="font-size:10px">from <a href="https://www.simpleusability.com/inspiration/2018/07/when-and-how-you-should-reuse-research-participants/">simpleusability.com</a></font>
-</p>
+<!-- <p align = "center"> -->
+<!-- <img src="image/participants.jpg" height=150px><br> -->
+<!-- <font style="font-size:10px">from <a href="https://www.simpleusability.com/inspiration/2018/07/when-and-how-you-should-reuse-research-participants/">simpleusability.com</a></font> -->
+<!-- </p> -->
 
-<p align = "center">
-<img src="image/items.jpg" height=150px><br>
-<font style="font-size:10px">from <a href="https://www.bachelorprint.de/fragebogen-erstellen/">bachelorprint.de</a></font>
-</p>
+<!-- <p align = "center"> -->
+<!-- <img src="image/items.jpg" height=150px><br> -->
+<!-- <font style="font-size:10px">from <a href="https://www.bachelorprint.de/fragebogen-erstellen/">bachelorprint.de</a></font> -->
+<!-- </p> -->
 
 
 
-]
+<!-- ] -->
 
 ---
 
@@ -591,7 +589,7 @@ LMM_out <- lmer(Tomatometer ~ State +
 # by-ID random slopes and intercepts
                   (State|Movie),
 # define data
-                data = tomato_df)
+                data = tomato)
 
 # show output
 summary(LMM_out)
@@ -619,6 +617,80 @@ Random effects are specified with a new element to the formulas:
 | `(0 + X1 `&#124;` S)`| Random slopes for `X1`by `S`, no random intercepts |
 | `(X1 `&#124;&#124;` S)`| Random intercepts by `S` and random slopes for `X1` by `S` no correlations |
 | `(1 `&#124;` S/C)` OR `(1 `&#124;` S) + (1 `&#124;` S:C)`| Random intercepts by `S` and `C` with `C` nested under `S` |
+
+---
+
+# Fitting Mixed Effects Models in R - An Example
+
+.pull-left45[
+
+<br>
+
+We want to predict the <high>Tomatometer</high> rating with <high>State</high> as fixed effect and with by-Subjects (<high>ID</high>) and by-Item (<high>Movie</high>) random slopes and intercepts. 
+
+]
+
+.pull-right45[
+
+<br>
+
+*What do you think is the correct model specification?*
+
+```{r eval = FALSE}
+# mixed model using lme4::lmer()
+
+# fixed effects
+LMM_out <- XXX(XXX ~ XXX +
+# by-ID random slopes and intercepts
+                  (XXX) +
+# by-ID random slopes and intercepts
+                  (XXX),
+# define data
+                data = tomato)
+
+# show output
+summary(LMM_out)
+```
+
+]
+
+
+---
+
+# Fitting Mixed Effects Models in R - An Example
+
+.pull-left45[
+
+<br>
+
+We want to predict the <high>Tomatometer</high> rating with <high>State</high> as fixed effect and with by-Subjects (<high>ID</high>) and by-Item (<high>Movie</high>) random slopes and intercepts. 
+
+]
+
+.pull-right45[
+
+<br>
+
+```{r eval = FALSE}
+# mixed model using lme4::lmer()
+
+# fixed effects
+LMM_out <- lmer(Tomatometer ~ State +
+# by-ID random slopes and intercepts
+                  (State|ID) +
+# by-ID random slopes and intercepts
+                  (State|Movie),
+# define data
+                data = tomato)
+
+# show output
+summary(LMM_out)
+```
+
+
+
+]
+
 
 ---
 
@@ -665,19 +737,19 @@ glmm_out <- glmer(fasnacht ~ alcohol + (alcohol|id),
 
 *What are mixed effects models and when do we use them?*
 
-- Mixed effects models are <high>regression models</high> that contain <high>both fixed and random effects</high>.
-- They are used when we have <high>repeated measures</high> or <high>clusters</high> in the data, both of which could lead to violation of the IID assumption.
+- They are <high>regression models</high> that contain <high>both fixed and random effects</high>.
+- They are used when we have <high>repeated measures</high> or <high>clusters</high> in the data.
 
 *Examples of when to apply them:*
 
 - Comparison of students <high>across schools and classes</high>.
-- Evaluating the effectiveness of a new drug in a clinical trial where <high>multiple sites are involved</high>.
-- In political science studies to take into account the effect of <high>different countries or regions</high>.
+- Evaluating the effectiveness of a new drug over <high>multiple sites</high>.
+- In political science studies where questions are analysed over <high>different countries or regions</high>.
 
 *When do we add a variable as fixed effect and when as random effect?*
 
-- We add a variable as fixed effect when we are interested in the <high>effects of the specific levels</high> in that variable.
-- We add a variable as random effect when we want to <high>generalize over the levels to the population</high> these levels came from.
+- Fixed effect: when we are interested in the <high>effects of the specific levels</high> in that variable.
+- Random effect: when we want to <high>generalize over the levels to the population</high> these levels came from.
 
 
 ---
