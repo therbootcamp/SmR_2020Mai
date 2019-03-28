@@ -98,3 +98,35 @@ plot1
 
 ggsave("_sessions/MixedModels/image/MEM_example.png", width = 8,
        height = 5, device = "png", dpi = 600)
+
+
+plot2<-ggplot(simdat %>% mutate(State = case_when(State == "Sober" ~ "Condition 1",
+                                                  TRUE ~ "Condition 2")),aes(State, Tomatometer))+
+  geom_point(colour= "#606061", alpha = .15, size = 2.5)+
+  # geom_segment(aes(x = 1, y = intercept,xend=2, yend=intercept+slope ),
+  #              data=fittednorms,colour = "gray85", size = 1)+
+  geom_segment(aes(x = 1, y = intercept,xend=2, yend=intercept+slope ),
+               data=fittednorms[rand10,],colour = "#EA4B68", size = 1.5,
+               alpha = .8)+
+  geom_segment(aes(x = 1, y = m_line[1], xend = 2, yend = sum(m_line)),
+               data=fittednorms[rand10,],colour = "black", size = 2,
+               alpha = 1)+
+  theme(axis.title.x=element_text(vjust=-1),axis.title.y=element_text(vjust=1)) +
+  theme_classic() +
+  ylim(0, 100) +
+  labs(
+    x = "",
+    y = ""
+  ) +
+  theme(
+    strip.text = element_text(size = 12, face = "bold"),
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title = element_text(size = 18,face = "bold"),
+    axis.line = element_line(size = 1.2)
+  )
+
+plot2
+
+ggsave("_sessions/MixedModels/image/MEM_example2.png", width = 8,
+       height = 5, device = "png", dpi = 600)

@@ -102,6 +102,29 @@ great_err <- great_raw +
        x = "Predictor", y = "Criterion")
 
 
+b0_s1 <- 4
+b0_s2 <- 2
+b0_s3 <- 7
+
+b1_s1 <- .8
+b1_s2 <- .3
+b1_s3 <- .4
+
+x_s1 <- rep(c(5, 10, 15, 20, 25, 30), 30)
+x_s2 <- rep(c(5, 10, 15, 20, 25, 30), 30)
+x_s3 <- rep(c(5, 10, 15, 20, 25, 30), 30)
+
+y_s1 <- b0_s1 + b1_s1 * x_s1 + rnorm(length(x_s1), 0, 5)
+y_s2 <- b0_s2 + b1_s2 * x_s2 + rnorm(length(x_s2), 0, 5)
+y_s3 <- b0_s3 + b1_s3 * x_s3 + rnorm(length(x_s3), 0, 5)
+
+s_dat <- tibble(
+  y = c(y_s1, y_s2, y_s3),
+  x = c(x_s1, x_s2, x_s3),
+  Site = rep(c("Site 1", "Site 2", "Site 3"), each = length(x_s1))
+)
+
+
 ```
 
 # Data Collection Example
@@ -188,6 +211,235 @@ Previously considered models are <high>not robust</high> to violations of the in
 
 
 ]
+---
+
+
+# Example - Clinical Trial Over Multiple Sites
+
+.pull-left45[
+<br>
+
+Let's assume we want to evaluate the effect of a drug (in different doses). We have data of a clinical trial over three sites.
+
+Here's how we would run a regression over all sites (but is it a good idea to do so?):
+
+```{r eval = FALSE}
+
+mod <- lm(Effect ~ Dose,
+          data = clinical_data)
+
+```
+
+
+]
+
+.pull-right45[
+
+<br>
+
+
+<p align="center">
+```{r, echo = FALSE, fig.width = 4.2, fig.height = 2.7, dpi = 400, out.width = "100%"}
+ggplot(s_dat, aes(x, y)) + 
+  geom_point(col = "#606061", alpha = .7) +
+  geom_smooth(method = "lm", col = "#EA4B68", se = FALSE) +
+  theme_classic() +
+  labs(y = "Effect",
+       x = "Dose") +
+  theme(
+    strip.text = element_text(size = 12, face = "bold"),
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title = element_text(size = 18,face = "bold"),
+    axis.line = element_line(size = 1)
+  )
+```
+</p>
+
+]
+
+---
+
+# Example - Clinical Trial Over Multiple Sites
+
+.pull-left45[
+
+
+Let's assume we want to evaluate the effect of a drug (in different doses). We have data of a clinical trial over three sites.
+
+Here's how we would run one regression per sites (but is it a good idea to do so?):
+
+```{r eval = FALSE}
+
+mod_s1 <- lm(Effect ~ Dose,
+             data = clinical_data %>%
+               filter(Site == "Site 1"))
+
+mod_s2 <- lm(Effect ~ Dose,
+             data = clinical_data %>%
+               filter(Site == "Site 2"))
+
+mod_s3 <- lm(Effect ~ Dose,
+             data = clinical_data %>%
+               filter(Site == "Site 3"))
+
+```
+
+
+]
+
+.pull-right45[
+
+<br>
+
+<p align="center">
+```{r, echo = FALSE, fig.width = 4.2, fig.height = 2.7, dpi = 400, out.width = "100%"}
+
+ggplot(s_dat, aes(x, y, col = Site)) + 
+  geom_point(alpha = .7) +
+  geom_smooth(method = "lm", se = FALSE) +
+  theme_classic() +
+  labs(y = "Effect",
+       x = "Dose") +
+  theme(
+    strip.text = element_text(size = 12, face = "bold"),
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title = element_text(size = 18,face = "bold"),
+    axis.line = element_line(size = 1)
+  )
+
+```
+</p>
+
+]
+
+
+---
+
+# Mixed Effects Model
+
+.pull-left45[
+
+A better way of analysing data where the IID assumption is violated than running separate regressions is to use mixed effects models.
+
+
+Mixed effects models combine two kinds of effects that serve different purposes:
+
+
+* <high>Fixed effects</high>
+* <high>Random effects</high>
+
+
+```{r eval = FALSE}
+### Structure of a mixed effects model:
+
+            # Fixed effects part
+LMM <- lmer(y ~ FE1 + FE2 +
+            # Random effects part
+              (FE1|RE) + (FE2|RE),
+            # Data
+            data = df)
+```
+
+
+
+]
+
+.pull-right45[
+
+<br>
+
+<p align="center">
+```{r, echo = FALSE, fig.width = 4.2, fig.height = 2.7, dpi = 400, out.width = "100%", warning=FALSE}
+
+tomato_df <- tomato_df %>%
+  mutate(State = factor(State, levels = c("Sober", "Drunk")))
+
+model1<-lmer(Tomatometer ~ State + (State|ID) + (State|Movie), data=tomato_df)
+
+m_line <- fixef(model1)
+
+# visualize model fit
+fittednorms<-ranef(model1)$ID[,1:2]
+fittednorms[,1]<-fittednorms[,1]+getME(model1,"beta")[1]
+fittednorms[,2]<-fittednorms[,2]+getME(model1,"beta")[2]
+colnames(fittednorms)<-c("intercept","slope")
+
+set.seed(25)
+rand10<-sample(1:200, 15, replace = FALSE)
+
+ggplot(tomato_df, aes(State, Tomatometer))+
+  geom_point(colour= "#606061", alpha = .15, size = 2.5)+
+  # geom_segment(aes(x = 1, y = intercept,xend=2, yend=intercept+slope ),
+  #              data=fittednorms,colour = "gray85", size = 1)+
+  geom_segment(aes(x = 1, y = intercept,xend=2, yend=intercept+slope ),
+               data=fittednorms[rand10,],colour = "#EA4B68", size = 1.5,
+               alpha = .8)+
+  geom_segment(aes(x = 1, y = m_line[1], xend = 2, yend = sum(m_line)),
+               data=fittednorms[rand10,],colour = "black", size = 2,
+               alpha = 1)+
+  theme_classic() +
+  labs(
+    x = "",
+    y = ""
+  ) +
+  theme(
+    strip.text = element_text(size = 12, face = "bold"),
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title = element_text(size = 18,face = "bold"),
+    axis.line = element_line(size = 1.1)
+  )
+
+```
+</p>
+
+]
+
+---
+
+# Fixed Effects
+
+.pull-left45[
+
+Fixed effects represent the overall effect (main effect or interaction) of a predictor. For example the effect of a treatment.
+
+So far we only considered "fixed effects only" models (e.g., simple regression, t-tests, ANOVA).
+
+```{r eval = FALSE}
+
+# continuous predictor
+mod <- lm(Effect ~ Dose,
+          data = clinical_data)
+
+```
+
+
+]
+
+.pull-right45[
+
+
+<p align="center">
+```{r, echo = FALSE, fig.width = 4.2, fig.height = 2.7, dpi = 400, out.width = "100%"}
+ggplot(s_dat, aes(x, y)) + 
+  geom_point(col = "#606061", alpha = .7) +
+  geom_smooth(method = "lm", col = "#EA4B68", se = FALSE) +
+  theme_classic() +
+  labs(y = "Effect",
+       x = "Dose") +
+  theme(
+    strip.text = element_text(size = 12, face = "bold"),
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title = element_text(size = 18,face = "bold"),
+    axis.line = element_line(size = 1)
+  )
+```
+</p>
+
+]
 
 ---
 
@@ -217,107 +469,15 @@ You let two subjects rate two movies once when they are sober and once when they
 
 ]
 
----
-
-# Example Data
-
-.pull-left45[
-
-Because we have repeated measures, the independence assumption is violated. Several possibilities exist:
-
-<br>
-
-* Run separate regression models so only independent data points are used (<high>no pooling</high>)
-* Average repeated measures and run a fixed effects model
-* Treat observations as separate and just run a simple regression (<high>complete pooling</high>)
-* Use mixed effects model (<high>partial pooling</high>)
-we need to control for this and can do so by using mixed effects models
-fixed and random effects
-
-
-]
-
-.pull-right45[
-
-<img src="image/dat_plot.png" width="100%" style="display: block; margin: auto;" />
-
-
-]
-
 
 
 ---
 
-# Mixed Effects
 
-.pull-left45[
+# Fixed Effects Only Model
 
+<img src="image/FE_plot.png" width="70%" style="display: block; margin: auto;" />
 
-Mixed effects models combine two kinds of effects that serve different purposes:
-
-
-* <high>Fixed effects</high>
-* <high>Random effects</high>
-
-
-```{r eval = FALSE}
-### Structure of a mixed effects model:
-
-            # Fixed effects part
-LMM <- lmer(y ~ FE1 + FE2 +
-            # Random effects part
-              (FE1|RE) + (FE2|RE),
-            # Data
-            data = df)
-```
-
-
-
-]
-
-.pull-right45[
-
-
-<img src="image/MEM_example.png" width="100%" style="display: block; margin: auto;" />
-
-
-]
-
----
-
-# Fixed Effects
-
-.pull-left45[
-
-Fixed effects represent the overall effect (main effect or interaction) of a predictor. For example the effect of a treatment.
-
-So far we only considered "fixed effects only" models (e.g., simple regression, t-tests, ANOVA).
-
-```{r eval = FALSE}
-
-# continuous predictor
-FE_cont <- lm(income ~ age,
-              data = baselers)
-
-# discrete predictor
-FE_disc <- lm(income ~ sex,
-              data = baselers)
-
-```
-
-
-]
-
-.pull-right45[
-
-
-<p align="center">
-```{r, echo = FALSE, fig.width = 4.2, fig.height = 2.7, dpi = 400, out.width = "100%"}
-great_err
-```
-</p>
-
-]
 
 ---
 
@@ -346,34 +506,10 @@ As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/
 
 ]
 
----
-
-# Fixed Effects Only Model - Equations
-
-<br><br><br>
-<img src="image/FE_only.png" width="80%" style="display: block; margin: auto;" />
-
 
 ---
 
-# Fixed Effects Only Model - Data Example
-
-<img src="image/FE_plot.png" width="70%" style="display: block; margin: auto;" />
-
-
-
-
----
-
-# Random Intercepts Model - Equations
-
-<br><br><br>
-<img src="image/RI_only.png" width="80%" style="display: block; margin: auto;" />
-
-
----
-
-# Random Intercepts Model - Data Example
+# Random Intercepts Model
 
 .pull-left45[
 
@@ -397,18 +533,9 @@ As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/
 ]
 
 
-
 ---
 
-# Random Intercepts and Slopes Model - Equations
-
-<br><br><br>
-<img src="image/RI_RS.png" width="80%" style="display: block; margin: auto;" />
-
-
----
-
-# Random Intercepts and Slopes Model - Data Example
+# Random Intercepts and Slopes Model
 
 .pull-left45[
 
@@ -433,6 +560,11 @@ As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/
 ]
 
 
+---
+
+# Crossed Random Effects Model
+
+<img src="image/cr_RI_RS_plot.png" width="70%" style="display: block; margin: auto;" />
 
 ---
 
@@ -440,14 +572,6 @@ As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/
 
 <br><br><br>
 <img src="image/Cr_RI_RS.png" width="80%" style="display: block; margin: auto;" />
-
-
----
-
-# Crossed Random Effects Model - Data Example
-
-<img src="image/cr_RI_RS_plot.png" width="70%" style="display: block; margin: auto;" />
-
 
 ---
 
@@ -484,7 +608,7 @@ Every level of the nested factor only appears within a single level of the highe
 
 .pull-left45[
 
-* <high>Hierarchical shrinkage</high>: Individual parameter estimates that are on the extremes of the distribution are adjusted (shrinked) towards the mean. Because of this, predicted cell means need not necessarily coincide with the observed cell means.
+* <high>Hierarchical shrinkage</high>: Random effects are adjusted (shrinked) towards the mean. Because of this, predicted cell means need not necessarily coincide with the observed cell means.
 
 * Intra-Class Correlation <high>ICC</high>: The ICC is the proportion of variance explained by a grouping factor (random effect).
 
@@ -517,44 +641,16 @@ On the other hand, specifying the random effects structure when it is not appare
 
 .pull-right45[
 
+<br>
+
 <p align = "center">
-<img src="image/maximal.jpg" height=200px><br>
-<font style="font-size:10px">from <a href="https://www.vorsorge-3a.ch/vorsorge-saeule-3a/einzahlung-maximal-betrag-beitrag-steuerabzug.html">vorsoge-3a.ch</a></font>
+<img src="image/maximum_minimum.jpg" height=200px><br>
+<font style="font-size:10px">from <a href="https://www.shutterstock.com/de/search/maximum.+minimum.?studio=1">shutterstock.com</a></font>
 </p>
 
 
 ]
 
-
-<!-- --- -->
-
-<!-- # Keep It Maximal -->
-
-<!-- .pull-left45[ -->
-
-<!-- Specifying the maximal model in our example: -->
-
-<!-- * By-subject random effects: Random intercepts and slopes, with correlations, for all within-subject factors (<high>State</high> in our case). -->
-
-<!-- * By-item random effects: Ignore the participant effect. Then the random effects structure of the item effect is the combination of all factors varying within items (again <high>State</high> in our case). -->
-
-<!-- ] -->
-
-<!-- .pull-right45[ -->
-
-<!-- <p align = "center"> -->
-<!-- <img src="image/participants.jpg" height=150px><br> -->
-<!-- <font style="font-size:10px">from <a href="https://www.simpleusability.com/inspiration/2018/07/when-and-how-you-should-reuse-research-participants/">simpleusability.com</a></font> -->
-<!-- </p> -->
-
-<!-- <p align = "center"> -->
-<!-- <img src="image/items.jpg" height=150px><br> -->
-<!-- <font style="font-size:10px">from <a href="https://www.bachelorprint.de/fragebogen-erstellen/">bachelorprint.de</a></font> -->
-<!-- </p> -->
-
-
-
-<!-- ] -->
 
 ---
 
@@ -628,6 +724,14 @@ Random effects are specified with a new element to the formulas:
 
 We want to predict the <high>Tomatometer</high> rating with <high>State</high> as fixed effect and with by-Subjects (<high>ID</high>) and by-Item (<high>Movie</high>) random slopes and intercepts. 
 
+
+<p align = "center">
+<img src="image/interstellar.png" height=200px><br>
+<font style="font-size:10px">from <a href="https://www.rottentomatoes.com/m/interstellar_2014">rottentomatoes.com</a></font>
+</p>
+
+
+
 ]
 
 .pull-right45[
@@ -664,6 +768,11 @@ summary(LMM_out)
 <br>
 
 We want to predict the <high>Tomatometer</high> rating with <high>State</high> as fixed effect and with by-Subjects (<high>ID</high>) and by-Item (<high>Movie</high>) random slopes and intercepts. 
+
+<p align = "center">
+<img src="image/interstellar.png" height=200px><br>
+<font style="font-size:10px">from <a href="https://www.rottentomatoes.com/m/interstellar_2014">rottentomatoes.com</a></font>
+</p>
 
 ]
 
@@ -735,22 +844,34 @@ glmm_out <- glmer(fasnacht ~ alcohol + (alcohol|id),
 
 # Summary
 
+
+
+.pull-left55[
+
 *What are mixed effects models and when do we use them?*
 
-- They are <high>regression models</high> that contain <high>both fixed and random effects</high>.
+- Mixed effects models are <high>regression models</high> that contain <high>both fixed and random effects</high>.
 - They are used when we have <high>repeated measures</high> or <high>clusters</high> in the data.
-
-*Examples of when to apply them:*
-
-- Comparison of students <high>across schools and classes</high>.
-- Evaluating the effectiveness of a new drug over <high>multiple sites</high>.
-- In political science studies where questions are analysed over <high>different countries or regions</high>.
 
 *When do we add a variable as fixed effect and when as random effect?*
 
 - Fixed effect: when we are interested in the <high>effects of the specific levels</high> in that variable.
 - Random effect: when we want to <high>generalize over the levels to the population</high> these levels came from.
 
+]
+
+
+.pull-left35[
+
+<p align = "center">
+<img src="image/MEM_example2.png" height=180px><br>
+</p>
+
+<p align = "center">
+<img src="image/nested_RE.png" height=130px><br>
+</p>
+
+]
 
 ---
 

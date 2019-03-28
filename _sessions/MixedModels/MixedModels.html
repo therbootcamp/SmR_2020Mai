@@ -130,6 +130,148 @@ Previously considered models are &lt;high&gt;not robust&lt;/high&gt; to violatio
 
 
 ]
+---
+
+
+# Example - Clinical Trial Over Multiple Sites
+
+.pull-left45[
+&lt;br&gt;
+
+Let's assume we want to evaluate the effect of a drug (in different doses). We have data of a clinical trial over three sites.
+
+Here's how we would run a regression over all sites (but is it a good idea to do so?):
+
+
+```r
+mod &lt;- lm(Effect ~ Dose,
+          data = clinical_data)
+```
+
+
+]
+
+.pull-right45[
+
+&lt;br&gt;
+
+
+&lt;p align="center"&gt;
+&lt;img src="MixedModels_files/figure-html/unnamed-chunk-3-1.png" width="100%" /&gt;
+&lt;/p&gt;
+
+]
+
+---
+
+# Example - Clinical Trial Over Multiple Sites
+
+.pull-left45[
+
+
+Let's assume we want to evaluate the effect of a drug (in different doses). We have data of a clinical trial over three sites.
+
+Here's how we would run one regression per sites (but is it a good idea to do so?):
+
+
+```r
+mod_s1 &lt;- lm(Effect ~ Dose,
+             data = clinical_data %&gt;%
+               filter(Site == "Site 1"))
+
+mod_s2 &lt;- lm(Effect ~ Dose,
+             data = clinical_data %&gt;%
+               filter(Site == "Site 2"))
+
+mod_s3 &lt;- lm(Effect ~ Dose,
+             data = clinical_data %&gt;%
+               filter(Site == "Site 3"))
+```
+
+
+]
+
+.pull-right45[
+
+&lt;br&gt;
+
+&lt;p align="center"&gt;
+&lt;img src="MixedModels_files/figure-html/unnamed-chunk-5-1.png" width="100%" /&gt;
+&lt;/p&gt;
+
+]
+
+
+---
+
+# Mixed Effects Model
+
+.pull-left45[
+
+A better way of analysing data where the IID assumption is violated than running separate regressions is to use mixed effects models.
+
+
+Mixed effects models combine two kinds of effects that serve different purposes:
+
+
+* &lt;high&gt;Fixed effects&lt;/high&gt;
+* &lt;high&gt;Random effects&lt;/high&gt;
+
+
+
+```r
+### Structure of a mixed effects model:
+
+            # Fixed effects part
+LMM &lt;- lmer(y ~ FE1 + FE2 +
+            # Random effects part
+              (FE1|RE) + (FE2|RE),
+            # Data
+            data = df)
+```
+
+
+
+]
+
+.pull-right45[
+
+&lt;br&gt;
+
+&lt;p align="center"&gt;
+&lt;img src="MixedModels_files/figure-html/unnamed-chunk-7-1.png" width="100%" /&gt;
+&lt;/p&gt;
+
+]
+
+---
+
+# Fixed Effects
+
+.pull-left45[
+
+Fixed effects represent the overall effect (main effect or interaction) of a predictor. For example the effect of a treatment.
+
+So far we only considered "fixed effects only" models (e.g., simple regression, t-tests, ANOVA).
+
+
+```r
+# continuous predictor
+mod &lt;- lm(Effect ~ Dose,
+          data = clinical_data)
+```
+
+
+]
+
+.pull-right45[
+
+
+&lt;p align="center"&gt;
+&lt;img src="MixedModels_files/figure-html/unnamed-chunk-9-1.png" width="100%" /&gt;
+&lt;/p&gt;
+
+]
 
 ---
 
@@ -159,105 +301,15 @@ You let two subjects rate two movies once when they are sober and once when they
 
 ]
 
----
-
-# Example Data
-
-.pull-left45[
-
-Because we have repeated measures, the independence assumption is violated. Several possibilities exist:
-
-&lt;br&gt;
-
-* Run separate regression models so only independent data points are used (&lt;high&gt;no pooling&lt;/high&gt;)
-* Average repeated measures and run a fixed effects model
-* Treat observations as separate and just run a simple regression (&lt;high&gt;complete pooling&lt;/high&gt;)
-* Use mixed effects model (&lt;high&gt;partial pooling&lt;/high&gt;)
-we need to control for this and can do so by using mixed effects models
-fixed and random effects
-
-
-]
-
-.pull-right45[
-
-&lt;img src="image/dat_plot.png" width="100%" style="display: block; margin: auto;" /&gt;
-
-
-]
-
 
 
 ---
 
-# Mixed Effects
 
-.pull-left45[
+# Fixed Effects Only Model
 
+&lt;img src="image/FE_plot.png" width="70%" style="display: block; margin: auto;" /&gt;
 
-Mixed effects models combine two kinds of effects that serve different purposes:
-
-
-* &lt;high&gt;Fixed effects&lt;/high&gt;
-* &lt;high&gt;Random effects&lt;/high&gt;
-
-
-
-```r
-### Structure of a mixed effects model:
-
-            # Fixed effects part
-LMM &lt;- lmer(y ~ FE1 + FE2 +
-            # Random effects part
-              (FE1|RE) + (FE2|RE),
-            # Data
-            data = df)
-```
-
-
-
-]
-
-.pull-right45[
-
-
-&lt;img src="image/MEM_example.png" width="100%" style="display: block; margin: auto;" /&gt;
-
-
-]
-
----
-
-# Fixed Effects
-
-.pull-left45[
-
-Fixed effects represent the overall effect (main effect or interaction) of a predictor. For example the effect of a treatment.
-
-So far we only considered "fixed effects only" models (e.g., simple regression, t-tests, ANOVA).
-
-
-```r
-# continuous predictor
-FE_cont &lt;- lm(income ~ age,
-              data = baselers)
-
-# discrete predictor
-FE_disc &lt;- lm(income ~ sex,
-              data = baselers)
-```
-
-
-]
-
-.pull-right45[
-
-
-&lt;p align="center"&gt;
-&lt;img src="MixedModels_files/figure-html/unnamed-chunk-4-1.png" width="100%" /&gt;
-&lt;/p&gt;
-
-]
 
 ---
 
@@ -286,34 +338,10 @@ As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/
 
 ]
 
----
-
-# Fixed Effects Only Model - Equations
-
-&lt;br&gt;&lt;br&gt;&lt;br&gt;
-&lt;img src="image/FE_only.png" width="80%" style="display: block; margin: auto;" /&gt;
-
 
 ---
 
-# Fixed Effects Only Model - Data Example
-
-&lt;img src="image/FE_plot.png" width="70%" style="display: block; margin: auto;" /&gt;
-
-
-
-
----
-
-# Random Intercepts Model - Equations
-
-&lt;br&gt;&lt;br&gt;&lt;br&gt;
-&lt;img src="image/RI_only.png" width="80%" style="display: block; margin: auto;" /&gt;
-
-
----
-
-# Random Intercepts Model - Data Example
+# Random Intercepts Model
 
 .pull-left45[
 
@@ -337,18 +365,9 @@ As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/
 ]
 
 
-
 ---
 
-# Random Intercepts and Slopes Model - Equations
-
-&lt;br&gt;&lt;br&gt;&lt;br&gt;
-&lt;img src="image/RI_RS.png" width="80%" style="display: block; margin: auto;" /&gt;
-
-
----
-
-# Random Intercepts and Slopes Model - Data Example
+# Random Intercepts and Slopes Model
 
 .pull-left45[
 
@@ -373,6 +392,11 @@ As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/
 ]
 
 
+---
+
+# Crossed Random Effects Model
+
+&lt;img src="image/cr_RI_RS_plot.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 ---
 
@@ -380,14 +404,6 @@ As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/
 
 &lt;br&gt;&lt;br&gt;&lt;br&gt;
 &lt;img src="image/Cr_RI_RS.png" width="80%" style="display: block; margin: auto;" /&gt;
-
-
----
-
-# Crossed Random Effects Model - Data Example
-
-&lt;img src="image/cr_RI_RS_plot.png" width="70%" style="display: block; margin: auto;" /&gt;
-
 
 ---
 
@@ -424,7 +440,7 @@ Every level of the nested factor only appears within a single level of the highe
 
 .pull-left45[
 
-* &lt;high&gt;Hierarchical shrinkage&lt;/high&gt;: Individual parameter estimates that are on the extremes of the distribution are adjusted (shrinked) towards the mean. Because of this, predicted cell means need not necessarily coincide with the observed cell means.
+* &lt;high&gt;Hierarchical shrinkage&lt;/high&gt;: Random effects are adjusted (shrinked) towards the mean. Because of this, predicted cell means need not necessarily coincide with the observed cell means.
 
 * Intra-Class Correlation &lt;high&gt;ICC&lt;/high&gt;: The ICC is the proportion of variance explained by a grouping factor (random effect).
 
@@ -457,44 +473,16 @@ On the other hand, specifying the random effects structure when it is not appare
 
 .pull-right45[
 
+&lt;br&gt;
+
 &lt;p align = "center"&gt;
-&lt;img src="image/maximal.jpg" height=200px&gt;&lt;br&gt;
-&lt;font style="font-size:10px"&gt;from &lt;a href="https://www.vorsorge-3a.ch/vorsorge-saeule-3a/einzahlung-maximal-betrag-beitrag-steuerabzug.html"&gt;vorsoge-3a.ch&lt;/a&gt;&lt;/font&gt;
+&lt;img src="image/maximum_minimum.jpg" height=200px&gt;&lt;br&gt;
+&lt;font style="font-size:10px"&gt;from &lt;a href="https://www.shutterstock.com/de/search/maximum.+minimum.?studio=1"&gt;shutterstock.com&lt;/a&gt;&lt;/font&gt;
 &lt;/p&gt;
 
 
 ]
 
-
-&lt;!-- --- --&gt;
-
-&lt;!-- # Keep It Maximal --&gt;
-
-&lt;!-- .pull-left45[ --&gt;
-
-&lt;!-- Specifying the maximal model in our example: --&gt;
-
-&lt;!-- * By-subject random effects: Random intercepts and slopes, with correlations, for all within-subject factors (&lt;high&gt;State&lt;/high&gt; in our case). --&gt;
-
-&lt;!-- * By-item random effects: Ignore the participant effect. Then the random effects structure of the item effect is the combination of all factors varying within items (again &lt;high&gt;State&lt;/high&gt; in our case). --&gt;
-
-&lt;!-- ] --&gt;
-
-&lt;!-- .pull-right45[ --&gt;
-
-&lt;!-- &lt;p align = "center"&gt; --&gt;
-&lt;!-- &lt;img src="image/participants.jpg" height=150px&gt;&lt;br&gt; --&gt;
-&lt;!-- &lt;font style="font-size:10px"&gt;from &lt;a href="https://www.simpleusability.com/inspiration/2018/07/when-and-how-you-should-reuse-research-participants/"&gt;simpleusability.com&lt;/a&gt;&lt;/font&gt; --&gt;
-&lt;!-- &lt;/p&gt; --&gt;
-
-&lt;!-- &lt;p align = "center"&gt; --&gt;
-&lt;!-- &lt;img src="image/items.jpg" height=150px&gt;&lt;br&gt; --&gt;
-&lt;!-- &lt;font style="font-size:10px"&gt;from &lt;a href="https://www.bachelorprint.de/fragebogen-erstellen/"&gt;bachelorprint.de&lt;/a&gt;&lt;/font&gt; --&gt;
-&lt;!-- &lt;/p&gt; --&gt;
-
-
-
-&lt;!-- ] --&gt;
 
 ---
 
@@ -569,6 +557,14 @@ Random effects are specified with a new element to the formulas:
 
 We want to predict the &lt;high&gt;Tomatometer&lt;/high&gt; rating with &lt;high&gt;State&lt;/high&gt; as fixed effect and with by-Subjects (&lt;high&gt;ID&lt;/high&gt;) and by-Item (&lt;high&gt;Movie&lt;/high&gt;) random slopes and intercepts. 
 
+
+&lt;p align = "center"&gt;
+&lt;img src="image/interstellar.png" height=200px&gt;&lt;br&gt;
+&lt;font style="font-size:10px"&gt;from &lt;a href="https://www.rottentomatoes.com/m/interstellar_2014"&gt;rottentomatoes.com&lt;/a&gt;&lt;/font&gt;
+&lt;/p&gt;
+
+
+
 ]
 
 .pull-right45[
@@ -606,6 +602,11 @@ summary(LMM_out)
 &lt;br&gt;
 
 We want to predict the &lt;high&gt;Tomatometer&lt;/high&gt; rating with &lt;high&gt;State&lt;/high&gt; as fixed effect and with by-Subjects (&lt;high&gt;ID&lt;/high&gt;) and by-Item (&lt;high&gt;Movie&lt;/high&gt;) random slopes and intercepts. 
+
+&lt;p align = "center"&gt;
+&lt;img src="image/interstellar.png" height=200px&gt;&lt;br&gt;
+&lt;font style="font-size:10px"&gt;from &lt;a href="https://www.rottentomatoes.com/m/interstellar_2014"&gt;rottentomatoes.com&lt;/a&gt;&lt;/font&gt;
+&lt;/p&gt;
 
 ]
 
@@ -678,22 +679,34 @@ glmm_out &lt;- glmer(fasnacht ~ alcohol + (alcohol|id),
 
 # Summary
 
+
+
+.pull-left55[
+
 *What are mixed effects models and when do we use them?*
 
-- They are &lt;high&gt;regression models&lt;/high&gt; that contain &lt;high&gt;both fixed and random effects&lt;/high&gt;.
+- Mixed effects models are &lt;high&gt;regression models&lt;/high&gt; that contain &lt;high&gt;both fixed and random effects&lt;/high&gt;.
 - They are used when we have &lt;high&gt;repeated measures&lt;/high&gt; or &lt;high&gt;clusters&lt;/high&gt; in the data.
-
-*Examples of when to apply them:*
-
-- Comparison of students &lt;high&gt;across schools and classes&lt;/high&gt;.
-- Evaluating the effectiveness of a new drug over &lt;high&gt;multiple sites&lt;/high&gt;.
-- In political science studies where questions are analysed over &lt;high&gt;different countries or regions&lt;/high&gt;.
 
 *When do we add a variable as fixed effect and when as random effect?*
 
 - Fixed effect: when we are interested in the &lt;high&gt;effects of the specific levels&lt;/high&gt; in that variable.
 - Random effect: when we want to &lt;high&gt;generalize over the levels to the population&lt;/high&gt; these levels came from.
 
+]
+
+
+.pull-left35[
+
+&lt;p align = "center"&gt;
+&lt;img src="image/MEM_example2.png" height=180px&gt;&lt;br&gt;
+&lt;/p&gt;
+
+&lt;p align = "center"&gt;
+&lt;img src="image/nested_RE.png" height=130px&gt;&lt;br&gt;
+&lt;/p&gt;
+
+]
 
 ---
 

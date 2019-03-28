@@ -130,3 +130,58 @@ dat_plot + geom_point(aes(y = cr_RI_RS), shape = 17, col = "#EA4B68",
 ggsave("_sessions/MixedModels/image/cr_RI_RS_plot.png", width = 8,
        height = 5, device = "png", dpi = 600)
 
+
+### study site data for slides =========================================
+
+
+b0_s1 <- 4
+b0_s2 <- 2
+b0_s3 <- 7
+
+b1_s1 <- .8
+b1_s2 <- .3
+b1_s3 <- .4
+
+x_s1 <- rep(c(5, 10, 15, 20, 25, 30), 30)
+x_s2 <- rep(c(5, 10, 15, 20, 25, 30), 30)
+x_s3 <- rep(c(5, 10, 15, 20, 25, 30), 30)
+
+y_s1 <- b0_s1 + b1_s1 * x_s1 + rnorm(length(x_s1), 0, 5)
+y_s2 <- b0_s2 + b1_s2 * x_s2 + rnorm(length(x_s2), 0, 5)
+y_s3 <- b0_s3 + b1_s3 * x_s3 + rnorm(length(x_s3), 0, 5)
+
+s_dat <- tibble(
+  y = c(y_s1, y_s2, y_s3),
+  x = c(x_s1, x_s2, x_s3),
+  Site = rep(c("Site 1", "Site 2", "Site 3"), each = length(x_s1))
+)
+
+ggplot(s_dat, aes(x, y)) + 
+  geom_point(col = "#606061", alpha = .7) +
+  geom_smooth(method = "lm", col = "#EA4B68", se = FALSE) +
+  theme_classic() +
+  labs(y = "Effect",
+       x = "Dose") +
+  theme(
+    strip.text = element_text(size = 12, face = "bold"),
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title = element_text(size = 18,face = "bold"),
+    axis.line = element_line(size = 1)
+  )
+
+
+ggplot(s_dat, aes(x, y, col = Site)) + 
+  geom_point(alpha = .7) +
+  geom_smooth(method = "lm", se = FALSE) +
+  theme_classic() +
+  labs(y = "Effect",
+       x = "Dose") +
+  theme(
+    strip.text = element_text(size = 12, face = "bold"),
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title = element_text(size = 18,face = "bold"),
+    axis.line = element_line(size = 1)
+  )
+
