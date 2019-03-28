@@ -403,6 +403,8 @@ ggplot(tomato_df, aes(State, Tomatometer))+
 
 .pull-left45[
 
+<br>
+
 Fixed effects represent the overall effect (main effect or interaction) of a predictor. For example the effect of a treatment.
 
 So far we only considered "fixed effects only" models (e.g., simple regression, t-tests, ANOVA).
@@ -420,6 +422,7 @@ mod <- lm(Effect ~ Dose,
 
 .pull-right45[
 
+<br>
 
 <p align="center">
 ```{r, echo = FALSE, fig.width = 4.2, fig.height = 2.7, dpi = 400, out.width = "100%"}
@@ -568,7 +571,7 @@ As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/
 
 ---
 
-# Crossed Random Effects Model - Equations
+# Mixed Effects Model - Equations (In Case You Like Them)
 
 <br><br><br>
 <img src="image/Cr_RI_RS.png" width="80%" style="display: block; margin: auto;" />
@@ -658,9 +661,9 @@ On the other hand, specifying the random effects structure when it is not appare
 
 .pull-left45[
 
-Several packages exist to run mixed effects models in R. Here are some of them:
-
 <br>
+
+Several packages exist to run mixed effects models in R. Here are some of them:
 
 | Package| Function|
 |:------|:----|
