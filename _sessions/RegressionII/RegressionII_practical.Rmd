@@ -51,7 +51,7 @@ trial <- read_csv(file = "1_Data/trial_ACTG175.csv")
 ```
 
 <p align="center" width="100%">
-  <img src="https://www.infogrades.com/wp-content/uploads/2016/07/Interesting-Facts-about-McDonalds-Fast-Food.jpg" alt="Trulli" style="width:100%">
+  <img src="https://www.finance-monthly.com/Finance-Monthly/wp-content/uploads/2017/08/patients-slider.jpg" alt="Trulli" style="width:100%">
   <br>
   <font style="font-size:10px">from <a href="">shortened URL</a></font>
 </p>
@@ -249,7 +249,7 @@ age_cd420_tidy <- tidy(age_cd40_test)
 age_cd420_tidy
 ```
 
-#### Correlation vs. Simple Regression
+#### Correlation as Linear Model
 
 10. Conduct the same analysis you did before, but this time use the `glm()` function. Use the code skeleton below to help you. Do you get the same results as you did using `cor.test()`?
 
@@ -378,7 +378,7 @@ symptom_cd40_tidy <- tidy(symptom_cd40_test)
 symptom_cd40_tidy
 ```
 
-#### T-test vs. Simple Regression
+#### T-test as Linear Model
 
 10. Conduct the same analysis you did before, but this time use the `glm()` function. Use the code skeleton below to help you. Do you get the same results as you did using `t.test()`? Which outputs are the same and which are different?
 
@@ -512,7 +512,7 @@ tidy(XXX)
 
 13. Based on what you've seen, what are your conclusions? Which treatment arms seem to differ?
 
-#### ANOVA vs. Regression
+#### ANOVA as Linear Model
 
 10. Conduct the same analysis you did before, but this time use the `glm()` function. Use the code skeleton below to help you. Do you get the same results as you did using `aov()`? Which outputs are the same and which are different?
 
@@ -539,6 +539,160 @@ days_arms_glm
 # Print 'tidy' results
 tidy(days_arms_glm)
 ```
+
+### E - Chi-square test
+
+> Research Question:
+> Was there an unequal distribution of gender in the treatment arms?
+
+1. Using the code below, create a plot showing the percentage of patients who were male (`gender == "Male")` for each treatment arm `arms`. Based on this plot, do you expect to find that there were differences in treatment arms?
+
+```{r, eval= FALSE, echo = TRUE}
+# Calculate percentage of Male in each treatment arm
+
+arm_gender <- trial %>%
+  group_by(arms) %>%
+  summarise(male_p = mean(gender == "Male"))
+
+ggplot(data = arm_gender, mapping = aes(x = arms, y = male_p)) + 
+  geom_bar(stat = "identity") +
+  ylim(c(0, 1)) +
+  labs(title = "ACTG175 AIDS trial",
+       subtitle = "Percent of males in each treatment arm",
+       x = "Treatment Arm (arms)",
+       y = "Percent Male (gender)")
+```
+
+2. Using the `chisq.test()` function, create an object called `gender_arm_test` which conducts a chi-square test comparing the frequencies of each gender (`gender`) for each level of arms (`arms`).
+
+- Note: The `chisq.test()` function (unfortunately) does not support formulas, so we have to enter the data in as two separate (factor) vectors:
+
+```{r, eval = FALSE, echo = TRUE}
+# Chi-square test comparing the frequencies of each gender for each treatment arm
+
+XXX <- chisq.test(x = factor(trial$XXX),
+                  y = factor(trial$XXX))
+```
+
+```{r}
+# Chi-square test comparing the frequencies of each gender for each treatment arm
+
+gender_arm_test <- chisq.test(x = factor(trial$gender),
+                              y = factor(trial$arms))
+```
+
+3. Print the `gender_arm_test` object to see summary outputs.
+
+```{r}
+gender_arm_test
+```
+
+4. Apply the `names()` function to your `gender_arm_test` object to see all of its named elements
+
+```{r}
+# See all named elements of gender_arm_test
+names(XXX)
+```
+
+```{r}
+# See all named elements of gender_arm_test
+names(gender_arm_test)
+```
+
+5. Using the `XXX$XXX` notation, print the *observed* frequencies in your `gender_arm_test` object. What do these values mean?
+
+```{r}
+# Print observed frequencies in the gender_arm_test object
+XXX$XXX
+```
+
+```{r}
+# Print observed frequencies in the gender_arm_test object
+gender_arm_test$observed
+```
+
+6. Using the `XXX$XXX` notation, print the *expected* frequencies in your `gender_arm_test` object. What do these values mean?
+
+```{r}
+# Print expected frequencies in the gender_arm_test object
+XXX$XXX
+```
+
+```{r}
+# Print expected frequencies in the gender_arm_test object
+gender_arm_test$expected
+```
+
+7. Using the `tidy()` function (from the `broom` package), create a 'tidy' version of your `gender_arm_test` object called `gender_arm_tidy`
+
+```{r}
+# Create a 'tidy' version of my gender_arm_test called gender_arm_tidy
+
+gender_arm_tidy <- tidy(xxx)
+```
+
+```{r}
+# Create a 'tidy' version of my gender_arm_test object
+
+gender_arm_tidy <- tidy(gender_arm_test)
+```
+
+9. Now, print your `gender_arm_tidy` object, how do the results look?
+
+```{r}
+gender_arm_tidy
+```
+
+#### Chi-square as Linear Model
+
+10. In the next section we'll compare the `chisq.test()` result to one using `glm()`. However, before we do, we need to restructure the data a bit. Run the following code to create a dataframe containing the counts for each combination of arms and gender:
+
+```{r, echo = TRUE, eval = FALSE}
+# Create a dataframe showing counts for each combination of
+#  arms and gender
+
+arms_gender_counts <- trial %>%
+                      group_by(arms, gender) %>%
+                      summarise(counts = n())
+```
+
+11. Print your§ `arms_gender_counts` object to see how it looks. What do the results mean?
+
+12. Conduct the same analysis you did before, but this time use the `glm()` function. Use the code skeleton below to help you. Do you get the same results as you did using `chisq.test()`? Which outputs are the same and which are different?
+
+- Be sure to model `counts` based on the *interaction* between `arms` and `gender` using `formula = counts ~ arms * gender`. 
+- We'll summarise the results of the model using the `anova()` function with the argument `test = "Rao"` to specify that we are conducting a score test (see https://en.wikipedia.org/wiki/Score_test for details)
+
+```{r, eval = FALSE, echo = TRUE}
+# Create linear model predicting counts as a function of the 
+#  interaction between arms and gender
+
+arms_gender_glm <- glm(formula = XXX ~ XXX * XXX, # Model counts by the interaction of arms and gender
+                       family = poisson,        # Use poisson model family to specify we are modelling counts
+                       data = XXX)
+
+# Print summary results as an anova table
+anova(arms_gender_glm, 
+      test = 'Rao')   # Show a 'Rao" score test
+```
+
+
+```{r}
+# Create linear model predicting counts as a function of the 
+#  interaction between arms and gender
+
+arms_gender_glm = glm(formula = counts ~ arms * gender, 
+                      family = poisson, 
+                      data = arms_gender_counts)
+
+# Print summary results as an anova table
+anova(arms_gender_glm, 
+      test = 'Rao')   # Show a 'Rao" score test
+```
+
+
+
+
 
 #### E - You choose the test
 

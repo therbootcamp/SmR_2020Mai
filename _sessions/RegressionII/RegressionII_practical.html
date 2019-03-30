@@ -202,7 +202,7 @@ $(document).ready(function () {
 
 
 <p align="center" width="100%">
-<img src="https://www.infogrades.com/wp-content/uploads/2016/07/Interesting-Facts-about-McDonalds-Fast-Food.jpg" alt="Trulli" style="width:100%"> <br> <font style="font-size:10px">from <a href="">shortened URL</a></font>
+<img src="https://www.finance-monthly.com/Finance-Monthly/wp-content/uploads/2017/08/patients-slider.jpg" alt="Trulli" style="width:100%"> <br> <font style="font-size:10px">from <a href="">shortened URL</a></font>
 </p>
 <div id="section" class="section level1 tabset">
 <h1></h1>
@@ -456,8 +456,8 @@ XXX &lt;- cor.test(formula = ~ XXX + XXX,
 <li><p>Using the <code>tidy()</code> function (from the <code>broom</code> package), create a ‘tidy’ version of your <code>age_cd40_test</code> object called <code>age_cd420_tidy</code></p></li>
 <li><p>Now, print your <code>age_cd420_tidy</code> object, how do the results look?</p></li>
 </ol>
-<div id="correlation-vs.simple-regression" class="section level4">
-<h4>Correlation vs. Simple Regression</h4>
+<div id="correlation-as-linear-model" class="section level4">
+<h4>Correlation as Linear Model</h4>
 <ol start="10" style="list-style-type: decimal">
 <li>Conduct the same analysis you did before, but this time use the <code>glm()</code> function. Use the code skeleton below to help you. Do you get the same results as you did using <code>cor.test()</code>?</li>
 </ol>
@@ -500,8 +500,8 @@ XXX &lt;- t.test(formula = XXX ~ XXX,
 <li><p>Using the <code>tidy()</code> function (from the <code>broom</code> package), create a ‘tidy’ version of your <code>symptom_cd40_test</code> object called <code>symptom_cd40_tidy</code></p></li>
 <li><p>Now, print your <code>symptom_cd40_tidy</code> object, how do the results look?</p></li>
 </ol>
-<div id="t-test-vs.simple-regression" class="section level4">
-<h4>T-test vs. Simple Regression</h4>
+<div id="t-test-as-linear-model" class="section level4">
+<h4>T-test as Linear Model</h4>
 <ol start="10" style="list-style-type: decimal">
 <li>Conduct the same analysis you did before, but this time use the <code>glm()</code> function. Use the code skeleton below to help you. Do you get the same results as you did using <code>t.test()</code>? Which outputs are the same and which are different?</li>
 </ol>
@@ -561,8 +561,8 @@ days_arms_aov_post &lt;- TukeyHSD(days_arms_aov)</code></pre>
 <li><p>Based on what you’ve seen, what are your conclusions? Which treatment arms seem to differ?</p></li>
 </ol>
 </div>
-<div id="anova-vs.regression" class="section level4">
-<h4>ANOVA vs. Regression</h4>
+<div id="anova-as-linear-model" class="section level4">
+<h4>ANOVA as Linear Model</h4>
 <ol start="10" style="list-style-type: decimal">
 <li>Conduct the same analysis you did before, but this time use the <code>glm()</code> function. Use the code skeleton below to help you. Do you get the same results as you did using <code>aov()</code>? Which outputs are the same and which are different?</li>
 </ol>
@@ -575,6 +575,76 @@ XXX
 
 # Print &#39;tidy&#39; results
 tidy(XXX)</code></pre>
+</div>
+</div>
+<div id="e---chi-square-test" class="section level3">
+<h3>E - Chi-square test</h3>
+<blockquote>
+<p>Research Question: Was there an unequal distribution of gender in the treatment arms?</p>
+</blockquote>
+<ol style="list-style-type: decimal">
+<li>Using the code below, create a plot showing the percentage of patients who were male (<code>gender == &quot;Male&quot;)</code> for each treatment arm <code>arms</code>. Based on this plot, do you expect to find that there were differences in treatment arms?</li>
+</ol>
+<pre class="r"><code># Calculate percentage of Male in each treatment arm
+
+arm_gender &lt;- trial %&gt;%
+  group_by(arms) %&gt;%
+  summarise(male_p = mean(gender == &quot;Male&quot;))
+
+ggplot(data = arm_gender, mapping = aes(x = arms, y = male_p)) + 
+  geom_bar(stat = &quot;identity&quot;) +
+  ylim(c(0, 1)) +
+  labs(title = &quot;ACTG175 AIDS trial&quot;,
+       subtitle = &quot;Percent of males in each treatment arm&quot;,
+       x = &quot;Treatment Arm (arms)&quot;,
+       y = &quot;Percent Male (gender)&quot;)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Using the <code>chisq.test()</code> function, create an object called <code>gender_arm_test</code> which conducts a chi-square test comparing the frequencies of each gender (<code>gender</code>) for each level of arms (<code>arms</code>).</li>
+</ol>
+<ul>
+<li>Note: The <code>chisq.test()</code> function (unfortunately) does not support formulas, so we have to enter the data in as two separate (factor) vectors:</li>
+</ul>
+<pre class="r"><code># Chi-square test comparing the frequencies of each gender for each treatment arm
+
+XXX &lt;- chisq.test(x = factor(trial$XXX),
+                  y = factor(trial$XXX))</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Print the <code>gender_arm_test</code> object to see summary outputs.</p></li>
+<li><p>Apply the <code>names()</code> function to your <code>gender_arm_test</code> object to see all of its named elements</p></li>
+<li><p>Using the <code>XXX$XXX</code> notation, print the <em>observed</em> frequencies in your <code>gender_arm_test</code> object. What do these values mean?</p></li>
+<li><p>Using the <code>XXX$XXX</code> notation, print the <em>expected</em> frequencies in your <code>gender_arm_test</code> object. What do these values mean?</p></li>
+<li><p>Using the <code>tidy()</code> function (from the <code>broom</code> package), create a ‘tidy’ version of your <code>gender_arm_test</code> object called <code>gender_arm_tidy</code></p></li>
+<li><p>Now, print your <code>gender_arm_tidy</code> object, how do the results look?</p></li>
+</ol>
+<div id="chi-square-as-linear-model" class="section level4">
+<h4>Chi-square as Linear Model</h4>
+<ol start="10" style="list-style-type: decimal">
+<li>In the next section we’ll compare the <code>chisq.test()</code> result to one using <code>glm()</code>. However, before we do, we need to restructure the data a bit. Run the following code to create a dataframe containing the counts for each combination of arms and gender:</li>
+</ol>
+<pre class="r"><code># Create a dataframe showing counts for each combination of
+#  arms and gender
+
+arms_gender_counts &lt;- trial %&gt;%
+                      group_by(arms, gender) %&gt;%
+                      summarise(counts = n())</code></pre>
+<ol start="11" style="list-style-type: decimal">
+<li><p>Print your§ <code>arms_gender_counts</code> object to see how it looks. What do the results mean?</p></li>
+<li><p>Conduct the same analysis you did before, but this time use the <code>glm()</code> function. Use the code skeleton below to help you. Do you get the same results as you did using <code>chisq.test()</code>? Which outputs are the same and which are different?</p></li>
+</ol>
+<ul>
+<li>Be sure to model <code>counts</code> based on the <em>interaction</em> between <code>arms</code> and <code>gender</code> using <code>formula = counts ~ arms * gender</code>.</li>
+<li>We’ll summarise the results of the model using the <code>anova()</code> function with the argument <code>test = &quot;Rao&quot;</code> to specify that we are conducting a score test (see <a href="https://en.wikipedia.org/wiki/Score_test" class="uri">https://en.wikipedia.org/wiki/Score_test</a> for details)</li>
+</ul>
+<pre class="r"><code># Create linear model predicting counts as a function of the 
+#  interaction between arms and gender
+
+arms_gender_glm &lt;- glm(formula = XXX ~ XXX * XXX, # Model counts by the interaction of arms and gender
+                       family = poisson,        # Use poisson model family to specify we are modelling counts
+                       data = XXX)
+
+# Print summary results as an anova table
+anova(arms_gender_glm, 
+      test = &#39;Rao&#39;)   # Show a &#39;Rao&quot; score test</code></pre>
 </div>
 <div id="e---you-choose-the-test" class="section level4">
 <h4>E - You choose the test</h4>
