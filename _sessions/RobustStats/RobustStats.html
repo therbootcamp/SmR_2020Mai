@@ -78,13 +78,13 @@ layout: true
 
 #### In "plain" English...
 
-&lt;high&gt;Have the right variables (A1-A3)&lt;/high&gt;
+&lt;high&gt;Have the right variables&lt;/high&gt; (A1-A3)
 
 - Quantitative or dichotomous (binary)
 - Nonzero variance
 - Not too highly correlated
 
-&lt;high&gt;Have the right model (A4-A8)&lt;/high&gt;
+&lt;high&gt;Have the right model&lt;/high&gt; (A4-A8)
 
 - Linear relationship
 - Normally distributed errors
@@ -92,8 +92,6 @@ layout: true
 - Constant error variance
 
 ]
-
-
 
 .pull-right45[
 
@@ -104,6 +102,29 @@ layout: true
 
 
 ]
+
+---
+
+# Have the right model
+
+.pull-left45[
+
+#### In "plain" English...
+
+&lt;high&gt;Have the right variables&lt;/high&gt; (A1-A3)
+
+- Quantitative or dichotomous (binary)
+- Nonzero variance
+- Not too highly correlated
+
+]
+
+.pull-right45[
+
+
+
+]
+
 
 ---
 
@@ -128,23 +149,12 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   d.head.appendChild(s);
 })();</script>
 
-<script>
-(function() {
-  var i, text, code, codes = document.getElementsByTagName('code');
-  for (i = 0; i < codes.length;) {
-    code = codes[i];
-    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-      text = code.textContent;
-      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-          /^\$\$(.|\s)+\$\$$/.test(text) ||
-          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-        code.outerHTML = code.innerHTML;  // remove <code></code>
-        continue;
-      }
-    }
-    i++;
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
   }
-})();
+});
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
