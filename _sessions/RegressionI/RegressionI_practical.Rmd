@@ -149,8 +149,8 @@ ggplot(hitters, aes(x = Hits, y = Salary)) +
 2. Using the guide below, conduct a regression analysis predicting a player's `Salary` as a function of his `Hits` value. Save the result to an object called `hits_glm`.
 
 ```{r, eval = FALSE, echo = TRUE}
-carat_glm <- glm(formula = XXX ~ XXX,
-             data = XXX)
+hits_glm <- glm(formula = XXX ~ XXX,
+                data = XXX)
 ```
 
 ```{r}
