@@ -99,7 +99,7 @@ library(rsq)
 
 4. Using the following template, load the `hitters.csv` data into R and store it as a new object called `hitters` (Hint: Don't type the path directly! Use the "tab" completion!).
 
-```{r, echo = TRUE}
+```{r, echo = TRUE, eval = FALSE}
 # Load XXX.csv from the 1_Data folder
 
 XX <- read_csv(file = "XX/XX")
@@ -116,11 +116,10 @@ knitr::kable(hitters %>% slice(1:5))
 ```
 
 
-```{r, echo = TRUE}
+```{r, echo = TRUE, eval = FALSE}
 # Print hitters object
 XXX
 ```
-
 
 
 ```{r}
