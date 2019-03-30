@@ -658,7 +658,7 @@ arms_gender_counts <- trial %>%
                       summarise(counts = n())
 ```
 
-11. Print your§ `arms_gender_counts` object to see how it looks. What do the results mean?
+11. Print your `arms_gender_counts` object to see how it looks. What do the results mean?
 
 12. Conduct the same analysis you did before, but this time use the `glm()` function. Use the code skeleton below to help you. Do you get the same results as you did using `chisq.test()`? Which outputs are the same and which are different?
 
@@ -683,7 +683,7 @@ anova(arms_gender_glm,
 # Create linear model predicting counts as a function of the 
 #  interaction between arms and gender
 
-arms_gender_glm = glm(formula = counts ~ arms * gender, 
+arms_gender_glm <- glm(formula = counts ~ arms * gender, 
                       family = poisson, 
                       data = arms_gender_counts)
 
