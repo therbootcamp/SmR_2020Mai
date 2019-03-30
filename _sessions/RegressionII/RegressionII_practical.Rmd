@@ -115,7 +115,7 @@ knitr::kable(trial %>% slice(1:5))
 ```
 
 ```{r, eval = FALSE, echo = TRUE}
-# Print XXX object
+# Print trial object
 XXX
 ```
 
@@ -123,9 +123,10 @@ XXX
 trial
 ```
 
-7. Use the the `summary()` function to print more details on the columns of the datasets.
+7. Use the `summary()` function to print more details on the columns of the datasets.
 
-```{r}
+```{r, eval = FALSE, echo = TRUE}
+# Show summary information from trial
 summary(XXX)
 ```
 
@@ -136,6 +137,7 @@ summary(trial)
 8. Use the `View()` function to view the entire dataframe(s) in window(s)
 
 ```{r, eval = FALSE, echo = TRUE}
+# View trial dataset in new window
 View(XXX)
 ```
 
