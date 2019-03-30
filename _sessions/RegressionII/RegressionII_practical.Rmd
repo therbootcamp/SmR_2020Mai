@@ -496,7 +496,7 @@ days_arms_tidy
 XXX <- TukeyHSD(XXX)
 ```
 
-```{r, eval = FALSE, echo = TRUE}
+```{r}
 # Conduct pair-wise tests comparing every pair of treatment
 #  arms (arms) on days until a major negative event (days)
 
