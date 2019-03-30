@@ -202,18 +202,19 @@ $(document).ready(function () {
 
 
 <p align="center" width="100%">
-<img src="image/placeholder.png" alt="Trulli" style="width:100%;height:280px"> <br> <font style="font-size:10px">from <a href="">shortened URL</a></font>
+<img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/cinicaltrial_wide.png?token=AIFo1HsHC0LwU8xjFOB4tKAdFGwNML1Iks5cqNM8wA%3D%3D" alt="Trulli" style="width:100%"> <br> <font style="font-size:10px">from <a href="https://www.finance-monthly.com/2017/08/gail-adinamis-and-the-leading-global-provider-of-ambulant-healthcare-services-for-clinical-trials/">FinanceMonthly.com</a></font>
 </p>
 <div id="section" class="section level1 tabset">
 <h1></h1>
 <div id="overview" class="section level2">
 <h2>Overview</h2>
-<p>In this practical you’ll practice “XXX” with the <code>XXX</code> packages.</p>
+<p>In this practical you’ll practice applications of regression</p>
 <p>By the end of this practical you will know how to:</p>
 <ol style="list-style-type: decimal">
-<li></li>
-<li></li>
-<li></li>
+<li>Conduct a t-test (one sample, two sample, and paired)</li>
+<li>Conduct a correlation test</li>
+<li>Conduct an ANVOA</li>
+<li>Conduct a chi-square test</li>
 </ol>
 </div>
 <div id="tasks" class="section level2">
@@ -226,61 +227,684 @@ $(document).ready(function () {
 <li><p>Using <code>library()</code> load the <code>tidyverse</code> package (if you don’t have it, you’ll need to install it with <code>install.packages()</code>)!</p></li>
 </ol>
 <pre class="r"><code># Load packages necessary for this script
-library(tidyverse)</code></pre>
+library(tidyverse)
+library(broom)</code></pre>
 <ol start="4" style="list-style-type: decimal">
-<li>Using the following template, load the <code>XXX</code> data into R and store it as a new object called <code>XXX</code> (Hint: Don’t type the path directly! Use the “tab” completion!).</li>
+<li>Using the following template, load the <code>trial_ACTG175.csv</code> data into R and store it as a new object called <code>trial</code> (Hint: Don’t type the path directly! Use the “tab” completion!).</li>
 </ol>
-<pre class="r"><code># Load XXX.csv from the 1_Data folder
+<pre class="r"><code># Load trial_ACTG175.csv from the 1_Data folder as a new object called trial
 
 XX &lt;- read_csv(file = &quot;XX/XX&quot;)</code></pre>
 <ol start="5" style="list-style-type: decimal">
-<li>Take a look at the first few rows of the datasets by printing them to the console.</li>
+<li>Take a look at the first few rows of the dataset(s) by printing it/them to the console, it should look like the table below:</li>
 </ol>
-<pre class="r"><code># Print XXX object
+<table>
+<thead>
+<tr class="header">
+<th align="right">pidnum</th>
+<th align="right">age</th>
+<th align="right">wtkg</th>
+<th align="left">hemo</th>
+<th align="left">homo</th>
+<th align="left">drugs</th>
+<th align="right">karnof</th>
+<th align="left">oprior</th>
+<th align="left">z30</th>
+<th align="left">zprior</th>
+<th align="right">preanti</th>
+<th align="left">race</th>
+<th align="left">gender</th>
+<th align="left">str2</th>
+<th align="left">strat</th>
+<th align="left">symptom</th>
+<th align="left">treat</th>
+<th align="left">offtrt</th>
+<th align="right">cd40</th>
+<th align="right">cd420</th>
+<th align="right">cd496</th>
+<th align="left">r</th>
+<th align="right">cd80</th>
+<th align="right">cd820</th>
+<th align="right">cens</th>
+<th align="right">days</th>
+<th align="left">arms</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">10056</td>
+<td align="right">48</td>
+<td align="right">89.8</td>
+<td align="left">No</td>
+<td align="left">No</td>
+<td align="left">No</td>
+<td align="right">100</td>
+<td align="left">No</td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+<td align="right">0</td>
+<td align="left">White</td>
+<td align="left">Female</td>
+<td align="left">Naive</td>
+<td align="left">None</td>
+<td align="left">Asymptomatic</td>
+<td align="left">Other</td>
+<td align="left">No</td>
+<td align="right">422</td>
+<td align="right">477</td>
+<td align="right">660</td>
+<td align="left">Observed</td>
+<td align="right">566</td>
+<td align="right">324</td>
+<td align="right">0</td>
+<td align="right">948</td>
+<td align="left">zidovudine and zalcitabine</td>
+</tr>
+<tr class="even">
+<td align="right">10059</td>
+<td align="right">61</td>
+<td align="right">49.4</td>
+<td align="left">No</td>
+<td align="left">No</td>
+<td align="left">No</td>
+<td align="right">90</td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+<td align="right">895</td>
+<td align="left">White</td>
+<td align="left">Female</td>
+<td align="left">Experienced</td>
+<td align="left">More than 52 Weeks</td>
+<td align="left">Asymptomatic</td>
+<td align="left">Other</td>
+<td align="left">No</td>
+<td align="right">162</td>
+<td align="right">218</td>
+<td align="right">NA</td>
+<td align="left">Missing</td>
+<td align="right">392</td>
+<td align="right">564</td>
+<td align="right">1</td>
+<td align="right">1002</td>
+<td align="left">didanosine</td>
+</tr>
+<tr class="odd">
+<td align="right">10089</td>
+<td align="right">45</td>
+<td align="right">88.5</td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+<td align="right">90</td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+<td align="right">707</td>
+<td align="left">White</td>
+<td align="left">Male</td>
+<td align="left">Experienced</td>
+<td align="left">More than 52 Weeks</td>
+<td align="left">Asymptomatic</td>
+<td align="left">Other</td>
+<td align="left">Yes</td>
+<td align="right">326</td>
+<td align="right">274</td>
+<td align="right">122</td>
+<td align="left">Observed</td>
+<td align="right">2063</td>
+<td align="right">1893</td>
+<td align="right">0</td>
+<td align="right">961</td>
+<td align="left">didanosine</td>
+</tr>
+<tr class="even">
+<td align="right">10093</td>
+<td align="right">47</td>
+<td align="right">85.3</td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+<td align="left">No</td>
+<td align="right">100</td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+<td align="right">1399</td>
+<td align="left">White</td>
+<td align="left">Male</td>
+<td align="left">Experienced</td>
+<td align="left">More than 52 Weeks</td>
+<td align="left">Asymptomatic</td>
+<td align="left">Other</td>
+<td align="left">No</td>
+<td align="right">287</td>
+<td align="right">394</td>
+<td align="right">NA</td>
+<td align="left">Missing</td>
+<td align="right">1590</td>
+<td align="right">966</td>
+<td align="right">0</td>
+<td align="right">1166</td>
+<td align="left">didanosine</td>
+</tr>
+<tr class="odd">
+<td align="right">10124</td>
+<td align="right">43</td>
+<td align="right">66.7</td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+<td align="left">No</td>
+<td align="right">100</td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+<td align="right">1352</td>
+<td align="left">White</td>
+<td align="left">Male</td>
+<td align="left">Experienced</td>
+<td align="left">More than 52 Weeks</td>
+<td align="left">Asymptomatic</td>
+<td align="left">Zidovudine only</td>
+<td align="left">No</td>
+<td align="right">504</td>
+<td align="right">353</td>
+<td align="right">660</td>
+<td align="left">Observed</td>
+<td align="right">870</td>
+<td align="right">782</td>
+<td align="right">0</td>
+<td align="right">1090</td>
+<td align="left">zidovudine</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># Print trial object
 XXX</code></pre>
 <ol start="7" style="list-style-type: decimal">
-<li><p>Use the the <code>summary()</code> function to print more details on the columns of the datasets.</p></li>
-<li><p>Use the <code>View()</code> function to view the entire dataframes in new windows</p></li>
+<li>Use the <code>summary()</code> function to print more details on the columns of the datasets.</li>
 </ol>
-<pre class="r"><code>View(XXX)
+<pre class="r"><code># Show summary information from trial
+summary(XXX)</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li>Use the <code>View()</code> function to view the entire dataframe(s) in window(s)</li>
+</ol>
+<pre class="r"><code># View trial dataset in new window
 View(XXX)</code></pre>
 </div>
 <div id="b---correlation" class="section level3">
 <h3>B - Correlation</h3>
-<p><code>cor.test()</code></p>
-<div id="vs.regression" class="section level4">
-<h4>vs. Regression</h4>
+<blockquote>
+<p>Research Question: Is there a correlation between a patient’s age and their CD4 T cell count at baseline?</p>
+</blockquote>
+<ol style="list-style-type: decimal">
+<li>Using the code below, create a plot showing the relationship between age and CD4 T cell count at baseline. Based on this plot, do you expect to find a relationship between the two variables?</li>
+</ol>
+<pre class="r"><code>ggplot(data = trial, mapping = aes(x = age, y = cd40)) + 
+      geom_point(alpha = .1) +
+  labs(title = &quot;ACTG175 Trial&quot;,
+       subtitle = &quot;Baseline age and CD4 T cell count at baseline &quot;,
+       x = &quot;Age (age)&quot;,
+       y = &quot;CD4 T cell count at baseline (cd40)&quot;)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Using the <code>cor.test()</code> function, create an object called <code>age_cd40_test</code> which conducts a correlation test between a patient’s age at baseline (<code>age</code>) and their CD4 T cell count at baseline (<code>cd40</code>)</li>
+</ol>
+<pre class="r"><code># Correlation between patient&#39;s age at baseline and CD4 T cell count at baseline
+
+XXX &lt;- cor.test(formula = ~ XXX + XXX,
+                data = XXX)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Print the <code>age_cd40_test</code> object to see summary outputs.</p></li>
+<li><p>Apply the <code>names()</code> function to your <code>age_cd40_test</code> object to see all of its named elements</p></li>
+</ol>
+<pre class="r"><code># See all named elements of age_cd40_test
+names(XXX)</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Using the <code>XXX$XXX</code> notation, print only the correlation estimate (<code>estimate</code>) in your <code>age_cd40_test</code> object. What does this value tell you?</li>
+</ol>
+<pre class="r"><code># Print correlation coefficient estimate in the age_cd40_test object
+XXX$XXX</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>Again using the <code>XXX$XXX</code> notation, print only the p value (<code>p.value</code>) in your <code>age_cd40_test</code> object. What does this value tell you?</li>
+</ol>
+<pre class="r"><code># Print the p value of the correlation coefficient in the age_cd40_test object
+XXX$XXX</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li>Again using the <code>XXX$XXX</code> notation, print only the confidence interval (<code>conf.int</code>) in your <code>age_cd40_test</code> object. What does this value tell you?</li>
+</ol>
+<pre class="r"><code># Print the confidence interval of the correlation coefficient in the age_cd40_test object
+XXX$XXX</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li><p>Using the <code>tidy()</code> function (from the <code>broom</code> package), create a ‘tidy’ version of your <code>age_cd40_test</code> object called <code>age_cd420_tidy</code></p></li>
+<li><p>Now, print your <code>age_cd420_tidy</code> object, how do the results look?</p></li>
+</ol>
+<div id="correlation-as-linear-model" class="section level4">
+<h4>Correlation as Linear Model</h4>
+<ol start="10" style="list-style-type: decimal">
+<li>Conduct the same analysis you did before, but this time use the <code>glm()</code> function. Use the code skeleton below to help you. Do you get the same results as you did using <code>cor.test()</code>?</li>
+</ol>
+<pre class="r"><code># GLM predicting a patient&#39;s CD4 T cell count at baseline form their age at baseline 
+age_cd40_glm &lt;- glm(formula = XXX ~ XXX,
+                    data = XXX)
+
+# Print &#39;tidy&#39; results
+tidy(XXX)</code></pre>
 </div>
 </div>
 <div id="c---t-test" class="section level3">
 <h3>C - T-test</h3>
-<p><code>t.test()</code></p>
-<div id="vs.regression-1" class="section level4">
-<h4>vs. Regression</h4>
+<blockquote>
+<p>Research Question: Do patients with a history of intravenous drug use have higher CD4 T cell counts at baseline compared to patients without a history of intravenous drug use?</p>
+</blockquote>
+<ol style="list-style-type: decimal">
+<li>Using the code below, create a plot showing the distribution of CD4 T cell counts at baseline (<code>cd40</code>) depending on whether or not patients were symptomatic. Based on this plot, do you expect to find that symptomatic patients generally have higher (or lower) CD4 T cell counts?</li>
+</ol>
+<pre class="r"><code>ggplot(data = trial, mapping = aes(x = symptom, y = cd40)) + 
+  stat_summary(geom = &quot;bar&quot;, fun.y = &quot;mean&quot;, fill = &quot;white&quot;, col = &quot;black&quot;) +
+  geom_jitter(width = .2, alpha = .1) +
+  labs(title = &quot;ACTG175 Trial&quot;,
+       subtitle = &quot;Baseline CD4 T cell count and symptoms&quot;,
+       x = &quot;Are patients symptomatic? (symptom)&quot;,
+       y = &quot;CD4 T cell count at baseline (cd40)&quot;)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Using the <code>t.test()</code> function, create an object called <code>symptom_cd40_test</code> which conducts a two-sample t-test comparing patients’ CD4 T cell count at baseline (<code>cd40</code>) between patients that are symptomatic and those that are not (<code>symptomatic</code>)</li>
+</ol>
+<pre class="r"><code># T-test comparing CD4 T cell counts at baseline bewteen symptomatic and non-symptomatic patients
+
+XXX &lt;- t.test(formula = XXX ~ XXX,
+              data = XXX)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Print the <code>symptom_cd40_test</code> object to see summary outputs.</p></li>
+<li><p>Apply the <code>names()</code> function to your <code>symptom_cd40_test</code> object to see all of its named elements</p></li>
+</ol>
+<pre class="r"><code># See all named elements of symptom_cd40_test
+names(XXX)</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Using the <code>XXX$XXX</code> notation, print only the correlation estimate (<code>estimate</code>) in your <code>symptom_cd40_test</code> object. What does the result tell you?</li>
+</ol>
+<pre class="r"><code># Print parameter estimates in the symptom_cd40_test object
+XXX$XXX</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>Again using the <code>XXX$XXX</code> notation, print only the p value (<code>p.value</code>) in your <code>symptom_cd40_test</code> object. What does this value tell you?</li>
+</ol>
+<pre class="r"><code># Print the p value of the symptom_cd40_test object
+XXX$XXX</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li>Again using the <code>XXX$XXX</code> notation, print only the confidence interval (<code>conf.int</code>) in your <code>symptom_cd40_test</code> object. What does this value tell you?</li>
+</ol>
+<pre class="r"><code># Print the confidence interval in the age_cd40_test object
+XXX$XXX</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li>Using the <code>tidy()</code> function (from the <code>broom</code> package), create a ‘tidy’ version of your <code>symptom_cd40_test</code> object called <code>symptom_cd40_tidy</code></li>
+</ol>
+<pre class="r"><code># Create a &#39;tidy&#39; version of my symptom_cd40_test object
+
+symptom_cd40_tidy &lt;- tidy(xxx)</code></pre>
+<ol start="9" style="list-style-type: decimal">
+<li>Now, print your <code>symptom_cd40_tidy</code> object, how do the results look?</li>
+</ol>
+<div id="t-test-as-linear-model" class="section level4">
+<h4>T-test as Linear Model</h4>
+<ol start="10" style="list-style-type: decimal">
+<li>Conduct the same analysis you did before, but this time use the <code>glm()</code> function. Use the code skeleton below to help you. Do you get the same results as you did using <code>t.test()</code>? Which outputs are the same and which are different?</li>
+</ol>
+<pre class="r"><code># GLM predicting a patient&#39;s CD4 T cell count at baseline form their age at baseline 
+symptom_cd40_glm &lt;- glm(formula = XXX ~ XXX,
+                        data = XXX)
+
+# Print &#39;tidy&#39; results
+tidy(XXX)</code></pre>
 </div>
 </div>
 <div id="d---anova" class="section level3">
 <h3>D - ANOVA</h3>
-<p><code>aov()</code></p>
-<p><em>Post-hoc tests, with bonferonni correction</em></p>
-<p><code>TukeyHSD()</code></p>
-<div id="e---you-choose-the-test" class="section level4">
-<h4>E - You choose the test</h4>
+<blockquote>
+<p>Research Question: Was there a difference between the treatment arms in the number of days until the first occurrence of one of the following major negative events: (i) a decline in CD4 T cell count of at least 50 (ii) an event indicating progression to AIDS, or (iii) death?</p>
+</blockquote>
+<ol style="list-style-type: decimal">
+<li>Using the code below, create a plot showing the distribution of the number of days until a major negative event (<code>days</code>) for each treatment arm <code>arms</code> Based on this plot, do you expect to find that there were differences in treatment arms?</li>
+</ol>
+<pre class="r"><code>ggplot(data = trial, mapping = aes(x = arms, y = days)) + 
+  stat_summary(geom = &quot;bar&quot;, fun.y = &quot;mean&quot;, fill = &quot;white&quot;, col = &quot;black&quot;) +
+  geom_jitter(width = .2, alpha = .1) +
+  labs(title = &quot;ACTG175 Trial&quot;,
+       subtitle = &quot;Baseline CD4 T cell count and symptoms&quot;,
+       x = &quot;Treatment Arm (arms)&quot;,
+       y = &quot;Number of days until a major negative event (days)&quot;)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Using the <code>t.test()</code> function, create an object called <code>symptom_cd40_test</code> which conducts a two-sample t-test comparing patients’ CD4 T cell count at baseline (<code>cd40</code>) between patients that are symptomatic and those that are not (<code>symptomatic</code>)</li>
+</ol>
+<pre class="r"><code># T-test comparing CD4 T cell counts at baseline bewteen symptomatic and non-symptomatic patients
+
+XXX &lt;- t.test(formula = XXX ~ XXX,
+              data = XXX)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Print the <code>days_arms_aov</code> object to see summary outputs.</p></li>
+<li><p>Apply the <code>names()</code> function to your <code>days_arms_aov</code> object to see all of its named elements</p></li>
+</ol>
+<pre class="r"><code># See all named elements of days_arms_aov
+names(XXX)</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Using the <code>XXX$XXX</code> notation, print the coefficients in your <code>days_arms_aov</code> object. What do these values mean?</li>
+</ol>
+<pre class="r"><code># Print coefficients in the days_arms_aov object
+XXX$XXX</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li>Using the <code>tidy()</code> function (from the <code>broom</code> package), create a ‘tidy’ version of your <code>days_arms_aov</code> object called <code>days_arms_tidy</code></li>
+</ol>
+<pre class="r"><code># Create a &#39;tidy&#39; version of my symptom_cd40_test days_arms_aov
+
+days_arms_tidy &lt;- tidy(xxx)</code></pre>
+<ol start="9" style="list-style-type: decimal">
+<li>Now, print your <code>days_arms_tidy</code> object, how do the results look?</li>
+</ol>
+<div id="post-hoc-tests" class="section level4">
+<h4>Post-hoc tests</h4>
+<ol start="10" style="list-style-type: decimal">
+<li>In order to compare pair-wise differences between groups after conducting an ANOVA, you need to conduct post-hoc tests. Using the <code>TukeyHSD()</code> function, conduct pair-wise tests to see which pairs of treatment arms differ in <code>days</code>. Save the result to an object called <code>days_arms_aov_post</code> `</li>
+</ol>
+<pre class="r"><code># Conduct pair-wise tests comparing every pair of treatment
+#  arms (arms) on days until a major negative event (days)
+
+XXX &lt;- TukeyHSD(XXX)</code></pre>
+<pre class="r"><code># Conduct pair-wise tests comparing every pair of treatment
+#  arms (arms) on days until a major negative event (days)
+
+days_arms_aov_post &lt;- TukeyHSD(days_arms_aov)</code></pre>
+<ol start="11" style="list-style-type: decimal">
+<li><p>Print your <code>days_arms_aov_post</code> object, what do you see?</p></li>
+<li><p>Print ‘tidy’ results from your <code>days_arms_aov_post</code> object using the <code>tidy()</code> function</p></li>
+</ol>
+<pre class="r"><code># Print &#39;tidy&#39; version of days_arms_aov_post
+tidy(XXX)</code></pre>
+<ol start="13" style="list-style-type: decimal">
+<li>Based on what you’ve seen, what are your conclusions? Which treatment arms seem to differ?</li>
+</ol>
+</div>
+<div id="anova-as-linear-model" class="section level4">
+<h4>ANOVA as Linear Model</h4>
+<ol start="10" style="list-style-type: decimal">
+<li>Conduct the same analysis you did before, but this time use the <code>glm()</code> function. Use the code skeleton below to help you. Do you get the same results as you did using <code>aov()</code>? Which outputs are the same and which are different?</li>
+</ol>
+<pre class="r"><code># GLM predicting number of days until a major negative event (days) as a function of treatment arm (arms)
+XXX &lt;- glm(formula = XXX ~ XXX,
+           data = XXX)
+
+# Print object
+XXX
+
+# Print &#39;tidy&#39; results
+tidy(XXX)</code></pre>
 </div>
 </div>
-<div id="x---advanced-xxx" class="section level3">
-<h3>X - Advanced: XXX</h3>
-<div id="anscombes-quartet" class="section level4">
-<h4>Anscombe’s quartet</h4>
+<div id="e---chi-square-test" class="section level3">
+<h3>E - Chi-square test</h3>
+<blockquote>
+<p>Research Question: Was there an unequal distribution of gender in the treatment arms?</p>
+</blockquote>
+<ol style="list-style-type: decimal">
+<li>Using the code below, create a plot showing the percentage of patients who were male (<code>gender == &quot;Male&quot;)</code> for each treatment arm <code>arms</code>. Based on this plot, do you expect to find that there were differences in treatment arms?</li>
+</ol>
+<pre class="r"><code># Calculate percentage of Male in each treatment arm
+
+arm_gender &lt;- trial %&gt;%
+  group_by(arms) %&gt;%
+  summarise(male_p = mean(gender == &quot;Male&quot;))
+
+ggplot(data = arm_gender, mapping = aes(x = arms, y = male_p)) + 
+  geom_bar(stat = &quot;identity&quot;) +
+  ylim(c(0, 1)) +
+  labs(title = &quot;ACTG175 AIDS trial&quot;,
+       subtitle = &quot;Percent of males in each treatment arm&quot;,
+       x = &quot;Treatment Arm (arms)&quot;,
+       y = &quot;Percent Male (gender)&quot;)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Using the <code>chisq.test()</code> function, create an object called <code>gender_arm_test</code> which conducts a chi-square test comparing the frequencies of each gender (<code>gender</code>) for each level of arms (<code>arms</code>).</li>
+</ol>
+<ul>
+<li>Note: The <code>chisq.test()</code> function (unfortunately) does not support formulas, so we have to enter the data in as two separate (factor) vectors:</li>
+</ul>
+<pre class="r"><code># Chi-square test comparing the frequencies of each gender for each treatment arm
+
+XXX &lt;- chisq.test(x = factor(trial$XXX),
+                  y = factor(trial$XXX))</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Print the <code>gender_arm_test</code> object to see summary outputs.</p></li>
+<li><p>Apply the <code>names()</code> function to your <code>gender_arm_test</code> object to see all of its named elements</p></li>
+</ol>
+<pre class="r"><code># See all named elements of gender_arm_test
+names(XXX)</code></pre>
+<pre class="r"><code># See all named elements of gender_arm_test
+names(gender_arm_test)</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Using the <code>XXX$XXX</code> notation, print the <em>observed</em> frequencies in your <code>gender_arm_test</code> object. What do these values mean?</li>
+</ol>
+<pre class="r"><code># Print observed frequencies in the gender_arm_test object
+XXX$XXX</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>Using the <code>XXX$XXX</code> notation, print the <em>expected</em> frequencies in your <code>gender_arm_test</code> object. What do these values mean?</li>
+</ol>
+<pre class="r"><code># Print expected frequencies in the gender_arm_test object
+XXX$XXX</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li>Using the <code>tidy()</code> function (from the <code>broom</code> package), create a ‘tidy’ version of your <code>gender_arm_test</code> object called <code>gender_arm_tidy</code></li>
+</ol>
+<pre class="r"><code># Create a &#39;tidy&#39; version of my gender_arm_test called gender_arm_tidy
+
+gender_arm_tidy &lt;- tidy(xxx)</code></pre>
+<ol start="9" style="list-style-type: decimal">
+<li>Now, print your <code>gender_arm_tidy</code> object, how do the results look?</li>
+</ol>
+<div id="chi-square-as-linear-model" class="section level4">
+<h4>Chi-square as Linear Model</h4>
+<ol start="10" style="list-style-type: decimal">
+<li>In the next section we’ll compare the <code>chisq.test()</code> result to one using <code>glm()</code>. However, before we do, we need to restructure the data a bit. Run the following code to create a dataframe containing the counts for each combination of arms and gender:</li>
+</ol>
+<pre class="r"><code># Create a dataframe showing counts for each combination of
+#  arms and gender
+
+arms_gender_counts &lt;- trial %&gt;%
+                      group_by(arms, gender) %&gt;%
+                      summarise(counts = n())</code></pre>
+<ol start="11" style="list-style-type: decimal">
+<li><p>Print your§ <code>arms_gender_counts</code> object to see how it looks. What do the results mean?</p></li>
+<li><p>Conduct the same analysis you did before, but this time use the <code>glm()</code> function. Use the code skeleton below to help you. Do you get the same results as you did using <code>chisq.test()</code>? Which outputs are the same and which are different?</p></li>
+</ol>
+<ul>
+<li>Be sure to model <code>counts</code> based on the <em>interaction</em> between <code>arms</code> and <code>gender</code> using <code>formula = counts ~ arms * gender</code>.</li>
+<li>We’ll summarise the results of the model using the <code>anova()</code> function with the argument <code>test = &quot;Rao&quot;</code> to specify that we are conducting a score test (see <a href="https://en.wikipedia.org/wiki/Score_test" class="uri">https://en.wikipedia.org/wiki/Score_test</a> for details)</li>
+</ul>
+<pre class="r"><code># Create linear model predicting counts as a function of the 
+#  interaction between arms and gender
+
+arms_gender_glm &lt;- glm(formula = XXX ~ XXX * XXX, # Model counts by the interaction of arms and gender
+                       family = poisson,        # Use poisson model family to specify we are modelling counts
+                       data = XXX)
+
+# Print summary results as an anova table
+anova(arms_gender_glm, 
+      test = &#39;Rao&#39;)   # Show a &#39;Rao&quot; score test</code></pre>
 </div>
-<div id="simpsons-paradox" class="section level4">
-<h4>Simpson’s Paradox</h4>
 </div>
+<div id="x---advanced" class="section level3">
+<h3>X - Advanced:</h3>
+<p>For the remaining tasks, you choose the test! For each task, do the following:</p>
+<ul>
+<li>Visualize the data (use the code given in the sections above for help!)</li>
+<li>Conduct the appropriate test using an applied hypothesis test function (i.e.; correlation test, t-test, ANOVA or chi-square test).</li>
+<li>Explore the results (e.g.; estimate, confidence interval, p-value).</li>
+<li>Conduct the same test using the generalized linear model function <code>glm()</code></li>
+<li>Explore the results and confirm you get the same result from your applied function!</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li><p>Do people with a history of intravenous drug use (<code>drugs</code>) tend to have major negative events (<code>days</code>) faster than those without a history of intravenous drug use?</p></li>
+<li><p>Do men and women (<code>gender</code>) have different CD8 T cell counts at baseline (<code>cd80</code>)?</p></li>
+<li><p>Is there a relationship between patient’s CD4 T cell counts at baseline (<code>cd40</code>) and at 96 weeks (<code>cd496</code>)?</p></li>
+<li><p>Was the proportion of White patients (<code>race</code>) the same for females and males (<code>gender</code>)?</p></li>
+<li><p>Was there an effect of treatment arm (<code>arms</code>) on the <em>change</em> of CD4 T cell counts between baseline (<code>cd40</code>) and 96 weeks (`cd496)? Hint: to do this, you first need to create a column that shows the change in CD4 T cell counts. The code below should help you with this:</p></li>
+</ol>
+<pre class="r"><code>trial &lt;- trial %&gt;%
+  mutate(cd496_change = cd496 - cd40)   # Add cd496_change to trial, indicating change from
+                                        # in cd4 T cell count from baseline to 96 weeks.</code></pre>
 </div>
 </div>
 <div id="examples" class="section level2">
 <h2>Examples</h2>
-<pre class="r"><code># EXAMPLE CODE</code></pre>
+<pre class="r"><code>library(tidyverse)
+library(broom)
+
+# We&#39;ll use the mpg dataset
+mpg
+
+# Correlation test -------------------------------------------------------------------
+
+# Q: Is there a relationship between a car&#39;s city and highway miles per gallon? ======
+
+my_test &lt;- cor.test(formula = ~ cty + hwy,     # DV ~ IV
+                     data = mpg)
+
+my_test # Print result
+
+#   Pearson&#39;s product-moment correlation
+# 
+# data:  cty and hwy
+# t = 49.585, df = 232, p-value &lt; 2.2e-16
+# alternative hypothesis: true correlation is not equal to 0
+# 95 percent confidence interval:
+#  0.9433129 0.9657663
+# sample estimates:
+#       cor 
+# 0.9559159 
+
+names(my_test)  # Print all named elements
+
+# [1] &quot;statistic&quot;   &quot;parameter&quot;   &quot;p.value&quot;     &quot;estimate&quot;    &quot;null.value&quot;  &quot;alternative&quot; &quot;method&quot;     
+# [8] &quot;data.name&quot;   &quot;conf.int&quot; 
+
+my_test$estimate
+
+#       cor 
+# 0.9559159 
+
+my_test$p.value
+
+# [1] 1.868307e-125
+
+tidy(my_test)
+
+# # A tibble: 1 x 8
+#   estimate statistic   p.value parameter conf.low conf.high method                           alternative
+#      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;                            &lt;chr&gt;      
+# 1    0.956      49.6 1.87e-125       232    0.943     0.966 Pearson&#39;s product-moment correl… two.sided  
+
+
+# 2-sample t-test -------------------------------------------------------------------
+
+# Q: Has there been a change in highway gas mileage from 1999 to 2008?
+
+my_ttest &lt;- t.test(formula = hwy ~ factor(year),     # DV ~ IV
+                   alternative = &quot;two.sided&quot;,  # Two-sided test
+                   data = mpg)         # The data
+                   
+
+my_ttest  # Print result
+
+#   Welch Two Sample t-test
+# 
+# data:  hwy by factor(year)
+# t = -0.032864, df = 231.64, p-value = 0.9738
+# alternative hypothesis: true difference in means is not equal to 0
+# 95 percent confidence interval:
+#  -1.562854  1.511572
+# sample estimates:
+# mean in group 1999 mean in group 2008 
+#           23.42735           23.45299 
+
+names(my_ttest)   # Show all named elements
+
+# [1] &quot;statistic&quot;   &quot;parameter&quot;   &quot;p.value&quot;     &quot;conf.int&quot;    &quot;estimate&quot;    &quot;null.value&quot;  &quot;alternative&quot;
+# [8] &quot;method&quot;      &quot;data.name&quot;  
+
+my_ttest$estimate  # Show estimates
+
+# mean in group 1999 mean in group 2008 
+#           23.42735           23.45299 
+
+my_ttest$conf.int  # Show confidence interval of difference
+
+# [1] -1.562854  1.511572
+# attr(,&quot;conf.level&quot;)
+# [1] 0.95
+
+my_ttest$p.value  # Show p-value
+
+# [1] 0.9738111
+
+tidy(my_ttest)  # Show tidy results
+
+# # A tibble: 1 x 10
+#   estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high method         alternative
+#      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;          &lt;chr&gt;      
+# 1  -0.0256      23.4      23.5   -0.0329   0.974      232.    -1.56      1.51 Welch Two Sam… two.sided  
+
+
+
+# ANOVA  -------------------------------------------------------------------
+
+# Q: Is there a difference in highway miles per gallon between car manufacturers?
+
+my_aov &lt;- aov(formula = hwy ~ manufacturer,     # DV ~ IV
+                   data = mpg)         # The data
+                   
+
+my_aov  # Print result
+
+# Call:
+#    aov(formula = hwy ~ manufacturer, data = mpg)
+# 
+# Terms:
+#                 manufacturer Residuals
+# Sum of Squares      4459.858  3801.805
+# Deg. of Freedom           14       219
+# 
+# Residual standard error: 4.166514
+# Estimated effects may be unbalanced
+
+summary(my_aov)   # Summary results
+
+# Analysis of Variance Table
+# 
+# Response: hwy
+#               Df Sum Sq Mean Sq F value    Pr(&gt;F)    
+# manufacturer  14 4459.9  318.56  18.351 &lt; 2.2e-16 ***
+# Residuals    219 3801.8   17.36                      
+# ---
+# Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+names(my_aov)   # Show all named elements
+
+#  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;          &quot;fitted.values&quot; &quot;assign&quot;       
+#  [7] &quot;qr&quot;            &quot;df.residual&quot;   &quot;contrasts&quot;     &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;        
+# [13] &quot;model&quot;
+
+my_ttest$coefficients  # Show coefficients
+
+ #         (Intercept)  manufacturerchevrolet      manufacturerdodge       manufacturerford 
+ #         26.44444444            -4.54970760            -8.49849850            -7.08444444 
+ #   manufacturerhonda    manufacturerhyundai       manufacturerjeep manufacturerland rover 
+ #          6.11111111             0.41269841            -8.81944444            -9.94444444 
+ # manufacturerlincoln    manufacturermercury     manufacturernissan    manufacturerpontiac 
+ #         -9.44444444            -8.44444444            -1.82905983            -0.04444444 
+ #  manufacturersubaru     manufacturertoyota manufacturervolkswagen 
+ #         -0.87301587            -1.53267974             2.77777778 
+
+
+tidy(my_aov)  # Show tidy results
+
+#   term            df sumsq meansq statistic   p.value
+#   &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+# 1 manufacturer    14 4460.  319.       18.4  9.22e-30
+# 2 Residuals      219 3802.   17.4      NA   NA   </code></pre>
 </div>
 <div id="datasets" class="section level2">
 <h2>Datasets</h2>
@@ -294,9 +918,9 @@ View(XXX)</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><a href="">XXX</a></td>
-<td align="left">Nrow</td>
-<td align="left">Ncol</td>
+<td align="left"><a href="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/trial_ACTG175.csv?token=AIFo1HP25ZzPdraeqxgLB9CrcSTQDN3Pks5cqOGGwA%3D%3D">trial_ACTG175.csv</a></td>
+<td align="left">2139</td>
+<td align="left">27</td>
 </tr>
 <tr class="even">
 <td align="left"><a href="">XXX</a></td>
@@ -321,11 +945,11 @@ View(XXX)</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">XXX</td>
-<td align="left">XXX</td>
+<td align="left">pidnum</td>
+<td align="left">patient’s ID number</td>
 </tr>
 <tr class="even">
-<td align="left">XXX</td>
+<td align="left">age</td>
 <td align="left">age in years at baseline</td>
 </tr>
 <tr class="odd">
@@ -449,8 +1073,8 @@ View(XXX)</code></pre>
 <td align="left"><code>install.packages(&quot;tidyverse&quot;)</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>XX</code></td>
-<td align="left"><code>XX</code></td>
+<td align="left"><code>broom</code></td>
+<td align="left"><code>install.packages(&quot;broom&quot;)</code></td>
 </tr>
 </tbody>
 </table>
@@ -467,14 +1091,34 @@ View(XXX)</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><code>XXX</code></td>
-<td align="left"><code>XXX</code></td>
-<td align="left">XXX</td>
+<td align="left"><code>cor.test</code></td>
+<td align="left"><code>stats</code></td>
+<td align="left">Correlation test</td>
 </tr>
 <tr class="even">
-<td align="left"><code>XXX</code></td>
-<td align="left"><code>XXX</code></td>
-<td align="left">XXX</td>
+<td align="left"><code>t.test</code></td>
+<td align="left"><code>stats</code></td>
+<td align="left">Student’s T-test</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>aov</code></td>
+<td align="left"><code>stats</code></td>
+<td align="left">Analysis of Variance</td>
+</tr>
+<tr class="even">
+<td align="left"><code>chisq.test</code></td>
+<td align="left"><code>stats</code></td>
+<td align="left">Chi-square test</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>glm</code></td>
+<td align="left"><code>stats</code></td>
+<td align="left">Generalized linear model</td>
+</tr>
+<tr class="even">
+<td align="left"><code>tidy</code></td>
+<td align="left"><code>broom</code></td>
+<td align="left">Create ‘tidy’ results from statistical objects</td>
 </tr>
 </tbody>
 </table>
@@ -483,14 +1127,12 @@ View(XXX)</code></pre>
 <div id="resources" class="section level2">
 <h2>Resources</h2>
 <div id="vignettes" class="section level3">
-<h3>vignettes</h3>
-<p>TEXT and LINKS</p>
-</div>
-<div id="cheatsheets" class="section level3">
-<h3>Cheatsheets</h3>
-<p align="center" width="100%">
-<a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf"> <img src="https://image.slidesharecdn.com/data-wrangling-cheatsheet-160705210122/95/data-wrangling-with-dplyr-and-tidyr-cheat-sheet-1-638.jpg?cb=1467752577" style="width:70%"></a> <br> <font style="font-size:10px">from <a href="https://www.rstudio.com/resources/cheatsheets/">R Studio</a></font>
-</p>
+<h3>Vignettes</h3>
+<ul>
+<li>Many of these examples come from Jonas Kristoffer Lindelov’s great blog post <a href="https://lindeloev.github.io/tests-as-linear/#1_the_simplicity_underlying_common_tests">Common statistical tests are linear models, or: how to teach stats</a></li>
+<li><a href="https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469">Discovering Statistics with R</a> by Field et al is an excellent resource</li>
+<li><a href="https://bookdown.org/ndphillips/YaRrr/">YaRrr! The Pirate’s Guide to R</a> has good chapters on statistics with R.</li>
+</ul>
 </div>
 </div>
 </div>

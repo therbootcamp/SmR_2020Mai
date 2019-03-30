@@ -44,15 +44,16 @@ options(digits = 3)
 # Load packages
 library(tidyverse)
 
-# Load packages
-#read_csv("1_Data/...")
+
+
+trial <- read_csv(file = "1_Data/trial_ACTG175.csv")
 
 ```
 
 <p align="center" width="100%">
-  <img src="image/placeholder.png" alt="Trulli" style="width:100%;height:280px">
+  <img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/cinicaltrial_wide.png?token=AIFo1HsHC0LwU8xjFOB4tKAdFGwNML1Iks5cqNM8wA%3D%3D" alt="Trulli" style="width:100%">
   <br>
-  <font style="font-size:10px">from <a href="">shortened URL</a></font>
+  <font style="font-size:10px">from <a href="https://www.finance-monthly.com/2017/08/gail-adinamis-and-the-leading-global-provider-of-ambulant-healthcare-services-for-clinical-trials/">FinanceMonthly.com</a></font>
 </p>
 
 
@@ -60,13 +61,14 @@ library(tidyverse)
 
 ## Overview
 
-In this practical you'll practice "XXX" with the `XXX` packages.
+In this practical you'll practice applications of regression
 
 By the end of this practical you will know how to:
 
-1. 
-2. 
-3.
+1. Conduct a t-test (one sample, two sample, and paired)
+2. Conduct a correlation test
+3. Conduct an ANVOA
+4. Conduct a chi-square test
 
 ## Tasks
 
@@ -89,71 +91,792 @@ By the end of this practical you will know how to:
 ```{r, echo = TRUE, eval = FALSE}
 # Load packages necessary for this script
 library(tidyverse)
+library(broom)
 ```
 
-4. Using the following template, load the `XXX` data into R and store it as a new object called `XXX` (Hint: Don't type the path directly! Use the "tab" completion!).
+4. Using the following template, load the `trial_ACTG175.csv` data into R and store it as a new object called `trial` (Hint: Don't type the path directly! Use the "tab" completion!).
 
-```{r, echo = TRUE}
-# Load XXX.csv from the 1_Data folder
+```{r, eval = FALSE, echo = TRUE}
+# Load trial_ACTG175.csv from the 1_Data folder as a new object called trial
 
 XX <- read_csv(file = "XX/XX")
 ```
 
-5. Take a look at the first few rows of the datasets by printing them to the console.
+```{r}
+# Load trial_act.csv from the 1_Data folder
 
-```{r, echo = TRUE}
-# Print XXX object
+trial <- read_csv(file = "1_Data/trial_ACTG175.csv")
+```
+
+5. Take a look at the first few rows of the dataset(s) by printing it/them to the console, it should look like the table below:
+
+```{r, eval = TRUE, echo = FALSE}
+knitr::kable(trial %>% slice(1:5))
+```
+
+```{r, eval = FALSE, echo = TRUE}
+# Print trial object
 XXX
 ```
 
-7. Use the the `summary()` function to print more details on the columns of the datasets.
-
 ```{r}
-summary(XXX)
+trial
+```
+
+7. Use the `summary()` function to print more details on the columns of the datasets.
+
+```{r, eval = FALSE, echo = TRUE}
+# Show summary information from trial
 summary(XXX)
 ```
 
-8. Use the `View()` function to view the entire dataframes in new windows
+```{r}
+summary(trial)
+```
 
-```{r, echo = TRUE, eval = FALSE}
+8. Use the `View()` function to view the entire dataframe(s) in window(s)
+
+```{r, eval = FALSE, echo = TRUE}
+# View trial dataset in new window
 View(XXX)
-View(XXX)
+```
+
+```{r, eval = FALSE}
+View(trial)
 ```
 
 ### B - Correlation
 
-`cor.test()`
+> Research Question:
+> Is there a correlation between a patient's age and their CD4 T cell count at baseline?
 
-#### vs. Regression
+1. Using the code below, create a plot showing the relationship between age and CD4 T cell count at baseline. Based on this plot, do you expect to find a relationship between the two variables?
+
+```{r, eval = FALSE, echo = TRUE}
+ggplot(data = trial, mapping = aes(x = age, y = cd40)) + 
+      geom_point(alpha = .1) +
+  labs(title = "ACTG175 Trial",
+       subtitle = "Baseline age and CD4 T cell count at baseline ",
+       x = "Age (age)",
+       y = "CD4 T cell count at baseline (cd40)")
+```
+
+2. Using the `cor.test()` function, create an object called `age_cd40_test` which conducts a correlation test between a patient's age at baseline (`age`) and their CD4 T cell count at baseline (`cd40`)
+
+```{r, eval = FALSE, echo = TRUE}
+# Correlation between patient's age at baseline and CD4 T cell count at baseline
+
+XXX <- cor.test(formula = ~ XXX + XXX,
+                data = XXX)
+```
+
+```{r}
+# Correlation between patient's age at baseline and CD4 T cell count at baseline
+
+age_cd40_test <- cor.test(formula = ~ age + cd40,
+                          data = trial)
+```
+
+3. Print the `age_cd40_test` object to see summary outputs.
+
+```{r}
+age_cd40_test
+```
+
+4. Apply the `names()` function to your `age_cd40_test` object to see all of its named elements
+
+```{r, eval = FALSE, echo = TRUE}
+# See all named elements of age_cd40_test
+names(XXX)
+```
+
+```{r}
+# See all named elements of age_cd40_test
+names(age_cd40_test)
+```
+
+5. Using the `XXX$XXX` notation, print only the correlation estimate (`estimate`) in your `age_cd40_test` object. What does this value tell you?
+
+```{r, eval = FALSE, echo = TRUE}
+# Print correlation coefficient estimate in the age_cd40_test object
+XXX$XXX
+```
+
+```{r}
+# Print correlation coefficient estimate
+age_cd40_test$estimate
+```
+
+6. Again using the `XXX$XXX` notation, print only the p value (`p.value`) in your `age_cd40_test` object. What does this value tell you?
+
+```{r, eval = FALSE, echo = TRUE}
+# Print the p value of the correlation coefficient in the age_cd40_test object
+XXX$XXX
+```
+
+```{r}
+# Print the p value in the age_cd40_test object
+age_cd40_test$conf.int
+```
+
+7. Again using the `XXX$XXX` notation, print only the confidence interval (`conf.int`) in your `age_cd40_test` object. What does this value tell you?
+
+```{r, eval = FALSE, echo = TRUE}
+# Print the confidence interval of the correlation coefficient in the age_cd40_test object
+XXX$XXX
+```
+
+```{r}
+# Print the confidence interval in the age_cd40_test object
+age_cd40_test$conf.int
+```
+
+8. Using the `tidy()` function (from the `broom` package), create a 'tidy' version of your `age_cd40_test` object called `age_cd420_tidy`
+
+```{r}
+# Create a 'tidy' version of my age_cd40_test object
+
+age_cd420_tidy <- tidy(xxx)
+```
+
+```{r}
+# Create a 'tidy' version of my age_cd40_test object
+
+age_cd420_tidy <- tidy(age_cd40_test)
+```
+
+9. Now, print your `age_cd420_tidy` object, how do the results look?
+
+```{r}
+age_cd420_tidy
+```
+
+#### Correlation as Linear Model
+
+10. Conduct the same analysis you did before, but this time use the `glm()` function. Use the code skeleton below to help you. Do you get the same results as you did using `cor.test()`?
+
+```{r, eval = FALSE, echo = TRUE}
+# GLM predicting a patient's CD4 T cell count at baseline form their age at baseline 
+age_cd40_glm <- glm(formula = XXX ~ XXX,
+                    data = XXX)
+
+# Print 'tidy' results
+tidy(XXX)
+```
+
+```{r}
+# GLM predicting a patient's CD4 T cell count at baseline form their age at baseline 
+age_cd40_glm <- glm(formula = cd40 ~ age,
+                    data = trial)
+
+# Print 'tidy' results
+tidy(age_cd40_glm)
+```
 
 ### C - T-test
 
-`t.test()`
+> Research Question:
+> Do patients with a history of intravenous drug use have higher CD4 T cell counts at baseline compared to patients without a history of intravenous drug use?
 
-#### vs. Regression
+1. Using the code below, create a plot showing the distribution of CD4 T cell counts at baseline (`cd40`) depending on whether or not patients were symptomatic. Based on this plot, do you expect to find that symptomatic patients generally have higher (or lower) CD4 T cell counts?
+
+```{r, eval= FALSE, echo = TRUE}
+ggplot(data = trial, mapping = aes(x = symptom, y = cd40)) + 
+  stat_summary(geom = "bar", fun.y = "mean", fill = "white", col = "black") +
+  geom_jitter(width = .2, alpha = .1) +
+  labs(title = "ACTG175 Trial",
+       subtitle = "Baseline CD4 T cell count and symptoms",
+       x = "Are patients symptomatic? (symptom)",
+       y = "CD4 T cell count at baseline (cd40)")
+```
+
+2. Using the `t.test()` function, create an object called `symptom_cd40_test` which conducts a two-sample t-test comparing patients' CD4 T cell count at baseline (`cd40`) between patients that are symptomatic and those that are not (`symptomatic`)
+
+```{r, eval = FALSE, echo = TRUE}
+# T-test comparing CD4 T cell counts at baseline bewteen symptomatic and non-symptomatic patients
+
+XXX <- t.test(formula = XXX ~ XXX,
+              data = XXX)
+```
+
+```{r}
+# T-test comparing CD4 T cell counts at baseline bewteen symptomatic and non-symptomatic patients
+
+symptom_cd40_test <- t.test(formula = cd40 ~ symptom,
+                           data = trial)
+```
+
+3. Print the `symptom_cd40_test` object to see summary outputs.
+
+```{r}
+age_cd40_test
+```
+
+4. Apply the `names()` function to your `symptom_cd40_test` object to see all of its named elements
+
+```{r, eval = FALSE, echo = TRUE}
+# See all named elements of symptom_cd40_test
+names(XXX)
+```
+
+```{r}
+# See all named elements of symptom_cd40_test
+names(symptom_cd40_test)
+```
+
+5. Using the `XXX$XXX` notation, print only the correlation estimate (`estimate`) in your `symptom_cd40_test` object. What does the result tell you?
+
+```{r, eval = FALSE, echo = TRUE}
+# Print parameter estimates in the symptom_cd40_test object
+XXX$XXX
+```
+
+```{r}
+# Print parameter estimates in the symptom_cd40_test object
+symptom_cd40_test$estimate
+```
+
+6. Again using the `XXX$XXX` notation, print only the p value (`p.value`) in your `symptom_cd40_test` object. What does this value tell you?
+
+```{r, eval = FALSE, echo = TRUE}
+# Print the p value of the symptom_cd40_test object
+XXX$XXX
+```
+
+```{r}
+# Print the p value in the symptom_cd40_test object
+symptom_cd40_test$p.value
+```
+
+7. Again using the `XXX$XXX` notation, print only the confidence interval (`conf.int`) in your `symptom_cd40_test` object. What does this value tell you?
+
+```{r, eval = FALSE, echo = TRUE}
+# Print the confidence interval in the age_cd40_test object
+XXX$XXX
+```
+
+```{r}
+# Print the confidence interval in the age_cd40_test object
+symptom_cd40_test$conf.int
+```
+
+8. Using the `tidy()` function (from the `broom` package), create a 'tidy' version of your `symptom_cd40_test` object called `symptom_cd40_tidy`
+
+```{r, eval = FALSE, echo = TRUE}
+# Create a 'tidy' version of my symptom_cd40_test object
+
+symptom_cd40_tidy <- tidy(xxx)
+```
+
+```{r}
+# Create a 'tidy' version of my age_cd40_test object
+
+symptom_cd40_tidy <- tidy(symptom_cd40_test)
+```
+
+9. Now, print your `symptom_cd40_tidy` object, how do the results look?
+
+```{r}
+symptom_cd40_tidy
+```
+
+#### T-test as Linear Model
+
+10. Conduct the same analysis you did before, but this time use the `glm()` function. Use the code skeleton below to help you. Do you get the same results as you did using `t.test()`? Which outputs are the same and which are different?
+
+```{r, eval = FALSE, echo = TRUE}
+# GLM predicting a patient's CD4 T cell count at baseline form their age at baseline 
+symptom_cd40_glm <- glm(formula = XXX ~ XXX,
+                        data = XXX)
+
+# Print 'tidy' results
+tidy(XXX)
+```
+
+```{r}
+# GLM predicting a patient's CD4 T cell count at baseline form their age at baseline 
+symptom_cd40_glm <- glm(formula = cd40 ~ symptom,
+                        data = trial)
+
+# Print 'tidy' results
+tidy(symptom_cd40_glm)
+```
 
 ### D - ANOVA
 
-`aov()`
+> Research Question:
+> Was there a difference between the treatment arms in the number of days until the first occurrence of one of the following major negative events: (i) a decline in CD4 T cell count of at least 50 (ii) an event indicating progression to AIDS, or (iii) death?
 
-*Post-hoc tests, with bonferonni correction*
+1. Using the code below, create a plot showing the distribution of the number of days until a major negative event (`days`) for each treatment arm `arms` Based on this plot, do you expect to find that there were differences in treatment arms?
 
-`TukeyHSD()`
+```{r, eval= FALSE, echo = TRUE}
+ggplot(data = trial, mapping = aes(x = arms, y = days)) + 
+  stat_summary(geom = "bar", fun.y = "mean", fill = "white", col = "black") +
+  geom_jitter(width = .2, alpha = .1) +
+  labs(title = "ACTG175 Trial",
+       subtitle = "Baseline CD4 T cell count and symptoms",
+       x = "Treatment Arm (arms)",
+       y = "Number of days until a major negative event (days)")
+```
 
-#### E - You choose the test
+2. Using the `t.test()` function, create an object called `symptom_cd40_test` which conducts a two-sample t-test comparing patients' CD4 T cell count at baseline (`cd40`) between patients that are symptomatic and those that are not (`symptomatic`)
 
-### X - Advanced: XXX
+```{r, eval = FALSE, echo = TRUE}
+# T-test comparing CD4 T cell counts at baseline bewteen symptomatic and non-symptomatic patients
 
-#### Anscombe's quartet
+XXX <- t.test(formula = XXX ~ XXX,
+              data = XXX)
+```
 
-#### Simpson's Paradox
+```{r}
+# ANOVA comparing number of days until a negative event between treatment arms
 
+days_arms_aov <- aov(formula = days ~ arms,
+                      data = trial)
+```
+
+3. Print the `days_arms_aov` object to see summary outputs.
+
+```{r}
+days_arms_aov
+```
+
+4. Apply the `names()` function to your `days_arms_aov` object to see all of its named elements
+
+```{r, eval = FALSE, echo = TRUE}
+# See all named elements of days_arms_aov
+names(XXX)
+```
+
+```{r}
+# See all named elements of symptom_cd40_test
+names(days_arms_aov)
+```
+
+5. Using the `XXX$XXX` notation, print the coefficients in your `days_arms_aov` object. What do these values mean?
+
+```{r, eval = FALSE, echo = TRUE}
+# Print coefficients in the days_arms_aov object
+XXX$XXX
+```
+
+```{r}
+# Print coefficients in the days_arms_aov object
+days_arms_aov$coefficients
+```
+
+7. Using the `tidy()` function (from the `broom` package), create a 'tidy' version of your `days_arms_aov` object called `days_arms_tidy`
+
+```{r, eval = FALSE, echo = TRUE}
+# Create a 'tidy' version of my symptom_cd40_test days_arms_aov
+
+days_arms_tidy <- tidy(xxx)
+```
+
+```{r}
+# Create a 'tidy' version of my days_arms_aov object
+
+days_arms_tidy <- tidy(days_arms_aov)
+```
+
+9. Now, print your `days_arms_tidy` object, how do the results look?
+
+```{r}
+days_arms_tidy
+```
+
+#### Post-hoc tests
+
+10. In order to compare pair-wise differences between groups after conducting an ANOVA, you need to conduct post-hoc tests. Using the `TukeyHSD()` function, conduct pair-wise tests to see which pairs of treatment arms differ in `days`. Save the result to an object called `days_arms_aov_post`
+`
+```{r, eval = FALSE, echo = TRUE}
+# Conduct pair-wise tests comparing every pair of treatment
+#  arms (arms) on days until a major negative event (days)
+
+XXX <- TukeyHSD(XXX)
+```
+
+```{r, eval = FALSE, echo = TRUE}
+# Conduct pair-wise tests comparing every pair of treatment
+#  arms (arms) on days until a major negative event (days)
+
+days_arms_aov_post <- TukeyHSD(days_arms_aov)
+```
+
+11. Print your `days_arms_aov_post` object, what do you see?
+
+12. Print 'tidy' results from your `days_arms_aov_post` object using the `tidy()` function
+
+```{r, eval = FALSE, echo = TRUE}
+# Print 'tidy' version of days_arms_aov_post
+tidy(XXX)
+```
+
+13. Based on what you've seen, what are your conclusions? Which treatment arms seem to differ?
+
+#### ANOVA as Linear Model
+
+10. Conduct the same analysis you did before, but this time use the `glm()` function. Use the code skeleton below to help you. Do you get the same results as you did using `aov()`? Which outputs are the same and which are different?
+
+```{r, eval = FALSE, echo = TRUE}
+# GLM predicting number of days until a major negative event (days) as a function of treatment arm (arms)
+XXX <- glm(formula = XXX ~ XXX,
+           data = XXX)
+
+# Print object
+XXX
+
+# Print 'tidy' results
+tidy(XXX)
+```
+
+```{r}
+# GLM predicting number of days until a major negative event (days) as a function of treatment arm (arms)
+days_arms_glm <- glm(formula = days ~ arms,
+                     data = trial)
+
+# Print object
+days_arms_glm
+
+# Print 'tidy' results
+tidy(days_arms_glm)
+```
+
+### E - Chi-square test
+
+> Research Question:
+> Was there an unequal distribution of gender in the treatment arms?
+
+1. Using the code below, create a plot showing the percentage of patients who were male (`gender == "Male")` for each treatment arm `arms`. Based on this plot, do you expect to find that there were differences in treatment arms?
+
+```{r, eval= FALSE, echo = TRUE}
+# Calculate percentage of Male in each treatment arm
+
+arm_gender <- trial %>%
+  group_by(arms) %>%
+  summarise(male_p = mean(gender == "Male"))
+
+ggplot(data = arm_gender, mapping = aes(x = arms, y = male_p)) + 
+  geom_bar(stat = "identity") +
+  ylim(c(0, 1)) +
+  labs(title = "ACTG175 AIDS trial",
+       subtitle = "Percent of males in each treatment arm",
+       x = "Treatment Arm (arms)",
+       y = "Percent Male (gender)")
+```
+
+2. Using the `chisq.test()` function, create an object called `gender_arm_test` which conducts a chi-square test comparing the frequencies of each gender (`gender`) for each level of arms (`arms`).
+
+- Note: The `chisq.test()` function (unfortunately) does not support formulas, so we have to enter the data in as two separate (factor) vectors:
+
+```{r, eval = FALSE, echo = TRUE}
+# Chi-square test comparing the frequencies of each gender for each treatment arm
+
+XXX <- chisq.test(x = factor(trial$XXX),
+                  y = factor(trial$XXX))
+```
+
+```{r}
+# Chi-square test comparing the frequencies of each gender for each treatment arm
+
+gender_arm_test <- chisq.test(x = factor(trial$gender),
+                              y = factor(trial$arms))
+```
+
+3. Print the `gender_arm_test` object to see summary outputs.
+
+```{r}
+gender_arm_test
+```
+
+4. Apply the `names()` function to your `gender_arm_test` object to see all of its named elements
+
+```{r, eval = FALSE, echo = TRUE}
+# See all named elements of gender_arm_test
+names(XXX)
+```
+
+```{r, eval = FALSE, echo = TRUE}
+# See all named elements of gender_arm_test
+names(gender_arm_test)
+```
+
+5. Using the `XXX$XXX` notation, print the *observed* frequencies in your `gender_arm_test` object. What do these values mean?
+
+```{r, eval = FALSE, echo = TRUE}
+# Print observed frequencies in the gender_arm_test object
+XXX$XXX
+```
+
+```{r}
+# Print observed frequencies in the gender_arm_test object
+gender_arm_test$observed
+```
+
+6. Using the `XXX$XXX` notation, print the *expected* frequencies in your `gender_arm_test` object. What do these values mean?
+
+```{r, eval = FALSE, echo = TRUE}
+# Print expected frequencies in the gender_arm_test object
+XXX$XXX
+```
+
+```{r}
+# Print expected frequencies in the gender_arm_test object
+gender_arm_test$expected
+```
+
+7. Using the `tidy()` function (from the `broom` package), create a 'tidy' version of your `gender_arm_test` object called `gender_arm_tidy`
+
+```{r, eval = FALSE, echo = TRUE}
+# Create a 'tidy' version of my gender_arm_test called gender_arm_tidy
+
+gender_arm_tidy <- tidy(xxx)
+```
+
+```{r}
+# Create a 'tidy' version of my gender_arm_test object
+
+gender_arm_tidy <- tidy(gender_arm_test)
+```
+
+9. Now, print your `gender_arm_tidy` object, how do the results look?
+
+```{r}
+gender_arm_tidy
+```
+
+#### Chi-square as Linear Model
+
+10. In the next section we'll compare the `chisq.test()` result to one using `glm()`. However, before we do, we need to restructure the data a bit. Run the following code to create a dataframe containing the counts for each combination of arms and gender:
+
+```{r, echo = TRUE, eval = FALSE}
+# Create a dataframe showing counts for each combination of
+#  arms and gender
+
+arms_gender_counts <- trial %>%
+                      group_by(arms, gender) %>%
+                      summarise(counts = n())
+```
+
+11. Print your§ `arms_gender_counts` object to see how it looks. What do the results mean?
+
+12. Conduct the same analysis you did before, but this time use the `glm()` function. Use the code skeleton below to help you. Do you get the same results as you did using `chisq.test()`? Which outputs are the same and which are different?
+
+- Be sure to model `counts` based on the *interaction* between `arms` and `gender` using `formula = counts ~ arms * gender`. 
+- We'll summarise the results of the model using the `anova()` function with the argument `test = "Rao"` to specify that we are conducting a score test (see https://en.wikipedia.org/wiki/Score_test for details)
+
+```{r, eval = FALSE, echo = TRUE}
+# Create linear model predicting counts as a function of the 
+#  interaction between arms and gender
+
+arms_gender_glm <- glm(formula = XXX ~ XXX * XXX, # Model counts by the interaction of arms and gender
+                       family = poisson,        # Use poisson model family to specify we are modelling counts
+                       data = XXX)
+
+# Print summary results as an anova table
+anova(arms_gender_glm, 
+      test = 'Rao')   # Show a 'Rao" score test
+```
+
+
+```{r}
+# Create linear model predicting counts as a function of the 
+#  interaction between arms and gender
+
+arms_gender_glm = glm(formula = counts ~ arms * gender, 
+                      family = poisson, 
+                      data = arms_gender_counts)
+
+# Print summary results as an anova table
+anova(arms_gender_glm, 
+      test = 'Rao')   # Show a 'Rao" score test
+```
+
+### X - Advanced:
+
+For the remaining tasks, you choose the test!  For each task, do the following:
+
+- Visualize the data (use the code given in the sections above for help!)
+- Conduct the appropriate test using an applied hypothesis test function (i.e.; correlation test, t-test, ANOVA or chi-square test).
+- Explore the results (e.g.; estimate, confidence interval, p-value).
+- Conduct the same test using the generalized linear model function `glm()`
+- Explore the results and confirm you get the same result from your applied function!
+
+1. Do people with a history of intravenous drug use (`drugs`) tend to have major negative events (`days`) faster than those without a history of intravenous drug use?
+
+2. Do men and women (`gender`) have different CD8 T cell counts at baseline (`cd80`)?
+
+3. Is there a relationship between patient's CD4 T cell counts at baseline (`cd40`) and at 96 weeks (`cd496`)?
+
+4. Was the proportion of White patients (`race`) the same for females and males (`gender`)? 
+
+5. Was there an effect of treatment arm (`arms`) on the *change* of CD4 T cell counts between baseline (`cd40`) and 96 weeks (`cd496)? Hint: to do this, you first need to create a column that shows the change in CD4 T cell counts. The code below should help you with this:
+
+```{r, echo = TRUE, eval = FALSE}
+trial <- trial %>%
+  mutate(cd496_change = cd496 - cd40)   # Add cd496_change to trial, indicating change from
+                                        # in cd4 T cell count from baseline to 96 weeks.
+```
 
 ## Examples
 
 ```{r, eval = FALSE, echo = TRUE}
+library(tidyverse)
+library(broom)
 
-# EXAMPLE CODE
+# We'll use the mpg dataset
+mpg
+
+# Correlation test -------------------------------------------------------------------
+
+# Q: Is there a relationship between a car's city and highway miles per gallon? ======
+
+my_test <- cor.test(formula = ~ cty + hwy,     # DV ~ IV
+                     data = mpg)
+
+my_test # Print result
+
+# 	Pearson's product-moment correlation
+# 
+# data:  cty and hwy
+# t = 49.585, df = 232, p-value < 2.2e-16
+# alternative hypothesis: true correlation is not equal to 0
+# 95 percent confidence interval:
+#  0.9433129 0.9657663
+# sample estimates:
+#       cor 
+# 0.9559159 
+
+names(my_test)  # Print all named elements
+
+# [1] "statistic"   "parameter"   "p.value"     "estimate"    "null.value"  "alternative" "method"     
+# [8] "data.name"   "conf.int" 
+
+my_test$estimate
+
+#       cor 
+# 0.9559159 
+
+my_test$p.value
+
+# [1] 1.868307e-125
+
+tidy(my_test)
+
+# # A tibble: 1 x 8
+#   estimate statistic   p.value parameter conf.low conf.high method                           alternative
+#      <dbl>     <dbl>     <dbl>     <int>    <dbl>     <dbl> <chr>                            <chr>      
+# 1    0.956      49.6 1.87e-125       232    0.943     0.966 Pearson's product-moment correl… two.sided  
+
+
+# 2-sample t-test -------------------------------------------------------------------
+
+# Q: Has there been a change in highway gas mileage from 1999 to 2008?
+
+my_ttest <- t.test(formula = hwy ~ factor(year),     # DV ~ IV
+                   alternative = "two.sided",  # Two-sided test
+                   data = mpg)         # The data
+                   
+
+my_ttest  # Print result
+
+# 	Welch Two Sample t-test
+# 
+# data:  hwy by factor(year)
+# t = -0.032864, df = 231.64, p-value = 0.9738
+# alternative hypothesis: true difference in means is not equal to 0
+# 95 percent confidence interval:
+#  -1.562854  1.511572
+# sample estimates:
+# mean in group 1999 mean in group 2008 
+#           23.42735           23.45299 
+
+names(my_ttest)   # Show all named elements
+
+# [1] "statistic"   "parameter"   "p.value"     "conf.int"    "estimate"    "null.value"  "alternative"
+# [8] "method"      "data.name"  
+
+my_ttest$estimate  # Show estimates
+
+# mean in group 1999 mean in group 2008 
+#           23.42735           23.45299 
+
+my_ttest$conf.int  # Show confidence interval of difference
+
+# [1] -1.562854  1.511572
+# attr(,"conf.level")
+# [1] 0.95
+
+my_ttest$p.value  # Show p-value
+
+# [1] 0.9738111
+
+tidy(my_ttest)  # Show tidy results
+
+# # A tibble: 1 x 10
+#   estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high method         alternative
+#      <dbl>     <dbl>     <dbl>     <dbl>   <dbl>     <dbl>    <dbl>     <dbl> <chr>          <chr>      
+# 1  -0.0256      23.4      23.5   -0.0329   0.974      232.    -1.56      1.51 Welch Two Sam… two.sided  
+
+
+
+# ANOVA  -------------------------------------------------------------------
+
+# Q: Is there a difference in highway miles per gallon between car manufacturers?
+
+my_aov <- aov(formula = hwy ~ manufacturer,     # DV ~ IV
+                   data = mpg)         # The data
+                   
+
+my_aov  # Print result
+
+# Call:
+#    aov(formula = hwy ~ manufacturer, data = mpg)
+# 
+# Terms:
+#                 manufacturer Residuals
+# Sum of Squares      4459.858  3801.805
+# Deg. of Freedom           14       219
+# 
+# Residual standard error: 4.166514
+# Estimated effects may be unbalanced
+
+summary(my_aov)   # Summary results
+
+# Analysis of Variance Table
+# 
+# Response: hwy
+#               Df Sum Sq Mean Sq F value    Pr(>F)    
+# manufacturer  14 4459.9  318.56  18.351 < 2.2e-16 ***
+# Residuals    219 3801.8   17.36                      
+# ---
+# Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+
+names(my_aov)   # Show all named elements
+
+#  [1] "coefficients"  "residuals"     "effects"       "rank"          "fitted.values" "assign"       
+#  [7] "qr"            "df.residual"   "contrasts"     "xlevels"       "call"          "terms"        
+# [13] "model"
+
+my_ttest$coefficients  # Show coefficients
+
+ #         (Intercept)  manufacturerchevrolet      manufacturerdodge       manufacturerford 
+ #         26.44444444            -4.54970760            -8.49849850            -7.08444444 
+ #   manufacturerhonda    manufacturerhyundai       manufacturerjeep manufacturerland rover 
+ #          6.11111111             0.41269841            -8.81944444            -9.94444444 
+ # manufacturerlincoln    manufacturermercury     manufacturernissan    manufacturerpontiac 
+ #         -9.44444444            -8.44444444            -1.82905983            -0.04444444 
+ #  manufacturersubaru     manufacturertoyota manufacturervolkswagen 
+ #         -0.87301587            -1.53267974             2.77777778 
+
+
+tidy(my_aov)  # Show tidy results
+
+#   term            df sumsq meansq statistic   p.value
+#   <chr>        <dbl> <dbl>  <dbl>     <dbl>     <dbl>
+# 1 manufacturer    14 4460.  319.       18.4  9.22e-30
+# 2 Residuals      219 3802.   17.4      NA   NA   
 
 ```
 
@@ -162,7 +885,7 @@ View(XXX)
 
 |File | Rows | Columns |
 |:----|:-----|:------|
-|[XXX]() | Nrow | Ncol |
+|[trial_ACTG175.csv](https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/trial_ACTG175.csv?token=AIFo1HP25ZzPdraeqxgLB9CrcSTQDN3Pks5cqOGGwA%3D%3D) | 2139 | 27 |
 |[XXX]() | Nrow | Ncol |
 
 SHORT VERBAL DESCRIPTION OF DATA SETS
@@ -171,8 +894,8 @@ SHORT VERBAL DESCRIPTION OF DATA SETS
 
 | Name | Description |
 |:-------------|:-------------------------------------|
-| XXX | XXX |
-| XXX | age in years at baseline|
+| pidnum | patient's ID number |
+| age | age in years at baseline|
 |wtkg| weight in kg at baseline|
 |hemo| hemophilia (0=no, 1=yes)|
 |homo| homosexual activity (0=no, 1=yes)|
@@ -206,26 +929,25 @@ SHORT VERBAL DESCRIPTION OF DATA SETS
 |Package| Installation|
 |:------|:------|
 |`tidyverse`|`install.packages("tidyverse")`|
-| `XX` | `XX` |
+| `broom` | `install.packages("broom")` |
 
 ### Functions
 
 | Function| Package | Description |
 |:---|:------|:---------------------------------------------|
-|     `XXX`|`XXX`| XXX | 
-|     `XXX`|`XXX`| XXX | 
+|     `cor.test`|`stats`| Correlation test | 
+|     `t.test`|`stats`| Student's T-test | 
+|     `aov`|`stats`| Analysis of Variance| 
+|     `chisq.test`|`stats`| Chi-square test| 
+|     `glm`|`stats`| Generalized linear model| 
+|     `tidy`|`broom`| Create 'tidy' results from statistical objects| 
+
 
 ## Resources
 
-### vignettes
+### Vignettes
 
-TEXT and LINKS
+- Many of these examples come from Jonas Kristoffer Lindelov's great blog post [Common statistical tests are linear models, or: how to teach stats](https://lindeloev.github.io/tests-as-linear/#1_the_simplicity_underlying_common_tests)
+- [Discovering Statistics with R](https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469) by Field et al is an excellent resource
+- [YaRrr! The Pirate's Guide to R](https://bookdown.org/ndphillips/YaRrr/) has good chapters on statistics with R.
 
-### Cheatsheets
-
-<p align="center" width="100%">
-<a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">
-  <img src="https://image.slidesharecdn.com/data-wrangling-cheatsheet-160705210122/95/data-wrangling-with-dplyr-and-tidyr-cheat-sheet-1-638.jpg?cb=1467752577" style="width:70%"></a>
-  <br>
-  <font style="font-size:10px">from <a href="https://www.rstudio.com/resources/cheatsheets/">R Studio</a></font>
-</p>

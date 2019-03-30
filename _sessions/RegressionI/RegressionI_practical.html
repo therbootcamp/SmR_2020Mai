@@ -202,18 +202,19 @@ $(document).ready(function () {
 
 
 <p align="center" width="100%">
-<img src="image/placeholder.png" alt="Trulli" style="width:100%;height:280px"> <br> <font style="font-size:10px">from <a href="">shortened URL</a></font>
+<img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/baseball.png?token=AIFo1PlxSH9Z8b82MTUkkJ8pNUE7-Gbyks5cqIaSwA%3D%3D" alt="Trulli" style="width:100%"> <br> <font style="font-size:10px">from <a href="">www.popsci.com</a></font>
 </p>
 <div id="section" class="section level1 tabset">
 <h1></h1>
 <div id="overview" class="section level2">
 <h2>Overview</h2>
-<p>In this practical you’ll practice “XXX” with the <code>XXX</code> packages.</p>
+<p>In this practical you’ll practice constructing and understanding regression models.</p>
 <p>By the end of this practical you will know how to:</p>
 <ol style="list-style-type: decimal">
-<li></li>
-<li></li>
-<li></li>
+<li>Create a simple and multiple linear regression model with <code>glm()</code></li>
+<li>Explore the outputs of regression model, including coefficients, confidence intervals, and p-values.</li>
+<li>Explore the residuals and fitted values of a regression model.</li>
+<li>Use a regression model to make predictions for new data</li>
 </ol>
 </div>
 <div id="tasks" class="section level2">
@@ -228,7 +229,8 @@ $(document).ready(function () {
 <pre class="r"><code># Load packages necessary for this script
 library(tidyverse)
 library(broom)
-library(ggpubr)</code></pre>
+library(ggpubr)
+library(rsq)</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Using the following template, load the <code>hitters.csv</code> data into R and store it as a new object called <code>hitters</code> (Hint: Don’t type the path directly! Use the “tab” completion!).</li>
 </ol>
@@ -602,9 +604,9 @@ rsq(XXX)</code></pre>
 <div id="e---exploring-model-residuals" class="section level3">
 <h3>E - Exploring model residuals</h3>
 <ol style="list-style-type: decimal">
-<li>Using the <code>resid()</code> function, save the residuals of your regression analysis to a vector called <code>all_resid</code></li>
+<li>Using the <code>residuals()</code> function, save the residuals of your regression analysis to a vector called <code>all_resid</code></li>
 </ol>
-<pre class="r"><code>all_resid &lt;- resid(XXX)</code></pre>
+<pre class="r"><code>all_resid &lt;- residuals(XXX)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li><p>Using the <code>min()</code>, <code>max()</code>, <code>mean()</code>, <code>median()</code> and <code>sd()</code> functions, calculate the summary statistics of the residuals <code>all_resid</code>. Do the values look like they make sense?</p></li>
 <li><p>Using the following code, create a histogram of the residuals from your <code>all_glm</code> object</p></li>
@@ -619,7 +621,7 @@ ggplot(data, aes(x = resid)) +
 <ol start="4" style="list-style-type: decimal">
 <li>Using the <code>abs()</code> function, create a new vector called <code>all_abs_resid</code> which contains the <em>absolute</em> residuals. Use the following guide</li>
 </ol>
-<pre class="r"><code>all_resid &lt;- abs(resid(XXX))</code></pre>
+<pre class="r"><code>all_resid &lt;- abs(residuals(XXX))</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li><p>Using <code>min()</code>, <code>max()</code>, <code>mean()</code>, <code>median()</code>, and <code>sd()</code>, calculate summary statistics for the absolute residuals <code>all_abs_resid</code>. Do the values look like they make sense?</p></li>
 <li><p>Using the following code, Create a histogram of the absolute residuals <code>all_abs_resid</code>. How do you interpret this plot?</p></li>
@@ -680,7 +682,114 @@ ggplot(data, aes(x = abs_resid)) +
 </div>
 <div id="examples" class="section level2">
 <h2>Examples</h2>
-<pre class="r"><code># EXAMPLE CODE</code></pre>
+<pre class="r"><code># Regression models in R
+
+library(tidyverse)  # For mpg data and tidy data functions
+library(broom)      # For tidy()
+
+# Q: Does displacement predict gas mileage?
+
+## Visualise the data
+
+ggplot(data = mpg, aes(x = displ, y = hwy)) + 
+  geom_point() +
+  labs(title = &quot;Predicting hwy from displ&quot;)
+
+# Model
+
+hwy_mod &lt;- glm(formula = hwy ~ displ,
+               data = mpg)
+
+# Summary information =================================
+
+summary(hwy_mod)
+
+# Call:
+# glm(formula = hwy ~ displ, data = mpg)
+# 
+# Deviance Residuals: 
+#     Min       1Q   Median       3Q      Max  
+# -7.1039  -2.1646  -0.2242   2.0589  15.0105  
+# 
+# Coefficients:
+#             Estimate Std. Error t value Pr(&gt;|t|)    
+# (Intercept)  35.6977     0.7204   49.55   &lt;2e-16 ***
+# displ        -3.5306     0.1945  -18.15   &lt;2e-16 ***
+# ---
+# Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+# 
+# (Dispersion parameter for gaussian family taken to be 14.71478)
+# 
+#     Null deviance: 8261.7  on 233  degrees of freedom
+# Residual deviance: 3413.8  on 232  degrees of freedom
+# AIC: 1297.2
+# 
+# Number of Fisher Scoring iterations: 2
+
+# Tidy results ==========================================
+
+tidy(hwy_mod)
+
+#   term        estimate std.error statistic   p.value
+#   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+# 1 (Intercept)    35.7      0.720      49.6 2.12e-125
+# 2 displ          -3.53     0.195     -18.2 2.04e- 46
+
+#  (coefficient is negative and p-value is very small!)
+
+# Confidence intervals ==================================
+
+confint(hwy_mod)
+
+#                 2.5 %    97.5 %
+# (Intercept) 34.285756 37.109546
+# displ       -3.911829 -3.149349
+
+
+# Fitted values =========================================
+
+hwy_fit &lt;- fitted(hwy_mod)
+
+hwy_fit
+
+#       1        2        3        4        5 
+# 29.34259 29.34259 28.63647 28.63647 25.81200 
+
+#  First 5 fitted values look reasonable
+
+# Residuals =========================================
+
+hwy_resid &lt;- residuals(hwy_mod)
+
+hwy_resid
+
+#          1          2          3          4          5 
+# -0.3425912 -0.3425912  2.3635266  1.3635266  0.1879976 
+
+#  First 5 residuals don&#39;t look so off
+
+# True vs. Fitted values =================================
+
+data &lt;- tibble(truth = mpg$hwy,
+               fitted  = hwy_fit)
+
+ggplot(data = data, aes(x = truth, y = fitted)) +  
+  geom_point() +
+  geom_abline(slope = 1, intercept = 0) +
+  labs(title = &quot;Relationship between model fits and true values&quot;,
+       subtitle = &quot;Formula = hwy ~ dipsl&quot;) +
+  geom_segment(aes(x = truth, y = truth, xend = truth, yend = fitted), 
+               col = &quot;red&quot;, alpha = .4) 
+
+
+# R-squared value =========================================
+
+rsq(hwy_mod)
+
+# [1] 0.5867867
+
+# R-square is 0.586..., meaning that around 59% of the variance in
+#  hwy can be accounted for by displ</code></pre>
 </div>
 <div id="datasets" class="section level2">
 <h2>Datasets</h2>
@@ -694,14 +803,9 @@ ggplot(data, aes(x = abs_resid)) +
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><a href="">XXX</a></td>
-<td align="left">Nrow</td>
-<td align="left">Ncol</td>
-</tr>
-<tr class="even">
-<td align="left"><a href="">XXX</a></td>
-<td align="left">Nrow</td>
-<td align="left">Ncol</td>
+<td align="left"><a href="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/hitters.csv?token=AIFo1DAkrffPG4jQkX3MRidCUqDYbHggks5cqJBjwA%3D%3D">hitters.csv</a></td>
+<td align="left">50</td>
+<td align="left">20</td>
 </tr>
 </tbody>
 </table>
@@ -721,112 +825,84 @@ ggplot(data, aes(x = abs_resid)) +
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">XXX</td>
-<td align="left">XXX</td>
+<td align="left">AtBat</td>
+<td align="left">Number of times at bat in 1986</td>
 </tr>
 <tr class="even">
-<td align="left">XXX</td>
-<td align="left">age in years at baseline</td>
+<td align="left">Hits</td>
+<td align="left">Number of hits in 1986</td>
 </tr>
 <tr class="odd">
-<td align="left">wtkg</td>
-<td align="left">weight in kg at baseline</td>
+<td align="left">HmRun</td>
+<td align="left">Number of home runs in 1986</td>
 </tr>
 <tr class="even">
-<td align="left">hemo</td>
-<td align="left">hemophilia (0=no, 1=yes)</td>
+<td align="left">Runs</td>
+<td align="left">Number of runs in 1986</td>
 </tr>
 <tr class="odd">
-<td align="left">homo</td>
-<td align="left">homosexual activity (0=no, 1=yes)</td>
+<td align="left">RBI</td>
+<td align="left">Number of runs batted in in 1986</td>
 </tr>
 <tr class="even">
-<td align="left">drugs</td>
-<td align="left">history of intravenous drug use (0=no, 1=yes)</td>
+<td align="left">Walks</td>
+<td align="left">Number of walks in 1986</td>
 </tr>
 <tr class="odd">
-<td align="left">karnof</td>
-<td align="left">Karnofsky score (on a scale of 0-100)</td>
+<td align="left">Years</td>
+<td align="left">Number of years in the major leagues</td>
 </tr>
 <tr class="even">
-<td align="left">oprior</td>
-<td align="left">non-zidovudine antiretroviral therapy prior to initiation of study treatment (0=no, 1=yes)</td>
+<td align="left">CAtBat</td>
+<td align="left">Number of times at bat during his career</td>
 </tr>
 <tr class="odd">
-<td align="left">z30</td>
-<td align="left">zidovudine use in the 30 days prior to treatment initiation (0=no, 1=yes)</td>
+<td align="left">CHits</td>
+<td align="left">Number of hits during his career</td>
 </tr>
 <tr class="even">
-<td align="left">zprior</td>
-<td align="left">zidovudine use prior to treatment initiation (0=no, 1=yes)</td>
+<td align="left">CHmRun</td>
+<td align="left">Number of home runs during his career</td>
 </tr>
 <tr class="odd">
-<td align="left">preanti</td>
-<td align="left">number of days of previously received antiretroviral therapy</td>
+<td align="left">CRuns</td>
+<td align="left">Number of runs during his career</td>
 </tr>
 <tr class="even">
-<td align="left">race</td>
-<td align="left">race (0=white, 1=non-white)</td>
+<td align="left">CRBI</td>
+<td align="left">Number of runs batted in during his career</td>
 </tr>
 <tr class="odd">
-<td align="left">gender</td>
-<td align="left">gender (0=female, 1=male)</td>
+<td align="left">CWalks</td>
+<td align="left">Number of walks during his career</td>
 </tr>
 <tr class="even">
-<td align="left">str2</td>
-<td align="left">antiretroviral history (0=naive, 1=experienced)</td>
+<td align="left">League</td>
+<td align="left">A factor with levels A and N indicating player’s league at the end of 1986</td>
 </tr>
 <tr class="odd">
-<td align="left">strat</td>
-<td align="left">antiretroviral history stratification (1=’antiretroviral naive’, 2=’&gt; 1 but ≤ 52 weeks of prior antiretroviral therapy’, 3=’&gt; 52 weeks’)</td>
+<td align="left">Division</td>
+<td align="left">A factor with levels E and W indicating player’s division at the end of 1986</td>
 </tr>
 <tr class="even">
-<td align="left">symptom</td>
-<td align="left">symptomatic indicator (0=asymptomatic, 1=symptomatic)</td>
+<td align="left">PutOuts</td>
+<td align="left">Number of put outs in 1986</td>
 </tr>
 <tr class="odd">
-<td align="left">treat</td>
-<td align="left">treatment indicator (0=zidovudine only, 1=other therapies)</td>
+<td align="left">Assists</td>
+<td align="left">Number of assists in 1986</td>
 </tr>
 <tr class="even">
-<td align="left">offtrt</td>
-<td align="left">indicator of off-treatment before 96±5 weeks (0=no,1=yes)</td>
+<td align="left">Errors</td>
+<td align="left">Number of errors in 1986</td>
 </tr>
 <tr class="odd">
-<td align="left">cd40</td>
-<td align="left">CD4 T cell count at baseline</td>
+<td align="left">Salary</td>
+<td align="left">1987 annual salary on opening day in thousands of dollars</td>
 </tr>
 <tr class="even">
-<td align="left">cd420</td>
-<td align="left">CD4 T cell count at 20±5 weeks</td>
-</tr>
-<tr class="odd">
-<td align="left">cd496</td>
-<td align="left">CD4 T cell count at 96±5 weeks (=NA if missing)</td>
-</tr>
-<tr class="even">
-<td align="left">r</td>
-<td align="left">missing CD4 T cell count at 96±5 weeks (0=missing, 1=observed)</td>
-</tr>
-<tr class="odd">
-<td align="left">cd80</td>
-<td align="left">CD8 T cell count at baseline</td>
-</tr>
-<tr class="even">
-<td align="left">cd820</td>
-<td align="left">CD8 T cell count at 20±5 weeks</td>
-</tr>
-<tr class="odd">
-<td align="left">cens</td>
-<td align="left">indicator of observing the event in days</td>
-</tr>
-<tr class="even">
-<td align="left">days</td>
-<td align="left">number of days until the first occurrence of: (i) a decline in CD4 T cell count of at least 50 (ii) an event indicating progression to AIDS, or (iii) death.</td>
-</tr>
-<tr class="odd">
-<td align="left">arms</td>
-<td align="left">treatment arm (0=zidovudine, 1=zidovudine and didanosine, 2=zidovudine and zalcitabine, 3=didanosine).</td>
+<td align="left">NewLeague</td>
+<td align="left">A factor with levels A and N indicating player’s league at the beginning of 1987</td>
 </tr>
 </tbody>
 </table>
@@ -850,7 +926,7 @@ ggplot(data, aes(x = abs_resid)) +
 </tr>
 <tr class="even">
 <td align="left"><code>broom</code></td>
-<td align="left"><code>install.packages(&quot;tidyverse&quot;)</code></td>
+<td align="left"><code>install.packages(&quot;broom&quot;)</code></td>
 </tr>
 <tr class="odd">
 <td align="left"><code>rsq</code></td>
@@ -862,6 +938,11 @@ ggplot(data, aes(x = abs_resid)) +
 <div id="functions-1" class="section level3">
 <h3>Functions</h3>
 <table>
+<colgroup>
+<col width="7%" />
+<col width="12%" />
+<col width="80%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Function</th>
@@ -871,14 +952,34 @@ ggplot(data, aes(x = abs_resid)) +
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><code>XXX</code></td>
-<td align="left"><code>XXX</code></td>
-<td align="left">XXX</td>
+<td align="left"><code>glm</code></td>
+<td align="left"><code>stats</code></td>
+<td align="left">Fit a generalized linear model</td>
 </tr>
 <tr class="even">
-<td align="left"><code>XXX</code></td>
-<td align="left"><code>XXX</code></td>
-<td align="left">XXX</td>
+<td align="left"><code>tidy</code></td>
+<td align="left"><code>broom</code></td>
+<td align="left">Show most important outputs from a statistical object</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>confint</code></td>
+<td align="left"><code>stats</code></td>
+<td align="left">Show confidence intervals of coefficients from a statistical object</td>
+</tr>
+<tr class="even">
+<td align="left"><code>fitted</code></td>
+<td align="left"><code>stats</code></td>
+<td align="left">Show fitted values from a statistical object</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>rsq</code></td>
+<td align="left"><code>rsq</code></td>
+<td align="left">Print r-squared value from a statistical object</td>
+</tr>
+<tr class="even">
+<td align="left"><code>residuals</code></td>
+<td align="left"><code>stats</code></td>
+<td align="left">Show residuals (fitted minus true) values from a statistical object</td>
 </tr>
 </tbody>
 </table>
@@ -886,15 +987,12 @@ ggplot(data, aes(x = abs_resid)) +
 </div>
 <div id="resources" class="section level2">
 <h2>Resources</h2>
-<div id="vignettes" class="section level3">
-<h3>vignettes</h3>
-<p>TEXT and LINKS</p>
-</div>
-<div id="cheatsheets" class="section level3">
-<h3>Cheatsheets</h3>
-<p align="center" width="100%">
-<a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf"> <img src="https://image.slidesharecdn.com/data-wrangling-cheatsheet-160705210122/95/data-wrangling-with-dplyr-and-tidyr-cheat-sheet-1-638.jpg?cb=1467752577" style="width:70%"></a> <br> <font style="font-size:10px">from <a href="https://www.rstudio.com/resources/cheatsheets/">R Studio</a></font>
-</p>
+<div id="books" class="section level3">
+<h3>Books</h3>
+<ul>
+<li><a href="https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469">Discovering Statistics with R</a> by Field et al is an excellent resource</li>
+<li><a href="https://bookdown.org/ndphillips/YaRrr/">YaRrr! The Pirate’s Guide to R</a> has good chapters on statistics with R.</li>
+</ul>
 </div>
 </div>
 </div>
