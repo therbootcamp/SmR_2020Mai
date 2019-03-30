@@ -11,6 +11,7 @@ b
 
 with(a, plot(age, G1))
 
+require(tidyverse)
 
 a = read_csv('~/Downloads/avocado.csv')
 a = subset(a, year == 2017)
@@ -27,4 +28,3 @@ ggplot(a[sample(1:nrow(a),200),], mapping = aes(Date, AveragePrice)) + geom_poin
 
 
 cor.test(formula = ChickWeight, data = ChickWeight)
-

@@ -77,18 +77,137 @@ baselers <- readr::read_csv("1_Data/baselers.csv")
 
 ```
 
-
-# Regression <i>applied</i>
-
 .pull-left45[
+
+# New Statistics
+
+Recentering on values and ideas of the past...
+
+1) Better studies
+
+2) Betters statistics
 
 
 ]
 
 .pull-right45[
 
+<br><br>
+<p align = "center">
+<img src="image/blastfromthepast.jpg" height=500px><br>
+<font style="font-size:10px">from <a href="https://www.amazon.com/Blast-Past-Brendan-Fraser/dp/0780626494">amazon.com</a></font>
+</p>
 
 ]
+
+---
+
+# Replication crises
+
+.pull-right5[
+
+<p align = "center">
+<img src="image/crisis.png" height=440px><br>
+<font style="font-size:10px">from <a href="https://ink.library.smu.edu.sg/cgi/viewcontent.cgi?article=6256&context=lkcsb_research">Open Science Collaboration</a></font>
+</p>
+
+]
+
+
+---
+
+.pull-left45[
+
+# Hallmarks of good studies
+
+<font style="font-size:24px"> 1 Informative designs </font><br>
+<font style="font-size:18px"><i> Conduct the best possible test of your hypothesis? </i></font><br><br>
+
+<font style="font-size:24px"> 2 Sample size planning </font><br>
+<font style="font-size:18px"><i> Determine how many observation you need for clear-cut conclusions? </i></font><br><br>
+
+<font style="font-size:24px"> 3 Registrations </font><br>
+<font style="font-size:18px"><i> Register your hypotheses before data collection. </i></font><br><br>
+
+<font style="font-size:24px"> 4 No p-hacking </font><br>
+<font style="font-size:18px"><i> Conduct only planned tests or report as exploratory. </i></font><br><br>
+
+<font style="font-size:24px"> 5 Full reporting </font><br>
+<font style="font-size:18px"><i> Report everything you did. </i></font><br><br>
+
+<font style="font-size:24px"> 6 Replication </font><br>
+<font style="font-size:18px"><i> Replicate your findings. </i></font><br><br>
+
+</font>
+]
+
+.pull-right45[
+<br><br>
+<p align = "center">
+<img src="image/nicecircles.jpg" height=480px><br>
+<font style="font-size:10px">adapted from <a href="http://neuroskeptic
+.blogspot.com/2010/11/9-circles-of-scientific-hell.html">neurosceptic.blogpost.com</a>, see <a href="http://pages.ucsd.edu/~cmckenzie/Neuroskeptic2012Perspectives.pdf">article</a> <a></font>
+</p>
+
+]
+
+---
+
+# Sample size planning
+
+.pull-left45[
+
+Sample size should be planned such that 
+
+
+]
+
+
+.pull-right55[
+<br>
+<p align = "center">
+<img src="image/power.png"><br>
+</p>
+
+]
+
+---
+
+# Sample size planning
+
+.pull-left45[
+
+Sample size should be planned such that 
+
+
+]
+
+
+.pull-right55[
+<br>
+<p align = "center">
+<img src="image/power_large.png"><br>
+</p>
+
+]
+
+
+---
+
+# No p-hacking
+
+“If you torture the data long enough, it will confess.”
+
+Ronald Coase
+
+
+---
+
+# Better statistics
+
+Report uncertainty (Confidence intervals)
+
+Use Bayesian statistics
 
 
 ---

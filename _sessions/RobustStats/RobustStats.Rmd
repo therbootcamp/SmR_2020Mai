@@ -163,6 +163,33 @@ baselers <- readr::read_csv("1_Data/baselers.csv")
 
 ---
 
+# Have the right model
+
+
+---
+
+# Leap to test statistic
+
+---
+
+# Violations of statistical assumptions
+
+---
+
+# Non-parametric statistics
+
+---
+
+# Rank-based statistics
+
+---
+
+# Bootstrapping
+
+
+
+---
+
 class: middle, center
 
 <h1><a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/RegressionI/RegressionI_practical.html">Practical</a></h1>
