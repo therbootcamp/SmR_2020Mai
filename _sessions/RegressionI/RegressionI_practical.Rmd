@@ -212,7 +212,7 @@ hits_tidy
 #  We do expect there to be a positive relationship between hits and salary in all players
 ```
 
-8. Using the `confint()` function, print 95% confidence interval(s) for the regression coefficient(s) in your `HmRun_glm` object. What do they mean?
+8. Using the `confint()` function, print 95% confidence interval(s) for the regression coefficient(s) in your `hits_glm` object. What do they mean?
 
 ```{r, echo = TRUE, eval = FALSE}
 # Print confidence interval(s) of coefficient(s) in hits_glm
