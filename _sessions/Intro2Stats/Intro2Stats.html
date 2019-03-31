@@ -153,22 +153,20 @@ layout: true
 
 # Example: 
 
-Basel has many nice "Buvette's" along the Rhine that serve drinks during the Spring / Summer.
+Basel has many nice "Buvette's" that serve drinks in warm months.
 
-The Oetlinger Buvette offers 33dl beers (or so they say...).
+The Oetlinger BuvettE, one of our favorites, offers 33dl beers (or so they say...).
 
-I have a sneaking suspicion that the Oetlinger Buvette may be 'underpouring' its beers.
-
-&gt; Research Question:&lt;br&gt;
-&gt; Does the Oetlinnger Buvette consistently pour too little beer in its 33dl beers?
+Is the Oetlinger Buvette 'underpouring' its beers?
 
 ### Data
 
-![](src/img/10_beers.jpg)&lt;!-- --&gt;
+Order 10 beers, and measure the exact amount in each cup.
+
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/10_beers.jpg?token=AIFo1GFPQoYDXYW5W7FOsftG_-XbNsp6ks5cqeGfwA%3D%3D" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 ]
-
 
 
 .pull-right35[
@@ -193,11 +191,17 @@ I have a sneaking suspicion that the Oetlinger Buvette may be 'underpouring' its
 
 .pull-left45[
 
+All interesting data processes have &lt;high&gt;variability&lt;/high&gt;
 
-- All interesting data processes have *variability*
-- Statistical inference is all about *accounting for variability*
-- If there was no variability, there would be no need to do statistics.
+- Stock prices, patient response to drugs, product manufacturing
 
+Statistical inference is all about &lt;high&gt;accounting for variability&lt;/high&gt;
+
+If there was no variability, there would be no need to do statistics.
+
+- If every single patient responded the exact same way to a drug, you could do a clinical trial with (any) one patient.
+
+- If the Oetlinger buvette always poured exactly the same amount, I could just order one!
 
 ]
 
@@ -205,14 +209,71 @@ I have a sneaking suspicion that the Oetlinger Buvette may be 'underpouring' its
 .pull-right45[
 
 
+![](https://static.seekingalpha.com/uploads/2017/1/6/saupload_Coach-Stock-Price.png)&lt;!-- --&gt;
+
+
+![](https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/cinicaltrial_wide.png?token=AIFo1HsHC0LwU8xjFOB4tKAdFGwNML1Iks5cqNM8wA%3D%3D)&lt;!-- --&gt;
+
 
 ]
 
 
 ---
+
+
+.pull-left45[
 
 # 2. Distributions
 
+
+When analysing data, we must always assume some variation &lt;high&gt;probability distribution&lt;/high&gt; (we'll see exactly why later)
+
+A probability distribution is a mathematical formula that defines exactly how likely every possible value in a dataset is.
+
+There are many (technically infinite) probability distributions
+
+
+
+
+]
+
+
+.pull-right45[
+
+### Normal (aka Gaussian) Distribution
+
+
+### Uniform Distribution
+
+
+### Log-normal distribution
+
+
+
+
+]
+
+
+---
+
+# 3: Parameters
+.pull-left45[
+
+
+
+]
+
+
+.pull-right45[
+
+
+
+]
+
+
+---
+
+# 4: Likelihood
 .pull-left45[
 
 
@@ -228,7 +289,7 @@ I have a sneaking suspicion that the Oetlinger Buvette may be 'underpouring' its
 
 ---
 
-# 3: Models
+# 5: Models
 
 .pull-left45[
 
@@ -243,37 +304,7 @@ I have a sneaking suspicion that the Oetlinger Buvette may be 'underpouring' its
 
 ]
 
----
 
-# 4: Parameters
-.pull-left45[
-
-
-
-]
-
-
-.pull-right45[
-
-
-
-]
-
----
-
-# 5: Likelihood
-.pull-left45[
-
-
-
-]
-
-
-.pull-right45[
-
-
-
-]
 
 ---
 
