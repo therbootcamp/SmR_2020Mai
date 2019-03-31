@@ -71,6 +71,7 @@ options(digits = 4)
 # Load packages
 require(tidyverse)
 library(cowplot)
+library(ggpubr)
 
 knitr::opts_chunk$set(fig.align = "center", warning = FALSE, message = FALSE)
 
@@ -126,6 +127,12 @@ Is the Oetlinger Buvette 'underpouring' its beers?
 
 Order 10 beers, and measure the exact amount in each cup.
 
+```{r, echo= FALSE}
+beer <- c(28, 31, 28, 37, 30, 33, 25, 33, 24, 30)
+beer_data <- tibble(beer, id = 1:length(beer))
+```
+
+
 ```{r, echo = FALSE, out.width = "80%", fig.align = 'center'}
 knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/10_beers.jpg?token=AIFo1GFPQoYDXYW5W7FOsftG_-XbNsp6ks5cqeGfwA%3D%3D")
 ```
@@ -176,17 +183,7 @@ If there was no variability, there would be no need to do statistics.
 
 
 ```{r, echo = FALSE, out.width = "90%"}
-knitr::include_graphics("https://static.seekingalpha.com/uploads/2017/1/6/saupload_Coach-Stock-Price.png")
-```
-
-
-```{r, echo = FALSE, out.width = "90%"}
-knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/cinicaltrial_wide.png?token=AIFo1HsHC0LwU8xjFOB4tKAdFGwNML1Iks5cqNM8wA%3D%3D")
-```
-
-
-```{r, echo = FALSE, out.width = "90%"}
-knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/oetlinger_beer_single_wide.png?token=AIFo1FeCgh_xObYc6YrdafPUsK401Bd1ks5cqeeGwA%3D%3D")
+knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/variability_stock_drug_beer.png?token=AIFo1GDIBmjgX1ca13vVfnh0UqoEa-93ks5cqiplwA%3D%3D")
 ```
 
 ]
@@ -207,7 +204,7 @@ In general, we distinguish between two types of variability
 |Systematic| Variation that <high>can</high> be explained by known variables|
 |Unsystematic |Variation that <high>cannot</high> be explained by known variables|
 
-Statistical inference is the practice of separating overall variability into systematic and unsystematic portions.
+Statistical inference is the practice of discovering ways to separate overall variability into systematic and unsystematic portions.
 
 
 ]
@@ -216,22 +213,55 @@ Statistical inference is the practice of separating overall variability into sys
 .pull-right45[
 
 
-```{r, echo = FALSE, out.width = "90%"}
-knitr::include_graphics("https://static.seekingalpha.com/uploads/2017/1/6/saupload_Coach-Stock-Price.png")
+<br><br>
+
+```{r, echo = FALSE, fig.width = 6, fig.height = 3, dpi= 200, out.width = "100%"}
+
+
+set.seed(103)
+x <- rnorm(50, mean = 50, sd = 10)
+
+
+id <- 1:50
+income <- rnorm(n = 50, mean = 7000, sd = 1000)
+exercise <- rnorm(n = 50, mean = 30, sd = 10)
+happiness <- .2 * exercise + rnorm(50, mean = 0, sd = 1) - 2
+
+dat <- tibble(id, income, exercise, happiness, group = rep("Baselers", 50))
+
+overall <- ggplot(dat, aes(x = id, y = happiness)) +
+  geom_point() +
+  labs(y = "Happiness",
+       x = "id",
+       title = "Total Variability in Happiness")
+
+
+low <- ggplot(dat, aes(income, happiness)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(y = "Happiness",
+       x = "Income",
+       title = "Low Variance Explained") +
+  scale_y_continuous(breaks = seq(0, 10, 1))
+
+high <- ggplot(dat, aes(exercise, happiness)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(y = "Happiness",
+       x = "Minutes of Excercise per day",
+       title = "High Variance Explained")+
+  scale_y_continuous(breaks = seq(0, 10, 1))
+
+
+overall
+
+ggarrange(low, high, ncol = 2, nrow = 1)
+
 ```
 
 
-```{r, echo = FALSE, out.width = "90%"}
-knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/cinicaltrial_wide.png?token=AIFo1HsHC0LwU8xjFOB4tKAdFGwNML1Iks5cqNM8wA%3D%3D")
-```
-
-
-```{r, echo = FALSE, out.width = "90%"}
-knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/oetlinger_beer_single_wide.png?token=AIFo1FeCgh_xObYc6YrdafPUsK401Bd1ks5cqeeGwA%3D%3D")
-```
 
 ]
-
 
 
 ---
@@ -241,7 +271,17 @@ knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019
 
 # 2. Sample Statistics
 
-define sample statistics
+Once we collect (varying) data, we always look for ways to <high>summarise</high> the data into <high>sample statistics</high>
+
+Sample statistics usually (but not always) fall into one of two types:
+
+|Type|Examples |
+|:----|:------|
+|Central Tendency| Mean, mode, median|
+|Variability|Standard deviation, variance, range|
+
+
+Sample statistics give us <high>estimates</high> of key model parameters (more on this later)
 
 ]
 
@@ -249,7 +289,17 @@ define sample statistics
 .pull-right45[
 
 
-sample statistics...
+
+```{r, echo = FALSE, fig.width = 4, fig.height = 3, dpi = 200}
+ggplot(beer_data, aes(x = id, y = beer)) +
+  geom_point() +
+  scale_x_continuous(breaks = 1:10) +
+  labs(y = "Amount in dl") +
+  ylim(c(20, 40))
+```
+
+
+
 
 ]
 
@@ -603,7 +653,7 @@ Generally, the more extreme your test statistic is, the more evidence that "Some
 
 
 .pull-right45[
-
+<br><br>
 
 
 ```{r, echo = FALSE, out.width = "100%"}

@@ -89,6 +89,9 @@ Is the Oetlinger Buvette 'underpouring' its beers?
 
 Order 10 beers, and measure the exact amount in each cup.
 
+
+
+
 &lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/10_beers.jpg?token=AIFo1GFPQoYDXYW5W7FOsftG_-XbNsp6ks5cqeGfwA%3D%3D" width="80%" style="display: block; margin: auto;" /&gt;
 
 ]
@@ -132,13 +135,7 @@ If there was no variability, there would be no need to do statistics.
 .pull-right45[
 
 
-&lt;img src="https://static.seekingalpha.com/uploads/2017/1/6/saupload_Coach-Stock-Price.png" width="90%" style="display: block; margin: auto;" /&gt;
-
-
-&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/cinicaltrial_wide.png?token=AIFo1HsHC0LwU8xjFOB4tKAdFGwNML1Iks5cqNM8wA%3D%3D" width="90%" style="display: block; margin: auto;" /&gt;
-
-
-&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/oetlinger_beer_single_wide.png?token=AIFo1FeCgh_xObYc6YrdafPUsK401Bd1ks5cqeeGwA%3D%3D" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/variability_stock_drug_beer.png?token=AIFo1GDIBmjgX1ca13vVfnh0UqoEa-93ks5cqiplwA%3D%3D" width="90%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -158,7 +155,7 @@ In general, we distinguish between two types of variability
 |Systematic| Variation that &lt;high&gt;can&lt;/high&gt; be explained by known variables|
 |Unsystematic |Variation that &lt;high&gt;cannot&lt;/high&gt; be explained by known variables|
 
-Statistical inference is the practice of separating overall variability into systematic and unsystematic portions.
+Statistical inference is the practice of discovering ways to separate overall variability into systematic and unsystematic portions.
 
 
 ]
@@ -167,16 +164,13 @@ Statistical inference is the practice of separating overall variability into sys
 .pull-right45[
 
 
-&lt;img src="https://static.seekingalpha.com/uploads/2017/1/6/saupload_Coach-Stock-Price.png" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;br&gt;&lt;br&gt;
+
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" /&gt;&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-7-2.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 
-&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/cinicaltrial_wide.png?token=AIFo1HsHC0LwU8xjFOB4tKAdFGwNML1Iks5cqNM8wA%3D%3D" width="90%" style="display: block; margin: auto;" /&gt;
-
-
-&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/oetlinger_beer_single_wide.png?token=AIFo1FeCgh_xObYc6YrdafPUsK401Bd1ks5cqeeGwA%3D%3D" width="90%" style="display: block; margin: auto;" /&gt;
 
 ]
-
 
 
 ---
@@ -186,7 +180,17 @@ Statistical inference is the practice of separating overall variability into sys
 
 # 2. Sample Statistics
 
-define sample statistics
+Once we collect (varying) data, we always look for ways to &lt;high&gt;summarise&lt;/high&gt; the data into &lt;high&gt;sample statistics&lt;/high&gt;
+
+Sample statistics usually (but not always) fall into one of two types:
+
+|Type|Examples |
+|:----|:------|
+|Central Tendency| Mean, mode, median|
+|Variability|Standard deviation, variance, range|
+
+
+Sample statistics give us &lt;high&gt;estimates&lt;/high&gt; of key model parameters (more on this later)
 
 ]
 
@@ -194,7 +198,11 @@ define sample statistics
 .pull-right45[
 
 
-sample statistics...
+
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
+
+
+
 
 ]
 
@@ -225,7 +233,7 @@ There are many probability distributions, but we often only use a few.
 
 ### 3 key aspects of a distribution
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 *1. Probability Density Function (PDF)*
 
@@ -254,7 +262,7 @@ A 'bell-shaped curve'
 The most important and widely used distribution in all of statistics
 
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -293,7 +301,7 @@ A 'Flat distribution'
 Used when everything (within a range) is equally likely
 
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -332,7 +340,7 @@ A discrete "Counting" distribution
 
 If I flip a coin N times, with p(Head) = p, how many times will I get heads?
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -386,7 +394,7 @@ Knowing this likelihood allows us to &lt;high&gt;fit parameters&lt;/high&gt; and
 
 
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-16-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-14-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 ]
@@ -412,7 +420,7 @@ Using the binomial distributions on the right, answer the following questions:
 
 ### 2 Binomial Distributions
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-17-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-15-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 
 ]
@@ -445,7 +453,7 @@ Generally, the more extreme your test statistic is, the more evidence that "Some
 
 
 .pull-right45[
-
+&lt;br&gt;&lt;br&gt;
 
 
 &lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/10_beers_teststatistic.png?token=AIFo1A8r2pk1_0TJe-dFnaeuJUOw88X1ks5cqiBmwA%3D%3D" width="100%" style="display: block; margin: auto;" /&gt;
@@ -559,7 +567,7 @@ Question
 
 ### 2 Binomial Distributions
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-19-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-17-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 
 
