@@ -81,12 +81,23 @@ baselers <- readr::read_csv("1_Data/baselers.csv")
 
 # New Statistics
 
-Recentering on values and ideas of the past...
+<font style="font-size:20px">Recentering on values and ideas of the past.</font><br><br>
 
-1) Better studies
+<font style="font-size:28px"><high>Better studies</high></font><br><br>
 
-2) Betters statistics
+<font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;Informative designs</font><br>
+<font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;Sample size planning</font><br>
+<font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;Registrations</font><br>
+<font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;No p-hacking</font><br>
+<font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;Full reporting</font><br>
+<font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;Replication</font><br>
 
+<br><font style="font-size:28px"><high>Betters statistics</high></font><br><br>
+
+<font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;Reporting uncertainty</font><br>
+<font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;Bayesian statistics</font><br>
+
+</font>
 
 ]
 
@@ -103,6 +114,22 @@ Recentering on values and ideas of the past...
 ---
 
 # Replication crises
+
+.pull-left4[
+
+Psychology
+
+
+Similar evaluations for [Medicine](https://therbootcamp.github.io/SwR_2019Apr/_sessions/NewStats/literature/Ioannidis2005.pdf), [Economics](literature/Ioannidis2005.pdf), 
+
+Medicine
+
+Economics
+
+Marketing
+
+]
+
 
 .pull-right5[
 

@@ -128,6 +128,33 @@ layout: true
 
 ---
 
+# Have the right model
+
+
+---
+
+# Leap to test statistic
+
+---
+
+# Violations of statistical assumptions
+
+---
+
+# Non-parametric statistics
+
+---
+
+# Rank-based statistics
+
+---
+
+# Bootstrapping
+
+
+
+---
+
 class: middle, center
 
 &lt;h1&gt;&lt;a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/RegressionI/RegressionI_practical.html"&gt;Practical&lt;/a&gt;&lt;/h1&gt;
@@ -149,12 +176,23 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   d.head.appendChild(s);
 })();</script>
 
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
   }
-});
+})();
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
