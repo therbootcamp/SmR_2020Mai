@@ -47,104 +47,31 @@ layout: true
 
 
 
-# Statistics
-
-.pull-left45[
-
-
-]
-
-.pull-right45[
-
-&lt;p align = "center"&gt;
-&lt;img src="image/XX" height=440px&gt;&lt;br&gt;
-&lt;font style="font-size:10px"&gt;from &lt;a href="https://xkcd.com/1781/"&gt;xkcd.com&lt;/a&gt;&lt;/font&gt;
-&lt;/p&gt;
-
-]
 
 ---
 
-.pull-left45[
 
-# Topics
 
-- Motivating example
-- Samples versus populations
-- Variables
-    - Something of interest that varies
-- Distributions (random variables)
-    - Definition
-    - Examples
-        - Normal distribution
-        - Uniform
-    - Parameters
-- Estimating parameters
-    - Standard deviation
-    - Mean
-- Likelihood
-   - How likely is an observation given an assumption.
-- Null hypothesis testing
-    - Null versus alternative hypothesis
-    - test-statistic
-    - p-value (How likely was I to get a result as extreme or more extreme than the one I got assuming the null is true)
-- Decision making
-    - p &lt; .05 convention
-- Correlation versus causation
-    - Classic fails:
-        - Ice cream and forest fires.
-        - Chocolate and IQ
-    - Inferring causation requires an experiment and/or causal modelling
+.pull-left6[
+
+# 
+
+In this hour, we will try to cover the basics of statistical inference
+
 
 ]
 
-.pull-right45[
-# Examples
 
-- Classic tests (ESP, 'fields')
-- Effect of a drug on life expectancy
-- World happiness / economic indicators 
+.pull-right35[
+
+
+
+
 
 ]
 
 
----
 
-.pull-left45[
-
-7 key concepts
-
-1. Variability
-    - Sample versus population
-2. Distributions
-    - Different shapes
-    - Min, max
-    - Mean
-    - Standard deviation
-3. Models
-    - An Equation that describes how one variable varies as a function of other(s)
-4. Parameters
-    - Numbers in a model that can change
-5. Likelihood
-    - Error distribution
-6. Test statistic
-    - Unit-free method of helping us calculate the (un)likelihood of data given a model and certain parameters.
-    - Variance explaiend by the model (effect) / Variance not explained by the model (error)
-7. P-value
-   - Probability 
-8. Additional
-   - Random sampling, iid.
-   - Correlation vs. causation.
-   
-
-]
-
-
-.pull-right45[
-
-
-
-]
 
 ---
 
@@ -154,7 +81,7 @@ layout: true
 
 Basel has many nice "Buvette's" that serve drinks in warm months.
 
-The Oetlinger BuvettE, one of our favorites, offers 33dl beers (or so they say...).
+The Oetlinger Buvette, one of our favorites, offers 33dl beers (or so they say...).
 
 Is the Oetlinger Buvette 'underpouring' its beers?
 
@@ -189,7 +116,8 @@ Order 10 beers, and measure the exact amount in each cup.
 
 All interesting data processes have &lt;high&gt;variability&lt;/high&gt;
 
-- Stock prices, patient response to drugs, product manufacturing
+- Stock prices change over time, 
+- Individual patients respond to drugs differently
 
 Statistical inference is all about &lt;high&gt;accounting for variability&lt;/high&gt;
 
@@ -253,9 +181,32 @@ Statistical inference is the practice of separating overall variability into sys
 
 ---
 
+
 .pull-left45[
 
-# 2. Distributions
+# 2. Sample Statistics
+
+define sample statistics
+
+]
+
+
+.pull-right45[
+
+
+sample statistics...
+
+]
+
+
+
+
+
+---
+
+.pull-left45[
+
+# 3. Distributions
 
 Statistics is built on &lt;high&gt;calculating the likelihood of data&lt;/high&gt; given how we assume it varies
 
@@ -471,7 +422,7 @@ Using the binomial distributions on the right, answer the following questions:
 
 .pull-left5[
 
-# 6: Test statistic
+# 5: Test statistic
 
 Sample statistics (like means and standard deviations) are converted into &lt;high&gt;test statistics&lt;/high&gt;
 
@@ -496,6 +447,7 @@ Generally, the more extreme your test statistic is, the more evidence that "Some
 .pull-right45[
 
 
+
 &lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/10_beers_teststatistic.png?token=AIFo1A8r2pk1_0TJe-dFnaeuJUOw88X1ks5cqiBmwA%3D%3D" width="100%" style="display: block; margin: auto;" /&gt;
 
 
@@ -506,7 +458,7 @@ Generally, the more extreme your test statistic is, the more evidence that "Some
 ---
 .pull-left55[
 
-# 7: P-value
+# 6: P-value
 
 p-values are used to quantify the likelihood of data given a specific distribution.
 
@@ -538,6 +490,7 @@ If a p-value is *small* (i.e.; p &lt; .05), this means that the likelihood of ob
 .pull-left45[
 
 
+   
 
 ]
 

@@ -13,7 +13,7 @@ class: center, middle, inverse, title-slide
 
 # Regression <i>applied</i>
 ### Statistics with R<br> <a href='https://therbootcamp.github.io'> Basel R Bootcamp </a> <br> <a href='https://therbootcamp.github.io/SwR_2019Apr/'> <i class='fas fa-clock' style='font-size:.9em;'></i> </a>  <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;' ></i> </a>  <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a>  <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a>
-### February 2019
+### April 2019
 
 ---
 
@@ -56,6 +56,45 @@ layout: true
 
 .pull-right45[
 
+]
+
+---
+
+.pull-left45[
+# Topics
+
+- 1 and 2 sample hypothesis tests
+- How they relate to the glm
+- ANOVA
+- Post-hoc tests
+- Simulation functions
+
+]
+
+.pull-right45[
+# Functions
+
+### Hypothesis tests
+
+- t.test()
+- cor.test()
+- aov()
+- TukeyHSD()
+- prop.test()
+
+### Interactions
+
+- formula
+
+### Simulations
+
+- rnorm()
+    - runif(), rbinom(), sample()
+
+### Evaluation
+
+- summary()
+- broom::tidy()
 
 ]
 
@@ -83,23 +122,12 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   d.head.appendChild(s);
 })();</script>
 
-<script>
-(function() {
-  var i, text, code, codes = document.getElementsByTagName('code');
-  for (i = 0; i < codes.length;) {
-    code = codes[i];
-    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-      text = code.textContent;
-      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-          /^\$\$(.|\s)+\$\$$/.test(text) ||
-          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-        code.outerHTML = code.innerHTML;  // remove <code></code>
-        continue;
-      }
-    }
-    i++;
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
   }
-})();
+});
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
