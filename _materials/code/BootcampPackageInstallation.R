@@ -1,59 +1,175 @@
-# 7 January 2018
+# 18 February 2019
 # http://therbootcamp.github.io
 
 # Script to install any packages necessary for the BaselRBootcamp
 
 Bootcamp_package_installation <- function() {
-
+  
   installed_packages <- rownames(installed.packages())
-
-  packages.to.install <- c("devtools", "tidyverse", "yarrr", "afex",
-                           "car", "markdown", "rmarkdown", "FFTrees",
-                           "rpart", "randomForest", "e1071", "speff2trial",
-                           "shiny", "shinyjs", "caret", "mlr", "parallel", "Rcpp",
-                           "BayesFactor", "parfm", "lava", "rvest", "diagram", "ggjoy",
-                           "rmdformats", "ggRandomForests", "party")
-
-  for(package.i in sort(packages.to.install)) {
-
+  
+  
+  # Critical packages 
+  critical <- c(
+    
+    # Utilities --------------
+    "devtools",
+    
+    # Tidyverse --------------
+    
+    "tidyverse"
+    
+  )
+  
+  # Optional packages
+  optional <- c(
+    # 
+    # # Utilities --------------
+    # 
+    # "Rcpp",
+    # "rvest",
+    "lubridate", 
+    # "skimr",
+    
+    # Markdown / Shiny --------------
+    
+    # "shiny", 
+    # "shinyjs",
+    # "markdown", 
+    # "rmarkdown",
+    # "rmdformats",
+    # "DT",
+    
+    
+    # Stats --------------
+    
+     "lme4",
+     "afex",
+     "car",
+     "BayesFactor",
+    # "parfm", 
+    # "lava",
+    "rsq",
+    "broom", 
+    
+    # ML --------------
+    
+    # "caret",                       
+    # "FFTrees",
+    # "rpart", 
+    # "randomForest", 
+    # "e1071", 
+    # "party", 
+    # "partykit", 
+    # "glmnet",
+    # "earth",
+    # "tensorflow",
+    # "Boruta",
+    
+    # Plotting --------------
+    "yarrr", 
+    # "diagram",
+    # "ggRandomForests",
+    "ggthemes", 
+    "ggpubr",
+    
+    # Datasets --------------
+    "speff2trial",
+    "ISLR")
+  
+  
+  message("Welcome to the BaselRBootcamp!")
+  message("I'm going to install many packages for you now, this may take a few minutes...")
+  
+  critical_not_installed <- c()
+  optional_not_installed <- c()
+  
+  for(package.i in sort(critical)) {
+    
     if((package.i %in% installed_packages) == FALSE) {
-
+      
       if(package.i == "Rcpp"){
         test <- try(install.packages(package.i))
         if(is.null(test)){
-          message(paste("Installing", package.i, "..."))
         } else {
-        message(paste("Error: could not install package Rcpp"))
+          message(paste("Error: could not install package Rcpp"))
         }
       } else {
         install.packages(package.i)
-        message(paste("Installing", package.i, "..."))
       }
-
-    } else {
-    message(paste(package.i, "already installed!"))
+      
     }
-
-
+    
+    # If package wasn't installed, then send us an email
+    if((package.i %in% rownames(installed.packages())) == FALSE) {
+      
+      critical_not_installed <- c(critical_not_installed, package.i)
+      
+    }
+    
   }
   
-  devtools_packages_to_install <- c("kassambara/ggcorrplot")
   
-    for(package.i in sort(devtools_packages_to_install)) {
-
+  for(package.i in sort(optional)) {
+    
     if((package.i %in% installed_packages) == FALSE) {
-
-        devtools::install_github(package.i)
-        message(paste("Installing", package.i, "..."))
-      }  else {
-    message(paste(package.i, "already installed!"))
+      
+      if(package.i == "Rcpp"){
+        test <- try(install.packages(package.i))
+        if(is.null(test)){
+          # message(paste("Installing", package.i, "..."))
+        } else {
+          message(paste("Error: could not install package Rcpp"))
+        }
+      } else {
+        install.packages(package.i)
       }
+      
     }
-
-
+    
+    
+    # If package wasn't installed, then send us an email
+    if((package.i %in% rownames(installed.packages())) == FALSE) {
+      
+      optional_not_installed <- c(optional_not_installed, package.i)
+      
+    }
+    
   }
   
+  devtools_packages_to_install <- c("kassambara/ggcorrplot", "therbootcamp/baselers")
   
+  for(package.i in sort(devtools_packages_to_install)) {
+    
+    if((strsplit(package.i, split = "/")[[1]][2] %in% installed_packages) == FALSE) {
+      
+      devtools::install_github(package.i)
+    }
+  }
+  
+  if(length(critical_not_installed) > 0 | length(optional_not_installed) > 0) {
+    
+    message("Final report:")
+    
+    warning(paste("The critical packages [", 
+                  paste(critical_not_installed, sep = ", "), 
+                  "] and the optional packages [", 
+                  paste(optional_not_installed, sep = ", "), 
+                  "] could not be installed. Please copy and paste this text and send it to us at therbootcamp@gmail.com so we can help!")) 
+  } else {
+    message("*** Final report ***")
+    
+    message("All packages were installed without issue!!!")
+    
+  }
+  
+  message("--------------------------------")
+  message("See you soon at the bootcamp :)")
+  message("therbootcamp@gmail.com")
+  message("www.therbootcamp.com")
+  message("--------------------------------")
+  
+}
 
+
+# Run code!
 Bootcamp_package_installation()
-
