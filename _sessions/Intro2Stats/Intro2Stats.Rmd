@@ -627,9 +627,11 @@ p1
 ---
 
 
-.pull-left55[
+.pull-left5[
 
 # 6: Test statistic
+
+Sample statistics (like means and standard deviations) are converted into <high>test statistics</high>
 
 Test statistics are <high>distribution specific</high> numbers that help you quantify evidence for a statistical model
 
@@ -649,9 +651,12 @@ Generally, the more extreme your test statistic is, the more evidence that "Some
 ]
 
 
-.pull-right35[
+.pull-right45[
 
 
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/10_beers_teststatistic.png?token=AIFo1A8r2pk1_0TJe-dFnaeuJUOw88X1ks5cqiBmwA%3D%3D")
+```
 
 
 
