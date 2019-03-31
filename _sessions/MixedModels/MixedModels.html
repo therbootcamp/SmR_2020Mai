@@ -215,19 +215,16 @@ Mixed effects models combine two kinds of effects that serve different purposes:
 
 
 * &lt;high&gt;Fixed effects&lt;/high&gt;
+    * The main effects/ interactions we want to quantify.
 * &lt;high&gt;Random effects&lt;/high&gt;
+    * The effects of the population we want to generalize over. 
 
 
 
 ```r
-### Structure of a mixed effects model:
-
-            # Fixed effects part
-LMM &lt;- lmer(y ~ FE1 + FE2 +
-            # Random effects part
-              (FE1|RE) + (FE2|RE),
-            # Data
-            data = df)
+LMM &lt;- lmer(y ~ FE1 + FE2 + # Fixed
+              (FE1|RE) + (FE2|RE), # Random
+            data = df) # Data
 ```
 
 
@@ -437,29 +434,7 @@ Every level of the nested factor only appears within a single level of the highe
 
 ]
 
----
 
-# More on Random Effects
-
-.pull-left45[
-
-* &lt;high&gt;Hierarchical shrinkage&lt;/high&gt;: Random effects are adjusted (shrinked) towards the mean. Because of this, predicted cell means need not necessarily coincide with the observed cell means.
-
-* Intra-Class Correlation &lt;high&gt;ICC&lt;/high&gt;: The ICC is the proportion of variance explained by a grouping factor (random effect).
-
-
-* Random effects parameters are harder to estimate numerically. Thus, mixed effects model much more frequently exhibit the problem of &lt;high&gt;non-convergence&lt;/high&gt; than fixed effects only models.
-
-]
-
-.pull-right45[
-
-&lt;img src="image/shrinkage_plot.png" width="100%" style="display: block; margin: auto;" /&gt;
-&lt;p align = "center"&gt;
-&lt;figcaption align = "center" style="display: block; margin: auto;"&gt;Example of Hierarchical Shrinkage&lt;/figcaption&gt;
-&lt;/p&gt;
-
-]
 ---
 
 # Keep It Maximal
@@ -515,13 +490,11 @@ Several packages exist to run mixed effects models in R. Here are some of them:
 # mixed model using lme4::lmer()
 
 # fixed effects
-LMM_out &lt;- lmer(Tomatometer ~ State +
+LMM_out &lt;- lmer(Reaction ~ Days +
 # by-ID random slopes and intercepts
-                  (State|ID) +
-# by-ID random slopes and intercepts
-                  (State|Movie),
+                  (Days|Subject),
 # define data
-                data = tomato)
+                 data = sleepstudy)
 
 # show output
 summary(LMM_out)

@@ -63,6 +63,414 @@ layout: true
 
 ]
 
+---
+
+.pull-left45[
+
+# Topics
+
+- Motivating example
+- Samples versus populations
+- Variables
+    - Something of interest that varies
+- Distributions (random variables)
+    - Definition
+    - Examples
+        - Normal distribution
+        - Uniform
+    - Parameters
+- Estimating parameters
+    - Standard deviation
+    - Mean
+- Likelihood
+   - How likely is an observation given an assumption.
+- Null hypothesis testing
+    - Null versus alternative hypothesis
+    - test-statistic
+    - p-value (How likely was I to get a result as extreme or more extreme than the one I got assuming the null is true)
+- Decision making
+    - p &lt; .05 convention
+- Correlation versus causation
+    - Classic fails:
+        - Ice cream and forest fires.
+        - Chocolate and IQ
+    - Inferring causation requires an experiment and/or causal modelling
+
+]
+
+.pull-right45[
+# Examples
+
+- Classic tests (ESP, 'fields')
+- Effect of a drug on life expectancy
+- World happiness / economic indicators 
+
+]
+
+
+---
+
+.pull-left45[
+
+7 key concepts
+
+1. Variability
+    - Sample versus population
+2. Distributions
+    - Different shapes
+    - Min, max
+    - Mean
+    - Standard deviation
+3. Models
+    - An Equation that describes how one variable varies as a function of other(s)
+4. Parameters
+    - Numbers in a model that can change
+5. Likelihood
+    - Error distribution
+6. Test statistic
+    - Unit-free method of helping us calculate the (un)likelihood of data given a model and certain parameters.
+    - Variance explaiend by the model (effect) / Variance not explained by the model (error)
+7. P-value
+   - Probability 
+8. Additional
+   - Random sampling, iid.
+   - Correlation vs. causation.
+   
+
+]
+
+
+.pull-right45[
+
+
+
+]
+
+---
+
+.pull-left6[
+
+# Example: 
+
+Basel has many nice "Buvette's" that serve drinks in warm months.
+
+The Oetlinger BuvettE, one of our favorites, offers 33dl beers (or so they say...).
+
+Is the Oetlinger Buvette 'underpouring' its beers?
+
+### Data
+
+Order 10 beers, and measure the exact amount in each cup.
+
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/10_beers.jpg?token=AIFo1GFPQoYDXYW5W7FOsftG_-XbNsp6ks5cqeGfwA%3D%3D" width="80%" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+.pull-right35[
+&lt;br&gt;&lt;br&gt;
+&lt;img src="https://www.basel.com/extension/portal-basel/var/storage/images/media/bibliothek/basel-bilder/rhein-promenade/savoir-vivre-am-basler-rheinufer/92121-1-ger-DE/Savoir-vivre-am-Basler-Rheinufer_front_magnific.jpg" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+
+&lt;img src="https://files.newsnetz.ch/story/1/7/7/17765134/14/topelement.jpg" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+
+---
+
+
+.pull-left45[
+
+# 1. Variability
+
+
+All interesting data processes have &lt;high&gt;variability&lt;/high&gt;
+
+- Stock prices, patient response to drugs, product manufacturing
+
+Statistical inference is all about &lt;high&gt;accounting for variability&lt;/high&gt;
+
+If there was no variability, there would be no need to do statistics.
+
+- If every single patient responded the exact same way to a drug, you could do a clinical trial with (any) one patient.
+
+- If the Oetlinger buvette always poured exactly the same amount, I could just order one!
+
+]
+
+
+.pull-right45[
+
+
+&lt;img src="https://static.seekingalpha.com/uploads/2017/1/6/saupload_Coach-Stock-Price.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/cinicaltrial_wide.png?token=AIFo1HsHC0LwU8xjFOB4tKAdFGwNML1Iks5cqNM8wA%3D%3D" width="90%" style="display: block; margin: auto;" /&gt;
+
+
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/oetlinger_beer_single_wide.png?token=AIFo1FeCgh_xObYc6YrdafPUsK401Bd1ks5cqeeGwA%3D%3D" width="90%" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+
+---
+
+.pull-left45[
+
+# 2. Distributions
+
+Statistics is built on &lt;high&gt;calculating the likelihood of data&lt;/high&gt; given how we assume it varies
+
+To make calculations, we need to define variability according to a &lt;high&gt;probability distribution&lt;/high&gt;.
+
+A probability distribution is a &lt;high&gt;mathematical formula&lt;/high&gt; that precisely defines &lt;high&gt;how likely&lt;/high&gt; every possible value in a dataset is.
+
+Probability distributions are &lt;high&gt;always positive&lt;/high&gt; and their &lt;high&gt;sum adds up to 1.0&lt;/high&gt;
+
+There are many probability distributions, but we often only use a few.
+
+]
+
+
+.pull-right45[
+
+### 3 key aspects of a distribution
+
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+*1. Probability Density Function (PDF)*
+
+A formula that defines the distribution (you rarely need to know this)
+
+*2. Support*
+
+What values can x take on?
+
+*3. Parameters*
+
+Values that allow you to change the shape of the distribution? (e.g.; mean and variability?)
+
+]
+
+
+---
+
+.pull-left45[
+
+## Normal (Gaussian) Distribution
+
+
+A 'bell-shaped curve'
+
+The most important and widely used distribution in all of statistics
+
+
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+.pull-right45[
+
+### Details
+
+*Probability Density Function (PDF)*
+
+`$$\large f(x)= \frac{1}{{\sigma \sqrt {2\pi } }} e^{(x-\mu)^2/2\sigma^2}$$`
+
+*Support*
+
+
+`$$\large x \; \epsilon (-\infty, \infty)$$`
+
+*Parameters*
+
+|Parameter|Meaning|
+|:-----|:-------|
+|$$\mu$$ | Center (mean)|
+|$$\sigma$$| Variability (standard deviation)|
+]
+
+
+---
+
+.pull-left45[
+
+## Uniform Distribution
+
+
+A 'Flat distribution'
+
+Used when everything (within a range) is equally likely
+
+
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+.pull-right45[
+
+### Details
+
+
+*Probability Density Function (PDF)*
+
+`$$\Large f(x)= \frac{1}{b-a}$$`
+
+*Support*
+
+
+`$$\Large x \; \epsilon (a, b)$$`
+
+
+*Parameters*
+
+|Parameter|Meaning|
+|:-----|:-------|
+|$$a$$ | Minimum|
+|$$b$$| Maximum|
+]
+
+
+
+---
+
+.pull-left45[
+
+## Binomial Distribution
+
+
+A discrete "Counting" distribution
+
+If I flip a coin N times, with p(Head) = p, how many times will I get heads?
+
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+.pull-right45[
+
+### Details
+
+
+*Probability Density Function (PDF)*
+
+`$$\large p(x) = {n \choose x}p^x(1-p)^{n-x}$$`
+*Support*
+
+
+`$$\large x \; \epsilon \{0, 1, ...n\}$$`
+
+*Parameters*
+
+|Parameter|Meaning|
+|:-----|:-------|
+|$$p$$| Probability of success on each trial|
+|$$n$$ | Number of trials (flips)|
+
+]
+
+
+
+
+---
+
+# 4: Likelihood
+.pull-left45[
+
+
+
+]
+
+
+.pull-right45[
+
+
+
+]
+
+---
+
+# 5: Models
+
+.pull-left45[
+
+
+
+]
+
+
+.pull-right45[
+
+
+
+]
+
+
+
+---
+
+# 6: Test statistic
+.pull-left45[
+
+
+
+]
+
+
+.pull-right45[
+
+
+
+]
+
+---
+
+# 7: P-value
+.pull-left45[
+
+
+
+]
+
+
+.pull-right45[
+
+
+
+]
+
+---
+
+# 8: Additional considerations
+
+.pull-left45[
+
+
+
+]
+
+
+.pull-right45[
+
+
+
+]
+
+
+
+---
+
+# Looking ahead
+
+
+
 
 ---
 
@@ -87,23 +495,12 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   d.head.appendChild(s);
 })();</script>
 
-<script>
-(function() {
-  var i, text, code, codes = document.getElementsByTagName('code');
-  for (i = 0; i < codes.length;) {
-    code = codes[i];
-    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-      text = code.textContent;
-      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-          /^\$\$(.|\s)+\$\$$/.test(text) ||
-          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-        code.outerHTML = code.innerHTML;  // remove <code></code>
-        continue;
-      }
-    }
-    i++;
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
   }
-})();
+});
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
