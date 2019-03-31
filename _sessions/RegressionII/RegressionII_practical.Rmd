@@ -80,7 +80,7 @@ By the end of this practical you will know how to:
 # Done!
 ```
 
-2. Open a new R script. At the top of the script, using comments, write your name and the date. Save it as a new file called `wrangling_practical.R` in the `2_Code` folder.  
+2. Open a new R script. At the top of the script, using comments, write your name and the date. Save it as a new file called `regression_applications_practical.R` in the `2_Code` folder.  
 
 ```{r}
 # Done!
@@ -419,12 +419,12 @@ ggplot(data = trial, mapping = aes(x = arms, y = days)) +
        y = "Number of days until a major negative event (days)")
 ```
 
-2. Using the `t.test()` function, create an object called `symptom_cd40_test` which conducts a two-sample t-test comparing patients' CD4 T cell count at baseline (`cd40`) between patients that are symptomatic and those that are not (`symptomatic`)
+2. Using the `aov()` function, create an object called `days_arms_aov` which conducts an ANOVA comparing the number of days until a negative event (`days`) between treatment arms (`arms`).
 
 ```{r, eval = FALSE, echo = TRUE}
-# T-test comparing CD4 T cell counts at baseline bewteen symptomatic and non-symptomatic patients
+# ANOVA comparing number of days until a negative event between treatment arms
 
-XXX <- t.test(formula = XXX ~ XXX,
+XXX <- aov(formula = XXX ~ XXX,
               data = XXX)
 ```
 
@@ -496,7 +496,7 @@ days_arms_tidy
 XXX <- TukeyHSD(XXX)
 ```
 
-```{r, eval = FALSE, echo = TRUE}
+```{r}
 # Conduct pair-wise tests comparing every pair of treatment
 #  arms (arms) on days until a major negative event (days)
 
@@ -658,7 +658,7 @@ arms_gender_counts <- trial %>%
                       summarise(counts = n())
 ```
 
-11. Print your§ `arms_gender_counts` object to see how it looks. What do the results mean?
+11. Print your `arms_gender_counts` object to see how it looks. What do the results mean?
 
 12. Conduct the same analysis you did before, but this time use the `glm()` function. Use the code skeleton below to help you. Do you get the same results as you did using `chisq.test()`? Which outputs are the same and which are different?
 
@@ -683,7 +683,7 @@ anova(arms_gender_glm,
 # Create linear model predicting counts as a function of the 
 #  interaction between arms and gender
 
-arms_gender_glm = glm(formula = counts ~ arms * gender, 
+arms_gender_glm <- glm(formula = counts ~ arms * gender, 
                       family = poisson, 
                       data = arms_gender_counts)
 
