@@ -86,10 +86,6 @@ source("https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/ma
 
 
 
----
-
-
-
 .pull-left6[
 
 # 
@@ -286,17 +282,32 @@ Sample statistics give us <high>estimates</high> of key model parameters (more o
 ]
 
 
-.pull-right45[
+.pull-right5[
 
 
+### Raw data & Sample Statistics
 
-```{r, echo = FALSE, fig.width = 4, fig.height = 3, dpi = 200}
+```{r, echo = FALSE, fig.width = 4, fig.height = 3, dpi = 200, out.width = "100%"}
 ggplot(beer_data, aes(x = id, y = beer)) +
-  geom_point() +
+  geom_text(data = beer_data %>% filter(beer > 30), aes(label = beer), nudge_y = 2) +
+    geom_text(data = beer_data %>% filter(beer <= 30), aes(label = beer), nudge_y = -2) +
   scale_x_continuous(breaks = 1:10) +
-  labs(y = "Amount in dl") +
-  ylim(c(20, 40))
+  labs(y = "Amount in dl", title = "10 beers from Oetlinger Buvette") +
+  ylim(c(20, 40)) +
+  geom_hline(yintercept = mean(beer), col = baselrbootcamp_cols("green"), size = 1.5) +
+  geom_segment(aes(x = id, y = beer, xend = id, yend = 29.9), col = baselrbootcamp_cols("yellow"), lty = 1, size= 1.5) +
+  annotate(geom = "segment", x = 2, xend = 2, y = 22 - 3.9 / 2, yend = 22 + 3.9 / 2, size = 1.5, col = baselrbootcamp_cols("yellow")) +
+  annotate(geom = "label", x = 4, y = 22.5, label = "Std Deviation = 3.90", cex = 3) +
+  annotate(geom = "label", x = 7, y = 30, label = "Mean = 29.9", cex = 3) +
+  geom_point(size = 2.5)
+
+
 ```
+
+
+$$Mean = \frac{28+31+28+...}{10} = 29.9$$
+
+$$Standard \; Deviation = \sqrt{\frac{(28-29.9)^2+(31-29.9)^2+...}{10-1}} = 3.90$$
 
 
 
