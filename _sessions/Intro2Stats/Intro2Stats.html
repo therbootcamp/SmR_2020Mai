@@ -63,6 +63,275 @@ layout: true
 
 ]
 
+---
+
+.pull-left45[
+
+# Topics
+
+- Motivating example
+- Samples versus populations
+- Variables
+    - Something of interest that varies
+- Distributions (random variables)
+    - Definition
+    - Examples
+        - Normal distribution
+        - Uniform
+    - Parameters
+- Estimating parameters
+    - Standard deviation
+    - Mean
+- Likelihood
+   - How likely is an observation given an assumption.
+- Null hypothesis testing
+    - Null versus alternative hypothesis
+    - test-statistic
+    - p-value (How likely was I to get a result as extreme or more extreme than the one I got assuming the null is true)
+- Decision making
+    - p &lt; .05 convention
+- Correlation versus causation
+    - Classic fails:
+        - Ice cream and forest fires.
+        - Chocolate and IQ
+    - Inferring causation requires an experiment and/or causal modelling
+
+]
+
+.pull-right45[
+# Examples
+
+- Classic tests (ESP, 'fields')
+- Effect of a drug on life expectancy
+- World happiness / economic indicators 
+
+]
+
+
+---
+
+.pull-left45[
+
+7 key concepts
+
+1. Variability
+    - Sample versus population
+2. Distributions
+    - Different shapes
+    - Min, max
+    - Mean
+    - Standard deviation
+3. Models
+    - An Equation that describes how one variable varies as a function of other(s)
+4. Parameters
+    - Numbers in a model that can change
+5. Likelihood
+    - Error distribution
+6. Test statistic
+    - Unit-free method of helping us calculate the (un)likelihood of data given a model and certain parameters.
+    - Variance explaiend by the model (effect) / Variance not explained by the model (error)
+7. P-value
+   - Probability 
+8. Additional
+   - Random sampling, iid.
+   - Correlation vs. causation.
+   
+
+]
+
+
+.pull-right45[
+
+
+
+
+]
+
+---
+
+.pull-left6[
+
+# Example: 
+
+Basel has many nice "Buvette's" along the Rhine that serve drinks during the Spring / Summer.
+
+The Oetlinger Buvette offers 33dl beers (or so they say...).
+
+I have a sneaking suspicion that the Oetlinger Buvette may be 'underpouring' its beers.
+
+&gt; Research Question:&lt;br&gt;
+&gt; Does the Oetlinnger Buvette consistently pour too little beer in its 33dl beers?
+
+### Data
+
+![](src/img/10_beers.jpg)&lt;!-- --&gt;
+
+
+]
+
+
+
+.pull-right35[
+&lt;br&gt;&lt;br&gt;
+&lt;img src="https://www.basel.com/extension/portal-basel/var/storage/images/media/bibliothek/basel-bilder/rhein-promenade/savoir-vivre-am-basler-rheinufer/92121-1-ger-DE/Savoir-vivre-am-Basler-Rheinufer_front_magnific.jpg" width="100%" /&gt;
+
+
+
+&lt;img src="https://files.newsnetz.ch/story/1/7/7/17765134/14/topelement.jpg" width="100%" /&gt;
+
+
+
+
+]
+
+
+
+
+---
+
+# 1. Variability
+
+.pull-left45[
+
+
+- All interesting data processes have *variability*
+- Statistical inference is all about *accounting for variability*
+- If there was no variability, there would be no need to do statistics.
+
+
+]
+
+
+.pull-right45[
+
+
+
+]
+
+
+---
+
+# 2. Distributions
+
+.pull-left45[
+
+
+
+]
+
+
+.pull-right45[
+
+
+
+]
+
+---
+
+# 3: Models
+
+.pull-left45[
+
+
+
+]
+
+
+.pull-right45[
+
+
+
+]
+
+---
+
+# 4: Parameters
+.pull-left45[
+
+
+
+]
+
+
+.pull-right45[
+
+
+
+]
+
+---
+
+# 5: Likelihood
+.pull-left45[
+
+
+
+]
+
+
+.pull-right45[
+
+
+
+]
+
+---
+
+# 6: Test statistic
+.pull-left45[
+
+
+
+]
+
+
+.pull-right45[
+
+
+
+]
+
+---
+
+# 7: P-value
+.pull-left45[
+
+
+
+]
+
+
+.pull-right45[
+
+
+
+]
+
+---
+
+# 8: Additional considerations
+
+.pull-left45[
+
+
+
+]
+
+
+.pull-right45[
+
+
+
+]
+
+
+
+---
+
+# Looking ahead
+
+
+
 
 ---
 
@@ -87,23 +356,12 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   d.head.appendChild(s);
 })();</script>
 
-<script>
-(function() {
-  var i, text, code, codes = document.getElementsByTagName('code');
-  for (i = 0; i < codes.length;) {
-    code = codes[i];
-    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-      text = code.textContent;
-      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-          /^\$\$(.|\s)+\$\$$/.test(text) ||
-          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-        code.outerHTML = code.innerHTML;  // remove <code></code>
-        continue;
-      }
-    }
-    i++;
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
   }
-})();
+});
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

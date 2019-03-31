@@ -140,6 +140,237 @@ baselers <- readr::read_csv("1_Data/baselers.csv")
 
 ---
 
+.pull-left45[
+
+7 key concepts
+
+1. Variability
+    - Sample versus population
+2. Distributions
+    - Different shapes
+    - Min, max
+    - Mean
+    - Standard deviation
+3. Models
+    - An Equation that describes how one variable varies as a function of other(s)
+4. Parameters
+    - Numbers in a model that can change
+5. Likelihood
+    - Error distribution
+6. Test statistic
+    - Unit-free method of helping us calculate the (un)likelihood of data given a model and certain parameters.
+    - Variance explaiend by the model (effect) / Variance not explained by the model (error)
+7. P-value
+   - Probability 
+8. Additional
+   - Random sampling, iid.
+   - Correlation vs. causation.
+   
+
+]
+
+
+.pull-right45[
+
+
+
+
+]
+
+---
+
+.pull-left6[
+
+# Example: 
+
+Basel has many nice "Buvette's" along the Rhine that serve drinks during the Spring / Summer.
+
+The Oetlinger Buvette offers 33dl beers (or so they say...).
+
+I have a sneaking suspicion that the Oetlinger Buvette may be 'underpouring' its beers.
+
+> Research Question:<br>
+> Does the Oetlinnger Buvette consistently pour too little beer in its 33dl beers?
+
+### Data
+
+```{r, echo = FALSE}
+knitr::include_graphics("src/img/10_beers.jpg")
+```
+
+
+]
+
+
+
+.pull-right35[
+<br><br>
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("https://www.basel.com/extension/portal-basel/var/storage/images/media/bibliothek/basel-bilder/rhein-promenade/savoir-vivre-am-basler-rheinufer/92121-1-ger-DE/Savoir-vivre-am-Basler-Rheinufer_front_magnific.jpg")
+```
+
+
+
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("https://files.newsnetz.ch/story/1/7/7/17765134/14/topelement.jpg")
+```
+
+
+
+
+]
+
+
+
+
+---
+
+# 1. Variability
+
+.pull-left45[
+
+
+- All interesting data processes have *variability*
+- Statistical inference is all about *accounting for variability*
+- If there was no variability, there would be no need to do statistics.
+
+
+]
+
+
+.pull-right45[
+
+
+
+]
+
+
+---
+
+# 2. Distributions
+
+.pull-left45[
+
+
+
+]
+
+
+.pull-right45[
+
+
+
+]
+
+---
+
+# 3: Models
+
+.pull-left45[
+
+
+
+]
+
+
+.pull-right45[
+
+
+
+]
+
+---
+
+# 4: Parameters
+.pull-left45[
+
+
+
+]
+
+
+.pull-right45[
+
+
+
+]
+
+---
+
+# 5: Likelihood
+.pull-left45[
+
+
+
+]
+
+
+.pull-right45[
+
+
+
+]
+
+---
+
+# 6: Test statistic
+.pull-left45[
+
+
+
+]
+
+
+.pull-right45[
+
+
+
+]
+
+---
+
+# 7: P-value
+.pull-left45[
+
+
+
+]
+
+
+.pull-right45[
+
+
+
+]
+
+---
+
+# 8: Additional considerations
+
+.pull-left45[
+
+
+
+]
+
+
+.pull-right45[
+
+
+
+]
+
+
+
+---
+
+# Looking ahead
+
+
+
+
+---
+
 class: middle, center
 
 <h1><a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/RegressionI/RegressionI_practical.html">Practical</a></h1>
