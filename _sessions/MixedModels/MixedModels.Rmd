@@ -95,6 +95,7 @@ great_raw <- ggplot(dat_great, aes(x = x0, y = y0)) + geom_point(col = baselrboo
   geom_abline(slope = great_slope, intercept = great_intercept, size = .5, linetype = 3) +
   theme_minimal() + xlim(c(-2, 3)) + ylim(c(0, 5)) +
   labs(subtitle = paste("Or this?"), x = "Predictor", y = "Criterion")
+
 great_err <- great_raw + 
   geom_linerange(data = dat_great, aes(x = x0, ymin = y0, ymax = y1), col = baselrbootcamp_cols("magenta")) +
   geom_point(data = dat_great, aes(x = x0, y = y1, size = 2), col = baselrbootcamp_cols("green"), pch = "X", size = 4) +
@@ -185,7 +186,7 @@ Previously considered models are <high>not robust</high> to violations of the in
 - Test of the best design or taste of different versions of a product with <high>multiple ratings from the same persons</high>.
 
 
-*Failure to run the statistical model might lead to missleading results, such as overestimation of an effect.*
+*Failure to run the correct statistical model might lead to missleading results, such as overestimation of an effect.*
 
 
 ]
@@ -509,6 +510,37 @@ As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/
 
 ---
 
+# Random Effects - Intercepts and Slopes
+
+.pull-left45[
+
+
+We can differentiate two kinds of random effects:
+
+* <high>Random Intercepts</high>
+    * Estimated average deviations of each random effects factor level from the grand mean.
+    
+    
+* <high>Random Slopes</high>
+    * Estimated deviations of each random effects factor levels from the fixed effect slopes.
+
+**Note:**
+When estimating random intercepts, only <high>one additional parameter</high> is estimated: The <high>variance</high> of the normal distribution the random intercepts are thought to stem from.
+
+]
+
+.pull-right45[
+
+<img src="image/RI_example.png" width="70%" style="display: block; margin: auto;" />
+
+<img src="image/MEM_example.png" width="70%" style="display: block; margin: auto;" />
+
+
+]
+
+
+---
+
 # Random Intercepts Model
 
 .pull-left45[
@@ -686,7 +718,7 @@ Random effects are specified with a new element to the formulas:
 | `(1 `&#124;` S) + (1 `&#124;` I)` | Random intercepts by `S` and `I`|
 | `(X1 `&#124;` S)` OR `(1 + X1`&#124;` S)`| Random intercepts by `S` and random slopes for `X1` by `S` with correlations  |
 | `(X1 * X2 `&#124;` S)`| Random intercepts by `S` and random slopes for `X1`, `X2`, and their interaction `X1:X2` by `S` with correlations  |
-| `(0 + X1 `&#124;` S)`| Random slopes for `X1`by `S`, no random intercepts |
+| `(0 + X1 `&#124;` S)`| Random slopes for `X1` by `S`, no random intercepts |
 | `(X1 `&#124;&#124;` S)`| Random intercepts by `S` and random slopes for `X1` by `S` no correlations |
 | `(1 `&#124;` S/C)` OR `(1 `&#124;` S) + (1 `&#124;` S:C)`| Random intercepts by `S` and `C` with `C` nested under `S` |
 
