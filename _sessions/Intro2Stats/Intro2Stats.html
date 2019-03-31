@@ -144,7 +144,6 @@ layout: true
 
 
 
-
 ]
 
 ---
@@ -165,23 +164,19 @@ Order 10 beers, and measure the exact amount in each cup.
 
 &lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/10_beers.jpg?token=AIFo1GFPQoYDXYW5W7FOsftG_-XbNsp6ks5cqeGfwA%3D%3D" width="80%" style="display: block; margin: auto;" /&gt;
 
-
 ]
 
 
 .pull-right35[
 &lt;br&gt;&lt;br&gt;
-&lt;img src="https://www.basel.com/extension/portal-basel/var/storage/images/media/bibliothek/basel-bilder/rhein-promenade/savoir-vivre-am-basler-rheinufer/92121-1-ger-DE/Savoir-vivre-am-Basler-Rheinufer_front_magnific.jpg" width="100%" /&gt;
+&lt;img src="https://www.basel.com/extension/portal-basel/var/storage/images/media/bibliothek/basel-bilder/rhein-promenade/savoir-vivre-am-basler-rheinufer/92121-1-ger-DE/Savoir-vivre-am-Basler-Rheinufer_front_magnific.jpg" width="100%" style="display: block; margin: auto;" /&gt;
 
 
 
-&lt;img src="https://files.newsnetz.ch/story/1/7/7/17765134/14/topelement.jpg" width="100%" /&gt;
-
+&lt;img src="https://files.newsnetz.ch/story/1/7/7/17765134/14/topelement.jpg" width="100%" style="display: block; margin: auto;" /&gt;
 
 
 ]
-
-
 
 
 ---
@@ -210,71 +205,178 @@ If there was no variability, there would be no need to do statistics.
 .pull-right45[
 
 
-![](https://static.seekingalpha.com/uploads/2017/1/6/saupload_Coach-Stock-Price.png)&lt;!-- --&gt;
+&lt;img src="https://static.seekingalpha.com/uploads/2017/1/6/saupload_Coach-Stock-Price.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 
-![](https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/cinicaltrial_wide.png?token=AIFo1HsHC0LwU8xjFOB4tKAdFGwNML1Iks5cqNM8wA%3D%3D)&lt;!-- --&gt;
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/cinicaltrial_wide.png?token=AIFo1HsHC0LwU8xjFOB4tKAdFGwNML1Iks5cqNM8wA%3D%3D" width="90%" style="display: block; margin: auto;" /&gt;
 
 
-![](https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/oetlinger_beer_wide.png?token=AIFo1BD437jj0eQ35_BpiY62WlHhsF6cks5cqeaUwA%3D%3D)&lt;!-- --&gt;
-
-
-
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/oetlinger_beer_single_wide.png?token=AIFo1FeCgh_xObYc6YrdafPUsK401Bd1ks5cqeeGwA%3D%3D" width="90%" style="display: block; margin: auto;" /&gt;
 
 ]
 
 
----
 
+---
 
 .pull-left45[
 
 # 2. Distributions
 
+Statistics is built on &lt;high&gt;calculating the likelihood of data&lt;/high&gt; given how we assume it varies
 
-When analysing data, we must always assume some variation &lt;high&gt;probability distribution&lt;/high&gt; (we'll see exactly why later)
+To make calculations, we need to define variability according to a &lt;high&gt;probability distribution&lt;/high&gt;.
 
-A probability distribution is a mathematical formula that defines exactly how likely every possible value in a dataset is.
+A probability distribution is a &lt;high&gt;mathematical formula&lt;/high&gt; that precisely defines &lt;high&gt;how likely&lt;/high&gt; every possible value in a dataset is.
 
-There are many (technically infinite) probability distributions
+Probability distributions are &lt;high&gt;always positive&lt;/high&gt; and their &lt;high&gt;sum adds up to 1.0&lt;/high&gt;
 
-
-
+There are many probability distributions, but we often only use a few.
 
 ]
 
 
 .pull-right45[
 
-### Normal (aka Gaussian) Distribution
+### 3 key aspects of a distribution
 
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
-### Uniform Distribution
+*1. Probability Density Function (PDF)*
 
+A formula that defines the distribution (you rarely need to know this)
 
-### Log-normal distribution
+*2. Support*
 
+What values can x take on?
 
+*3. Parameters*
 
+Values that allow you to change the shape of the distribution? (e.g.; mean and variability?)
 
 ]
 
 
 ---
 
-# 3: Parameters
 .pull-left45[
 
+## Normal (Gaussian) Distribution
 
+
+A 'bell-shaped curve'
+
+The most important and widely used distribution in all of statistics
+
+
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
 
 .pull-right45[
 
+### Details
 
+*Probability Density Function (PDF)*
+
+`$$\large f(x)= \frac{1}{{\sigma \sqrt {2\pi } }} e^{(x-\mu)^2/2\sigma^2}$$`
+
+*Support*
+
+
+`$$\large x \; \epsilon (-\infty, \infty)$$`
+
+*Parameters*
+
+|Parameter|Meaning|
+|:-----|:-------|
+|$$\mu$$ | Center (mean)|
+|$$\sigma$$| Variability (standard deviation)|
+]
+
+
+---
+
+.pull-left45[
+
+## Uniform Distribution
+
+
+A 'Flat distribution'
+
+Used when everything (within a range) is equally likely
+
+
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
+
+
+.pull-right45[
+
+### Details
+
+
+*Probability Density Function (PDF)*
+
+`$$\Large f(x)= \frac{1}{b-a}$$`
+
+*Support*
+
+
+`$$\Large x \; \epsilon (a, b)$$`
+
+
+*Parameters*
+
+|Parameter|Meaning|
+|:-----|:-------|
+|$$a$$ | Minimum|
+|$$b$$| Maximum|
+]
+
+
+
+---
+
+.pull-left45[
+
+## Binomial Distribution
+
+
+A discrete "Counting" distribution
+
+If I flip a coin N times, with p(Head) = p, how many times will I get heads?
+
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+.pull-right45[
+
+### Details
+
+
+*Probability Density Function (PDF)*
+
+`$$\large p(x) = {n \choose x}p^x(1-p)^{n-x}$$`
+*Support*
+
+
+`$$\large x \; \epsilon \{0, 1, ...n\}$$`
+
+*Parameters*
+
+|Parameter|Meaning|
+|:-----|:-------|
+|$$p$$| Probability of success on each trial|
+|$$n$$ | Number of trials (flips)|
+
+]
+
+
 
 
 ---

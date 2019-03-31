@@ -70,10 +70,17 @@ options(digits = 4)
 
 # Load packages
 require(tidyverse)
+library(cowplot)
+
+knitr::opts_chunk$set(fig.align = "center", warning = FALSE, message = FALSE)
 
 
 # Load data
 baselers <- readr::read_csv("1_Data/baselers.csv")
+
+# get color palette functions
+source("https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_materials/code/baselrbootcamp_palettes.R")
+
 ```
 
 
@@ -174,7 +181,6 @@ baselers <- readr::read_csv("1_Data/baselers.csv")
 
 
 
-
 ]
 
 ---
@@ -197,7 +203,6 @@ Order 10 beers, and measure the exact amount in each cup.
 knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/10_beers.jpg?token=AIFo1GFPQoYDXYW5W7FOsftG_-XbNsp6ks5cqeGfwA%3D%3D")
 ```
 
-
 ]
 
 
@@ -214,10 +219,7 @@ knitr::include_graphics("https://files.newsnetz.ch/story/1/7/7/17765134/14/topel
 ```
 
 
-
 ]
-
-
 
 
 ---
@@ -246,77 +248,245 @@ If there was no variability, there would be no need to do statistics.
 .pull-right45[
 
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, out.width = "90%"}
 knitr::include_graphics("https://static.seekingalpha.com/uploads/2017/1/6/saupload_Coach-Stock-Price.png")
 ```
 
 
-```{r echo = FALSE}
+```{r, echo = FALSE, out.width = "90%"}
 knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/cinicaltrial_wide.png?token=AIFo1HsHC0LwU8xjFOB4tKAdFGwNML1Iks5cqNM8wA%3D%3D")
 ```
 
 
-```{r echo = FALSE}
-knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/oetlinger_beer_wide.png?token=AIFo1BD437jj0eQ35_BpiY62WlHhsF6cks5cqeaUwA%3D%3D")
+```{r, echo = FALSE, out.width = "90%"}
+knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/oetlinger_beer_single_wide.png?token=AIFo1FeCgh_xObYc6YrdafPUsK401Bd1ks5cqeeGwA%3D%3D")
 ```
-
-
-
 
 ]
 
 
----
 
+---
 
 .pull-left45[
 
 # 2. Distributions
 
+Statistics is built on <high>calculating the likelihood of data</high> given how we assume it varies
 
-When analysing data, we must always assume some variation <high>probability distribution</high> (we'll see exactly why later)
+To make calculations, we need to define variability according to a <high>probability distribution</high>.
 
-A probability distribution is a mathematical formula that defines exactly how likely every possible value in a dataset is.
+A probability distribution is a <high>mathematical formula</high> that precisely defines <high>how likely</high> every possible value in a dataset is.
 
-There are many (technically infinite) probability distributions
+Probability distributions are <high>always positive</high> and their <high>sum adds up to 1.0</high>
 
-
-
+There are many probability distributions, but we often only use a few.
 
 ]
 
 
 .pull-right45[
 
-### Normal (aka Gaussian) Distribution
+### 3 key aspects of a distribution
 
+```{r, echo = FALSE, fig.width = 4, fig.height = 2, out.width = "100%", dpi=200}
 
-### Uniform Distribution
+p1 <- ggplot(data = data.frame(x = c(60, 140)), aes(x)) +
+  stat_function(fun = dnorm, n = 1001, args = list(mean = 100, sd = 10), col = baselrbootcamp_cols("green"),size = 2) + 
+  ylab("Likelihood") +
+  scale_y_continuous(breaks = NULL) +
+  xlab("x")
+  
+p1
+```
 
+*1. Probability Density Function (PDF)*
 
-### Log-normal distribution
+A formula that defines the distribution (you rarely need to know this)
 
+*2. Support*
 
+What values can x take on?
 
+*3. Parameters*
+
+Values that allow you to change the shape of the distribution? (e.g.; mean and variability?)
 
 ]
 
 
 ---
 
-# 3: Parameters
 .pull-left45[
 
+## Normal (Gaussian) Distribution
 
+
+A 'bell-shaped curve'
+
+The most important and widely used distribution in all of statistics
+
+
+```{r, echo = FALSE, fig.width = 4, fig.height = 3, out.width = "100%", dpi=200}
+
+p1 <- ggplot(data = data.frame(x = c(60, 140)), aes(x)) +
+  stat_function(fun = dnorm, n = 1001, args = list(mean = 110, sd = 10), col = baselrbootcamp_cols("green"),size = 2) + 
+    stat_function(fun = dnorm, n = 1001, args = list(mean = 90, sd = 5), col = baselrbootcamp_cols("yellow"),size = 2) + 
+  ylab("Likelihood") +
+  scale_y_continuous(breaks = NULL) +
+  xlab("x") +
+  annotate("text", x = 90, .09, label =parse(text = paste0('mu == 90 ~ sigma == 5')), size = 5) +
+annotate("text", x = 120, .05, label =parse(text = paste0('mu == 110 ~ sigma == 10')), size = 5) +
+  ylim(c(0, .1))
+
+  
+p1
+```
 
 ]
 
 
 .pull-right45[
 
+### Details
 
+*Probability Density Function (PDF)*
+
+$$\large f(x)= \frac{1}{{\sigma \sqrt {2\pi } }} e^{(x-\mu)^2/2\sigma^2}$$
+
+*Support*
+
+
+$$\large x \; \epsilon (-\infty, \infty)$$
+
+*Parameters*
+
+|Parameter|Meaning|
+|:-----|:-------|
+|$$\mu$$ | Center (mean)|
+|$$\sigma$$| Variability (standard deviation)|
+]
+
+
+---
+
+.pull-left45[
+
+## Uniform Distribution
+
+
+A 'Flat distribution'
+
+Used when everything (within a range) is equally likely
+
+
+```{r, echo = FALSE, fig.width = 4, fig.height = 3, out.width = "100%", dpi=200}
+
+p1 <- ggplot(data = data.frame(x = c(60, 130)), aes(x)) +
+  stat_function(fun = dunif, n = 1001, args = list(min = 80, max = 120), col = baselrbootcamp_cols("green"),size = 2) + 
+    stat_function(fun = dunif, n = 1001, args = list(min = 70, max = 85), col = baselrbootcamp_cols("yellow"),size = 2) + 
+  ylab("Likelihood") +
+  scale_y_continuous(breaks = NULL) +
+  xlab("x") +
+  annotate("text", x = 77.5, .08, label =parse(text = paste0('a == 90 ~ b == 5')), size = 5) +
+annotate("text", x = 105, .035, label =parse(text = paste0('a == 80 ~ b == 120')), size = 5) +
+  ylim(c(0, .1))
+
+  
+p1
+```
 
 ]
+
+
+.pull-right45[
+
+### Details
+
+
+*Probability Density Function (PDF)*
+
+$$\Large f(x)= \frac{1}{b-a}$$
+
+*Support*
+
+
+$$\Large x \; \epsilon (a, b)$$
+
+
+*Parameters*
+
+|Parameter|Meaning|
+|:-----|:-------|
+|$$a$$ | Minimum|
+|$$b$$| Maximum|
+]
+
+
+
+---
+
+.pull-left45[
+
+## Binomial Distribution
+
+
+A discrete "Counting" distribution
+
+If I flip a coin N times, with p(Head) = p, how many times will I get heads?
+
+```{r, echo = FALSE, fig.width = 4, fig.height = 3, out.width = "100%", dpi=200}
+
+d1 <-  data.frame(x = seq(0, 10, 1),
+                               y = dbinom(seq(0, 10, 1), size = 10, prob = .5))
+
+d2 <-  data.frame(x = seq(0, 10, 1),
+                               y = dbinom(seq(0, 10, 1), size = 10, prob = .1))
+
+
+p1 <- ggplot(data =d2, 
+             aes(x = x, y = y)) +
+  geom_point(data = d1, col = baselrbootcamp_cols("green"), size = 2) +
+  geom_line(data = d1, size = .5, col = "gray", lty = 3) + 
+  geom_point(data = d2, col = baselrbootcamp_cols("yellow"), size = 2) +
+    geom_line(data = d2, size = .5, col = "gray", lty = 3) + 
+  ylab("Likelihood") +
+  ylim(0, .5) + 
+  annotate("text", x = 2, y = .45, label =parse(text = paste0('p == .1 ~ n== 10')), size = 5) +
+  annotate("text", x = 5, y = .3, label =parse(text = paste0('p == .5 ~ n== 10')), size = 5) +
+
+  scale_x_continuous(breaks = 0:10)
+
+p1
+
+```
+
+]
+
+
+.pull-right45[
+
+### Details
+
+
+*Probability Density Function (PDF)*
+
+$$\large p(x) = {n \choose x}p^x(1-p)^{n-x}$$
+*Support*
+
+
+$$\large x \; \epsilon \{0, 1, ...n\}$$
+
+*Parameters*
+
+|Parameter|Meaning|
+|:-----|:-------|
+|$$p$$| Probability of success on each trial|
+|$$n$$ | Number of trials (flips)|
+
+]
+
+
 
 
 ---
