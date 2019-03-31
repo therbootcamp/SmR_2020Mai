@@ -215,7 +215,6 @@ knitr::include_graphics("https://files.newsnetz.ch/story/1/7/7/17765134/14/topel
 
 
 
-
 ]
 
 
@@ -255,6 +254,13 @@ knitr::include_graphics("https://static.seekingalpha.com/uploads/2017/1/6/sauplo
 ```{r echo = FALSE}
 knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/cinicaltrial_wide.png?token=AIFo1HsHC0LwU8xjFOB4tKAdFGwNML1Iks5cqNM8wA%3D%3D")
 ```
+
+
+```{r echo = FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/oetlinger_beer_wide.png?token=AIFo1BD437jj0eQ35_BpiY62WlHhsF6cks5cqeaUwA%3D%3D")
+```
+
+
 
 
 ]
