@@ -17,7 +17,7 @@ author: "Statistics with R<br>
   <a href='https://www.linkedin.com/company/basel-r-bootcamp/'>
     <i class='fab fa-linkedin' style='font-size: .9em;'></i>
   </a>"
-date: "February 2019"
+date: "April 2019"
 output:
   xaringan::moon_reader:
     css: ["default", "baselrbootcamp.css"]
@@ -81,20 +81,21 @@ baselers <- readr::read_csv("1_Data/baselers.csv")
 
 # New Statistics
 
-<font style="font-size:20px">Recentering on values and ideas of the past.</font><br><br>
+<font style="font-size:20px">New Statistics = Old Statistics</font><br><br>
 
 <font style="font-size:28px"><high>Better studies</high></font><br><br>
 
 <font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;Informative designs</font><br>
 <font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;Sample size planning</font><br>
 <font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;Registrations</font><br>
-<font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;No p-hacking</font><br>
+<font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;No <i>p</i>-hacking</font><br>
 <font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;Full reporting</font><br>
 <font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;Replication</font><br>
 
 <br><font style="font-size:28px"><high>Betters statistics</high></font><br><br>
 
 <font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;Reporting uncertainty</font><br>
+<font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;Lowering<i>p</i></font><br>
 <font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;Bayesian statistics</font><br>
 
 </font>
@@ -105,7 +106,7 @@ baselers <- readr::read_csv("1_Data/baselers.csv")
 
 <br><br>
 <p align = "center">
-<img src="image/blastfromthepast.jpg" height=500px><br>
+<img src="image/blastfromthepast.jpg" height=500px style="border-radius:50px"><br>
 <font style="font-size:10px">from <a href="https://www.amazon.com/Blast-Past-Brendan-Fraser/dp/0780626494">amazon.com</a></font>
 </p>
 
@@ -147,19 +148,19 @@ Similar assessments in [**Medicine**](https://therbootcamp.github.io/SwR_2019Apr
 .pull-left45[
 <br2>
 <font style="font-size:20px"> 1 Informative designs </font><br>
-<font style="font-size:16px"><i> Conduct the best possible test of your hypothesis? </i></font><br><br>
+<font style="font-size:16px"><i> Conduct the best possible test of your hypothesis? </i></font><br><br2>
 
 <font style="font-size:20px"> 2 <high>Sample size planning</high> </font><br>
-<font style="font-size:16px"><i> Determine how many observation you need for clear-cut conclusions? </i></font><br><br>
+<font style="font-size:16px"><i> Determine N for clear-cut conclusions? </i></font><br><br2>
 
 <font style="font-size:20px"> 3 Registrations </font><br>
-<font style="font-size:16px"><i> Register your hypotheses before data collection. </i></font><br><br>
+<font style="font-size:16px"><i> Register your hypotheses before data collection. </i></font><br><br2>
 
 <font style="font-size:20px"> 4 <high>No p-hacking</high> </font><br>
-<font style="font-size:16px"><i> Conduct only planned tests or report as exploratory. </i></font><br><br>
+<font style="font-size:16px"><i> Conduct only planned tests or report as exploratory. </i></font><br><br2>
 
 <font style="font-size:20px"> 5 Full reporting </font><br>
-<font style="font-size:16px"><i> Report everything you did. </i></font><br><br>
+<font style="font-size:16px"><i> Report everything you did. </i></font><br><br2>
 
 <font style="font-size:20px"> 6 Replication </font><br>
 <font style="font-size:16px"><i> Replicate your findings. </i></font><br><br>
@@ -170,7 +171,7 @@ Similar assessments in [**Medicine**](https://therbootcamp.github.io/SwR_2019Apr
 .pull-right45[
 
 <p align = "center">
-<img src="image/nicecircles.jpg" height=430px><br>
+<img src="image/filedrawer.png"><br>
 <font style="font-size:10px">adapted from <a href="http://neuroskeptic
 .blogspot.com/2010/11/9-circles-of-scientific-hell.html">neurosceptic.blogpost.com</a>, see <a href="http://pages.ucsd.edu/~cmckenzie/Neuroskeptic2012Perspectives.pdf">article</a> <a></font>
 </p>
@@ -286,7 +287,7 @@ pwr.t.test(sig.level = .05,
 
 .pull-left2[
 
-# p-hacking
+# <i>p</i>-hacking
 
 <high><i>“If you torture the data long enough, it will confess.”</i></high>
 
@@ -309,9 +310,34 @@ Ronald Coase
 
 ---
 
-# p-hacking: Dos and Don'ts
+.pull-left45[
+
+# <i>p</i>-hacking
+
+> <high>p-hacking is the misuse of data analysis</high> to find patterns in data that can be presented as statistically significant when in fact there is no real underlying effect. 
+
+> Wikipedia
+
+<br>
+<high>Optional Stopping</high> - Stopping data collection once significance is reached.
+
+<high>HARKing</high> - Hypothesizing After the Data are Known. Commited when presenting any non-planned analyses, including the introduction of covariates.  
+
+]
 
 
+.pull-right45[
+<br>
+<p align = "center">
+<img src="image/P-hacking.png" height=550px><br>
+</p>
+
+]
+
+
+---
+
+# Dos and Don'ts
 
 .pull-left5[
 
@@ -369,12 +395,173 @@ Ronald Coase
 
 ---
 
-# Better statistics
+.pull-left45[
 
-Report uncertainty (Confidence intervals)
+# New Statistics
 
-Use Bayesian statistics
+<high>Problems with <i>p</i>-values</high>
 
+&nbsp;&nbsp;&nbsp;&nbsp;They are <high>difficult to interpret</high> as measures 
+&nbsp;&nbsp;&nbsp;&nbsp;of evidence.
+
+&nbsp;&nbsp;&nbsp;&nbsp;They are used for <high>arbitrary binarization</high> via 
+&nbsp;&nbsp;&nbsp;&nbsp;comparison to $\alpha$.
+ 
+
+<high>New statistics</high>
+
+&nbsp;&nbsp;&nbsp;&nbsp;Focus on <high>estimation</high>: *How large is the* 
+&nbsp;&nbsp;&nbsp;&nbsp;*difference?* rather than *Is it different from 0?*. 
+
+&nbsp;&nbsp;&nbsp;&nbsp;Communication of <high>uncertainty</high>: *How accurate* 
+&nbsp;&nbsp;&nbsp;&nbsp;*is my estimate?* rather than *Is it significant?*.
+
+<br>
+
+$$Confidence\,Interval\,(CI) = \bar{x} \pm t_{1-\alpha} \sigma_{\bar{x}}$$
+
+]
+
+.pull-right45[
+
+<br>
+<p align = "center">
+<img src="image/confint.png" height=550px><br>
+</p>
+
+]
+
+---
+
+.pull-left45[
+
+# Confidence interval
+
+Confidence intervals essentially are <high>rearranged significance tests</high>.
+
+<table style="cellspacing:0; cellpadding:0; border:none">
+  <col width="30%">
+  <col width="70%">
+<tr>
+  <td bgcolor="white">
+    t-test
+  </td>
+  <td bgcolor="white" style="padding-top:15px;padding-bottom:15px">
+    <img src="image/form0.png" height=90px><br>
+  </td>
+</tr>
+<tr>
+  <td bgcolor="white">
+    Step 1
+  </td>
+  <td bgcolor="white" style="padding-top:15px;padding-bottom:15px">
+    <img src="image/form1.png" height=40px><br>
+  </td>
+</tr>
+<tr>
+  <td bgcolor="white">
+    Step2
+  </td>
+  <td bgcolor="white" style="padding-top:15px;padding-bottom:15px;bgcolor:white">
+    <img src="image/form2.png" height=40px><br>
+  </td>
+</tr>
+<tr>
+  <td bgcolor="white">
+    CI
+  </td>
+  <td bgcolor="white" style="padding-top:15px;padding-bottom:15px">
+    <img src="image/form3a.png" height=35px>
+    <img src="image/form3b.png" height=35px>
+  </td>
+</tr>
+</table>
+
+
+]
+
+.pull-right45[
+
+<br>
+<p align = "center">
+<img src="image/confint.png" height=550px><br>
+</p>
+
+]
+
+---
+
+.pull-left45[
+
+# Confidence interval
+
+Confidence intervals essentially are <high>rearranged significance tests</high>.
+
+<table style="cellspacing:0; cellpadding:0; border:none">
+  <col width="30%">
+  <col width="70%">
+<tr>
+  <td bgcolor="white">
+    t-test
+  </td>
+  <td bgcolor="white" style="padding-top:15px;padding-bottom:15px">
+    <img src="image/form0.png" height=90px><br>
+  </td>
+</tr>
+<tr>
+  <td bgcolor="white">
+    Step 1
+  </td>
+  <td bgcolor="white" style="padding-top:15px;padding-bottom:15px">
+    <img src="image/form1.png" height=40px><br>
+  </td>
+</tr>
+<tr>
+  <td bgcolor="white">
+    Step2
+  </td>
+  <td bgcolor="white" style="padding-top:15px;padding-bottom:15px;bgcolor:white">
+    <img src="image/form2.png" height=40px><br>
+  </td>
+</tr>
+<tr>
+  <td bgcolor="white">
+    CI
+  </td>
+  <td bgcolor="white" style="padding-top:15px;padding-bottom:15px">
+    <img src="image/form3a.png" height=35px>
+    <img src="image/form3b.png" height=35px>
+  </td>
+</tr>
+</table>
+
+
+]
+
+.pull-right45[
+
+```{r}
+# Confidence interval
+  
+
+
+```
+
+]
+
+
+
+---
+
+# Bayesian statistics
+
+.pull-left45[
+
+]
+
+.pull-right45[
+
+]
 
 ---
 
