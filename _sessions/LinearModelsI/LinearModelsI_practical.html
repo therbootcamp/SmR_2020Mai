@@ -685,8 +685,40 @@ ggplot(data, aes(x = abs_resid)) +
 <div id="x---challenges" class="section level3">
 <h3>X - Challenges</h3>
 <ol style="list-style-type: decimal">
-<li><p>A colleague of yours wants to know which variable is better at predicting a player’s salary, RBI (Number of runs batted) or Walks (Number of walks). Conduct the appropriate regression analysis to answer the question.</p></li>
-<li><p>Look at the coefficients in your <code>all_glm</code> model, you’ll notice that there is one called <code>NewLeagueN</code>, even though there is no such variable in your <code>hitters</code> dataframe (though there is one called <code>NewLeague</code>). Using the <code>table()</code> function, look at all possible values of <code>hitters$NewLeague</code>. What do you see? Based on this, what do you think the <code>NewLeagueN</code> variable means? Why is it called <code>NewLeagueN</code>?</p></li>
+<li>A colleague of yours wants to know which variable is better at predicting a player’s salary, RBI (Number of runs batted) or Walks (Number of walks). Conduct the appropriate analysis to answer the question by completing the following steps:
+<ul>
+<li>Visualise the relationships in two separate scatterplots</li>
+<li>Conduct the two separate appropriate analyse(s) using <code>glm()</code></li>
+<li>Print the test statistic for each coefficient</li>
+<li>Calculate the mean absolute residuals for each model.</li>
+</ul></li>
+<li>What happens if you run a linear model with two independent variables that are very highly correlated? To answer this, first run the code below to add a new variable to <code>hitters</code> called <code>Buns</code> which is almost an exact copy of <code>Runs</code> (but with a little bit of random error).</li>
+</ol>
+<pre class="r"><code># Add a column called Buns which is highly correlated with Runs
+
+hitters_sim &lt;- hitters_sim %&gt;%
+  mutate(Buns = Runs + rnorm(n = nrow(hitters), mean = 0, sd = 1))
+
+# Visualise the relationship between Runs and Buns
+
+ggplot(data = hitters_sim, aes(x = Runs, y = Buns)) +
+  geom_point()</code></pre>
+<p>Once you have run this code, create and analyse the following three separate linear models.</p>
+<pre class="r"><code># Runs only model
+runs_glm &lt;- glm(formula = Salary ~ Runs,
+                data = hitters)
+
+# Buns only model
+
+buns_glm &lt;- glm(formula = Salary ~ Buns,
+                data = hitters)
+
+# Runs and Buns model
+runs_and_buns_glm &lt;- glm(formula = Salary ~ Runs + Buns,
+                         data = hitters)</code></pre>
+<p>Compare the outputs of these three models. What do you find? What does this tell you about using highly correlated variables in linear models?</p>
+<ol start="3" style="list-style-type: decimal">
+<li>Look at the coefficients in your <code>all_glm</code> model, you’ll notice that there is one called <code>NewLeagueN</code>, even though there is no such variable in your <code>hitters</code> dataframe (though there is one called <code>NewLeague</code>). Using the <code>table()</code> function, look at all possible values of <code>hitters$NewLeague</code>. What do you see? Based on this, what do you think the <code>NewLeagueN</code> variable means? Why is it called <code>NewLeagueN</code>?</li>
 </ol>
 </div>
 </div>

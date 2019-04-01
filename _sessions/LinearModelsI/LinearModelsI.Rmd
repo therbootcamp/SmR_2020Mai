@@ -70,14 +70,14 @@ options(digits = 4)
 
 # Load packages
 require(tidyverse)
-
-
 ```
 
 
-# Regression <i>applied</i>
+# What is a linear model?
 
 .pull-left45[
+
+A linear model is 
 
 
 ]
@@ -129,7 +129,47 @@ require(tidyverse)
 ]
 
 
+---
 
+# Assumptions
+
+- IID
+- Normally distributed errors
+- If multiple IVs, not highly correlated
+
+
+---
+
+# Interpreting parameters
+
+- Intercept
+- Coefficients
+
+
+---
+
+# Estimating coefficients
+
+Minimise sum of squares
+
+Maximum Likelihood
+
+---
+
+# Ex: which of the following linear models best describes the data?
+
+---
+
+# R2: Estimating model performance
+
+---
+
+# Visualising residuals
+
+
+---
+
+# R
 
 
 ---

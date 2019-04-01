@@ -698,9 +698,46 @@ hitters_new_pred
 
 ### X - Challenges
 
-1. A colleague of yours wants to know which variable is better at predicting a player's salary, RBI (Number of runs batted) or Walks (Number of walks). Conduct the appropriate regression analysis to answer the question.
+1. A colleague of yours wants to know which variable is better at predicting a player's salary, RBI (Number of runs batted) or Walks (Number of walks). Conduct the appropriate analysis to answer the question by completing the following steps:
+    - Visualise the relationships in two separate scatterplots
+    - Conduct the two separate appropriate analyse(s) using `glm()`
+    - Print the test statistic for each coefficient
+    - Calculate the mean absolute residuals for each model.
 
-2. Look at the coefficients in your `all_glm` model, you'll notice that there is one called `NewLeagueN`, even though there is no such variable in your `hitters` dataframe (though there is one called `NewLeague`). Using the `table()` function, look at all possible values of `hitters$NewLeague`. What do you see? Based on this, what do you think the `NewLeagueN` variable means? Why is it called `NewLeagueN`?
+2. What happens if you run a linear model with two independent variables that are very highly correlated? To answer this, first run the code below to add a new variable to `hitters` called `Buns` which is almost an exact copy of `Runs` (but with a little bit of random error).
+
+```{r, echo = TRUE, eval = FALSE}
+# Add a column called Buns which is highly correlated with Runs
+
+hitters_sim <- hitters_sim %>%
+  mutate(Buns = Runs + rnorm(n = nrow(hitters), mean = 0, sd = 1))
+
+# Visualise the relationship between Runs and Buns
+
+ggplot(data = hitters_sim, aes(x = Runs, y = Buns)) +
+  geom_point()
+```
+
+Once you have run this code, create and analyse the following three separate linear models.
+
+```{r, echo = TRUE, eval = FALSE}
+# Runs only model
+runs_glm <- glm(formula = Salary ~ Runs,
+                data = hitters)
+
+# Buns only model
+
+buns_glm <- glm(formula = Salary ~ Buns,
+                data = hitters)
+
+# Runs and Buns model
+runs_and_buns_glm <- glm(formula = Salary ~ Runs + Buns,
+                         data = hitters)
+```
+
+Compare the outputs of these three models. What do you find? What does this tell you about using highly correlated variables in linear models?
+
+3. Look at the coefficients in your `all_glm` model, you'll notice that there is one called `NewLeagueN`, even though there is no such variable in your `hitters` dataframe (though there is one called `NewLeague`). Using the `table()` function, look at all possible values of `hitters$NewLeague`. What do you see? Based on this, what do you think the `NewLeagueN` variable means? Why is it called `NewLeagueN`?
 
 ## Examples
 
