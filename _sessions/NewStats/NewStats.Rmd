@@ -71,9 +71,14 @@ options(digits = 4)
 # Load packages
 require(tidyverse)
 require(pwr)
+require(boot)
 
 # Load data
 baselers <- readr::read_csv("1_Data/baselers.csv")
+
+# functions
+print2 <- function(x, nlines=10,...)
+    cat(head(capture.output(print(x,...)), nlines), sep="\n")
 
 ```
 
@@ -171,9 +176,8 @@ Similar assessments in [**Medicine**](https://therbootcamp.github.io/SwR_2019Apr
 .pull-right45[
 
 <p align = "center">
-<img src="image/filedrawer.png"><br>
-<font style="font-size:10px">adapted from <a href="http://neuroskeptic
-.blogspot.com/2010/11/9-circles-of-scientific-hell.html">neurosceptic.blogpost.com</a>, see <a href="http://pages.ucsd.edu/~cmckenzie/Neuroskeptic2012Perspectives.pdf">article</a> <a></font>
+<img src="image/filedrawer_bw.png"><br>
+<font style="font-size:10px">adapted from <a href="https://www.someecards.com/usercards/viewcard/MjAxMy0zOGE1Mzg3YjY4YzE1NTA0/?tagSlug=birthday">Someecards.com</a></font>
 </p>
 
 ]
@@ -447,7 +451,7 @@ Confidence intervals essentially are <high>rearranged significance tests</high>.
     t-test
   </td>
   <td bgcolor="white" style="padding-top:15px;padding-bottom:15px">
-    <img src="image/form0.png" height=90px><br>
+    <img src="image/form0.png" height=74px><br>
   </td>
 </tr>
 <tr>
@@ -455,7 +459,7 @@ Confidence intervals essentially are <high>rearranged significance tests</high>.
     Step 1
   </td>
   <td bgcolor="white" style="padding-top:15px;padding-bottom:15px">
-    <img src="image/form1.png" height=40px><br>
+    <img src="image/form1.png" height=34px><br>
   </td>
 </tr>
 <tr>
@@ -463,7 +467,7 @@ Confidence intervals essentially are <high>rearranged significance tests</high>.
     Step2
   </td>
   <td bgcolor="white" style="padding-top:15px;padding-bottom:15px;bgcolor:white">
-    <img src="image/form2.png" height=40px><br>
+    <img src="image/form2.png" height=34px><br>
   </td>
 </tr>
 <tr>
@@ -471,8 +475,8 @@ Confidence intervals essentially are <high>rearranged significance tests</high>.
     CI
   </td>
   <td bgcolor="white" style="padding-top:15px;padding-bottom:15px">
-    <img src="image/form3a.png" height=35px>
-    <img src="image/form3b.png" height=35px>
+    <img src="image/form3a.png" height=27px>
+    <img src="image/form3b.png" height=27px>
   </td>
 </tr>
 </table>
@@ -489,11 +493,12 @@ Confidence intervals essentially are <high>rearranged significance tests</high>.
 
 ]
 
+
 ---
 
-.pull-left45[
-
 # Confidence interval
+
+.pull-left45[
 
 Confidence intervals essentially are <high>rearranged significance tests</high>.
 
@@ -505,7 +510,7 @@ Confidence intervals essentially are <high>rearranged significance tests</high>.
     t-test
   </td>
   <td bgcolor="white" style="padding-top:15px;padding-bottom:15px">
-    <img src="image/form0.png" height=90px><br>
+    <img src="image/form0.png" height=74px><br>
   </td>
 </tr>
 <tr>
@@ -513,7 +518,7 @@ Confidence intervals essentially are <high>rearranged significance tests</high>.
     Step 1
   </td>
   <td bgcolor="white" style="padding-top:15px;padding-bottom:15px">
-    <img src="image/form1.png" height=40px><br>
+    <img src="image/form1.png" height=34px><br>
   </td>
 </tr>
 <tr>
@@ -521,7 +526,7 @@ Confidence intervals essentially are <high>rearranged significance tests</high>.
     Step2
   </td>
   <td bgcolor="white" style="padding-top:15px;padding-bottom:15px;bgcolor:white">
-    <img src="image/form2.png" height=40px><br>
+    <img src="image/form2.png" height=34px><br>
   </td>
 </tr>
 <tr>
@@ -529,8 +534,8 @@ Confidence intervals essentially are <high>rearranged significance tests</high>.
     CI
   </td>
   <td bgcolor="white" style="padding-top:15px;padding-bottom:15px">
-    <img src="image/form3a.png" height=35px>
-    <img src="image/form3b.png" height=35px>
+    <img src="image/form3a.png" height=27px>
+    <img src="image/form3b.png" height=27px>
   </td>
 </tr>
 </table>
@@ -538,13 +543,96 @@ Confidence intervals essentially are <high>rearranged significance tests</high>.
 
 ]
 
-.pull-right45[
+.pull-right5[
+
+
+```{r, echo = F}
+# standard confidence intervall
+t_1 = rnorm(100, 3, 1) 
+t_2 = rnorm(100, 4, 1) 
+
+```
 
 ```{r}
+# standard confidence intervall
+N     <- length(t_1)
+Delta <- mean(t_1 - t_2)
+SE    <- sd(t_1 - t_2) / sqrt(N)
+Delta + SE * qt(.95, N - 1) * c(-1, 1)
+```
+
+]
+
+
+---
+
 # Confidence interval
-  
+
+.pull-left45[
+
+Confidence intervals essentially are <high>rearranged significance tests</high>.
+
+<table style="cellspacing:0; cellpadding:0; border:none">
+  <col width="30%">
+  <col width="70%">
+<tr>
+  <td bgcolor="white">
+    t-test
+  </td>
+  <td bgcolor="white" style="padding-top:15px;padding-bottom:15px">
+    <img src="image/form0.png" height=74px><br>
+  </td>
+</tr>
+<tr>
+  <td bgcolor="white">
+    Step 1
+  </td>
+  <td bgcolor="white" style="padding-top:15px;padding-bottom:15px">
+    <img src="image/form1.png" height=34px><br>
+  </td>
+</tr>
+<tr>
+  <td bgcolor="white">
+    Step2
+  </td>
+  <td bgcolor="white" style="padding-top:15px;padding-bottom:15px;bgcolor:white">
+    <img src="image/form2.png" height=34px><br>
+  </td>
+</tr>
+<tr>
+  <td bgcolor="white">
+    CI
+  </td>
+  <td bgcolor="white" style="padding-top:15px;padding-bottom:15px">
+    <img src="image/form3a.png" height=27px>
+    <img src="image/form3b.png" height=27px>
+  </td>
+</tr>
+</table>
 
 
+]
+
+.pull-right5[
+
+
+```{r, eval = F}
+# bootstrapped confidence intervall
+bf <- function(x,ind) {
+  sum(x[ind])/length(x[ind])
+  }
+boot_res <- boot(t_1 - t_2, bf, 1000)
+boot.ci(boot_res)
+```
+
+```{r, echo = F}
+# bootstrapped confidence intervall
+bf <- function(x,ind) {
+  sum(x[ind])/length(x[ind])
+  }
+boot_res <- boot(t_1 - t_2, bf, 1000)
+options(width = 45)
+print2(boot.ci(boot_res), n = 10)
 ```
 
 ]
@@ -553,15 +641,232 @@ Confidence intervals essentially are <high>rearranged significance tests</high>.
 
 ---
 
+.pull-left45[
+
 # Bayesian statistics
 
-.pull-left45[
+Bayesian statistics extends classic (Frequentist) statistics by a <high>prior</high> distribution, specifying the prior <high>probability of the hypotheses</high> before seeing the data.
+
+The prior permits calculation of a <high>true <i>p</i>-value</high>, the <high>posterior probability</high>.
+
+<p align = "center" style="padding-top:20px">
+<img src="image/bayes_form.png"><br>
+</p>
 
 ]
 
 .pull-right45[
 
+<br>
+<p align = "center">
+<img src="image/Bayes.png" height=520px><br>
+<font style="font-size:10px">from <a = href="https://xkcd.com/1132/">xkcd.com</a></font>
+</p>
+
 ]
+
+---
+
+.pull-left45[
+
+# Bayesian statistics
+
+For two reasons Bayesian statistics has long been rejected...
+
+&nbsp;&nbsp;&nbsp;&nbsp; 1 <high>Computational needs</high> to calculate $p(D)$<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; 2 <high>Subjectivity</high> in choosing the prior
+
+<br>
+However,...
+
+&nbsp;&nbsp;&nbsp;&nbsp; 1 Computers have become <high>fast enough</high><br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; 2 statistical inference is <high>necessarily</high><br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <high>subjectivity</high>.<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; 3 The influence of priors can be limited<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; through <high>ignorance priors<high>
+
+]
+
+.pull-right45[
+
+<br>
+<p align = "center">
+<img src="image/Bayes.png" height=520px><br>
+<font style="font-size:10px">from <a = href="https://xkcd.com/1132/">xkcd.com</a></font>
+</p>
+
+]
+
+---
+
+# Bayesian statistics
+
+.pull-left45[
+
+The <a href="https://cran.r-project.org/package=rstanarm/"><mono><b>rstanarm</b></mono></a> and
+<a href="https://cran.r-project.org/package=BayesFactor/"><mono><b>BayesFactor</b></mono></a> packages make Bayesian stats very easy to use. 
+
+<table style="cellspacing:0; cellpadding:0; border:none; padding-bottom:30px">
+  <col width="25%">
+  <col width="20%">
+  <col width="55%">
+<tr>
+  <td bgcolor="white">
+    <b>Function</b>
+  </td>
+  <td bgcolor="white">
+    <b>Package</b>
+  </td>  
+  <td bgcolor="white">
+    <b>Description</b>
+  </td>
+</tr>
+<tr>
+  <td bgcolor="white">
+    <mono>stan_glm</mono>, <mono>stan_glmer</mono>
+  </td>
+  <td bgcolor="white">
+    <mono>rstanarm</mono>
+  </td>
+  <td bgcolor="white">
+    Bayesian (mixed) regression
+  </td>
+</tr>
+<tr>
+  <td bgcolor="white">
+    <mono>ttestBF</mono>, <mono>anovaBF</mono>
+  </td>
+  <td bgcolor="white">
+    <mono>BayesFactor</mono>
+  </td>
+  <td bgcolor="white">
+    Bayesian (mixed) regressions
+  </td>
+</tr>
+<tr>
+  <td bgcolor="white">
+    <mono>lmBF</mono>
+  </td>
+  <td bgcolor="white">
+    <mono>BayesFactor</mono>
+  </td>
+  <td bgcolor="white">
+    Bayesian (mixed) regressions
+  </td>
+</tr>
+</table>
+
+```{r, eval = F}
+# Baysian stats with rstanarm
+require(rstanarm)
+stan_glm(income ~ height,
+         data = baselers)
+```
+
+]
+
+.pull-right5[
+
+```{r, include = FALSE}
+require(rstanarm)
+# Baysian stats with rstanarm
+stan_res = stan_glm(income ~ height,
+     data = baselers[!is.na(baselers$income) & !is.na(baselers$height),][1:300,])
+```
+
+```{r, echo = F}
+options(width = 45)
+print2(stan_res, 21)
+```
+
+]
+
+---
+
+# Bayesian statistics
+
+.pull-left45[
+
+The <a href="https://cran.r-project.org/package=rstanarm/"><mono><b>rstanarm</b></mono></a> and
+<a href="https://cran.r-project.org/package=BayesFactor/"><mono><b>BayesFactor</b></mono></a> packages make Bayesian stats very easy to use. 
+
+<table style="cellspacing:0; cellpadding:0; border:none; padding-bottom:30px">
+  <col width="25%">
+  <col width="20%">
+  <col width="55%">
+<tr>
+  <td bgcolor="white">
+    <b>Function</b>
+  </td>
+  <td bgcolor="white">
+    <b>Package</b>
+  </td>  
+  <td bgcolor="white">
+    <b>Description</b>
+  </td>
+</tr>
+<tr>
+  <td bgcolor="white">
+    <mono>stan_glm</mono>, <mono>stan_glmer</mono>
+  </td>
+  <td bgcolor="white">
+    <mono>rstanarm</mono>
+  </td>
+  <td bgcolor="white">
+    Bayesian (mixed) regression
+  </td>
+</tr>
+<tr>
+  <td bgcolor="white">
+    <mono>ttestBF</mono>, <mono>anovaBF</mono>
+  </td>
+  <td bgcolor="white">
+    <mono>BayesFactor</mono>
+  </td>
+  <td bgcolor="white">
+    Bayesian (mixed) regressions
+  </td>
+</tr>
+<tr>
+  <td bgcolor="white">
+    <mono>lmBF</mono>
+  </td>
+  <td bgcolor="white">
+    <mono>BayesFactor</mono>
+  </td>
+  <td bgcolor="white">
+    Bayesian (mixed) regressions
+  </td>
+</tr>
+</table>
+
+```{r, eval = F}
+# Baysian stats with rstanarm
+require(BayesFactor)
+lmBF(income ~ height,
+     data = baselers)
+```
+
+]
+
+.pull-right5[
+
+```{r, include = FALSE}
+# Baysian stats with rstanarm
+require(BayesFactor)
+bf_res = lmBF(income ~ height,
+     data = baselers[!is.na(baselers$income) & !is.na(baselers$height),][1:300,])
+```
+
+```{r, echo = F}
+options(width = 45)
+print2(bf_res, 21)
+```
+
+]
+
+
+
 
 ---
 
