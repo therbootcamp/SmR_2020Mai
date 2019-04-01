@@ -15,8 +15,15 @@ Bootcamp_package_installation <- function() {
     "devtools",
     
     # Tidyverse --------------
+    "tidyverse",
     
-    "tidyverse"
+    # Robust stats
+    "gam",
+    "boot",
+    
+    # New Stats
+    "rstanarm",
+    "pwr"
     
   )
   
