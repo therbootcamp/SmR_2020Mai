@@ -47,104 +47,27 @@ layout: true
 
 
 
-# Statistics
 
-.pull-left45[
+.pull-left6[
+
+# 
+
+In this hour, we will try to cover the basics of statistical inference
+
+
+]
+
+
+.pull-right35[
+
+
+
 
 
 ]
 
-.pull-right45[
-
-&lt;p align = "center"&gt;
-&lt;img src="image/XX" height=440px&gt;&lt;br&gt;
-&lt;font style="font-size:10px"&gt;from &lt;a href="https://xkcd.com/1781/"&gt;xkcd.com&lt;/a&gt;&lt;/font&gt;
-&lt;/p&gt;
-
-]
-
----
-
-.pull-left45[
-
-# Topics
-
-- Motivating example
-- Samples versus populations
-- Variables
-    - Something of interest that varies
-- Distributions (random variables)
-    - Definition
-    - Examples
-        - Normal distribution
-        - Uniform
-    - Parameters
-- Estimating parameters
-    - Standard deviation
-    - Mean
-- Likelihood
-   - How likely is an observation given an assumption.
-- Null hypothesis testing
-    - Null versus alternative hypothesis
-    - test-statistic
-    - p-value (How likely was I to get a result as extreme or more extreme than the one I got assuming the null is true)
-- Decision making
-    - p &lt; .05 convention
-- Correlation versus causation
-    - Classic fails:
-        - Ice cream and forest fires.
-        - Chocolate and IQ
-    - Inferring causation requires an experiment and/or causal modelling
-
-]
-
-.pull-right45[
-# Examples
-
-- Classic tests (ESP, 'fields')
-- Effect of a drug on life expectancy
-- World happiness / economic indicators 
-
-]
 
 
----
-
-.pull-left45[
-
-7 key concepts
-
-1. Variability
-    - Sample versus population
-2. Distributions
-    - Different shapes
-    - Min, max
-    - Mean
-    - Standard deviation
-3. Models
-    - An Equation that describes how one variable varies as a function of other(s)
-4. Parameters
-    - Numbers in a model that can change
-5. Likelihood
-    - Error distribution
-6. Test statistic
-    - Unit-free method of helping us calculate the (un)likelihood of data given a model and certain parameters.
-    - Variance explaiend by the model (effect) / Variance not explained by the model (error)
-7. P-value
-   - Probability 
-8. Additional
-   - Random sampling, iid.
-   - Correlation vs. causation.
-   
-
-]
-
-
-.pull-right45[
-
-
-
-]
 
 ---
 
@@ -154,13 +77,16 @@ layout: true
 
 Basel has many nice "Buvette's" that serve drinks in warm months.
 
-The Oetlinger BuvettE, one of our favorites, offers 33dl beers (or so they say...).
+The Oetlinger Buvette, one of our favorites, offers 33dl beers (or so they say...).
 
 Is the Oetlinger Buvette 'underpouring' its beers?
 
 ### Data
 
 Order 10 beers, and measure the exact amount in each cup.
+
+
+
 
 &lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/10_beers.jpg?token=AIFo1GFPQoYDXYW5W7FOsftG_-XbNsp6ks5cqeGfwA%3D%3D" width="80%" style="display: block; margin: auto;" /&gt;
 
@@ -189,7 +115,8 @@ Order 10 beers, and measure the exact amount in each cup.
 
 All interesting data processes have &lt;high&gt;variability&lt;/high&gt;
 
-- Stock prices, patient response to drugs, product manufacturing
+- Stock prices change over time, 
+- Individual patients respond to drugs differently
 
 Statistical inference is all about &lt;high&gt;accounting for variability&lt;/high&gt;
 
@@ -197,7 +124,6 @@ If there was no variability, there would be no need to do statistics.
 
 - If every single patient responded the exact same way to a drug, you could do a clinical trial with (any) one patient.
 
-- If the Oetlinger buvette always poured exactly the same amount, I could just order one!
 
 ]
 
@@ -205,13 +131,7 @@ If there was no variability, there would be no need to do statistics.
 .pull-right45[
 
 
-&lt;img src="https://static.seekingalpha.com/uploads/2017/1/6/saupload_Coach-Stock-Price.png" width="90%" style="display: block; margin: auto;" /&gt;
-
-
-&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/cinicaltrial_wide.png?token=AIFo1HsHC0LwU8xjFOB4tKAdFGwNML1Iks5cqNM8wA%3D%3D" width="90%" style="display: block; margin: auto;" /&gt;
-
-
-&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/oetlinger_beer_single_wide.png?token=AIFo1FeCgh_xObYc6YrdafPUsK401Bd1ks5cqeeGwA%3D%3D" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/variability_stock_drug_beer.png?token=AIFo1GDIBmjgX1ca13vVfnh0UqoEa-93ks5cqiplwA%3D%3D" width="90%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -219,9 +139,84 @@ If there was no variability, there would be no need to do statistics.
 
 ---
 
+
 .pull-left45[
 
-# 2. Distributions
+# 1. Variability
+
+In general, we distinguish between two types of variability
+
+|Variability Type|Definition|
+|:-----|:-----|
+|Systematic| Variation that &lt;high&gt;can&lt;/high&gt; be explained by known variables|
+|Unsystematic |Variation that &lt;high&gt;cannot&lt;/high&gt; be explained by known variables|
+
+Statistical inference is the practice of discovering ways to separate overall variability into systematic and unsystematic portions.
+
+
+]
+
+
+.pull-right45[
+
+
+&lt;br&gt;&lt;br&gt;
+
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" /&gt;&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-7-2.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+
+]
+
+
+---
+
+
+.pull-left45[
+
+# 2. Sample Statistics
+
+Once we collect (varying) data, we always look for ways to &lt;high&gt;summarise&lt;/high&gt; the data into &lt;high&gt;sample statistics&lt;/high&gt;
+
+Sample statistics usually (but not always) fall into one of two types:
+
+|Type|Examples |
+|:----|:------|
+|Central Tendency| Mean, mode, median|
+|Variability|Standard deviation, variance, range|
+
+
+Sample statistics give us &lt;high&gt;estimates&lt;/high&gt; of key model parameters (more on this later)
+
+]
+
+
+.pull-right5[
+
+
+### Raw data &amp; Sample Statistics
+
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+`$$Mean = \frac{28+31+28+...}{10} = 29.9$$`
+
+`$$Standard \; Deviation = \sqrt{\frac{(28-29.9)^2+(31-29.9)^2+...}{10-1}} = 3.90$$`
+
+
+
+
+]
+
+
+
+
+
+---
+
+.pull-left45[
+
+# 3. Distributions
 
 Statistics is built on &lt;high&gt;calculating the likelihood of data&lt;/high&gt; given how we assume it varies
 
@@ -240,7 +235,7 @@ There are many probability distributions, but we often only use a few.
 
 ### 3 key aspects of a distribution
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 *1. Probability Density Function (PDF)*
 
@@ -269,7 +264,7 @@ A 'bell-shaped curve'
 The most important and widely used distribution in all of statistics
 
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -308,7 +303,7 @@ A 'Flat distribution'
 Used when everything (within a range) is equally likely
 
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -337,19 +332,17 @@ Used when everything (within a range) is equally likely
 ]
 
 
-
 ---
 
 .pull-left45[
 
 ## Binomial Distribution
 
-
 A discrete "Counting" distribution
 
 If I flip a coin N times, with p(Head) = p, how many times will I get heads?
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -381,27 +374,17 @@ If I flip a coin N times, with p(Head) = p, how many times will I get heads?
 
 ---
 
+.pull-left45[
+
 # 4: Likelihood
-.pull-left45[
 
+Why do we need distributions? To calculate &lt;high&gt;likelihoods&lt;/high&gt; of data.
 
+- How likely is it that I would get this trial result if the drug is *really* better than a placebo?
 
-]
+Knowing this likelihood allows us to &lt;high&gt;fit parameters&lt;/high&gt; and &lt;high&gt;test&lt;/high&gt; models
 
-
-.pull-right45[
-
-
-
-]
-
----
-
-# 5: Models
-
-.pull-left45[
-
-
+- Given that out of 10 patients, the average recovery time was 2.3 days, what is the most likely distribution of recovery times for future patients?
 
 ]
 
@@ -409,31 +392,95 @@ If I flip a coin N times, with p(Head) = p, how many times will I get heads?
 .pull-right45[
 
 
+&lt;img src="https://www.xofluza.com/content/dam/gene/xofluza/hcp/images/Mobile/Xofluza-Flu-Efficacy-Primary-Endpoint-TTAS-01-Mobile.jpg" width="85%" style="display: block; margin: auto;" /&gt;
+
+
+
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-14-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
 
 ]
 
-
-
 ---
 
-# 6: Test statistic
 .pull-left45[
 
+# 4: Likelihood
 
+Using the binomial distributions on the right, answer the following questions:
+
+- If there is a 50% chance of a drug being successful, then out of 10 drugs, how likely is it that exactly 5 will be successful?
+
+- If there is a 10% chance that a customer will default on his/her loan, then out of 10 customers, how likely is it that none (0) will default?
 
 ]
 
 
 .pull-right45[
 
+&lt;br&gt;&lt;br&gt;
+
+### 2 Binomial Distributions
+
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-15-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 
 ]
 
 ---
 
-# 7: P-value
-.pull-left45[
+
+.pull-left5[
+
+# 5: Test statistic
+
+Sample statistics (like means and standard deviations) are converted into &lt;high&gt;test statistics&lt;/high&gt;
+
+Test statistics are &lt;high&gt;distribution specific&lt;/high&gt; numbers that help you quantify evidence for a statistical model
+
+&lt;!-- `$$Test\;Statistic=\frac{Variance\;explained\;by\;a\;model}{Variance\;NOT\;explained\;by\;a\;model}$$` --&gt;
+
+Different tests give you different test statistics:
+
+|Test|Test statistic|
+|:----|:----|
+|T-test|T-statistic|
+|Correlation test|Correlation coefficient|
+|Binomial|Number of successes|
+
+Generally, the more extreme your test statistic is, the more evidence that "Something is going on"
+
+
+]
+
+
+.pull-right45[
+&lt;br&gt;&lt;br&gt;
+
+
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/10_beers_teststatistic.png?token=AIFo1A8r2pk1_0TJe-dFnaeuJUOw88X1ks5cqiBmwA%3D%3D" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+
+
+]
+
+---
+.pull-left55[
+
+# 6: P-value
+
+p-values are used to quantify the likelihood of data given a specific distribution.
+
+
+|Definition|
+|:----|
+|A p-value is the probability of obtaining data as extreme or more extreme than what you got assuming a specific model is true.|
+
+
+Null hypothesis testing
+
+If a p-value is *small* (i.e.; p &lt; .05), this means that the likelihood of obtaining that data given the model is small.
 
 
 
@@ -453,6 +500,7 @@ If I flip a coin N times, with p(Head) = p, how many times will I get heads?
 .pull-left45[
 
 
+   
 
 ]
 
@@ -477,6 +525,55 @@ If I flip a coin N times, with p(Head) = p, how many times will I get heads?
 class: middle, center
 
 &lt;h1&gt;&lt;a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/RegressionI/RegressionI_practical.html"&gt;Practical&lt;/a&gt;&lt;/h1&gt;
+
+
+---
+# Backup
+
+
+
+
+---
+
+.pull-left45[
+
+# 4: Likelihood
+
+Using the binomial distributions on the right, answer the following questions:
+
+- You purchase a XX online
+- You fear it may be fake
+
+Data:
+
+- You used it 10 times and it fails 5 times (5 out of 10).
+
+Online research shows that 
+
+- Real XX fail 10% of the time
+- Fake XX fail 50% of the time.
+
+Question
+
+- How likely is your data if XX is real? What about if it's fake?
+- Is it *more likely* that a real XX would give you your data or a fake XX?
+
+
+]
+
+
+.pull-right45[
+
+&lt;br&gt;&lt;br&gt;
+
+
+### 2 Binomial Distributions
+
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-17-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+
+]
     </textarea>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({

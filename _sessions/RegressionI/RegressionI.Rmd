@@ -1,5 +1,5 @@
 ---
-title: "Regression <i>models</i>"
+title: "Linear Models"
 author: "Statistics with R<br>
   <a href='https://therbootcamp.github.io'>
     Basel R Bootcamp
@@ -93,7 +93,7 @@ require(tidyverse)
 .pull-left45[
 # Topics
 
-- Generalised linear model
+- Linear model
    - Formula
    - Coefficients
 

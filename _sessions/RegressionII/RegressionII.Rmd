@@ -98,6 +98,15 @@ baselers <- readr::read_csv("1_Data/baselers.csv")
 - How they relate to the glm
 - ANOVA
 - Post-hoc tests
+
+- Correlation versus causation
+    - Classic fails:
+        - Ice cream and forest fires.
+        - Chocolate and IQ
+    - Inferring causation requires an experiment and/or causal modelling
+
+- Random sampling, iid.
+- Correlation vs. causation.
 - Simulation functions
 
 ]

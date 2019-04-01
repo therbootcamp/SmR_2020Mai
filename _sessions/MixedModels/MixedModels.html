@@ -104,7 +104,7 @@ Previously considered models are &lt;high&gt;not robust&lt;/high&gt; to violatio
 - Test of the best design or taste of different versions of a product with &lt;high&gt;multiple ratings from the same persons&lt;/high&gt;.
 
 
-*Failure to run the statistical model might lead to missleading results, such as overestimation of an effect.*
+*Failure to run the correct statistical model might lead to missleading results, such as overestimation of an effect.*
 
 
 ]
@@ -341,6 +341,37 @@ As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/
 
 ---
 
+# Random Effects - Intercepts and Slopes
+
+.pull-left45[
+
+
+We can differentiate two kinds of random effects:
+
+* &lt;high&gt;Random Intercepts&lt;/high&gt;
+    * Estimated average deviations of each random effects factor level from the grand mean.
+    
+    
+* &lt;high&gt;Random Slopes&lt;/high&gt;
+    * Estimated deviations of each random effects factor levels from the fixed effect slopes.
+
+**Note:**
+When estimating random intercepts, only &lt;high&gt;one additional parameter&lt;/high&gt; is estimated: The &lt;high&gt;variance&lt;/high&gt; of the normal distribution the random intercepts are thought to stem from.
+
+]
+
+.pull-right45[
+
+&lt;img src="image/RI_example.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+&lt;img src="image/MEM_example.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+
+---
+
 # Random Intercepts Model
 
 .pull-left45[
@@ -519,7 +550,7 @@ Random effects are specified with a new element to the formulas:
 | `(1 `&amp;#124;` S) + (1 `&amp;#124;` I)` | Random intercepts by `S` and `I`|
 | `(X1 `&amp;#124;` S)` OR `(1 + X1`&amp;#124;` S)`| Random intercepts by `S` and random slopes for `X1` by `S` with correlations  |
 | `(X1 * X2 `&amp;#124;` S)`| Random intercepts by `S` and random slopes for `X1`, `X2`, and their interaction `X1:X2` by `S` with correlations  |
-| `(0 + X1 `&amp;#124;` S)`| Random slopes for `X1`by `S`, no random intercepts |
+| `(0 + X1 `&amp;#124;` S)`| Random slopes for `X1` by `S`, no random intercepts |
 | `(X1 `&amp;#124;&amp;#124;` S)`| Random intercepts by `S` and random slopes for `X1` by `S` no correlations |
 | `(1 `&amp;#124;` S/C)` OR `(1 `&amp;#124;` S) + (1 `&amp;#124;` S:C)`| Random intercepts by `S` and `C` with `C` nested under `S` |
 

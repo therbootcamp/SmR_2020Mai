@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Regression models</title>
+    <title>Linear Models</title>
     <meta charset="utf-8">
     <meta name="author" content="Statistics with R   Basel R Bootcamp" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
@@ -11,7 +11,7 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Regression <i>models</i>
+# Linear Models
 ### Statistics with R<br> <a href='https://therbootcamp.github.io'> Basel R Bootcamp </a> <br> <a href='https://therbootcamp.github.io/SwR_2019Apr/'> <i class='fas fa-clock' style='font-size:.9em;'></i> </a>  <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;' ></i> </a>  <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a>  <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a>
 ### April 2019
 
@@ -65,15 +65,16 @@ layout: true
 .pull-left45[
 # Topics
 
-- Generlised linear model
+- Linear model
    - Formula
    - Coefficients
 
 - Model fitting and evaluation
    - Tests of coefficients
        - Estimate, Std.error, statistic, p.value
-   - R-square
    - Residuals
+       - Signed vs. Absolute
+   - R-square
 
 ]
 
@@ -83,17 +84,19 @@ layout: true
 ### Model Building
 
 - glm()
+    - formula
+    - data
 
 ### Evaluation
 
 - summary()
 - coef()
 - broom::tidy()
-- predict()
-- resid()
 - fitted()
+- resid()
 - confint()
 - rsq::rsq()
+- predict()
 
 ]
 

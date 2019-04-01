@@ -71,6 +71,7 @@ options(digits = 4)
 # Load packages
 require(tidyverse)
 library(cowplot)
+library(ggpubr)
 
 knitr::opts_chunk$set(fig.align = "center", warning = FALSE, message = FALSE)
 
@@ -84,104 +85,27 @@ source("https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/ma
 ```
 
 
-# Statistics
 
-.pull-left45[
+.pull-left6[
+
+# 
+
+In this hour, we will try to cover the basics of statistical inference
+
+
+]
+
+
+.pull-right35[
+
+
+
 
 
 ]
 
-.pull-right45[
-
-<p align = "center">
-<img src="image/XX" height=440px><br>
-<font style="font-size:10px">from <a href="https://xkcd.com/1781/">xkcd.com</a></font>
-</p>
-
-]
-
----
-
-.pull-left45[
-
-# Topics
-
-- Motivating example
-- Samples versus populations
-- Variables
-    - Something of interest that varies
-- Distributions (random variables)
-    - Definition
-    - Examples
-        - Normal distribution
-        - Uniform
-    - Parameters
-- Estimating parameters
-    - Standard deviation
-    - Mean
-- Likelihood
-   - How likely is an observation given an assumption.
-- Null hypothesis testing
-    - Null versus alternative hypothesis
-    - test-statistic
-    - p-value (How likely was I to get a result as extreme or more extreme than the one I got assuming the null is true)
-- Decision making
-    - p < .05 convention
-- Correlation versus causation
-    - Classic fails:
-        - Ice cream and forest fires.
-        - Chocolate and IQ
-    - Inferring causation requires an experiment and/or causal modelling
-
-]
-
-.pull-right45[
-# Examples
-
-- Classic tests (ESP, 'fields')
-- Effect of a drug on life expectancy
-- World happiness / economic indicators 
-
-]
 
 
----
-
-.pull-left45[
-
-7 key concepts
-
-1. Variability
-    - Sample versus population
-2. Distributions
-    - Different shapes
-    - Min, max
-    - Mean
-    - Standard deviation
-3. Models
-    - An Equation that describes how one variable varies as a function of other(s)
-4. Parameters
-    - Numbers in a model that can change
-5. Likelihood
-    - Error distribution
-6. Test statistic
-    - Unit-free method of helping us calculate the (un)likelihood of data given a model and certain parameters.
-    - Variance explaiend by the model (effect) / Variance not explained by the model (error)
-7. P-value
-   - Probability 
-8. Additional
-   - Random sampling, iid.
-   - Correlation vs. causation.
-   
-
-]
-
-
-.pull-right45[
-
-
-
-]
 
 ---
 
@@ -191,13 +115,19 @@ source("https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/ma
 
 Basel has many nice "Buvette's" that serve drinks in warm months.
 
-The Oetlinger BuvettE, one of our favorites, offers 33dl beers (or so they say...).
+The Oetlinger Buvette, one of our favorites, offers 33dl beers (or so they say...).
 
 Is the Oetlinger Buvette 'underpouring' its beers?
 
 ### Data
 
 Order 10 beers, and measure the exact amount in each cup.
+
+```{r, echo= FALSE}
+beer <- c(28, 31, 28, 37, 30, 33, 25, 33, 24, 30)
+beer_data <- tibble(beer, id = 1:length(beer))
+```
+
 
 ```{r, echo = FALSE, out.width = "80%", fig.align = 'center'}
 knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/10_beers.jpg?token=AIFo1GFPQoYDXYW5W7FOsftG_-XbNsp6ks5cqeGfwA%3D%3D")
@@ -232,7 +162,8 @@ knitr::include_graphics("https://files.newsnetz.ch/story/1/7/7/17765134/14/topel
 
 All interesting data processes have <high>variability</high>
 
-- Stock prices, patient response to drugs, product manufacturing
+- Stock prices change over time, 
+- Individual patients respond to drugs differently
 
 Statistical inference is all about <high>accounting for variability</high>
 
@@ -240,7 +171,6 @@ If there was no variability, there would be no need to do statistics.
 
 - If every single patient responded the exact same way to a drug, you could do a clinical trial with (any) one patient.
 
-- If the Oetlinger buvette always poured exactly the same amount, I could just order one!
 
 ]
 
@@ -249,17 +179,7 @@ If there was no variability, there would be no need to do statistics.
 
 
 ```{r, echo = FALSE, out.width = "90%"}
-knitr::include_graphics("https://static.seekingalpha.com/uploads/2017/1/6/saupload_Coach-Stock-Price.png")
-```
-
-
-```{r, echo = FALSE, out.width = "90%"}
-knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/cinicaltrial_wide.png?token=AIFo1HsHC0LwU8xjFOB4tKAdFGwNML1Iks5cqNM8wA%3D%3D")
-```
-
-
-```{r, echo = FALSE, out.width = "90%"}
-knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/oetlinger_beer_single_wide.png?token=AIFo1FeCgh_xObYc6YrdafPUsK401Bd1ks5cqeeGwA%3D%3D")
+knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/variability_stock_drug_beer.png?token=AIFo1GDIBmjgX1ca13vVfnh0UqoEa-93ks5cqiplwA%3D%3D")
 ```
 
 ]
@@ -268,9 +188,141 @@ knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019
 
 ---
 
+
 .pull-left45[
 
-# 2. Distributions
+# 1. Variability
+
+In general, we distinguish between two types of variability
+
+|Variability Type|Definition|
+|:-----|:-----|
+|Systematic| Variation that <high>can</high> be explained by known variables|
+|Unsystematic |Variation that <high>cannot</high> be explained by known variables|
+
+Statistical inference is the practice of discovering ways to separate overall variability into systematic and unsystematic portions.
+
+
+]
+
+
+.pull-right45[
+
+
+<br><br>
+
+```{r, echo = FALSE, fig.width = 6, fig.height = 3, dpi= 200, out.width = "100%"}
+
+
+set.seed(103)
+x <- rnorm(50, mean = 50, sd = 10)
+
+
+id <- 1:50
+income <- rnorm(n = 50, mean = 7000, sd = 1000)
+exercise <- rnorm(n = 50, mean = 30, sd = 10)
+happiness <- .2 * exercise + rnorm(50, mean = 0, sd = 1) - 2
+
+dat <- tibble(id, income, exercise, happiness, group = rep("Baselers", 50))
+
+overall <- ggplot(dat, aes(x = id, y = happiness)) +
+  geom_point() +
+  labs(y = "Happiness",
+       x = "id",
+       title = "Total Variability in Happiness")
+
+
+low <- ggplot(dat, aes(income, happiness)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(y = "Happiness",
+       x = "Income",
+       title = "Low Variance Explained") +
+  scale_y_continuous(breaks = seq(0, 10, 1))
+
+high <- ggplot(dat, aes(exercise, happiness)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(y = "Happiness",
+       x = "Minutes of Excercise per day",
+       title = "High Variance Explained")+
+  scale_y_continuous(breaks = seq(0, 10, 1))
+
+
+overall
+
+ggarrange(low, high, ncol = 2, nrow = 1)
+
+```
+
+
+
+]
+
+
+---
+
+
+.pull-left45[
+
+# 2. Sample Statistics
+
+Once we collect (varying) data, we always look for ways to <high>summarise</high> the data into <high>sample statistics</high>
+
+Sample statistics usually (but not always) fall into one of two types:
+
+|Type|Examples |
+|:----|:------|
+|Central Tendency| Mean, mode, median|
+|Variability|Standard deviation, variance, range|
+
+
+Sample statistics give us <high>estimates</high> of key model parameters (more on this later)
+
+]
+
+
+.pull-right5[
+
+
+### Raw data & Sample Statistics
+
+```{r, echo = FALSE, fig.width = 4, fig.height = 3, dpi = 200, out.width = "100%"}
+ggplot(beer_data, aes(x = id, y = beer)) +
+  geom_text(data = beer_data %>% filter(beer > 30), aes(label = beer), nudge_y = 2) +
+    geom_text(data = beer_data %>% filter(beer <= 30), aes(label = beer), nudge_y = -2) +
+  scale_x_continuous(breaks = 1:10) +
+  labs(y = "Amount in dl", title = "10 beers from Oetlinger Buvette") +
+  ylim(c(20, 40)) +
+  geom_hline(yintercept = mean(beer), col = baselrbootcamp_cols("green"), size = 1.5) +
+  geom_segment(aes(x = id, y = beer, xend = id, yend = 29.9), col = baselrbootcamp_cols("yellow"), lty = 1, size= 1.5) +
+  annotate(geom = "segment", x = 2, xend = 2, y = 22 - 3.9 / 2, yend = 22 + 3.9 / 2, size = 1.5, col = baselrbootcamp_cols("yellow")) +
+  annotate(geom = "label", x = 4, y = 22.5, label = "Std Deviation = 3.90", cex = 3) +
+  annotate(geom = "label", x = 7, y = 30, label = "Mean = 29.9", cex = 3) +
+  geom_point(size = 2.5)
+
+
+```
+
+
+$$Mean = \frac{28+31+28+...}{10} = 29.9$$
+
+$$Standard \; Deviation = \sqrt{\frac{(28-29.9)^2+(31-29.9)^2+...}{10-1}} = 3.90$$
+
+
+
+
+]
+
+
+
+
+
+---
+
+.pull-left45[
+
+# 3. Distributions
 
 Statistics is built on <high>calculating the likelihood of data</high> given how we assume it varies
 
@@ -423,13 +475,11 @@ $$\Large x \; \epsilon (a, b)$$
 ]
 
 
-
 ---
 
 .pull-left45[
 
 ## Binomial Distribution
-
 
 A discrete "Counting" distribution
 
@@ -440,6 +490,7 @@ If I flip a coin N times, with p(Head) = p, how many times will I get heads?
 d1 <-  data.frame(x = seq(0, 10, 1),
                                y = dbinom(seq(0, 10, 1), size = 10, prob = .5))
 
+
 d2 <-  data.frame(x = seq(0, 10, 1),
                                y = dbinom(seq(0, 10, 1), size = 10, prob = .1))
 
@@ -447,14 +498,13 @@ d2 <-  data.frame(x = seq(0, 10, 1),
 p1 <- ggplot(data =d2, 
              aes(x = x, y = y)) +
   geom_point(data = d1, col = baselrbootcamp_cols("green"), size = 2) +
-  geom_line(data = d1, size = .5, col = "gray", lty = 3) + 
+  geom_line(data = d1, size = .5, col = "black", lty = 3) + 
   geom_point(data = d2, col = baselrbootcamp_cols("yellow"), size = 2) +
-    geom_line(data = d2, size = .5, col = "gray", lty = 3) + 
+  geom_line(data = d2, size = .5, col = "black", lty = 3) + 
   ylab("Likelihood") +
   ylim(0, .5) + 
   annotate("text", x = 2, y = .45, label =parse(text = paste0('p == .1 ~ n== 10')), size = 5) +
   annotate("text", x = 5, y = .3, label =parse(text = paste0('p == .5 ~ n== 10')), size = 5) +
-
   scale_x_continuous(breaks = 0:10)
 
 p1
@@ -491,27 +541,17 @@ $$\large x \; \epsilon \{0, 1, ...n\}$$
 
 ---
 
+.pull-left45[
+
 # 4: Likelihood
-.pull-left45[
 
+Why do we need distributions? To calculate <high>likelihoods</high> of data.
 
+- How likely is it that I would get this trial result if the drug is *really* better than a placebo?
 
-]
+Knowing this likelihood allows us to <high>fit parameters</high> and <high>test</high> models
 
-
-.pull-right45[
-
-
-
-]
-
----
-
-# 5: Models
-
-.pull-left45[
-
-
+- Given that out of 10 patients, the average recovery time was 2.3 days, what is the most likely distribution of recovery times for future patients?
 
 ]
 
@@ -519,31 +559,139 @@ $$\large x \; \epsilon \{0, 1, ...n\}$$
 .pull-right45[
 
 
+```{r, echo = FALSE, out.width = "85%"}
+knitr::include_graphics("https://www.xofluza.com/content/dam/gene/xofluza/hcp/images/Mobile/Xofluza-Flu-Efficacy-Primary-Endpoint-TTAS-01-Mobile.jpg")
+```
+
+
+
+```{r, echo = FALSE, fig.width = 4, fig.height = 3, out.width = "80%", dpi=200}
+
+p1 <- ggplot(data = data.frame(x = c(0, 10)), aes(x)) +
+  stat_function(fun = dnorm, n = 1001, args = list(mean = 3, sd = 2), col = baselrbootcamp_cols("green"),size = 2) + 
+    stat_function(fun = dnorm, n = 1001, args = list(mean = 1, sd = 3), col = baselrbootcamp_cols("yellow"),size = 2) + 
+  ylab("Likelihood") +
+  scale_y_continuous(breaks = NULL) +
+  xlab("x") +
+  annotate("text", x = 3, .23, label =parse(text = paste0('mu == 3 ~ sigma == 2')), size = 5) +
+annotate("text", x = 2, .15, label =parse(text = paste0('mu == 1 ~ sigma == 3')), size = 5) +
+  ylim(c(0, .25)) +
+  scale_x_continuous(breaks = 0:10)
+
+  
+p1
+```
+
 
 ]
 
-
-
 ---
 
-# 6: Test statistic
 .pull-left45[
 
+# 4: Likelihood
 
+Using the binomial distributions on the right, answer the following questions:
+
+- If there is a 50% chance of a drug being successful, then out of 10 drugs, how likely is it that exactly 5 will be successful?
+
+- If there is a 10% chance that a customer will default on his/her loan, then out of 10 customers, how likely is it that none (0) will default?
 
 ]
 
 
 .pull-right45[
 
+<br><br>
+
+### 2 Binomial Distributions
+
+```{r, echo = FALSE, fig.width = 4, fig.height = 3, out.width = "100%", dpi=200}
+
+d1 <-  data.frame(x = seq(0, 10, 1),
+                               y = dbinom(seq(0, 10, 1), size = 10, prob = .5))
+
+d2 <-  data.frame(x = seq(0, 10, 1),
+                               y = dbinom(seq(0, 10, 1), size = 10, prob = .1))
+
+
+p1 <- ggplot(data =d2, 
+             aes(x = x, y = y)) +
+  geom_hline(yintercept =  seq(0, .5, .1), col = "gray", size = .3, alpha = .5) +
+  geom_vline(xintercept =  seq(0, 10), col = "gray", size = .3, alpha = .5) +
+  geom_point(data = d1, col = baselrbootcamp_cols("green"), size = 2) +
+  geom_line(data = d1, size = .5, col = "black", lty = 3) + 
+  geom_point(data = d2, col = baselrbootcamp_cols("yellow"), size = 2) +
+  geom_line(data = d2, size = .5, col = "black", lty = 3) + 
+  ylab("Likelihood") +
+  ylim(0, .5) + 
+  annotate("text", x = 2, y = .45, label =parse(text = paste0('p == .1 ~ n== 10')), size = 5) +
+  annotate("text", x = 5, y = .3, label =parse(text = paste0('p == .5 ~ n== 10')), size = 5) +
+  scale_x_continuous(breaks = 0:10)
+
+p1
+
+```
 
 
 ]
 
 ---
 
-# 7: P-value
-.pull-left45[
+
+.pull-left5[
+
+# 5: Test statistic
+
+Sample statistics (like means and standard deviations) are converted into <high>test statistics</high>
+
+Test statistics are <high>distribution specific</high> numbers that help you quantify evidence for a statistical model
+
+<!-- $$Test\;Statistic=\frac{Variance\;explained\;by\;a\;model}{Variance\;NOT\;explained\;by\;a\;model}$$ -->
+
+Different tests give you different test statistics:
+
+|Test|Test statistic|
+|:----|:----|
+|T-test|T-statistic|
+|Correlation test|Correlation coefficient|
+|Binomial|Number of successes|
+
+Generally, the more extreme your test statistic is, the more evidence that "Something is going on"
+
+
+]
+
+
+.pull-right45[
+<br><br>
+
+
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/10_beers_teststatistic.png?token=AIFo1A8r2pk1_0TJe-dFnaeuJUOw88X1ks5cqiBmwA%3D%3D")
+```
+
+
+
+
+]
+
+---
+.pull-left55[
+
+# 6: P-value
+
+p-values are used to quantify the likelihood of data given a specific distribution.
+
+
+|Definition|
+|:----|
+|A p-value is the probability of obtaining data as extreme or more extreme than what you got assuming a specific model is true.|
+
+
+Null hypothesis testing
+
+If a p-value is *small* (i.e.; p < .05), this means that the likelihood of obtaining that data given the model is small.
 
 
 
@@ -563,6 +711,7 @@ $$\large x \; \epsilon \{0, 1, ...n\}$$
 .pull-left45[
 
 
+   
 
 ]
 
@@ -587,4 +736,75 @@ $$\large x \; \epsilon \{0, 1, ...n\}$$
 class: middle, center
 
 <h1><a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/RegressionI/RegressionI_practical.html">Practical</a></h1>
+
+
+---
+# Backup
+
+
+
+
+---
+
+.pull-left45[
+
+# 4: Likelihood
+
+Using the binomial distributions on the right, answer the following questions:
+
+- You purchase a XX online
+- You fear it may be fake
+
+Data:
+
+- You used it 10 times and it fails 5 times (5 out of 10).
+
+Online research shows that 
+
+- Real XX fail 10% of the time
+- Fake XX fail 50% of the time.
+
+Question
+
+- How likely is your data if XX is real? What about if it's fake?
+- Is it *more likely* that a real XX would give you your data or a fake XX?
+
+
+]
+
+
+.pull-right45[
+
+<br><br>
+
+
+### 2 Binomial Distributions
+
+```{r, echo = FALSE, fig.width = 4, fig.height = 3, out.width = "100%", dpi=200}
+
+d1 <-  data.frame(x = seq(0, 10, 1),
+                               y = dbinom(seq(0, 10, 1), size = 10, prob = .5))
+
+
+p1 <- ggplot(data =d2, 
+             aes(x = x, y = y)) +
+  geom_hline(yintercept =  seq(0, .5, .1), col = "gray", size = .3, alpha = .5) +
+  geom_vline(xintercept =  seq(0, 10), col = "gray", size = .3, alpha = .5) +
+  geom_point(data = d1, col = baselrbootcamp_cols("green"), size = 2) +
+  geom_line(data = d1, size = .5, col = "black", lty = 3) + 
+  geom_point(data = d2, col = baselrbootcamp_cols("yellow"), size = 2) +
+  geom_line(data = d2, size = .5, col = "black", lty = 3) + 
+  ylab("Likelihood") +
+  ylim(0, .5) + 
+  annotate("text", x = 2, y = .45, label =parse(text = paste0('p == .1 ~ n== 10')), size = 5) +
+  annotate("text", x = 5, y = .3, label =parse(text = paste0('p == .5 ~ n== 10')), size = 5) +
+  scale_x_continuous(breaks = 0:10)
+
+p1
+
+```
+
+
+
+]
 
