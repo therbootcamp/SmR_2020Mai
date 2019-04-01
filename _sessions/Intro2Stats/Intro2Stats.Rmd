@@ -96,8 +96,9 @@ In this hour, we will try to cover some of the basic principles of statistical i
 2. Sample statistics
 3. Distributions
 4. Likelihood
-5. Test statistic
-6. P-values
+5. Null Hypothesis testing
+6. Test statistic
+7. P-values
 
 This is a lot to cover, and it may not be clear from the beginning.
 
@@ -187,7 +188,7 @@ beer_data <- tibble(beer, id = 1:length(beer))
 
 
 ```{r, echo = FALSE, out.width = "80%", fig.align = 'center', fig.width = 5, fig.height = 3}
-ggplot(beer_data, aes(x = id, y = beer)) +
+beer_gg <- ggplot(beer_data, aes(x = id, y = beer)) +
   geom_hline(yintercept = 33, col = baselrbootcamp_cols("green")) +
   geom_text(data = beer_data %>% filter(beer > 30), aes(label = beer), nudge_y = 2) +
     geom_text(data = beer_data %>% filter(beer <= 30), aes(label = beer), nudge_y = -2) +
@@ -195,6 +196,8 @@ ggplot(beer_data, aes(x = id, y = beer)) +
   labs(y = "Amount in dl", title = "10 beers from Oetlinger Buvette") +
   ylim(c(20, 40)) +
   geom_point(size = 2.5)
+
+beer_gg
 ```
 
 ]
@@ -236,7 +239,38 @@ Statistical inference is all about <high>accounting for variability</high>
 
 If there was no variability, there would be no need to do statistics.
 
-- If every single patient responded the exact same way to a drug, you could do a clinical trial with (any) one patient.
+*If every single patient responded the exact same way to a drug, you could do a clinical trial with (any) one patient.*
+
+
+]
+
+
+.pull-right45[
+
+Statistics is the process of understanding variability
+
+```{r, echo = FALSE, out.width = "90%"}
+knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/variability_stock_drug.png?token=AIFo1Ck45ox-HHmcNvSnfBOLXhRRRjpVks5cq1a3wA%3D%3D")
+```
+
+]
+
+
+---
+
+
+.pull-left45[
+
+# 1. Variability
+
+In general, we distinguish between two types of variability
+
+|Variability Type|Definition|
+|:-----|:-----|
+|Systematic| Variation that <high>can</high> be explained by known variables|
+|Unsystematic |Variation that <high>cannot</high> be explained by known variables|
+
+Statistical inference is the practice of discovering ways to separate overall variability into systematic and unsystematic portions.
 
 
 ]
@@ -245,12 +279,75 @@ If there was no variability, there would be no need to do statistics.
 .pull-right45[
 
 
-```{r, echo = FALSE, out.width = "90%"}
-knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/variability_stock_drug_beer.png?token=AIFo1GDIBmjgX1ca13vVfnh0UqoEa-93ks5cqiplwA%3D%3D")
+```{r, echo = FALSE}
+
+set.seed(103)
+x <- rnorm(50, mean = 50, sd = 10)
+
+
+id <- 1:50
+income <- rnorm(n = 50, mean = 7000, sd = 1000)
+exercise <- rnorm(n = 50, mean = 30, sd = 10)
+beer <- sample(c(0, 1), size = 50, replace = TRUE)
+sex <- sample(c(0, 1), size = 50, replace = TRUE)
+happiness <- rnorm(50)
+happiness[beer == 1] <- .2 * exercise + 2 + rnorm(sum(beer == 1), mean = 0, sd = 1) - 2
+happiness[beer == 0] <- .2 * exercise - 2 + rnorm(sum(beer == 0), mean = 0, sd = 1) - 2
+happiness2 <- .2 * exercise + rnorm(50, mean = 0, sd = 1) - 2
+
+
+dat <- tibble(id, income, exercise, happiness, happiness2, group = rep("Baselers", 50))
+
+overall <- ggplot(dat, aes(x = id, y = happiness)) +
+  geom_point() +
+  labs(y = "Happiness",
+       x = "id",
+       title = "Total Variability in Happiness")
+
+
+low_fact <- ggplot(dat, aes(factor(sex), happiness)) +
+  geom_jitter(width = .05) +
+  labs(y = "Happiness",
+       x = "Sex",
+       title = "Low Variance Explained") +
+  scale_y_continuous(breaks = seq(0, 10, 1), limits = c(1, 10))
+
+high_fact <- ggplot(dat, aes(factor(beer), happiness)) +
+  geom_jitter(width = .05) +
+  labs(y = "Happiness",
+       x = "Beer",
+       title = "High Variance Explained") +
+  scale_y_continuous(breaks = seq(0, 10, 1), limits = c(1, 10))
+
+
+low_cont <- ggplot(dat, aes(income, happiness2)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(y = "Happiness",
+       x = "Income",
+       title = "Low Variance Explained") +
+  scale_y_continuous(breaks = seq(0, 10, 1), limits = c(1, 10))
+
+high_cont <- ggplot(dat, aes(exercise, happiness2)) +
+  geom_point() +
+  geom_smooth(method = "lm") +
+  labs(y = "Happiness",
+       x = "Minutes of Excercise per day",
+       title = "High Variance Explained")+
+  scale_y_continuous(breaks = seq(0, 10, 1), limits = c(1, 10))
+
 ```
 
-]
 
+<br><br>
+
+```{r, echo = FALSE, fig.width = 4, fig.height = 4, dpi= 200, out.width = "100%"}
+overall + scale_x_continuous(seq(1, 50, 1))
+```
+
+
+
+]
 
 
 ---
@@ -278,48 +375,8 @@ Statistical inference is the practice of discovering ways to separate overall va
 
 <br><br>
 
-```{r, echo = FALSE, fig.width = 6, fig.height = 3, dpi= 200, out.width = "100%"}
-
-
-set.seed(103)
-x <- rnorm(50, mean = 50, sd = 10)
-
-
-id <- 1:50
-income <- rnorm(n = 50, mean = 7000, sd = 1000)
-exercise <- rnorm(n = 50, mean = 30, sd = 10)
-happiness <- .2 * exercise + rnorm(50, mean = 0, sd = 1) - 2
-
-dat <- tibble(id, income, exercise, happiness, group = rep("Baselers", 50))
-
-overall <- ggplot(dat, aes(x = id, y = happiness)) +
-  geom_point() +
-  labs(y = "Happiness",
-       x = "id",
-       title = "Total Variability in Happiness")
-
-
-low <- ggplot(dat, aes(income, happiness)) +
-  geom_point() +
-  geom_smooth(method = "lm") +
-  labs(y = "Happiness",
-       x = "Income",
-       title = "Low Variance Explained") +
-  scale_y_continuous(breaks = seq(0, 10, 1))
-
-high <- ggplot(dat, aes(exercise, happiness)) +
-  geom_point() +
-  geom_smooth(method = "lm") +
-  labs(y = "Happiness",
-       x = "Minutes of Excercise per day",
-       title = "High Variance Explained")+
-  scale_y_continuous(breaks = seq(0, 10, 1))
-
-
-overall
-
-ggarrange(low, high, ncol = 2, nrow = 1)
-
+```{r, echo = FALSE, fig.width = 6, fig.height = 6, dpi= 200, out.width = "100%"}
+ggpubr::ggarrange(low_fact, high_fact, low_cont, high_cont, ncol = 2, nrow = 2)
 ```
 
 
@@ -618,7 +675,7 @@ Why do we need distributions? To calculate <high>likelihoods</high> of data.
 
 Knowing this likelihood allows us to <high>fit parameters</high> and <high>test</high> models
 
-- Given that out of 10 patients, the average recovery time was 2.3 days, what is the most likely distribution of recovery times for future patients?
+- Given that out of 50 trial patients, the average recovery time was 2.3 days, what is the most likely distribution of recovery times for future patients?
 
 ]
 
@@ -626,13 +683,42 @@ Knowing this likelihood allows us to <high>fit parameters</high> and <high>test<
 .pull-right45[
 
 
-```{r, echo = FALSE, out.width = "85%"}
+```{r, echo = FALSE, out.width = "100%"}
 knitr::include_graphics("https://www.xofluza.com/content/dam/gene/xofluza/hcp/images/Mobile/Xofluza-Flu-Efficacy-Primary-Endpoint-TTAS-01-Mobile.jpg")
 ```
 
 
 
-```{r, echo = FALSE, fig.width = 4, fig.height = 3, out.width = "80%", dpi=200}
+```{r, echo = FALSE, fig.width = 4, fig.height = 3, out.width = "80%"}
+
+set.seed(105)
+x <- rnorm(50, mean = 50, sd = 10)
+
+id <- 1:50
+drug <- sample(c("Drug", "Placebo"), size = 50, replace = TRUE)
+effect <- rnorm(50)
+effect[drug == "Drug"] <- 2.3 + rnorm(sum(drug == "Drug"), mean = 0, sd = 1.5) - .41
+effect[drug == "Placebo"] <- 3.3 + rnorm(sum(drug == "Placebo"), mean = 0, sd = 1.5) - .12
+
+dat <- tibble(id, drug, effect, group = rep("Baselers", 50))
+avg <- dat %>%
+  group_by(drug) %>%
+  summarise(days_mean = mean(effect))
+
+drug_placebo_gg <- ggplot(dat, aes(factor(drug), effect)) +
+  geom_jitter(width = .05) +
+  labs(y = "Days",
+       x = "Condition",
+       title = "") +
+  scale_y_continuous(breaks = seq(0, 10, 1), limits = c(0, 7)) +
+  geom_label(data = avg, aes(x = drug, y = days_mean, label = round(days_mean, 2)))
+
+drug_placebo_gg
+```
+
+
+
+```{r, eval = FALSE, echo = FALSE, fig.width = 4, fig.height = 3, out.width = "80%", dpi=200}
 
 p1 <- ggplot(data = data.frame(x = c(0, 10)), aes(x)) +
   stat_function(fun = dnorm, n = 1001, args = list(mean = 3, sd = 2), col = baselrbootcamp_cols("green"),size = 2) + 
@@ -703,16 +789,50 @@ p1
 
 ]
 
+
+
+
+---
+
+.pull-left65[
+
+# 5: Null hypothesis testing
+
+Null hypothesis testing is a statistical framework where two alternative hypotheses (the Null and the Alternative) are compared
+
+|Hypothesis|Description|Example|
+|:-----|:-----|:-------|
+|Null (H0)|A proposed effect <high>does not exist</high> and variation <high>is not systematic</high>|Drug and placebo have the same effect|
+|Alternative (H1)|A proposed effect <high>does exist</high> and variation <high>is systematic</high>|Drug and placebo do *not* have the same effect|
+
+
+In order to compare these hypotheses, we need to calculate the likelihood of the data <high>given</high> that one of these hypotheses are true.
+
+]
+
+
+.pull-right3[
+<br><br><br>
+Are these data consistent with H0?
+
+```{r, echo = FALSE, fig.width = 3, fig.height = 3}
+drug_placebo_gg
+```
+
+
+]
+
+
 ---
 
 
 .pull-left5[
 
-# 5: Test statistic
+# 6: Test statistic
 
-Sample statistics (like means and standard deviations) are converted into <high>test statistics</high>
+Sample statistics (like means and standard deviations) are converted into <high>test statistics</high>.
 
-Test statistics are <high>distribution specific</high> numbers that help you quantify evidence for a statistical model
+Test statistics are are numbers that help you quantify how likely data is given a null hypothesis.
 
 <!-- $$Test\;Statistic=\frac{Variance\;explained\;by\;a\;model}{Variance\;NOT\;explained\;by\;a\;model}$$ -->
 
@@ -724,43 +844,39 @@ Different tests give you different test statistics:
 |Correlation test|Correlation coefficient|
 |Binomial|Number of successes|
 
-Generally, the more extreme your test statistic is, the more evidence that "Something is going on"
+Generally, the more extreme your test statistic is, the more evidence *against* the null hypothesis.
 
 
 ]
 
 
-.pull-right45[
+.pull-right5[
 <br><br>
-
 
 ```{r, echo = FALSE, out.width = "100%"}
 knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/10_beers_teststatistic.png?token=AIFo1A8r2pk1_0TJe-dFnaeuJUOw88X1ks5cqiBmwA%3D%3D")
 ```
-
-
-
 
 ]
 
 ---
 .pull-left55[
 
-# 6: P-value
+# 7: P-value
 
-p-values are used to quantify the likelihood of data given a specific distribution.
+p-values are used to quantify the likelihood of data given the <high>probability distribution</high> under the <high>null hypothesis</high>
 
-
-|Definition|
+|p-value Definition|
 |:----|
-|A p-value is the probability of obtaining data as extreme or more extreme than what you got assuming a specific model is true.|
+|A p-value is the probability of obtaining a test statistic as extreme as what you got assuming a null hypothesis is true|
 
+> "How likely is it that I would get a test statistic of -2.51 if the mean amount of beer really is 33dl?"
 
-Null hypothesis testing
+### p < .05 = Reject H0
 
-If a p-value is *small* (i.e.; p < .05), this means that the likelihood of obtaining that data given the model is small.
+If a p-value is *small* (i.e.; p < .05), this means that the likelihood of obtaining that data given the null hypothesis is equally *small*, suggesting that the null hypothesis is *wrong*
 
-
+<high>Warning!</high> Wait until the New Statistics lecture for alternatives to this approach!
 
 ]
 
