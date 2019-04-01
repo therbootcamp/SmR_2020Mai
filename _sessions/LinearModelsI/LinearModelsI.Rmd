@@ -73,99 +73,130 @@ require(tidyverse)
 ```
 
 
+# Linear Models
+
+.pull-left45[
+
+Linear models are, by far, the most widely used and important models in all of statistics
+
+As we will see today, many statistical tests you may know of are special types of linear models.
+
+Why are linear models so great?
+
+- They are easy to interpret.
+- They can approximate non-linear data well.
+- They are easy to calculate and impliment (just addition and multiplication!).
+- They just work!
+
+]
+
+.pull-right45[
+
+
+]
+
+---
+
+
 # What is a linear model?
 
-.pull-left45[
-
-A linear model is 
+A linear model is one that can be written in the following form <br>
 
 
-]
+$$\Huge Y = \beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2} + \beta_{3} x_{3} + ... + \beta_{n}x_{n} + \epsilon$$
 
-.pull-right45[
+<br>
 
+Or using summation notation:
 
-]
+$$\Huge Y = \beta_{0} + \sum_{i=1}^{n}\beta_{i}x_{i}+ \epsilon$$
 
-
----
-
-.pull-left45[
-# Topics
-
-- Linear model
-   - Formula
-   - Coefficients
-
-- Model fitting and evaluation
-   - Tests of coefficients
-       - Estimate, Std.error, statistic, p.value
-   - Residuals
-       - Signed vs. Absolute
-   - R-square
-
-]
-
-.pull-right45[
-# Functions
-
-### Model Building
-
-- glm()
-    - formula
-    - data
-
-### Evaluation
-
-- summary()
-- coef()
-- broom::tidy()
-- fitted()
-- resid()
-- confint()
-- rsq::rsq()
-- predict()
-
-]
+All it is is basic addition and multiplication! 
 
 
 ---
 
-# Assumptions
+.pull-left55[
 
-- IID
-- Normally distributed errors
-- If multiple IVs, not highly correlated
+# Simple Linear Regression
 
+Simple linear regression is a linear model with one predictor $x$, and where the error term $\epsilon$ is Normally distributed.
+
+$$\huge Y=\beta_{0} + \beta_{1} x + \epsilon$$
+<br>
+
+|Parameter|Description|In words|
+|:------|:-----|:-----|
+|$$\beta_{0}$$| Intercept|When $x = 0$, what is the predicted value for $Y$?|
+|$$\beta_{1}$$| Coefficient for $x$|For every increase of 1 in $x$, how does $Y$ change?|
+
+
+]
+
+
+.pull-right4[
+
+## Examples
+
+
+
+]
 
 ---
 
-# Interpreting parameters
+.pull-left55[
 
-- Intercept
-- Coefficients
+# Multiple Linear Regression
+
+Multiple linear regression is a linear model with many predictors $x_{1},  x_{2}, .... x_{n}$, and where the error term $\epsilon$ is Normally distributed.
+
+$$\LARGE Y=\beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2}+...+ \beta_{n} x_{n} + \epsilon$$
+<br>
+
+|Parameter|Description|In words|
+|:------|:-----|:-----|
+|$$\beta_{0}$$| Intercept|When *all* $x$ values are 0, what is the predicted value for $Y$?|
+|$$\beta_{1}, \beta_{2}, \beta_{3} \ldots$$| Coefficient for $x_{1}, x_{2}...$|For every increase of 1 in $x_{1}, x_{2}, ...$, how does $Y$ change?|
+]
+
+
+.pull-right4[
+
+## Examples
+
+
+]
+
 
 
 ---
 
 # Estimating coefficients
 
-Minimise sum of squares
+- How do we estimate the 'right' coefficients in a linear model?
 
-Maximum Likelihood
+- Least Squares
 
----
+
+- Other types of models use other methods (like maximum likelihood)
 
 # Ex: which of the following linear models best describes the data?
 
----
-
-# R2: Estimating model performance
 
 ---
+# Establishing model performance
 
-# Visualising residuals
+R2
 
+Plot residuals
+
+calculate mean absolute residual
+
+---
+
+# Testing individual coefficients
+
+- Test statistic, p-value
 
 ---
 
@@ -173,8 +204,39 @@ Maximum Likelihood
 
 
 ---
+## glm()
+
+
+- formula
+- data
+
+---
+
+## evaluating
+
+- rsq::rsq()
+- summary()
+- coef()
+- broom::tidy()
+
+---
+
+## printing results
+
+- fitted()
+- resid()
+
+- calculate mad with mean(abs(resid))
+
+---
+
+## Predict new values
+
+predict()
+
+---
 
 class: middle, center
 
-<h1><a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/RegressionI/RegressionI_practical.html">Practical</a></h1>
+<h1><a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsI/LinerModelsI_practical.html">Practical</a></h1>
 

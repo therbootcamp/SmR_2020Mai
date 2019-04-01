@@ -11,7 +11,7 @@
 
 
 
-<title>Regression applied</title>
+<title>Linear Models applications</title>
 
 <script src="LinearModelsII_practical_files/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -184,7 +184,7 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Regression <i>applied</i></h1>
+<h1 class="title toc-ignore">Linear Models <i>applications</i></h1>
 <h4 class="author"><em><table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'>
 <col width='10%'>
 <col width='10%'>
@@ -632,8 +632,58 @@ XXX
 tidy(XXX)</code></pre>
 </div>
 </div>
-<div id="e---chi-square-test" class="section level3">
-<h3>E - Chi-square test</h3>
+<div id="f---regression" class="section level3">
+<h3>F - Regression</h3>
+<ol style="list-style-type: decimal">
+<li>It’s time to conduct a regression analysis predicting day the number of days until a major negative event <code>days</code> based on several variables. Perform a regression analysis predicting days until a major negative event <code>days</code> based on the following variables: <code>arms</code>, <code>gender</code>, <code>age</code>, <code>wtkg</code>, <code>hemo</code>, <code>drugs</code>, <code>race</code>, <code>cd40</code>, and <code>cd80</code>. Use the code chunk below to help you</li>
+</ol>
+<pre class="r"><code># Predict days based on many variables
+
+days_glm &lt;- glm(formula = XXX ~ XXX + XXX + XXX ...,
+                data = XXX)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Using <code>tidy()</code> look at the summary results. Which variables seem to be able to predict the number of days until a major negative event?</li>
+</ol>
+<pre class="r"><code>tidy(XXX)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Using <code>rsq()</code> calculate the r-squared value of your model. Was it high or low?</li>
+</ol>
+<pre class="r"><code>rsq(XXX)</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Using the code below, visualise the absolute residuals from the model. What does this mean?</li>
+</ol>
+<pre class="r"><code># Save residuals as days_glm_resid
+days_glm_absresid &lt;- abs(resid(days_glm))
+
+# Plot histogram
+ggplot(data = tibble(days_glm_absresid), aes(x = days_glm_absresid)) +
+  geom_histogram(col = &quot;white&quot;)</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Using the code below, calculate the mean absolute residuals from the model. What do these mean?</li>
+</ol>
+</div>
+<div id="x---advanced" class="section level3">
+<h3>X - Advanced:</h3>
+<p>For the remaining tasks, you choose the test! For each task, do the following:</p>
+<ul>
+<li>Visualize the data (use the code given in the sections above for help!)</li>
+<li>Conduct the appropriate test using an applied hypothesis test function (i.e.; correlation test, t-test, ANOVA or chi-square test).</li>
+<li>Explore the results (e.g.; estimate, confidence interval, p-value).</li>
+<li>Conduct the same test using the generalized linear model function <code>glm()</code></li>
+<li>Explore the results and confirm you get the same result from your applied function!</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li><p>Do people with a history of intravenous drug use (<code>drugs</code>) tend to have major negative events (<code>days</code>) faster than those without a history of intravenous drug use?</p></li>
+<li><p>Do men and women (<code>gender</code>) have different CD8 T cell counts at baseline (<code>cd80</code>)?</p></li>
+<li><p>Is there a relationship between patient’s CD4 T cell counts at baseline (<code>cd40</code>) and at 96 weeks (<code>cd496</code>)?</p></li>
+<li><p>Did older patients have higher CD4 T cell counts at baseline (<code>cd40</code>) compared to younger patients?</p></li>
+<li><p>Was there an effect of treatment arm (<code>arms</code>) on the <em>change</em> of CD4 T cell counts between baseline (<code>cd40</code>) and 96 weeks (`cd496)? Hint: to do this, you first need to create a column that shows the change in CD4 T cell counts. The code below should help you with this:</p></li>
+</ol>
+<pre class="r"><code>trial &lt;- trial %&gt;%
+  mutate(cd496_change = cd496 - cd40)   # Add cd496_change to trial, indicating change from
+                                        # in cd4 T cell count from baseline to 96 weeks.</code></pre>
+<div id="chi-square-test" class="section level4">
+<h4>Chi-square test</h4>
 <blockquote>
 <p>Research Question: Was there an unequal distribution of gender in the treatment arms?</p>
 </blockquote>
@@ -690,6 +740,7 @@ gender_arm_tidy &lt;- tidy(xxx)</code></pre>
 <ol start="9" style="list-style-type: decimal">
 <li>Now, print your <code>gender_arm_tidy</code> object, how do the results look?</li>
 </ol>
+</div>
 <div id="chi-square-as-linear-model" class="section level4">
 <h4>Chi-square as Linear Model</h4>
 <ol start="10" style="list-style-type: decimal">
@@ -720,27 +771,6 @@ arms_gender_glm &lt;- glm(formula = XXX ~ XXX * XXX, # Model counts by the inter
 anova(arms_gender_glm, 
       test = &#39;Rao&#39;)   # Show a &#39;Rao&quot; score test</code></pre>
 </div>
-</div>
-<div id="x---advanced" class="section level3">
-<h3>X - Advanced:</h3>
-<p>For the remaining tasks, you choose the test! For each task, do the following:</p>
-<ul>
-<li>Visualize the data (use the code given in the sections above for help!)</li>
-<li>Conduct the appropriate test using an applied hypothesis test function (i.e.; correlation test, t-test, ANOVA or chi-square test).</li>
-<li>Explore the results (e.g.; estimate, confidence interval, p-value).</li>
-<li>Conduct the same test using the generalized linear model function <code>glm()</code></li>
-<li>Explore the results and confirm you get the same result from your applied function!</li>
-</ul>
-<ol style="list-style-type: decimal">
-<li><p>Do people with a history of intravenous drug use (<code>drugs</code>) tend to have major negative events (<code>days</code>) faster than those without a history of intravenous drug use?</p></li>
-<li><p>Do men and women (<code>gender</code>) have different CD8 T cell counts at baseline (<code>cd80</code>)?</p></li>
-<li><p>Is there a relationship between patient’s CD4 T cell counts at baseline (<code>cd40</code>) and at 96 weeks (<code>cd496</code>)?</p></li>
-<li><p>Was the proportion of White patients (<code>race</code>) the same for females and males (<code>gender</code>)?</p></li>
-<li><p>Was there an effect of treatment arm (<code>arms</code>) on the <em>change</em> of CD4 T cell counts between baseline (<code>cd40</code>) and 96 weeks (`cd496)? Hint: to do this, you first need to create a column that shows the change in CD4 T cell counts. The code below should help you with this:</p></li>
-</ol>
-<pre class="r"><code>trial &lt;- trial %&gt;%
-  mutate(cd496_change = cd496 - cd40)   # Add cd496_change to trial, indicating change from
-                                        # in cd4 T cell count from baseline to 96 weeks.</code></pre>
 </div>
 </div>
 <div id="examples" class="section level2">
