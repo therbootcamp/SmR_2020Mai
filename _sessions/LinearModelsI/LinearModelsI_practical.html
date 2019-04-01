@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+<title>Linear Models I</title>
+
+<script src="LinearModelsI_practical_files/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="LinearModelsI_practical_files/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+<script src="LinearModelsI_practical_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="LinearModelsI_practical_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="LinearModelsI_practical_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="LinearModelsI_practical_files/navigation-1.1/tabsets.js"></script>
+<link href="LinearModelsI_practical_files/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="LinearModelsI_practical_files/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="practical.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Linear Models I</h1>
+<h4 class="author"><em><HmRun style='HmRun-layout:fixed;width:100%;border:0;padding:0;margin:0'>
+<col width='10%'>
+<col width='10%'>
+<tr style="border:none">
+<td style="display:block;width:100%;text-align:left;vertical-align:bottom;padding:0;margin:0;border:none" nowrap>
+<font style='font-style:normal'>Statistics with R</font><br> <a href='https://therbootcamp.github.io/SWR_2019Apr/'> <i class='fas fa-clock' style='font-size:.9em;' ></i> </a> <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;'></i> </a> <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a> <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a> <a href='https://therbootcamp.github.io'> <font style='font-style:normal'>Basel R Bootcamp</font> </a>
+</td>
+<td style="width:100%;vertical-align:bottom;text-align:right;padding:0;margin:0;border:none">
+<img src='https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png' style='height:15px;width:80px'/>
+</td>
+</tr>
+</HmRun></em></h4>
+
+</div>
+
+
+<p align="center" width="100%">
+<img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/baseball.png?token=AIFo1PlxSH9Z8b82MTUkkJ8pNUE7-Gbyks5cqIaSwA%3D%3D" alt="Trulli" style="width:100%"> <br> <font style="font-size:10px">from <a href="">www.popsci.com</a></font>
+</p>
+<div id="section" class="section level1 tabset">
+<h1></h1>
+<div id="tasks" class="section level2">
+<h2>Tasks</h2>
+<div id="overview" class="section level3">
+<h3>Overview</h3>
+<p>In this practical you’ll practice constructing and understanding regression models.</p>
+<p>By the end of this practical you will know how to:</p>
+<ol style="list-style-type: decimal">
+<li>Create simple and multiple linear regression models with <code>glm()</code></li>
+<li>Explore the outputs of your models, including coefficients, confidence intervals, and p-values.</li>
+<li>Explore the residuals and fitted values of a linear model.</li>
+<li>Use your model to make predictions for new data</li>
+</ol>
+</div>
+<div id="a---setup" class="section level3">
+<h3>A - Setup</h3>
+<ol style="list-style-type: decimal">
+<li><p>Open your <code>BaselRBootcamp</code> R project. It should already have the folders <code>1_Data</code> and <code>2_Code</code>. Make sure that the data files listed in the <code>Datasets</code> section above are in your <code>1_Data</code> folder</p></li>
+<li><p>Open a new R script. At the top of the script, using comments, write your name and the date. Save it as a new file called <code>LinearModels_I_practical.R</code> in the <code>2_Code</code> folder.</p></li>
+<li><p>Using <code>library()</code> load each of the packages below (if you don’t have them, you’ll need to install them)</p></li>
+</ol>
+<pre class="r"><code># Load packages necessary for this script
+library(tidyverse)
+library(broom)
+library(rsq)</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Using the following template, load the <code>hitters.csv</code> data into R and store it as a new object called <code>hitters</code> (Hint: Don’t type the path directly! Use the “tab” completion!).</li>
+</ol>
+<pre class="r"><code># Load XXX.csv from the 1_Data folder
+
+XX &lt;- read_csv(file = &quot;XX/XX&quot;)</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Take a look at the first few rows of the dataset(s) by printing it/them to the console, it should look like the table below:</li>
+</ol>
+<table>
+<thead>
+<tr class="header">
+<th align="right">AtBat</th>
+<th align="right">Hits</th>
+<th align="right">HmRun</th>
+<th align="right">Runs</th>
+<th align="right">RBI</th>
+<th align="right">Walks</th>
+<th align="right">Years</th>
+<th align="right">CAtBat</th>
+<th align="right">CHits</th>
+<th align="right">CHmRun</th>
+<th align="right">CRuns</th>
+<th align="right">CRBI</th>
+<th align="right">CWalks</th>
+<th align="left">League</th>
+<th align="left">Division</th>
+<th align="right">PutOuts</th>
+<th align="right">Assists</th>
+<th align="right">Errors</th>
+<th align="right">Salary</th>
+<th align="left">NewLeague</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">215</td>
+<td align="right">51</td>
+<td align="right">4</td>
+<td align="right">19</td>
+<td align="right">18</td>
+<td align="right">11</td>
+<td align="right">1</td>
+<td align="right">215</td>
+<td align="right">51</td>
+<td align="right">4</td>
+<td align="right">19</td>
+<td align="right">18</td>
+<td align="right">11</td>
+<td align="left">A</td>
+<td align="left">E</td>
+<td align="right">116</td>
+<td align="right">5</td>
+<td align="right">12</td>
+<td align="right">70</td>
+<td align="left">A</td>
+</tr>
+<tr class="even">
+<td align="right">458</td>
+<td align="right">114</td>
+<td align="right">13</td>
+<td align="right">67</td>
+<td align="right">57</td>
+<td align="right">48</td>
+<td align="right">4</td>
+<td align="right">1350</td>
+<td align="right">298</td>
+<td align="right">28</td>
+<td align="right">160</td>
+<td align="right">123</td>
+<td align="right">122</td>
+<td align="left">A</td>
+<td align="left">W</td>
+<td align="right">246</td>
+<td align="right">389</td>
+<td align="right">18</td>
+<td align="right">475</td>
+<td align="left">A</td>
+</tr>
+<tr class="odd">
+<td align="right">586</td>
+<td align="right">159</td>
+<td align="right">12</td>
+<td align="right">72</td>
+<td align="right">79</td>
+<td align="right">53</td>
+<td align="right">9</td>
+<td align="right">3082</td>
+<td align="right">880</td>
+<td align="right">83</td>
+<td align="right">363</td>
+<td align="right">477</td>
+<td align="right">295</td>
+<td align="left">N</td>
+<td align="left">E</td>
+<td align="right">181</td>
+<td align="right">13</td>
+<td align="right">4</td>
+<td align="right">1043</td>
+<td align="left">N</td>
+</tr>
+<tr class="even">
+<td align="right">568</td>
+<td align="right">158</td>
+<td align="right">20</td>
+<td align="right">89</td>
+<td align="right">75</td>
+<td align="right">73</td>
+<td align="right">15</td>
+<td align="right">8068</td>
+<td align="right">2273</td>
+<td align="right">177</td>
+<td align="right">1045</td>
+<td align="right">993</td>
+<td align="right">732</td>
+<td align="left">N</td>
+<td align="left">W</td>
+<td align="right">105</td>
+<td align="right">290</td>
+<td align="right">10</td>
+<td align="right">775</td>
+<td align="left">N</td>
+</tr>
+<tr class="odd">
+<td align="right">399</td>
+<td align="right">102</td>
+<td align="right">3</td>
+<td align="right">56</td>
+<td align="right">34</td>
+<td align="right">34</td>
+<td align="right">5</td>
+<td align="right">670</td>
+<td align="right">167</td>
+<td align="right">4</td>
+<td align="right">89</td>
+<td align="right">48</td>
+<td align="right">54</td>
+<td align="left">A</td>
+<td align="left">W</td>
+<td align="right">211</td>
+<td align="right">9</td>
+<td align="right">3</td>
+<td align="right">80</td>
+<td align="left">A</td>
+</tr>
+</tbody>
+</table>
+<pre class="r"><code># Print hitters object
+XXX</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li>Use the <code>View()</code> function to view the entire dataframe(s) in new window(s).</li>
+</ol>
+<pre class="r"><code>View(XXX)</code></pre>
+</div>
+<div id="b---simple-regression" class="section level3">
+<h3>B - Simple regression</h3>
+<div id="hits-and-salary" class="section level4">
+<h4>Hits and Salary</h4>
+<p>In this section, we will answer the question: “Is there a relationship between the number of Hits a player had in 1986 (<code>Hits</code>) and his salary in 1987 (<code>Salary</code>)”?</p>
+<ol style="list-style-type: decimal">
+<li>Using the code below, create a scatterplot showing the relationship between Hits and Salary. Based on this plot, do you expect there to be a relationship between these variables?</li>
+</ol>
+<pre class="r"><code>ggplot(hitters, aes(x = Hits, y = Salary)) +
+  geom_point() +
+  theme_minimal()</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Using the guide below, conduct a regression analysis predicting a player’s <code>Salary</code> as a function of his <code>Hits</code> value. Save the result to an object called <code>hits_glm</code>.</li>
+</ol>
+<pre class="r"><code>hits_glm &lt;- glm(formula = XXX ~ XXX,
+                data = XXX)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Look at the class of your <code>hits_glm</code> object using the <code>class()</code> function. What class is the object?</li>
+</ol>
+<pre class="r"><code># Print the class of the hits_glm object
+
+class(XXX)</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Print your <code>hits_glm</code> object to see summary information. What is the value of the coefficient for Hits and what does it mean? Is it consistent with what you expected from the plot?</p></li>
+<li><p>Use the <code>summary()</code> function to print additional summary information from your <code>hits_glm</code> object.</p></li>
+</ol>
+<pre class="r"><code># Show summary information from hits_glm
+summary(XXX)</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>Using the <code>tidy()</code> function (from the broom package), create a new object called <code>hits_tidy</code> which contains all ‘tidy’ results from your <code>hits_glm</code> object.</li>
+</ol>
+<pre class="r"><code># Save &#39;tidy&#39; results from hits_glm as hits_tidy
+hits_tidy &lt;- tidy(XXX)</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li><p>Print your <code>hits_tidy</code> object, which statistical outputs do you see?</p></li>
+<li><p>What is the p-value associated with your <code>Hits</code> coefficient? How do you interpret this? Do you think that, in the general population of players, that there is a non-zero relationship between hits and salary?</p></li>
+<li><p>Using the <code>confint()</code> function, print 95% confidence interval(s) for the regression coefficient(s) in your <code>hits_glm</code> object. What do they mean?</p></li>
+</ol>
+<pre class="r"><code># Print confidence interval(s) of coefficient(s) in hits_glm
+confint(XXX)</code></pre>
+<ol start="9" style="list-style-type: decimal">
+<li>Using the <code>fitted()</code> function, save the fitted values of your <code>glm</code> object as <code>Hits_fit</code>. Then print the results to see how they look.</li>
+</ol>
+<pre class="r"><code># Save fitted values from Hits_glm as Hits_fit
+Hits_fit &lt;- fitted(XXX)
+
+# Print results
+Hits_fit</code></pre>
+<ol start="10" style="list-style-type: decimal">
+<li>Using <code>min()</code>, <code>max()</code>, <code>mean()</code>, <code>median()</code>, and <code>sd()</code>, calculate summary statistics for the fits. Do the values look like they make sense?</li>
+</ol>
+<pre class="r"><code># Print summary statistics from Hits_fit
+
+min(XXX)
+max(XXX)
+mean(XXX)
+median(XXX)
+sd(XXX)</code></pre>
+<ol start="11" style="list-style-type: decimal">
+<li>Using the code below, plot the relationship between the model fitted values and the true values</li>
+</ol>
+<pre class="r"><code># Create dataframe containing true salaries and model fits
+
+data &lt;- tibble(truth = hitters$Salary,
+               fitted  = Hits_fit)
+
+# Create scatterplot
+ggplot(data = data, aes(x = truth, y = fitted)) +  
+  geom_point() +
+  geom_abline(slope = 1, intercept = 0) +
+  labs(title = &quot;Relationship between model fits and true Salaries&quot;,
+       subtitle = &quot;Formula = Salary ~ Hits&quot;) +
+  geom_segment(aes(x = truth, y = truth, xend = truth, yend = fitted), 
+               col = &quot;red&quot;) +
+  xlim(c(-300, 3000)) +
+  ylim(c(-300, 3000))</code></pre>
+<ol start="12" style="list-style-type: decimal">
+<li>Using the <code>rsq()</code> function, print the r-squared value from your <code>hits_glm</code> object. What does this tell you? How much of the variance in Salary can your model account for? Is this high or low?</li>
+</ol>
+<pre class="r"><code># Print r-squared value from hits_glm object
+rsq(XXX)</code></pre>
+</div>
+<div id="home-runs-hmrun-and-salary" class="section level4">
+<h4>Home Runs (HmRun) and Salary</h4>
+<p>In this section, we will answer the question: &quot;Is there a relationship between the number of home runs a player scores in 1986 his salary in 1987?</p>
+<ol style="list-style-type: decimal">
+<li>Using the code below, create a scatterplot showing the relationship between HmRun and Salary. Based on this plot, what do you expect the relationship to be between HmRun and Salary?</li>
+</ol>
+<pre class="r"><code>ggplot(hitters, aes(x = HmRun, y = Salary)) +
+  geom_point() +
+  theme_minimal()</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Conduct a regression analysis predicting a diamond’s <code>Salary</code> as a function of its <code>HmRun</code> value. Save the result to an object called <code>HmRun_glm</code>.</li>
+</ol>
+<pre class="r"><code># Create HmRun_glm, a glm model predicting Salary as a function of HmRun
+HmRun_glm &lt;- glm(formula = XXX ~ XXX,
+                 data = XXX)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Look at the class of your <code>HmRun_glm</code> object using the <code>class()</code> function. What class is the object? Is it ‘glm’?</li>
+</ol>
+<pre class="r"><code># Print the class of the HmRun_glm object
+
+class(XXX)</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li><p>Print your <code>HmRun_glm</code> object to see summary information. What is the value of the beta weight for HmRun and what does it mean? Is it consistent with what you saw in the plot?</p></li>
+<li><p>Use the <code>summary()</code> function to print additional summary information from your <code>HmRun_glm</code> object.</p></li>
+</ol>
+<pre class="r"><code># Print summary information from HmRun_glm
+summary(XXX)</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>Using the <code>tidy()</code> function (from the broom package), create a new object called <code>HmRun_tidy</code> which contains all ‘tidy’ results from your <code>HmRun_glm</code> object.</li>
+</ol>
+<pre class="r"><code># Save &#39;tidy&#39; results from HmRun_glm as HmRun_tidy
+HmRun_tidy &lt;- tidy(XXX)</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li><p>Print your <code>HmRun_tidy</code> object, which statistical outputs do you see?</p></li>
+<li><p>What is the p-value associated with your <code>HmRun</code> coefficient? How do you interpret this? Do you think that, in the general population of players, that there is a non-zero relationship between HmRun and Salary?</p></li>
+<li><p>Using the <code>confint()</code> function, print a 95% confidence interval for the regression coefficients in your <code>HmRun_glm</code> object. What does this mean?</p></li>
+</ol>
+<pre class="r"><code># Print confidence inverval(s) from HmRun_glm
+confint(XXX)</code></pre>
+<ol start="10" style="list-style-type: decimal">
+<li>Using the <code>fitted()</code> function, save the fitted values of your <code>glm</code> object as <code>HmRun_fit</code>. Then print the results to see how they look.</li>
+</ol>
+<pre class="r"><code># Save fitted values from HmRun_glm as HmRun_fit
+HmRun_fit &lt;- fitted(XXX)
+
+# Print results
+HmRun_fit</code></pre>
+<ol start="11" style="list-style-type: decimal">
+<li>Using <code>min()</code>, <code>max()</code>, <code>mean()</code>, <code>median()</code>, and <code>sd()</code>, calculate summary statistics for the fits. Do the values look like they make sense?</li>
+</ol>
+<pre class="r"><code># Print summary statitics from HmRun_fit
+
+min(XXX)
+max(XXX)
+mean(XXX)
+median(XXX)
+sd(XXX)</code></pre>
+<ol start="12" style="list-style-type: decimal">
+<li>Using the code below, plot the relationship between the model fitted values and the true values</li>
+</ol>
+<pre class="r"><code># Create a dataframe containing true and fitted values
+data &lt;- tibble(truth = hitters$Salary,
+               fitted  = HmRun_fit)
+
+# Create scatterplot
+ggplot(data = data, aes(x = truth, y = fitted)) +  
+  geom_point() +
+  geom_abline(slope = 1, intercept = 0) +
+  labs(title = &quot;Relationship between model fits and true Salaries&quot;,
+       subtitle = &quot;Formula = Salary ~ HmRun&quot;) +
+  geom_segment(aes(x = truth, y = truth, xend = truth, yend = fitted), 
+               col = &quot;red&quot;) +
+  xlim(c(-300, 3000)) +
+  ylim(c(-300, 3000))</code></pre>
+<ol start="13" style="list-style-type: decimal">
+<li>Using the <code>rsq()</code> function, print the r-squared value from your <code>HmRun_glm</code> object. What does this tell you?</li>
+</ol>
+<pre class="r"><code># Print r-squared value from HmRun_glm
+rsq(XXX)</code></pre>
+</div>
+</div>
+<div id="c---multiple-regression" class="section level3">
+<h3>C - Multiple Regression</h3>
+<ol style="list-style-type: decimal">
+<li>Create an object called <code>Salary_glm</code> which predicts price based on <em>all</em> variables in the <code>hitters</code> dataframe. Assign the result to an object called <code>all_glm</code>.Use the following guide to help you:</li>
+</ol>
+<pre class="r"><code># Create all_glm, a glm object modelling Salary based on ALL variables in hitters
+all_glm &lt;- glm(formula = XXX ~ .,
+              data = XXX)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Using the <code>tidy()</code> function (from the broom package), create a new object called <code>all_tidy</code> which contains all ‘tidy’ results from your <code>all_glm</code> object.</p></li>
+<li><p>Print your <code>all_tidy</code> object.</p></li>
+<li><p>How do you interpret the results? Which variables appear to be related to salary?</p></li>
+<li><p>Using the <code>confint()</code> function, print a 95% confidence interval for the regression coefficients in your <code>all_glm</code> object. What does this mean?</p></li>
+<li><p>Using the <code>fitted()</code> function, save the fitted values of your <code>glm</code> object as <code>All_fit</code>. Then print the results to see how they look.</p></li>
+</ol>
+<pre class="r"><code># Save fitted values from All_glm as All_fit
+All_fit &lt;- fitted(XXX)
+
+# Print results
+All_fit</code></pre>
+<ol start="10" style="list-style-type: decimal">
+<li>Using <code>min()</code>, <code>max()</code>, <code>mean()</code>, <code>median()</code>, and <code>sd()</code>, calculate summary statistics for the fits. Do the values look like they make sense?</li>
+</ol>
+<pre class="r"><code># Print summary statistics from All_fit
+
+min(XXX)
+max(XXX)
+mean(XXX)
+median(XXX)
+sd(XXX)</code></pre>
+<ol start="11" style="list-style-type: decimal">
+<li>Using the code below, plot the relationship between the model fitted values and the true values</li>
+</ol>
+<pre class="r"><code># Create dataframe containing true and fitted values
+data &lt;- tibble(truth = hitters$Salary,
+               fitted  = All_fit)
+
+# Create a scatterplot
+ggplot(data = data, aes(x = truth, y = fitted)) +  
+  geom_point() +
+  geom_abline(slope = 1, intercept = 0) +
+  labs(title = &quot;Relationship between model fits and true Salaries&quot;,
+       subtitle = &quot;Formula = Salary ~ .&quot;) +
+  geom_segment(aes(x = truth, y = truth, xend = truth, yend = fitted), 
+               col = &quot;red&quot;) +
+  xlim(c(-300, 3000)) +
+  ylim(c(-300, 3000))</code></pre>
+<ol start="12" style="list-style-type: decimal">
+<li>Using the <code>rsq()</code> function, print the r-squared value from your <code>all_glm</code> object. What does this tell you?</li>
+</ol>
+<pre class="r"><code># Print r-squared value from all_glm
+rsq(XXX)</code></pre>
+</div>
+<div id="e---exploring-model-residuals" class="section level3">
+<h3>E - Exploring model residuals</h3>
+<ol style="list-style-type: decimal">
+<li>Using the <code>residuals()</code> function, save the residuals of your regression analysis to a vector called <code>all_resid</code></li>
+</ol>
+<pre class="r"><code>all_resid &lt;- residuals(XXX)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Using the <code>min()</code>, <code>max()</code>, <code>mean()</code>, <code>median()</code> and <code>sd()</code> functions, calculate the summary statistics of the residuals <code>all_resid</code>. Do the values look like they make sense?</p></li>
+<li><p>Using the following code, create a histogram of the residuals from your <code>all_glm</code> object</p></li>
+</ol>
+<pre class="r"><code># Create a dataframe containing absolute errors
+data &lt;- tibble(resid = all_resid)
+
+ggplot(data, aes(x = resid)) + 
+  geom_histogram(col = &quot;white&quot;) +
+  geom_vline(xintercept = 0, col = &quot;red&quot;) +
+  labs(title = &quot;Residuals of Salary GLM&quot;)</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Using the <code>abs()</code> function, create a new vector called <code>all_abs_resid</code> which contains the <em>absolute</em> residuals. Use the following guide</li>
+</ol>
+<pre class="r"><code>all_resid &lt;- abs(residuals(XXX))</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li><p>Using <code>min()</code>, <code>max()</code>, <code>mean()</code>, <code>median()</code>, and <code>sd()</code>, calculate summary statistics for the absolute residuals <code>all_abs_resid</code>. Do the values look like they make sense?</p></li>
+<li><p>Using the following code, Create a histogram of the absolute residuals <code>all_abs_resid</code>. How do you interpret this plot?</p></li>
+</ol>
+<pre class="r"><code># Create a dataframe containing absolute errors
+data &lt;- tibble(abs_resid = all_abs_resid)
+
+ggplot(data, aes(x = abs_resid)) + 
+  geom_histogram(col = &quot;white&quot;) +
+  geom_vline(xintercept = 0, col = &quot;red&quot;) +
+  labs(title = &quot;Absolute Residuals of Salary GLM&quot;)</code></pre>
+</div>
+<div id="f---adjusting-your-model-with-formulas" class="section level3">
+<h3>F - Adjusting your model with formulas</h3>
+</div>
+<div id="excluding-variables-with--" class="section level3">
+<h3>Excluding variables with -</h3>
+<ol style="list-style-type: decimal">
+<li>Using the guides below, create a regression object <code>my_glm</code> predicting Salary based on all variables <em>except</em> for <code>AtBat</code> and <code>Hits</code></li>
+</ol>
+<pre class="r"><code>my_glm &lt;- glm(formula = XXX ~ . - XXX - XXX,
+              data = XXX)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Using the <code>tidy()</code> function, print tidy results from your <code>my_glm</code> object, do you see that the variables you excluded are indeed not in the model?</li>
+</ol>
+</div>
+<div id="g---predicting-values-for-new-data" class="section level3">
+<h3>G - Predicting values for new data</h3>
+<ol style="list-style-type: decimal">
+<li>The <code>hitters_new.csv</code> file contains values from 10 new players, load this data as a new dataframe called <code>hitters_new</code></li>
+</ol>
+<pre class="r"><code>hitters_new &lt;- read_csv(&quot;XXX/XXX&quot;)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Print the <code>hitters_new</code> dataframe to see how it looks.</p></li>
+<li><p>Using the following code, print only the values of Salary and hits</p></li>
+</ol>
+<pre class="r"><code>hitters_new %&gt;%
+  select(Salary, Hits)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li><p>You should have already created your <code>hits_glm</code> object in an earlier question. Print your <code>hits_glm</code> object again to see what the model coefficients are.</p></li>
+<li><p>Based on the coefficients you’ve observed, what should the predicted value of the first player in <code>hitters_new</code> be (hint: Salary = Intercept + Coefficient * Hits)</p></li>
+<li><p>Using your <code>hits_glm</code> object, predict the salaries of these new players using the <code>predict()</code> function. Save the results to an object called <code>hitters_new_pred</code>:</p></li>
+</ol>
+<pre class="r"><code>hitters_new_pred &lt;- predict(object = XXX,    # glm object
+                            newdata = XXX)   # New dataframe</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li><p>Print your <code>hitters_new_pred</code> object, what are these values?</p></li>
+<li><p>Does the first value match the value you calculated by hand?</p></li>
+</ol>
+</div>
+<div id="x---challenges" class="section level3">
+<h3>X - Challenges</h3>
+<ol style="list-style-type: decimal">
+<li><p>A colleague of yours wants to know which variable is better at predicting a player’s salary, RBI (Number of runs batted) or Walks (Number of walks). Conduct the appropriate regression analysis to answer the question.</p></li>
+<li><p>Look at the coefficients in your <code>all_glm</code> model, you’ll notice that there is one called <code>NewLeagueN</code>, even though there is no such variable in your <code>hitters</code> dataframe (though there is one called <code>NewLeague</code>). Using the <code>table()</code> function, look at all possible values of <code>hitters$NewLeague</code>. What do you see? Based on this, what do you think the <code>NewLeagueN</code> variable means? Why is it called <code>NewLeagueN</code>?</p></li>
+</ol>
+</div>
+</div>
+<div id="examples" class="section level2">
+<h2>Examples</h2>
+<pre class="r"><code># Regression models in R
+
+library(tidyverse)  # For mpg data and tidy data functions
+library(broom)      # For tidy()
+
+# Q: Does displacement predict gas mileage?
+
+## Visualise the data
+
+ggplot(data = mpg, aes(x = displ, y = hwy)) + 
+  geom_point() +
+  labs(title = &quot;Predicting hwy from displ&quot;)
+
+# Model
+
+hwy_mod &lt;- glm(formula = hwy ~ displ,
+               data = mpg)
+
+# Summary information =================================
+
+summary(hwy_mod)
+
+# Call:
+# glm(formula = hwy ~ displ, data = mpg)
+# 
+# Deviance Residuals: 
+#     Min       1Q   Median       3Q      Max  
+# -7.1039  -2.1646  -0.2242   2.0589  15.0105  
+# 
+# Coefficients:
+#             Estimate Std. Error t value Pr(&gt;|t|)    
+# (Intercept)  35.6977     0.7204   49.55   &lt;2e-16 ***
+# displ        -3.5306     0.1945  -18.15   &lt;2e-16 ***
+# ---
+# Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+# 
+# (Dispersion parameter for gaussian family taken to be 14.71478)
+# 
+#     Null deviance: 8261.7  on 233  degrees of freedom
+# Residual deviance: 3413.8  on 232  degrees of freedom
+# AIC: 1297.2
+# 
+# Number of Fisher Scoring iterations: 2
+
+# Tidy results ==========================================
+
+tidy(hwy_mod)
+
+#   term        estimate std.error statistic   p.value
+#   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+# 1 (Intercept)    35.7      0.720      49.6 2.12e-125
+# 2 displ          -3.53     0.195     -18.2 2.04e- 46
+
+#  (coefficient is negative and p-value is very small!)
+
+# Confidence intervals ==================================
+
+confint(hwy_mod)
+
+#                 2.5 %    97.5 %
+# (Intercept) 34.285756 37.109546
+# displ       -3.911829 -3.149349
+
+
+# Fitted values =========================================
+
+hwy_fit &lt;- fitted(hwy_mod)
+
+hwy_fit
+
+#       1        2        3        4        5 
+# 29.34259 29.34259 28.63647 28.63647 25.81200 
+
+#  First 5 fitted values look reasonable
+
+# Residuals =========================================
+
+hwy_resid &lt;- residuals(hwy_mod)
+
+hwy_resid
+
+#          1          2          3          4          5 
+# -0.3425912 -0.3425912  2.3635266  1.3635266  0.1879976 
+
+#  First 5 residuals don&#39;t look so off
+
+# True vs. Fitted values =================================
+
+data &lt;- tibble(truth = mpg$hwy,
+               fitted  = hwy_fit)
+
+ggplot(data = data, aes(x = truth, y = fitted)) +  
+  geom_point() +
+  geom_abline(slope = 1, intercept = 0) +
+  labs(title = &quot;Relationship between model fits and true values&quot;,
+       subtitle = &quot;Formula = hwy ~ dipsl&quot;) +
+  geom_segment(aes(x = truth, y = truth, xend = truth, yend = fitted), 
+               col = &quot;red&quot;, alpha = .4) 
+
+
+# R-squared value =========================================
+
+rsq(hwy_mod)
+
+# [1] 0.5867867
+
+# R-square is 0.586..., meaning that around 59% of the variance in
+#  hwy can be accounted for by displ</code></pre>
+</div>
+<div id="datasets" class="section level2">
+<h2>Datasets</h2>
+<table>
+<thead>
+<tr class="header">
+<th align="left">File</th>
+<th align="left">Rows</th>
+<th align="left">Columns</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><a href="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/hitters.csv?token=AIFo1DAkrffPG4jQkX3MRidCUqDYbHggks5cqJBjwA%3D%3D">hitters.csv</a></td>
+<td align="left">50</td>
+<td align="left">20</td>
+</tr>
+</tbody>
+</table>
+<p>SHORT VERBAL DESCRIPTION OF DATA SETS</p>
+<div id="variable-description" class="section level4">
+<h4>Variable description</h4>
+<table>
+<colgroup>
+<col width="26%" />
+<col width="73%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Name</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">AtBat</td>
+<td align="left">Number of times at bat in 1986</td>
+</tr>
+<tr class="even">
+<td align="left">Hits</td>
+<td align="left">Number of hits in 1986</td>
+</tr>
+<tr class="odd">
+<td align="left">HmRun</td>
+<td align="left">Number of home runs in 1986</td>
+</tr>
+<tr class="even">
+<td align="left">Runs</td>
+<td align="left">Number of runs in 1986</td>
+</tr>
+<tr class="odd">
+<td align="left">RBI</td>
+<td align="left">Number of runs batted in in 1986</td>
+</tr>
+<tr class="even">
+<td align="left">Walks</td>
+<td align="left">Number of walks in 1986</td>
+</tr>
+<tr class="odd">
+<td align="left">Years</td>
+<td align="left">Number of years in the major leagues</td>
+</tr>
+<tr class="even">
+<td align="left">CAtBat</td>
+<td align="left">Number of times at bat during his career</td>
+</tr>
+<tr class="odd">
+<td align="left">CHits</td>
+<td align="left">Number of hits during his career</td>
+</tr>
+<tr class="even">
+<td align="left">CHmRun</td>
+<td align="left">Number of home runs during his career</td>
+</tr>
+<tr class="odd">
+<td align="left">CRuns</td>
+<td align="left">Number of runs during his career</td>
+</tr>
+<tr class="even">
+<td align="left">CRBI</td>
+<td align="left">Number of runs batted in during his career</td>
+</tr>
+<tr class="odd">
+<td align="left">CWalks</td>
+<td align="left">Number of walks during his career</td>
+</tr>
+<tr class="even">
+<td align="left">League</td>
+<td align="left">A factor with levels A and N indicating player’s league at the end of 1986</td>
+</tr>
+<tr class="odd">
+<td align="left">Division</td>
+<td align="left">A factor with levels E and W indicating player’s division at the end of 1986</td>
+</tr>
+<tr class="even">
+<td align="left">PutOuts</td>
+<td align="left">Number of put outs in 1986</td>
+</tr>
+<tr class="odd">
+<td align="left">Assists</td>
+<td align="left">Number of assists in 1986</td>
+</tr>
+<tr class="even">
+<td align="left">Errors</td>
+<td align="left">Number of errors in 1986</td>
+</tr>
+<tr class="odd">
+<td align="left">Salary</td>
+<td align="left">1987 annual salary on opening day in thousands of dollars</td>
+</tr>
+<tr class="even">
+<td align="left">NewLeague</td>
+<td align="left">A factor with levels A and N indicating player’s league at the beginning of 1987</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="functions" class="section level2">
+<h2>Functions</h2>
+<div id="packages" class="section level3">
+<h3>Packages</h3>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Package</th>
+<th align="left">Installation</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>tidyverse</code></td>
+<td align="left"><code>install.packages(&quot;tidyverse&quot;)</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>broom</code></td>
+<td align="left"><code>install.packages(&quot;broom&quot;)</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>rsq</code></td>
+<td align="left"><code>install.packages(&quot;rsq&quot;)</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="functions-1" class="section level3">
+<h3>Functions</h3>
+<table>
+<colgroup>
+<col width="7%" />
+<col width="12%" />
+<col width="80%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Function</th>
+<th align="left">Package</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>glm</code></td>
+<td align="left"><code>stats</code></td>
+<td align="left">Fit a generalized linear model</td>
+</tr>
+<tr class="even">
+<td align="left"><code>tidy</code></td>
+<td align="left"><code>broom</code></td>
+<td align="left">Show most important outputs from a statistical object</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>confint</code></td>
+<td align="left"><code>stats</code></td>
+<td align="left">Show confidence intervals of coefficients from a statistical object</td>
+</tr>
+<tr class="even">
+<td align="left"><code>fitted</code></td>
+<td align="left"><code>stats</code></td>
+<td align="left">Show fitted values from a statistical object</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>rsq</code></td>
+<td align="left"><code>rsq</code></td>
+<td align="left">Print r-squared value from a statistical object</td>
+</tr>
+<tr class="even">
+<td align="left"><code>residuals</code></td>
+<td align="left"><code>stats</code></td>
+<td align="left">Show residuals (fitted minus true) values from a statistical object</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="resources" class="section level2">
+<h2>Resources</h2>
+<div id="books" class="section level3">
+<h3>Books</h3>
+<ul>
+<li><a href="https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469">Discovering Statistics with R</a> by Field et al is an excellent resource</li>
+<li><a href="https://bookdown.org/ndphillips/YaRrr/">YaRrr! The Pirate’s Guide to R</a> has good chapters on statistics with R.</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
