@@ -735,7 +735,7 @@ If a p-value is *small* (i.e.; p < .05), this means that the likelihood of obtai
 
 class: middle, center
 
-<h1><a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/RegressionI/RegressionI_practical.html">Practical</a></h1>
+<h1><a href="https://therbootcamp.github.io/SwR_2019Apr/index.html">Schedule</a></h1>
 
 
 ---

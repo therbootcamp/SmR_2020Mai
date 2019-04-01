@@ -629,6 +629,28 @@ my_glm <- glm(formula = Salary ~ . - AtBat - Hits,
 tidy(my_glm)
 ```
 
+
+### Including interactinos with *
+
+
+3. Using the guides below, create a regression object `my_glm` predicting Salary based the *interaction* between `AtBat` and `Hits`
+
+```{r, eval = FALSE, echo = TRUE}
+my_glm <- glm(formula = XXX ~  XXX * XXX,
+              data = XXX)
+```
+
+```{r}
+my_glm <- glm(formula = Salary ~ AtBat * Hits,
+              data = hitters)
+```
+
+4. Using the `tidy()` function, print tidy results from your `my_glm` object, what outputs do you see? Do you see a significant interaction?
+
+```{r}
+tidy(my_glm)
+```
+
 ### G - Predicting values for new data
 
 1. The `hitters_new.csv` file contains values from 10 new players, load this data as a new dataframe called `hitters_new`

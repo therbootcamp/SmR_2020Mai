@@ -647,6 +647,17 @@ ggplot(data, aes(x = abs_resid)) +
 <li>Using the <code>tidy()</code> function, print tidy results from your <code>my_glm</code> object, do you see that the variables you excluded are indeed not in the model?</li>
 </ol>
 </div>
+<div id="including-interactinos-with" class="section level3">
+<h3>Including interactinos with *</h3>
+<ol start="3" style="list-style-type: decimal">
+<li>Using the guides below, create a regression object <code>my_glm</code> predicting Salary based the <em>interaction</em> between <code>AtBat</code> and <code>Hits</code></li>
+</ol>
+<pre class="r"><code>my_glm &lt;- glm(formula = XXX ~  XXX * XXX,
+              data = XXX)</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Using the <code>tidy()</code> function, print tidy results from your <code>my_glm</code> object, what outputs do you see? Do you see a significant interaction?</li>
+</ol>
+</div>
 <div id="g---predicting-values-for-new-data" class="section level3">
 <h3>G - Predicting values for new data</h3>
 <ol style="list-style-type: decimal">
