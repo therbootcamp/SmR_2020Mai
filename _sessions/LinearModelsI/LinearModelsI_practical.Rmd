@@ -60,10 +60,7 @@ mcdonalds <- read_csv("1_Data/mcdonalds.csv")
 
 # {.tabset}
 
-
-## Tasks
-
-### Overview
+## Overview
 
 In this practical you'll practice constructing and understanding regression models.
 
@@ -73,6 +70,8 @@ By the end of this practical you will know how to:
 2. Explore the outputs of your models, including coefficients, confidence intervals, and p-values.
 3. Explore the residuals and fitted values of a linear model.
 4. Use your model to make predictions for new data
+
+## Tasks
 
 ### A - Setup
 

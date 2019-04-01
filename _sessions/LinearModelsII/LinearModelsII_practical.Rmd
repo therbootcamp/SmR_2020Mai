@@ -59,10 +59,8 @@ trial <- read_csv(file = "1_Data/trial_ACTG175.csv")
 
 # {.tabset}
 
-## Tasks
 
-
-### Overview
+## Overview
 
 In this practical you'll practice specific hypothesis testing extensions of the linear model
 
@@ -72,6 +70,9 @@ By the end of this practical you will know how to:
 2. Conduct a correlation test
 3. Conduct an ANVOA
 4. Conduct a chi-square test
+
+## Tasks
+
 
 ### A - Setup
 
