@@ -27,7 +27,9 @@ Bootcamp_package_installation <- function() {
     
     # Mixed Models
     "lme4",
-    "sjstats"
+    "sjstats",
+    
+    "broom"
     
   )
   
