@@ -23,7 +23,13 @@ Bootcamp_package_installation <- function() {
     
     # New Stats
     "rstanarm",
-    "pwr"
+    "pwr",
+    
+    # Mixed Models
+    "lme4",
+    "sjstats",
+    
+    "broom"
     
   )
   
@@ -49,14 +55,15 @@ Bootcamp_package_installation <- function() {
     
     # Stats --------------
     
-     "lme4",
+    # "lme4",
      "afex",
      "car",
      "BayesFactor",
     # "parfm", 
     # "lava",
     "rsq",
-    "broom", 
+    "broom",
+    "pbkrtest",
     
     # ML --------------
     
