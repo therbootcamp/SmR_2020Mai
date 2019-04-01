@@ -332,7 +332,7 @@ high_cont <- ggplot(dat, aes(exercise, happiness2)) +
   geom_point() +
   geom_smooth(method = "lm") +
   labs(y = "Happiness",
-       x = "Minutes of Excercise per day",
+       x = "Minutes of Exercise per day",
        title = "High Variance Explained")+
   scale_y_continuous(breaks = seq(0, 10, 1), limits = c(1, 10))
 
@@ -418,14 +418,12 @@ ggplot(beer_data, aes(x = id, y = beer)) +
   scale_x_continuous(breaks = 1:10) +
   labs(y = "Amount in dl", title = "10 beers from Oetlinger Buvette") +
   ylim(c(20, 40)) +
-  geom_hline(yintercept = mean(beer), col = baselrbootcamp_cols("green"), size = 1.5) +
+  geom_hline(yintercept = mean(beer_data$beer), col = baselrbootcamp_cols("green"), size = 1.5) +
   geom_segment(aes(x = id, y = beer, xend = id, yend = 29.9), col = baselrbootcamp_cols("yellow"), lty = 1, size= 1.5) +
   annotate(geom = "segment", x = 2, xend = 2, y = 22 - 3.9 / 2, yend = 22 + 3.9 / 2, size = 1.5, col = baselrbootcamp_cols("yellow")) +
   annotate(geom = "label", x = 4, y = 22.5, label = "Std Deviation = 3.90", cex = 3) +
   annotate(geom = "label", x = 7, y = 30, label = "Mean = 29.9", cex = 3) +
   geom_point(size = 2.5)
-
-
 ```
 
 
