@@ -17,7 +17,7 @@ author: "Statistics with R<br>
   <a href='https://www.linkedin.com/company/basel-r-bootcamp/'>
     <i class='fab fa-linkedin' style='font-size: .9em;'></i>
   </a>"
-date: "February 2019"
+date: "April 2019"
 output:
   xaringan::moon_reader:
     css: ["default", "baselrbootcamp.css"]
@@ -73,7 +73,7 @@ require(tidyverse)
 library(cowplot)
 library(ggpubr)
 
-knitr::opts_chunk$set(fig.align = "center", warning = FALSE, message = FALSE)
+knitr::opts_chunk$set(fig.align = "center", warning = FALSE, message = FALSE, dpi = 300)
 
 
 # Load data
@@ -88,18 +88,35 @@ source("https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/ma
 
 .pull-left6[
 
-# 
+# Our goal in the next hour
 
-In this hour, we will try to cover the basics of statistical inference
+In this hour, we will try to cover some of the basic principles of statistical inference.
 
+1. Variability
+2. Sample statistics
+3. Distributions
+4. Likelihood
+5. Test statistic
+6. P-values
+
+This is a lot to cover, and it may not be clear from the beginning.
+
+But to help us, we'll think about it in terms of beer.
 
 ]
 
 
 .pull-right35[
 
+<br><br><br>
+```{r, echo = FALSE}
+knitr::include_graphics("https://cdn.lynda.com/course/495322/495322-636154038826424503-16x9.jpg")
+```
 
-
+<br>
+```{r, echo = FALSE, out.width = "90%"}
+knitr::include_graphics("https://marketingweek.imgix.net/content/uploads/2018/05/11123103/beer-750.jpg?auto=compress,format,&crop=faces,entropy,edges&fit=crop&q=60&w=750&h=460")
+```
 
 
 ]
@@ -117,11 +134,34 @@ Basel has many nice "Buvette's" that serve drinks in warm months.
 
 The Oetlinger Buvette, one of our favorites, offers 33dl beers (or so they say...).
 
-Is the Oetlinger Buvette 'underpouring' its beers?
+*I am convinced that the Oetlinger Buvette 'underpouring' its beers and they are not truly 33dl.*
+<br><br>
+<center>How can I formulate my belief into an <high>formal hypothesis?</high></center><br>
 
-### Data
+<center>How can I collect <high>data to test the hypothesis?</center></high><br>
 
-Order 10 beers, and measure the exact amount in each cup.
+<center><font size = 5>What do you think?</font></center>
+]
+
+
+.pull-right35[
+<br><br>
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("https://www.basel.com/extension/portal-basel/var/storage/images/media/bibliothek/basel-bilder/rhein-promenade/savoir-vivre-am-basler-rheinufer/92121-1-ger-DE/Savoir-vivre-am-Basler-Rheinufer_front_magnific.jpg")
+```
+
+
+
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("https://files.newsnetz.ch/story/1/7/7/17765134/14/topelement.jpg")
+```
+
+
+]
+
+---
+
+.pull-left6[
 
 ```{r, echo= FALSE}
 beer <- c(28, 31, 28, 37, 30, 33, 25, 33, 24, 30)
@@ -129,8 +169,32 @@ beer_data <- tibble(beer, id = 1:length(beer))
 ```
 
 
-```{r, echo = FALSE, out.width = "80%", fig.align = 'center'}
-knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/10_beers.jpg?token=AIFo1GFPQoYDXYW5W7FOsftG_-XbNsp6ks5cqeGfwA%3D%3D")
+## Beer hypothesis
+
+The mean amount poured in 33dl beers by the Oetlinger Buvette is less than 33dl
+
+
+$$\Large H0: \mu < 33$$
+
+## Beer Data
+
+I ordered 10 beers, and measured the exact amount in each cup, here are the results:
+
+```{r, echo= FALSE}
+beer <- c(28, 31, 28, 37, 30, 33, 25, 33, 24, 30)
+beer_data <- tibble(beer, id = 1:length(beer))
+```
+
+
+```{r, echo = FALSE, out.width = "80%", fig.align = 'center', fig.width = 5, fig.height = 3}
+ggplot(beer_data, aes(x = id, y = beer)) +
+  geom_hline(yintercept = 33, col = baselrbootcamp_cols("green")) +
+  geom_text(data = beer_data %>% filter(beer > 30), aes(label = beer), nudge_y = 2) +
+    geom_text(data = beer_data %>% filter(beer <= 30), aes(label = beer), nudge_y = -2) +
+  scale_x_continuous(breaks = 1:10) +
+  labs(y = "Amount in dl", title = "10 beers from Oetlinger Buvette") +
+  ylim(c(20, 40)) +
+  geom_point(size = 2.5)
 ```
 
 ]
@@ -150,6 +214,9 @@ knitr::include_graphics("https://files.newsnetz.ch/story/1/7/7/17765134/14/topel
 
 
 ]
+
+
+
 
 
 ---

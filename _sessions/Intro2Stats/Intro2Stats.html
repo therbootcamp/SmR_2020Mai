@@ -13,7 +13,7 @@ class: center, middle, inverse, title-slide
 
 # Intro to Statistics
 ### Statistics with R<br> <a href='https://therbootcamp.github.io'> Basel R Bootcamp </a> <br> <a href='https://therbootcamp.github.io/SwR_2019Apr/'> <i class='fas fa-clock' style='font-size:.9em;'></i> </a>  <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;' ></i> </a>  <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a>  <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a>
-### February 2019
+### April 2019
 
 ---
 
@@ -50,18 +50,31 @@ layout: true
 
 .pull-left6[
 
-# 
+# Our goal in the next hour
 
-In this hour, we will try to cover the basics of statistical inference
+In this hour, we will try to cover some of the basic principles of statistical inference.
 
+1. Variability
+2. Sample statistics
+3. Distributions
+4. Likelihood
+5. Test statistic
+6. P-values
+
+This is a lot to cover, and it may not be clear from the beginning.
+
+But to help us, we'll think about it in terms of beer.
 
 ]
 
 
 .pull-right35[
 
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&lt;img src="https://cdn.lynda.com/course/495322/495322-636154038826424503-16x9.jpg" style="display: block; margin: auto;" /&gt;
 
-
+&lt;br&gt;
+&lt;img src="https://marketingweek.imgix.net/content/uploads/2018/05/11123103/beer-750.jpg?auto=compress,format,&amp;crop=faces,entropy,edges&amp;fit=crop&amp;q=60&amp;w=750&amp;h=460" width="90%" style="display: block; margin: auto;" /&gt;
 
 
 ]
@@ -79,16 +92,49 @@ Basel has many nice "Buvette's" that serve drinks in warm months.
 
 The Oetlinger Buvette, one of our favorites, offers 33dl beers (or so they say...).
 
-Is the Oetlinger Buvette 'underpouring' its beers?
+*I am convinced that the Oetlinger Buvette 'underpouring' its beers and they are not truly 33dl.*
+&lt;br&gt;&lt;br&gt;
+&lt;center&gt;How can I formulate my belief into an &lt;high&gt;formal hypothesis?&lt;/high&gt;&lt;/center&gt;&lt;br&gt;
 
-### Data
+&lt;center&gt;How can I collect &lt;high&gt;data to test the hypothesis?&lt;/center&gt;&lt;/high&gt;&lt;br&gt;
 
-Order 10 beers, and measure the exact amount in each cup.
+&lt;center&gt;&lt;font size = 5&gt;What do you think?&lt;/font&gt;&lt;/center&gt;
+]
+
+
+.pull-right35[
+&lt;br&gt;&lt;br&gt;
+&lt;img src="https://www.basel.com/extension/portal-basel/var/storage/images/media/bibliothek/basel-bilder/rhein-promenade/savoir-vivre-am-basler-rheinufer/92121-1-ger-DE/Savoir-vivre-am-Basler-Rheinufer_front_magnific.jpg" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+
+&lt;img src="https://files.newsnetz.ch/story/1/7/7/17765134/14/topelement.jpg" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+---
+
+.pull-left6[
 
 
 
 
-&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/10_beers.jpg?token=AIFo1GFPQoYDXYW5W7FOsftG_-XbNsp6ks5cqeGfwA%3D%3D" width="80%" style="display: block; margin: auto;" /&gt;
+## Beer hypothesis
+
+The mean amount poured in 33dl beers by the Oetlinger Buvette is less than 33dl
+
+
+`$$\Large H0: \mu &lt; 33$$`
+
+## Beer Data
+
+I ordered 10 beers, and measured the exact amount in each cup, here are the results:
+
+
+
+
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-8-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -103,6 +149,9 @@ Order 10 beers, and measure the exact amount in each cup.
 
 
 ]
+
+
+
 
 
 ---
@@ -162,7 +211,7 @@ Statistical inference is the practice of discovering ways to separate overall va
 
 &lt;br&gt;&lt;br&gt;
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" /&gt;&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-7-2.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" /&gt;&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-12-2.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -196,7 +245,7 @@ Sample statistics give us &lt;high&gt;estimates&lt;/high&gt; of key model parame
 
 ### Raw data &amp; Sample Statistics
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 
 `$$Mean = \frac{28+31+28+...}{10} = 29.9$$`
@@ -235,7 +284,7 @@ There are many probability distributions, but we often only use a few.
 
 ### 3 key aspects of a distribution
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 *1. Probability Density Function (PDF)*
 
@@ -264,7 +313,7 @@ A 'bell-shaped curve'
 The most important and widely used distribution in all of statistics
 
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-15-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -303,7 +352,7 @@ A 'Flat distribution'
 Used when everything (within a range) is equally likely
 
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-16-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -342,7 +391,7 @@ A discrete "Counting" distribution
 
 If I flip a coin N times, with p(Head) = p, how many times will I get heads?
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-17-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -396,7 +445,7 @@ Knowing this likelihood allows us to &lt;high&gt;fit parameters&lt;/high&gt; and
 
 
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-14-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-19-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 
 ]
@@ -422,7 +471,7 @@ Using the binomial distributions on the right, answer the following questions:
 
 ### 2 Binomial Distributions
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-15-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-20-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 
 ]
@@ -569,7 +618,7 @@ Question
 
 ### 2 Binomial Distributions
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-17-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-22-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 
 
