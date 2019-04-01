@@ -884,6 +884,11 @@ If a p-value is *small* (i.e.; p < .05), this means that the likelihood of obtai
 .pull-right45[
 
 
+```{r, echo = FALSE, out.width = "90%"}
+knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/pvalue_level.png?token=AIFo1Djs5aBnmWvuT7bFn7IyTzZJ-bQ_ks5cq215wA%3D%3D")
+```
+
+
 
 ]
 
