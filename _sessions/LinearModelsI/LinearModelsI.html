@@ -49,55 +49,73 @@ layout: true
 
 # Linear Models
 
-.pull-left45[
+.pull-left5[
 
-Linear models are, by far, the most widely used and important models in all of statistics
+Linear models are, by far, the most important models in all of statistics.
 
 As we will see today, many statistical tests you may know of are special types of linear models.
 
 Why are linear models so great?
 
-- They are easy to interpret.
-- They can approximate non-linear data well.
-- They are easy to calculate and impliment (just addition and multiplication!).
-- They just work!
+- They are &lt;high&gt;easy to interpret&lt;/high&gt;.
+- They can &lt;high&gt;approximate non-linear&lt;/high&gt; data well.
+- They are &lt;high&gt;easy to calculate&lt;/high&gt; and impliment (just addition and multiplication!).
+- They &lt;high&gt;just work&lt;/high&gt;!
 
 ]
 
 .pull-right45[
 
 
+`$$\Large income = 885 + age \times 149.3$$`
+
+&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-2-1.png" style="display: block; margin: auto;" /&gt;
+
+
 ]
 
 ---
 
+.pull-left6[
 
 # What is a linear model?
 
 A linear model is one that can be written in the following form &lt;br&gt;
 
+*Version 1*
 
-`$$\Huge Y = \beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2} + \beta_{3} x_{3} + ... + \beta_{n}x_{n} + \epsilon$$`
+`$$\huge Y = \beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2} +  ... + \beta_{n}x_{n} + \epsilon$$`
 
-&lt;br&gt;
 
-Or using summation notation:
+*Version 2*
 
-`$$\Huge Y = \beta_{0} + \sum_{i=1}^{n}\beta_{i}x_{i}+ \epsilon$$`
 
-All it is is basic addition and multiplication! 
+`$$\huge Y = \beta_{0} + \sum_{i=1}^{n}\beta_{i}x_{i}+ \epsilon$$`
 
+In the end, a linear model is &lt;high&gt;just addition and multiplication&lt;/high&gt;! 
+
+]
+
+.pull-right35[
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+&lt;img src="https://66.media.tumblr.com/6e401f0cffebf9c7440894d4fa6c48b2/tumblr_o0af44kS071u7w7kwo1_1280.jpg" style="display: block; margin: auto;" /&gt;
+
+
+]
 
 ---
 
-.pull-left55[
+.pull-left5[
 
 # Simple Linear Regression
 
-Simple linear regression is a linear model with one predictor `\(x\)`, and where the error term `\(\epsilon\)` is Normally distributed.
+
+&lt;high&gt;Definition&lt;/high&gt;: Simple linear regression is a linear model with one predictor `\(x\)`, and where the error term `\(\epsilon\)` is Normally distributed.
+
 
 `$$\huge Y=\beta_{0} + \beta_{1} x + \epsilon$$`
-&lt;br&gt;
 
 |Parameter|Description|In words|
 |:------|:-----|:-----|
@@ -108,24 +126,35 @@ Simple linear regression is a linear model with one predictor `\(x\)`, and where
 ]
 
 
-.pull-right4[
+.pull-right45[
 
-## Examples
+### Variables
 
+Y = Income, X = Age
 
+&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+### Formula
+
+`$$\Large income = 885 + age \times 149.3 + \epsilon$$`
+
+### Coefficients
+
+`$$\Large \beta_{0} = 885, \beta_{age} = 149.3$$`
 
 ]
 
 ---
 
-.pull-left55[
+.pull-left5[
 
 # Multiple Linear Regression
 
-Multiple linear regression is a linear model with many predictors `\(x_{1},  x_{2}, .... x_{n}\)`, and where the error term `\(\epsilon\)` is Normally distributed.
+&lt;high&gt;Definition&lt;/high&gt;: Multiple linear regression is a linear model with many predictors `\(x_{1},  x_{2}, .... x_{n}\)`, and where the error term `\(\epsilon\)` is Normally distributed.
 
 `$$\LARGE Y=\beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2}+...+ \beta_{n} x_{n} + \epsilon$$`
 &lt;br&gt;
+
 
 |Parameter|Description|In words|
 |:------|:-----|:-----|
@@ -134,9 +163,21 @@ Multiple linear regression is a linear model with many predictors `\(x_{1},  x_{
 ]
 
 
-.pull-right4[
+.pull-right45[
 
-## Examples
+### Variables
+
+`$$\large Y = Income, x_{1} = Age, x_{2}=Weight$$`
+
+&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+### Formula
+
+`$$\large income = 1628 + 147  \times age - 4.1 \times height + \epsilon$$`
+
+### Coefficients
+
+`$$\large \beta_{0} = 1628, \beta_{age} = 147, \beta_{weight}=-4.1$$`
 
 
 ]
@@ -145,20 +186,117 @@ Multiple linear regression is a linear model with many predictors `\(x_{1},  x_{
 
 ---
 
+.pull-left45[
+
 # Estimating coefficients
 
-- How do we estimate the 'right' coefficients in a linear model?
-
-- Least Squares
+How do we estimate the 'right' coefficients in a linear model?
 
 
-- Other types of models use other methods (like maximum likelihood)
 
-# Ex: which of the following linear models best describes the data?
+
+&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-7-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+`$$\Large income = \beta_{0} + \beta_{1} \times age + \epsilon$$`
+]
+
+.pull-right5[
+&lt;br&gt;
+&lt;high&gt;Which do you like best?&lt;/high&gt;
+
+&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-8-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+]
+
 
 
 ---
-# Establishing model performance
+
+.pull-left45[
+
+# Estimating coefficients
+
+How do we estimate the 'right' coefficients in a linear model?
+
+
+
+&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-10-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+`$$\Large income = -0.254 + 0.167 \times age + \epsilon$$`
+]
+
+.pull-right5[
+&lt;br&gt;
+&lt;high&gt;Which do you like best?&lt;/high&gt;
+
+&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-11-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+---
+
+.pull-left45[
+
+# Estimating coefficients
+
+How do we estimate the 'right' coefficients in a linear model?
+
+
+Find the values that minimise *Mean Squared Error*
+
+`$$\LARGE Mean\;Squared\;Error\;(MSE)$$`
+`$$\LARGE = \frac{1}{N}\sum_{i=1}^{n}(Y_{i}-  Prediction_{i})^2$$`
+&lt;!-- `$$\LARGE = \frac{1}{N}\sum_{i=1}^{n}(Y_{i}-  (\beta_{0} + \beta_{1}x_{1}))^2$$` --&gt;
+
+
+&lt;high&gt;MSE In plain English&lt;/high&gt;
+
+&gt; How far, on average are the model fits away from the true values (squared)?
+
+
+
+]
+
+.pull-right5[
+&lt;br&gt;
+
+`$$\Large income = -0.254 + 0.167 \times age + \epsilon$$`
+
+
+&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-12-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+
+
+| id| age| income| Prediction|     SE|
+|--:|---:|------:|----------:|------:|
+|  1|  24|    4.0|      3.730| 0.0729|
+|  2|  27|    4.2|      4.228| 0.0008|
+|  3|  31|    5.1|      4.892| 0.0433|
+|  4|  44|    6.3|      7.050| 0.5625|
+|  5|  65|   10.9|     10.536| 0.1325|
+
+&lt;center&gt;&lt;h2&gt;MSE = 0.16&lt;h2&gt;&lt;/center&gt;
+
+]
+
+---
+
+.pull-left45[
+
+# R-Squared
+
+
+
+]
+
+
+
+.pull-right5[
+
+&lt;img src="https://en.wikipedia.org/wiki/Coefficient_of_determination#/media/File:Coefficient_of_Determination.svg" style="display: block; margin: auto;" /&gt;
+
+]
 
 R2
 
@@ -205,7 +343,6 @@ calculate mean absolute residual
 ---
 
 ## Predict new values
-
 
 predict()
 
