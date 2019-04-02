@@ -437,6 +437,10 @@ data %>%
 
 # R-Squared
 
+R-Squared $$R^{2}$$ is the most common method of establishing the overall accuarcy of a linear model.
+
+$$R^{2}$$
+
 
 
 ]
@@ -445,17 +449,14 @@ data %>%
 
 .pull-right5[
 
+<br><br><br>
+
 ```{r}
-knitr::include_graphics("https://en.wikipedia.org/wiki/Coefficient_of_determination#/media/File:Coefficient_of_Determination.svg")
+knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/r2_wikipedia.png?token=AIFo1PfbpTO7uGR7lXeB3JhUnLNixtP-ks5crP0GwA%3D%3D")
 ```
 
 ]
 
-R2
-
-Plot residuals
-
-calculate mean absolute residual
 
 ---
 
