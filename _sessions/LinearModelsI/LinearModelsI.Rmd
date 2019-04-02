@@ -72,6 +72,9 @@ options(digits = 4)
 require(tidyverse)
 
 
+print2 <- function(x, nlines=10,...) {
+   cat(head(capture.output(print(x,...)), nlines), sep="\n")}
+
 # Load data
 baselers <- readr::read_csv("1_Data/baselers.csv")
 
@@ -109,7 +112,7 @@ $$\Large income = 885 + age \times 149.3$$
 mod <- lm(income ~ age, data = baselers)
 my_coef <- coef(mod)
 
-simple_scatter <- ggplot(baselers %>% filter(age < 80) %>% slice(1:100), aes(age, income)) +
+simple_scatter <- ggplot(baselers %>% filter(age < 80) %>% slice(1:30), aes(age, income)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE, col = baselrbootcamp_cols("magenta")) +
   theme_bw()
@@ -221,16 +224,16 @@ $$\LARGE Y=\beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2}+...+ \beta_{n} x_{n} + \
 $$\large Y = Income, x_{1} = Age, x_{2}=Weight$$
 
 ```{r, echo = FALSE, fig.width = 5, fig.height = 2.25, out.width = "100%"}
-mod_2 <- glm(income ~ age + height, data = baselers %>% filter(age < 80) %>% slice(1:100))
+mod_2 <- glm(income ~ age + height, data = baselers %>% filter(age < 80) %>% slice(1:30))
 
 coef_2 <- coef(mod_2)
 
-p1 <- ggplot(baselers %>% filter(age < 80) %>% slice(1:100), aes(age, income)) +
+p1 <- ggplot(baselers %>% filter(age < 80) %>% slice(1:30), aes(age, income)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE, col = baselrbootcamp_cols("magenta")) +
   theme_bw()
 
-p2 <- ggplot(baselers %>% filter(age < 80) %>% slice(1:100), aes(height, income)) +
+p2 <- ggplot(baselers %>% filter(age < 80) %>% slice(1:30), aes(height, income)) +
   geom_point() +
   geom_smooth(method = "lm", se = FALSE, col = baselrbootcamp_cols("magenta")) +
   theme_bw()
@@ -437,22 +440,141 @@ data %>%
 
 # R-Squared
 
-R-Squared $$R^{2}$$ is the most common method of establishing the overall accuarcy of a linear model.
+R-Squared $R^{2}$ is the most common method of calculating the <high>overall performance</high> of a model.
 
-$$R^{2}$$
+$$\huge R^{2} = 1 - \frac{SS_{res}}{SS_{tot}}$$
+$R^{2}$ can range from 0 (Terrible) to 1 (Perfect!)
 
+|R2|Interpretation|
+|:----|:----|
+|0|Model explains no variance in Y|
+|.5|Model explains half the variance in Y|
+|1|Model explains *all* the variance in Y!|
 
+See [Wikipedia's R2 page](https://en.wikipedia.org/wiki/Coefficient_of_determination)
 
 ]
-
-
 
 .pull-right5[
 
 <br><br><br>
 
-```{r}
-knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/r2_wikipedia.png?token=AIFo1PfbpTO7uGR7lXeB3JhUnLNixtP-ks5crP0GwA%3D%3D")
+```{r, fig.cap = "<a href='https://en.wikipedia.org/wiki/Coefficient_of_determination'>Wikipedia</a>"}
+knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/r2_vis.png?token=AIFo1O9_s73zoAZhMLik8ePSEbmVeItDks5crP7kwA%3D%3D")
+```
+
+]
+
+---
+
+.pull-left45[
+
+# R-Squared
+
+R-Squared $R^{2}$ is the most common method of calculating the <high>overall performance</high> of a model.
+
+$$\huge R^{2} = 1 - \frac{SS_{res}}{SS_{tot}}$$
+$R^{2}$ can range from 0 (Terrible) to 1 (Perfect!)
+
+|R2|Interpretation|
+|:----|:----|
+|0|Model explains no variance in Y|
+|.5|Model explains half the variance in Y|
+|1|Model explains *all* the variance in Y!|
+
+See [Wikipedia's R2 page](https://en.wikipedia.org/wiki/Coefficient_of_determination)
+
+]
+
+.pull-right5[
+
+<br><br><br><br><br><br><br>
+```{r, fig.width = 5, fig.height = 2.5, out.width = "100%"}
+set.seed(100)
+data <- data %>%
+  mutate(height = income * 8 + rnorm(5, mean = 0, sd = 40))
+
+age_mod <- glm(income ~ age, data = data)
+height_mod <- glm(income ~ height, data = data)
+
+data <- data %>%
+  mutate(age_pred = fitted(age_mod),
+         height_pred = fitted(height_mod))
+
+r2_age <- rsq::rsq(lm(income ~ age, data = data))
+
+mse_age <- age_mod %>% resid() %>% `^`(2) %>% mean()
+  
+r2_height<- rsq::rsq(lm(income ~ height, data = data))
+
+mse_height <- glm(income ~ height, data = data) %>% resid() %>% `^`(2) %>% mean()
+
+
+a <- ggplot(data, aes(x = age, y = income)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, col = baselrbootcamp_cols("grey")) +
+  labs(title = paste0("R2 = ", round(r2_age, 2), ", MSE = ", round(mse_age, 2))) +
+  annotate("segment", x = data$age, y = data$income, xend = data$age, yend = data$age_pred, col = baselrbootcamp_cols("magenta")) +
+  theme_bw()
+
+b <- ggplot(data, aes(x = height, y = income)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE,col = baselrbootcamp_cols("grey")) + 
+  labs(title = paste0("R2 = ", round(r2_height, 2), ", MSE = ", round(mse_height, 2))) +
+    annotate("segment", x = data$height, y = data$income, xend = data$height, yend = data$height_pred, col = baselrbootcamp_cols("magenta")) +
+  theme_bw()
+
+ggpubr::ggarrange(b, a, ncol = 2, nrow = 1)
+
+```
+
+]
+
+---
+class: middle, center
+
+# How to fit linear models in R
+
+---
+
+.pull-left35[
+
+# Key Functions
+
+### Fitting
+
+|Function|Description|
+|:------|:--------|
+|`glm(formula, data)`|Fit a linear model to data and calculate best coefficients|
+
+### Evaluation
+
+|Function|Description|
+|:------|:--------|
+|`coef(mod)`|Get coefficients from a model|
+|`fitted(mod)`|Get fitted results|
+|`resid(mod)`|Get residuals (errors)|
+
+
+]
+
+.pull-right6[
+
+`baselers`
+
+| id| income| age| children|
+|--:|------:|---:|--------:|
+|  1|   6300|  44|        2|
+|  2|  10900|  65|        2|
+
+```{r, echo = TRUE}
+# Create a model income_glm
+
+# Y = income
+# X1 = age, X2 = children
+
+income_glm <- glm(formula = income ~ age + children,
+                  data = baselers)
 ```
 
 ]
@@ -460,46 +582,162 @@ knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019
 
 ---
 
-# Testing individual coefficients
+.pull-left35[
 
-- Test statistic, p-value
+# Key Functions
+
+### Fitting
+
+|Function|Description|
+|:------|:--------|
+|`glm(formula, data)`|Fit a linear model to data and calculate best coefficients|
+
+### Evaluation
+
+|Function|Description|
+|:------|:--------|
+|`coef(mod)`|Get coefficients from a model|
+|`fitted(mod)`|Get fitted results|
+|`resid(mod)`|Get residuals (errors)|
+
+
+]
+
+.pull-right6[
+
+`baselers`
+
+| id| income| age| children|
+|--:|------:|---:|--------:|
+|  1|   6300|  44|        2|
+|  2|  10900|  65|        2|
+
+```{r, echo = TRUE}
+# Print income_glm
+
+income_glm
+```
+
+]
+
 
 ---
 
-# R
+.pull-left35[
+
+# Key Functions
+
+### Fitting
+
+|Function|Description|
+|:------|:--------|
+|`glm(formula, data)`|Fit a linear model to data and calculate best coefficients|
+
+### Evaluation
+
+|Function|Description|
+|:------|:--------|
+|`coef(mod)`|Get coefficients from a model|
+|`fitted(mod)`|Get fitted results|
+|`resid(mod)`|Get residuals (errors)|
+
+
+]
+
+.pull-right6[
+
+```{r, echo = TRUE}
+# Show summary info
+
+summary(income_glm)
+```
+
+]
 
 
 ---
-## glm()
+
+.pull-left35[
+
+# Key Functions
+
+### Fitting
+
+|Function|Description|
+|:------|:--------|
+|`glm(formula, data)`|Fit a linear model to data and calculate best coefficients|
+
+### Evaluation
+
+|Function|Description|
+|:------|:--------|
+|`coef(mod)`|Get coefficients from a model|
+|`fitted(mod)`|Get fitted results|
+|`resid(mod)`|Get residuals (errors)|
 
 
-- formula
-- data
+]
+
+.pull-right6[
+
+`baselers`
+
+| id| income| age| children|<high>fitted</high>|<high>resid</high>|
+|--:|------:|---:|:--------|:----|:-----|
+|  1|   6300|  44|        2|7454|-1153.6|
+|  2|  10900|  65|        2|10588|312.2|
+
+
+```{r, echo = TRUE}
+# Get fitted values (only first 5)
+
+fitted(income_glm)[1:5]
+
+# Get residuals (only first 10)
+
+resid(income_glm)[1:5]
+```
+
+]
+
+
 
 ---
 
-## evaluating
+.pull-left35[
 
-- rsq::rsq()
-- summary()
-- coef()
-- broom::tidy()
+# Key Functions
 
----
+### Fitting
 
-## printing results
+|Function|Description|
+|:------|:--------|
+|`glm(formula, data)`|Fit a linear model to data and calculate best coefficients|
 
-- fitted()
-- resid()
+### Extras
 
-- calculate mad with mean(abs(resid))
+|Function|Package|Description|
+|:------|:--------|:------|
+|`rsq(mod)`|`rsq`|Print R2 value from a model|
+|`tidy(mod)`|`broom`| Get 'tidy' results from a model|
 
----
 
-## Predict new values
+]
 
-predict()
+.pull-right6[
 
+```{r, echo = TRUE}
+library(rsq)
+library(broom)
+
+# Show R-squared from model
+rsq(income_glm)
+
+# Show 'tidy' results from my model
+tidy(income_glm)
+```
+
+]
 ---
 
 class: middle, center

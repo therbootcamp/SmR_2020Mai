@@ -286,66 +286,341 @@ Find the values that minimise *Mean Squared Error*
 
 # R-Squared
 
+R-Squared `\(R^{2}\)` is the most common method of calculating the &lt;high&gt;overall performance&lt;/high&gt; of a model.
 
+`$$\huge R^{2} = 1 - \frac{SS_{res}}{SS_{tot}}$$`
+`\(R^{2}\)` can range from 0 (Terrible) to 1 (Perfect!)
+
+|R2|Interpretation|
+|:----|:----|
+|0|Model explains no variance in Y|
+|.5|Model explains half the variance in Y|
+|1|Model explains *all* the variance in Y!|
+
+See [Wikipedia's R2 page](https://en.wikipedia.org/wiki/Coefficient_of_determination)
 
 ]
-
-
 
 .pull-right5[
 
-&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/r2_wikipedia.png?token=AIFo1PfbpTO7uGR7lXeB3JhUnLNixtP-ks5crP0GwA%3D%3D" style="display: block; margin: auto;" /&gt;
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/r2_vis.png?token=AIFo1O9_s73zoAZhMLik8ePSEbmVeItDks5crP7kwA%3D%3D" alt="&amp;lt;a href='https://en.wikipedia.org/wiki/Coefficient_of_determination'&amp;gt;Wikipedia&amp;lt;/a&amp;gt;"  /&gt;
+&lt;p class="caption"&gt;&lt;a href='https://en.wikipedia.org/wiki/Coefficient_of_determination'&gt;Wikipedia&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
 
 ]
 
-R2
+---
 
-Plot residuals
+.pull-left45[
 
-calculate mean absolute residual
+# R-Squared
+
+R-Squared `\(R^{2}\)` is the most common method of calculating the &lt;high&gt;overall performance&lt;/high&gt; of a model.
+
+`$$\huge R^{2} = 1 - \frac{SS_{res}}{SS_{tot}}$$`
+`\(R^{2}\)` can range from 0 (Terrible) to 1 (Perfect!)
+
+|R2|Interpretation|
+|:----|:----|
+|0|Model explains no variance in Y|
+|.5|Model explains half the variance in Y|
+|1|Model explains *all* the variance in Y!|
+
+See [Wikipedia's R2 page](https://en.wikipedia.org/wiki/Coefficient_of_determination)
+
+]
+
+.pull-right5[
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-15-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+class: middle, center
+
+# How to fit linear models in R
 
 ---
 
-# Testing individual coefficients
+.pull-left35[
 
-- Test statistic, p-value
+# Key Functions
+
+### Fitting
+
+|Function|Description|
+|:------|:--------|
+|`glm(formula, data)`|Fit a linear model to data and calculate best coefficients|
+
+### Evaluation
+
+|Function|Description|
+|:------|:--------|
+|`coef(mod)`|Get coefficients from a model|
+|`fitted(mod)`|Get fitted results|
+|`resid(mod)`|Get residuals (errors)|
+
+
+]
+
+.pull-right6[
+
+`baselers`
+
+| id| income| age| children|
+|--:|------:|---:|--------:|
+|  1|   6300|  44|        2|
+|  2|  10900|  65|        2|
+
+
+```r
+# Create a model income_glm
+
+# Y = income
+# X1 = age, X2 = children
+
+income_glm &lt;- glm(formula = income ~ age + children,
+                  data = baselers)
+```
+
+]
+
 
 ---
 
-# R
+.pull-left35[
+
+# Key Functions
+
+### Fitting
+
+|Function|Description|
+|:------|:--------|
+|`glm(formula, data)`|Fit a linear model to data and calculate best coefficients|
+
+### Evaluation
+
+|Function|Description|
+|:------|:--------|
+|`coef(mod)`|Get coefficients from a model|
+|`fitted(mod)`|Get fitted results|
+|`resid(mod)`|Get residuals (errors)|
+
+
+]
+
+.pull-right6[
+
+`baselers`
+
+| id| income| age| children|
+|--:|------:|---:|--------:|
+|  1|   6300|  44|        2|
+|  2|  10900|  65|        2|
+
+
+```r
+# Print income_glm
+
+income_glm
+```
+
+```
+## 
+## Call:  glm(formula = income ~ age + children, data = baselers)
+## 
+## Coefficients:
+## (Intercept)          age     children  
+##      871.10       149.25         7.78  
+## 
+## Degrees of Freedom: 8509 Total (i.e. Null);  8507 Residual
+##   (1490 observations deleted due to missingness)
+## Null Deviance:	    6.33e+10 
+## Residual Deviance: 1.29e+10 	AIC: 145000
+```
+
+]
 
 
 ---
-## glm()
+
+.pull-left35[
+
+# Key Functions
+
+### Fitting
+
+|Function|Description|
+|:------|:--------|
+|`glm(formula, data)`|Fit a linear model to data and calculate best coefficients|
+
+### Evaluation
+
+|Function|Description|
+|:------|:--------|
+|`coef(mod)`|Get coefficients from a model|
+|`fitted(mod)`|Get fitted results|
+|`resid(mod)`|Get residuals (errors)|
 
 
-- formula
-- data
+]
+
+.pull-right6[
+
+
+```r
+# Show summary info
+
+summary(income_glm)
+```
+
+```
+## 
+## Call:
+## glm(formula = income ~ age + children, data = baselers)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+##  -4250    -835       5     820    4779  
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  871.101     44.959    19.4   &lt;2e-16 ***
+## age          149.249      0.818   182.5   &lt;2e-16 ***
+## children       7.777     12.861     0.6     0.55    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for gaussian family taken to be 1513138)
+## 
+##     Null deviance: 6.3307e+10  on 8509  degrees of freedom
+## Residual deviance: 1.2872e+10  on 8507  degrees of freedom
+##   (1490 observations deleted due to missingness)
+## AIC: 145250
+## 
+## Number of Fisher Scoring iterations: 2
+```
+
+]
+
 
 ---
 
-## evaluating
+.pull-left35[
 
-- rsq::rsq()
-- summary()
-- coef()
-- broom::tidy()
+# Key Functions
+
+### Fitting
+
+|Function|Description|
+|:------|:--------|
+|`glm(formula, data)`|Fit a linear model to data and calculate best coefficients|
+
+### Evaluation
+
+|Function|Description|
+|:------|:--------|
+|`coef(mod)`|Get coefficients from a model|
+|`fitted(mod)`|Get fitted results|
+|`resid(mod)`|Get residuals (errors)|
+
+
+]
+
+.pull-right6[
+
+`baselers`
+
+| id| income| age| children|&lt;high&gt;fitted&lt;/high&gt;|&lt;high&gt;resid&lt;/high&gt;|
+|--:|------:|---:|:--------|:----|:-----|
+|  1|   6300|  44|        2|7454|-1153.6|
+|  2|  10900|  65|        2|10588|312.2|
+
+
+
+```r
+# Get fitted values (only first 5)
+
+fitted(income_glm)[1:5]
+```
+
+```
+##     1     2     3     4     5 
+##  7454 10588  5513  4916  4461
+```
+
+```r
+# Get residuals (only first 10)
+
+resid(income_glm)[1:5]
+```
+
+```
+##       1       2       3       4       5 
+## -1153.6   312.2  -413.4  -716.4  -460.9
+```
+
+]
+
+
 
 ---
 
-## printing results
+.pull-left35[
 
-- fitted()
-- resid()
+# Key Functions
 
-- calculate mad with mean(abs(resid))
+### Fitting
 
----
+|Function|Description|
+|:------|:--------|
+|`glm(formula, data)`|Fit a linear model to data and calculate best coefficients|
 
-## Predict new values
+### Extras
 
-predict()
+|Function|Package|Description|
+|:------|:--------|:------|
+|`rsq(mod)`|`rsq`|Print R2 value from a model|
+|`tidy(mod)`|`broom`| Get 'tidy' results from a model|
 
+
+]
+
+.pull-right6[
+
+
+```r
+library(rsq)
+library(broom)
+
+# Show R-squared from model
+rsq(income_glm)
+```
+
+```
+## [1] 0.7967
+```
+
+```r
+# Show 'tidy' results from my model
+tidy(income_glm)
+```
+
+```
+## # A tibble: 3 x 5
+##   term        estimate std.error statistic  p.value
+##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1 (Intercept)   871.      45.0      19.4   7.11e-82
+## 2 age           149.       0.818   183.    0.      
+## 3 children        7.78    12.9       0.605 5.45e- 1
+```
+
+]
 ---
 
 class: middle, center
