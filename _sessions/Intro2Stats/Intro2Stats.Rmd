@@ -459,7 +459,7 @@ There are many probability distributions, but we often only use a few.
 ]
 
 
-.pull-right45[
+.pull-right5[
 
 ### 3 key aspects of a distribution
 
@@ -573,7 +573,7 @@ p1
 ]
 
 
-.pull-right45[
+.pull-right5[
 
 ### Details
 
@@ -599,7 +599,7 @@ $$\Large x \; \epsilon (a, b)$$
 
 ---
 
-.pull-left45[
+.pull-left5[
 
 ## Binomial Distribution
 
@@ -669,16 +669,17 @@ $$\large x \; \epsilon \{0, 1, ...n\}$$
 
 Why do we need distributions? To calculate <high>likelihoods</high> of data.
 
-- How likely is it that I would get this trial result if the drug is *really* better than a placebo?
+> How likely is it that I would get this trial result if the drug is *really* better than a placebo?
 
-Knowing this likelihood allows us to <high>fit parameters</high> and <high>test</high> models
+Knowing this likelihood allows us to <high>fit parameters</high>, <high>test</high> models, and make <high>predictions</high> about future data
 
-- Given that out of 50 trial patients, the average recovery time was 2.3 days, what is the most likely distribution of recovery times for future patients?
+
+> Given that out of 50 trial patients, the average recovery time was 2.3 days, what is the most likely distribution of recovery times for future patients?
 
 ]
 
 
-.pull-right45[
+.pull-right5[
 
 
 ```{r, echo = FALSE, out.width = "100%"}
@@ -687,7 +688,7 @@ knitr::include_graphics("https://www.xofluza.com/content/dam/gene/xofluza/hcp/im
 
 
 
-```{r, echo = FALSE, fig.width = 4, fig.height = 3, out.width = "80%"}
+```{r, echo = FALSE, fig.width = 4, fig.height = 3, out.width = "65%"}
 
 set.seed(105)
 x <- rnorm(50, mean = 50, sd = 10)
@@ -744,14 +745,19 @@ p1
 
 Using the binomial distributions on the right, answer the following questions:
 
-- If there is a 50% chance of a drug being successful, then out of 10 drugs, how likely is it that exactly 5 will be successful?
+### Q1
 
-- If there is a 10% chance that a customer will default on his/her loan, then out of 10 customers, how likely is it that none (0) will default?
+If there is a 50% chance of a drug being successful, then out of 10 drugs, how likely is it that exactly 5 will be successful?
+
+
+### Q2
+
+If there is a 10% chance that a customer will default on his/her loan, then out of 10 customers, how likely is it that none (0) will default?
 
 ]
 
 
-.pull-right45[
+.pull-right5[
 
 <br><br>
 
@@ -897,16 +903,13 @@ knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019
 
 # What about Oetlinger?
 
-Our <high>p-value</high>, indicating the <high>likelihood of obtaining the data if the null hypothesis is true</high>, was 0.0273
+Our <high>p-value</high>, indicating the <high>likelihood of obtaining the data if the null hypothesis is true</high>, was (only) 0.0273.
 
-This means, the data are very unlikely if, indeed, the mean amount poured is in fact 33dl.
+The data are very unlikely if the mean amount poured is really 33dl.
 
 It is so unlikely, that using the 0.05 threshold, we could conclude...
 
 The Oetlinger buvette is consistently pouring less than 33dl!
-
-We are getting ripped off!
-
 
 *Note: These data are completely made up :) We're sure the Oetlinger Buvette is not ripping us off*
 

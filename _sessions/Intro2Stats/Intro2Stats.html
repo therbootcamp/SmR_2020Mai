@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html>
   <head>
     <title>Intro to Statistics</title>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <meta name="author" content="Statistics with R   Basel R Bootcamp" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="baselrbootcamp.css" type="text/css" />
@@ -316,7 +316,7 @@ There are many probability distributions, but we often only use a few.
 ]
 
 
-.pull-right45[
+.pull-right5[
 
 ### 3 key aspects of a distribution
 
@@ -393,7 +393,7 @@ Used when everything (within a range) is equally likely
 ]
 
 
-.pull-right45[
+.pull-right5[
 
 ### Details
 
@@ -419,7 +419,7 @@ Used when everything (within a range) is equally likely
 
 ---
 
-.pull-left45[
+.pull-left5[
 
 ## Binomial Distribution
 
@@ -465,23 +465,24 @@ If I flip a coin N times, with p(Head) = p, how many times will I get heads?
 
 Why do we need distributions? To calculate &lt;high&gt;likelihoods&lt;/high&gt; of data.
 
-- How likely is it that I would get this trial result if the drug is *really* better than a placebo?
+&gt; How likely is it that I would get this trial result if the drug is *really* better than a placebo?
 
-Knowing this likelihood allows us to &lt;high&gt;fit parameters&lt;/high&gt; and &lt;high&gt;test&lt;/high&gt; models
+Knowing this likelihood allows us to &lt;high&gt;fit parameters&lt;/high&gt;, &lt;high&gt;test&lt;/high&gt; models, and make &lt;high&gt;predictions&lt;/high&gt; about future data
 
-- Given that out of 50 trial patients, the average recovery time was 2.3 days, what is the most likely distribution of recovery times for future patients?
+
+&gt; Given that out of 50 trial patients, the average recovery time was 2.3 days, what is the most likely distribution of recovery times for future patients?
 
 ]
 
 
-.pull-right45[
+.pull-right5[
 
 
 &lt;img src="https://www.xofluza.com/content/dam/gene/xofluza/hcp/images/Mobile/Xofluza-Flu-Efficacy-Primary-Endpoint-TTAS-01-Mobile.jpg" width="100%" style="display: block; margin: auto;" /&gt;
 
 
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-21-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-21-1.png" width="65%" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -498,14 +499,19 @@ Knowing this likelihood allows us to &lt;high&gt;fit parameters&lt;/high&gt; and
 
 Using the binomial distributions on the right, answer the following questions:
 
-- If there is a 50% chance of a drug being successful, then out of 10 drugs, how likely is it that exactly 5 will be successful?
+### Q1
 
-- If there is a 10% chance that a customer will default on his/her loan, then out of 10 customers, how likely is it that none (0) will default?
+If there is a 50% chance of a drug being successful, then out of 10 drugs, how likely is it that exactly 5 will be successful?
+
+
+### Q2
+
+If there is a 10% chance that a customer will default on his/her loan, then out of 10 customers, how likely is it that none (0) will default?
 
 ]
 
 
-.pull-right45[
+.pull-right5[
 
 &lt;br&gt;&lt;br&gt;
 
@@ -620,16 +626,13 @@ If a p-value is *small* (i.e.; p &lt; .05), this means that the likelihood of ob
 
 # What about Oetlinger?
 
-Our &lt;high&gt;p-value&lt;/high&gt;, indicating the &lt;high&gt;likelihood of obtaining the data if the null hypothesis is true&lt;/high&gt;, was 0.0273
+Our &lt;high&gt;p-value&lt;/high&gt;, indicating the &lt;high&gt;likelihood of obtaining the data if the null hypothesis is true&lt;/high&gt;, was (only) 0.0273.
 
-This means, the data are very unlikely if, indeed, the mean amount poured is in fact 33dl.
+The data are very unlikely if the mean amount poured is really 33dl.
 
 It is so unlikely, that using the 0.05 threshold, we could conclude...
 
 The Oetlinger buvette is consistently pouring less than 33dl!
-
-We are getting ripped off!
-
 
 *Note: These data are completely made up :) We're sure the Oetlinger Buvette is not ripping us off*
 
@@ -700,7 +703,6 @@ Question
 
 ]
     </textarea>
-<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
@@ -711,79 +713,26 @@ Question
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
 });
-(function(d) {
-  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
   if (!r) return;
   s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
   d.head.appendChild(s);
-})(document);
-
-(function(d) {
-  var el = d.getElementsByClassName("remark-slides-area");
-  if (!el) return;
-  var slide, slides = slideshow.getSlides(), els = el[0].children;
-  for (var i = 1; i < slides.length; i++) {
-    slide = slides[i];
-    if (slide.properties.continued === "true" || slide.properties.count === "false") {
-      els[i - 1].className += ' has-continuation';
-    }
-  }
-  var s = d.createElement("style");
-  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
-  d.head.appendChild(s);
-})(document);
-// delete the temporary CSS (for displaying all slides initially) when the user
-// starts to view slides
-(function() {
-  var deleted = false;
-  slideshow.on('beforeShowSlide', function(slide) {
-    if (deleted) return;
-    var sheets = document.styleSheets, node;
-    for (var i = 0; i < sheets.length; i++) {
-      node = sheets[i].ownerNode;
-      if (node.dataset["target"] !== "print-only") continue;
-      node.parentNode.removeChild(node);
-    }
-    deleted = true;
-  });
 })();</script>
 
-<script>
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
   }
-})();
-</script>
-
-<script>
-slideshow._releaseMath = function(el) {
-  var i, text, code, codes = el.getElementsByTagName('code');
-  for (i = 0; i < codes.length;) {
-    code = codes[i];
-    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-      text = code.textContent;
-      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-          /^\$\$(.|\s)+\$\$$/.test(text) ||
-          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-        code.outerHTML = code.innerHTML;  // remove <code></code>
-        continue;
-      }
-    }
-    i++;
-  }
-};
-slideshow._releaseMath(document);
+});
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
 (function () {
   var script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
   if (location.protocol !== 'file:' && /^https?:/.test(script.src))
     script.src  = script.src.replace(/^https?:/, '');
   document.getElementsByTagName('head')[0].appendChild(script);
