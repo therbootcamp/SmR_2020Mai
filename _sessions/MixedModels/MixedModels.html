@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
   <head>
     <title>Mixed Effects Models</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <meta name="author" content="Statistics with R   Basel R Bootcamp" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="baselrbootcamp.css" type="text/css" />
@@ -176,16 +176,13 @@ Here's how we would run one regression per sites (but is it a good idea to do so
 
 ```r
 mod_s1 &lt;- lm(Effect ~ Dose,
-             data = clinical_data %&gt;%
-               filter(Site == "Site 1"))
+             data = site1_data)
 
 mod_s2 &lt;- lm(Effect ~ Dose,
-             data = clinical_data %&gt;%
-               filter(Site == "Site 2"))
+             data = site2_data)
 
 mod_s3 &lt;- lm(Effect ~ Dose,
-             data = clinical_data %&gt;%
-               filter(Site == "Site 3"))
+             data = site3_data)
 ```
 
 
@@ -468,15 +465,15 @@ Every level of the nested factor only appears within a single level of the highe
 
 ---
 
-# Keep It Maximal
+# Select Random Effects Structure
 
 .pull-left45[
 
-Specifying the correct random effects structure is important. Failure to do so can result in inflated Type I errors.
+Specifying the correct random effects structure is important. Failure to do so can result in inflated Type I errors or loss of power.
 
-Therefore, it has been argued that one should specify the &lt;high&gt;maximal random effects structure justified by the design&lt;/high&gt; (maximal model; [Barr et al., 2014](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3881361/pdf/nihms533954.pdf)).
+It has been argued that one should specify the &lt;high&gt;maximal random effects structure justified by the design&lt;/high&gt; (maximal model; [Barr et al., 2014](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3881361/pdf/nihms533954.pdf)).
 
-On the other hand, specifying the random effects structure when it is not apparent in the data can be overconservative. That is why it has been argued that one should use a &lt;high&gt;backwards selection procedure&lt;/high&gt; (see [Matuschek, Kliegl, Vasishth, Baayen, &amp; Bates](https://www.sciencedirect.com/science/article/pii/S0749596X17300013)).
+But specifying the random effects structure when it is not apparent in the data can be overconservative. We will use a compromise and run a &lt;high&gt;backwards selection procedure&lt;/high&gt; (see [Matuschek, Kliegl, Vasishth, Baayen, &amp; Bates](https://www.sciencedirect.com/science/article/pii/S0749596X17300013)).
 
 ]
 
@@ -652,75 +649,11 @@ summary(LMM_out)
 
 ---
 
-# Generalized Mixed Effects Models
-
-&lt;br&gt;
-
-.pull-left55[
-
-In our example we used a &lt;high&gt;linear mixed effects model&lt;/high&gt; fitted with `lmer()`. This model assumes a &lt;high&gt;Gaussian&lt;/high&gt; (normal) distribution of responses, and an &lt;high&gt;identity&lt;/high&gt; link function. But other scenarios are possible. For these we use `glmer()`.
-
-For example, if we had binary data to predict:
-
-
-```r
-# example of a mixed model with binomial
-# distribution of the responses and a logit
-# link function
-glmm_out &lt;- glmer(fasnacht ~ alcohol + (alcohol|id),
-                  data = baselers,
-                  family = binomial(link = "logit"))
-```
-
-
-
-]
-
-.pull-right45[
-
-&lt;img src="image/dist_ex_plot.png" width="100%" style="display: block; margin: auto;" /&gt;
-
-]
-
----
-
-# Summary
-
-
-
-.pull-left55[
-
-*What are mixed effects models and when do we use them?*
-
-- Mixed effects models are &lt;high&gt;regression models&lt;/high&gt; that contain &lt;high&gt;both fixed and random effects&lt;/high&gt;.
-- They are used when we have &lt;high&gt;repeated measures&lt;/high&gt; or &lt;high&gt;clusters&lt;/high&gt; in the data.
-
-*When do we add a variable as fixed effect and when as random effect?*
-
-- Fixed effect: when we are interested in the &lt;high&gt;effects of the specific levels&lt;/high&gt; in that variable.
-- Random effect: when we want to &lt;high&gt;generalize over the levels to the population&lt;/high&gt; these levels came from.
-
-]
-
-
-.pull-left35[
-
-&lt;p align = "center"&gt;
-&lt;img src="image/MEM_example2.png" height=180px&gt;&lt;br&gt;
-&lt;/p&gt;
-
-&lt;p align = "center"&gt;
-&lt;img src="image/nested_RE.png" height=130px&gt;&lt;br&gt;
-&lt;/p&gt;
-
-]
-
----
-
 class: middle, center
 
 &lt;h1&gt;&lt;a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/MixedModels/MixedModels_practical.html"&gt;Practical&lt;/a&gt;&lt;/h1&gt;
     </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
@@ -731,26 +664,79 @@ class: middle, center
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
 });
-(function() {
-  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
   if (!r) return;
   s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
   d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
 })();</script>
 
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
   }
-});
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
 (function () {
   var script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
   if (location.protocol !== 'file:' && /^https?:/.test(script.src))
     script.src  = script.src.replace(/^https?:/, '');
   document.getElementsByTagName('head')[0].appendChild(script);

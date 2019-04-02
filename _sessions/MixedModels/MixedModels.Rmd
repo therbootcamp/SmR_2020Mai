@@ -273,16 +273,13 @@ Here's how we would run one regression per sites (but is it a good idea to do so
 ```{r eval = FALSE}
 
 mod_s1 <- lm(Effect ~ Dose,
-             data = clinical_data %>%
-               filter(Site == "Site 1"))
+             data = site1_data)
 
 mod_s2 <- lm(Effect ~ Dose,
-             data = clinical_data %>%
-               filter(Site == "Site 2"))
+             data = site2_data)
 
 mod_s3 <- lm(Effect ~ Dose,
-             data = clinical_data %>%
-               filter(Site == "Site 3"))
+             data = site3_data)
 
 ```
 
@@ -637,15 +634,15 @@ Every level of the nested factor only appears within a single level of the highe
 
 ---
 
-# Keep It Maximal
+# Select Random Effects Structure
 
 .pull-left45[
 
-Specifying the correct random effects structure is important. Failure to do so can result in inflated Type I errors.
+Specifying the correct random effects structure is important. Failure to do so can result in inflated Type I errors or loss of power.
 
-Therefore, it has been argued that one should specify the <high>maximal random effects structure justified by the design</high> (maximal model; [Barr et al., 2014](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3881361/pdf/nihms533954.pdf)).
+It has been argued that one should specify the <high>maximal random effects structure justified by the design</high> (maximal model; [Barr et al., 2014](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3881361/pdf/nihms533954.pdf)).
 
-On the other hand, specifying the random effects structure when it is not apparent in the data can be overconservative. That is why it has been argued that one should use a <high>backwards selection procedure</high> (see [Matuschek, Kliegl, Vasishth, Baayen, & Bates](https://www.sciencedirect.com/science/article/pii/S0749596X17300013)).
+But specifying the random effects structure when it is not apparent in the data can be overconservative. We will use a compromise and run a <high>backwards selection procedure</high> (see [Matuschek, Kliegl, Vasishth, Baayen, & Bates](https://www.sciencedirect.com/science/article/pii/S0749596X17300013)).
 
 ]
 
@@ -815,71 +812,6 @@ summary(LMM_out)
 
 
 <img src="image/lmer_output.png" width="58%" style="display: block; margin: auto;" />
-
----
-
-# Generalized Mixed Effects Models
-
-<br>
-
-.pull-left55[
-
-In our example we used a <high>linear mixed effects model</high> fitted with `lmer()`. This model assumes a <high>Gaussian</high> (normal) distribution of responses, and an <high>identity</high> link function. But other scenarios are possible. For these we use `glmer()`.
-
-For example, if we had binary data to predict:
-
-```{r eval=FALSE}
-# example of a mixed model with binomial
-# distribution of the responses and a logit
-# link function
-glmm_out <- glmer(fasnacht ~ alcohol + (alcohol|id),
-                  data = baselers,
-                  family = binomial(link = "logit"))
-
-```
-
-
-
-]
-
-.pull-right45[
-
-<img src="image/dist_ex_plot.png" width="100%" style="display: block; margin: auto;" />
-
-]
-
----
-
-# Summary
-
-
-
-.pull-left55[
-
-*What are mixed effects models and when do we use them?*
-
-- Mixed effects models are <high>regression models</high> that contain <high>both fixed and random effects</high>.
-- They are used when we have <high>repeated measures</high> or <high>clusters</high> in the data.
-
-*When do we add a variable as fixed effect and when as random effect?*
-
-- Fixed effect: when we are interested in the <high>effects of the specific levels</high> in that variable.
-- Random effect: when we want to <high>generalize over the levels to the population</high> these levels came from.
-
-]
-
-
-.pull-left35[
-
-<p align = "center">
-<img src="image/MEM_example2.png" height=180px><br>
-</p>
-
-<p align = "center">
-<img src="image/nested_RE.png" height=130px><br>
-</p>
-
-]
 
 ---
 
