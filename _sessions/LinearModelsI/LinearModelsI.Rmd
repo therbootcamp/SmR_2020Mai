@@ -97,7 +97,7 @@ Why are linear models so great?
 
 - They are <high>easy to interpret</high>.
 - They can <high>approximate non-linear</high> data well.
-- They are <high>easy to calculate</high> and impliment (just addition and multiplication!).
+- They are <high>easy to calculate</high> and implement (just addition and multiplication!).
 - They <high>just work</high>!
 
 ]
@@ -742,5 +742,5 @@ tidy(income_glm)
 
 class: middle, center
 
-<h1><a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsI/LinerModelsI_practical.html">Practical</a></h1>
+<h1><a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsI/LinearModelsI_practical.html">Practical</a></h1>
 
