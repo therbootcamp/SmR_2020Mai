@@ -328,6 +328,7 @@ Mixed effects models combine two kinds of effects that serve different purposes:
 * <high>Fixed effects</high>
     * The main effects/ interactions we want to quantify.
 * <high>Random effects</high>
+    * Account for the dependencies in the data.
     * The effects of the population we want to generalize over. 
 
 
