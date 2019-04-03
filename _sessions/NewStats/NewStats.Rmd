@@ -681,7 +681,7 @@ However,...
 
 &nbsp;&nbsp;&nbsp;&nbsp; 1 Computers have become <high>fast enough</high><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp; 2 statistical inference is <high>necessarily</high><br> 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <high>subjectivity</high>.<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <high>subjective</high>.<br><br>
 &nbsp;&nbsp;&nbsp;&nbsp; 3 The influence of priors can be limited<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; through <high>ignorance priors<high>
 
@@ -740,7 +740,7 @@ The <a href="https://cran.r-project.org/package=rstanarm/"><mono><b>rstanarm</b>
     <mono>BayesFactor</mono>
   </td>
   <td bgcolor="white">
-    Bayesian (mixed) regressions
+    Standard h-tests
   </td>
 </tr>
 <tr>
@@ -824,7 +824,7 @@ The <a href="https://cran.r-project.org/package=rstanarm/"><mono><b>rstanarm</b>
     <mono>BayesFactor</mono>
   </td>
   <td bgcolor="white">
-    Bayesian (mixed) regressions
+    Standard h-tests
   </td>
 </tr>
 <tr>

@@ -548,7 +548,11 @@ Delta + SE * qt(.95, N - 1) * c(-1, 1)
 ```
 
 ```
+<<<<<<< HEAD
+## [1] -1.4501 -0.9865
+=======
 ## [1] -1.1710 -0.6488
+>>>>>>> 3b76091504969d69d4cf04b048260ecba00c5ff1
 ```
 
 ]
@@ -631,7 +635,11 @@ boot.ci(boot_res)
 ## 
 ## Intervals : 
 ## Level      Normal              Basic         
+<<<<<<< HEAD
+## 95%   (-1.495, -0.942 )   (-1.489, -0.938 )
+=======
 ## 95%   (-1.2181, -0.6066 )   (-1.2279, -0.6229 )
+>>>>>>> 3b76091504969d69d4cf04b048260ecba00c5ff1
 ```
 
 ]
@@ -680,7 +688,7 @@ However,...
 
 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 1 Computers have become &lt;high&gt;fast enough&lt;/high&gt;&lt;br&gt;&lt;br&gt;
 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 2 statistical inference is &lt;high&gt;necessarily&lt;/high&gt;&lt;br&gt; 
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;high&gt;subjectivity&lt;/high&gt;.&lt;br&gt;&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;high&gt;subjective&lt;/high&gt;.&lt;br&gt;&lt;br&gt;
 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 3 The influence of priors can be limited&lt;br&gt;
 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; through &lt;high&gt;ignorance priors&lt;high&gt;
 
@@ -739,7 +747,7 @@ The &lt;a href="https://cran.r-project.org/package=rstanarm/"&gt;&lt;mono&gt;&lt
     &lt;mono&gt;BayesFactor&lt;/mono&gt;
   &lt;/td&gt;
   &lt;td bgcolor="white"&gt;
-    Bayesian (mixed) regressions
+    Standard h-tests
   &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -778,6 +786,18 @@ stan_glm(income ~ height,
 ##  predictors:   2
 ## ------
 ##             Median MAD_SD
+<<<<<<< HEAD
+## (Intercept) 9286.8 2242.6
+## height       -10.8   13.2
+## 
+## Auxiliary parameter(s):
+##       Median MAD_SD
+## sigma 2640.1  111.0
+## 
+## Sample avg. posterior predictive distribution of y:
+##          Median MAD_SD
+## mean_PPD 7444.8  215.1
+=======
 ## (Intercept) 9229.7 2126.7
 ## height       -10.6   12.4
 ## 
@@ -788,6 +808,7 @@ stan_glm(income ~ height,
 ## Sample avg. posterior predictive distribution of y:
 ##          Median MAD_SD
 ## mean_PPD 7431.3  218.9
+>>>>>>> 3b76091504969d69d4cf04b048260ecba00c5ff1
 ## 
 ## ------
 ## * For help interpreting the printed output see ?print.stanreg
@@ -839,7 +860,7 @@ The &lt;a href="https://cran.r-project.org/package=rstanarm/"&gt;&lt;mono&gt;&lt
     &lt;mono&gt;BayesFactor&lt;/mono&gt;
   &lt;/td&gt;
   &lt;td bgcolor="white"&gt;
-    Bayesian (mixed) regressions
+    Standard h-tests
   &lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;
@@ -906,12 +927,23 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   d.head.appendChild(s);
 })();</script>
 
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
   }
-});
+})();
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

@@ -14,13 +14,16 @@ m2 = 120
 s1 = 25
 s2 = 25
 
-png('_sessions/NewStats/image/power.png',width=1000, height=1000)
+png('_sessions/NewStats/image/power.png',width=900, height=1100)
 
-par(mar=c(0,0,30,0))
+par(mar=c(1,0,30,0))
 
-plot.new();plot.window(xlim=c(0,200),ylim=c(0,.016))
+plot.new();plot.window(xlim=c(0,200),ylim=c(-.0013,.016))
 
-mtext('Small N', side=3, cex=6, col = Green, line=25, font=2)
+mtext('x',side=1,line=-.2,cex=4)
+axis(1,labels=FALSE,line=-3,lwd=8)
+
+mtext(expression(italic('Small N')), side=3, cex=6, col = 'black', line=25, font=1)
 
 xs = seq(0,200,.01)
 
@@ -52,13 +55,16 @@ m2 = 120
 s1 = 12
 s2 = 12
 
-png('_sessions/NewStats/image/power_large.png',width=1000, height=1000)
+png('_sessions/NewStats/image/power_large.png',width=900, height=1100)
 
-par(mar=c(0,0,6,0))
+par(mar=c(1,0,6,0))
 
-plot.new();plot.window(xlim=c(0,200),ylim=c(0,.035))
+plot.new();plot.window(xlim=c(0,200),ylim=c(-.0013,.035))
 
-mtext('Large N', side=3, cex=6, col = Green, line=1, font=2)
+mtext('x',side=1,line=-.2,cex=4)
+axis(1,labels=FALSE,line=-3,lwd=8)
+
+mtext(expression(italic('Large N')), side=3, cex=6, col = 'black', line=0, font=1)
 
 xs = seq(0,200,.01)
 
