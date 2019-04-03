@@ -64,36 +64,42 @@ From [Wikipedia](https://en.wikipedia.org/wiki/Statistical_model) (emphasis adde
 ### Implementation in R
 
 
-
 ```r
-#data &lt;- read.table(link)
-#variables &lt;- data[,c('group','variable')]
-#analysis &lt;- lm(variable ~ group, data = variables)
-#summary(analysis)
+data &lt;- read.table(filepath)
+variables &lt;- data %&gt;% select(group, variable)
+analysis &lt;- lm(variable ~ group, data = variables)
+summary(analysis)
 ```
 ]
 
 ---
 
+.pull-left3[
+
 # Why R?
 
-.pull-left3[
-R steadily **grows in popularity**. 
+&lt;br&gt;
 
-Today, R is one of the **most popular languages for data science** and overall. 
+R steadily &lt;high&gt;grows in popularity&lt;/high&gt;. 
 
-In terms of the number of data science jobs, **R beats SAS and Matlab**, and is on par with Python.
+Today, R is one of the &lt;high&gt;most popular languages for data science&lt;/high&gt; and overall. 
+
+In terms of the number of data science jobs, &lt;high&gt;R beats SAS and Matlab&lt;/high&gt;, and is on par with Python.
 
 &lt;p style="font-size:10px;float:bottom"&gt;
-  Image source: https://i0.wp.com/r4stats.com/
+  
 &lt;p&gt;
 
 
 ]
 
 .pull-right6[
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
 &lt;p align="center"&gt;
-  &lt;img src="https://i0.wp.com/r4stats.com/wp-content/uploads/2017/02/Fig-1a-IndeedJobs-2017.png" height="450"&gt;
+  &lt;img src="https://i0.wp.com/r4stats.com/wp-content/uploads/2017/02/Fig-1a-IndeedJobs-2017.png" height="480"&gt;&lt;br&gt;
+  &lt;font style="font-size:10px"&gt; from &lt;a href="from https://i0.wp.com/r4stats.com/"&gt;r4stats.com&lt;/a&gt;&lt;/font&gt;
 &lt;/p&gt;
 ]
 
@@ -127,43 +133,11 @@ It's slow, but...
 
 ---
 
-# R is great for ML
+# R is great for Statistics
 
-...because of high-performance R packages (extensions) downloaded and used millions of times.
+...because of high-performance R packages (extensions) &lt;high&gt;downloaded and used millions of times&lt;/high&gt;.
 
-&lt;p align="center"&gt;&lt;img src="image/ml_package_dl.png" width="620"&gt;&lt;/p&gt;
-
----
-
-# `caret`
-
-.pull-left55[
-
-The &lt;high&gt;C&lt;/high&gt;lassification &lt;high&gt;A&lt;/high&gt;nd &lt;high&gt;RE&lt;/high&gt;gression &lt;high&gt;T&lt;/high&gt;raining package is a meta-package to streamline the application of R's best machine learning tools.  
-
-`caret` facilitates...&lt;br&gt;&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;1) &lt;high&gt;data pre-processing&lt;/high&gt;&lt;br&gt;&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;2) &lt;high&gt;feature selection&lt;/high&gt;&lt;br&gt;&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;3) &lt;high&gt;fitting, tuning, &amp; model prediction&lt;/high&gt;&lt;br&gt;&lt;br&gt;
-
-Includes dozens of algorithms/models including...
-
-&lt;high&gt;regression&lt;/high&gt;, &lt;high&gt;decision trees&lt;/high&gt;, &lt;high&gt;random forests&lt;/high&gt;, neural nets, AdaBoost, elastic nets, lasso &amp; ridge regression, support vector machines, etc.
-
-]
-
-.pull-right4[
-&lt;p align="center"&gt;&lt;img src="image/caret.png"&gt;&lt;/p&gt;
-&lt;p align="center"&gt;&lt;img src="image/caret.png"&gt;&lt;/p&gt;
-&lt;p align="center"&gt;&lt;img src="image/caret.png"&gt;&lt;/p&gt;
-]
----
-
-&lt;div class="center_text"&gt;
-  &lt;span&gt;
-  10 basic R lessons
-  &lt;/span&gt;
-&lt;/div&gt; 
+&lt;p align="center"&gt;&lt;img src="image/stats_package_dl.png" width="750"&gt;&lt;/p&gt;
 
 ---
 
@@ -180,6 +154,14 @@ Includes dozens of algorithms/models including...
 8. `formula` and `data` specify a model 
 9. Use RStudio and projects
 10. Use editor, shortcuts, auto-complete
+]
+
+.pull-right5[
+
+&lt;p align="center"&gt;
+  &lt;img src="image/assignment.png"&gt;
+&lt;/p&gt;
+
 ]
 
 ---
@@ -523,8 +505,7 @@ print(baselers)
 ##  8     8 fema…    41   156.   67.8   7600
 ##  9     9 male     43   176.   69.3   8500
 ## 10    10 fema…    31   166.   66.3   6100
-## # ... with 9,990 more rows, and 14 more
-## #   variables
+## # … with 9,990 more rows, and 14 more variables
 ```
 ]
 
@@ -903,7 +884,7 @@ baselers &lt;- read_delim("baselers.txt",
 
 class: middle, center
 
-&lt;h1&gt;&lt;a href="https://raw.githubusercontent.com/therbootcamp/appliedML_2019Jan/master/1_Data/baselrbootcamp_appliedML_data.zip"&gt;Download data sets&lt;/a&gt;&lt;/h1&gt;
+&lt;h1&gt;&lt;a href="https://raw.githubusercontent.com/therbootcamp/appliedML_2019Jan/master/1_Data/baselrbootcamp_appliedML_data.zip"&gt;Download&lt;/a&gt;&lt;/h1&gt;
 
 ---
 
