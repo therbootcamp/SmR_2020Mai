@@ -78,15 +78,26 @@ baselers <- readr::read_csv("1_Data/baselers.csv")
 
 ```
 
-# Linear Model Applications</i>
-
 .pull-left45[
 
+# Linear Model Applications
+
+In the last session, we saw that a linear model is one that can be written in the following form <br>
+
+*Linear Model Equation*
+
+$$\huge Y = \beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2} +  ... + \beta_{n}x_{n} + \epsilon$$
+
+What you may not realise, is that many of your favorite tests, including <high>t-tests</high>, <high>correlation tests</high>, and <high>ANOVAs</high> can all be expressed as linear models! 
+
+This means that you can use the `glm()` function to do all of these tests!
+
+However, R also has special hypothesis test functions that allow you to do them as well.
 
 
 ]
 
-.pull-right45[
+.pull-right55[
 
 ]
 
@@ -501,11 +512,9 @@ TukeyHSD(height_htest)
 
 ]
 
-
 ---
 
-
-.pull-left4[
+.pull-left35[
 # Simulation functions
 
 R has a several functions that allow you to draw <high>random samples</high> data from specified distributions:
@@ -521,8 +530,7 @@ These allow you to run your own <high>simulations</high>!
 
 ]
 
-
-.pull-right55[
+.pull-right6[
 
 *Drawing Random Samples*
 
