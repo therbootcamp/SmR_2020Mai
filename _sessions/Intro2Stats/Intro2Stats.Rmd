@@ -437,12 +437,18 @@ $$Standard \; Deviation = \sqrt{\frac{(28-29.9)^2+(31-29.9)^2+...}{10-1}} = 3.90
 .pull-left45[
 # 3. Sampling Procedures
 
-- What population of data do I want to make inferences about?
-- What does my sample represent?
+In statistics, we always distinguish between a <high>sample</high> and a </high>population</high>
 
-## Random sampling
+Populations are what we are really interested in
+- How will *all cancer patients* be affected by Drug X?
+- How will *future stocks* change?
+- What is the relationship between income and happiness in *all people*?
 
-- Statistics allows you to make inferences to a population you have randomly sampled from.
+We rarely access to entire populations (when we do, we don't need to do statistics!)
+
+We must use <high>sampling procedures</high> to a smaller <high>sample</high> of cases.
+
+Based on that sample, we try to make <high>inferences</high> to populations.
 
 
 ]
@@ -450,7 +456,11 @@ $$Standard \; Deviation = \sqrt{\frac{(28-29.9)^2+(31-29.9)^2+...}{10-1}} = 3.90
 
 .pull-right5[
 
-#images of samples vs. populations
+<br><br>
+```{r, echo = FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/sampling_procedure.png?token=AIFo1AUl-Ddz-zYZgoGbzwJoW8SO3LhUks5criQVwA%3D%3D")
+```
+
 
 
 ]
@@ -956,74 +966,4 @@ class: middle, center
 
 <h1><a href="https://therbootcamp.github.io/SwR_2019Apr/index.html">Schedule</a></h1>
 
-
----
-# Backup
-
-
-
-
----
-
-.pull-left45[
-
-# 4: Likelihood
-
-Using the binomial distributions on the right, answer the following questions:
-
-- You purchase a XX online
-- You fear it may be fake
-
-Data:
-
-- You used it 10 times and it fails 5 times (5 out of 10).
-
-Online research shows that 
-
-- Real XX fail 10% of the time
-- Fake XX fail 50% of the time.
-
-Question
-
-- How likely is your data if XX is real? What about if it's fake?
-- Is it *more likely* that a real XX would give you your data or a fake XX?
-
-
-]
-
-
-.pull-right45[
-
-<br><br>
-
-
-### 2 Binomial Distributions
-
-```{r, echo = FALSE, fig.width = 4, fig.height = 3, out.width = "100%", dpi=200}
-
-d1 <-  data.frame(x = seq(0, 10, 1),
-                               y = dbinom(seq(0, 10, 1), size = 10, prob = .5))
-
-
-p1 <- ggplot(data =d2, 
-             aes(x = x, y = y)) +
-  geom_hline(yintercept =  seq(0, .5, .1), col = "gray", size = .3, alpha = .5) +
-  geom_vline(xintercept =  seq(0, 10), col = "gray", size = .3, alpha = .5) +
-  geom_point(data = d1, col = baselrbootcamp_cols("green"), size = 2) +
-  geom_line(data = d1, size = .5, col = "black", lty = 3) + 
-  geom_point(data = d2, col = baselrbootcamp_cols("yellow"), size = 2) +
-  geom_line(data = d2, size = .5, col = "black", lty = 3) + 
-  ylab("Likelihood") +
-  ylim(0, .5) + 
-  annotate("text", x = 2, y = .45, label =parse(text = paste0('p == .1 ~ n== 10')), size = 5) +
-  annotate("text", x = 5, y = .3, label =parse(text = paste0('p == .5 ~ n== 10')), size = 5) +
-  scale_x_continuous(breaks = 0:10)
-
-p1
-
-```
-
-
-
-]
 

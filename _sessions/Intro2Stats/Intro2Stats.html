@@ -294,12 +294,18 @@ Sample statistics give us &lt;high&gt;estimates&lt;/high&gt; of key model parame
 .pull-left45[
 # 3. Sampling Procedures
 
-- What population of data do I want to make inferences about?
-- What does my sample represent?
+In statistics, we always distinguish between a &lt;high&gt;sample&lt;/high&gt; and a &lt;/high&gt;population&lt;/high&gt;
 
-## Random sampling
+Populations are what we are really interested in
+- How will *all cancer patients* be affected by Drug X?
+- How will *future stocks* change?
+- What is the relationship between income and happiness in *all people*?
 
-- Statistics allows you to make inferences to a population you have randomly sampled from.
+We rarely access to entire populations (when we do, we don't need to do statistics!)
+
+We must use &lt;high&gt;sampling procedures&lt;/high&gt; to a smaller &lt;high&gt;sample&lt;/high&gt; of cases.
+
+Based on that sample, we try to make &lt;high&gt;inferences&lt;/high&gt; to populations.
 
 
 ]
@@ -307,7 +313,9 @@ Sample statistics give us &lt;high&gt;estimates&lt;/high&gt; of key model parame
 
 .pull-right5[
 
-#images of samples vs. populations
+&lt;br&gt;&lt;br&gt;
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/sampling_procedure.png?token=AIFo1AUl-Ddz-zYZgoGbzwJoW8SO3LhUks5criQVwA%3D%3D" style="display: block; margin: auto;" /&gt;
+
 
 
 ]
@@ -337,7 +345,7 @@ Probability distributions are &lt;high&gt;always positive&lt;/high&gt; and their
 
 ### 3 key aspects of a distribution
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-16-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-17-1.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 *1. Probability Density Function (PDF)*
 
@@ -366,7 +374,7 @@ A 'bell-shaped curve'
 The most important and widely used distribution in all of statistics
 
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-17-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-18-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -405,7 +413,7 @@ A 'Flat distribution'
 Used when everything (within a range) is equally likely
 
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-18-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-19-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -444,7 +452,7 @@ A discrete "Counting" distribution
 
 If I flip a coin N times, with p(Head) = p, how many times will I get heads?
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-19-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-20-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -501,7 +509,7 @@ Knowing this likelihood allows us to &lt;high&gt;fit parameters&lt;/high&gt;, &l
 &lt;/div&gt;
 
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-21-1.png" width="75%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-22-1.png" width="75%" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -536,7 +544,7 @@ If there is a 10% chance that a customer will default on his/her loan, then out 
 
 ### 2 Binomial Distributions
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 
 ]
@@ -674,55 +682,6 @@ class: middle, center
 # Questions?
 
 &lt;h1&gt;&lt;a href="https://therbootcamp.github.io/SwR_2019Apr/index.html"&gt;Schedule&lt;/a&gt;&lt;/h1&gt;
-
-
----
-# Backup
-
-
-
-
----
-
-.pull-left45[
-
-# 4: Likelihood
-
-Using the binomial distributions on the right, answer the following questions:
-
-- You purchase a XX online
-- You fear it may be fake
-
-Data:
-
-- You used it 10 times and it fails 5 times (5 out of 10).
-
-Online research shows that 
-
-- Real XX fail 10% of the time
-- Fake XX fail 50% of the time.
-
-Question
-
-- How likely is your data if XX is real? What about if it's fake?
-- Is it *more likely* that a real XX would give you your data or a fake XX?
-
-
-]
-
-
-.pull-right45[
-
-&lt;br&gt;&lt;br&gt;
-
-
-### 2 Binomial Distributions
-
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-27-1.png" width="100%" style="display: block; margin: auto;" /&gt;
-
-
-
-]
     </textarea>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
@@ -741,23 +700,12 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   d.head.appendChild(s);
 })();</script>
 
-<script>
-(function() {
-  var i, text, code, codes = document.getElementsByTagName('code');
-  for (i = 0; i < codes.length;) {
-    code = codes[i];
-    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-      text = code.textContent;
-      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-          /^\$\$(.|\s)+\$\$$/.test(text) ||
-          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-        code.outerHTML = code.innerHTML;  // remove <code></code>
-        continue;
-      }
-    }
-    i++;
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
   }
-})();
+});
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
