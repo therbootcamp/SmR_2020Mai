@@ -13,7 +13,7 @@ class: center, middle, inverse, title-slide
 
 # Intro to Statistics
 ### Statistics with R<br> <a href='https://therbootcamp.github.io'> Basel R Bootcamp </a> <br> <a href='https://therbootcamp.github.io/SwR_2019Apr/'> <i class='fas fa-clock' style='font-size:.9em;'></i> </a>  <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;' ></i> </a>  <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a>  <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a>
-### February 2019
+### April 2019
 
 ---
 
@@ -50,18 +50,33 @@ layout: true
 
 .pull-left6[
 
-# 
+# Our goal in the next hour
 
-In this hour, we will try to cover the basics of statistical inference
+In this hour, we will try to cover some of the basic principles of statistical inference.
 
+1. Variability
+2. Sample statistics
+3. Sampling (samples vs. populations)
+4. Distributions
+5. Likelihood
+6. Null Hypothesis testing
+7. Test statistic
+8. P-values
+
+This is a lot to cover, and it may not be clear from the beginning.
+
+But to help us, we'll think about it in terms of beer.
 
 ]
 
 
 .pull-right35[
 
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&lt;img src="https://cdn.lynda.com/course/495322/495322-636154038826424503-16x9.jpg" style="display: block; margin: auto;" /&gt;
 
-
+&lt;br&gt;
+&lt;img src="https://marketingweek.imgix.net/content/uploads/2018/05/11123103/beer-750.jpg?auto=compress,format,&amp;crop=faces,entropy,edges&amp;fit=crop&amp;q=60&amp;w=750&amp;h=460" width="90%" style="display: block; margin: auto;" /&gt;
 
 
 ]
@@ -79,16 +94,49 @@ Basel has many nice "Buvette's" that serve drinks in warm months.
 
 The Oetlinger Buvette, one of our favorites, offers 33dl beers (or so they say...).
 
-Is the Oetlinger Buvette 'underpouring' its beers?
+*I am convinced that the Oetlinger Buvette 'underpouring' its beers and they are not truly 33dl.*
+&lt;br&gt;&lt;br&gt;
+&lt;center&gt;How can I formulate my belief into an &lt;high&gt;formal hypothesis?&lt;/high&gt;&lt;/center&gt;&lt;br&gt;
 
-### Data
+&lt;center&gt;How can I collect &lt;high&gt;data to test the hypothesis?&lt;/center&gt;&lt;/high&gt;&lt;br&gt;
 
-Order 10 beers, and measure the exact amount in each cup.
+&lt;center&gt;&lt;font size = 5&gt;What do you think?&lt;/font&gt;&lt;/center&gt;
+]
+
+
+.pull-right35[
+&lt;br&gt;&lt;br&gt;
+&lt;img src="https://www.basel.com/extension/portal-basel/var/storage/images/media/bibliothek/basel-bilder/rhein-promenade/savoir-vivre-am-basler-rheinufer/92121-1-ger-DE/Savoir-vivre-am-Basler-Rheinufer_front_magnific.jpg" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+
+&lt;img src="https://files.newsnetz.ch/story/1/7/7/17765134/14/topelement.jpg" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+---
+
+.pull-left6[
 
 
 
 
-&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/10_beers.jpg?token=AIFo1GFPQoYDXYW5W7FOsftG_-XbNsp6ks5cqeGfwA%3D%3D" width="80%" style="display: block; margin: auto;" /&gt;
+## Beer hypothesis
+
+The mean amount poured in 33dl beers by the Oetlinger Buvette is less than 33dl
+
+
+`$$\Large H0: \mu &lt; 33$$`
+
+## Beer Data
+
+I ordered 10 beers, and measured the exact amount in each cup, here are the results:
+
+
+
+
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-8-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -105,13 +153,15 @@ Order 10 beers, and measure the exact amount in each cup.
 ]
 
 
+
+
+
 ---
 
 
 .pull-left45[
 
 # 1. Variability
-
 
 All interesting data processes have &lt;high&gt;variability&lt;/high&gt;
 
@@ -122,7 +172,36 @@ Statistical inference is all about &lt;high&gt;accounting for variability&lt;/hi
 
 If there was no variability, there would be no need to do statistics.
 
-- If every single patient responded the exact same way to a drug, you could do a clinical trial with (any) one patient.
+*If every single patient responded the exact same way to a drug, you could do a clinical trial with (any) one patient.*
+
+
+]
+
+
+.pull-right45[
+
+Statistics is the process of understanding variability
+
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/variability_stock_drug.png?token=AIFo1Ck45ox-HHmcNvSnfBOLXhRRRjpVks5cq1a3wA%3D%3D" width="90%" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+---
+
+
+.pull-left45[
+
+# 1. Variability
+
+In general, we distinguish between two types of variability
+
+|Variability Type|Definition|
+|:-----|:-----|
+|Systematic| Variation that &lt;high&gt;can&lt;/high&gt; be explained by known variables|
+|Unsystematic |Variation that &lt;high&gt;cannot&lt;/high&gt; be explained by known variables|
+
+Statistical inference is the practice of discovering ways to separate overall variability into systematic and unsystematic portions.
 
 
 ]
@@ -131,10 +210,16 @@ If there was no variability, there would be no need to do statistics.
 .pull-right45[
 
 
-&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/variability_stock_drug_beer.png?token=AIFo1GDIBmjgX1ca13vVfnh0UqoEa-93ks5cqiplwA%3D%3D" width="90%" style="display: block; margin: auto;" /&gt;
+
+
+
+&lt;br&gt;&lt;br&gt;
+
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+
 
 ]
-
 
 
 ---
@@ -162,15 +247,11 @@ Statistical inference is the practice of discovering ways to separate overall va
 
 &lt;br&gt;&lt;br&gt;
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" /&gt;&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-7-2.png" width="100%" style="display: block; margin: auto;" /&gt;
-
-
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
-
 ---
-
 
 .pull-left45[
 
@@ -196,7 +277,7 @@ Sample statistics give us &lt;high&gt;estimates&lt;/high&gt; of key model parame
 
 ### Raw data &amp; Sample Statistics
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-15-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 
 `$$Mean = \frac{28+31+28+...}{10} = 29.9$$`
@@ -204,11 +285,32 @@ Sample statistics give us &lt;high&gt;estimates&lt;/high&gt; of key model parame
 `$$Standard \; Deviation = \sqrt{\frac{(28-29.9)^2+(31-29.9)^2+...}{10-1}} = 3.90$$`
 
 
+]
+
+
+
+---
+
+.pull-left45[
+# 3. Sampling Procedures
+
+- What population of data do I want to make inferences about?
+- What does my sample represent?
+
+## Random sampling
+
+- Statistics allows you to make inferences to a population you have randomly sampled from.
 
 
 ]
 
 
+.pull-right5[
+
+#images of samples vs. populations
+
+
+]
 
 
 
@@ -216,7 +318,7 @@ Sample statistics give us &lt;high&gt;estimates&lt;/high&gt; of key model parame
 
 .pull-left45[
 
-# 3. Distributions
+# 4. Distributions
 
 Statistics is built on &lt;high&gt;calculating the likelihood of data&lt;/high&gt; given how we assume it varies
 
@@ -226,16 +328,16 @@ A probability distribution is a &lt;high&gt;mathematical formula&lt;/high&gt; th
 
 Probability distributions are &lt;high&gt;always positive&lt;/high&gt; and their &lt;high&gt;sum adds up to 1.0&lt;/high&gt;
 
-There are many probability distributions, but we often only use a few.
+[Wikipedia: Distribution List](https://en.wikipedia.org/wiki/List_of_probability_distributions)
 
 ]
 
 
-.pull-right45[
+.pull-right5[
 
 ### 3 key aspects of a distribution
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-9-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-16-1.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 *1. Probability Density Function (PDF)*
 
@@ -264,7 +366,7 @@ A 'bell-shaped curve'
 The most important and widely used distribution in all of statistics
 
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-17-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -303,12 +405,12 @@ A 'Flat distribution'
 Used when everything (within a range) is equally likely
 
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-18-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
 
-.pull-right45[
+.pull-right5[
 
 ### Details
 
@@ -334,7 +436,7 @@ Used when everything (within a range) is equally likely
 
 ---
 
-.pull-left45[
+.pull-left5[
 
 ## Binomial Distribution
 
@@ -342,7 +444,7 @@ A discrete "Counting" distribution
 
 If I flip a coin N times, with p(Head) = p, how many times will I get heads?
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-19-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -376,27 +478,35 @@ If I flip a coin N times, with p(Head) = p, how many times will I get heads?
 
 .pull-left45[
 
-# 4: Likelihood
+# 5: Likelihood
 
 Why do we need distributions? To calculate &lt;high&gt;likelihoods&lt;/high&gt; of data.
 
-- How likely is it that I would get this trial result if the drug is *really* better than a placebo?
+&gt; How likely is it that I would get this trial result if the drug is *really* better than a placebo?
 
-Knowing this likelihood allows us to &lt;high&gt;fit parameters&lt;/high&gt; and &lt;high&gt;test&lt;/high&gt; models
+Knowing this likelihood allows us to &lt;high&gt;fit parameters&lt;/high&gt;, &lt;high&gt;test&lt;/high&gt; models, and make &lt;high&gt;predictions&lt;/high&gt; about future data
 
-- Given that out of 10 patients, the average recovery time was 2.3 days, what is the most likely distribution of recovery times for future patients?
+
+&gt; Given that out of 50 trial patients, the average recovery time was 2.3 days, what is the most likely distribution of recovery times for future patients?
 
 ]
 
 
-.pull-right45[
+.pull-right5[
 
 
-&lt;img src="https://www.xofluza.com/content/dam/gene/xofluza/hcp/images/Mobile/Xofluza-Flu-Efficacy-Primary-Endpoint-TTAS-01-Mobile.jpg" width="85%" style="display: block; margin: auto;" /&gt;
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="https://www.xofluza.com/content/dam/gene/xofluza/hcp/images/Mobile/Xofluza-Flu-Efficacy-Primary-Endpoint-TTAS-01-Mobile.jpg" alt="An advertisement for xofluza" width="80%" /&gt;
+&lt;p class="caption"&gt;An advertisement for xofluza&lt;/p&gt;
+&lt;/div&gt;
 
 
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-14-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-21-1.png" width="75%" style="display: block; margin: auto;" /&gt;
+
+
+
+
 
 
 ]
@@ -405,38 +515,77 @@ Knowing this likelihood allows us to &lt;high&gt;fit parameters&lt;/high&gt; and
 
 .pull-left45[
 
-# 4: Likelihood
+# 5: Likelihood
 
 Using the binomial distributions on the right, answer the following questions:
 
-- If there is a 50% chance of a drug being successful, then out of 10 drugs, how likely is it that exactly 5 will be successful?
+### Q1
 
-- If there is a 10% chance that a customer will default on his/her loan, then out of 10 customers, how likely is it that none (0) will default?
+If there is a 50% chance of a drug being successful, then out of 10 drugs, how likely is it that exactly 5 will be successful?
+
+
+### Q2
+
+If there is a 10% chance that a customer will default on his/her loan, then out of 10 customers, how likely is it that none (0) will default?
 
 ]
 
 
-.pull-right45[
+.pull-right5[
 
 &lt;br&gt;&lt;br&gt;
 
 ### 2 Binomial Distributions
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-15-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-23-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 
 ]
+
+
+
+
+---
+
+.pull-left65[
+
+# 6: Null hypothesis testing
+
+Null hypothesis testing is a statistical framework where two alternative hypotheses (the Null and the Alternative) are compared
+
+|Hypothesis|Description|Example|
+|:-----|:-----|:-------|
+|Null (H0)|A proposed effect &lt;high&gt;does not exist&lt;/high&gt; and variation &lt;high&gt;is not systematic&lt;/high&gt;|Drug and placebo have the same effect|
+|Alternative (H1)|A proposed effect &lt;high&gt;does exist&lt;/high&gt; and variation &lt;high&gt;is systematic&lt;/high&gt;|Drug and placebo do *not* have the same effect|
+
+In order to compare these hypotheses, we need to calculate the likelihood of the data &lt;high&gt;given&lt;/high&gt; that one of these hypotheses are true.
+
+[Wikipedia: Null Hypothesis](https://en.wikipedia.org/wiki/Null_hypothesis)
+
+
+]
+
+
+.pull-right3[
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+Are these data consistent with H0?
+
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-24-1.png" style="display: block; margin: auto;" /&gt;
+
+
+]
+
 
 ---
 
 
 .pull-left5[
 
-# 5: Test statistic
+# 7: Test statistic
 
-Sample statistics (like means and standard deviations) are converted into &lt;high&gt;test statistics&lt;/high&gt;
+Sample statistics (like means and standard deviations) are converted into &lt;high&gt;test statistics&lt;/high&gt;.
 
-Test statistics are &lt;high&gt;distribution specific&lt;/high&gt; numbers that help you quantify evidence for a statistical model
+Test statistics are are numbers that help you quantify how likely data is given a null hypothesis.
 
 &lt;!-- `$$Test\;Statistic=\frac{Variance\;explained\;by\;a\;model}{Variance\;NOT\;explained\;by\;a\;model}$$` --&gt;
 
@@ -448,59 +597,37 @@ Different tests give you different test statistics:
 |Correlation test|Correlation coefficient|
 |Binomial|Number of successes|
 
-Generally, the more extreme your test statistic is, the more evidence that "Something is going on"
+Generally, the more extreme your test statistic is, the more evidence *against* the null hypothesis.
 
 
 ]
 
 
-.pull-right45[
+.pull-right5[
 &lt;br&gt;&lt;br&gt;
 
-
-&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/10_beers_teststatistic.png?token=AIFo1A8r2pk1_0TJe-dFnaeuJUOw88X1ks5cqiBmwA%3D%3D" width="100%" style="display: block; margin: auto;" /&gt;
-
-
-
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/beer_null.png?token=AIFo1GFEeag875nlAbAbeS8rdQAx0mW6ks5cq2_1wA%3D%3D" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
 ---
 .pull-left55[
 
-# 6: P-value
+# 8: P-value
 
-p-values are used to quantify the likelihood of data given a specific distribution.
+p-values are used to quantify the likelihood of data given the &lt;high&gt;probability distribution&lt;/high&gt; under the &lt;high&gt;null hypothesis&lt;/high&gt;
 
-
-|Definition|
+|p-value Definition|
 |:----|
-|A p-value is the probability of obtaining data as extreme or more extreme than what you got assuming a specific model is true.|
+|A p-value is the probability of obtaining a test statistic as extreme as what you got assuming a null hypothesis is true|
 
+&gt; "How likely is it that I would get a test statistic of -2.51 if the mean amount of beer really is 33dl?"
 
-Null hypothesis testing
+### p &lt; .05 = Reject H0
 
-If a p-value is *small* (i.e.; p &lt; .05), this means that the likelihood of obtaining that data given the model is small.
+If a p-value is *small* (i.e.; p &lt; .05), this means that the likelihood of obtaining that data given the null hypothesis is equally *small*, suggesting that the null hypothesis is *wrong*
 
-
-
-]
-
-
-.pull-right45[
-
-
-
-]
-
----
-
-# 8: Additional considerations
-
-.pull-left45[
-
-
-   
+&lt;high&gt;Warning!&lt;/high&gt; Wait until the New Statistics lecture for alternatives to this approach!
 
 ]
 
@@ -508,23 +635,46 @@ If a p-value is *small* (i.e.; p &lt; .05), this means that the likelihood of ob
 .pull-right45[
 
 
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/pvalue_level.png?token=AIFo1Djs5aBnmWvuT7bFn7IyTzZJ-bQ_ks5cq215wA%3D%3D" width="90%" style="display: block; margin: auto;" /&gt;
+
+
+
+]
+
+---
+
+
+.pull-left4[
+
+# What about Oetlinger?
+
+Our &lt;high&gt;p-value&lt;/high&gt;, indicating the &lt;high&gt;likelihood of obtaining the data if the null hypothesis is true&lt;/high&gt;, was (only) 0.0273.
+
+The data are very unlikely if the mean amount poured is really 33dl.
+
+It is so unlikely, that using the 0.05 threshold, we could conclude...
+
+The Oetlinger buvette is consistently pouring less than 33dl!
+
+*Note: These data are completely made up :) We're sure the Oetlinger Buvette is not ripping us off*
 
 ]
 
 
+.pull-right55[
+
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/beer_null_p.png?token=AIFo1KnzD3U7_pjvmk0K09hE2HkXISmAks5cq3AGwA%3D%3D" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+]
+
 
 ---
-
-# Looking ahead
-
-
-
-
----
-
 class: middle, center
 
-&lt;h1&gt;&lt;a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/RegressionI/RegressionI_practical.html"&gt;Practical&lt;/a&gt;&lt;/h1&gt;
+# Questions?
+
+&lt;h1&gt;&lt;a href="https://therbootcamp.github.io/SwR_2019Apr/index.html"&gt;Schedule&lt;/a&gt;&lt;/h1&gt;
 
 
 ---
@@ -569,7 +719,7 @@ Question
 
 ### 2 Binomial Distributions
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-17-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-28-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 
 

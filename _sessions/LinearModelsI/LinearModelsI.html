@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Linear Models</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Statistics with R   Basel R Bootcamp" />
+    <link href="libs/remark-css/default.css" rel="stylesheet" />
+    <link rel="stylesheet" href="baselrbootcamp.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Linear Models
+### Statistics with R<br> <a href='https://therbootcamp.github.io'> Basel R Bootcamp </a> <br> <a href='https://therbootcamp.github.io/SwR_2019Apr/'> <i class='fas fa-clock' style='font-size:.9em;'></i> </a>  <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;' ></i> </a>  <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a>  <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a>
+### April 2019
+
+---
+
+
+layout: true
+
+&lt;div class="my-footer"&gt;
+  &lt;span style="text-align:center"&gt;
+    &lt;span&gt; 
+      &lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png" height=14 style="vertical-align: middle"/&gt;
+    &lt;/span&gt;
+    &lt;a href="https://therbootcamp.github.io/"&gt;
+      &lt;span style="padding-left:82px"&gt; 
+        &lt;font color="#7E7E7E"&gt;
+          www.therbootcamp.com
+        &lt;/font&gt;
+      &lt;/span&gt;
+    &lt;/a&gt;
+    &lt;a href="https://therbootcamp.github.io/"&gt;
+      &lt;font color="#7E7E7E"&gt;
+       Statistics with R | April 2019
+      &lt;/font&gt;
+    &lt;/a&gt;
+    &lt;/span&gt;
+  &lt;/div&gt; 
+
+---
+
+
+
+
+
+
+# Linear Models
+
+.pull-left5[
+
+Linear models are, by far, the most important models in all of statistics.
+
+As we will see today, many statistical tests you may know of are special types of linear models.
+
+Why are linear models so great?
+
+- They are &lt;high&gt;easy to interpret&lt;/high&gt;.
+- They can &lt;high&gt;approximate non-linear&lt;/high&gt; data well.
+- They are &lt;high&gt;easy to calculate&lt;/high&gt; and implement (just addition and multiplication!).
+- They &lt;high&gt;just work&lt;/high&gt;!
+
+]
+
+.pull-right45[
+
+
+`$$\Large income = 885 + age \times 149.3$$`
+
+&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-2-1.png" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+---
+
+.pull-left6[
+
+# What is a linear model?
+
+A linear model is one that can be written in the following form &lt;br&gt;
+
+*Version 1*
+
+`$$\huge Y = \beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2} +  ... + \beta_{n}x_{n} + \epsilon$$`
+
+
+*Version 2*
+
+
+`$$\huge Y = \beta_{0} + \sum_{i=1}^{n}\beta_{i}x_{i}+ \epsilon$$`
+
+In the end, a linear model is &lt;high&gt;just addition and multiplication&lt;/high&gt;! 
+
+]
+
+.pull-right35[
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+&lt;img src="https://66.media.tumblr.com/6e401f0cffebf9c7440894d4fa6c48b2/tumblr_o0af44kS071u7w7kwo1_1280.jpg" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+---
+
+.pull-left5[
+
+# Simple Linear Regression
+
+
+&lt;high&gt;Definition&lt;/high&gt;: Simple linear regression is a linear model with one predictor `\(x\)`, and where the error term `\(\epsilon\)` is Normally distributed.
+
+
+`$$\huge Y=\beta_{0} + \beta_{1} x + \epsilon$$`
+
+|Parameter|Description|In words|
+|:------|:-----|:-----|
+|$$\beta_{0}$$| Intercept|When `\(x = 0\)`, what is the predicted value for `\(Y\)`?|
+|$$\beta_{1}$$| Coefficient for `\(x\)`|For every increase of 1 in `\(x\)`, how does `\(Y\)` change?|
+
+
+]
+
+
+.pull-right45[
+
+### Variables
+
+Y = Income, X = Age
+
+&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+
+### Formula
+
+`$$\Large income = 885 + age \times 149.3 + \epsilon$$`
+
+### Coefficients
+
+`$$\Large \beta_{0} = 885, \beta_{age} = 149.3$$`
+
+]
+
+---
+
+.pull-left5[
+
+# Multiple Linear Regression
+
+&lt;high&gt;Definition&lt;/high&gt;: Multiple linear regression is a linear model with many predictors `\(x_{1},  x_{2}, .... x_{n}\)`, and where the error term `\(\epsilon\)` is Normally distributed.
+
+`$$\LARGE Y=\beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2}+...+ \beta_{n} x_{n} + \epsilon$$`
+&lt;br&gt;
+
+
+|Parameter|Description|In words|
+|:------|:-----|:-----|
+|$$\beta_{0}$$| Intercept|When *all* `\(x\)` values are 0, what is the predicted value for `\(Y\)`?|
+|$$\beta_{1}, \beta_{2}, \beta_{3} \ldots$$| Coefficient for `\(x_{1}, x_{2}...\)`|For every increase of 1 in `\(x_{1}, x_{2}, ...\)`, how does `\(Y\)` change?|
+]
+
+
+.pull-right45[
+
+### Variables
+
+`$$\large Y = Income, x_{1} = Age, x_{2}=Weight$$`
+
+&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+### Formula
+
+`$$\large income = 1628 + 147  \times age - 4.1 \times height + \epsilon$$`
+
+### Coefficients
+
+`$$\large \beta_{0} = 1628, \beta_{age} = 147, \beta_{weight}=-4.1$$`
+
+
+]
+
+
+
+---
+
+.pull-left45[
+
+# Estimating coefficients
+
+How do we estimate the 'right' coefficients in a linear model?
+
+
+
+
+&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-7-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+`$$\Large income = \beta_{0} + \beta_{1} \times age + \epsilon$$`
+]
+
+.pull-right5[
+&lt;br&gt;
+&lt;high&gt;Which do you like best?&lt;/high&gt;
+
+&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-8-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+
+---
+
+.pull-left45[
+
+# Estimating coefficients
+
+How do we estimate the 'right' coefficients in a linear model?
+
+
+
+&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-10-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+
+`$$\Large income = -0.254 + 0.167 \times age + \epsilon$$`
+]
+
+.pull-right5[
+&lt;br&gt;
+&lt;high&gt;Which do you like best?&lt;/high&gt;
+
+&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-11-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+---
+
+.pull-left45[
+
+# Estimating coefficients
+
+How do we estimate the 'right' coefficients in a linear model?
+
+
+Find the values that minimise *Mean Squared Error*
+
+`$$\LARGE Mean\;Squared\;Error\;(MSE)$$`
+`$$\LARGE = \frac{1}{N}\sum_{i=1}^{n}(Y_{i}-  Prediction_{i})^2$$`
+&lt;!-- `$$\LARGE = \frac{1}{N}\sum_{i=1}^{n}(Y_{i}-  (\beta_{0} + \beta_{1}x_{1}))^2$$` --&gt;
+
+
+&lt;high&gt;MSE In plain English&lt;/high&gt;
+
+&gt; How far, on average are the model fits away from the true values (squared)?
+
+
+
+]
+
+.pull-right5[
+&lt;br&gt;
+
+`$$\Large income = -0.254 + 0.167 \times age + \epsilon$$`
+
+
+&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-12-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+
+
+
+| id| age| income| Prediction|     SE|
+|--:|---:|------:|----------:|------:|
+|  1|  24|    4.0|      3.730| 0.0729|
+|  2|  27|    4.2|      4.228| 0.0008|
+|  3|  31|    5.1|      4.892| 0.0433|
+|  4|  44|    6.3|      7.050| 0.5625|
+|  5|  65|   10.9|     10.536| 0.1325|
+
+&lt;center&gt;&lt;h2&gt;MSE = 0.16&lt;h2&gt;&lt;/center&gt;
+
+]
+
+---
+
+.pull-left45[
+
+# R-Squared
+
+R-Squared `\(R^{2}\)` is the most common method of calculating the &lt;high&gt;overall performance&lt;/high&gt; of a model.
+
+`$$\huge R^{2} = 1 - \frac{SS_{res}}{SS_{tot}}$$`
+`\(R^{2}\)` can range from 0 (Terrible) to 1 (Perfect!)
+
+|R2|Interpretation|
+|:----|:----|
+|0|Model explains no variance in Y|
+|.5|Model explains half the variance in Y|
+|1|Model explains *all* the variance in Y!|
+
+See [Wikipedia's R2 page](https://en.wikipedia.org/wiki/Coefficient_of_determination)
+
+]
+
+.pull-right5[
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/r2_vis.png?token=AIFo1O9_s73zoAZhMLik8ePSEbmVeItDks5crP7kwA%3D%3D" alt="&amp;lt;a href='https://en.wikipedia.org/wiki/Coefficient_of_determination'&amp;gt;Wikipedia&amp;lt;/a&amp;gt;"  /&gt;
+&lt;p class="caption"&gt;&lt;a href='https://en.wikipedia.org/wiki/Coefficient_of_determination'&gt;Wikipedia&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+
+]
+
+---
+
+.pull-left45[
+
+# R-Squared
+
+R-Squared `\(R^{2}\)` is the most common method of calculating the &lt;high&gt;overall performance&lt;/high&gt; of a model.
+
+`$$\huge R^{2} = 1 - \frac{SS_{res}}{SS_{tot}}$$`
+`\(R^{2}\)` can range from 0 (Terrible) to 1 (Perfect!)
+
+|R2|Interpretation|
+|:----|:----|
+|0|Model explains no variance in Y|
+|.5|Model explains half the variance in Y|
+|1|Model explains *all* the variance in Y!|
+
+See [Wikipedia's R2 page](https://en.wikipedia.org/wiki/Coefficient_of_determination)
+
+]
+
+.pull-right5[
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-15-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+class: middle, center
+
+# How to fit linear models in R
+
+---
+
+.pull-left35[
+
+# Key Functions
+
+### Fitting
+
+|Function|Description|
+|:------|:--------|
+|`glm(formula, data)`|Fit a linear model to data and calculate best coefficients|
+
+### Evaluation
+
+|Function|Description|
+|:------|:--------|
+|`coef(mod)`|Get coefficients from a model|
+|`fitted(mod)`|Get fitted results|
+|`resid(mod)`|Get residuals (errors)|
+
+
+]
+
+.pull-right6[
+
+`baselers`
+
+| id| income| age| children|
+|--:|------:|---:|--------:|
+|  1|   6300|  44|        2|
+|  2|  10900|  65|        2|
+
+
+```r
+# Create a model income_glm
+
+# Y = income
+# X1 = age, X2 = children
+
+income_glm &lt;- glm(formula = income ~ age + children,
+                  data = baselers)
+```
+
+]
+
+
+---
+
+.pull-left35[
+
+# Key Functions
+
+### Fitting
+
+|Function|Description|
+|:------|:--------|
+|`glm(formula, data)`|Fit a linear model to data and calculate best coefficients|
+
+### Evaluation
+
+|Function|Description|
+|:------|:--------|
+|`coef(mod)`|Get coefficients from a model|
+|`fitted(mod)`|Get fitted results|
+|`resid(mod)`|Get residuals (errors)|
+
+
+]
+
+.pull-right6[
+
+`baselers`
+
+| id| income| age| children|
+|--:|------:|---:|--------:|
+|  1|   6300|  44|        2|
+|  2|  10900|  65|        2|
+
+
+```r
+# Print income_glm
+
+income_glm
+```
+
+```
+## 
+## Call:  glm(formula = income ~ age + children, data = baselers)
+## 
+## Coefficients:
+## (Intercept)          age     children  
+##      871.10       149.25         7.78  
+## 
+## Degrees of Freedom: 8509 Total (i.e. Null);  8507 Residual
+##   (1490 observations deleted due to missingness)
+## Null Deviance:	    6.33e+10 
+## Residual Deviance: 1.29e+10 	AIC: 145000
+```
+
+]
+
+
+---
+
+.pull-left35[
+
+# Key Functions
+
+### Fitting
+
+|Function|Description|
+|:------|:--------|
+|`glm(formula, data)`|Fit a linear model to data and calculate best coefficients|
+
+### Evaluation
+
+|Function|Description|
+|:------|:--------|
+|`coef(mod)`|Get coefficients from a model|
+|`fitted(mod)`|Get fitted results|
+|`resid(mod)`|Get residuals (errors)|
+
+
+]
+
+.pull-right6[
+
+
+```r
+# Show summary info
+
+summary(income_glm)
+```
+
+```
+## 
+## Call:
+## glm(formula = income ~ age + children, data = baselers)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+##  -4250    -835       5     820    4779  
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  871.101     44.959    19.4   &lt;2e-16 ***
+## age          149.249      0.818   182.5   &lt;2e-16 ***
+## children       7.777     12.861     0.6     0.55    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for gaussian family taken to be 1513138)
+## 
+##     Null deviance: 6.3307e+10  on 8509  degrees of freedom
+## Residual deviance: 1.2872e+10  on 8507  degrees of freedom
+##   (1490 observations deleted due to missingness)
+## AIC: 145250
+## 
+## Number of Fisher Scoring iterations: 2
+```
+
+]
+
+
+---
+
+.pull-left35[
+
+# Key Functions
+
+### Fitting
+
+|Function|Description|
+|:------|:--------|
+|`glm(formula, data)`|Fit a linear model to data and calculate best coefficients|
+
+### Evaluation
+
+|Function|Description|
+|:------|:--------|
+|`coef(mod)`|Get coefficients from a model|
+|`fitted(mod)`|Get fitted results|
+|`resid(mod)`|Get residuals (errors)|
+
+
+]
+
+.pull-right6[
+
+`baselers`
+
+| id| income| age| children|&lt;high&gt;fitted&lt;/high&gt;|&lt;high&gt;resid&lt;/high&gt;|
+|--:|------:|---:|:--------|:----|:-----|
+|  1|   6300|  44|        2|7454|-1153.6|
+|  2|  10900|  65|        2|10588|312.2|
+
+
+
+```r
+# Get fitted values (only first 5)
+
+fitted(income_glm)[1:5]
+```
+
+```
+##     1     2     3     4     5 
+##  7454 10588  5513  4916  4461
+```
+
+```r
+# Get residuals (only first 10)
+
+resid(income_glm)[1:5]
+```
+
+```
+##       1       2       3       4       5 
+## -1153.6   312.2  -413.4  -716.4  -460.9
+```
+
+]
+
+
+
+---
+
+.pull-left35[
+
+# Key Functions
+
+### Fitting
+
+|Function|Description|
+|:------|:--------|
+|`glm(formula, data)`|Fit a linear model to data and calculate best coefficients|
+
+### Extras
+
+|Function|Package|Description|
+|:------|:--------|:------|
+|`rsq(mod)`|`rsq`|Print R2 value from a model|
+|`tidy(mod)`|`broom`| Get 'tidy' results from a model|
+
+
+]
+
+.pull-right6[
+
+
+```r
+library(rsq)
+library(broom)
+
+# Show R-squared from model
+rsq(income_glm)
+```
+
+```
+## [1] 0.7967
+```
+
+```r
+# Show 'tidy' results from my model
+tidy(income_glm)
+```
+
+```
+## # A tibble: 3 x 5
+##   term        estimate std.error statistic  p.value
+##   &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1 (Intercept)   871.      45.0      19.4   7.11e-82
+## 2 age           149.       0.818   183.    0.      
+## 3 children        7.78    12.9       0.605 5.45e- 1
+```
+
+]
+---
+
+class: middle, center
+
+&lt;h1&gt;&lt;a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsI/LinearModelsI_practical.html"&gt;Practical&lt;/a&gt;&lt;/h1&gt;
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})();</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

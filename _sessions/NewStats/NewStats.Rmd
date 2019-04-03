@@ -97,10 +97,10 @@ print2 <- function(x, nlines=10,...)
 <font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;Full reporting</font><br>
 <font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;Replication</font><br>
 
-<br><font style="font-size:28px"><high>Betters statistics</high></font><br><br>
+<br><font style="font-size:28px"><high>Better statistics</high></font><br><br>
 
 <font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;Reporting uncertainty</font><br>
-<font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;Lowering<i>p</i></font><br>
+<font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;Lowering <i>p</i></font><br>
 <font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;Bayesian statistics</font><br>
 
 </font>
@@ -125,7 +125,7 @@ print2 <- function(x, nlines=10,...)
 
 There are various <high>replication crises rumbling</high> in diverse academic fields.
 
-Large-scale replication attempt in [Psychology]() found that <high>only 36% weare replicable</high>.
+Large-scale replication attempt in [Psychology]() found that <high>only 36% were replicable</high>.
 
 The low replicability is the result of <high>Questionable Research Practices</high>. 
 
@@ -325,7 +325,7 @@ Ronald Coase
 <br>
 <high>Optional Stopping</high> - Stopping data collection once significance is reached.
 
-<high>HARKing</high> - Hypothesizing After the Data are Known. Commited when presenting any non-planned analyses, including the introduction of covariates.  
+<high>HARKing</high> - Hypothesizing After the Data are Known. Committed when presenting any non-planned analyses, including the introduction of covariates.  
 
 ]
 
@@ -864,9 +864,6 @@ print2(bf_res, 21)
 ```
 
 ]
-
-
-
 
 ---
 

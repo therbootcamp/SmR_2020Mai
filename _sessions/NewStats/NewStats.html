@@ -61,10 +61,10 @@ layout: true
 &lt;font style="font-size:20px"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Full reporting&lt;/font&gt;&lt;br&gt;
 &lt;font style="font-size:20px"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Replication&lt;/font&gt;&lt;br&gt;
 
-&lt;br&gt;&lt;font style="font-size:28px"&gt;&lt;high&gt;Betters statistics&lt;/high&gt;&lt;/font&gt;&lt;br&gt;&lt;br&gt;
+&lt;br&gt;&lt;font style="font-size:28px"&gt;&lt;high&gt;Better statistics&lt;/high&gt;&lt;/font&gt;&lt;br&gt;&lt;br&gt;
 
 &lt;font style="font-size:20px"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Reporting uncertainty&lt;/font&gt;&lt;br&gt;
-&lt;font style="font-size:20px"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Lowering&lt;i&gt;p&lt;/i&gt;&lt;/font&gt;&lt;br&gt;
+&lt;font style="font-size:20px"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Lowering &lt;i&gt;p&lt;/i&gt;&lt;/font&gt;&lt;br&gt;
 &lt;font style="font-size:20px"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Bayesian statistics&lt;/font&gt;&lt;br&gt;
 
 &lt;/font&gt;
@@ -89,7 +89,7 @@ layout: true
 
 There are various &lt;high&gt;replication crises rumbling&lt;/high&gt; in diverse academic fields.
 
-Large-scale replication attempt in [Psychology]() found that &lt;high&gt;only 36% weare replicable&lt;/high&gt;.
+Large-scale replication attempt in [Psychology]() found that &lt;high&gt;only 36% were replicable&lt;/high&gt;.
 
 The low replicability is the result of &lt;high&gt;Questionable Research Practices&lt;/high&gt;. 
 
@@ -315,7 +315,7 @@ Ronald Coase
 &lt;br&gt;
 &lt;high&gt;Optional Stopping&lt;/high&gt; - Stopping data collection once significance is reached.
 
-&lt;high&gt;HARKing&lt;/high&gt; - Hypothesizing After the Data are Known. Commited when presenting any non-planned analyses, including the introduction of covariates.  
+&lt;high&gt;HARKing&lt;/high&gt; - Hypothesizing After the Data are Known. Committed when presenting any non-planned analyses, including the introduction of covariates.  
 
 ]
 
@@ -548,7 +548,11 @@ Delta + SE * qt(.95, N - 1) * c(-1, 1)
 ```
 
 ```
+<<<<<<< HEAD
 ## [1] -1.4501 -0.9865
+=======
+## [1] -1.1710 -0.6488
+>>>>>>> 3b76091504969d69d4cf04b048260ecba00c5ff1
 ```
 
 ]
@@ -631,7 +635,11 @@ boot.ci(boot_res)
 ## 
 ## Intervals : 
 ## Level      Normal              Basic         
+<<<<<<< HEAD
 ## 95%   (-1.495, -0.942 )   (-1.489, -0.938 )
+=======
+## 95%   (-1.2181, -0.6066 )   (-1.2279, -0.6229 )
+>>>>>>> 3b76091504969d69d4cf04b048260ecba00c5ff1
 ```
 
 ]
@@ -778,6 +786,7 @@ stan_glm(income ~ height,
 ##  predictors:   2
 ## ------
 ##             Median MAD_SD
+<<<<<<< HEAD
 ## (Intercept) 9286.8 2242.6
 ## height       -10.8   13.2
 ## 
@@ -788,6 +797,18 @@ stan_glm(income ~ height,
 ## Sample avg. posterior predictive distribution of y:
 ##          Median MAD_SD
 ## mean_PPD 7444.8  215.1
+=======
+## (Intercept) 9229.7 2126.7
+## height       -10.6   12.4
+## 
+## Auxiliary parameter(s):
+##       Median MAD_SD
+## sigma 2635.2  106.9
+## 
+## Sample avg. posterior predictive distribution of y:
+##          Median MAD_SD
+## mean_PPD 7431.3  218.9
+>>>>>>> 3b76091504969d69d4cf04b048260ecba00c5ff1
 ## 
 ## ------
 ## * For help interpreting the printed output see ?print.stanreg
@@ -882,9 +903,6 @@ lmBF(income ~ height,
 ```
 
 ]
-
-
-
 
 ---
 

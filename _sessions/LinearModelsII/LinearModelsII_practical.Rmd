@@ -1,5 +1,5 @@
 ---
-title: "Regression <i>applied</i>"
+title: "Linear Models <i>applications</i>"
 author: "<table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'><col width='10%'><col width='10%'>
   <tr style='border:none'>
     <td style='display:block;width:100%;text-align:left;vertical-align:bottom;padding:0;margin:0;border:none' nowrap>
@@ -544,7 +544,74 @@ days_arms_glm
 tidy(days_arms_glm)
 ```
 
-### E - Chi-square test
+### F - Regression
+
+1. It's time to conduct a regression analysis predicting day the number of days until a major negative event `days` based on several variables. Perform a regression analysis predicting days until a major negative event `days` based on the following variables: `arms`, `gender`, `age`, `wtkg`, `hemo`, `drugs`, `race`, `cd40`, and `cd80`. Use the code chunk below to help you
+
+```{r, eval = FALSE, echo = TRUE}
+# Predict days based on many variables
+
+days_glm <- glm(formula = XXX ~ XXX + XXX + XXX ...,
+                data = XXX)
+```
+
+2. Using `tidy()` look at the summary results. Which variables seem to be able to predict the number of days until a major negative event?
+
+```{r, eval = FALSE, echo = TRUE}
+tidy(XXX)
+```
+
+3. Using `rsq()` calculate the r-squared value of your model. Was it high or low?
+
+```{r, eval = FALSE, echo = TRUE}
+rsq(XXX)
+```
+
+4. Using the code below, visualise the absolute residuals from the model. What does this mean?
+
+```{r, eval = FALSE, echo = TRUE}
+# Save residuals as days_glm_resid
+days_glm_absresid <- abs(resid(days_glm))
+
+# Plot histogram
+ggplot(data = tibble(days_glm_absresid), aes(x = days_glm_absresid)) +
+  geom_histogram(col = "white")
+```
+
+5. Using the code below, calculate the mean absolute residuals from the model. What do these mean?
+
+```{r}
+# Calculate the mean absolute residuals of the model
+mean(abs(resid(XXX)))
+```
+
+### X - Advanced:
+
+For the remaining tasks, you choose the test!  For each task, do the following:
+
+- Visualize the data (use the code given in the sections above for help!)
+- Conduct the appropriate test using an applied hypothesis test function (i.e.; correlation test, t-test, ANOVA or chi-square test).
+- Explore the results (e.g.; estimate, confidence interval, p-value).
+- Conduct the same test using the generalized linear model function `glm()`
+- Explore the results and confirm you get the same result from your applied function!
+
+1. Do people with a history of intravenous drug use (`drugs`) tend to have major negative events (`days`) faster than those without a history of intravenous drug use?
+
+2. Do men and women (`gender`) have different CD8 T cell counts at baseline (`cd80`)?
+
+3. Is there a relationship between patient's CD4 T cell counts at baseline (`cd40`) and at 96 weeks (`cd496`)?
+
+4. Did older patients have higher CD4 T cell counts at baseline (`cd40`) compared to younger patients?
+
+5. Was there an effect of treatment arm (`arms`) on the *change* of CD4 T cell counts between baseline (`cd40`) and 96 weeks (`cd496)? Hint: to do this, you first need to create a column that shows the change in CD4 T cell counts. The code below should help you with this:
+
+```{r, echo = TRUE, eval = FALSE}
+trial <- trial %>%
+  mutate(cd496_change = cd496 - cd40)   # Add cd496_change to trial, indicating change from
+                                        # in cd4 T cell count from baseline to 96 weeks.
+```
+
+#### Chi-square test
 
 > Research Question:
 > Was there an unequal distribution of gender in the treatment arms?
@@ -694,31 +761,7 @@ anova(arms_gender_glm,
       test = 'Rao')   # Show a 'Rao" score test
 ```
 
-### X - Advanced:
 
-For the remaining tasks, you choose the test!  For each task, do the following:
-
-- Visualize the data (use the code given in the sections above for help!)
-- Conduct the appropriate test using an applied hypothesis test function (i.e.; correlation test, t-test, ANOVA or chi-square test).
-- Explore the results (e.g.; estimate, confidence interval, p-value).
-- Conduct the same test using the generalized linear model function `glm()`
-- Explore the results and confirm you get the same result from your applied function!
-
-1. Do people with a history of intravenous drug use (`drugs`) tend to have major negative events (`days`) faster than those without a history of intravenous drug use?
-
-2. Do men and women (`gender`) have different CD8 T cell counts at baseline (`cd80`)?
-
-3. Is there a relationship between patient's CD4 T cell counts at baseline (`cd40`) and at 96 weeks (`cd496`)?
-
-4. Was the proportion of White patients (`race`) the same for females and males (`gender`)? 
-
-5. Was there an effect of treatment arm (`arms`) on the *change* of CD4 T cell counts between baseline (`cd40`) and 96 weeks (`cd496)? Hint: to do this, you first need to create a column that shows the change in CD4 T cell counts. The code below should help you with this:
-
-```{r, echo = TRUE, eval = FALSE}
-trial <- trial %>%
-  mutate(cd496_change = cd496 - cd40)   # Add cd496_change to trial, indicating change from
-                                        # in cd4 T cell count from baseline to 96 weeks.
-```
 
 ## Examples
 

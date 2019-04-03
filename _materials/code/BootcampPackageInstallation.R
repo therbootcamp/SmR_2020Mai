@@ -20,6 +20,9 @@ Bootcamp_package_installation <- function() {
     # Robust stats
     "gam",
     "boot",
+    "moments",
+    "quantreg",
+    "Rfit",
     
     # New Stats
     "rstanarm",

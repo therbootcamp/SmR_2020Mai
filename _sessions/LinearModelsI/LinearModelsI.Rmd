@@ -72,18 +72,307 @@ options(digits = 4)
 require(tidyverse)
 
 
+print2 <- function(x, nlines=10,...) {
+   cat(head(capture.output(print(x,...)), nlines), sep="\n")}
+
+# Load data
+baselers <- readr::read_csv("1_Data/baselers.csv")
+
+# get color palette functions
+source("https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_materials/code/baselrbootcamp_palettes.R")
+
+knitr::opts_chunk$set(dpi = 300, echo = FALSE, warning = FALSE, fig.align = 'center')
 ```
 
 
-# Regression <i>applied</i>
+# Linear Models
 
-.pull-left45[
+.pull-left5[
 
+Linear models are, by far, the most important models in all of statistics.
+
+As we will see today, many statistical tests you may know of are special types of linear models.
+
+Why are linear models so great?
+
+- They are <high>easy to interpret</high>.
+- They can <high>approximate non-linear</high> data well.
+- They are <high>easy to calculate</high> and implement (just addition and multiplication!).
+- They <high>just work</high>!
 
 ]
 
 .pull-right45[
 
+
+$$\Large income = 885 + age \times 149.3$$
+
+```{r, echo = FALSE, fig.width = 3.5, fig.height = 3}
+
+mod <- lm(income ~ age, data = baselers)
+my_coef <- coef(mod)
+
+simple_scatter <- ggplot(baselers %>% filter(age < 80) %>% slice(1:30), aes(age, income)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, col = baselrbootcamp_cols("magenta")) +
+  theme_bw()
+
+simple_scatter
+```
+
+
+]
+
+---
+
+.pull-left6[
+
+# What is a linear model?
+
+A linear model is one that can be written in the following form <br>
+
+*Version 1*
+
+$$\huge Y = \beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2} +  ... + \beta_{n}x_{n} + \epsilon$$
+
+
+*Version 2*
+
+
+$$\huge Y = \beta_{0} + \sum_{i=1}^{n}\beta_{i}x_{i}+ \epsilon$$
+
+In the end, a linear model is <high>just addition and multiplication</high>! 
+
+]
+
+.pull-right35[
+
+<br><br><br>
+
+```{r, echo = FALSE}
+knitr::include_graphics("https://66.media.tumblr.com/6e401f0cffebf9c7440894d4fa6c48b2/tumblr_o0af44kS071u7w7kwo1_1280.jpg")
+```
+
+
+]
+
+---
+
+.pull-left5[
+
+# Simple Linear Regression
+
+
+<high>Definition</high>: Simple linear regression is a linear model with one predictor $x$, and where the error term $\epsilon$ is Normally distributed.
+
+
+$$\huge Y=\beta_{0} + \beta_{1} x + \epsilon$$
+
+|Parameter|Description|In words|
+|:------|:-----|:-----|
+|$$\beta_{0}$$| Intercept|When $x = 0$, what is the predicted value for $Y$?|
+|$$\beta_{1}$$| Coefficient for $x$|For every increase of 1 in $x$, how does $Y$ change?|
+
+
+]
+
+
+.pull-right45[
+
+### Variables
+
+Y = Income, X = Age
+
+```{r, echo = FALSE, fig.width = 3.5, fig.height = 3, out.width = "70%"}
+
+simple_scatter
+```
+
+### Formula
+
+$$\Large income = 885 + age \times 149.3 + \epsilon$$
+
+### Coefficients
+
+$$\Large \beta_{0} = 885, \beta_{age} = 149.3$$
+
+]
+
+---
+
+.pull-left5[
+
+# Multiple Linear Regression
+
+<high>Definition</high>: Multiple linear regression is a linear model with many predictors $x_{1},  x_{2}, .... x_{n}$, and where the error term $\epsilon$ is Normally distributed.
+
+$$\LARGE Y=\beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2}+...+ \beta_{n} x_{n} + \epsilon$$
+<br>
+
+
+|Parameter|Description|In words|
+|:------|:-----|:-----|
+|$$\beta_{0}$$| Intercept|When *all* $x$ values are 0, what is the predicted value for $Y$?|
+|$$\beta_{1}, \beta_{2}, \beta_{3} \ldots$$| Coefficient for $x_{1}, x_{2}...$|For every increase of 1 in $x_{1}, x_{2}, ...$, how does $Y$ change?|
+]
+
+
+.pull-right45[
+
+### Variables
+
+$$\large Y = Income, x_{1} = Age, x_{2}=Weight$$
+
+```{r, echo = FALSE, fig.width = 5, fig.height = 2.25, out.width = "100%"}
+mod_2 <- glm(income ~ age + height, data = baselers %>% filter(age < 80) %>% slice(1:30))
+
+coef_2 <- coef(mod_2)
+
+p1 <- ggplot(baselers %>% filter(age < 80) %>% slice(1:30), aes(age, income)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, col = baselrbootcamp_cols("magenta")) +
+  theme_bw()
+
+p2 <- ggplot(baselers %>% filter(age < 80) %>% slice(1:30), aes(height, income)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, col = baselrbootcamp_cols("magenta")) +
+  theme_bw()
+
+ggpubr::ggarrange(p1, p2, ncol = 2, nrow = 1)
+
+
+```
+
+### Formula
+
+$$\large income = 1628 + 147  \times age - 4.1 \times height + \epsilon$$
+
+### Coefficients
+
+$$\large \beta_{0} = 1628, \beta_{age} = 147, \beta_{weight}=-4.1$$
+
+
+]
+
+
+
+---
+
+.pull-left45[
+
+# Estimating coefficients
+
+How do we estimate the 'right' coefficients in a linear model?
+
+```{r, fig.width = 2.5, fig.height = 2}
+data <- baselers %>% 
+  filter(age < 80) %>% 
+  slice(1:5) %>%
+  select(age, income) %>%
+  mutate(income = income / 1000) %>%
+  arrange(age)
+
+mod <- lm(income ~ age, data = data)
+my_coef <- coef(mod)
+
+a_slope <- -.1
+a_intercept <- 12
+
+b_slope <-  round(my_coef[2], 3)
+b_intercept <- round(my_coef[1], 3)
+
+c_slope <- .11
+c_intercept <- 2
+
+d_slope <- 0
+d_intercept <- 7
+
+
+data <- data %>%
+  mutate(a = a_intercept + a_slope * age,
+         b = b_intercept + b_slope * age,
+         c = c_intercept + c_slope * age,
+         d = d_intercept + d_slope * age,
+         a_se = (a - income) ^ 2,
+         b_se = (b - income) ^ 2,
+         c_se = (c - income) ^ 2,
+         d_se = (d - income) ^ 2)
+
+
+p <- ggplot(data, aes(age, income)) +
+  geom_point(size = 2) +
+  theme_bw()
+
+a <- p + geom_abline(slope = a_slope, intercept = a_intercept, col = baselrbootcamp_cols("grey"), size = 1.5, alpha = .8) + labs(title = "A", subtitle = paste0("B_0 = ", a_intercept, ", B_age = ", a_slope))
+
+b <- p + geom_abline(slope = b_slope, intercept = b_intercept, col = baselrbootcamp_cols("grey"), size = 1.5, alpha = .8) + labs(title = "B", subtitle = paste0("B_0 = ", b_intercept, ", B_age = ", b_slope))
+
+c <- p +  geom_abline(slope = c_slope, intercept = c_intercept, col = baselrbootcamp_cols("grey"), size = 1.5, alpha = .8)+ labs(title = "C", subtitle = paste0("B_0 = ", c_intercept, ", B_age = ", c_slope))
+
+d <- p +  geom_abline(slope = d_slope, intercept = d_intercept, col = baselrbootcamp_cols("grey"), size = 1.5, alpha = .8)+ labs(title = "D", subtitle = paste0("B_0 = ", d_intercept, ", B_age = ", d_slope))
+
+
+```
+
+
+```{r, fig.width = 3, fig.height = 2.5, out.width = "80%"}
+p+ labs(title = "?", subtitle = "B_0 = ?, B_age = ?")
+```
+
+$$\Large income = \beta_{0} + \beta_{1} \times age + \epsilon$$
+]
+
+.pull-right5[
+<br>
+<high>Which do you like best?</high>
+
+```{r, fig.width = 5, fig.height = 5, out.width = "95%"}
+
+ggpubr::ggarrange(a, b, c, d, ncol = 2, nrow = 2)
+
+```
+
+]
+
+
+
+---
+
+.pull-left45[
+
+# Estimating coefficients
+
+How do we estimate the 'right' coefficients in a linear model?
+
+```{r, fig.width = 2.5, fig.height = 2}
+a <- a + annotate(geom = "segment", x = data$age, y = data$income, xend = data$age,  yend = data$a, col = baselrbootcamp_cols("magenta"))
+
+b <- b + annotate(geom = "segment", x = data$age, y = data$income, xend = data$age,  yend = data$b, col = baselrbootcamp_cols("magenta"))
+
+c <- c + annotate(geom = "segment", x = data$age, y = data$income, xend = data$age,  yend = data$c, col = baselrbootcamp_cols("magenta"))
+
+d <- d + annotate(geom = "segment", x = data$age, y = data$income, xend = data$age,  yend = data$d, col = baselrbootcamp_cols("magenta"))
+
+```
+
+```{r, fig.width = 3, fig.height = 2.5, out.width = "80%"}
+p+ geom_abline(slope = my_coef[2], intercept = my_coef[1], col = baselrbootcamp_cols("grey"), size = 1.5, alpha = .8) + 
+  labs(title = "B", subtitle = paste0("B_0 = ", b_intercept, ", B_age = ", b_slope)) +
+  annotate(geom = "segment", x = data$age, y = data$income, xend = data$age,  yend = data$b, col = baselrbootcamp_cols("magenta"))
+```
+
+$$\Large income = -0.254 + 0.167 \times age + \epsilon$$
+]
+
+.pull-right5[
+<br>
+<high>Which do you like best?</high>
+
+```{r, fig.width = 5, fig.height = 5, out.width = "95%"}
+
+ggpubr::ggarrange(a, b, c, d, ncol = 2, nrow = 2)
+
+```
 
 ]
 
@@ -91,50 +380,367 @@ require(tidyverse)
 ---
 
 .pull-left45[
-# Topics
 
-- Linear model
-   - Formula
-   - Coefficients
+# Estimating coefficients
 
-- Model fitting and evaluation
-   - Tests of coefficients
-       - Estimate, Std.error, statistic, p.value
-   - Residuals
-       - Signed vs. Absolute
-   - R-square
+How do we estimate the 'right' coefficients in a linear model?
+
+
+Find the values that minimise *Mean Squared Error*
+
+$$\LARGE Mean\;Squared\;Error\;(MSE)$$
+$$\LARGE = \frac{1}{N}\sum_{i=1}^{n}(Y_{i}-  Prediction_{i})^2$$
+<!-- $$\LARGE = \frac{1}{N}\sum_{i=1}^{n}(Y_{i}-  (\beta_{0} + \beta_{1}x_{1}))^2$$ -->
+
+
+<high>MSE In plain English</high>
+
+> How far, on average are the model fits away from the true values (squared)?
+
+
 
 ]
 
-.pull-right45[
-# Functions
+.pull-right5[
+<br>
 
-### Model Building
+$$\Large income = -0.254 + 0.167 \times age + \epsilon$$
 
-- glm()
-    - formula
-    - data
+
+```{r, fig.width = 2.5, fig.height = 2.5, out.width = "40%"}
+p+ geom_abline(slope = my_coef[2], intercept = my_coef[1], col = baselrbootcamp_cols("grey"), size = 1.5, alpha = .8) + 
+  labs(title = "B", subtitle = paste0("B_0 = ", b_intercept, ", B_age = ", b_slope)) +
+  annotate(geom = "segment", x = data$age, y = data$income, xend = data$age,  yend = data$b, col = baselrbootcamp_cols("magenta"))
+```
+
+```{r, results = "as.is", eval = FALSE}
+data %>%
+  select(age, income, Prediction = b) %>%
+  mutate(SE = (income - Prediction) ^ 2) %>%
+  mutate(id = 1:5) %>% select(id, everything()) %>%
+  slice(1:5) %>%
+  knitr::kable()
+```
+
+| id| age| income| Prediction|     SE|
+|--:|---:|------:|----------:|------:|
+|  1|  24|    4.0|      3.730| 0.0729|
+|  2|  27|    4.2|      4.228| 0.0008|
+|  3|  31|    5.1|      4.892| 0.0433|
+|  4|  44|    6.3|      7.050| 0.5625|
+|  5|  65|   10.9|     10.536| 0.1325|
+
+<center><h2>MSE = 0.16<h2></center>
+
+]
+
+---
+
+.pull-left45[
+
+# R-Squared
+
+R-Squared $R^{2}$ is the most common method of calculating the <high>overall performance</high> of a model.
+
+$$\huge R^{2} = 1 - \frac{SS_{res}}{SS_{tot}}$$
+$R^{2}$ can range from 0 (Terrible) to 1 (Perfect!)
+
+|R2|Interpretation|
+|:----|:----|
+|0|Model explains no variance in Y|
+|.5|Model explains half the variance in Y|
+|1|Model explains *all* the variance in Y!|
+
+See [Wikipedia's R2 page](https://en.wikipedia.org/wiki/Coefficient_of_determination)
+
+]
+
+.pull-right5[
+
+<br><br><br>
+
+```{r, fig.cap = "<a href='https://en.wikipedia.org/wiki/Coefficient_of_determination'>Wikipedia</a>"}
+knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/r2_vis.png?token=AIFo1O9_s73zoAZhMLik8ePSEbmVeItDks5crP7kwA%3D%3D")
+```
+
+]
+
+---
+
+.pull-left45[
+
+# R-Squared
+
+R-Squared $R^{2}$ is the most common method of calculating the <high>overall performance</high> of a model.
+
+$$\huge R^{2} = 1 - \frac{SS_{res}}{SS_{tot}}$$
+$R^{2}$ can range from 0 (Terrible) to 1 (Perfect!)
+
+|R2|Interpretation|
+|:----|:----|
+|0|Model explains no variance in Y|
+|.5|Model explains half the variance in Y|
+|1|Model explains *all* the variance in Y!|
+
+See [Wikipedia's R2 page](https://en.wikipedia.org/wiki/Coefficient_of_determination)
+
+]
+
+.pull-right5[
+
+<br><br><br><br><br><br><br>
+```{r, fig.width = 5, fig.height = 2.5, out.width = "100%"}
+set.seed(100)
+data <- data %>%
+  mutate(height = income * 8 + rnorm(5, mean = 0, sd = 40))
+
+age_mod <- glm(income ~ age, data = data)
+height_mod <- glm(income ~ height, data = data)
+
+data <- data %>%
+  mutate(age_pred = fitted(age_mod),
+         height_pred = fitted(height_mod))
+
+r2_age <- rsq::rsq(lm(income ~ age, data = data))
+
+mse_age <- age_mod %>% resid() %>% `^`(2) %>% mean()
+  
+r2_height<- rsq::rsq(lm(income ~ height, data = data))
+
+mse_height <- glm(income ~ height, data = data) %>% resid() %>% `^`(2) %>% mean()
+
+
+a <- ggplot(data, aes(x = age, y = income)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, col = baselrbootcamp_cols("grey")) +
+  labs(title = paste0("R2 = ", round(r2_age, 2), ", MSE = ", round(mse_age, 2))) +
+  annotate("segment", x = data$age, y = data$income, xend = data$age, yend = data$age_pred, col = baselrbootcamp_cols("magenta")) +
+  theme_bw()
+
+b <- ggplot(data, aes(x = height, y = income)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE,col = baselrbootcamp_cols("grey")) + 
+  labs(title = paste0("R2 = ", round(r2_height, 2), ", MSE = ", round(mse_height, 2))) +
+    annotate("segment", x = data$height, y = data$income, xend = data$height, yend = data$height_pred, col = baselrbootcamp_cols("magenta")) +
+  theme_bw()
+
+ggpubr::ggarrange(b, a, ncol = 2, nrow = 1)
+
+```
+
+]
+
+---
+class: middle, center
+
+# How to fit linear models in R
+
+---
+
+.pull-left35[
+
+# Key Functions
+
+### Fitting
+
+|Function|Description|
+|:------|:--------|
+|`glm(formula, data)`|Fit a linear model to data and calculate best coefficients|
 
 ### Evaluation
 
-- summary()
-- coef()
-- broom::tidy()
-- fitted()
-- resid()
-- confint()
-- rsq::rsq()
-- predict()
+|Function|Description|
+|:------|:--------|
+|`coef(mod)`|Get coefficients from a model|
+|`fitted(mod)`|Get fitted results|
+|`resid(mod)`|Get residuals (errors)|
+
+
+]
+
+.pull-right6[
+
+`baselers`
+
+| id| income| age| children|
+|--:|------:|---:|--------:|
+|  1|   6300|  44|        2|
+|  2|  10900|  65|        2|
+
+```{r, echo = TRUE}
+# Create a model income_glm
+
+# Y = income
+# X1 = age, X2 = children
+
+income_glm <- glm(formula = income ~ age + children,
+                  data = baselers)
+```
+
+]
+
+
+---
+
+.pull-left35[
+
+# Key Functions
+
+### Fitting
+
+|Function|Description|
+|:------|:--------|
+|`glm(formula, data)`|Fit a linear model to data and calculate best coefficients|
+
+### Evaluation
+
+|Function|Description|
+|:------|:--------|
+|`coef(mod)`|Get coefficients from a model|
+|`fitted(mod)`|Get fitted results|
+|`resid(mod)`|Get residuals (errors)|
+
+
+]
+
+.pull-right6[
+
+`baselers`
+
+| id| income| age| children|
+|--:|------:|---:|--------:|
+|  1|   6300|  44|        2|
+|  2|  10900|  65|        2|
+
+```{r, echo = TRUE}
+# Print income_glm
+
+income_glm
+```
+
+]
+
+
+---
+
+.pull-left35[
+
+# Key Functions
+
+### Fitting
+
+|Function|Description|
+|:------|:--------|
+|`glm(formula, data)`|Fit a linear model to data and calculate best coefficients|
+
+### Evaluation
+
+|Function|Description|
+|:------|:--------|
+|`coef(mod)`|Get coefficients from a model|
+|`fitted(mod)`|Get fitted results|
+|`resid(mod)`|Get residuals (errors)|
+
+
+]
+
+.pull-right6[
+
+```{r, echo = TRUE}
+# Show summary info
+
+summary(income_glm)
+```
+
+]
+
+
+---
+
+.pull-left35[
+
+# Key Functions
+
+### Fitting
+
+|Function|Description|
+|:------|:--------|
+|`glm(formula, data)`|Fit a linear model to data and calculate best coefficients|
+
+### Evaluation
+
+|Function|Description|
+|:------|:--------|
+|`coef(mod)`|Get coefficients from a model|
+|`fitted(mod)`|Get fitted results|
+|`resid(mod)`|Get residuals (errors)|
+
+
+]
+
+.pull-right6[
+
+`baselers`
+
+| id| income| age| children|<high>fitted</high>|<high>resid</high>|
+|--:|------:|---:|:--------|:----|:-----|
+|  1|   6300|  44|        2|7454|-1153.6|
+|  2|  10900|  65|        2|10588|312.2|
+
+
+```{r, echo = TRUE}
+# Get fitted values (only first 5)
+
+fitted(income_glm)[1:5]
+
+# Get residuals (only first 10)
+
+resid(income_glm)[1:5]
+```
 
 ]
 
 
 
+---
+
+.pull-left35[
+
+# Key Functions
+
+### Fitting
+
+|Function|Description|
+|:------|:--------|
+|`glm(formula, data)`|Fit a linear model to data and calculate best coefficients|
+
+### Extras
+
+|Function|Package|Description|
+|:------|:--------|:------|
+|`rsq(mod)`|`rsq`|Print R2 value from a model|
+|`tidy(mod)`|`broom`| Get 'tidy' results from a model|
 
 
+]
+
+.pull-right6[
+
+```{r, echo = TRUE}
+library(rsq)
+library(broom)
+
+# Show R-squared from model
+rsq(income_glm)
+
+# Show 'tidy' results from my model
+tidy(income_glm)
+```
+
+]
 ---
 
 class: middle, center
 
-<h1><a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/RegressionI/RegressionI_practical.html">Practical</a></h1>
+<h1><a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsI/LinearModelsI_practical.html">Practical</a></h1>
 

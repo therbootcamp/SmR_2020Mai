@@ -1,5 +1,6 @@
 ---
-title: "Regression <i>applied</i>"
+title: "Linear Models II</i>"
+subittle: "Applications"
 author: "Statistics with R<br>
   <a href='https://therbootcamp.github.io'>
     Basel R Bootcamp
@@ -77,10 +78,10 @@ baselers <- readr::read_csv("1_Data/baselers.csv")
 
 ```
 
-
-# Regression <i>applied</i>
+# Linear Model Applications</i>
 
 .pull-left45[
+
 
 
 ]
@@ -91,13 +92,49 @@ baselers <- readr::read_csv("1_Data/baselers.csv")
 
 ---
 
-.pull-left45[
-# Topics
+# Hypothesis testing
 
-- 1 and 2 sample hypothesis tests
-- How they relate to the glm
-- ANOVA
-- Post-hoc tests
+- We will now cover all of your favorite hypothesis tests in R.
+
+- Don't worry, we'll show you that they are all special cases of the linear model!
+
+---
+
+# Correlation test
+
+Null Hypothesis
+Alternative
+
+---
+# T tests
+
+Null Hypothesis
+
+Alternative
+
+---
+# ANOVA
+
+Null hypothesis
+
+Alternative
+
+Post-hoc-tests
+
+---
+
+# Extensions to the linear model
+
+What is your dependent variable is not normally distributed?
+
+Binary; Logistic regression
+
+Skewed: Log the data!
+
+
+---
+
+# A note: Correlation is not causation!
 
 - Correlation versus causation
     - Classic fails:
@@ -105,38 +142,29 @@ baselers <- readr::read_csv("1_Data/baselers.csv")
         - Chocolate and IQ
     - Inferring causation requires an experiment and/or causal modelling
 
-- Random sampling, iid.
-- Correlation vs. causation.
-- Simulation functions
 
-]
+---
 
-.pull-right45[
-# Functions
+# R
 
-### Hypothesis tests
+---
 
 - t.test()
 - cor.test()
 - aov()
-- TukeyHSD()
-- prop.test()
+    - TukeyHSD()
+- broom::tidy()
 
-### Interactions
+---
 
-- formula
+# Simulation functions
 
 ### Simulations
 
 - rnorm()
     - runif(), rbinom(), sample()
 
-### Evaluation
 
-- summary()
-- broom::tidy()
-
-]
 
 
 ---
