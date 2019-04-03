@@ -13,7 +13,7 @@ class: center, middle, inverse, title-slide
 
 # Robust Statistics
 ### Statistics with R<br> <a href='https://therbootcamp.github.io'> Basel R Bootcamp </a> <br> <a href='https://therbootcamp.github.io/SwR_2019Apr/'> <i class='fas fa-clock' style='font-size:.9em;'></i> </a>  <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;' ></i> </a>  <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a>  <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a>
-### February 2019
+### April 2019
 
 ---
 
@@ -51,12 +51,17 @@ layout: true
 
 .pull-left45[
 
-### Assumptions
+### Parametric assumptions
 
+Parametric statistics models and the associated tests come with &lt;high&gt;many assumptions&lt;/high&gt;.
 
+For the models and tests to be &lt;high&gt;consistent&lt;/high&gt; and &lt;high&gt;efficient&lt;/high&gt; those assumptions should hold.  
 
-### Non-parametric
+### Non-parametric statistics
 
+Non-parametric statistics model the data as coming from &lt;high&gt;no specific probability distribution&lt;/high&gt;. 
+
+Involves &lt;high&gt;ranking&lt;/high&gt;, &lt;high&gt;combinatorics&lt;/high&gt;, and/or &lt;high&gt;bootstrap samples&lt;/high&gt;
 
 ]
 
@@ -72,31 +77,30 @@ layout: true
 
 ---
 
-# Assumptions
+# Regression assumptions
 
 .pull-left45[
 
-#### In "plain" English...
+In *plain* English...
 
-&lt;high&gt;Have the right variables&lt;/high&gt; (A1-A3)
+&lt;high&gt;Are the data appropriate?&lt;/high&gt;
 
-- Quantitative or dichotomous (binary)
-- Nonzero variance
-- Not too highly correlated
+- Quantitative or dichotomous (A1)
+- Nonzero variance (A2)
+- Not too highly correlated (A3)
 
-&lt;high&gt;Have the right model&lt;/high&gt; (A4-A8)
+&lt;high&gt;Is the model appropriate?&lt;/high&gt; 
 
-- Linear relationship
-- Normally distributed errors
-- Uncorrelated errors
-- Constant error variance
+- Linear relationship (A4, A5, A7)
+- Constant error variance (A6)
+- Normally distributed errors (A8)
 
 ]
 
 .pull-right45[
 
 &lt;p align = "center"&gt;
-&lt;img src="image/assumptions.png" height=440px&gt;&lt;br&gt;
+&lt;img src="image/assumptions_berry.png" height=440px&gt;&lt;br&gt;
 &lt;font style="font-size:10px"&gt;from &lt;a href=""&gt;Berry (1993)&lt;/a&gt;&lt;/font&gt;
 &lt;/p&gt;
 
@@ -105,22 +109,193 @@ layout: true
 
 ---
 
-# Have the right model
+# Are the data appropriate?
 
 .pull-left45[
 
-#### In "plain" English...
+The most serious data problem are predictor correlations. If k-1 predictors can explain predictor k...
 
-&lt;high&gt;Have the right variables&lt;/high&gt; (A1-A3)
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;...perfectly then the regression model cannot
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;be calculated (&lt;high&gt;singularity&lt;/high&gt;).
 
-- Quantitative or dichotomous (binary)
-- Nonzero variance
-- Not too highly correlated
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; ...with high accuracy then the estimates
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;become very vague (&lt;high&gt;multicollinearity&lt;/high&gt;).
+
+&lt;br&gt;
+The &lt;high&gt;variance inflation factor&lt;/high&gt; (VIF) indicates the amount of variance of each predictor explained by the other predictors. The literatre recommends retaining predictors with &lt;high&gt;VIF &lt; 10&lt;/high&gt; [(Stine, 1995)](https://therbootcamp.github.io/SwR_2019Apr/_sessions/RobustStats/literature/)
 
 ]
 
 .pull-right45[
 
+&lt;p align = "center"&gt;
+&lt;img src="image/vif.png" style="padding-top:25px"&gt;
+&lt;/p&gt;
+
+]
+---
+
+# Is the model appropriate?
+
+.pull-left45[
+
+The appropriateness of the model is best inspected (and demonstrated) using &lt;high&gt;graphical illustrations.&lt;/high&gt; 
+
+Additionally there several &lt;high&gt;statistics can be computed to support the assessment.&lt;/high&gt; 
+
+
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px"&gt;
+  &lt;col width="13%"&gt;
+  &lt;col width="13%"&gt;
+  &lt;col width="35%"&gt;
+  &lt;col width="30%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Assumption&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Statistics&lt;/b&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    Linearity
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+   &lt;mono&gt;lm&lt;/mono&gt;, &lt;mono&gt;glm&lt;/mono&gt; (curve fitting)
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    Homoscedasticity
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;bartlett.test&lt;/mono&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    Normality
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;skewness&lt;/mono&gt;, &lt;mono&gt;kurtosis&lt;/mono&gt;, &lt;mono&gt;shapiro.test&lt;/mono&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    Outliers
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;cooks.distance&lt;/mono&gt;, &lt;mono&gt;mahalanobis&lt;/mono&gt;, etc.
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;/table&gt;
+
+]
+
+
+.pull-right45[
+
+&lt;p align = "center"&gt;
+&lt;font style="font-size=10px"&gt;&lt;i&gt;Simple regression&lt;/i&gt;&lt;/font&gt;&lt;br&gt;
+&lt;img src="image/assumptions.png" height=420px style="padding-top:10px"&gt;
+&lt;/p&gt;
+
+]
+
+---
+
+# Is the model appropriate?
+
+.pull-left45[
+
+The appropriateness of the model is best inspected (and demonstrated) using &lt;high&gt;graphical illustrations.&lt;/high&gt; 
+
+Additionally there several &lt;high&gt;statistics can be computed to support the assessment.&lt;/high&gt; 
+
+
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px"&gt;
+  &lt;col width="40%"&gt;
+  &lt;col width="60%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Assumption&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Statistics&lt;/b&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    Linearity
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+   &lt;mono&gt;lm&lt;/mono&gt;, &lt;mono&gt;glm&lt;/mono&gt; (curve fitting)
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    Homoscedasticity
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;bartlett.test&lt;/mono&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    Normality
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;skewness&lt;/mono&gt;, &lt;mono&gt;kurtosis&lt;/mono&gt;, &lt;mono&gt;shapiro.test&lt;/mono&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    Outliers
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;cooks.distance&lt;/mono&gt;, &lt;mono&gt;mahalanobis&lt;/mono&gt;, etc.
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;/table&gt;
+
+]
+
+
+
+.pull-right45[
+
+&lt;p align = "center"&gt;
+&lt;font style="font-size=10px"&gt;&lt;i&gt;Residual analysis&lt;/i&gt;&lt;/font&gt;&lt;br&gt;
+&lt;img src="image/assumptions_res.png" height=420px style="padding-top:10px"&gt;
+&lt;/p&gt;
+
+]
+
+---
+
+.pull-left45[
+
+# Missing predictors
+
+&lt;br2&gt;
+
+Most serious are &lt;high&gt;violations of the linearity assumption&lt;/high&gt;.  
+
+Typically they arise from &lt;high&gt;missing predictors&lt;/high&gt;, such as higher order trends or important temporal variables.    
+
+Whether additional predictors improve the fit to the data can be tested by comparing the model with and without the addition predictor using a &lt;high&gt;ANOVA deviance test&lt;/high&gt;: 
+
+`anova(model_1, model_2)`.
+
+]
+
+
+.pull-right45[
+&lt;br&gt;&lt;br&gt;
+&lt;p align = "center"&gt;
+&lt;img src="image/assumptions_missingvar.png" height=500px style="padding-top:10px"&gt;
+&lt;/p&gt;
 
 
 ]
@@ -128,30 +303,778 @@ layout: true
 
 ---
 
-# Have the right model
+.pull-left5[
+
+# Missing predictors
+
+Testing the merit of including a &lt;high&gt;quadratic trend of Stress&lt;/high&gt;. 
 
 
----
 
-# Leap to test statistic
 
----
 
-# Violations of statistical assumptions
+```r
+# ANOVA deviance test
+model_1 &lt;- lm(error_rate ~ stress,
+              data = stress_df)
+model_2 &lt;- lm(error_rate ~ stress + stress2,
+              data = stress_df)
+anova(model_1, model_2)
+```
+
+```
+## Analysis of Variance Table
+## 
+## Model 1: error_rate ~ stress
+## Model 2: error_rate ~ stress + stress2
+##   Res.Df RSS Df Sum of Sq   F Pr(&gt;F)    
+## 1    298 256                            
+## 2    297 104  1       151 431 &lt;2e-16 ***
+## ---
+## Signif. codes:  
+##   0 '***' 0.001 '**' 0.01 '*' 0.05 '.'
+##   0.1 ' ' 1
+```
+
+
+]
+
+
+.pull-right45[
+&lt;br&gt;&lt;br&gt;
+&lt;p align = "center"&gt;
+&lt;img src="image/assumptions_missingvar.png" height=500px style="padding-top:10px"&gt;
+&lt;/p&gt;
+
+
+]
+
+
 
 ---
 
 # Non-parametric statistics
 
+.pull-left45[
+
+When assumptions don't hold, researchers can make use of a wide array of &lt;high&gt;more robust&lt;/high&gt;, non-parametric methods. 
+
+
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px"&gt;
+  &lt;col width="50%"&gt;
+  &lt;col width="50%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Approach&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Methods&lt;/b&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    Rank combinatorics
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+   &lt;mono&gt;wilcox.test&lt;/mono&gt;, &lt;mono&gt;friedman.test&lt;/mono&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    Freq. combinatorics
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+   &lt;mono&gt;sign.test&lt;/mono&gt;, &lt;mono&gt;chisq.test&lt;/mono&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    M-estimation
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;rq&lt;/mono&gt; (quantile regr.), &lt;mono&gt;rfit&lt;/mono&gt; (rank regr.)
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    Bootstrap
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;boot&lt;/mono&gt; (anything)
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;/table&gt;
+
+
+]
+
+
+.pull-right45[
+
+&lt;p align = "center"&gt;
+&lt;img src="image/robust_marking.png"&gt;
+&lt;/p&gt;
+
+]
+
 ---
 
-# Rank-based statistics
+.pull-left45[
+
+# Wilcoxon test
+
+One classicrelying on the combinatorics of ranks is the Wilcoxon or Mann-Whitney U test. 
+
+The Wilcoxon test evaluates the assumption that the &lt;high&gt;ranks sums of jointly ranked groups are identical&lt;/high&gt;. The formula shows the normal approximation for large N. 
+
+&lt;p align = "center"&gt;
+&lt;img src="image/wilcox_form.png" height=250px style="padding-top:10px"&gt;
+&lt;/p&gt;
+
+
+]
+
+
+
+.pull-right45[
+
+&lt;br&gt;&lt;br&gt;
+&lt;p align = "center"&gt;
+&lt;img src="image/wilcox.png" height=500px style="padding-top:10px"&gt;
+&lt;/p&gt;
+
+
+]
+
+---
+
+.pull-left45[
+
+# Wilcoxon test
+
+One classicrelying on the combinatorics of ranks is the Wilcoxon or Mann-Whitney U test. 
+
+The Wilcoxon test evaluates the assumption that the &lt;high&gt;ranks sums of jointly ranked groups are identical&lt;/high&gt;. The formula shows the normal approximation for large N. 
+
+&lt;p align = "center"&gt;
+&lt;img src="image/wilcox_form.png" height=250px style="padding-top:10px"&gt;
+&lt;/p&gt;
+
+
+]
+
+
+
+.pull-right45[
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+
+```r
+# data
+group_1 &lt;- c(18, 24, 29, 12, 11, 31)
+group_2 &lt;- c(27, 16, 23, 8, 15, 21)
+
+# wilcoxon test
+wilcox.test(group_1, group_2)
+```
+
+
+```
+## 
+## 	Wilcoxon rank sum test
+## 
+## data:  group_1 and group_2
+## W = 22, p-value = 0.6
+## alternative hypothesis: true location shift is not equal to 0
+```
+
+]
+
+
+---
+
+.pull-left45[
+
+# Sign test 
+
+A very simple test relying on the combinatorics of frequencies is the &lt;high&gt;sign test&lt;/high&gt;. 
+
+The sign test evaluates the assumption that the &lt;high&gt;signs of differences (+, -) are equally likely&lt;/high&gt;, i.e., `\(p_+ = p_- = .5\)`. 
+
+&lt;p align = "center"&gt;
+&lt;img src="image/signtest_form.png" style="padding-top:10px"&gt;
+&lt;/p&gt;
+
+]
+
+.pull-right45[
+
+&lt;br&gt;&lt;br&gt;
+&lt;p align = "center"&gt;
+&lt;img src="image/signtest.png" height=500px style="padding-top:10px"&gt;
+&lt;/p&gt;
+
+
+]
+
+
+---
+
+.pull-left45[
+
+# Sign test 
+
+A very simple test relying on the combinatorics of frequencies is the &lt;high&gt;sign test&lt;/high&gt;. 
+
+The sign test evaluates the assumption that the &lt;high&gt;signs of differences (+, -) are equally likely&lt;/high&gt;, i.e., `\(p_+ = p_- = .5\)`. 
+
+&lt;p align = "center"&gt;
+&lt;img src="image/signtest_form.png" style="padding-top:10px"&gt;
+&lt;/p&gt;
+
+]
+
+.pull-right45[
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+
+```r
+# data
+time_1 &lt;- c(18, 24, 29, 12, 11, 31)
+time_2 &lt;- c(27, 16, 23, 8, 15, 21)
+
+# sign test
+N &lt;- length(time_1)
+n_plus = sum(sign(time_1 - time_2) == 1)
+ps &lt;- dbinom(x = n_plus : N, 
+             size = N, 
+             prob = .5) # H0 assumption 
+sum(ps)
+```
+
+```
+## [1] 0.3438
+```
+]
+
+---
+
+.pull-left55[
+
+# Robust regressions
+
+Various options exist to improve the robustness of regression-based models.
+
+They all &lt;high&gt;minimize a specific function `\(\rho\)` of the residuals&lt;/high&gt;:
+
+&lt;p align = "center"&gt;
+  &lt;img src="image/Mest.png" height=70px style="padding-top:15px"&gt;
+&lt;/p&gt;
+
+
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px"&gt;
+  &lt;col width="13%"&gt;
+  &lt;col width="13%"&gt;
+  &lt;col width="35%"&gt;
+  &lt;col width="30%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Function&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Package&lt;/b&gt;
+  &lt;/td&gt;  
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Function&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Description&lt;/b&gt;
+  &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;lm&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;stats&lt;/mono&gt;
+  &lt;/td&gt;  
+  &lt;td bgcolor="white"&gt;
+    &lt;img src="image/robust_lm.png" height=23px&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Ordinary least square
+  &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;rq&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;quantreg&lt;/mono&gt;
+  &lt;/td&gt;  
+  &lt;td bgcolor="white"&gt;
+    &lt;img src="image/robust_quantile.png" height=20px&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Quantile regression
+  &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;rfit&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;Rfit&lt;/mono&gt;
+  &lt;/td&gt;  
+  &lt;td bgcolor="white"&gt;
+    &lt;img src="image/robust_rank.png" height=40px&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Rank-based regression
+  &lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+]
+
+.pull-right4[
+  
+  &lt;br&gt;&lt;br&gt;
+  &lt;p align = "center"&gt;
+  &lt;img src="image/robust_reg.png" height=500px style="padding-top:10px"&gt;
+  &lt;/p&gt;
+
+]
+
+---
+
+.pull-left55[
+
+# Robust regressions
+
+Various options exist to improve the robustness of regression-based models.
+
+They all &lt;high&gt;minimize a specific function `\(\rho\)` of the residuals&lt;/high&gt;:
+
+&lt;p align = "center"&gt;
+  &lt;img src="image/Mest.png" height=70px style="padding-top:15px"&gt;
+&lt;/p&gt;
+
+
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px"&gt;
+  &lt;col width="13%"&gt;
+  &lt;col width="13%"&gt;
+  &lt;col width="35%"&gt;
+  &lt;col width="30%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Function&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Package&lt;/b&gt;
+  &lt;/td&gt;  
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Function&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Description&lt;/b&gt;
+  &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;lm&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;stats&lt;/mono&gt;
+  &lt;/td&gt;  
+  &lt;td bgcolor="white"&gt;
+    &lt;img src="image/robust_lm.png" height=23px&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Ordinary least square
+  &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;rq&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;quantreg&lt;/mono&gt;
+  &lt;/td&gt;  
+  &lt;td bgcolor="white"&gt;
+    &lt;img src="image/robust_quantile.png" height=20px&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Quantile regression
+  &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;rfit&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;Rfit&lt;/mono&gt;
+  &lt;/td&gt;  
+  &lt;td bgcolor="white"&gt;
+    &lt;img src="image/robust_rank.png" height=40px&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Rank-based regression
+  &lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+]
+
+.pull-right4[
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+
+
+
+```r
+# Quantile regression
+require(quantreg)
+m = rq(y ~ x, data = outlier_df)
+summary(m)
+```
+
+```
+## 
+## Call: rq(formula = y ~ x, data = outlier_df)
+## 
+## tau: [1] 0.5
+## 
+## Coefficients:
+##             coefficients lower bd
+## (Intercept)  0.01626     -0.04042
+## x            0.47497      0.30777
+##             upper bd
+## (Intercept)  0.13365
+## x            0.54799
+```
+
+]
+
+
+---
+
+.pull-left55[
+
+# Robust regressions
+
+Various options exist to improve the robustness of regression-based models.
+
+They all &lt;high&gt;minimize a specific function `\(\rho\)` of the residuals&lt;/high&gt;:
+
+&lt;p align = "center"&gt;
+  &lt;img src="image/Mest.png" height=70px style="padding-top:15px"&gt;
+&lt;/p&gt;
+
+
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px"&gt;
+  &lt;col width="13%"&gt;
+  &lt;col width="13%"&gt;
+  &lt;col width="35%"&gt;
+  &lt;col width="30%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Function&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Package&lt;/b&gt;
+  &lt;/td&gt;  
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Function&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Description&lt;/b&gt;
+  &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;lm&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;stats&lt;/mono&gt;
+  &lt;/td&gt;  
+  &lt;td bgcolor="white"&gt;
+    &lt;img src="image/robust_lm.png" height=23px&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Ordinary least square
+  &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;rq&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;quantreg&lt;/mono&gt;
+  &lt;/td&gt;  
+  &lt;td bgcolor="white"&gt;
+    &lt;img src="image/robust_quantile.png" height=20px&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Quantile regression
+  &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;rfit&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;Rfit&lt;/mono&gt;
+  &lt;/td&gt;  
+  &lt;td bgcolor="white"&gt;
+    &lt;img src="image/robust_rank.png" height=40px&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Rank-based regression
+  &lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+]
+
+.pull-right4[
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+
+
+
+```r
+# Rank-based regression
+require(Rfit)
+m = rfit(y ~ x, data = outlier_df)
+summary(m)
+```
+
+```
+## Call:
+## rfit.default(formula = y ~ x, data = outlier_df)
+## 
+## Coefficients:
+##             Estimate Std. Error
+## (Intercept)   0.0328     0.0551
+## x             0.3047     0.0417
+##             t.value p.value    
+## (Intercept)    0.60    0.55    
+## x              7.31 2.2e-12 ***
+## ---
+## Signif. codes:  
+##   0 '***' 0.001 '**' 0.01 '*'
+##   0.05 '.' 0.1 ' ' 1
+## Overall Wald Test: 53.41 p-value: 0
+```
+
+]
+
 
 ---
 
 # Bootstrapping
 
+.pull-left45[
 
+Bootstrapping refers to statistical tests based on &lt;high&gt;sampling with replacement from the observed data&lt;/high&gt;. 
+
+The core idea is that the distribution of the sample statistic in question, e.g., the mean of a difference or a regression weight, can be &lt;high&gt;simulated directly from the data without making distributional assumptions&lt;/high&gt;. 
+
+The term bootstrapping stems from the saying &lt;high&gt;pull oneself up by one's bootstraps&lt;/high&gt;, which is sometimes attributed to Baron Münchhausen's story of pulling himself and his horse out of the swamp by his pigtail.  
+
+]
+
+.pull-right45[
+
+  &lt;p align = "center"&gt;
+  &lt;img src="image/muench.png" height=380px style="border-radius:0px"&gt;&lt;br&gt;
+    &lt;font style="font-size:10px"&gt;Baron Münchhausen, from &lt;a href="https://de.wikipedia.org/wiki/Datei:M%C3%BCnchhausen-Sumpf-Hosemann.png"&gt;wikipedia.org&lt;/a&gt;&lt;/font&gt;
+  &lt;/p&gt;
+
+]
+
+
+---
+
+.pull-left4[
+
+# Bootstrapping
+
+Bootstrapping can be used to obtain sampling distributions for any statistic. 
+
+&lt;b&gt;Step 1&lt;/b&gt;&lt;br&gt;Take `\(R\)` &lt;high&gt;bootstrap samples&lt;/high&gt; `\(B_i\)` of `\(n\)` observations, typically one row in our data. 
+
+&lt;b&gt;Step 2&lt;/b&gt;&lt;br&gt;&lt;high&gt;Calculate statistic&lt;/high&gt; `\(f(B_i)\)`, e.g., the difference in means or regression coefficients, from each of the `\(R\)` bootstrap samples. 
+
+&lt;b&gt;Step 3&lt;/b&gt;&lt;br&gt;&lt;high&gt;Evaluate the simulated statistics&lt;/high&gt;, e.g., via a confidence intervals.
+
+&lt;p align="center"&gt;&lt;img src="image/bootCI.png" height=50px style="padding-top:10px"&gt;&lt;/p&gt;
+
+
+
+
+
+]
+
+.pull-right45[
+  
+  &lt;br&gt;&lt;br&gt;
+  &lt;p align = "center"&gt;
+  &lt;img src="image/bootstrap.png" height=470px style="padding-top:10px"&gt;
+  &lt;/p&gt;
+
+]
+
+
+---
+
+.pull-left4[
+
+# Bootstrapping
+
+Bootstrapping can be used to obtain sampling distributions for any statistic. 
+
+&lt;b&gt;Step 1&lt;/b&gt;&lt;br&gt;Take `\(R\)` &lt;high&gt;bootstrap samples&lt;/high&gt; `\(B_i\)` of `\(n\)` observations, typically one row in our data. 
+
+&lt;b&gt;Step 2&lt;/b&gt;&lt;br&gt;&lt;high&gt;Calculate statistic&lt;/high&gt; `\(f(B_i)\)`, e.g., the difference in means or regression coefficients, from each of the `\(R\)` bootstrap samples. 
+
+&lt;b&gt;Step 3&lt;/b&gt;&lt;br&gt;&lt;high&gt;Evaluate the simulated statistics&lt;/high&gt;, e.g., via a confidence intervals.
+
+&lt;p align="center"&gt;&lt;img src="image/bootCI.png" height=50px style="padding-top:10px"&gt;&lt;/p&gt;
+
+
+
+
+
+]
+
+.pull-right5[
+  
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;  
+  
+
+
+
+
+```r
+# Bootstrap
+require(boot)
+
+# bootstrap function
+stat_fun &lt;- function(data, indices){
+  data &lt;- data[indices,] # bootstrap
+  m &lt;- lm(error_rate ~ stress + stress2, 
+          data = data)
+  coefficients(m)
+  }
+
+# bootstrap samples
+B &lt;- boot(stress_df, 
+          statistic = stat_fun, 
+          R = 1000)
+```
+
+]
+
+---
+
+.pull-left4[
+
+# Bootstrapping
+
+Bootstrapping can be used to obtain sampling distributions for any statistic. 
+
+&lt;b&gt;Step 1&lt;/b&gt;&lt;br&gt;Take `\(R\)` &lt;high&gt;bootstrap samples&lt;/high&gt; `\(B_i\)` of `\(n\)` observations, typically one row in our data. 
+
+&lt;b&gt;Step 2&lt;/b&gt;&lt;br&gt;&lt;high&gt;Calculate statistic&lt;/high&gt; `\(f(B_i)\)`, e.g., the difference in means or regression coefficients, from each of the `\(R\)` bootstrap samples. 
+
+&lt;b&gt;Step 3&lt;/b&gt;&lt;br&gt;&lt;high&gt;Evaluate the simulated statistics&lt;/high&gt;, e.g., via a confidence intervals.
+
+&lt;p align="center"&gt;&lt;img src="image/bootCI.png" height=50px style="padding-top:10px"&gt;&lt;/p&gt;
+
+
+
+
+
+]
+
+.pull-right5[
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+
+```r
+# Bootstrap CI for stress
+boot.ci(B, index = 2)
+```
+
+```
+## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+## Based on 1000 bootstrap replicates
+## 
+## CALL : 
+## boot.ci(boot.out = B, index = 2)
+## 
+## Intervals : 
+## Level      Normal              Basic         
+## 95%   ( 0.1517,  0.2907 )   ( 0.1412,  0.2829 )  
+## 
+## Level     Percentile            BCa          
+## 95%   ( 0.1671,  0.3088 )   ( 0.1582,  0.2926 )  
+## Calculations and Intervals on Original Scale
+```
+
+]
+
+---
+
+.pull-left4[
+
+# Bootstrapping
+
+Bootstrapping can be used to obtain sampling distributions for any statistic. 
+
+&lt;b&gt;Step 1&lt;/b&gt;&lt;br&gt;Take `\(R\)` &lt;high&gt;bootstrap samples&lt;/high&gt; `\(B_i\)` of `\(n\)` observations, typically one row in our data. 
+
+&lt;b&gt;Step 2&lt;/b&gt;&lt;br&gt;&lt;high&gt;Calculate statistic&lt;/high&gt; `\(f(B_i)\)`, e.g., the difference in means or regression coefficients, from each of the `\(R\)` bootstrap samples. 
+
+&lt;b&gt;Step 3&lt;/b&gt;&lt;br&gt;&lt;high&gt;Evaluate the simulated statistics&lt;/high&gt;, e.g., via a confidence intervals.
+
+&lt;p align="center"&gt;&lt;img src="image/bootCI.png" height=50px style="padding-top:10px"&gt;&lt;/p&gt;
+
+
+
+]
+
+.pull-right5[
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+
+```r
+# Bootstrap CI for stress2
+boot.ci(B, index = 3)
+```
+
+```
+## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+## Based on 1000 bootstrap replicates
+## 
+## CALL : 
+## boot.ci(boot.out = B, index = 3)
+## 
+## Intervals : 
+## Level      Normal              Basic         
+## 95%   ( 0.6600,  0.7900 )   ( 0.6611,  0.7965 )  
+## 
+## Level     Percentile            BCa          
+## 95%   ( 0.6495,  0.7850 )   ( 0.6547,  0.7917 )  
+## Calculations and Intervals on Original Scale
+```
+
+]
 
 ---
 
