@@ -112,8 +112,10 @@ Skewed: Log the data!
 
 
 ---
+class: middle, center
 
 # R
+## How to conduct and understand hypothesis tests
 
 ---
 
@@ -123,15 +125,508 @@ Skewed: Log the data!
     - TukeyHSD()
 - broom::tidy()
 
+
+
 ---
 
+.pull-left35[
+
+# Hypothesis tests
+
+All of the basic &lt;high&gt;one and two sample hypothesis tests&lt;/high&gt; are included in the `stats` package.
+
+These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `formula`, or &lt;high&gt;individual vectors&lt;/high&gt; for the arguments `x`, and `y`
+
+| Hypothesis Test| R Function|
+|:------------|:------------|
+|     t-test|    `t.test()`|
+|     Correlation Test|    `cor.test()`|
+|     ANOVA|   `aov()`|
+|Post-hoc tests| `TukeyHSD()`|
+
+]
+
+.pull-right6[
+&lt;br&gt;
+*Do male and female baselers have different mean incomes?*
+
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-2-1.png" width="90%" /&gt;
+
+]
+
+---
+
+.pull-left35[
+
+# Hypothesis tests
+
+All of the basic &lt;high&gt;one and two sample hypothesis tests&lt;/high&gt; are included in the `stats` package.
+
+These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `formula`, or &lt;high&gt;individual vectors&lt;/high&gt; for the arguments `x`, and `y`
+
+| Hypothesis Test| R Function|
+|:------------|:------------|
+|     t-test|    `t.test()`|
+|     Correlation Test|    `cor.test()`|
+|     ANOVA|   `aov()`|
+|Post-hoc tests| `TukeyHSD()`|
+
+
+]
+
+.pull-right6[
+&lt;br&gt;
+### t-test with `t.test()`
+
+
+```r
+# 2-sample t-test
+income_htest &lt;- t.test(formula = income ~ sex,
+                       data = baselers)
+
+# Print
+income_htest
+```
+
+```
+## 
+## 	Welch Two Sample t-test
+## 
+## data:  income by sex
+## t = 4, df = 8500, p-value = 6e-05
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  120.6 352.2
+## sample estimates:
+## mean in group female   mean in group male 
+##                 7650                 7414
+```
+
+]
+
+---
+
+.pull-left35[
+
+# Hypothesis tests
+
+All of the basic &lt;high&gt;one and two sample hypothesis tests&lt;/high&gt; are included in the `stats` package.
+
+These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `formula`, or &lt;high&gt;individual vectors&lt;/high&gt; for the arguments `x`, and `y`
+
+| Hypothesis Test| R Function|
+|:------------|:------------|
+|     t-test|    `t.test()`|
+|     Correlation Test|    `cor.test()`|
+|     ANOVA|   `aov()`|
+|Post-hoc tests| `TukeyHSD()`|
+
+]
+
+.pull-right6[
+&lt;br&gt;
+### t-test with `t.test()`
+
+
+```r
+# Show all named elements
+names(income_htest)
+```
+
+```
+## [1] "statistic"   "parameter"   "p.value"     "conf.int"    "estimate"    "null.value"  "alternative"
+## [8] "method"      "data.name"
+```
+
+```r
+# Print the test statistic
+income_htest$statistic
+```
+
+```
+##     t 
+## 4.001
+```
+
+```r
+# Print the p.value
+income_htest$p.value
+```
+
+```
+## [1] 6.366e-05
+```
+
+]
+
+---
+
+.pull-left35[
+
+# Hypothesis tests
+
+All of the basic &lt;high&gt;one and two sample hypothesis tests&lt;/high&gt; are included in the `stats` package.
+
+These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `formula`, or &lt;high&gt;individual vectors&lt;/high&gt; for the arguments `x`, and `y`
+
+| Hypothesis Test| R Function|
+|:------------|:------------|
+|     t-test|    `t.test()`|
+|     Correlation Test|    `cor.test()`|
+|     ANOVA|   `aov()`|
+|Post-hoc tests| `TukeyHSD()`|
+
+
+]
+
+
+.pull-right6[
+&lt;br&gt;
+*Do older baselers have higher incomes than younger baselers?*
+
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-5-1.png" width="90%" /&gt;
+
+]
+
+---
+
+.pull-left35[
+
+# Hypothesis tests
+
+All of the basic &lt;high&gt;one and two sample hypothesis tests&lt;/high&gt; are included in the `stats` package.
+
+These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `formula`, or &lt;high&gt;individual vectors&lt;/high&gt; for the arguments `x`, and `y`
+
+| Hypothesis Test| R Function|
+|:------------|:------------|
+|     t-test|    `t.test()`|
+|     Correlation Test|    `cor.test()`|
+|     ANOVA|   `aov()`|
+|Post-hoc tests| `TukeyHSD()`|
+
+
+]
+
+
+.pull-right6[
+&lt;br&gt;
+### Correlation test with `cor.test()`
+
+
+```r
+# Is there a relationship between age and income?
+
+income_htest &lt;- cor.test(formula = ~ age + income,
+                         data = baselers)
+
+# Print result
+income_htest
+```
+
+```
+## 
+## 	Pearson's product-moment correlation
+## 
+## data:  age and income
+## t = 180, df = 8500, p-value &lt;2e-16
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.8882 0.8968
+## sample estimates:
+##    cor 
+## 0.8926
+```
+
+]
+
+
+---
+
+.pull-left35[
+
+# Hypothesis tests
+
+All of the basic &lt;high&gt;one and two sample hypothesis tests&lt;/high&gt; are included in the `stats` package.
+
+These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `formula`, or &lt;high&gt;individual vectors&lt;/high&gt; for the arguments `x`, and `y`
+
+| Hypothesis Test| R Function|
+|:------------|:------------|
+|     t-test|    `t.test()`|
+|     Correlation Test|    `cor.test()`|
+|     ANOVA|   `aov()`|
+|Post-hoc tests| `TukeyHSD()`|
+
+
+]
+
+
+.pull-right6[
+&lt;br&gt;
+### Correlation test with `cor.test()`
+
+
+```r
+# Show all named elements
+names(income_htest)
+```
+
+```
+## [1] "statistic"   "parameter"   "p.value"     "estimate"    "null.value"  "alternative" "method"     
+## [8] "data.name"   "conf.int"
+```
+
+```r
+# Show estimated correlation coefficient
+income_htest$estimate
+```
+
+```
+##    cor 
+## 0.8926
+```
+
+```r
+# Show p-value
+income_htest$p.value
+```
+
+```
+## [1] 0
+```
+
+]
+
+---
+
+.pull-left35[
+
+# Hypothesis tests
+
+All of the basic &lt;high&gt;one and two sample hypothesis tests&lt;/high&gt; are included in the `stats` package.
+
+These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `formula`, or &lt;high&gt;individual vectors&lt;/high&gt; for the arguments `x`, and `y`
+
+| Hypothesis Test| R Function|
+|:------------|:------------|
+|     t-test|    `t.test()`|
+|     Correlation Test|    `cor.test()`|
+|     ANOVA|   `aov()`|
+|Post-hoc tests| `TukeyHSD()`|
+
+]
+
+.pull-right6[
+&lt;br&gt;
+### ANOVA with `aov()`
+
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-8-1.png" width="90%" /&gt;
+
+]
+
+---
+
+.pull-left35[
+
+# Hypothesis tests
+
+All of the basic &lt;high&gt;one and two sample hypothesis tests&lt;/high&gt; are included in the `stats` package.
+
+These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `formula`, or &lt;high&gt;individual vectors&lt;/high&gt; for the arguments `x`, and `y`
+
+| Hypothesis Test| R Function|
+|:------------|:------------|
+|     t-test|    `t.test()`|
+|     Correlation Test|    `cor.test()`|
+|     ANOVA|   `aov()`|
+|Post-hoc tests| `TukeyHSD()`|
+
+]
+
+.pull-right6[
+&lt;br&gt;
+### ANOVA with `aov()`
+
+
+```r
+# Is there a relationship btwn education and height?
+
+height_htest &lt;- aov(formula = height ~ education,
+                    data = baselers)
+
+# Print result
+height_htest
+```
+
+```
+## Call:
+##    aov(formula = height ~ education, data = baselers)
+## 
+## Terms:
+##                 education Residuals
+## Sum of Squares      12440   1582357
+## Deg. of Freedom         3      9996
+## 
+## Residual standard error: 12.58
+## Estimated effects may be unbalanced
+```
+
+]
+
+---
+
+.pull-left35[
+
+# Hypothesis tests
+
+All of the basic &lt;high&gt;one and two sample hypothesis tests&lt;/high&gt; are included in the `stats` package.
+
+These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `formula`, or &lt;high&gt;individual vectors&lt;/high&gt; for the arguments `x`, and `y`
+
+| Hypothesis Test| R Function|
+|:------------|:------------|
+|     t-test|    `t.test()`|
+|     Correlation Test|    `cor.test()`|
+|     ANOVA|   `aov()`|
+|Post-hoc tests| `TukeyHSD()`|
+
+]
+
+.pull-right6[
+&lt;br&gt;
+### ANOVA with `aov()`
+
+
+```r
+# Show summary results
+summary(height_htest)
+```
+
+```
+##               Df  Sum Sq Mean Sq F value Pr(&gt;F)    
+## education      3   12440    4147    26.2 &lt;2e-16 ***
+## Residuals   9996 1582357     158                   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+]
+
+---
+
+.pull-left35[
+
+# Hypothesis tests
+
+All of the basic &lt;high&gt;one and two sample hypothesis tests&lt;/high&gt; are included in the `stats` package.
+
+These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `formula`, or &lt;high&gt;individual vectors&lt;/high&gt; for the arguments `x`, and `y`
+
+| Hypothesis Test| R Function|
+|:------------|:------------|
+|     t-test|    `t.test()`|
+|     Correlation Test|    `cor.test()`|
+|     ANOVA|   `aov()`|
+|Post-hoc tests| `TukeyHSD()`|
+
+]
+
+.pull-right6[
+&lt;br&gt;
+### ANOVA with `aov()`
+
+
+```r
+# post-hoc tests
+TukeyHSD(height_htest)
+```
+
+```
+##   Tukey multiple comparisons of means
+##     95% family-wise confidence level
+## 
+## Fit: aov(formula = height ~ education, data = baselers)
+## 
+## $education
+##                                     diff    lwr    upr  p adj
+## obligatory_school-apprenticeship -0.2708 -1.322 0.7808 0.9115
+## SEK_II-apprenticeship            -1.0467 -2.340 0.2466 0.1599
+## SEK_III-apprenticeship            2.0228  1.301 2.7448 0.0000
+## SEK_II-obligatory_school         -0.7759 -2.277 0.7254 0.5451
+## SEK_III-obligatory_school         2.2936  1.244 3.3436 0.0000
+## SEK_III-SEK_II                    3.0695  1.777 4.3616 0.0000
+```
+
+]
+
+
+---
+
+
+.pull-left4[
 # Simulation functions
 
-### Simulations
+R has a several functions that allow you to draw &lt;high&gt;random samples&lt;/high&gt; data from specified distributions:
 
-- rnorm()
-    - runif(), rbinom(), sample()
+|Type|Function|
+|:----|:------|
+|Normal|`rnorm(n, mean, sd)`|
+|Uniform|`runif(n, min, max)`|
+|Binomial|`rbinom(n, size, prob)`|
+|Sample|`sample(x)`|
 
+These allow you to run your own &lt;high&gt;simulations&lt;/high&gt;!
+
+]
+
+
+.pull-right55[
+
+*Drawing Random Samples*
+
+
+```r
+# 5 samples from N(mean = 100, sd = 10)
+noisy &lt;- rnorm(n = 5, mean = 100, sd = 10)
+
+noisy
+```
+
+```
+## [1] 113.50  88.53  94.95 106.61  94.52
+```
+
+```r
+mean(noisy)
+```
+
+```
+## [1] 99.62
+```
+
+```r
+sd(noisy)
+```
+
+```
+## [1] 10.15
+```
+
+```r
+# Simulate 10 coin flilps
+coin_flips &lt;- rbinom(n = 10, size = 1, prob = .5)
+
+coin_flips
+```
+
+```
+##  [1] 0 1 0 1 0 0 1 1 1 0
+```
+
+
+
+]
 
 
 
