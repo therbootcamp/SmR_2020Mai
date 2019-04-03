@@ -56,11 +56,12 @@ In this hour, we will try to cover some of the basic principles of statistical i
 
 1. Variability
 2. Sample statistics
-3. Distributions
-4. Likelihood
-5. Null Hypothesis testing
-6. Test statistic
-7. P-values
+3. Sampling (samples vs. populations)
+4. Distributions
+5. Likelihood
+6. Null Hypothesis testing
+7. Test statistic
+8. P-values
 
 This is a lot to cover, and it may not be clear from the beginning.
 
@@ -162,7 +163,6 @@ I ordered 10 beers, and measured the exact amount in each cup, here are the resu
 
 # 1. Variability
 
-
 All interesting data processes have &lt;high&gt;variability&lt;/high&gt;
 
 - Stock prices change over time, 
@@ -249,13 +249,9 @@ Statistical inference is the practice of discovering ways to separate overall va
 
 &lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
-
-
 ]
 
-
 ---
-
 
 .pull-left45[
 
@@ -289,11 +285,32 @@ Sample statistics give us &lt;high&gt;estimates&lt;/high&gt; of key model parame
 `$$Standard \; Deviation = \sqrt{\frac{(28-29.9)^2+(31-29.9)^2+...}{10-1}} = 3.90$$`
 
 
+]
+
+
+
+---
+
+.pull-left45[
+# 3. Sampling Procedures
+
+- What population of data do I want to make inferences about?
+- What does my sample represent?
+
+## Random sampling
+
+- Statistics allows you to make inferences to a population you have randomly sampled from.
 
 
 ]
 
 
+.pull-right5[
+
+#images of samples vs. populations
+
+
+]
 
 
 
@@ -301,7 +318,7 @@ Sample statistics give us &lt;high&gt;estimates&lt;/high&gt; of key model parame
 
 .pull-left45[
 
-# 3. Distributions
+# 4. Distributions
 
 Statistics is built on &lt;high&gt;calculating the likelihood of data&lt;/high&gt; given how we assume it varies
 
@@ -311,7 +328,7 @@ A probability distribution is a &lt;high&gt;mathematical formula&lt;/high&gt; th
 
 Probability distributions are &lt;high&gt;always positive&lt;/high&gt; and their &lt;high&gt;sum adds up to 1.0&lt;/high&gt;
 
-There are many probability distributions, but we often only use a few.
+[Wikipedia: Distribution List](https://en.wikipedia.org/wiki/List_of_probability_distributions)
 
 ]
 
@@ -320,7 +337,7 @@ There are many probability distributions, but we often only use a few.
 
 ### 3 key aspects of a distribution
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-16-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-16-1.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 *1. Probability Density Function (PDF)*
 
@@ -461,7 +478,7 @@ If I flip a coin N times, with p(Head) = p, how many times will I get heads?
 
 .pull-left45[
 
-# 4: Likelihood
+# 5: Likelihood
 
 Why do we need distributions? To calculate &lt;high&gt;likelihoods&lt;/high&gt; of data.
 
@@ -478,11 +495,14 @@ Knowing this likelihood allows us to &lt;high&gt;fit parameters&lt;/high&gt;, &l
 .pull-right5[
 
 
-&lt;img src="https://www.xofluza.com/content/dam/gene/xofluza/hcp/images/Mobile/Xofluza-Flu-Efficacy-Primary-Endpoint-TTAS-01-Mobile.jpg" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;div class="figure" style="text-align: center"&gt;
+&lt;img src="https://www.xofluza.com/content/dam/gene/xofluza/hcp/images/Mobile/Xofluza-Flu-Efficacy-Primary-Endpoint-TTAS-01-Mobile.jpg" alt="An advertisement for xofluza" width="80%" /&gt;
+&lt;p class="caption"&gt;An advertisement for xofluza&lt;/p&gt;
+&lt;/div&gt;
 
 
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-21-1.png" width="65%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-21-1.png" width="75%" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -495,7 +515,7 @@ Knowing this likelihood allows us to &lt;high&gt;fit parameters&lt;/high&gt;, &l
 
 .pull-left45[
 
-# 4: Likelihood
+# 5: Likelihood
 
 Using the binomial distributions on the right, answer the following questions:
 
@@ -529,7 +549,7 @@ If there is a 10% chance that a customer will default on his/her loan, then out 
 
 .pull-left65[
 
-# 5: Null hypothesis testing
+# 6: Null hypothesis testing
 
 Null hypothesis testing is a statistical framework where two alternative hypotheses (the Null and the Alternative) are compared
 
@@ -538,8 +558,10 @@ Null hypothesis testing is a statistical framework where two alternative hypothe
 |Null (H0)|A proposed effect &lt;high&gt;does not exist&lt;/high&gt; and variation &lt;high&gt;is not systematic&lt;/high&gt;|Drug and placebo have the same effect|
 |Alternative (H1)|A proposed effect &lt;high&gt;does exist&lt;/high&gt; and variation &lt;high&gt;is systematic&lt;/high&gt;|Drug and placebo do *not* have the same effect|
 
-
 In order to compare these hypotheses, we need to calculate the likelihood of the data &lt;high&gt;given&lt;/high&gt; that one of these hypotheses are true.
+
+[Wikipedia: Null Hypothesis](https://en.wikipedia.org/wiki/Null_hypothesis)
+
 
 ]
 
@@ -559,7 +581,7 @@ Are these data consistent with H0?
 
 .pull-left5[
 
-# 6: Test statistic
+# 7: Test statistic
 
 Sample statistics (like means and standard deviations) are converted into &lt;high&gt;test statistics&lt;/high&gt;.
 
@@ -591,7 +613,7 @@ Generally, the more extreme your test statistic is, the more evidence *against* 
 ---
 .pull-left55[
 
-# 7: P-value
+# 8: P-value
 
 p-values are used to quantify the likelihood of data given the &lt;high&gt;probability distribution&lt;/high&gt; under the &lt;high&gt;null hypothesis&lt;/high&gt;
 
