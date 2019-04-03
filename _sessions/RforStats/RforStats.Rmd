@@ -55,7 +55,7 @@ layout: true
 
 ```{r, eval = TRUE, echo = FALSE, warning=F,message=F}
 # Code to knit slides
-baselers <- readr::read_csv("data/baselers.csv")
+baselers <- readr::read_csv("1_Data/baselers.csv")
 ```
 
 ```{r setup, include=FALSE}
@@ -87,39 +87,43 @@ From [Wikipedia](https://en.wikipedia.org/wiki/Statistical_model) (emphasis adde
 
 .pull-right6[
 ### Implementation in R
-```{r,echo=F}
-#link = 'https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_session#s/_data/my_data.txt'
-```
 
-```{r, results='hide'}
-#data <- read.table(link)
-#variables <- data[,c('group','variable')]
-#analysis <- lm(variable ~ group, data = variables)
-#summary(analysis)
+```{r, eval = F}
+data <- read.table(filepath)
+variables <- data %>% select(group, variable)
+analysis <- lm(variable ~ group, data = variables)
+summary(analysis)
 ```
 ]
 
 ---
 
+.pull-left3[
+
 # Why R?
 
-.pull-left3[
-R steadily **grows in popularity**. 
+<br>
 
-Today, R is one of the **most popular languages for data science** and overall. 
+R steadily <high>grows in popularity</high>. 
 
-In terms of the number of data science jobs, **R beats SAS and Matlab**, and is on par with Python.
+Today, R is one of the <high>most popular languages for data science</high> and overall. 
+
+In terms of the number of data science jobs, <high>R beats SAS and Matlab</high>, and is on par with Python.
 
 <p style="font-size:10px;float:bottom">
-  Image source: https://i0.wp.com/r4stats.com/
+  
 <p>
 
 
 ]
 
 .pull-right6[
+
+<br><br><br>
+
 <p align="center">
-  <img src="https://i0.wp.com/r4stats.com/wp-content/uploads/2017/02/Fig-1a-IndeedJobs-2017.png" height="450">
+  <img src="https://i0.wp.com/r4stats.com/wp-content/uploads/2017/02/Fig-1a-IndeedJobs-2017.png" height="480"><br>
+  <font style="font-size:10px"> from <a href="from https://i0.wp.com/r4stats.com/">r4stats.com</a></font>
 </p>
 ]
 
@@ -153,43 +157,11 @@ It's slow, but...
 
 ---
 
-# R is great for ML
+# R is great for Statistics
 
-...because of high-performance R packages (extensions) downloaded and used millions of times.
+...because of high-performance R packages (extensions) <high>downloaded and used millions of times</high>.
 
-<p align="center"><img src="image/ml_package_dl.png" width="620"></p>
-
----
-
-# `caret`
-
-.pull-left55[
-
-The <high>C</high>lassification <high>A</high>nd <high>RE</high>gression <high>T</high>raining package is a meta-package to streamline the application of R's best machine learning tools.  
-
-`caret` facilitates...<br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;1) <high>data pre-processing</high><br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;2) <high>feature selection</high><br><br>
-&nbsp;&nbsp;&nbsp;&nbsp;3) <high>fitting, tuning, & model prediction</high><br><br>
-
-Includes dozens of algorithms/models including...
-
-<high>regression</high>, <high>decision trees</high>, <high>random forests</high>, neural nets, AdaBoost, elastic nets, lasso & ridge regression, support vector machines, etc.
-
-]
-
-.pull-right4[
-<p align="center"><img src="image/caret.png"></p>
-<p align="center"><img src="image/caret.png"></p>
-<p align="center"><img src="image/caret.png"></p>
-]
----
-
-<div class="center_text">
-  <span>
-  10 basic R lessons
-  </span>
-</div> 
+<p align="center"><img src="image/stats_package_dl.png" width="750"></p>
 
 ---
 
