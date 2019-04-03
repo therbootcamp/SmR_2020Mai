@@ -180,6 +180,14 @@ It's slow, but...
 10. Use editor, shortcuts, auto-complete
 ]
 
+.pull-right5[
+
+<p align="center">
+  <img src="image/assignment.png">
+</p>
+
+]
+
 ---
 
 # Essentials: 10 basic R lessons 
@@ -506,10 +514,8 @@ options(max.print=6,width=48)
 # original sex vector
 baselers$sex
 
-# original sex vector
 as.factor(baselers$sex)
 
-# original sex vector
 as.factor(baselers$weight)
 ```
 
