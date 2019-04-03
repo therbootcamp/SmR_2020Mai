@@ -11,7 +11,8 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Linear Models II</i>
+# Linear Models II
+## Hypothesis Testing Applications
 ### Statistics with R<br> <a href='https://therbootcamp.github.io'> Basel R Bootcamp </a> <br> <a href='https://therbootcamp.github.io/SwR_2019Apr/'> <i class='fas fa-clock' style='font-size:.9em;'></i> </a>  <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;' ></i> </a>  <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a>  <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a>
 ### April 2019
 
@@ -46,7 +47,11 @@ layout: true
 
 
 
-.pull-left45[
+
+
+
+
+.pull-left55[
 
 # Linear Model Applications
 
@@ -54,7 +59,7 @@ In the last session, we saw that a linear model is one that can be written in th
 
 *Linear Model Equation*
 
-`$$\huge Y = \beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2} +  ... + \beta_{n}x_{n} + \epsilon$$`
+`$$\LARGE Y = \beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2} +  ... + \beta_{n}x_{n} + \epsilon$$`
 
 What you may not realise, is that many of your favorite tests, including &lt;high&gt;t-tests&lt;/high&gt;, &lt;high&gt;correlation tests&lt;/high&gt;, and &lt;high&gt;ANOVAs&lt;/high&gt; can all be expressed as linear models! 
 
@@ -65,78 +70,166 @@ However, R also has special hypothesis test functions that allow you to do them 
 
 ]
 
-.pull-right55[
+.pull-right4[
+
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/linear_model_vendiagram.png?token=AIFo1EwgCqkIpF_GPncSc5Y7WbO0S7Maks5crjjrwA%3D%3D" width="100%" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+
+---
+
+
+.pull-left55[
+
+# Linear Model Applications
+
+All of these tests assume your dependent variable is &lt;high&gt;Normally distributed&lt;/high&gt;.
+
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-4-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+
+What differentiates these tests is the scale of your independent variable
+
+### Independent Variable Scales
+
+|Scale|Description|Examples|
+|:-----|:------|
+|Nominal|A discrete category without order|Sex, College, Favorite Color|
+|Ratio|A continuous number|Income, Height, |
+
+
+]
+
+.pull-right4[
+
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/linear_model_vendiagram.png?token=AIFo1EwgCqkIpF_GPncSc5Y7WbO0S7Maks5crjjrwA%3D%3D" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
 ---
 
-# Hypothesis testing
+.pull-left65[
 
-- We will now cover all of your favorite hypothesis tests in R.
+# Null hypothesis testing
 
-- Don't worry, we'll show you that they are all special cases of the linear model!
+Null hypothesis testing is a statistical framework where two alternative hypotheses (the Null and the Alternative) are compared
+
+|Hypothesis|Description|Example|
+|:-----|:-----|:-------|
+|Null (H0)|A proposed effect &lt;high&gt;does not exist&lt;/high&gt;|Drug and placebo have the same effect|
+|Alternative (H1)|A proposed effect &lt;high&gt;does exist&lt;/high&gt;|Drug and placebo do *not* have the same effect|
+
+[Wikipedia: Null Hypothesis](https://en.wikipedia.org/wiki/Null_hypothesis)
+
+
+]
+
+
+.pull-right3[
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+Are these data consistent with H0?
+
+&lt;img src="LinearModelsII_files/figure-html/fig.cap-1.png" style="display: block; margin: auto;" /&gt;
+
+
+]
+
 
 ---
+
+.pull-left45[
 
 # Correlation test
 
+### Data
+
+IV: 1 IV, Normally distributed
+
+DV: Normally Distributed
+
+### Formula
+
+
+### Hypotheses
+
 Null Hypothesis
-Alternative
+
+Alternative Hypothesis
+
+]
+
+.pull-right5[
+
+Example
+
+
+]
+
+
 
 ---
-# T tests
+.pull-left45[
+
+# T-test
+
+### Data
+
+IV: 1 IV, Normally distributed
+
+DV: Normally Distributed
+
+### Formula
+
+
+### Hypotheses
 
 Null Hypothesis
 
-Alternative
+Alternative Hypothesis
+
+]
+
+.pull-right5[
+
+Example
+
+
+]
 
 ---
-# ANOVA
+.pull-left45[
 
-Null hypothesis
+#  ANOVA
 
-Alternative
+### Data
 
-Post-hoc-tests
+IV: 2+ Discrete values
 
----
+DV: Normally Distributed
 
-# Extensions to the linear model
-
-What is your dependent variable is not normally distributed?
-
-Binary; Logistic regression
-
-Skewed: Log the data!
+### Formula
 
 
----
+### Hypotheses
 
-# A note: Correlation is not causation!
+Null Hypothesis
 
-- Correlation versus causation
-    - Classic fails:
-        - Ice cream and forest fires.
-        - Chocolate and IQ
-    - Inferring causation requires an experiment and/or causal modelling
+Alternative Hypothesis
 
+]
+
+.pull-right5[
+
+Example
+
+]
 
 ---
 class: middle, center
 
 # R
 ## How to conduct and understand hypothesis tests
-
----
-
-- t.test()
-- cor.test()
-- aov()
-    - TukeyHSD()
-- broom::tidy()
-
-
 
 ---
 
@@ -161,7 +254,7 @@ These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `for
 &lt;br&gt;
 *Do male and female baselers have different mean incomes?*
 
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-2-1.png" width="90%" /&gt;
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-6-1.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -295,7 +388,7 @@ These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `for
 &lt;br&gt;
 *Do older baselers have higher incomes than younger baselers?*
 
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-5-1.png" width="90%" /&gt;
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-9-1.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -432,7 +525,7 @@ These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `for
 &lt;br&gt;
 ### ANOVA with `aov()`
 
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-8-1.png" width="90%" /&gt;
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-12-1.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -602,7 +695,7 @@ noisy
 ```
 
 ```
-## [1]  98.22  86.13  82.91  82.46 107.63
+## [1] 89.00 95.74 96.05 85.55 81.45
 ```
 
 ```r
@@ -610,7 +703,7 @@ mean(noisy)
 ```
 
 ```
-## [1] 91.47
+## [1] 89.56
 ```
 
 ```r
@@ -618,7 +711,7 @@ sd(noisy)
 ```
 
 ```
-## [1] 11.06
+## [1] 6.374
 ```
 
 ```r
@@ -629,13 +722,131 @@ coin_flips
 ```
 
 ```
-##  [1] 1 1 0 1 0 0 1 0 1 1
+##  [1] 0 0 0 1 1 1 1 1 0 1
 ```
 
 
 
 ]
 
+
+
+---
+
+.pull-left45[
+
+# `tidy()`
+
+The `tidy()` function from the `broom` package &lt;high&gt;converts&lt;/high&gt; the most important results of many statistical objects to a &lt;high&gt;data frame&lt;/high&gt;.
+
+
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/Erfurt_2018June/master/_sessions/_image/broom_hex.png" width="45%" style="display: block; margin: auto;" /&gt;
+
+
+```r
+# install and load broom
+install.packages('broom')
+library(broom)
+```
+
+
+Try `tidy()` on your favorite statistical object and see what you get!
+
+]
+
+.pull-right5[
+
+&lt;br&gt;&lt;br&gt;
+
+
+```r
+# Load broom package
+library(broom)   # For tidy()
+
+# Conduct t-test
+income_htest &lt;- t.test(formula = tattoos ~ sex,
+                       data = baselers)
+
+# Standard print-out
+income_htest
+```
+
+```
+## 
+## 	Welch Two Sample t-test
+## 
+## data:  tattoos by sex
+## t = -7, df = 9900, p-value = 3e-12
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -0.4583 -0.2577
+## sample estimates:
+## mean in group female   mean in group male 
+##                1.633                1.991
+```
+
+]
+
+
+---
+
+.pull-left45[
+
+# `tidy()`
+
+The `tidy()` function from the `broom` package &lt;high&gt;converts&lt;/high&gt; the most important results of many statistical objects to a &lt;high&gt;data frame&lt;/high&gt;.
+
+
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/Erfurt_2018June/master/_sessions/_image/broom_hex.png" width="45%" style="display: block; margin: auto;" /&gt;
+
+
+```r
+# install and load broom
+install.packages('broom')
+library(broom)
+```
+
+
+Try `tidy()` on your favorite statistical object and see what you get!
+
+]
+
+.pull-right5[
+
+&lt;br&gt;&lt;br&gt;
+
+
+```r
+# Load broom package
+library(broom)   # For tidy()
+
+# Conduct t-test
+income_htest &lt;- t.test(formula = tattoos ~ sex,
+                       data = baselers)
+
+# tidy print-out
+tidy(income_htest)
+```
+
+```
+## # A tibble: 1 x 10
+##   estimate estimate1 estimate2 statistic  p.value parameter conf.low conf.high method              alternative
+##      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;               &lt;chr&gt;      
+## 1   -0.358      1.63      1.99     -7.00 2.79e-12     9878.   -0.458    -0.258 Welch Two Sample t… two.sided
+```
+
+]
+
+
+---
+
+# Extensions to the linear model
+
+What is your dependent variable is not normally distributed?
+
+Binary; Logistic regression
+
+Skewed: Log the data!
 
 
 ---
