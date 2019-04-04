@@ -144,7 +144,9 @@ Are these data consistent with H0?
 
 # Correlation test
 
-Conduct a correlation test when you have &lt;high&gt;1 Normally distributed independent variable&lt;/high&gt;
+### *Does Y tend to change when X changes?*
+
+Conduct a &lt;high&gt;correlation test&lt;/high&gt; when you have 2 continuous, Normally distributed independent variables X and Y.
 
 ### Formula
 
@@ -157,6 +159,26 @@ Conduct a correlation test when you have &lt;high&gt;1 Normally distributed inde
 &lt;high&gt;r&lt;/high&gt; is the &lt;high&gt;sample correlation&lt;/high&gt; between `\(x\)` and `\(Y\)`
 
 
+]
+
+.pull-right45[
+&lt;br&gt;
+
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+
+---
+
+.pull-left4[
+
+# Correlation test
+
+### Correlation Coefficient
+
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/correlation_coefficien_diagram.png?token=AIFo1BALlc9Z4fF-bO-VIsFcMfJn3zoQks5cr6w9wA%3D%3D" style="display: block; margin: auto;" /&gt;
 
 ### Hypotheses
 
@@ -164,17 +186,144 @@ Null: `\(H_{0}:\rho  = 0\)`, Alternative: `\(H_{A}:\rho  \neq 0\)`
 
 ]
 
-.pull-right5[
+.pull-right45[
 
-
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
-
-
-
+&lt;br&gt;
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ]
 
+
+---
+
+.pull-left4[
+
+# Correlation test
+
+### Correlation Coefficient
+
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/correlation_coefficien_diagram.png?token=AIFo1BALlc9Z4fF-bO-VIsFcMfJn3zoQks5cr6w9wA%3D%3D" style="display: block; margin: auto;" /&gt;
+
+### Hypotheses
+
+Null: `\(H_{0}:\rho  = 0\)`, Alternative: `\(H_{A}:\rho  \neq 0\)`
+
+]
+
+.pull-right55[
+&lt;br&gt;
+*Do older baselers have higher incomes than younger baselers?*
+
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-10-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+
+
+
+---
+
+.pull-left4[
+
+# Correlation test
+
+### Correlation Coefficient
+
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/correlation_coefficien_diagram.png?token=AIFo1BALlc9Z4fF-bO-VIsFcMfJn3zoQks5cr6w9wA%3D%3D" style="display: block; margin: auto;" /&gt;
+
+### Hypotheses
+
+Null: `\(H_{0}:\rho  = 0\)`, Alternative: `\(H_{A}:\rho  \neq 0\)`
+
+]
+
+.pull-right55[
+&lt;br&gt;
+### Correlation test with `cor.test()`
+
+
+```r
+# Is there a relationship between age and income?
+
+income_htest &lt;- cor.test(formula = ~ age + income,
+                         data = baselers)
+
+# Print result
+income_htest
+```
+
+```
+## 
+## 	Pearson's product-moment correlation
+## 
+## data:  age and income
+## t = 180, df = 8500, p-value &lt;2e-16
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.8882 0.8968
+## sample estimates:
+##    cor 
+## 0.8926
+```
+
+
+]
+
+
+
+---
+
+.pull-left4[
+
+# Correlation test
+
+### Correlation Coefficient
+
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/correlation_coefficien_diagram.png?token=AIFo1BALlc9Z4fF-bO-VIsFcMfJn3zoQks5cr6w9wA%3D%3D" style="display: block; margin: auto;" /&gt;
+
+### Hypotheses
+
+Null: `\(H_{0}:\rho  = 0\)`, Alternative: `\(H_{A}:\rho  \neq 0\)`
+
+]
+
+.pull-right55[
+&lt;br&gt;
+### Correlation test with `cor.test()`
+
+
+```r
+# Show all named elements
+names(income_htest)
+```
+
+```
+## [1] "statistic"   "parameter"   "p.value"     "estimate"    "null.value"  "alternative" "method"     
+## [8] "data.name"   "conf.int"
+```
+
+```r
+# Show estimated correlation coefficient
+income_htest$estimate
+```
+
+```
+##    cor 
+## 0.8926
+```
+
+```r
+# Show p-value
+income_htest$p.value
+```
+
+```
+## [1] 0
+```
+
+]
 
 
 ---
@@ -240,6 +389,146 @@ class: middle, center
 # R
 ## How to conduct and understand hypothesis tests
 
+
+---
+
+.pull-left35[
+
+# Hypothesis tests
+
+All of the basic &lt;high&gt;one and two sample hypothesis tests&lt;/high&gt; are included in the `stats` package.
+
+These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `formula`, or &lt;high&gt;individual vectors&lt;/high&gt; for the arguments `x`, and `y`
+
+| Hypothesis Test| R Function|
+|:------------|:------------|
+|     t-test|    `t.test()`|
+|     Correlation Test|    `cor.test()`|
+|     ANOVA|   `aov()`|
+|Post-hoc tests| `TukeyHSD()`|
+
+
+]
+
+
+.pull-right6[
+&lt;br&gt;
+*Do older baselers have higher incomes than younger baselers?*
+
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-15-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
+.pull-left35[
+
+# Hypothesis tests
+
+All of the basic &lt;high&gt;one and two sample hypothesis tests&lt;/high&gt; are included in the `stats` package.
+
+These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `formula`, or &lt;high&gt;individual vectors&lt;/high&gt; for the arguments `x`, and `y`
+
+| Hypothesis Test| R Function|
+|:------------|:------------|
+|     t-test|    `t.test()`|
+|     Correlation Test|    `cor.test()`|
+|     ANOVA|   `aov()`|
+|Post-hoc tests| `TukeyHSD()`|
+
+
+]
+
+
+.pull-right6[
+&lt;br&gt;
+### Correlation test with `cor.test()`
+
+
+```r
+# Is there a relationship between age and income?
+
+income_htest &lt;- cor.test(formula = ~ age + income,
+                         data = baselers)
+
+# Print result
+income_htest
+```
+
+```
+## 
+## 	Pearson's product-moment correlation
+## 
+## data:  age and income
+## t = 180, df = 8500, p-value &lt;2e-16
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  0.8882 0.8968
+## sample estimates:
+##    cor 
+## 0.8926
+```
+
+]
+
+---
+
+.pull-left35[
+
+# Hypothesis tests
+
+All of the basic &lt;high&gt;one and two sample hypothesis tests&lt;/high&gt; are included in the `stats` package.
+
+These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `formula`, or &lt;high&gt;individual vectors&lt;/high&gt; for the arguments `x`, and `y`
+
+| Hypothesis Test| R Function|
+|:------------|:------------|
+|     t-test|    `t.test()`|
+|     Correlation Test|    `cor.test()`|
+|     ANOVA|   `aov()`|
+|Post-hoc tests| `TukeyHSD()`|
+
+
+]
+
+
+.pull-right6[
+&lt;br&gt;
+### Correlation test with `cor.test()`
+
+
+```r
+# Show all named elements
+names(income_htest)
+```
+
+```
+## [1] "statistic"   "parameter"   "p.value"     "estimate"    "null.value"  "alternative" "method"     
+## [8] "data.name"   "conf.int"
+```
+
+```r
+# Show estimated correlation coefficient
+income_htest$estimate
+```
+
+```
+##    cor 
+## 0.8926
+```
+
+```r
+# Show p-value
+income_htest$p.value
+```
+
+```
+## [1] 0
+```
+
+]
+
+
 ---
 
 .pull-left35[
@@ -263,7 +552,7 @@ These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `for
 &lt;br&gt;
 *Do male and female baselers have different mean incomes?*
 
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-7-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-18-1.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -389,152 +678,13 @@ These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `for
 |     ANOVA|   `aov()`|
 |Post-hoc tests| `TukeyHSD()`|
 
-
-]
-
-
-.pull-right6[
-&lt;br&gt;
-*Do older baselers have higher incomes than younger baselers?*
-
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-10-1.png" width="90%" style="display: block; margin: auto;" /&gt;
-
-]
-
----
-
-.pull-left35[
-
-# Hypothesis tests
-
-All of the basic &lt;high&gt;one and two sample hypothesis tests&lt;/high&gt; are included in the `stats` package.
-
-These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `formula`, or &lt;high&gt;individual vectors&lt;/high&gt; for the arguments `x`, and `y`
-
-| Hypothesis Test| R Function|
-|:------------|:------------|
-|     t-test|    `t.test()`|
-|     Correlation Test|    `cor.test()`|
-|     ANOVA|   `aov()`|
-|Post-hoc tests| `TukeyHSD()`|
-
-
-]
-
-
-.pull-right6[
-&lt;br&gt;
-### Correlation test with `cor.test()`
-
-
-```r
-# Is there a relationship between age and income?
-
-income_htest &lt;- cor.test(formula = ~ age + income,
-                         data = baselers)
-
-# Print result
-income_htest
-```
-
-```
-## 
-## 	Pearson's product-moment correlation
-## 
-## data:  age and income
-## t = 180, df = 8500, p-value &lt;2e-16
-## alternative hypothesis: true correlation is not equal to 0
-## 95 percent confidence interval:
-##  0.8882 0.8968
-## sample estimates:
-##    cor 
-## 0.8926
-```
-
-]
-
-
----
-
-.pull-left35[
-
-# Hypothesis tests
-
-All of the basic &lt;high&gt;one and two sample hypothesis tests&lt;/high&gt; are included in the `stats` package.
-
-These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `formula`, or &lt;high&gt;individual vectors&lt;/high&gt; for the arguments `x`, and `y`
-
-| Hypothesis Test| R Function|
-|:------------|:------------|
-|     t-test|    `t.test()`|
-|     Correlation Test|    `cor.test()`|
-|     ANOVA|   `aov()`|
-|Post-hoc tests| `TukeyHSD()`|
-
-
-]
-
-
-.pull-right6[
-&lt;br&gt;
-### Correlation test with `cor.test()`
-
-
-```r
-# Show all named elements
-names(income_htest)
-```
-
-```
-## [1] "statistic"   "parameter"   "p.value"     "estimate"    "null.value"  "alternative" "method"     
-## [8] "data.name"   "conf.int"
-```
-
-```r
-# Show estimated correlation coefficient
-income_htest$estimate
-```
-
-```
-##    cor 
-## 0.8926
-```
-
-```r
-# Show p-value
-income_htest$p.value
-```
-
-```
-## [1] 0
-```
-
-]
-
----
-
-.pull-left35[
-
-# Hypothesis tests
-
-All of the basic &lt;high&gt;one and two sample hypothesis tests&lt;/high&gt; are included in the `stats` package.
-
-These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `formula`, or &lt;high&gt;individual vectors&lt;/high&gt; for the arguments `x`, and `y`
-
-| Hypothesis Test| R Function|
-|:------------|:------------|
-|     t-test|    `t.test()`|
-|     Correlation Test|    `cor.test()`|
-|     ANOVA|   `aov()`|
-|Post-hoc tests| `TukeyHSD()`|
-
 ]
 
 .pull-right6[
 &lt;br&gt;
 ### ANOVA with `aov()`
 
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-13-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-21-1.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 ]
 
