@@ -1,6 +1,6 @@
 ---
-title: "Linear Models II</i>"
-subittle: "Applications"
+title: "Linear Models II"
+subtitle: "Hypothesis Testing Applications"
 author: "Statistics with R<br>
   <a href='https://therbootcamp.github.io'>
     Basel R Bootcamp
@@ -72,54 +72,769 @@ options(digits = 4)
 # Load packages
 require(tidyverse)
 
+knitr::opts_chunk$set(dpi = 300, echo = TRUE, warning = FALSE, fig.align = 'center', warning = FALSE)
+
+source("https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_materials/code/baselrbootcamp_palettes.R")
+
 
 # Load data
 baselers <- readr::read_csv("1_Data/baselers.csv")
 
 ```
 
-# Linear Model Applications</i>
+
+```{r, echo = FALSE}
+
+set.seed(105)
+x <- rnorm(50, mean = 50, sd = 10)
+
+id <- 1:50
+drug <- sample(c("Drug", "Placebo"), size = 50, replace = TRUE)
+effect <- rnorm(50)
+effect[drug == "Drug"] <- 2.3 + rnorm(sum(drug == "Drug"), mean = 0, sd = 1.5) - .41
+effect[drug == "Placebo"] <- 3.3 + rnorm(sum(drug == "Placebo"), mean = 0, sd = 1.5) - .12
+
+dat <- tibble(id, drug, effect, group = rep("Baselers", 50))
+avg <- dat %>%
+  group_by(drug) %>%
+  summarise(days_mean = mean(effect))
+
+drug_placebo_gg <- ggplot(dat, aes(factor(drug), effect)) +
+  geom_jitter(width = .05) +
+  labs(y = "Days",
+       x = "Condition",
+       title = "Fictional data") +
+  scale_y_continuous(breaks = seq(0, 10, 1), limits = c(0, 7)) +
+  geom_label(data = avg, aes(x = drug, y = days_mean, label = round(days_mean, 2)))
+
+```
+
+
+.pull-left55[
+
+# Linear Model Applications
+
+In the last session, we saw that a linear model is one that can be written in the following form <br>
+
+*Linear Model Equation*
+
+$$\LARGE Y = \beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2} +  ... + \beta_{n}x_{n} + \epsilon$$
+
+*Hypothesis tests are linear models!*
+
+In fact, many of your favorite hypothesis tests tests, including <high>t-tests</high>, <high>correlation tests</high>, and <high>ANOVAs</high> can all be expressed as linear models! 
+
+This means that you can use the `glm()` function to do all of these tests!
+
+However, R also has special <high>hypothesis test functions</high> that allow you to perform hypothesis tests with more user-friendly outputs.
+
+
+]
+
+.pull-right4[
+
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/linear_model_vendiagram.png?token=AIFo1EwgCqkIpF_GPncSc5Y7WbO0S7Maks5crjjrwA%3D%3D")
+```
+
+
+]
+
+
+---
+
+
+.pull-left55[
+
+# Linear Model Applications
+
+All of these tests assume your dependent variable is <high>Normally distributed</high>.
+
+```{r, echo = FALSE, fig.width = 6, fig.height = 2, out.width = "60%"}
+
+dat <- tibble(x = rnorm(1000, mean = 100, sd = 10),
+              y = rep(.001, 1000) + rnorm(1000, mean = 0, sd = .0005))
+
+p1 <- ggplot(data = data.frame(x = c(60, 140)), aes(x)) +
+  stat_function(fun = dnorm, n = 1001, args = list(mean = 100, sd = 10), col = baselrbootcamp_cols("green"),size = 2) + 
+  ylab("") +
+  annotate("point", x = dat$x, y = dat$y, alpha = .1) +
+  scale_y_continuous(breaks = NULL) +
+  xlab("x")
+
+  
+p1
+```
+
+What differentiates these tests is the scale of your independent variable
+
+### Independent Variable Scales
+
+|Scale|Description|Examples|
+|:-----|:------|
+|Nominal|A discrete category without order|Sex, College, Favorite Color|
+|Ratio|A continuous number|Income, Height, |
+
+
+]
+
+.pull-right4[
+
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/linear_model_vendiagram.png?token=AIFo1EwgCqkIpF_GPncSc5Y7WbO0S7Maks5crjjrwA%3D%3D")
+```
+
+]
+
+---
+
+.pull-left65[
+
+# Null hypothesis testing
+
+Null hypothesis testing is a statistical framework where two alternative hypotheses (the Null and the Alternative) are compared
+
+|Hypothesis|Description|Example|
+|:-----|:-----|:-------|
+|Null (H0)|A proposed effect <high>does not exist</high>|Drug and placebo have the same effect|
+|Alternative (H1)|A proposed effect <high>does exist</high>|Drug and placebo do *not* have the same effect|
+
+[Wikipedia: Null Hypothesis](https://en.wikipedia.org/wiki/Null_hypothesis)
+
+
+]
+
+
+.pull-right3[
+<br><br><br>
+Are these data consistent with H0?
+
+```{r, echo = FALSE, fig.width = 3, fig.height = 3, fig.cap }
+drug_placebo_gg
+```
+
+
+]
+
+
+---
 
 .pull-left45[
 
-
-
-]
-
-.pull-right45[
-
-]
-
----
-
-# Hypothesis testing
-
-- We will now cover all of your favorite hypothesis tests in R.
-
-- Don't worry, we'll show you that they are all special cases of the linear model!
-
----
-
 # Correlation test
 
-Null Hypothesis
-Alternative
+Conduct a correlation test when you have <high>1 Normally distributed independent variable</high>
+
+### Formula
+
+$$\LARGE Y=\beta_{0}+\beta_{1}x$$
+
+$$\LARGE \beta_{1}=\rho\frac{\sigma_{y}}{\sigma_{x}}$$
+
+<high>p</high> is the <high>population correlation</high> between $x$ and $Y$
+
+<high>r</high> is the <high>sample correlation</high> between $x$ and $Y$
+
+
+
+### Hypotheses
+
+Null: $H_{0}:\rho  = 0$, Alternative: $H_{A}:\rho  \neq 0$
+
+]
+
+.pull-right5[
+
+
+```{r, echo = FALSE, fig.width = 5.25, fig.height = 5.25}
+set.seed(104)
+x <- rnorm(20, mean = 10, sd = 2)
+pos_low <- x * 1 + rnorm(20, sd = 5)
+pos_high <- x * 1 + rnorm(20, sd = .5)
+neg_low <- x * -1 + rnorm(20, sd = 5)
+neg_high <- x * -1 + rnorm(20, sd = .5)
+
+pos_low_r <- cor(x, pos_low)
+pos_high_r <- cor(x, pos_high)
+neg_low_r <- cor(x, neg_low)
+neg_high_r <- cor(x, neg_high)
+
+
+dat <- tibble(x, pos_low, pos_high, neg_low, neg_high)
+
+pos_low_gg <- ggplot(dat, aes(x = x, y = pos_low)) +
+  geom_point() +
+  geom_smooth(se = FALSE, method = "lm", col = baselrbootcamp_cols("magenta")) +
+  labs(title = "Low, positive correlation",
+       subtitle = paste0("r = ", round(pos_low_r, 2)), x = "x", y = "y")
+
+pos_high_gg <- ggplot(dat, aes(x = x, y = pos_high)) +
+  geom_point() +
+  geom_smooth(se = FALSE, method = "lm", col = baselrbootcamp_cols("magenta")) +
+  labs(title = "High, negative correlation",
+       subtitle = paste0("r = ", round(pos_high_r, 2)), x = "x", y = "y")
+
+neg_low_gg <- ggplot(dat, aes(x = x, y = neg_low)) +
+  geom_point() +
+  geom_smooth(se = FALSE, method = "lm", col = baselrbootcamp_cols("magenta")) +
+  labs(title = "Low, negative correlation",
+       subtitle = paste0("r = ", round(neg_low_r, 2)), x = "x", y = "y")
+
+neg_high_gg <- ggplot(dat, aes(x = x, y = neg_high)) +
+  geom_point() +
+  geom_smooth(se = FALSE, method = "lm", col = baselrbootcamp_cols("magenta")) +
+  labs(title = "High, negative correlation",
+       subtitle = paste0("r = ", round(neg_high_r, 2)), x = "x", y = "y")
+
+
+ggpubr::ggarrange(pos_low_gg, neg_low_gg, pos_high_gg, neg_high_gg, ncol = 2, nrow = 2)
+
+
+```
+
+
+
+
+
+]
+
+
 
 ---
-# T tests
+.pull-left45[
+
+# T-test
+
+### Data
+
+IV: 1 IV, Normally distributed
+
+DV: Normally Distributed
+
+### Formula
+
+
+### Hypotheses
 
 Null Hypothesis
 
-Alternative
+Alternative Hypothesis
+
+]
+
+.pull-right5[
+
+Example
+
+
+]
 
 ---
-# ANOVA
+.pull-left45[
 
-Null hypothesis
+#  ANOVA
 
-Alternative
+### Data
 
-Post-hoc-tests
+IV: 2+ Discrete values
+
+DV: Normally Distributed
+
+### Formula
+
+
+### Hypotheses
+
+Null Hypothesis
+
+Alternative Hypothesis
+
+]
+
+.pull-right5[
+
+Example
+
+]
+
+---
+class: middle, center
+
+# R
+## How to conduct and understand hypothesis tests
+
+---
+
+.pull-left35[
+
+# Hypothesis tests
+
+All of the basic <high>one and two sample hypothesis tests</high> are included in the `stats` package.
+
+These tests take either a <high>formula</high> for the argument `formula`, or <high>individual vectors</high> for the arguments `x`, and `y`
+
+| Hypothesis Test| R Function|
+|:------------|:------------|
+|     t-test|    `t.test()`|
+|     Correlation Test|    `cor.test()`|
+|     ANOVA|   `aov()`|
+|Post-hoc tests| `TukeyHSD()`|
+
+]
+
+.pull-right6[
+<br>
+*Do male and female baselers have different mean incomes?*
+
+```{r, echo  = FALSE, warning = FALSE, fig.width = 4, fig.height = 4, dpi = 300, out.width = "90%"}
+ggplot(baselers, aes(x = sex, y = income)) +
+   geom_boxplot() +
+  geom_jitter(alpha = .01, width = .1) +
+  labs(title = "Income of female and male baselers",
+       caption = "Fake data :)")
+```
+
+]
+
+---
+
+.pull-left35[
+
+# Hypothesis tests
+
+All of the basic <high>one and two sample hypothesis tests</high> are included in the `stats` package.
+
+These tests take either a <high>formula</high> for the argument `formula`, or <high>individual vectors</high> for the arguments `x`, and `y`
+
+| Hypothesis Test| R Function|
+|:------------|:------------|
+|     t-test|    `t.test()`|
+|     Correlation Test|    `cor.test()`|
+|     ANOVA|   `aov()`|
+|Post-hoc tests| `TukeyHSD()`|
+
+
+]
+
+.pull-right6[
+<br>
+### t-test with `t.test()`
+
+```{r}
+# 2-sample t-test
+income_htest <- t.test(formula = income ~ sex,
+                       data = baselers)
+
+# Print
+income_htest
+```
+
+]
+
+---
+
+.pull-left35[
+
+# Hypothesis tests
+
+All of the basic <high>one and two sample hypothesis tests</high> are included in the `stats` package.
+
+These tests take either a <high>formula</high> for the argument `formula`, or <high>individual vectors</high> for the arguments `x`, and `y`
+
+| Hypothesis Test| R Function|
+|:------------|:------------|
+|     t-test|    `t.test()`|
+|     Correlation Test|    `cor.test()`|
+|     ANOVA|   `aov()`|
+|Post-hoc tests| `TukeyHSD()`|
+
+]
+
+.pull-right6[
+<br>
+### t-test with `t.test()`
+
+```{r}
+# Show all named elements
+names(income_htest)
+
+# Print the test statistic
+income_htest$statistic
+
+# Print the p.value
+income_htest$p.value
+```
+
+]
+
+---
+
+.pull-left35[
+
+# Hypothesis tests
+
+All of the basic <high>one and two sample hypothesis tests</high> are included in the `stats` package.
+
+These tests take either a <high>formula</high> for the argument `formula`, or <high>individual vectors</high> for the arguments `x`, and `y`
+
+| Hypothesis Test| R Function|
+|:------------|:------------|
+|     t-test|    `t.test()`|
+|     Correlation Test|    `cor.test()`|
+|     ANOVA|   `aov()`|
+|Post-hoc tests| `TukeyHSD()`|
+
+
+]
+
+
+.pull-right6[
+<br>
+*Do older baselers have higher incomes than younger baselers?*
+
+```{r, echo  = FALSE, warning = FALSE, fig.width = 4, fig.height = 4, dpi = 300, out.width = "90%"}
+ggplot(baselers, aes(x = age, y = income)) +
+  geom_point(alpha = .03) +
+  labs(title = "Age and Income of Baselers",
+       caption = "Fake data :)")
+```
+
+]
+
+---
+
+.pull-left35[
+
+# Hypothesis tests
+
+All of the basic <high>one and two sample hypothesis tests</high> are included in the `stats` package.
+
+These tests take either a <high>formula</high> for the argument `formula`, or <high>individual vectors</high> for the arguments `x`, and `y`
+
+| Hypothesis Test| R Function|
+|:------------|:------------|
+|     t-test|    `t.test()`|
+|     Correlation Test|    `cor.test()`|
+|     ANOVA|   `aov()`|
+|Post-hoc tests| `TukeyHSD()`|
+
+
+]
+
+
+.pull-right6[
+<br>
+### Correlation test with `cor.test()`
+
+```{r}
+# Is there a relationship between age and income?
+
+income_htest <- cor.test(formula = ~ age + income,
+                         data = baselers)
+
+# Print result
+income_htest
+```
+
+]
+
+
+---
+
+.pull-left35[
+
+# Hypothesis tests
+
+All of the basic <high>one and two sample hypothesis tests</high> are included in the `stats` package.
+
+These tests take either a <high>formula</high> for the argument `formula`, or <high>individual vectors</high> for the arguments `x`, and `y`
+
+| Hypothesis Test| R Function|
+|:------------|:------------|
+|     t-test|    `t.test()`|
+|     Correlation Test|    `cor.test()`|
+|     ANOVA|   `aov()`|
+|Post-hoc tests| `TukeyHSD()`|
+
+
+]
+
+
+.pull-right6[
+<br>
+### Correlation test with `cor.test()`
+
+```{r}
+# Show all named elements
+names(income_htest)
+
+# Show estimated correlation coefficient
+income_htest$estimate
+
+# Show p-value
+income_htest$p.value
+```
+
+]
+
+---
+
+.pull-left35[
+
+# Hypothesis tests
+
+All of the basic <high>one and two sample hypothesis tests</high> are included in the `stats` package.
+
+These tests take either a <high>formula</high> for the argument `formula`, or <high>individual vectors</high> for the arguments `x`, and `y`
+
+| Hypothesis Test| R Function|
+|:------------|:------------|
+|     t-test|    `t.test()`|
+|     Correlation Test|    `cor.test()`|
+|     ANOVA|   `aov()`|
+|Post-hoc tests| `TukeyHSD()`|
+
+]
+
+.pull-right6[
+<br>
+### ANOVA with `aov()`
+
+```{r, echo  = FALSE, warning = FALSE, fig.width = 6, fig.height = 4, dpi = 300, out.width = "90%"}
+ggplot(baselers, aes(x = education, y = height)) +
+   geom_boxplot() +
+  geom_jitter(alpha = .01, width = .1) +
+  labs(title = "Baseler height based on education",
+       caption = "Fake data :)")
+```
+
+]
+
+---
+
+.pull-left35[
+
+# Hypothesis tests
+
+All of the basic <high>one and two sample hypothesis tests</high> are included in the `stats` package.
+
+These tests take either a <high>formula</high> for the argument `formula`, or <high>individual vectors</high> for the arguments `x`, and `y`
+
+| Hypothesis Test| R Function|
+|:------------|:------------|
+|     t-test|    `t.test()`|
+|     Correlation Test|    `cor.test()`|
+|     ANOVA|   `aov()`|
+|Post-hoc tests| `TukeyHSD()`|
+
+]
+
+.pull-right6[
+<br>
+### ANOVA with `aov()`
+
+```{r}
+# Is there a relationship btwn education and height?
+
+height_htest <- aov(formula = height ~ education,
+                    data = baselers)
+
+# Print result
+height_htest
+```
+
+]
+
+---
+
+.pull-left35[
+
+# Hypothesis tests
+
+All of the basic <high>one and two sample hypothesis tests</high> are included in the `stats` package.
+
+These tests take either a <high>formula</high> for the argument `formula`, or <high>individual vectors</high> for the arguments `x`, and `y`
+
+| Hypothesis Test| R Function|
+|:------------|:------------|
+|     t-test|    `t.test()`|
+|     Correlation Test|    `cor.test()`|
+|     ANOVA|   `aov()`|
+|Post-hoc tests| `TukeyHSD()`|
+
+]
+
+.pull-right6[
+<br>
+### ANOVA with `aov()`
+
+```{r}
+# Show summary results
+summary(height_htest)
+```
+
+]
+
+---
+
+.pull-left35[
+
+# Hypothesis tests
+
+All of the basic <high>one and two sample hypothesis tests</high> are included in the `stats` package.
+
+These tests take either a <high>formula</high> for the argument `formula`, or <high>individual vectors</high> for the arguments `x`, and `y`
+
+| Hypothesis Test| R Function|
+|:------------|:------------|
+|     t-test|    `t.test()`|
+|     Correlation Test|    `cor.test()`|
+|     ANOVA|   `aov()`|
+|Post-hoc tests| `TukeyHSD()`|
+
+]
+
+.pull-right6[
+<br>
+### ANOVA with `aov()`
+
+```{r}
+# post-hoc tests
+TukeyHSD(height_htest)
+```
+
+]
+
+---
+
+.pull-left35[
+# Simulation functions
+
+R has a several functions that allow you to draw <high>random samples</high> data from specified distributions:
+
+|Type|Function|
+|:----|:------|
+|Normal|`rnorm(n, mean, sd)`|
+|Uniform|`runif(n, min, max)`|
+|Binomial|`rbinom(n, size, prob)`|
+|Sample|`sample(x)`|
+
+These allow you to run your own <high>simulations</high>!
+
+]
+
+.pull-right6[
+
+*Drawing Random Samples*
+
+```{r, echo = TRUE}
+# 5 samples from N(mean = 100, sd = 10)
+noisy <- rnorm(n = 5, mean = 100, sd = 10)
+
+noisy
+
+mean(noisy)
+
+sd(noisy)
+
+# Simulate 10 coin flilps
+coin_flips <- rbinom(n = 10, size = 1, prob = .5)
+
+coin_flips
+
+```
+
+
+
+]
+
+
+
+---
+
+.pull-left45[
+
+# `tidy()`
+
+The `tidy()` function from the `broom` package <high>converts</high> the most important results of many statistical objects to a <high>data frame</high>.
+
+
+```{r, out.width = "45%", echo = FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/Erfurt_2018June/master/_sessions/_image/broom_hex.png")
+```
+
+```{r, eval = FALSE, echo = TRUE}
+# install and load broom
+install.packages('broom')
+library(broom)
+```
+
+
+Try `tidy()` on your favorite statistical object and see what you get!
+
+]
+
+.pull-right5[
+
+<br><br>
+
+```{r, eval = TRUE, echo = TRUE}
+# Load broom package
+library(broom)   # For tidy()
+
+# Conduct t-test
+income_htest <- t.test(formula = tattoos ~ sex,
+                       data = baselers)
+
+# Standard print-out
+income_htest
+```
+
+]
+
+
+---
+
+.pull-left45[
+
+# `tidy()`
+
+The `tidy()` function from the `broom` package <high>converts</high> the most important results of many statistical objects to a <high>data frame</high>.
+
+
+```{r, out.width = "45%", echo = FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/Erfurt_2018June/master/_sessions/_image/broom_hex.png")
+```
+
+```{r, eval = FALSE, echo = TRUE}
+# install and load broom
+install.packages('broom')
+library(broom)
+```
+
+
+Try `tidy()` on your favorite statistical object and see what you get!
+
+]
+
+.pull-right5[
+
+<br><br>
+
+```{r, eval = TRUE, echo = TRUE}
+# Load broom package
+library(broom)   # For tidy()
+
+# Conduct t-test
+income_htest <- t.test(formula = tattoos ~ sex,
+                       data = baselers)
+
+# tidy print-out
+tidy(income_htest)
+```
+
+]
+
 
 ---
 
@@ -130,41 +845,6 @@ What is your dependent variable is not normally distributed?
 Binary; Logistic regression
 
 Skewed: Log the data!
-
-
----
-
-# A note: Correlation is not causation!
-
-- Correlation versus causation
-    - Classic fails:
-        - Ice cream and forest fires.
-        - Chocolate and IQ
-    - Inferring causation requires an experiment and/or causal modelling
-
-
----
-
-# R
-
----
-
-- t.test()
-- cor.test()
-- aov()
-    - TukeyHSD()
-- broom::tidy()
-
----
-
-# Simulation functions
-
-### Simulations
-
-- rnorm()
-    - runif(), rbinom(), sample()
-
-
 
 
 ---
