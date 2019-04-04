@@ -43,10 +43,10 @@ output:
 |  | Day 1<br>Basics| Day 2<br> Advanced| 
 |:--|:-------------|:-------------|
 |0| Welcome! | Recap |
-|1| R for Stats | Hierarchical models   |
-|2| Linear Models I<br>[slides](), [practical]() | Robust statistics |
-|3| Linear Models II | New statistics|
-|4|  -  | Next Steps |
+|1|Intro to Stats<br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/Intro2Stats/Intro2Stats.html#1)| Hierarchical models   |
+|2|  R for Stats  | Robust statistics |
+|3|  Linear Models I<br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsI/LinearModelsI.html), [practical](https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsI/LinearModelsI_practical.html)| New statistics|
+|4|  Linear Models II<br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsII/LinearModelsII.html), [practical](https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsII/LinearModelsII_practical.html)  | Next Steps |
 <br>
 
 
