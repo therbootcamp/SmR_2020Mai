@@ -210,18 +210,46 @@ It's slow, but...
 # an object called one_two_three
 one_two_three <- c(1, 2, 3)
 
-# add 100 to the object's numbers
+# print object
+one_two_three
+
+# add 100 to the object's numbers (without <- )
 one_two_three + 100
 
 # print object
 one_two_three
+```
+]
 
-# make change permanent
+
+
+---
+
+# Essentials: 10 basic R lessons 
+
+.pull-left4[
+1. <high>Everything is an object</high>
+2. <high><mono><-</mono> creates/changes objects</high>
+3. Everything happens through functions
+4. Functions have (default) arguments
+5. Find help with <mono>?</mono>
+6. Data lives in data frames
+7. 3 data types + factors
+8. `formula` and `data` specify a model 
+9. Use RStudio and projects
+10. Use editor, shortcuts, auto-complete
+]
+
+.pull-right5[
+```{r}
+# print object
+one_two_three
+
+# make change permanent (with <- )
 one_two_three <- one_two_three + 100
 
 # print object
 one_two_three
-
 ```
 ]
 
