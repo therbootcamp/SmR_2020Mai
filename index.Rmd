@@ -18,7 +18,7 @@ author: "
         <font style='font-style:normal;font-size:20px;padding-left:5px'>Basel R Bootcamp</font>
       </a>
       <br>
-      <img src='https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png' style= 'height:16.7px;vertical-align:baseline'/><font style='font-style:normal;font-size:20px;padding-left:9.3px'>February 2019</font>
+      <img src='https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png' style= 'height:16.7px;vertical-align:baseline'/><font style='font-style:normal;font-size:20px;padding-left:9.3px'>April 2019</font>
       "
 output:
   html_document:
@@ -40,12 +40,12 @@ output:
 <br>
 
 ### Materials
-|  | Day 1<br>Basic| Day 2<br> Advanced| 
+|  | Day 1<br>Basics| Day 2<br> Advanced| 
 |:--|:-------------|:-------------|
 |0| Welcome! | Recap |
 |1| R for Stats | Hierarchical models   |
-|2| Regression models | Robust statistics |
-|3| Regression applied | New statistics|
+|2| Linear Models I<br>[slides](), [practical]() | Robust statistics |
+|3| Linear Models II | New statistics|
 |4|  -  | Next Steps |
 <br>
 

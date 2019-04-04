@@ -144,26 +144,31 @@ Are these data consistent with H0?
 
 # Correlation test
 
-### Data
-
-IV: 1 IV, Normally distributed
-
-DV: Normally Distributed
+Conduct a correlation test when you have &lt;high&gt;1 Normally distributed independent variable&lt;/high&gt;
 
 ### Formula
 
+`$$\LARGE Y=\beta_{0}+\beta_{1}x_{1}$$`
+
+`$$\LARGE \beta_{1}=\rho\frac{\sigma_{y}}{\sigma_{x}}$$`
 
 ### Hypotheses
 
-Null Hypothesis
+Null: `\(H_{0}:\rho  = 0\)`
 
-Alternative Hypothesis
+Alternative
+
+`$$H_{A}:\rho  \neq 0$$`
 
 ]
 
 .pull-right5[
 
-Example
+
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
+
+
+
 
 
 ]
@@ -256,7 +261,7 @@ These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `for
 &lt;br&gt;
 *Do male and female baselers have different mean incomes?*
 
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-6-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-7-1.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -390,7 +395,7 @@ These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `for
 &lt;br&gt;
 *Do older baselers have higher incomes than younger baselers?*
 
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-9-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-10-1.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -527,7 +532,7 @@ These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `for
 &lt;br&gt;
 ### ANOVA with `aov()`
 
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-12-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-13-1.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -697,7 +702,7 @@ noisy
 ```
 
 ```
-## [1] 89.00 95.74 96.05 85.55 81.45
+## [1]  88.29 108.07 114.18  94.04 111.42
 ```
 
 ```r
@@ -705,7 +710,7 @@ mean(noisy)
 ```
 
 ```
-## [1] 89.56
+## [1] 103.2
 ```
 
 ```r
@@ -713,7 +718,7 @@ sd(noisy)
 ```
 
 ```
-## [1] 6.374
+## [1] 11.38
 ```
 
 ```r
@@ -724,7 +729,7 @@ coin_flips
 ```
 
 ```
-##  [1] 0 0 0 1 1 1 1 1 0 1
+##  [1] 1 0 1 0 0 1 1 0 1 0
 ```
 
 

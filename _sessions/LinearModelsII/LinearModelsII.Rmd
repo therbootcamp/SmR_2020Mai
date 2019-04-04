@@ -223,26 +223,75 @@ drug_placebo_gg
 
 # Correlation test
 
-### Data
-
-IV: 1 IV, Normally distributed
-
-DV: Normally Distributed
+Conduct a correlation test when you have <high>1 Normally distributed independent variable</high>
 
 ### Formula
 
+$$\LARGE Y=\beta_{0}+\beta_{1}x_{1}$$
+
+$$\LARGE \beta_{1}=\rho\frac{\sigma_{y}}{\sigma_{x}}$$
 
 ### Hypotheses
 
-Null Hypothesis
+Null: $H_{0}:\rho  = 0$
 
-Alternative Hypothesis
+Alternative
+
+$$H_{A}:\rho  \neq 0$$
 
 ]
 
 .pull-right5[
 
-Example
+
+```{r, echo = FALSE, fig.width = 5.25, fig.height = 5.25}
+set.seed(104)
+x <- rnorm(20, mean = 10, sd = 2)
+pos_low <- x * 1 + rnorm(20, sd = 5)
+pos_high <- x * 1 + rnorm(20, sd = .5)
+neg_low <- x * -1 + rnorm(20, sd = 5)
+neg_high <- x * -1 + rnorm(20, sd = .5)
+
+pos_low_r <- cor(x, pos_low)
+pos_high_r <- cor(x, pos_high)
+neg_low_r <- cor(x, neg_low)
+neg_high_r <- cor(x, neg_high)
+
+
+dat <- tibble(x, pos_low, pos_high, neg_low, neg_high)
+
+pos_low_gg <- ggplot(dat, aes(x = x, y = pos_low)) +
+  geom_point() +
+  geom_smooth(se = FALSE, method = "lm", col = baselrbootcamp_cols("magenta")) +
+  labs(title = "Low, positive correlation",
+       subtitle = paste0("r = ", round(pos_low_r, 2)), x = "x", y = "y")
+
+pos_high_gg <- ggplot(dat, aes(x = x, y = pos_high)) +
+  geom_point() +
+  geom_smooth(se = FALSE, method = "lm", col = baselrbootcamp_cols("magenta")) +
+  labs(title = "High, negative correlation",
+       subtitle = paste0("r = ", round(pos_high_r, 2)), x = "x", y = "y")
+
+neg_low_gg <- ggplot(dat, aes(x = x, y = neg_low)) +
+  geom_point() +
+  geom_smooth(se = FALSE, method = "lm", col = baselrbootcamp_cols("magenta")) +
+  labs(title = "Low, negative correlation",
+       subtitle = paste0("r = ", round(neg_low_r, 2)), x = "x", y = "y")
+
+neg_high_gg <- ggplot(dat, aes(x = x, y = neg_high)) +
+  geom_point() +
+  geom_smooth(se = FALSE, method = "lm", col = baselrbootcamp_cols("magenta")) +
+  labs(title = "High, negative correlation",
+       subtitle = paste0("r = ", round(neg_high_r, 2)), x = "x", y = "y")
+
+
+ggpubr::ggarrange(pos_low_gg, neg_low_gg, pos_high_gg, neg_high_gg, ncol = 2, nrow = 2)
+
+
+```
+
+
+
 
 
 ]
