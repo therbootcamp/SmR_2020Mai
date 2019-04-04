@@ -494,7 +494,7 @@ print(baselers)
 ```
 ## # A tibble: 10,000 x 20
 ##       id sex     age height weight income
-##    &lt;int&gt; &lt;chr&gt; &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+##    &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
 ##  1     1 male     44   174.  113.    6300
 ##  2     2 male     65   180.   75.2  10900
 ##  3     3 fema…    31   168.   55.5   5100
@@ -596,7 +596,6 @@ baselers$sex
 ```
 
 ```r
-# original sex vector
 as.factor(baselers$sex)
 ```
 
@@ -607,7 +606,6 @@ as.factor(baselers$sex)
 ```
 
 ```r
-# original sex vector
 as.factor(baselers$weight)
 ```
 
@@ -909,23 +907,12 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   d.head.appendChild(s);
 })();</script>
 
-<script>
-(function() {
-  var i, text, code, codes = document.getElementsByTagName('code');
-  for (i = 0; i < codes.length;) {
-    code = codes[i];
-    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-      text = code.textContent;
-      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-          /^\$\$(.|\s)+\$\$$/.test(text) ||
-          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-        code.outerHTML = code.innerHTML;  // remove <code></code>
-        continue;
-      }
-    }
-    i++;
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
   }
-})();
+});
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
