@@ -307,7 +307,10 @@ knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019
 
 ### Hypotheses
 
-Null: $H_{0}:\rho  = 0$, Alternative: $H_{A}:\rho  \neq 0$
+
+Null: $H_{0}:\rho  = 0$, "There <high>is no</high> correlation in the population"
+
+Alternative: $H_{A}:\rho  \neq 0$, "There <high>is a </high> (non-zero) correlation in the population!"
 
 ]
 
@@ -376,7 +379,10 @@ knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019
 
 ### Hypotheses
 
-Null: $H_{0}:\rho  = 0$, Alternative: $H_{A}:\rho  \neq 0$
+
+Null: $H_{0}:\rho  = 0$, "There <high>is no</high> correlation in the population"
+
+Alternative: $H_{A}:\rho  \neq 0$, "There <high>is a </high> (non-zero) correlation in the population!"
 
 ]
 
@@ -411,7 +417,10 @@ knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019
 
 ### Hypotheses
 
-Null: $H_{0}:\rho  = 0$, Alternative: $H_{A}:\rho  \neq 0$
+
+Null: $H_{0}:\rho  = 0$, "There <high>is no</high> correlation in the population"
+
+Alternative: $H_{A}:\rho  \neq 0$, "There <high>is a </high> (non-zero) correlation in the population!"
 
 ]
 
@@ -448,7 +457,10 @@ knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019
 
 ### Hypotheses
 
-Null: $H_{0}:\rho  = 0$, Alternative: $H_{A}:\rho  \neq 0$
+
+Null: $H_{0}:\rho  = 0$, "There <high>is no</high> correlation in the population"
+
+Alternative: $H_{A}:\rho  \neq 0$, "There <high>is a </high> (non-zero) correlation in the population!"
 
 ]
 
