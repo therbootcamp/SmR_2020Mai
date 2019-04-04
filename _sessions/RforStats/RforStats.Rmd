@@ -207,20 +207,20 @@ It's slow, but...
 
 .pull-right5[
 ```{r}
-# an object called some_name
-some_name <- c(1, 2, 3)
+# an object called one_two_three
+one_two_three <- c(1, 2, 3)
 
-# add 2 to the object's numbers
-some_name + 2
+# add 100 to the object's numbers
+one_two_three + 100
 
 # print object
-some_name
+one_two_three
 
 # make change permanent
-some_name <- some_name + 2
+one_two_three <- one_two_three + 100
 
 # print object
-some_name
+one_two_three
 
 ```
 ]
@@ -246,16 +246,16 @@ some_name
 .pull-right5[
 ```{r}
 # function c()
-some_name <- c(1, 2, 3)
+one_two_three <- c(1, 2, 3)
 
 # function `+`()
-some_name + 2
+one_two_three + 100
 
 # function print()
-some_name
+one_two_three
 
 # function mean()
-mean(some_name)
+mean(one_two_three)
 
 ```
 ]
