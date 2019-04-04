@@ -35,8 +35,6 @@ output:
 ##### Data sets [](https://therbootcamp.github.io/SwR_2019Apr/1_Data/BaselRBootcamp.zip)
 #####  PDFs <font style="font-size:12px">(made available later)</font>
 
-
-
 <br>
 
 ### Materials

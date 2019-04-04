@@ -227,17 +227,19 @@ Conduct a correlation test when you have <high>1 Normally distributed independen
 
 ### Formula
 
-$$\LARGE Y=\beta_{0}+\beta_{1}x_{1}$$
+$$\LARGE Y=\beta_{0}+\beta_{1}x$$
 
 $$\LARGE \beta_{1}=\rho\frac{\sigma_{y}}{\sigma_{x}}$$
 
+<high>p</high> is the <high>population correlation</high> between $x$ and $Y$
+
+<high>r</high> is the <high>sample correlation</high> between $x$ and $Y$
+
+
+
 ### Hypotheses
 
-Null: $H_{0}:\rho  = 0$
-
-Alternative
-
-$$H_{A}:\rho  \neq 0$$
+Null: $H_{0}:\rho  = 0$, Alternative: $H_{A}:\rho  \neq 0$
 
 ]
 
