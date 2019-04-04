@@ -50,9 +50,9 @@ library(tidyverse)
 ```
 
 <p align="center" width="100%">
-  <img src="image/placeholder.png" alt="Trulli" style="width:100%;height:280px">
+  <img src="image/avocado_small.png" alt="Trulli" style="width:100%y">
   <br>
-  <font style="font-size:10px">from <a href="">shortened URL</a></font>
+  <font style="font-size:10px">from <a href="https://www.self.com/story/how-to-pick-the-best-avocado-every-time">self.com</a></font>
 </p>
 
 
@@ -60,13 +60,13 @@ library(tidyverse)
 
 ## Overview
 
-In this practical you'll practice "XXX" with the `XXX` packages.
+In this practical you'll explore issues sourrounding the topic of robust statistics using a variety of packages (see *Functions*) tab. You'll will explore sales of avocados across various locations in the US from 2015 to 2018. 
 
 By the end of this practical you will know how to:
 
-1. 
-2. 
-3.
+1. Evaluate regression assumptions.
+2. Run off-the-shelve non-parametric tests.
+3. Run bootsrap analyses.
 
 ## Tasks
 
@@ -78,7 +78,7 @@ By the end of this practical you will know how to:
 # Done!
 ```
 
-2. Open a new R script. At the top of the script, using comments, write your name and the date. Save it as a new file called `wrangling_practical.R` in the `2_Code` folder.  
+2. Open a new R script. At the top of the script, using comments, write your name and the date. Save it as a new file called `robuststats_practical.R` in the `2_Code` folder.  
 
 ```{r}
 # Done!
@@ -89,9 +89,12 @@ By the end of this practical you will know how to:
 ```{r, echo = TRUE, eval = FALSE}
 # Load packages necessary for this script
 library(tidyverse)
+library(boot)
+library(quantreg)
+library(Rfit)
 ```
 
-4. Using the following template, load the `XXX` data into R and store it as a new object called `XXX` (Hint: Don't type the path directly! Use the "tab" completion!).
+4. Using the following template, load the `avocado.csv`, `avocado_cali.csv`, and `avocado_ny.csv` data sets into R and store them as a new objects called `avocado`, `avocado_cali`, and `avocado_ny` (Hint: Don't type the path directly! Use the "tab" completion!).
 
 ```{r, echo = TRUE}
 # Load XXX.csv from the 1_Data folder
@@ -99,37 +102,90 @@ library(tidyverse)
 XX <- read_csv(file = "XX/XX")
 ```
 
-5. Take a look at the first few rows of the datasets by printing them to the console.
+```{r, echo = TRUE}
+# Load data sets from the 1_Data folder
+
+avocado <- read_csv(file = "1_Data/avocado.csv")
+avocado_cali <- read_csv(file = "1_Data/avocado_cali.csv")
+avocado_ny <- read_csv(file = "1_Data/avocado_ny.csv")
+```
+
+5. Take a look at the first few rows of the data sets by printing them to the console.
 
 ```{r, echo = TRUE}
 # Print XXX object
 XXX
 ```
 
-7. Use the the `summary()` function to print more details on the columns of the datasets.
+```{r}
+# Print XXX object
+XXXavocado
+avocado_cali
+avocado_ny
+```
+
+7. Use the the `summary()` function to print more details on the columns of the data sets.
+
+```{r, echo = TRUE}
+# Show summary of XXX object
+summary(XXX)
+```
 
 ```{r}
-summary(XXX)
-summary(XXX)
+# Show summary of XXX object
+summary(avocado)
+summary(avocado_cali)
+summary(avocado_ny)
 ```
 
-8. Use the `View()` function to view the entire dataframes in new windows
+8. Use the `View()` function to view the entire data sets in new windows
 
-```{r, echo = TRUE, eval = FALSE}
+```{r, echo = TRUE}
+# View data frame XXX 
 View(XXX)
+```
+
+```{r, eval = F}
+# View data frame XXX 
+View(avocado)
+View(avocado_cali)
+View(avocado_ny)
+```
+
+### B - Missing variables
+
+1. In this pracical you will be working with a data set containing information on the sales volume of avocados across various areas in the US and over the the last three years. Your initial goal is to predict, whether  
+
+```{r, echo = TRUE}
+# View data frame XXX 
 View(XXX)
 ```
 
 
-### B - XXX
+### C - Normality & Homoscedasticity
 
-### X - Advanced: XXX
+
+
+### D - Non-parametric tests
+
+### E - Robust regression
+
+
+### F - Bootstrap
+
 
 ## Examples
 
 ```{r, eval = FALSE, echo = TRUE}
 
-# EXAMPLE CODE
+# PRELIMINARIES ------------------------------
+
+require(moments)
+require(quantreg)
+require(Rfix)
+
+
+
 
 ```
 
@@ -138,42 +194,34 @@ View(XXX)
 
 |File | Rows | Columns |
 |:----|:-----|:------|
-|[XXX]() | Nrow | Ncol |
-|[XXX]() | Nrow | Ncol |
+|[avocado.csv]() | 17573 | 16 |
+|[avocado_cali.csv]() | 338 | 16 |
+|[avocado_ny.csv]() | 338 | 16 |
 
-SHORT VERBAL DESCRIPTION OF DATA SETS
+This data was downloaded from the [Hass](https://en.wikipedia.org/wiki/Hass_avocado) Avocado Board website for the duration of April 2015 and May 2018. The data contain weekly (reported on Sundays) retail scan data for National retail volume (units) and price. Retail scan data comes directly from retailers’ cash registers based on actual retail sales of Hass avocados. The Average Price (of avocados) in the table reflects a per unit (per avocado) cost. Other varieties of avocados (e.g. greenskins) are not included in this table.
+
+The data set `avocado.csv` contains the data for all 52 regions. The smaller datasets `avocado_cali.csv` and `avocado_ny.csv` contain the data of California and New York, respectively.
 
 #### Variable description
 
 | Name | Description |
 |:-------------|:-------------------------------------|
-| XXX | XXX |
-| XXX | age in years at baseline|
-|wtkg| weight in kg at baseline|
-|hemo| hemophilia (0=no, 1=yes)|
-|homo| homosexual activity (0=no, 1=yes)|
-|drugs| history of intravenous drug use (0=no, 1=yes)|
-|karnof| Karnofsky score (on a scale of 0-100)|
-|oprior| non-zidovudine antiretroviral therapy prior to initiation of study treatment (0=no, 1=yes)|
-|z30| zidovudine use in the 30 days prior to treatment initiation (0=no, 1=yes)|
-|zprior| zidovudine use prior to treatment initiation (0=no, 1=yes)|
-|preanti| number of days of previously received antiretroviral therapy|
-|race| race (0=white, 1=non-white)|
-|gender| gender (0=female, 1=male)|
-|str2| antiretroviral history (0=naive, 1=experienced)|
-|strat| antiretroviral history stratification (1=’antiretroviral naive’, 2=’> 1 but ≤ 52 weeks of prior antiretroviral therapy’, 3=’> 52 weeks’)|
-|symptom| symptomatic indicator (0=asymptomatic, 1=symptomatic)|
-|treat| treatment indicator (0=zidovudine only, 1=other therapies)|
-|offtrt| indicator of off-treatment before 96±5 weeks (0=no,1=yes)|
-|cd40| CD4 T cell count at baseline|
-|cd420| CD4 T cell count at 20±5 weeks|
-|cd496| CD4 T cell count at 96±5 weeks (=NA if missing)|
-|r| missing CD4 T cell count at 96±5 weeks (0=missing, 1=observed)|
-|cd80| CD8 T cell count at baseline|
-|cd820| CD8 T cell count at 20±5 weeks|
-|cens| indicator of observing the event in days|
-|days| number of days until the first occurrence of: (i) a decline in CD4 T cell count of at least 50 (ii) an event indicating progression to AIDS, or (iii) death.|
-|arms| treatment arm (0=zidovudine, 1=zidovudine and didanosine, 2=zidovudine and zalcitabine, 3=didanosine).|
+| `volume` | The total number of sold avocados that week. |
+| `volume_index` | A sales index scaling the sales number to the range of 0 to 10.  |
+| `price_per_avocado` | The average price of a single avocado. |
+| `type` | The type of avocado: "conventional" or "organic". |
+| `temperature` | The regional temperature on the day of the data recording. |
+| `temperature_usa` | The country-wide temperature on the day of the data recording. |
+| `humidity` | The regional humidity on the day of the data recording. |
+| `humidity_usa` | The country-wide humidity on the day of the data recording. |
+| `precipation` | The regional precipation on the day of the data recording. |
+| `precipation_usa` | The country-wide precipation on the day of the data recording. |
+| `year` | The year of the data recording. |
+| `season` | The season of the data recording. |
+| `date` | The date of the data recording. |
+| `region` | The region for which sales were recorded. |
+| `longitude` | The longitude of the region center. |
+| `latitude` | The latitude of the region center. |
 
 ## Functions
 
@@ -181,8 +229,9 @@ SHORT VERBAL DESCRIPTION OF DATA SETS
 
 |Package| Installation|
 |:------|:------|
-|`tidyverse`|`install.packages("tidyverse")`|
-| `XX` | `XX` |
+|`moments`|`install.packages("moments")`|
+|`quantreg`|`install.packages("quantreg")`|
+|`Rfit`|`install.packages("Rfit")`|
 
 ### Functions
 

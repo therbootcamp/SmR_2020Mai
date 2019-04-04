@@ -176,10 +176,8 @@ Additionally there several <high>statistics can be computed to support the asses
 
 
 <table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px">
-  <col width="13%">
-  <col width="13%">
-  <col width="35%">
-  <col width="30%">
+  <col width="50%">
+  <col width="50%">
 <tr>
   <td bgcolor="white">
     <b>Assumption</b>
@@ -246,8 +244,8 @@ Additionally there several <high>statistics can be computed to support the asses
 
 
 <table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px">
-  <col width="40%">
-  <col width="60%">
+  <col width="50%">
+  <col width="50%">
 <tr>
   <td bgcolor="white">
     <b>Assumption</b>
