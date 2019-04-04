@@ -168,8 +168,8 @@ It's slow, but...
 # Essentials: 10 basic R lessons 
 
 .pull-left4[
-1. Everything is an object
-2. <mono><-</mono> creates/changes objects
+1. <high>Everything is an object</high>
+2. <high><mono><-</mono> creates/changes objects</high>
 3. Everything happens through functions
 4. Functions have (default) arguments
 5. Find help with <mono>?</mono>
@@ -216,7 +216,7 @@ one_two_three
 # add 100 to the object's numbers (without <- )
 one_two_three + 100
 
-# print object
+# print object (no <-, no change!)
 one_two_three
 ```
 ]
@@ -248,7 +248,7 @@ one_two_three
 # make change permanent (with <- )
 one_two_three <- one_two_three + 100
 
-# print object
+# print object (it has changed!)
 one_two_three
 ```
 ]
@@ -732,7 +732,7 @@ library(yarrr)
 library(lme4)
 
 # import data
-baselers <- read_delim("baselers.txt",
+baselers <- read_delim(file = "baselers.txt",
                        delim = '\t')
 
 ```
