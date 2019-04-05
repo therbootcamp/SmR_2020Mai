@@ -155,15 +155,15 @@ View(trial)
 1. Using the code below, create a plot showing the relationship between age and CD4 T cell count at baseline. Based on this plot, do you expect to find a relationship between the two variables?
 
 ```{r, eval = FALSE, echo = TRUE}
-ggplot(data = trial, mapping = aes(x = age, y = cd40)) + 
+ggplot(data = trial, mapping = aes(x = age, y = cd4_baseline)) + 
       geom_point(alpha = .1) +
   labs(title = "ACTG175 Trial",
        subtitle = "Baseline age and CD4 T cell count at baseline ",
        x = "Age (age)",
-       y = "CD4 T cell count at baseline (cd40)")
+       y = "CD4 T cell count at baseline (cd4_baseline)")
 ```
 
-2. Using the `cor.test()` function, create an object called `age_cd40_test` which conducts a correlation test between a patient's age at baseline (`age`) and their CD4 T cell count at baseline (`cd40`)
+2. Using the `cor.test()` function, create an object called `age_cd4_baseline_test` which conducts a correlation test between a patient's age at baseline (`age`) and their CD4 T cell count at baseline (`cd4_baseline`)
 
 ```{r, eval = FALSE, echo = TRUE}
 # Correlation between patient's age at baseline and CD4 T cell count at baseline
@@ -175,82 +175,82 @@ XXX <- cor.test(formula = ~ XXX + XXX,
 ```{r}
 # Correlation between patient's age at baseline and CD4 T cell count at baseline
 
-age_cd40_test <- cor.test(formula = ~ age + cd40,
+age_cd4_baseline_test <- cor.test(formula = ~ age + cd4_baseline,
                           data = trial)
 ```
 
-3. Print the `age_cd40_test` object to see summary outputs.
+3. Print the `age_cd4_baseline_test` object to see summary outputs.
 
 ```{r}
-age_cd40_test
+age_cd4_baseline_test
 ```
 
-4. Apply the `names()` function to your `age_cd40_test` object to see all of its named elements
+4. Apply the `names()` function to your `age_cd4_baseline_test` object to see all of its named elements
 
 ```{r, eval = FALSE, echo = TRUE}
-# See all named elements of age_cd40_test
+# See all named elements of age_cd4_baseline_test
 names(XXX)
 ```
 
 ```{r}
-# See all named elements of age_cd40_test
-names(age_cd40_test)
+# See all named elements of age_cd4_baseline_test
+names(age_cd4_baseline_test)
 ```
 
-5. Using the `XXX$XXX` notation, print only the correlation estimate (`estimate`) in your `age_cd40_test` object. What does this value tell you?
+5. Using the `XXX$XXX` notation, print only the correlation estimate (`estimate`) in your `age_cd4_baseline_test` object. What does this value tell you?
 
 ```{r, eval = FALSE, echo = TRUE}
-# Print correlation coefficient estimate in the age_cd40_test object
+# Print correlation coefficient estimate in the age_cd4_baseline_test object
 XXX$XXX
 ```
 
 ```{r}
 # Print correlation coefficient estimate
-age_cd40_test$estimate
+age_cd4_baseline_test$estimate
 ```
 
-6. Again using the `XXX$XXX` notation, print only the p value (`p.value`) in your `age_cd40_test` object. What does this value tell you?
+6. Again using the `XXX$XXX` notation, print only the p value (`p.value`) in your `age_cd4_baseline_test` object. What does this value tell you?
 
 ```{r, eval = FALSE, echo = TRUE}
-# Print the p value of the correlation coefficient in the age_cd40_test object
+# Print the p value of the correlation coefficient in the age_cd4_baseline_test object
 XXX$XXX
 ```
 
 ```{r}
-# Print the p value in the age_cd40_test object
-age_cd40_test$conf.int
+# Print the p value in the age_cd4_baseline_test object
+age_cd4_baseline_test$conf.int
 ```
 
-7. Again using the `XXX$XXX` notation, print only the confidence interval (`conf.int`) in your `age_cd40_test` object. What does this value tell you?
+7. Again using the `XXX$XXX` notation, print only the confidence interval (`conf.int`) in your `age_cd4_baseline_test` object. What does this value tell you?
 
 ```{r, eval = FALSE, echo = TRUE}
-# Print the confidence interval of the correlation coefficient in the age_cd40_test object
+# Print the confidence interval of the correlation coefficient in the age_cd4_baseline_test object
 XXX$XXX
 ```
 
 ```{r}
-# Print the confidence interval in the age_cd40_test object
-age_cd40_test$conf.int
+# Print the confidence interval in the age_cd4_baseline_test object
+age_cd4_baseline_test$conf.int
 ```
 
-8. Using the `tidy()` function (from the `broom` package), create a 'tidy' version of your `age_cd40_test` object called `age_cd420_tidy`
+8. Using the `tidy()` function (from the `broom` package), create a 'tidy' version of your `age_cd4_baseline_test` object called `age_cd4_baseline_tidy`
 
 ```{r}
-# Create a 'tidy' version of my age_cd40_test object
+# Create a 'tidy' version of my age_cd4_baseline_test object
 
-age_cd420_tidy <- tidy(xxx)
+age_cd4_baseline_tidy <- tidy(xxx)
 ```
 
 ```{r}
-# Create a 'tidy' version of my age_cd40_test object
+# Create a 'tidy' version of my age_cd4_baseline_test object
 
-age_cd420_tidy <- tidy(age_cd40_test)
+age_cd4_baseline_tidy <- tidy(age_cd4_baseline_test)
 ```
 
-9. Now, print your `age_cd420_tidy` object, how do the results look?
+9. Now, print your `age_cd4_baseline_tidy` object, how do the results look?
 
 ```{r}
-age_cd420_tidy
+age_cd4_baseline_tidy
 ```
 
 ##### Correlation as Linear Model
@@ -259,7 +259,7 @@ age_cd420_tidy
 
 ```{r, eval = FALSE, echo = TRUE}
 # GLM predicting a patient's CD4 T cell count at baseline form their age at baseline 
-age_cd40_glm <- glm(formula = XXX ~ XXX,
+age_cd4_baseline_glm <- glm(formula = XXX ~ XXX,
                     data = XXX)
 
 # Print 'tidy' results
@@ -268,11 +268,11 @@ tidy(XXX)
 
 ```{r}
 # GLM predicting a patient's CD4 T cell count at baseline form their age at baseline 
-age_cd40_glm <- glm(formula = cd40 ~ age,
+age_cd4_baseline_glm <- glm(formula = cd4_baseline ~ age,
                     data = trial)
 
 # Print 'tidy' results
-tidy(age_cd40_glm)
+tidy(age_cd4_baseline_glm)
 ```
 
 ### C - T-test
@@ -280,19 +280,19 @@ tidy(age_cd40_glm)
 > Research Question:
 > Do patients with a history of intravenous drug use have higher CD4 T cell counts at baseline compared to patients without a history of intravenous drug use?
 
-1. Using the code below, create a plot showing the distribution of CD4 T cell counts at baseline (`cd40`) depending on whether or not patients were symptomatic. Based on this plot, do you expect to find that symptomatic patients generally have higher (or lower) CD4 T cell counts?
+1. Using the code below, create a plot showing the distribution of CD4 T cell counts at baseline (`cd4_baseline`) depending on whether or not patients were symptomatic. Based on this plot, do you expect to find that symptomatic patients generally have higher (or lower) CD4 T cell counts?
 
 ```{r, eval= FALSE, echo = TRUE}
-ggplot(data = trial, mapping = aes(x = symptom, y = cd40)) + 
+ggplot(data = trial, mapping = aes(x = symptomatic, y = cd4_baseline)) + 
   stat_summary(geom = "bar", fun.y = "mean", fill = "white", col = "black") +
   geom_jitter(width = .2, alpha = .1) +
   labs(title = "ACTG175 Trial",
        subtitle = "Baseline CD4 T cell count and symptoms",
-       x = "Are patients symptomatic? (symptom)",
-       y = "CD4 T cell count at baseline (cd40)")
+       x = "Are patients symptomatic? (symptomatic)",
+       y = "CD4 T cell count at baseline (cd4_baseline)")
 ```
 
-2. Using the `t.test()` function, create an object called `symptom_cd40_test` which conducts a two-sample t-test comparing patients' CD4 T cell count at baseline (`cd40`) between patients that are symptomatic and those that are not (`symptomatic`)
+2. Using the `t.test()` function, create an object called `symptomatic_cd4_baseline_test` which conducts a two-sample t-test comparing patients' CD4 T cell count at baseline (`cd4_baseline`) between patients that are symptomatic and those that are not (`symptomatic`)
 
 ```{r, eval = FALSE, echo = TRUE}
 # T-test comparing CD4 T cell counts at baseline bewteen symptomatic and non-symptomatic patients
@@ -304,82 +304,82 @@ XXX <- t.test(formula = XXX ~ XXX,
 ```{r}
 # T-test comparing CD4 T cell counts at baseline bewteen symptomatic and non-symptomatic patients
 
-symptom_cd40_test <- t.test(formula = cd40 ~ symptom,
+symptomatic_cd4_baseline_test <- t.test(formula = cd4_baseline ~ symptomatic,
                            data = trial)
 ```
 
-3. Print the `symptom_cd40_test` object to see summary outputs.
+3. Print the `symptomatic_cd4_baseline_test` object to see summary outputs.
 
 ```{r}
-age_cd40_test
+age_cd4_baseline_test
 ```
 
-4. Apply the `names()` function to your `symptom_cd40_test` object to see all of its named elements
+4. Apply the `names()` function to your `symptomatic_cd4_baseline_test` object to see all of its named elements
 
 ```{r, eval = FALSE, echo = TRUE}
-# See all named elements of symptom_cd40_test
+# See all named elements of symptom_cd4_baseline_test
 names(XXX)
 ```
 
 ```{r}
-# See all named elements of symptom_cd40_test
-names(symptom_cd40_test)
+# See all named elements of symptomatic_cd4_baseline_test
+names(symptomatic_cd4_baseline_test)
 ```
 
-5. Using the `XXX$XXX` notation, print only the correlation estimate (`estimate`) in your `symptom_cd40_test` object. What does the result tell you?
+5. Using the `XXX$XXX` notation, print only the correlation estimate (`estimate`) in your `symptom_cd4_baseline_test` object. What does the result tell you?
 
 ```{r, eval = FALSE, echo = TRUE}
-# Print parameter estimates in the symptom_cd40_test object
+# Print parameter estimates in the symptom_cd4_baseline_test object
 XXX$XXX
 ```
 
 ```{r}
-# Print parameter estimates in the symptom_cd40_test object
-symptom_cd40_test$estimate
+# Print parameter estimates in the symptom_cd4_baseline_test object
+symptom_cd4_baseline_test$estimate
 ```
 
-6. Again using the `XXX$XXX` notation, print only the p value (`p.value`) in your `symptom_cd40_test` object. What does this value tell you?
+6. Again using the `XXX$XXX` notation, print only the p value (`p.value`) in your `symptom_cd4_baseline_test` object. What does this value tell you?
 
 ```{r, eval = FALSE, echo = TRUE}
-# Print the p value of the symptom_cd40_test object
+# Print the p value of the symptom_cd4_baseline_test object
 XXX$XXX
 ```
 
 ```{r}
-# Print the p value in the symptom_cd40_test object
-symptom_cd40_test$p.value
+# Print the p value in the symptom_cd4_baseline_test object
+symptomatic_cd4_baseline_test$p.value
 ```
 
-7. Again using the `XXX$XXX` notation, print only the confidence interval (`conf.int`) in your `symptom_cd40_test` object. What does this value tell you?
+7. Again using the `XXX$XXX` notation, print only the confidence interval (`conf.int`) in your `symptomatic_cd4_baseline_test` object. What does this value tell you?
 
 ```{r, eval = FALSE, echo = TRUE}
-# Print the confidence interval in the age_cd40_test object
+# Print the confidence interval in the age_cd4_baseline_test object
 XXX$XXX
 ```
 
 ```{r}
-# Print the confidence interval in the age_cd40_test object
-symptom_cd40_test$conf.int
+# Print the confidence interval in the age_cd4_baseline_test object
+symptomatic_cd4_baseline_test$conf.int
 ```
 
-8. Using the `tidy()` function (from the `broom` package), create a 'tidy' version of your `symptom_cd40_test` object called `symptom_cd40_tidy`
+8. Using the `tidy()` function (from the `broom` package), create a 'tidy' version of your `symptomatic_cd4_baseline_test` object called `symptomatic_cd4_baseline_tidy`
 
 ```{r, eval = FALSE, echo = TRUE}
-# Create a 'tidy' version of my symptom_cd40_test object
+# Create a 'tidy' version of my symptomatic_cd4_baseline_test object
 
-symptom_cd40_tidy <- tidy(xxx)
+symptomatic_cd4_baseline_tidy <- tidy(xxx)
 ```
 
 ```{r}
-# Create a 'tidy' version of my age_cd40_test object
+# Create a 'tidy' version of my symptomatic_cd4_baseline_test object
 
-symptom_cd40_tidy <- tidy(symptom_cd40_test)
+symptomatic_cd4_baseline_tidy <- tidy(symptomatic_cd4_baseline_test)
 ```
 
-9. Now, print your `symptom_cd40_tidy` object, how do the results look?
+9. Now, print your `symptomatic_cd4_baseline_tidy` object, how do the results look?
 
 ```{r}
-symptom_cd40_tidy
+symptomatic_cd4_baseline_tidy
 ```
 
 ##### T-test as Linear Model
@@ -388,8 +388,8 @@ symptom_cd40_tidy
 
 ```{r, eval = FALSE, echo = TRUE}
 # GLM predicting a patient's CD4 T cell count at baseline form their age at baseline 
-symptom_cd40_glm <- glm(formula = XXX ~ XXX,
-                        data = XXX)
+symptomatic_cd4_baseline_glm <- glm(formula = XXX ~ XXX,
+                                    data = XXX)
 
 # Print 'tidy' results
 tidy(XXX)
@@ -397,131 +397,131 @@ tidy(XXX)
 
 ```{r}
 # GLM predicting a patient's CD4 T cell count at baseline form their age at baseline 
-symptom_cd40_glm <- glm(formula = cd40 ~ symptom,
+symptomatic_cd4_baseline_glm <- glm(formula = cd4_baseline ~ symptomatic,
                         data = trial)
 
 # Print 'tidy' results
-tidy(symptom_cd40_glm)
+tidy(symptomatic_cd4_baseline_glm)
 ```
 
 ### D - ANOVA
 
 > Research Question:
-> Was there a difference between the treatment arms in the number of days until the first occurrence of one of the following major negative events: (i) a decline in CD4 T cell count of at least 50 (ii) an event indicating progression to AIDS, or (iii) death?
+> Was there a difference between the treatment molecule in the number of days until the first occurrence of one of the following major negative events: (i) a decline in CD4 T cell count of at least 50 (ii) an event indicating progression to AIDS, or (iii) death?
 
-1. Using the code below, create a plot showing the distribution of the number of days until a major negative event (`days`) for each treatment arm `arms` Based on this plot, do you expect to find that there were differences in treatment arms?
+1. Using the code below, create a plot showing the distribution of the number of days until a major negative event (`days`) for each treatment molecule `molecule` Based on this plot, do you expect to find that there were differences in treatment molecules?
 
 ```{r, eval= FALSE, echo = TRUE}
-ggplot(data = trial, mapping = aes(x = arms, y = days)) + 
+ggplot(data = trial, mapping = aes(x = molecule, y = days)) + 
   stat_summary(geom = "bar", fun.y = "mean", fill = "white", col = "black") +
   geom_jitter(width = .2, alpha = .1) +
   labs(title = "ACTG175 Trial",
        subtitle = "Baseline CD4 T cell count and symptoms",
-       x = "Treatment Arm (arms)",
+       x = "Treatment Arm (molecule)",
        y = "Number of days until a major negative event (days)")
 ```
 
-2. Using the `aov()` function, create an object called `days_arms_aov` which conducts an ANOVA comparing the number of days until a negative event (`days`) between treatment arms (`arms`).
+2. Using the `aov()` function, create an object called `days_molecule_aov` which conducts an ANOVA comparing the number of days until a negative event (`days`) between treatment molecule (`molecule`).
 
 ```{r, eval = FALSE, echo = TRUE}
-# ANOVA comparing number of days until a negative event between treatment arms
+# ANOVA comparing number of days until a negative event between treatment molecule
 
 XXX <- aov(formula = XXX ~ XXX,
               data = XXX)
 ```
 
 ```{r}
-# ANOVA comparing number of days until a negative event between treatment arms
+# ANOVA comparing number of days until a negative event between treatment molecule
 
-days_arms_aov <- aov(formula = days ~ arms,
+days_molecule_aov <- aov(formula = days ~ molecule,
                       data = trial)
 ```
 
-3. Print the `days_arms_aov` object to see summary outputs.
+3. Print the `days_molecule_aov` object to see summary outputs.
 
 ```{r}
-days_arms_aov
+days_molecule_aov
 ```
 
-4. Apply the `names()` function to your `days_arms_aov` object to see all of its named elements
+4. Apply the `names()` function to your `days_molecule_aov` object to see all of its named elements
 
 ```{r, eval = FALSE, echo = TRUE}
-# See all named elements of days_arms_aov
+# See all named elements of days_molecule_aov
 names(XXX)
 ```
 
 ```{r}
-# See all named elements of symptom_cd40_test
-names(days_arms_aov)
+# See all named elements of symptom_cd4_baseline_test
+names(days_molecule_aov)
 ```
 
-5. Using the `XXX$XXX` notation, print the coefficients in your `days_arms_aov` object. What do these values mean?
+5. Using the `XXX$XXX` notation, print the coefficients in your `days_molecule_aov` object. What do these values mean?
 
 ```{r, eval = FALSE, echo = TRUE}
-# Print coefficients in the days_arms_aov object
+# Print coefficients in the days_molecule_aov object
 XXX$XXX
 ```
 
 ```{r}
-# Print coefficients in the days_arms_aov object
-days_arms_aov$coefficients
+# Print coefficients in the days_molecule_aov object
+days_molecule_aov$coefficients
 ```
 
-7. Using the `tidy()` function (from the `broom` package), create a 'tidy' version of your `days_arms_aov` object called `days_arms_tidy`
+7. Using the `tidy()` function (from the `broom` package), create a 'tidy' version of your `days_molecule_aov` object called `days_molecule_tidy`
 
 ```{r, eval = FALSE, echo = TRUE}
-# Create a 'tidy' version of my symptom_cd40_test days_arms_aov
+# Create a 'tidy' version of my symptom_cd4_baseline_test days_molecule_aov
 
-days_arms_tidy <- tidy(xxx)
+days_molecule_tidy <- tidy(xxx)
 ```
 
 ```{r}
-# Create a 'tidy' version of my days_arms_aov object
+# Create a 'tidy' version of my days_molecule_aov object
 
-days_arms_tidy <- tidy(days_arms_aov)
+days_molecule_tidy <- tidy(days_molecule_aov)
 ```
 
-9. Now, print your `days_arms_tidy` object, how do the results look?
+9. Now, print your `days_molecule_tidy` object, how do the results look?
 
 ```{r}
-days_arms_tidy
+days_molecule_tidy
 ```
 
 ##### Post-hoc tests
 
-10. In order to compare pair-wise differences between groups after conducting an ANOVA, you need to conduct post-hoc tests. Using the `TukeyHSD()` function, conduct pair-wise tests to see which pairs of treatment arms differ in `days`. Save the result to an object called `days_arms_aov_post`
+10. In order to compare pair-wise differences between groups after conducting an ANOVA, you need to conduct post-hoc tests. Using the `TukeyHSD()` function, conduct pair-wise tests to see which pairs of treatment molecule differ in `days`. Save the result to an object called `days_molecule_aov_post`
 `
 ```{r, eval = FALSE, echo = TRUE}
 # Conduct pair-wise tests comparing every pair of treatment
-#  arms (arms) on days until a major negative event (days)
+#  molecule (molecule) on days until a major negative event (days)
 
 XXX <- TukeyHSD(XXX)
 ```
 
 ```{r}
 # Conduct pair-wise tests comparing every pair of treatment
-#  arms (arms) on days until a major negative event (days)
+#  molecule (molecule) on days until a major negative event (days)
 
-days_arms_aov_post <- TukeyHSD(days_arms_aov)
+days_molecule_aov_post <- TukeyHSD(days_molecule_aov)
 ```
 
-11. Print your `days_arms_aov_post` object, what do you see?
+11. Print your `days_molecule_aov_post` object, what do you see?
 
-12. Print 'tidy' results from your `days_arms_aov_post` object using the `tidy()` function
+12. Print 'tidy' results from your `days_molecule_aov_post` object using the `tidy()` function
 
 ```{r, eval = FALSE, echo = TRUE}
-# Print 'tidy' version of days_arms_aov_post
+# Print 'tidy' version of days_molecule_aov_post
 tidy(XXX)
 ```
 
-13. Based on what you've seen, what are your conclusions? Which treatment arms seem to differ?
+13. Based on what you've seen, what are your conclusions? Which treatment molecule seem to differ?
 
 ##### ANOVA as Linear Model
 
 10. Conduct the same analysis you did before, but this time use the `glm()` function. Use the code skeleton below to help you. Do you get the same results as you did using `aov()`? Which outputs are the same and which are different?
 
 ```{r, eval = FALSE, echo = TRUE}
-# GLM predicting number of days until a major negative event (days) as a function of treatment arm (arms)
+# GLM predicting number of days until a major negative event (days) as a function of treatment arm (molecule)
 XXX <- glm(formula = XXX ~ XXX,
            data = XXX)
 
@@ -533,20 +533,20 @@ tidy(XXX)
 ```
 
 ```{r}
-# GLM predicting number of days until a major negative event (days) as a function of treatment arm (arms)
-days_arms_glm <- glm(formula = days ~ arms,
+# GLM predicting number of days until a major negative event (days) as a function of treatment arm (molecule)
+days_molecule_glm <- glm(formula = days ~ molecule,
                      data = trial)
 
 # Print object
-days_arms_glm
+days_molecule_glm
 
 # Print 'tidy' results
-tidy(days_arms_glm)
+tidy(days_molecule_glm)
 ```
 
 ### F - Regression
 
-1. It's time to conduct a regression analysis predicting day the number of days until a major negative event `days` based on several variables. Perform a regression analysis predicting days until a major negative event `days` based on the following variables: `arms`, `gender`, `age`, `wtkg`, `hemo`, `drugs`, `race`, `cd40`, and `cd80`. Use the code chunk below to help you
+1. It's time to conduct a regression analysis predicting day the number of days until a major negative event `days` based on several variables. Perform a regression analysis predicting days until a major negative event `days` based on the following variables: `molecule`, `gender`, `age`, `weight_kg`, `hemo`, `drug_history`, `race`, `cd4_baseline`, and `cd8_baseline`. Use the code chunk below to help you
 
 ```{r, eval = FALSE, echo = TRUE}
 # Predict days based on many variables
@@ -595,46 +595,46 @@ For the remaining tasks, you choose the test!  For each task, do the following:
 - Conduct the same test using the generalized linear model function `glm()`
 - Explore the results and confirm you get the same result from your applied function!
 
-1. Do people with a history of intravenous drug use (`drugs`) tend to have major negative events (`days`) faster than those without a history of intravenous drug use?
+1. Do people with a history of intravenous drug use (`drug_history`) tend to have major negative events (`days`) faster than those without a history of intravenous drug use?
 
-2. Do men and women (`gender`) have different CD8 T cell counts at baseline (`cd80`)?
+2. Do men and women (`gender`) have different CD8 T cell counts at baseline (`cd8_baseline`)?
 
-3. Is there a relationship between patient's CD4 T cell counts at baseline (`cd40`) and at 96 weeks (`cd496`)?
+3. Is there a relationship between patient's CD4 T cell counts at baseline (`cd4_baseline`) and at 96 weeks (`cd4_96_weeks`)?
 
-4. Did older patients have higher CD4 T cell counts at baseline (`cd40`) compared to younger patients?
+4. Did older patients have higher CD4 T cell counts at baseline (`cd4_baseline`) compared to younger patients?
 
-5. Was there an effect of treatment arm (`arms`) on the *change* of CD4 T cell counts between baseline (`cd40`) and 96 weeks (`cd496)? Hint: to do this, you first need to create a column that shows the change in CD4 T cell counts. The code below should help you with this:
+5. Was there an effect of treatment arm (`molecule`) on the *change* of CD4 T cell counts between baseline (`cd4_baseline`) and 96 weeks (`cd4_96_weeks)? Hint: to do this, you first need to create a column that shows the change in CD4 T cell counts. The code below should help you with this:
 
 ```{r, echo = TRUE, eval = FALSE}
 trial <- trial %>%
-  mutate(cd496_change = cd496 - cd40)   # Add cd496_change to trial, indicating change from
+  mutate(cd4_96_weeks_change = cd4_96_weeks - cd4_baseline)   # Add cd4_96_weeks_change to trial, indicating change from
                                         # in cd4 T cell count from baseline to 96 weeks.
 ```
 
 ### Y - Advanced: Chi-square test
 
 > Research Question:
-> Was there an unequal distribution of gender in the treatment arms?
+> Was there an unequal distribution of gender in the treatment molecule?
 
-1. Using the code below, create a plot showing the percentage of patients who were male (`gender == "Male")` for each treatment arm `arms`. Based on this plot, do you expect to find that there were differences in treatment arms?
+1. Using the code below, create a plot showing the percentage of patients who were male (`gender == "Male")` for each treatment arm `molecule`. Based on this plot, do you expect to find that there were differences in treatment molecule?
 
 ```{r, eval= FALSE, echo = TRUE}
 # Calculate percentage of Male in each treatment arm
 
 arm_gender <- trial %>%
-  group_by(arms) %>%
+  group_by(molecule) %>%
   summarise(male_p = mean(gender == "Male"))
 
-ggplot(data = arm_gender, mapping = aes(x = arms, y = male_p)) + 
+ggplot(data = arm_gender, mapping = aes(x = molecule, y = male_p)) + 
   geom_bar(stat = "identity") +
   ylim(c(0, 1)) +
   labs(title = "ACTG175 AIDS trial",
        subtitle = "Percent of males in each treatment arm",
-       x = "Treatment Arm (arms)",
+       x = "Treatment Arm (molecule)",
        y = "Percent Male (gender)")
 ```
 
-2. Using the `chisq.test()` function, create an object called `gender_arm_test` which conducts a chi-square test comparing the frequencies of each gender (`gender`) for each level of arms (`arms`).
+2. Using the `chisq.test()` function, create an object called `gender_arm_test` which conducts a chi-square test comparing the frequencies of each gender (`gender`) for each level of molecule (`molecule`).
 
 - Note: The `chisq.test()` function (unfortunately) does not support formulas, so we have to enter the data in as two separate (factor) vectors:
 
@@ -649,7 +649,7 @@ XXX <- chisq.test(x = factor(trial$XXX),
 # Chi-square test comparing the frequencies of each gender for each treatment arm
 
 gender_arm_test <- chisq.test(x = factor(trial$gender),
-                              y = factor(trial$arms))
+                              y = factor(trial$molecule))
 ```
 
 3. Print the `gender_arm_test` object to see summary outputs.
@@ -716,48 +716,48 @@ gender_arm_tidy
 
 ##### Chi-square as Linear Model
 
-10. In the next section we'll compare the `chisq.test()` result to one using `glm()`. However, before we do, we need to restructure the data a bit. Run the following code to create a dataframe containing the counts for each combination of arms and gender:
+10. In the next section we'll compare the `chisq.test()` result to one using `glm()`. However, before we do, we need to restructure the data a bit. Run the following code to create a dataframe containing the counts for each combination of molecule and gender:
 
 ```{r, echo = TRUE, eval = FALSE}
 # Create a dataframe showing counts for each combination of
-#  arms and gender
+#  molecule and gender
 
-arms_gender_counts <- trial %>%
-                      group_by(arms, gender) %>%
+molecule_gender_counts <- trial %>%
+                      group_by(molecule, gender) %>%
                       summarise(counts = n())
 ```
 
-11. Print your `arms_gender_counts` object to see how it looks. What do the results mean?
+11. Print your `molecule_gender_counts` object to see how it looks. What do the results mean?
 
 12. Conduct the same analysis you did before, but this time use the `glm()` function. Use the code skeleton below to help you. Do you get the same results as you did using `chisq.test()`? Which outputs are the same and which are different?
 
-- Be sure to model `counts` based on the *interaction* between `arms` and `gender` using `formula = counts ~ arms * gender`. 
+- Be sure to model `counts` based on the *interaction* between `molecule` and `gender` using `formula = counts ~ molecule * gender`. 
 - We'll summarise the results of the model using the `anova()` function with the argument `test = "Rao"` to specify that we are conducting a score test (see https://en.wikipedia.org/wiki/Score_test for details)
 
 ```{r, eval = FALSE, echo = TRUE}
 # Create linear model predicting counts as a function of the 
-#  interaction between arms and gender
+#  interaction between molecule and gender
 
-arms_gender_glm <- glm(formula = XXX ~ XXX * XXX, # Model counts by the interaction of arms and gender
+molecule_gender_glm <- glm(formula = XXX ~ XXX * XXX, # Model counts by the interaction of molecule and gender
                        family = "poisson",        # Use poisson model family to specify we are modelling counts
                        data = XXX)
 
 # Print summary results as an anova table
-anova(arms_gender_glm, 
+anova(molecule_gender_glm, 
       test = 'Rao')   # Show a 'Rao" score test
 ```
 
 
 ```{r}
 # Create linear model predicting counts as a function of the 
-#  interaction between arms and gender
+#  interaction between molecule and gender
 
-arms_gender_glm <- glm(formula = counts ~ arms * gender, 
+molecule_gender_glm <- glm(formula = counts ~ molecule * gender, 
                        family = "poisson", 
-                       data = arms_gender_counts)
+                       data = molecule_gender_counts)
 
 # Print summary results as an anova table
-anova(arms_gender_glm, 
+anova(molecule_gender_glm, 
       test = 'Rao')   # Show a 'Rao" score test
 ```
 
@@ -947,12 +947,12 @@ The data were originally obtained from the `speff2trial` package.
 
 | Name | Description |
 |:-------------|:-------------------------------------|
-| pidnum | patient's ID number |
+| patient_id | patient's ID number |
 | age | age in years at baseline|
-|wtkg| weight in kg at baseline|
+|weight_kg| weight in kg at baseline|
 |hemo| hemophilia (0=no, 1=yes)|
 |homo| homosexual activity (0=no, 1=yes)|
-|drugs| history of intravenous drug use (0=no, 1=yes)|
+|drug_history| history of intravenous drug use (0=no, 1=yes)|
 |karnof| Karnofsky score (on a scale of 0-100)|
 |oprior| non-zidovudine antiretroviral therapy prior to initiation of study treatment (0=no, 1=yes)|
 |z30| zidovudine use in the 30 days prior to treatment initiation (0=no, 1=yes)|
@@ -965,15 +965,15 @@ The data were originally obtained from the `speff2trial` package.
 |symptom| symptomatic indicator (0=asymptomatic, 1=symptomatic)|
 |treat| treatment indicator (0=zidovudine only, 1=other therapies)|
 |offtrt| indicator of off-treatment before 96±5 weeks (0=no,1=yes)|
-|cd40| CD4 T cell count at baseline|
+|cd4_baseline| CD4 T cell count at baseline|
 |cd420| CD4 T cell count at 20±5 weeks|
-|cd496| CD4 T cell count at 96±5 weeks (=NA if missing)|
+|cd4_96_weeks| CD4 T cell count at 96±5 weeks (=NA if missing)|
 |r| missing CD4 T cell count at 96±5 weeks (0=missing, 1=observed)|
-|cd80| CD8 T cell count at baseline|
-|cd820| CD8 T cell count at 20±5 weeks|
+|cd8_baseline| CD8 T cell count at baseline|
+|cd8_20_weeks| CD8 T cell count at 20±5 weeks|
 |cens| indicator of observing the event in days|
 |days| number of days until the first occurrence of: (i) a decline in CD4 T cell count of at least 50 (ii) an event indicating progression to AIDS, or (iii) death.|
-|arms| treatment arm (0=zidovudine, 1=zidovudine and didanosine, 2=zidovudine and zalcitabine, 3=didanosine).|
+|molecule| treatment arm (0=zidovudine, 1=zidovudine and didanosine, 2=zidovudine and zalcitabine, 3=didanosine).|
 
 ## Functions
 
