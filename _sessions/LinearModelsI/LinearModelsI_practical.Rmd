@@ -859,7 +859,7 @@ rsq(hwy_mod)
 |:----|:-----|:------|
 |[hitters.csv](https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/hitters.csv?token=AIFo1DAkrffPG4jQkX3MRidCUqDYbHggks5cqJBjwA%3D%3D) | 50 | 20 |
 
-SHORT VERBAL DESCRIPTION OF DATA SETS
+The `hitters.csv` file contains Major League Baseball Data from the 1986 and 1987 seasons. The data originally come from the `ISLR` package.
 
 #### Variable description
 
