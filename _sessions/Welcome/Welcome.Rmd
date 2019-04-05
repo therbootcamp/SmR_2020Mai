@@ -204,8 +204,6 @@ We have an <high>ambitious schedule</high>!
 ]
 
 
-
-
 .pull-right5[
 <br>
 
@@ -222,17 +220,19 @@ We have an <high>ambitious schedule</high>!
 
 # Datasets
 
-You will be working with many <high>fun datasets</high> in the practicals
+You will be working with many <high>diverse datasets</high> in the practicals
 
-1 - Predicting baseball player salaries
+1 - Predicting baseball player salaries.
 
-2 - Analysing the results from a real clinical trial comparing the effectiveness of 4 different drugs on the health of AIDS patients.
+2 - Analysing the results from a real clinical trial.
 
-3 - Analysing the "Tomatometer" movie ratings of raters who were either sober or under the influence of alcohol
+3 - Analysing the "Tomatometer" movie ratings of raters who were either sober or under the influence of alcohol.
 
-4 - Predicting the weekly price of avacados
+4 - Predicting the weekly price of avacados across the United States.
 
 5 - Testing a real (and very influential) dataset exploring whether or not people can see into the future.
+
+6 - And more!
 
 ]
 
@@ -241,6 +241,9 @@ You will be working with many <high>fun datasets</high> in the practicals
 
 .pull-right5[
 
+```{r, echo = FALSE, out.width = "80%"}
+knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/dataset_collage.png?token=AIFo1GPQfZQlC7yg14QfN9DSiXvEuRLxks5csP7nwA%3D%3D")
+```
 
 
 
@@ -283,6 +286,11 @@ At any time, you can <high>request a 15 minute 1-1 intensive</high> coaching ses
 ---
 # Cheatsheets
 
+- Cheatsheets are great ways to help you <high>discover</high> new functions, and <high>remember</high> old ones.
+- Don't feel overwhelmed (even we don't use half of these functions).
+- The printed cheatsheets are <high>yours to keep!</high>
+
+
 <table width="100%" style="cellspacing:0; cellpadding:0; border:none">
   <tr>    
   <td>
@@ -311,23 +319,23 @@ At any time, you can <high>request a 15 minute 1-1 intensive</high> coaching ses
 
 
 
+
 ---
 
-.pull-left4[
+.pull-left55[
 
 <br><br>
 # Breaks
 
-1 - Feel free to take breaks when you need them!
-
-2 - Help yourself to refreshments
-
-3 - Lunch on your own or together at Tibits
+- Programming is exhausting! <high>Take breaks</high> when you need them!
+- Help yourself to refreshments and as much coffee as you can drink.
+- Lunch on your own or <high>walk with the group</high> to <high>Tibits</high> or the <high>Union Diner</high>
+- Be back in the room at <high>13:00 sharp</high> so we can continue learning!
 
 ]
 
 
-.pull-right6[
+.pull-right4[
 
 <p align='center'><br><br><br><br>
 <img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/tibits.jpg" height="400" vspace="10"><br>
@@ -353,7 +361,7 @@ At any time, you can <high>request a 15 minute 1-1 intensive</high> coaching ses
 
 <br><br><br>
 
-<font style="font-size:32px"><high>Let us know, personally or via mail, if you don't want be published.</high></font>
+<font style="font-size:32px"><high>Let us know, personally or via email, if you don't want your photos published.</high></font>
 
 ]
 
