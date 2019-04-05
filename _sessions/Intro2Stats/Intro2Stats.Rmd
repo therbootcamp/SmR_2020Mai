@@ -832,8 +832,12 @@ Using the binomial distributions on the right, answer the following questions:
 
 ### Q1
 
+<<<<<<< HEAD
 If there is a 50% chance of a drug being successful, then out of 10 drugs, <high>how likely is it that exactly 5 will be successful</high>?
 
+=======
+If there is a 50% chance of a clinical trial being successful, then out of 10 trials, how likely is it that exactly 5 will be successful?
+>>>>>>> 366b98c024dcd0095c0eab11b57ab62efeaeaec5
 
 ### Q2
 
@@ -886,6 +890,7 @@ p1
 
 # 6: Null hypothesis testing
 
+<<<<<<< HEAD
 Null hypothesis testing is a statistical framework where one hypothesis (H<sub>0</sub>) is tested to defend the other, alternative hypothesis (H<sub>1</sub>).
 
 This evaluation is performed by calculating the likelihood of the data <high>given</high> that one of these hypotheses are true.
@@ -930,6 +935,11 @@ This evaluation is performed by calculating the likelihood of the data <high>giv
 </table>
 
 ]
+=======
+In order to compare these hypotheses, we calculate the likelihood of obtaining data <high>assuming</high> that the null hypothesis is true.
+
+[Wikipedia: Null Hypothesis Testing (NHT)](https://en.wikipedia.org/wiki/Null_hypothesis)
+>>>>>>> 366b98c024dcd0095c0eab11b57ab62efeaeaec5
 
 
 .pull-right45[
@@ -950,10 +960,11 @@ drug_placebo_gg
 
 .pull-left45[
 
-# 7: Test statistic
+# 7: Test statistics
 
 Sample statistics (like means and standard deviations) are converted into <high>test statistics</high>.
 
+<<<<<<< HEAD
 Test statistics are numbers that help you quantify how likely data is given a null hypothesis. Generally, the <high>more extreme</high> your test statistic is, the <high>more evidence</high> *against* the null hypothesis.
 
 <table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%>
@@ -992,8 +1003,23 @@ Test statistics are numbers that help you quantify how likely data is given a nu
   </td>  
 </tr>
 </table>
+=======
+Test statistics are unit-free numbers that help you quantify how likely data is given a null hypothesis.
+>>>>>>> 366b98c024dcd0095c0eab11b57ab62efeaeaec5
 
 
+<<<<<<< HEAD
+=======
+Different tests give you different test statistics:
+
+|Test|Test statistic|
+|:----|:----|
+|T-test|T-statistic|
+|Correlation test|Correlation coefficient|
+|ANOVA|F-statistic|
+
+Generally, the <high>more extreme</high> (i.e.; highly positive or highly negative) your test statistic is, the <high>more evidence against</high> the null hypothesis.
+>>>>>>> 366b98c024dcd0095c0eab11b57ab62efeaeaec5
 
 
 ]
@@ -1016,7 +1042,13 @@ Test statistics are numbers that help you quantify how likely data is given a nu
 
 *p*-values are used to quantify the likelihood of data given the <high>probability distribution</high> under the <high>null hypothesis</high>.
 
+<<<<<<< HEAD
 If a p-value is *small* (i.e.; p < .05), this means that the likelihood of obtaining that data given the null hypothesis is *small*, suggesting that the null hypothesis is *wrong*.
+=======
+|p-value Definition|
+|:----|
+|A p-value is the probability of obtaining test statistics as extreme as what you got assuming a null hypothesis is true|
+>>>>>>> 366b98c024dcd0095c0eab11b57ab62efeaeaec5
 
 #### Formally
 
@@ -1042,6 +1074,7 @@ A p-value is the probability of obtaining a test statistic as extreme as what yo
 ---
 
 
+<<<<<<< HEAD
 .pull-left45[
 
 # What about Oetlinger?
@@ -1049,12 +1082,18 @@ A p-value is the probability of obtaining a test statistic as extreme as what yo
 Our <high><i>p</i>-value</high>, indicating the <high>likelihood of obtaining the data if the null hypothesis is true</high>, was (only) `0.0273`.
 
 The data are very unlikely, if the mean amount poured is really 33cl. 
+=======
+.pull-left5[
 
-It is so unlikely, that using the 0.05 threshold, we could conclude...
+# What about Oetlinger?
 
-<font style="font-size:32px">The Oetlinger buvette is pouring less than 33cl!&#128551;&#x1F620;&#x1F92C;</font> 
+|Step|Result|
+|:----|:-----|
+|Null Hypothesis (H0)|The mean amount of beer poured by Oetlinger is (exactly) equal to 33ml.|
+|Sample Statistics|Mean = 33, Standard Deviation = 3.90.|
+|Test statistic and p-value|We convert our stample statistics to a test statistic of <high>t = -2.51</high> and a <high>p-value</high> of <high>p = 0.0273|
 
-<br>
+<high>Conclusion</high>: Using a p < 0.05 threshold, we conclude that, because likelihood of obtaining the data if the null hypothesis is true is only .0273 (< 0.05), then the null hypothesis is likely wrong, and *the Oetlinger buvette is consistently pouring less than 33dl!*
 
 *Note: These data are completely made up :) We're sure the Oetlinger Buvette is not ripping us off*
 
@@ -1062,15 +1101,68 @@ It is so unlikely, that using the 0.05 threshold, we could conclude...
 
 
 .pull-right45[
+<br><br>
+```{r, echo = FALSE, out.width = "100%"}
+knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/beer_null_p.png?token=AIFo1KnzD3U7_pjvmk0K09hE2HkXISmAks5cq3AGwA%3D%3D")
+```
+
+
+]
+
+
+---
+>>>>>>> 366b98c024dcd0095c0eab11b57ab62efeaeaec5
+
+
+<<<<<<< HEAD
+<font style="font-size:32px">The Oetlinger buvette is pouring less than 33cl!&#128551;&#x1F620;&#x1F92C;</font> 
+
+<br>
+=======
+.pull-left5[
+
+# What about Oetlinger?
+
+|Step|Result|
+|:----|:-----|
+|Null Hypothesis (H0)|The mean amount of beer poured by Oetlinger is (exactly) equal to 33ml.|
+|Sample Statistics|Mean = 33, Standard Deviation = 3.90.|
+|Test statistic and p-value|We convert our stample statistics to a test statistic of <high>t = -2.51</high> and a <high>p-value</high> of <high>p = 0.0273|
+
+<high>Conclusion</high>: Using a p < 0.05 threshold, we conclude that, because likelihood of obtaining the data if the null hypothesis is true is only .0273 (< 0.05), then the null hypothesis is likely wrong, and *the Oetlinger buvette is consistently pouring less than 33dl!*
+>>>>>>> 366b98c024dcd0095c0eab11b57ab62efeaeaec5
+
+*Note: These data are completely made up :) We're sure the Oetlinger Buvette is not ripping us off*
+
+]
+
+
+.pull-right45[
+<<<<<<< HEAD
 
 <br><br><br>
 
 <p align = "center">
   <img src="image/beer_null_p.png">
 </p>
+=======
+<br>
+### Doing our test in R!
+
+```{r}
+# Define beer sample
+beer <- c(28, 31, 28, 37, 30, 
+          33, 25, 33, 24, 30)
+
+# Conduct one-sample t-test
+t.test(x = beer, 
+       mu = 33)
+```
+>>>>>>> 366b98c024dcd0095c0eab11b57ab62efeaeaec5
 
 
 ]
+
 
 
 ---
