@@ -43,8 +43,8 @@ options(digits = 3)
 
 # Load packages
 library(tidyverse)
-
-
+library(broom)
+library(rsq)
 
 trial <- read_csv(file = "1_Data/trial_ACTG175.csv")
 
@@ -90,10 +90,11 @@ By the end of this practical you will know how to:
 
 3. Using `library()` load the packages below (if you don't have them, you'll need to install them first).
 
-```{r, echo = TRUE, eval = FALSE}
+```{r, echo = TRUE, eval = TRUE, message = FALSE}
 # Load packages necessary for this script
 library(tidyverse)
 library(broom)
+library(rsq)
 ```
 
 4. Using the following template, load the `trial_ACTG175.csv` data into R and store it as a new object called `trial` (Hint: Don't type the path directly! Use the "tab" completion!).
@@ -152,11 +153,11 @@ View(trial)
 > Research Question:
 > Is there a correlation between a patient's age and their CD4 T cell count at baseline?
 
-1. Using the code below, create a plot showing the relationship between age and CD4 T cell count at baseline. Based on this plot, do you expect to find a relationship between the two variables?
+1. Using the code below, create a plot showing the relationship between age and CD4 T cell count at baseline. Based on this plot, do you expect to find a relationship between the two variables? (Hint: See all of the possible named colors in R by running `colors()`. Then change the color of your histogram to your favorite one!)
 
 ```{r, eval = FALSE, echo = TRUE}
 ggplot(data = trial, mapping = aes(x = age, y = cd4_baseline)) + 
-      geom_point(alpha = .1) +
+      geom_point(alpha = .2, col = "darkblue") +
   labs(title = "ACTG175 Trial",
        subtitle = "Baseline age and CD4 T cell count at baseline ",
        x = "Age (age)",
@@ -235,7 +236,7 @@ age_cd4_baseline_test$conf.int
 
 8. Using the `tidy()` function (from the `broom` package), create a 'tidy' version of your `age_cd4_baseline_test` object called `age_cd4_baseline_tidy`
 
-```{r}
+```{r, eval = FALSE}
 # Create a 'tidy' version of my age_cd4_baseline_test object
 
 age_cd4_baseline_tidy <- tidy(xxx)
@@ -283,13 +284,14 @@ tidy(age_cd4_baseline_glm)
 1. Using the code below, create a plot showing the distribution of CD4 T cell counts at baseline (`cd4_baseline`) depending on whether or not patients were symptomatic. Based on this plot, do you expect to find that symptomatic patients generally have higher (or lower) CD4 T cell counts?
 
 ```{r, eval= FALSE, echo = TRUE}
-ggplot(data = trial, mapping = aes(x = symptomatic, y = cd4_baseline)) + 
+ggplot(data = trial, mapping = aes(x = symptomatic, y = cd4_baseline, col = symptomatic)) + 
   stat_summary(geom = "bar", fun.y = "mean", fill = "white", col = "black") +
-  geom_jitter(width = .2, alpha = .1) +
+  geom_jitter(width = .1, alpha = .1) +
   labs(title = "ACTG175 Trial",
        subtitle = "Baseline CD4 T cell count and symptoms",
        x = "Are patients symptomatic? (symptomatic)",
-       y = "CD4 T cell count at baseline (cd4_baseline)")
+       y = "CD4 T cell count at baseline (cd4_baseline)") +
+  guides(col = FALSE)
 ```
 
 2. Using the `t.test()` function, create an object called `symptomatic_cd4_baseline_test` which conducts a two-sample t-test comparing patients' CD4 T cell count at baseline (`cd4_baseline`) between patients that are symptomatic and those that are not (`symptomatic`)
@@ -326,39 +328,39 @@ names(XXX)
 names(symptomatic_cd4_baseline_test)
 ```
 
-5. Using the `XXX$XXX` notation, print only the correlation estimate (`estimate`) in your `symptom_cd4_baseline_test` object. What does the result tell you?
+5. Using the `XXX$XXX` notation, print only the correlation estimate (`estimate`) in your `symptomatic_cd4_baseline_test` object. What does the result tell you?
 
 ```{r, eval = FALSE, echo = TRUE}
-# Print parameter estimates in the symptom_cd4_baseline_test object
+# Print parameter estimates in the symptomatic_cd4_baseline_test object
 XXX$XXX
 ```
 
 ```{r}
-# Print parameter estimates in the symptom_cd4_baseline_test object
-symptom_cd4_baseline_test$estimate
+# Print parameter estimates in the symptomatic_cd4_baseline_test object
+symptomatic_cd4_baseline_test$estimate
 ```
 
-6. Again using the `XXX$XXX` notation, print only the p value (`p.value`) in your `symptom_cd4_baseline_test` object. What does this value tell you?
+6. Again using the `XXX$XXX` notation, print only the p value (`p.value`) in your `symptomatic_cd4_baseline_test` object. What does this value tell you?
 
 ```{r, eval = FALSE, echo = TRUE}
-# Print the p value of the symptom_cd4_baseline_test object
+# Print the p value of the symptomatic_cd4_baseline_test object
 XXX$XXX
 ```
 
 ```{r}
-# Print the p value in the symptom_cd4_baseline_test object
+# Print the p value in the symptomatic_cd4_baseline_test object
 symptomatic_cd4_baseline_test$p.value
 ```
 
 7. Again using the `XXX$XXX` notation, print only the confidence interval (`conf.int`) in your `symptomatic_cd4_baseline_test` object. What does this value tell you?
 
 ```{r, eval = FALSE, echo = TRUE}
-# Print the confidence interval in the age_cd4_baseline_test object
+# Print the confidence interval in the symptomatic_cd4_baseline_test object
 XXX$XXX
 ```
 
 ```{r}
-# Print the confidence interval in the age_cd4_baseline_test object
+# Print the confidence interval in the symptomatic_cd4_baseline_test object
 symptomatic_cd4_baseline_test$conf.int
 ```
 
@@ -412,13 +414,14 @@ tidy(symptomatic_cd4_baseline_glm)
 1. Using the code below, create a plot showing the distribution of the number of days until a major negative event (`days`) for each treatment molecule `molecule` Based on this plot, do you expect to find that there were differences in treatment molecules?
 
 ```{r, eval= FALSE, echo = TRUE}
-ggplot(data = trial, mapping = aes(x = molecule, y = days)) + 
+ggplot(data = trial, mapping = aes(x = molecule, y = days, col = molecule)) + 
   stat_summary(geom = "bar", fun.y = "mean", fill = "white", col = "black") +
-  geom_jitter(width = .2, alpha = .1) +
+  geom_jitter(width = .2, alpha = .2) +
   labs(title = "ACTG175 Trial",
        subtitle = "Baseline CD4 T cell count and symptoms",
        x = "Treatment Arm (molecule)",
-       y = "Number of days until a major negative event (days)")
+       y = "Number of days until a major negative event (days)") +
+  guides(col = FALSE)
 ```
 
 2. Using the `aov()` function, create an object called `days_molecule_aov` which conducts an ANOVA comparing the number of days until a negative event (`days`) between treatment molecule (`molecule`).
@@ -546,7 +549,7 @@ tidy(days_molecule_glm)
 
 ### F - Regression
 
-1. It's time to conduct a regression analysis predicting day the number of days until a major negative event `days` based on several variables. Perform a regression analysis predicting days until a major negative event `days` based on the following variables: `molecule`, `gender`, `age`, `weight_kg`, `hemo`, `drug_history`, `race`, `cd4_baseline`, and `cd8_baseline`. Use the code chunk below to help you
+1. It's time to conduct a regression analysis predicting day the number of days until a major negative event `days` based on several variables. Perform a regression analysis predicting days until a major negative event `days` based on the following variables: `molecule`, `gender`, `age`, `weight_kg`, `drug_history`, `race`, `cd4_baseline`, and `cd8_baseline`. Use the code chunk below to help you
 
 ```{r, eval = FALSE, echo = TRUE}
 # Predict days based on many variables
@@ -555,19 +558,57 @@ days_glm <- glm(formula = XXX ~ XXX + XXX + XXX ...,
                 data = XXX)
 ```
 
+```{r}
+# Predict days based on many variables
+
+days_glm <- glm(formula = days ~ molecule + gender + age + weight_kg + drug_history + race + cd4_baseline + cd8_baseline,
+                data = trial)
+```
+
 2. Using `tidy()` look at the summary results. Which variables seem to be able to predict the number of days until a major negative event?
 
 ```{r, eval = FALSE, echo = TRUE}
 tidy(XXX)
 ```
 
-3. Using `rsq()` calculate the r-squared value of your model. Was it high or low?
+
+```{r}
+tidy(days_glm)
+```
+
+3. Using `rsq()` calculate the r-squared value of your model. Was it high or low? Recall that r-squared can range anywhere from 0 (meaning the model explains *none* of the variance in `days`), all the way up to 1 (meaning the model expllains *all* of the variance in `days`). 
 
 ```{r, eval = FALSE, echo = TRUE}
 rsq(XXX)
 ```
 
-4. Using the code below, visualise the absolute residuals from the model. What does this mean?
+```{r}
+rsq(days_glm)
+```
+
+4. Using the code below, visualise the residuals from the model. What does this mean?
+
+```{r, eval = FALSE, echo = TRUE}
+# Save residuals as days_glm_resid
+days_glm_resid <- resid(days_glm)
+
+# Plot histogram
+ggplot(data = tibble(days_glm_resid), aes(x = days_glm_resid)) +
+  geom_histogram(col = "white", fill = "skyblue") +
+  geom_vline(xintercept = 0) +
+  labs(title = "Residuals of regression model predicting days",
+       x = "Absolute residuals abs(Fit - Truth)",
+       y = 'Frequency')
+```
+
+5. Using the code below, calculate the mean absolute residuals from the model. What do these mean?
+
+```{r, eval = FALSE, echo = TRUE}
+# Calculate the mean absolute residuals of the model
+mean(abs(resid(XXX)))
+```
+
+6. Using the code below, visualise the *absolute* residuals from the model. What does this mean?
 
 ```{r, eval = FALSE, echo = TRUE}
 # Save residuals as days_glm_resid
@@ -575,12 +616,16 @@ days_glm_absresid <- abs(resid(days_glm))
 
 # Plot histogram
 ggplot(data = tibble(days_glm_absresid), aes(x = days_glm_absresid)) +
-  geom_histogram(col = "white")
+  geom_histogram(col = "white", fill = "skyblue") +
+  geom_vline(xintercept = 0) +
+  labs(title = "Absolute residuals of regression model predicting days",
+       x = "Absolute residuals abs(Fit - Truth)",
+       y = 'Frequency')
 ```
 
-5. Using the code below, calculate the mean absolute residuals from the model. What do these mean?
+7. Using the code below, calculate the mean absolute residuals from the model. What do these mean?
 
-```{r}
+```{r, eval = FALSE, echo = TRUE}
 # Calculate the mean absolute residuals of the model
 mean(abs(resid(XXX)))
 ```
@@ -718,7 +763,7 @@ gender_arm_tidy
 
 10. In the next section we'll compare the `chisq.test()` result to one using `glm()`. However, before we do, we need to restructure the data a bit. Run the following code to create a dataframe containing the counts for each combination of molecule and gender:
 
-```{r, echo = TRUE, eval = FALSE}
+```{r, echo = TRUE}
 # Create a dataframe showing counts for each combination of
 #  molecule and gender
 
@@ -983,17 +1028,19 @@ The data were originally obtained from the `speff2trial` package.
 |:------|:------|
 |`tidyverse`|`install.packages("tidyverse")`|
 | `broom` | `install.packages("broom")` |
+| `rsq` | `install.packages("rsq")` |
 
 ### Functions
 
 | Function| Package | Description |
 |:---|:------|:---------------------------------------------|
-|     `cor.test`|`stats`| Correlation test | 
-|     `t.test`|`stats`| Student's T-test | 
-|     `aov`|`stats`| Analysis of Variance| 
-|     `chisq.test`|`stats`| Chi-square test| 
-|     `glm`|`stats`| Generalized linear model| 
-|     `tidy`|`broom`| Create 'tidy' results from statistical objects| 
+|     `cor.test()`|`stats`| Correlation test | 
+|     `t.test()`|`stats`| Student's T-test | 
+|     `aov()`|`stats`| Analysis of Variance| 
+|     `chisq.test()`|`stats`| Chi-square test| 
+|     `glm()`|`stats`| Generalized linear model| 
+|     `tidy()`|`broom`| Create 'tidy' results from statistical objects| 
+|     `rsq()`|`rsq`| Obtain and print R-squared values from a regression object| 
 
 
 ## Resources
