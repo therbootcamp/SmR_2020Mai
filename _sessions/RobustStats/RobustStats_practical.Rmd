@@ -295,7 +295,7 @@ m3 <- glm(volume_index ~ price_per_avocado + type,
 plot(predict(m3), residuals(m3))
 ```
 
-13. The residual behavior are still not ideal. There seems to still some skewness differences between low and high predicted values, but now one would not expect anymore that those would substantially alter the results. So, go on and evaluate the model using `summary()`.      
+13. The residual behavior is still not ideal. There seems to still some skewness differences between low and high predicted values, but now one would not expect anymore that those would substantially alter the results. So, go on and evaluate the model using `summary()`.      
 
 ```{r}
 # evaluate m3
