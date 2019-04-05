@@ -148,18 +148,28 @@ avocado_w = avocado %>%
          precipitation_usa = precipation_usa)
 
 
+avocado_w %>%
+  filter(region == "California") %>%
+  group_by(region, year) %>%
+  dplyr::summarize(m = mean(volume)) %>%
+  arrange(desc(m))
+
+
 # cali
 avocado_cali = avocado_w %>%
   filter(region == 'California')
 
-# new york
-avocado_ny = avocado_w %>%
-  filter(region == 'California')
+# # new york
+# avocado_ny = avocado_w %>%
+#   filter(region == 'NewYork')
 
+avocado_ny$volume = avocado_ny$volume * 3.9
+avocado_ny$volume_index = avocado_ny$volume ** .1
+avocado_ny$volume_index = (avocado_ny$volume_index-1.5) * 2.7
 
-write.csv(avocado_w, '_sessions/RobustStats/1_Data/avocado.csv')
-write.csv(avocado_cali, '_sessions/RobustStats/1_Data/avocado_cali.csv')
-write.csv(avocado_ny, '_sessions/RobustStats/1_Data/avocado_ny.csv')
+write_csv(avocado_w, '_sessions/RobustStats/1_Data/avocado.csv')
+write_csv(avocado_cali, '_sessions/RobustStats/1_Data/avocado_cali.csv')
+write_csv(avocado_ny, '_sessions/RobustStats/1_Data/avocado_ny.csv')
 dim(avocado_w)
 dim(avocado_cali)
 dim(avocado_ny)

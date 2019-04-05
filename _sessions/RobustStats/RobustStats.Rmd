@@ -153,7 +153,7 @@ The most serious data problem are predictor correlations. If k-1 predictors can 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;become very vague (<high>multicollinearity</high>).
 
 <br>
-The <high>variance inflation factor</high> (VIF) indicates the amount of variance of each predictor explained by the other predictors. The literature recommends retaining predictors with <high>VIF < 10</high> [(Stine, 1995)](https://therbootcamp.github.io/SwR_2019Apr/_sessions/RobustStats/literature/)
+The <high>variance inflation factor</high> (VIF) indicates the amount of variance of each predictor explained by the other predictors. The literature recommends retaining predictors with <high>VIF < 10</high> [(Stine, 1995)](https://therbootcamp.github.io/SwR_2019Apr/_sessions/RobustStats/literature/Stine1995.pdf)
 
 ]
 
@@ -1057,7 +1057,6 @@ Bootstrapping can be used to obtain sampling distributions for any statistic.
 <b>Step 3</b><br><high>Evaluate the simulated statistics</high>, e.g., via a confidence intervals.
 
 <p align="center"><img src="image/bootCI.png" height=50px style="padding-top:10px"></p>
-
 
 
 ]
