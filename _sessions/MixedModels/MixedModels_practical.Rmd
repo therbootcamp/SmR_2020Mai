@@ -48,7 +48,7 @@ library(sjstats)
 library(pbkrtest)
 
 # Load data
-tom <- read_csv("1_Data/Tomatometer_dat.csv")
+tom <- read_csv("1_Data/Tomatometer.csv")
 schools <- read_csv("1_Data/schools.csv")
 cr <- read_csv("1_Data/cancer_remission.csv")
 ```
@@ -101,10 +101,10 @@ library(lme4)
 library(sjstats)
 ```
 
-4. Using the following template, load the `Tomatometer_dat.csv` and `schools.csv` data into R and store it as a new object called `tom` and `schools`, respectively (Hint: Don't type the path directly! Use the "tab" completion!).
+4. Using the following template, load the `tomatometer.csv` and `schools.csv` data into R and store it as a new object called `tom` and `schools`, respectively (Hint: Don't type the path directly! Use the "tab" completion!).
 
 ```{r, echo = TRUE, eval = FALSE}
-# Load Tomatometer_dat.csv from the 1_Data folder
+# Load tomatometer.csv from the 1_Data folder
 XX <- read_csv(file = "XX/XX")
 
 # Load school.csv from the 1_Data folder
@@ -113,8 +113,8 @@ XX<- read_csv("XX/XX")
 
 
 ```{r}
-# Load Tomatometer_dat.csv from the 1_Data folder
-tom <- read_csv(file = "1_Data/Tomatometer_dat.csv")
+# Load tomatometer.csv from the 1_Data folder
+tom <- read_csv(file = "1_Data/tomatometer.csv")
 
 # Load school.csv from the 1_Data folder
 schools <- read_csv("1_Data/schools.csv")
@@ -1003,11 +1003,11 @@ LMM_plot
 
 |File | Rows | Columns |
 |:----|:-----|:------|
-|[Tomatometer_dat.csv](https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/Tomatometer_dat.csv?token=AZQb9iWcc8yUCbFwBliP5UfVzAooM3okks5cmQ96wA%3D%3D) | `r nrow(tom)` | `r ncol(tom)` |
+|[tomatometer.csv](https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/Tomatometer_dat.csv?token=AZQb9iWcc8yUCbFwBliP5UfVzAooM3okks5cmQ96wA%3D%3D) | `r nrow(tom)` | `r ncol(tom)` |
 |[schools.csv](https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/schools.csv?token=AZQb9mdlio2aNiTgfaddDHxpENKWm3Hhks5cmQ9jwA%3D%3D) | `r nrow(schools)` | `r ncol(schools)` |
 |[cancer_remission.csv](https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/cancer_remission.csv?token=AZQb9ic1yv1-UdOtMITu0HyaW1xRMdV9ks5cmQ-bwA%3D%3D) | `r nrow(cr)` | `r ncol(cr)` |
 
-The *Tomatometer_dat.csv* dataset contains tomatometer ratings from 200 raters who each rated 15 movies, once while they were sober and once while they were drunk.
+The *tomatometer.csv* dataset contains tomatometer ratings from 200 raters who each rated 15 movies, once while they were sober and once while they were drunk.
 
 The *schools.csv* dataset contains ratings of extraversion, openness to experience, agreeableness, and a social score of 1200 students from different classes of 6 different schools.
 

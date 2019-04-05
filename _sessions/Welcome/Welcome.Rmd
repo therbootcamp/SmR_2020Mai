@@ -209,11 +209,45 @@ We have an <high>ambitious schedule</high>!
 .pull-right5[
 <br>
 
-  <iframe src="(https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsI/LinearModelsI_practical.html" height="480px" width = "500px"></iframe>
+  <iframe src="https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsI/LinearModelsI_practical.html" height="480px" width = "500px"></iframe>
 
-  Example practical:<a href="(https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsI/LinearModelsI_practical.html"> Linear Models I </a>
+  Example practical:<a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsI/LinearModelsI_practical.html"> Linear Models I </a>
 
 ]
+
+
+---
+
+.pull-left45[
+
+# Datasets
+
+You will be working with many <high>fun datasets</high> in the practicals
+
+1 - Predicting baseball player salaries
+
+2 - Analysing the results from a real clinical trial comparing the effectiveness of 4 different drugs on the health of AIDS patients.
+
+3 - Analysing the "Tomatometer" movie ratings of raters who were either sober or under the influence of alcohol
+
+4 - Predicting the weekly price of avacados
+
+5 - Testing a real (and very influential) dataset exploring whether or not people can see into the future.
+
+]
+
+
+
+
+.pull-right5[
+
+
+
+
+]
+
+
+
 
 ---
 

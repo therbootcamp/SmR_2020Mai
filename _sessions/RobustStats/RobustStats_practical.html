@@ -212,7 +212,7 @@ $(document).ready(function () {
 <p>By the end of this practical you will know how to:</p>
 <ol style="list-style-type: decimal">
 <li>Evaluate regression assumptions.</li>
-<li>Run off-the-shelve non-parametric tests.</li>
+<li>Run off-the-shelf non-parametric tests.</li>
 <li>Run bootstrap analyses.</li>
 </ol>
 </div>
@@ -561,8 +561,8 @@ anova(m1, m2)
 # non-parametric tests ----------------
 
 #  split data (not strictly necessary)
-mpg_suv     &lt;- mpg %&gt;% select(class == &#39;suv&#39;)
-mpg_compact &lt;- mpg %&gt;% select(class == &#39;compact&#39;)
+mpg_suv     &lt;- mpg %&gt;% filter(class == &#39;suv&#39;)
+mpg_compact &lt;- mpg %&gt;% filter(class == &#39;compact&#39;)
 
 # wilcoxon
 wilcoxon.test(mpg_suv$hwy, mpg_compact$hwy)
