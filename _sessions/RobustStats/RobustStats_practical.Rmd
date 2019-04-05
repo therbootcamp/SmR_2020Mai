@@ -720,8 +720,8 @@ anova(m1, m2)
 # non-parametric tests ----------------
 
 #  split data (not strictly necessary)
-mpg_suv     <- mpg %>% select(class == 'suv')
-mpg_compact <- mpg %>% select(class == 'compact')
+mpg_suv     <- mpg %>% filter(class == 'suv')
+mpg_compact <- mpg %>% filter(class == 'compact')
 
 # wilcoxon
 wilcoxon.test(mpg_suv$hwy, mpg_compact$hwy)
@@ -744,8 +744,8 @@ m_rb <- rfit(hwy ~ displ, data = mpg)
 
 |File | Rows | Columns |
 |:----|:-----|:------|
-|[avocado.csv](https://therbootcamp.github.io/SwR_2019Apr/_sessions/1_Data/avocado.csv) | 17573 | 16 |
-|[avocado_cali.csv](https://therbootcamp.github.io/SwR_2019Apr/_sessions/1_Data/avocado_cali.csv) | 338 | 16 |
+|[avocado.csv](https://therbootcamp.github.io/SwR_2019Apr/1_Data/avocado.csv) | 17573 | 16 |
+|[avocado_cali.csv](https://therbootcamp.github.io/SwR_2019Apr/1_Data/avocado_cali.csv) | 338 | 16 |
 
 This data was downloaded from the [Hass](https://en.wikipedia.org/wiki/Hass_avocado) Avocado Board website for the duration of April 2015 and May 2018. The data contain weekly (reported on Sundays) retail scan data for National retail volume (units) and price. Retail scan data comes directly from retailers’ cash registers based on actual retail sales of Hass avocados. The Average Price (of avocados) in the table reflects a per unit (per avocado) cost. Other varieties of avocados (e.g. greenskins) are not included in this table.
 

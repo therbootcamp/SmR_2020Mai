@@ -140,18 +140,22 @@ $(document).ready(function () {
 
 <p align="center" width="100%">
 <a href="https://www.youtube.com/watch?v=fn7-JZq0Yxs"><br />
-<img src="image/ghostbusters_slim.png" alt="Trulli" style="width:100%"></a> <br> <font style="font-size:10px">Peter Venkman alias Bill Murray in Ghostbusters, from <a href="https://ghostbusters.fandom.com/wiki/Peter_Venkman"> ghostbusters.fandom.com </a> </font>
+<img src="image/psi.jpg" alt="Trulli" style="width:100%"></a> <br> <font style="font-size:10px">Steven Tash as a psi-test subject in Ghostbusters, from <a href="https://www.imdb.com/name/nm0850865/"> imdb.com </a> </font>
 </p>
 <div id="section" class="section level1 tabset">
 <h1></h1>
 <div id="overview" class="section level2">
 <h2>Overview</h2>
-<p>In this practical you’ll practice “XXX” with the <code>XXX</code> packages.</p>
+<p align="center">
+<p>“The term psi denotes anomalous processes of information or energy transfer that are currently unexplained in terms of known physical or biological mechanisms. Two variants of psi are precognition (conscious cognitive awareness) and premonition (affective apprehension) of a future event that could not otherwise be anticipated through any known inferential process.”<br><i>Daryl J. Bem, professor emeritus, Cornell University</i></p>
+</p>
+<p>In this practical, you will analyze Daryl Bem’s infamous psychological study on human’s <em>psi</em>-abilities and along the way practice everything around new statistics.</p>
 <p>By the end of this practical you will know how to:</p>
 <ol style="list-style-type: decimal">
-<li></li>
-<li></li>
-<li></li>
+<li>P-hack</li>
+<li>Determine appropriate sample sizes</li>
+<li>Compute confidence intervals</li>
+<li>Run simple Bayesian analyses</li>
 </ol>
 </div>
 <div id="tasks" class="section level2">
@@ -160,40 +164,193 @@ $(document).ready(function () {
 <h3>A - Setup</h3>
 <ol style="list-style-type: decimal">
 <li><p>Open your <code>BaselRBootcamp</code> R project. It should already have the folders <code>1_Data</code> and <code>2_Code</code>. Make sure that the data files listed in the <code>Datasets</code> section above are in your <code>1_Data</code> folder</p></li>
-<li><p>Open a new R script. At the top of the script, using comments, write your name and the date. Save it as a new file called <code>wrangling_practical.R</code> in the <code>2_Code</code> folder.</p></li>
+<li><p>Open a new R script. At the top of the script, using comments, write your name and the date. Save it as a new file called <code>newstats_practical.R</code> in the <code>2_Code</code> folder.</p></li>
 <li><p>Using <code>library()</code> load the <code>tidyverse</code> package (if you don’t have it, you’ll need to install it with <code>install.packages()</code>)!</p></li>
 </ol>
 <pre class="r"><code># Load packages necessary for this script
-library(tidyverse)</code></pre>
+library(tidyverse)
+library(pwr)
+library(rstanarm)
+library(BayesFactor)</code></pre>
 <ol start="4" style="list-style-type: decimal">
-<li>Using the following template, load the <code>XXX</code> data into R and store it as a new object called <code>XXX</code> (Hint: Don’t type the path directly! Use the “tab” completion!).</li>
+<li>Using the following template, load the <code>psi_exp1.csv</code> and <code>psi_exp2.csv</code> data into R and store them as a new object called <code>psi1</code> and <code>psi2</code>, respectively (Hint: Don’t type the path directly! Use the “tab” completion!).</li>
 </ol>
 <pre class="r"><code># Load XXX.csv from the 1_Data folder
 
-XX &lt;- read_csv(file = &quot;XX/XX&quot;)</code></pre>
+psi1 &lt;- read_csv(file = &quot;1_Data/psi_exp1.csv&quot;)
+psi2 &lt;- read_csv(file = &quot;1_Data/psi_exp2.csv&quot;)</code></pre>
 <ol start="5" style="list-style-type: decimal">
-<li>Take a look at the first few rows of the datasets by printing them to the console.</li>
+<li>Take a look at the first few rows of the data sets by printing them to the console.</li>
 </ol>
-<pre class="r"><code># Print XXX object
-XXX</code></pre>
+<pre class="r"><code># Print psi1 and psi2 object
+psi1
+psi2</code></pre>
 <ol start="7" style="list-style-type: decimal">
-<li><p>Use the the <code>summary()</code> function to print more details on the columns of the datasets.</p></li>
-<li><p>Use the <code>View()</code> function to view the entire dataframes in new windows</p></li>
+<li>Use the the <code>summary()</code> function to print more details on the columns of the data sets.</li>
 </ol>
-<pre class="r"><code>View(XXX)
-View(XXX)</code></pre>
+<pre class="r"><code># Show summaries for psi1 and psi2
+summary(psi1)
+summary(psi2)</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li>Use the <code>View()</code> function to view the entire data frames in new windows</li>
+</ol>
+<pre class="r"><code># Show the full data for psi1 and psi2
+View(psi1)
+View(psi2)</code></pre>
 </div>
-<div id="b---xxx" class="section level3">
-<h3>B - XXX</h3>
-<p>The term psi denotes anomalous processes of information or energy transfer that are currently unexplained in terms of known physical or biological mechanisms. Two variants of psi are precognition (conscious cognitive awareness) and premonition (affective apprehension) of a future event that could not otherwise be anticipated through any known inferential process. Precognition and premonition are themselves special cases of a more general phenomenon: the anomalous retroactive influence of some future event on an individual’s current responses, whether those responses are conscious or nonconscious, cognitive or affective. This article reports 9 experiments, involving more than 1,000 participants, that test for retroactive influence by “time-reversing” well-established psychological effects so that the individual’s responses are obtained before the putatively causal stimulus events occur. Data are presented for 4 time-reversed effects: precognitive approach to erotic stimuli and precognitive avoidance of negative stimuli; retroactive priming; retroactive habituation; and retroactive facilitation of recall. The mean effect size (d) in psi performance across all 9 experiments was 0.22, and all but one of the experiments yielded statistically significant results.</p>
+<div id="b---psi-hacking-competitions" class="section level3">
+<h3>B - p(si)-Hacking competitions</h3>
+<ol style="list-style-type: decimal">
+<li>The first part of this practical consists of two a p-hacking competitions.</li>
+</ol>
+<p>1.1 The goal of both competition is to achieve the smallest possible p-value by hacking the sh__ out of the Bem’s experimental data. To do this find up to three analyses that either show that people actually have <em>psi</em> abilities (i.e., that <code>hit_rate</code> higher than chance) and that other variables can predict <em>psi</em> ability (i.e., <code>hit_rate</code>, implying the existence of <em>psi</em>). There are no rules. You can use any test. You are even permitted to use only parts of the (e.g., using <code>data %&gt;% filter(condition)</code>).</p>
+<p>1.2 For each of two competitions you are permitted to submit up to 3 models. You work alone or join forces with other participants. For information on the data and variables see the <em>Datasets</em> tab. The key criterion is <code>hit_rate</code>. The person or group submitting the lowest p-value for a competition wins 🍫🍫🍫.</p>
+<p>1.3 Submit your results using these links:</p>
+<p><a href="https://docs.google.com/forms/d/e/1FAIpQLScw5MmBX9wnmv3YO7SzdqdWMWSSwdCjWu0EUM2kurLRJLpEOQ/viewform?usp=sf_link"><font color="#EA4B68" style="font-size:18px;font-weight:900">Submit competition 1</font></a>, <a href="https://docs.google.com/forms/d/e/1FAIpQLSeJDsFtOSCFx7KmjzG4qq2bBMArPMWdaFKmUOqFfthspDhshQ/viewform?usp=sf_link"><font color="#EA4B68" style="font-size:18px;font-weight:900">Submit competition 2</font></a></p>
 </div>
-<div id="x---advanced-xxx" class="section level3">
-<h3>X - Advanced: XXX</h3>
+<div id="c---power-analysis" class="section level3">
+<h3>C - Power analysis</h3>
+<ol style="list-style-type: decimal">
+<li>In his paper, Bem’s first analysis is whether the hit rate for erotic pictures is on average larger than <code>50%</code>. For this condition he observed an average proportion of <code>53.13%</code>. Determine, for experiment 1, what this means in terms of Cohen’s effect size <em>d</em>, which is calculated by dividing the average deviance from <span class="math inline">\(H_0\)</span> (i.e., 50) by the standard deviation of the values the average is calculated from.</li>
+</ol>
+<pre class="r"><code># extract erotic hit rate
+hit_rate_erotic &lt;- psi1$hit_rate[psi1$condition == &quot;erotic&quot;]
+
+# calculate the deviance from H0
+hit_rate_erotic_delta &lt;- XX - 50
+
+# calculate d
+d = mean(XX - YY) / sd(XX)</code></pre>
+<pre class="r"><code># extract erotic hit rate
+hit_rate_erotic &lt;- psi1$hit_rate[psi1$condition == &quot;erotic&quot;]
+
+# calculate the deviance from H0
+hit_rate_erotic_delta &lt;- hit_rate_erotic - 50
+
+# calculate d
+d = mean(hit_rate_erotic_delta) / sd(hit_rate_erotic_delta)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>An effect size of <code>d = .25</code> is typically considered a small, but meaningful effect. Let us know take the perspective of rival researchers, who would like to replicate Bem’s effect. Specifically, we would like to conduct an experiment that has a small chance of false positives, e.g., <span class="math inline">\(\alpha = 0.05\)</span> (<code>sig.level</code>) and an equally low chance of missing the effect, i.e., <span class="math inline">\(\beta = .05\)</span> implying <span class="math inline">\(1-\beta = power = .95\)</span>. How many observations would we have to make to be able to conduct such a test? Use the template below.</li>
+</ol>
+<pre class="r"><code># N to test d=.25, alpha = .05, power = .95
+pa &lt;- pwr.t.test(d = XX, sig.level = XX, power = XX, alternative = &quot;greater&quot;)
+pa</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li><p>The analysis shows that we would have to run a study with 347 individuals. You can also illustrate this using <code>plot.power.htest()</code>. Apply the function to <code>pa</code>.</p></li>
+<li><p>Using the plot, you can also already get an idea, how large the power, i.e., the probability of detecting an effect given that it is truly there to detect, was for Bem’s study. You can also again use the <code>pwr.t.test()</code> function. To do this, set <code>n = length(hit_rate_erotic)</code> and <code>power = NULL</code>. Call the result <code>pa_bem</code>.</p></li>
+<li><p>The previous analysis is called post-hoc (after the fact) power analysis, which should not be confused with an actual power analysis carried out before the data collection. In Bem’s case we find that the power was only <code>.547</code> meaning that there was almost only a 50-50 chance that an effect of the observed size could have been observed. Let’s now consider what would happen, if the effect was actually very small, say <code>d = .1</code>. What large would Bem’s post-hoc power have been and how large a sample size was necessary for <code>power = .95</code>.</p></li>
+<li><p>Bem’s post-hoc power would have been a meager 17.4%, while the N necessary for a conclusive study lies upwards of 2000 individuals. This means that Bem either knew we would be finding a substantive effect, or he actually engaged in pretty poor study planning. Go explore, can you determine the post-hoc power and n necessary your analyses? Use <code>pwr.r.test()</code> for correlation tests and <code>pwr.chisq.test()</code> for chi-square tests. Unfortunately, there are not functions for regression models.</p></li>
+</ol>
+</div>
+<div id="d---confidence-intervals" class="section level3">
+<h3>D - Confidence intervals</h3>
+<ol style="list-style-type: decimal">
+<li>Confidence intervals are another way of using a significance test that places focus on the uncertainty inherent in the result. The basic idea is that rather than dividing an estimate by its standard error we assess the range spanned by the standard error to the left and right of the estimate. Let’s begin by computing a standard paired t-test for the hit-rate using the template below and storing the result in an object called <code>test()</code>.</li>
+</ol>
+<pre class="r"><code># extract hit rates 
+hit_rate_erotic &lt;- psi1$hit_rate[psi1$condition == &quot;erotic&quot;]
+hit_rate_neutral &lt;- psi1$hit_rate[psi1$condition != &quot;erotic&quot;]
+
+# compute t-test
+test &lt;- t.test(XX, YY, paired = T)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Next inspect the names of the <code>test</code> object using <code>names()</code>.</p></li>
+<li><p>The you will have observed that the t-test object actually already contains a <code>conf.in</code> object. Access it using <code>$</code> and print it to the console.</p></li>
+<li><p>Let us now try to recreate the confidence interval. The first element we need for this is the average difference, which is simply the average of the differences between <code>hit_rate_erotic</code> and <code>hit_rate_neutral</code>. First, calculate the differences and store them as <code>hit_rate_diff</code>. Then calculate the mean of <code>hit_rate_diff</code> and call it <code>hit_rate_diff_mean</code>.</p></li>
+<li><p>The second element is the standard error. In case of paired samples this is very easy to calculate. The standard error is the standard deviation (<code>sd()</code>) of the differences divided by the square root of the number of differences (<code>sqrt(length())</code>). Store the standard error as <code>hit_rate_diff_se</code>.</p></li>
+<li><p>The final element is the value in the t-distribution that corresponds to a certain confidence interval width, e.g., 95% or 99%. If the goal is to determine a 95% confidence interval then we need to identify the t-values that encapsulate this proportion of t-values in the t-distribution, which is the t-value at which 2.5% of t-values are smaller, i.e., <span class="math inline">\(t_{2.5\%}\)</span> and the t-value at which 97.5% are smaller, i.e., <span class="math inline">\(t_{97.5\%}\)</span>. See the figure below. Locate these values in the figure below.</p></li>
+</ol>
+<p><img src="image/tdistr.png"></img></p>
+<ol start="6" style="list-style-type: decimal">
+<li><p>We can calculate the precise t-values corresponding to certain probabilities using the cumulative distribution function of t <code>qt(p = XX, df = YY)</code>. To use it, you must provide the proportion <code>p</code> of t-values that should be smaller than the target value and the degrees of freedom <code>df</code>, which in this case must be set to <code>n-1</code>. Determine <span class="math inline">\(t_{2.5\%}\)</span> and <span class="math inline">\(t_{97.5\%}\)</span> and store them as <code>t.25</code> and <code>t97.5</code>.</p></li>
+<li><p>Compare the two t-values. Anything surprising? Given the symmetric nature of the t-distribution the two values are their respective mirror image. OK, now you have all the ingredients that you need to construct a confidence interval. To calculate the lower bound, you want to move exactly <code>t.25</code> times the standard error to the left of the mean hit rate difference. And to calculate the bound, you want to move exactly <code>t97.5</code> times the standard error to the right of the mean hit rate difference. Do this and name the lower and upper bounds <code>hit_rate_lowerb</code> and <code>hit_rate_upperb</code>.</p></li>
+<li><p>Now compare your calculated values against the confidence interval determined by the t-test. Are they the same? The confidence interval is many ways the better alternative to the classic inferential test because it prefers more information. A test is just significant or not. The confidence interval reveals this information too by including the 0 or not, but it also reveals the oftentimes considerable uncertainty inherent in our estimate, which is otherwise easily forgotten.</p></li>
+<li><p>Play around with the confidence intervals. How do the bounds change, when you choose higher (e.g., 99%) or lower (90%) percentages.</p></li>
+</ol>
+</div>
+<div id="x---advanced-bayesian-statistics" class="section level3">
+<h3>X - Advanced: Bayesian statistics</h3>
+<ol style="list-style-type: decimal">
+<li>Bayesian statistics have become readily available in R mainly through two R packages <code>rstanarm</code> and <code>Bayesfactor</code>. Both packages are great and allow you to do almost anything, but they do follow a slightly different philosophy. Let’s begin with <code>rstanarm</code>. Use the template below to run a regression predicting <code>hit_rate</code> by <code>gender</code> and <code>condition</code>.</li>
+</ol>
+<pre class="r"><code># Bayesian regression predicting hit_rate by gender and condition
+bm1 &lt;- stan_glm(hit_rate ~ gender + condition, data = psi1)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Print the object and inspect the output. You’ll see it looks different than the output of a regular regression. Focusing only on the part after the separating hyphens, there are three main parts:</li>
+</ol>
+<ul>
+<li><p>The first part shows the coefficients and their standard deviation. Different from a regular regression output, we do not receive any statistics or significance values. Moreover estimates are labeled Median and MAD_SD. This is because of the fact that in Bayesian statistics, we can more or less choose which centrality measure to compute from the posterior distribution. <code>rstanarm</code> chooses the median, because the median is typically more robust.</p></li>
+<li><p>The second part labeled <em>Auxiliary parameter(s)</em> lists another set of estimates (in this case only 1), which had to be computed in order to be able to fit the model. In this case this is a single standard deviation for the residual distribution (here you can see the importance of the homoscedascity assumption. Without it a lot more sigmas would have to be estimated).</p></li>
+<li><p>The third part labeled <em>Sample avg. posterior predictive distribution of y</em> shows the mean value predicted by the model, which is, more or less, the average of the fitted values.</p></li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li><p>In order to make statistical decisions, Bayesian statistics commonly relies on intervals, which in Bayesian statistics are called <em>credible interval</em> rather than <em>confidence interval</em>. Credible intervals truly provide the ranges that encompass the true value with 95% probability, which cannot strictly be said about confidence intervals. You can compute these intervals using the <code>posterior_interval()</code> function on the <code>bm1</code> object.</p></li>
+<li><p>Now let’s run the same analysis using the <code>BayesFactor</code> package using the <code>lmBF</code> function.</p></li>
+</ol>
+<pre class="r"><code># Bayesian regression predicting hit_rate by gender and condition
+psi1$gender_dummy = as.numeric(psi1$gender == &#39;Male&#39;)
+psi1$condition_dummy = as.numeric(psi1$condition == &quot;erotic&quot;)
+bm2 &lt;- regressionBF(formula = hit_rate ~ gender_dummy + condition_dummy, data = psi1)</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li><p>Print <code>bm2</code> and inspect the output. You’ll see it’s very different. The <code>BayesFactor</code> focuses more on model comparisons than parameter estimation. Accordingly, the output informs you about a model comparison, in this case, between the regression model provided and a model only containing an intercept as a predictor, the <code>Intercept only</code> model. The results are what is known <em>BayesFactor</em>s. The <code>BayesFactor</code> quantifies the amount of evidence that the data provides in favor of the model in question, relative to the comparison model. Values larger than 1 mean that the data favors the model in question, although only values above 10 are considered meaningful. Values lower than 1 indicate that the comparison model is actually more likely. The output presents results independently for each predictor and their combination. So what is it in this case? Are the predictors any good.</p></li>
+<li><p>The previous result illustrates one of several major benefits of Bayesian statistics and that is to be able to specify the evidence in favor of the Null-hypothesis. In general, everything can be done with either package. Go explore.</p></li>
+</ol>
 </div>
 </div>
 <div id="examples" class="section level2">
 <h2>Examples</h2>
-<pre class="r"><code># EXAMPLE CODE</code></pre>
+<pre class="r"><code># power analysis -----------
+
+# N needed for one-sided test with a mean difference of
+# .3 standard deviations, a false positive error rate (sig.level)
+# of .05, and power of .95
+pwr.t.test(d = .3, 
+           sig.level = .05, 
+           power = .95, 
+           alternative = &quot;greater&quot;)
+
+# Power obtained for one-sided test with mean difference of
+# .3 standard deviations, a false positive error rate (sig.level)
+# of .05, and a sample size of 100
+pwr.t.test(n = 100,
+           d = .3, 
+           sig.level = .05, 
+           power = .95, 
+           alternative = &quot;greater&quot;)
+
+
+# confidence intervals -----------
+
+#  split data (not strictly necessary)
+mpg_suv     &lt;- mpg %&gt;% filter(class == &#39;suv&#39;)
+mpg_compact &lt;- mpg %&gt;% filter(class == &#39;compact&#39;)
+
+# mean difference and pooled standard deviation
+mpg_diff = mean(mpg_suv$hwy) - mean(mpg_compact$hwy)
+mpg_diff_sd = sqrt((var(mpg_suv$hwy) + var(mpg_compact$hwy))/2)
+df = length(mpg_suv$hwy) + length(mpg_compact$hwy) - 2
+mpg_diff_se = mpg_diff_sd / sqrt(df)
+
+# upper and lower bounds
+mpg_diff + qt(.025, df) * mpg_diff_se
+mpg_diff + qt(.975, df) * mpg_diff_se
+
+# both at the same time
+mpg_diff + qt(.975, df) * mpg_diff_se * c(-1,1)
+
+# Bayesian regression -----------
+
+# using rstanarm
+bm1 &lt;- stan_glm(hwy ~ displ, data = mpg)
+
+# rstanarm credible intervals
+posterior_interval(bm1)
+
+# using BayesFactor
+bm2 &lt;- regressionBF(hwy ~ displ, data = mpg)
+
+# sample from posterior
+posterior(bm2, iterations = 1000)</code></pre>
 </div>
 <div id="datasets" class="section level2">
 <h2>Datasets</h2>
@@ -207,18 +364,18 @@ View(XXX)</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><a href="">XXX</a></td>
-<td align="left">Nrow</td>
-<td align="left">Ncol</td>
+<td align="left"><a href="https://therbootcamp.github.io/SwR_2019Apr/1_Data/psi_exp1.csv">psi_exp1.csv</a></td>
+<td align="left">200</td>
+<td align="left">7</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="">XXX</a></td>
-<td align="left">Nrow</td>
-<td align="left">Ncol</td>
+<td align="left"><a href="https://therbootcamp.github.io/SwR_2019Apr/1_Data/psi_exp2.csv">psi_exp2.csv</a></td>
+<td align="left">150</td>
+<td align="left">5</td>
 </tr>
 </tbody>
 </table>
-<p>SHORT VERBAL DESCRIPTION OF DATA SETS</p>
+<p>The data sets stem from actual (para-) psychological investigation of people’s ability to <a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/NewStats/literature/Bem_Psi_2011.pdf">“Feel the future”</a>. The infamous study published in a respected Social Psychology journal was one of the main reasons that triggered the replication crisis and the associated efforts for better scientific practice in Psychology and beyond. The data sets contain the data of the first two experiments. Experiment 1 investigated whether people can successfully (better than chance) predict behind which of two occluding curtains a picture is hiding as a function of, among other things, whether the picture has erotic content. Experiment 2 is an attempt to replicate study 2. Both studies also measures how stimulus seeking (a variant of extraversion) individuals were, to see whether this influences individuals <em>psi</em> ability.</p>
 <div id="variable-description" class="section level4">
 <h4>Variable description</h4>
 <table style="width:75%;">
@@ -234,112 +391,36 @@ View(XXX)</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">XXX</td>
-<td align="left">XXX</td>
+<td align="left"><code>gender</code></td>
+<td align="left">The gender of the participant.</td>
 </tr>
 <tr class="even">
-<td align="left">XXX</td>
-<td align="left">age in years at baseline</td>
+<td align="left"><code>age</code></td>
+<td align="left">The age of the participant.</td>
 </tr>
 <tr class="odd">
-<td align="left">wtkg</td>
-<td align="left">weight in kg at baseline</td>
+<td align="left"><code>stimulus_seeking</code></td>
+<td align="left">The degree of stimulus-seeking exhibited by the participant.</td>
 </tr>
 <tr class="even">
-<td align="left">hemo</td>
-<td align="left">hemophilia (0=no, 1=yes)</td>
+<td align="left"><code>hour_of_day</code></td>
+<td align="left">The hour of day at which the participant was tested.</td>
 </tr>
 <tr class="odd">
-<td align="left">homo</td>
-<td align="left">homosexual activity (0=no, 1=yes)</td>
+<td align="left"><code>condition</code></td>
+<td align="left">The study condition: “erotic” or “control” (only psi1)</td>
 </tr>
 <tr class="even">
-<td align="left">drugs</td>
-<td align="left">history of intravenous drug use (0=no, 1=yes)</td>
+<td align="left"><code>depicted_gender</code></td>
+<td align="left">The gender on the presented photo: “Female” or “Male” (only psi1)</td>
 </tr>
 <tr class="odd">
-<td align="left">karnof</td>
-<td align="left">Karnofsky score (on a scale of 0-100)</td>
+<td align="left"><code>n_trials</code></td>
+<td align="left">The number of choices made.</td>
 </tr>
 <tr class="even">
-<td align="left">oprior</td>
-<td align="left">non-zidovudine antiretroviral therapy prior to initiation of study treatment (0=no, 1=yes)</td>
-</tr>
-<tr class="odd">
-<td align="left">z30</td>
-<td align="left">zidovudine use in the 30 days prior to treatment initiation (0=no, 1=yes)</td>
-</tr>
-<tr class="even">
-<td align="left">zprior</td>
-<td align="left">zidovudine use prior to treatment initiation (0=no, 1=yes)</td>
-</tr>
-<tr class="odd">
-<td align="left">preanti</td>
-<td align="left">number of days of previously received antiretroviral therapy</td>
-</tr>
-<tr class="even">
-<td align="left">race</td>
-<td align="left">race (0=white, 1=non-white)</td>
-</tr>
-<tr class="odd">
-<td align="left">gender</td>
-<td align="left">gender (0=female, 1=male)</td>
-</tr>
-<tr class="even">
-<td align="left">str2</td>
-<td align="left">antiretroviral history (0=naive, 1=experienced)</td>
-</tr>
-<tr class="odd">
-<td align="left">strat</td>
-<td align="left">antiretroviral history stratification (1=’antiretroviral naive’, 2=’&gt; 1 but ≤ 52 weeks of prior antiretroviral therapy’, 3=’&gt; 52 weeks’)</td>
-</tr>
-<tr class="even">
-<td align="left">symptom</td>
-<td align="left">symptomatic indicator (0=asymptomatic, 1=symptomatic)</td>
-</tr>
-<tr class="odd">
-<td align="left">treat</td>
-<td align="left">treatment indicator (0=zidovudine only, 1=other therapies)</td>
-</tr>
-<tr class="even">
-<td align="left">offtrt</td>
-<td align="left">indicator of off-treatment before 96±5 weeks (0=no,1=yes)</td>
-</tr>
-<tr class="odd">
-<td align="left">cd40</td>
-<td align="left">CD4 T cell count at baseline</td>
-</tr>
-<tr class="even">
-<td align="left">cd420</td>
-<td align="left">CD4 T cell count at 20±5 weeks</td>
-</tr>
-<tr class="odd">
-<td align="left">cd496</td>
-<td align="left">CD4 T cell count at 96±5 weeks (=NA if missing)</td>
-</tr>
-<tr class="even">
-<td align="left">r</td>
-<td align="left">missing CD4 T cell count at 96±5 weeks (0=missing, 1=observed)</td>
-</tr>
-<tr class="odd">
-<td align="left">cd80</td>
-<td align="left">CD8 T cell count at baseline</td>
-</tr>
-<tr class="even">
-<td align="left">cd820</td>
-<td align="left">CD8 T cell count at 20±5 weeks</td>
-</tr>
-<tr class="odd">
-<td align="left">cens</td>
-<td align="left">indicator of observing the event in days</td>
-</tr>
-<tr class="even">
-<td align="left">days</td>
-<td align="left">number of days until the first occurrence of: (i) a decline in CD4 T cell count of at least 50 (ii) an event indicating progression to AIDS, or (iii) death.</td>
-</tr>
-<tr class="odd">
-<td align="left">arms</td>
-<td align="left">treatment arm (0=zidovudine, 1=zidovudine and didanosine, 2=zidovudine and zalcitabine, 3=didanosine).</td>
+<td align="left"><code>hit_rate</code></td>
+<td align="left">%-correct choices (with regard to showing <em>psi</em>).</td>
 </tr>
 </tbody>
 </table>
@@ -362,15 +443,24 @@ View(XXX)</code></pre>
 <td align="left"><code>install.packages(&quot;tidyverse&quot;)</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>XX</code></td>
-<td align="left"><code>XX</code></td>
+<td align="left"><code>pwr</code></td>
+<td align="left"><code>install.packages(&quot;pwr&quot;)</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>rstanarm</code></td>
+<td align="left"><code>install.packages(&quot;rstanarm&quot;)</code></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div id="functions-1" class="section level3">
 <h3>Functions</h3>
-<table>
+<table style="width:83%;">
+<colgroup>
+<col width="6%" />
+<col width="11%" />
+<col width="65%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Function</th>
@@ -380,14 +470,39 @@ View(XXX)</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><code>XXX</code></td>
-<td align="left"><code>XXX</code></td>
-<td align="left">XXX</td>
+<td align="left"><code>pwr.t.test</code></td>
+<td align="left"><code>pwr</code></td>
+<td align="left">t-test power analyses</td>
 </tr>
 <tr class="even">
-<td align="left"><code>XXX</code></td>
-<td align="left"><code>XXX</code></td>
-<td align="left">XXX</td>
+<td align="left"><code>plot.power.htest</code></td>
+<td align="left"><code>pwr</code></td>
+<td align="left">Plot power analyses</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>qt</code>, <code>anorm</code>, <code>qF</code>, etc.</td>
+<td align="left"><code>stats</code></td>
+<td align="left">Functions needed to determine confidence intervals</td>
+</tr>
+<tr class="even">
+<td align="left"><code>stan_lm</code></td>
+<td align="left"><code>rstanarm</code></td>
+<td align="left">Bayesian regression using <code>rstanarm</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>posterior_interval</code></td>
+<td align="left"><code>rstanarm</code></td>
+<td align="left">Bayesian credible interval using <code>rstanarm</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>regressionBF</code></td>
+<td align="left"><code>BayesFactor</code></td>
+<td align="left">Bayesian regression using <code>BayesFactor</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>posterior</code></td>
+<td align="left"><code>BayesFactor</code></td>
+<td align="left">Sample from the posterior using <code>BayesFactor</code></td>
 </tr>
 </tbody>
 </table>
@@ -397,13 +512,7 @@ View(XXX)</code></pre>
 <h2>Resources</h2>
 <div id="vignettes" class="section level3">
 <h3>vignettes</h3>
-<p>TEXT and LINKS</p>
-</div>
-<div id="cheatsheets" class="section level3">
-<h3>Cheatsheets</h3>
-<p align="center" width="100%">
-<a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf"> <img src="https://image.slidesharecdn.com/data-wrangling-cheatsheet-160705210122/95/data-wrangling-with-dplyr-and-tidyr-cheat-sheet-1-638.jpg?cb=1467752577" style="width:70%"></a> <br> <font style="font-size:10px">from <a href="https://www.rstudio.com/resources/cheatsheets/">R Studio</a></font>
-</p>
+<p>Find vignettes to these packages: <a href="https://cran.r-project.org/web/packages/pwr/vignettes/pwr-vignette.html">pwr</a>, <a href="http://mc-stan.org/rstanarm/articles/rstanarm.html">rstanarm</a>, <a href="https://richarddmorey.github.io/BayesFactor/">BayesFactor</a></p>
 </div>
 </div>
 </div>
