@@ -741,7 +741,8 @@ drug_placebo_gg <- ggplot(dat, aes(factor(drug), effect)) +
        x = "Condition",
        title = "Fictional data comparing Drug to Placebo arm") +
   scale_y_continuous(breaks = seq(0, 10, 1), limits = c(0, 7)) +
-  geom_label(data = avg, aes(x = drug, y = days_mean, label = round(days_mean, 2)))
+  geom_label(data = avg, aes(x = drug, y = days_mean, label = round(days_mean, 2))) +
+  theme(plot.title = element_text(size = 10))
 
 drug_placebo_gg
 ```
