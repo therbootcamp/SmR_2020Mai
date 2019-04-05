@@ -1003,7 +1003,7 @@ LMM_plot
 
 |File | Rows | Columns |
 |:----|:-----|:------|
-|[tomatometer.csv](https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/Tomatometer_dat.csv?token=AZQb9iWcc8yUCbFwBliP5UfVzAooM3okks5cmQ96wA%3D%3D) | `r nrow(tom)` | `r ncol(tom)` |
+|[tomatometer.csv](https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/tomatometer.csv?token=AIFo1JUJrMd9LfEcBY6u9ZhqlCcMaTvGks5csP1AwA%3D%3D) | `r nrow(tom)` | `r ncol(tom)` |
 |[schools.csv](https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/schools.csv?token=AZQb9mdlio2aNiTgfaddDHxpENKWm3Hhks5cmQ9jwA%3D%3D) | `r nrow(schools)` | `r ncol(schools)` |
 |[cancer_remission.csv](https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/cancer_remission.csv?token=AZQb9ic1yv1-UdOtMITu0HyaW1xRMdV9ks5cmQ-bwA%3D%3D) | `r nrow(cr)` | `r ncol(cr)` |
 
@@ -1013,7 +1013,7 @@ The *schools.csv* dataset contains ratings of extraversion, openness to experien
 
 The *cancer_remission.csv* dataset contains data on lung cancer remission from patients nested within doctors
 
-#### Tomatometer_dat.csv
+#### tomatometer.csv
 
 | Name | Description |
 |:-------------|:-------------------------------------|
