@@ -51,9 +51,9 @@ layout: true
 
 .pull-left5[
 
-Linear models are, by far, the most important models in all of statistics.
+Linear models are, by far, &lt;high&gt;the most important models in all of statistics&lt;/high&gt;.
 
-As we will see today, many statistical tests you may know of are special types of linear models.
+Many statistical tests you may know of are special types of linear models.
 
 Why are linear models so great?
 
@@ -66,7 +66,6 @@ Why are linear models so great?
 
 .pull-right45[
 
-
 `$$\Large income = 885 + age \times 149.3$$`
 
 &lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-2-1.png" style="display: block; margin: auto;" /&gt;
@@ -76,51 +75,95 @@ Why are linear models so great?
 
 ---
 
-.pull-left6[
-
 # What is a linear model?
 
-A linear model is one that can be written in the following form &lt;br&gt;
+.pull-left5[
 
-*Version 1*
+A linear model is &lt;high&gt;just addition and multiplication&lt;/high&gt; and can be written in the following forms: 
 
-`$$\huge Y = \beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2} +  ... + \beta_{n}x_{n} + \epsilon$$`
+&lt;br&gt;
+
+&lt;center&gt;&lt;u&gt;Version 1&lt;/u&gt;&lt;center&gt;
+
+`$$\huge y = \beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2} +  ... + \beta_{n}x_{n} + \epsilon$$`
+
+&lt;br&gt;
+
+&lt;center&gt;&lt;u&gt;Version 2&lt;/u&gt;&lt;center&gt;
 
 
-*Version 2*
+`$$\huge y = \beta_{0} + \sum_{i=1}^{n}\beta_{i}x_{i}+ \epsilon$$`
 
-
-`$$\huge Y = \beta_{0} + \sum_{i=1}^{n}\beta_{i}x_{i}+ \epsilon$$`
-
-In the end, a linear model is &lt;high&gt;just addition and multiplication&lt;/high&gt;! 
 
 ]
 
-.pull-right35[
 
-&lt;br&gt;&lt;br&gt;&lt;br&gt;
+.pull-right4[
 
-&lt;img src="https://66.media.tumblr.com/6e401f0cffebf9c7440894d4fa6c48b2/tumblr_o0af44kS071u7w7kwo1_1280.jpg" style="display: block; margin: auto;" /&gt;
+&lt;p align = "center"&gt;
+  &lt;img src="image/math.jpg"&gt;&lt;br&gt;
+  &lt;font style="font-size:10px"&gt;
+    from &lt;a href="https://66.media.tumblr.com/6e401f0cffebf9c7440894d4fa6c48b2/tumblr_o0af44kS071u7w7kwo1_1280.jpg"&gt; media.tumblr.com&lt;/a&gt;
+  &lt;/font&gt;
+&lt;/p&gt;
 
 
 ]
 
 ---
 
-.pull-left5[
-
 # Simple Linear Regression
+
+.pull-left45[
 
 
 &lt;high&gt;Definition&lt;/high&gt;: Simple linear regression is a linear model with one predictor `\(x\)`, and where the error term `\(\epsilon\)` is Normally distributed.
 
 
-`$$\huge Y=\beta_{0} + \beta_{1} x + \epsilon$$`
+&lt;br&gt;
 
-|Parameter|Description|In words|
-|:------|:-----|:-----|
-|$$\beta_{0}$$| Intercept|When `\(x = 0\)`, what is the predicted value for `\(Y\)`?|
-|$$\beta_{1}$$| Coefficient for `\(x\)`|For every increase of 1 in `\(x\)`, how does `\(Y\)` change?|
+`$$\huge y=\beta_{0} + \beta_{1} x + \epsilon$$`
+
+&lt;br&gt;
+
+&lt;table style="cellspacing:0; cellpadding:0; border:none" width=100%&gt;
+  &lt;col width="30%"&gt;
+  &lt;col width="30%"&gt;
+  &lt;col width="40%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Parameter&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Description&lt;/b&gt;
+  &lt;/td&gt; 
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;In words&lt;/b&gt;
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &amp;#x3B2;&lt;sub&gt;0&lt;/sub&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Intercept
+  &lt;/td&gt; 
+  &lt;td bgcolor="white"&gt;
+    When x = 0, what is the predicted value for y?
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &amp;#x3B2;&lt;sub&gt;1&lt;/sub&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Coefficient for x
+  &lt;/td&gt; 
+  &lt;td bgcolor="white"&gt;
+    For every increase of 1 in x, how does y change?
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;/table&gt;
 
 
 ]
@@ -128,17 +171,14 @@ In the end, a linear model is &lt;high&gt;just addition and multiplication&lt;/h
 
 .pull-right45[
 
-### Variables
 
-Y = Income, X = Age
+&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-3-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
-&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-4-1.png" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;center&gt;&lt;u&gt;Formula&lt;/u&gt;&lt;/center&gt;
 
-### Formula
+`$$\Large income = 885 + 149.3 \times age  + \epsilon$$`
 
-`$$\Large income = 885 + age \times 149.3 + \epsilon$$`
-
-### Coefficients
+&lt;center&gt;&lt;u&gt;Coefficients&lt;/u&gt;&lt;/center&gt;
 
 `$$\Large \beta_{0} = 885, \beta_{age} = 149.3$$`
 
@@ -146,36 +186,70 @@ Y = Income, X = Age
 
 ---
 
-.pull-left5[
-
 # Multiple Linear Regression
+
+.pull-left5[
 
 &lt;high&gt;Definition&lt;/high&gt;: Multiple linear regression is a linear model with many predictors `\(x_{1},  x_{2}, .... x_{n}\)`, and where the error term `\(\epsilon\)` is Normally distributed.
 
-`$$\LARGE Y=\beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2}+...+ \beta_{n} x_{n} + \epsilon$$`
 &lt;br&gt;
 
+`$$\LARGE y=\beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2}+...+ \beta_{n} x_{n} + \epsilon$$`
+&lt;br&gt;
 
-|Parameter|Description|In words|
-|:------|:-----|:-----|
-|$$\beta_{0}$$| Intercept|When *all* `\(x\)` values are 0, what is the predicted value for `\(Y\)`?|
-|$$\beta_{1}, \beta_{2}, \beta_{3} \ldots$$| Coefficient for `\(x_{1}, x_{2}...\)`|For every increase of 1 in `\(x_{1}, x_{2}, ...\)`, how does `\(Y\)` change?|
+&lt;table style="cellspacing:0; cellpadding:0; border:none" width=100%&gt;
+  &lt;col width="25%"&gt;
+  &lt;col width="25%"&gt;
+  &lt;col width="50%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Parameter&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Description&lt;/b&gt;
+  &lt;/td&gt; 
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;In words&lt;/b&gt;
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &amp;#x3B2;&lt;sub&gt;0&lt;/sub&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Intercept
+  &lt;/td&gt; 
+  &lt;td bgcolor="white"&gt;
+    When all x values are 0, what is the predicted value for y?
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &amp;#x3B2;&lt;sub&gt;1&lt;/sub&gt;, &amp;#x3B2;&lt;sub&gt;2&lt;/sub&gt;, ...
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Coefficient for &amp;#x3B2;&lt;sub&gt;1&lt;/sub&gt;, &amp;#x3B2;&lt;sub&gt;2&lt;/sub&gt;, ...
+  &lt;/td&gt; 
+  &lt;td bgcolor="white"&gt;
+     For every increase of 1 in Coefficient for &amp;#x3B2;&lt;sub&gt;1&lt;/sub&gt;, &amp;#x3B2;&lt;sub&gt;2&lt;/sub&gt;, ... how does y change?
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;/table&gt;
+
+
 ]
 
 
 .pull-right45[
 
-### Variables
 
-`$$\large Y = Income, x_{1} = Age, x_{2}=Weight$$`
+&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-4-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
-&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-5-1.png" width="100%" style="display: block; margin: auto;" /&gt;
-
-### Formula
+&lt;br&gt;&lt;center&gt;&lt;u&gt;Formula&lt;/u&gt;&lt;/center&gt;
 
 `$$\large income = 1628 + 147  \times age - 4.1 \times height + \epsilon$$`
 
-### Coefficients
+&lt;center&gt;&lt;u&gt;Coefficients&lt;/u&gt;&lt;/center&gt;
 
 `$$\large \beta_{0} = 1628, \beta_{age} = 147, \beta_{weight}=-4.1$$`
 
@@ -186,25 +260,23 @@ Y = Income, X = Age
 
 ---
 
-.pull-left45[
-
 # Estimating coefficients
 
-How do we estimate the 'right' coefficients in a linear model?
+.pull-left45[
+
+How do we estimate the 'right' coefficients in a linear model? &lt;high&gt;Which of the four would be a good fit?&lt;/high&gt;
 
 
 
 
-&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-7-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-6-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 `$$\Large income = \beta_{0} + \beta_{1} \times age + \epsilon$$`
 ]
 
 .pull-right5[
-&lt;br&gt;
-&lt;high&gt;Which do you like best?&lt;/high&gt;
 
-&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-8-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-7-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -212,29 +284,30 @@ How do we estimate the 'right' coefficients in a linear model?
 
 ---
 
-.pull-left45[
-
 # Estimating coefficients
 
-How do we estimate the 'right' coefficients in a linear model?
+.pull-left45[
+
+How do we estimate the 'right' coefficients in a linear model? &lt;high&gt;Which of the four would be a good fit?&lt;/high&gt;
 
 
 
-&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-10-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-9-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 `$$\Large income = -0.254 + 0.167 \times age + \epsilon$$`
 ]
 
 .pull-right5[
-&lt;br&gt;
-&lt;high&gt;Which do you like best?&lt;/high&gt;
 
-&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-11-1.png" width="95%" style="display: block; margin: auto;" /&gt;
+
+&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-10-1.png" width="95%" style="display: block; margin: auto;" /&gt;
 
 ]
 
 
 ---
+
+
 
 .pull-left45[
 
@@ -242,29 +315,23 @@ How do we estimate the 'right' coefficients in a linear model?
 
 How do we estimate the 'right' coefficients in a linear model?
 
+Find the values that minimise &lt;high&gt;Mean Squared Error&lt;/high&gt; (MSE).
 
-Find the values that minimise *Mean Squared Error*
+MSE:  The average squared distance between the prediction and the data.
 
-`$$\LARGE Mean\;Squared\;Error\;(MSE)$$`
-`$$\LARGE = \frac{1}{N}\sum_{i=1}^{n}(Y_{i}-  Prediction_{i})^2$$`
+&lt;br&gt;
+
+`$$\Large MSE = \frac{1}{N}\sum_{i=1}^{n}(y_{i}-  Prediction_{i})^2$$`
 &lt;!-- `$$\LARGE = \frac{1}{N}\sum_{i=1}^{n}(Y_{i}-  (\beta_{0} + \beta_{1}x_{1}))^2$$` --&gt;
 
 
-&lt;high&gt;MSE In plain English&lt;/high&gt;
-
-&gt; How far, on average are the model fits away from the true values (squared)?
-
-
-
 ]
 
 .pull-right5[
+
 &lt;br&gt;
 
-`$$\Large income = -0.254 + 0.167 \times age + \epsilon$$`
-
-
-&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-12-1.png" width="40%" style="display: block; margin: auto;" /&gt;
+&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-11-1.png" width="67%" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -275,68 +342,127 @@ Find the values that minimise *Mean Squared Error*
 |  3|  31|    5.1|      4.892| 0.0433|
 |  4|  44|    6.3|      7.050| 0.5625|
 |  5|  65|   10.9|     10.536| 0.1325|
+|  |  |   |      &lt;b&gt;MSE&lt;/b&gt;| &lt;b&gt;0.16&lt;/b&gt;|
 
-&lt;center&gt;&lt;h2&gt;MSE = 0.16&lt;h2&gt;&lt;/center&gt;
-
-]
-
----
-
-.pull-left45[
-
-# R-Squared
-
-R-Squared `\(R^{2}\)` is the most common method of calculating the &lt;high&gt;overall performance&lt;/high&gt; of a model.
-
-`$$\huge R^{2} = 1 - \frac{SS_{res}}{SS_{tot}}$$`
-`\(R^{2}\)` can range from 0 (Terrible) to 1 (Perfect!)
-
-|R2|Interpretation|
-|:----|:----|
-|0|Model explains no variance in Y|
-|.5|Model explains half the variance in Y|
-|1|Model explains *all* the variance in Y!|
-
-See [Wikipedia's R2 page](https://en.wikipedia.org/wiki/Coefficient_of_determination)
-
-]
-
-.pull-right5[
-
-&lt;br&gt;&lt;br&gt;&lt;br&gt;
-
-&lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/r2_vis.png?token=AIFo1O9_s73zoAZhMLik8ePSEbmVeItDks5crP7kwA%3D%3D" alt="&amp;lt;a href='https://en.wikipedia.org/wiki/Coefficient_of_determination'&amp;gt;Wikipedia&amp;lt;/a&amp;gt;"  /&gt;
-&lt;p class="caption"&gt;&lt;a href='https://en.wikipedia.org/wiki/Coefficient_of_determination'&gt;Wikipedia&lt;/a&gt;&lt;/p&gt;
-&lt;/div&gt;
 
 ]
 
 ---
 
-.pull-left45[
-
 # R-Squared
+
+.pull-left45[
 
 R-Squared `\(R^{2}\)` is the most common method of calculating the &lt;high&gt;overall performance&lt;/high&gt; of a model.
 
+&lt;br&gt;
+
 `$$\huge R^{2} = 1 - \frac{SS_{res}}{SS_{tot}}$$`
-`\(R^{2}\)` can range from 0 (Terrible) to 1 (Perfect!)
 
-|R2|Interpretation|
-|:----|:----|
-|0|Model explains no variance in Y|
-|.5|Model explains half the variance in Y|
-|1|Model explains *all* the variance in Y!|
 
-See [Wikipedia's R2 page](https://en.wikipedia.org/wiki/Coefficient_of_determination)
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
+  &lt;col width="15%"&gt;
+  &lt;col width="85%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;R&lt;sup&gt;2&lt;/sup&gt;&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Interpretation&lt;/b&gt;
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    0
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Model explains no variance in y.
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+   .5
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Model explains half the variance in y.
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+   1
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Model explains &lt;i&gt;all&lt;/i&gt; half the variance in y.
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;/table&gt;
 
 ]
 
 .pull-right5[
 
-&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
-&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-15-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;p align="center"&gt; 
+  &lt;img src="image/r2_vis.png"&gt;
+  &lt;font style="font-size:10px"&gt; from &lt;a   href='https://en.wikipedia.org/wiki/Coefficient_of_determination'&gt;Wikipedia&lt;/a&gt;&lt;/font&gt;
+  &lt;/a&gt;
+&lt;/p&gt;
+]
+
+---
+
+# R-Squared
+
+.pull-left45[
+
+R-Squared `\(R^{2}\)` is the most common method of calculating the &lt;high&gt;overall performance&lt;/high&gt; of a model.
+
+&lt;br&gt;
+
+`$$\huge R^{2} = 1 - \frac{SS_{res}}{SS_{tot}}$$`
+
+
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
+  &lt;col width="15%"&gt;
+  &lt;col width="85%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;R&lt;sup&gt;2&lt;/sup&gt;&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Interpretation&lt;/b&gt;
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    0
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Model explains no variance in y.
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+   .5
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Model explains half the variance in y.
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+   1
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Model explains &lt;i&gt;all&lt;/i&gt; half the variance in y.
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;/table&gt;
+
+]
+
+.pull-right5[
+
+&lt;img src="LinearModelsI_files/figure-html/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -644,12 +770,23 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   d.head.appendChild(s);
 })();</script>
 
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
   }
-});
+})();
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

@@ -89,9 +89,9 @@ knitr::opts_chunk$set(dpi = 300, echo = FALSE, warning = FALSE, fig.align = 'cen
 
 .pull-left5[
 
-Linear models are, by far, the most important models in all of statistics.
+Linear models are, by far, <high>the most important models in all of statistics</high>.
 
-As we will see today, many statistical tests you may know of are special types of linear models.
+Many statistical tests you may know of are special types of linear models.
 
 Why are linear models so great?
 
@@ -103,7 +103,6 @@ Why are linear models so great?
 ]
 
 .pull-right45[
-
 
 $$\Large income = 885 + age \times 149.3$$
 
@@ -125,53 +124,95 @@ simple_scatter
 
 ---
 
-.pull-left6[
-
 # What is a linear model?
 
-A linear model is one that can be written in the following form <br>
+.pull-left5[
 
-*Version 1*
+A linear model is <high>just addition and multiplication</high> and can be written in the following forms: 
 
-$$\huge Y = \beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2} +  ... + \beta_{n}x_{n} + \epsilon$$
+<br>
+
+<center><u>Version 1</u><center>
+
+$$\huge y = \beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2} +  ... + \beta_{n}x_{n} + \epsilon$$
+
+<br>
+
+<center><u>Version 2</u><center>
 
 
-*Version 2*
+$$\huge y = \beta_{0} + \sum_{i=1}^{n}\beta_{i}x_{i}+ \epsilon$$
 
-
-$$\huge Y = \beta_{0} + \sum_{i=1}^{n}\beta_{i}x_{i}+ \epsilon$$
-
-In the end, a linear model is <high>just addition and multiplication</high>! 
 
 ]
 
-.pull-right35[
 
-<br><br><br>
+.pull-right4[
 
-```{r, echo = FALSE}
-knitr::include_graphics("https://66.media.tumblr.com/6e401f0cffebf9c7440894d4fa6c48b2/tumblr_o0af44kS071u7w7kwo1_1280.jpg")
-```
+<p align = "center">
+  <img src="image/math.jpg"><br>
+  <font style="font-size:10px">
+    from <a href="https://66.media.tumblr.com/6e401f0cffebf9c7440894d4fa6c48b2/tumblr_o0af44kS071u7w7kwo1_1280.jpg"> media.tumblr.com</a>
+  </font>
+</p>
 
 
 ]
 
 ---
 
-.pull-left5[
-
 # Simple Linear Regression
+
+.pull-left45[
 
 
 <high>Definition</high>: Simple linear regression is a linear model with one predictor $x$, and where the error term $\epsilon$ is Normally distributed.
 
 
-$$\huge Y=\beta_{0} + \beta_{1} x + \epsilon$$
+<br>
 
-|Parameter|Description|In words|
-|:------|:-----|:-----|
-|$$\beta_{0}$$| Intercept|When $x = 0$, what is the predicted value for $Y$?|
-|$$\beta_{1}$$| Coefficient for $x$|For every increase of 1 in $x$, how does $Y$ change?|
+$$\huge y=\beta_{0} + \beta_{1} x + \epsilon$$
+
+<br>
+
+<table style="cellspacing:0; cellpadding:0; border:none" width=100%>
+  <col width="30%">
+  <col width="30%">
+  <col width="40%">
+<tr>
+  <td bgcolor="white">
+    <b>Parameter</b>
+  </td>
+  <td bgcolor="white">
+    <b>Description</b>
+  </td> 
+  <td bgcolor="white">
+    <b>In words</b>
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+    &#x3B2;<sub>0</sub>
+  </td>
+  <td bgcolor="white">
+    Intercept
+  </td> 
+  <td bgcolor="white">
+    When x = 0, what is the predicted value for y?
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+    &#x3B2;<sub>1</sub>
+  </td>
+  <td bgcolor="white">
+    Coefficient for x
+  </td> 
+  <td bgcolor="white">
+    For every increase of 1 in x, how does y change?
+  </td> 
+</tr>
+</table>
 
 
 ]
@@ -179,20 +220,17 @@ $$\huge Y=\beta_{0} + \beta_{1} x + \epsilon$$
 
 .pull-right45[
 
-### Variables
 
-Y = Income, X = Age
-
-```{r, echo = FALSE, fig.width = 3.5, fig.height = 3, out.width = "70%"}
+```{r, echo = FALSE, fig.width = 3.5, fig.height = 2.5, out.width = "70%"}
 
 simple_scatter
 ```
 
-### Formula
+<center><u>Formula</u></center>
 
-$$\Large income = 885 + age \times 149.3 + \epsilon$$
+$$\Large income = 885 + 149.3 \times age  + \epsilon$$
 
-### Coefficients
+<center><u>Coefficients</u></center>
 
 $$\Large \beta_{0} = 885, \beta_{age} = 149.3$$
 
@@ -200,28 +238,62 @@ $$\Large \beta_{0} = 885, \beta_{age} = 149.3$$
 
 ---
 
-.pull-left5[
-
 # Multiple Linear Regression
+
+.pull-left5[
 
 <high>Definition</high>: Multiple linear regression is a linear model with many predictors $x_{1},  x_{2}, .... x_{n}$, and where the error term $\epsilon$ is Normally distributed.
 
-$$\LARGE Y=\beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2}+...+ \beta_{n} x_{n} + \epsilon$$
 <br>
 
+$$\LARGE y=\beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2}+...+ \beta_{n} x_{n} + \epsilon$$
+<br>
 
-|Parameter|Description|In words|
-|:------|:-----|:-----|
-|$$\beta_{0}$$| Intercept|When *all* $x$ values are 0, what is the predicted value for $Y$?|
-|$$\beta_{1}, \beta_{2}, \beta_{3} \ldots$$| Coefficient for $x_{1}, x_{2}...$|For every increase of 1 in $x_{1}, x_{2}, ...$, how does $Y$ change?|
+<table style="cellspacing:0; cellpadding:0; border:none" width=100%>
+  <col width="25%">
+  <col width="25%">
+  <col width="50%">
+<tr>
+  <td bgcolor="white">
+    <b>Parameter</b>
+  </td>
+  <td bgcolor="white">
+    <b>Description</b>
+  </td> 
+  <td bgcolor="white">
+    <b>In words</b>
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+    &#x3B2;<sub>0</sub>
+  </td>
+  <td bgcolor="white">
+    Intercept
+  </td> 
+  <td bgcolor="white">
+    When all x values are 0, what is the predicted value for y?
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+    &#x3B2;<sub>1</sub>, &#x3B2;<sub>2</sub>, ...
+  </td>
+  <td bgcolor="white">
+    Coefficient for &#x3B2;<sub>1</sub>, &#x3B2;<sub>2</sub>, ...
+  </td> 
+  <td bgcolor="white">
+     For every increase of 1 in Coefficient for &#x3B2;<sub>1</sub>, &#x3B2;<sub>2</sub>, ... how does y change?
+  </td> 
+</tr>
+</table>
+
+
 ]
 
 
 .pull-right45[
 
-### Variables
-
-$$\large Y = Income, x_{1} = Age, x_{2}=Weight$$
 
 ```{r, echo = FALSE, fig.width = 5, fig.height = 2.25, out.width = "100%"}
 mod_2 <- glm(income ~ age + height, data = baselers %>% filter(age < 80) %>% slice(1:30))
@@ -243,11 +315,11 @@ ggpubr::ggarrange(p1, p2, ncol = 2, nrow = 1)
 
 ```
 
-### Formula
+<br><center><u>Formula</u></center>
 
 $$\large income = 1628 + 147  \times age - 4.1 \times height + \epsilon$$
 
-### Coefficients
+<center><u>Coefficients</u></center>
 
 $$\large \beta_{0} = 1628, \beta_{age} = 147, \beta_{weight}=-4.1$$
 
@@ -258,11 +330,11 @@ $$\large \beta_{0} = 1628, \beta_{age} = 147, \beta_{weight}=-4.1$$
 
 ---
 
-.pull-left45[
-
 # Estimating coefficients
 
-How do we estimate the 'right' coefficients in a linear model?
+.pull-left45[
+
+How do we estimate the 'right' coefficients in a linear model? <high>Which of the four would be a good fit?</high>
 
 ```{r, fig.width = 2.5, fig.height = 2}
 data <- baselers %>% 
@@ -323,10 +395,8 @@ $$\Large income = \beta_{0} + \beta_{1} \times age + \epsilon$$
 ]
 
 .pull-right5[
-<br>
-<high>Which do you like best?</high>
 
-```{r, fig.width = 5, fig.height = 5, out.width = "95%"}
+```{r, fig.width = 5, fig.height = 4.5, out.width = "95%"}
 
 ggpubr::ggarrange(a, b, c, d, ncol = 2, nrow = 2)
 
@@ -338,11 +408,11 @@ ggpubr::ggarrange(a, b, c, d, ncol = 2, nrow = 2)
 
 ---
 
-.pull-left45[
-
 # Estimating coefficients
 
-How do we estimate the 'right' coefficients in a linear model?
+.pull-left45[
+
+How do we estimate the 'right' coefficients in a linear model? <high>Which of the four would be a good fit?</high>
 
 ```{r, fig.width = 2.5, fig.height = 2}
 a <- a + annotate(geom = "segment", x = data$age, y = data$income, xend = data$age,  yend = data$a, col = baselrbootcamp_cols("magenta"))
@@ -365,10 +435,9 @@ $$\Large income = -0.254 + 0.167 \times age + \epsilon$$
 ]
 
 .pull-right5[
-<br>
-<high>Which do you like best?</high>
 
-```{r, fig.width = 5, fig.height = 5, out.width = "95%"}
+
+```{r, fig.width = 5, fig.height = 4.5, out.width = "95%"}
 
 ggpubr::ggarrange(a, b, c, d, ncol = 2, nrow = 2)
 
@@ -379,35 +448,31 @@ ggpubr::ggarrange(a, b, c, d, ncol = 2, nrow = 2)
 
 ---
 
+
+
 .pull-left45[
 
 # Estimating coefficients
 
 How do we estimate the 'right' coefficients in a linear model?
 
+Find the values that minimise <high>Mean Squared Error</high> (MSE).
 
-Find the values that minimise *Mean Squared Error*
+MSE:  The average squared distance between the prediction and the data.
 
-$$\LARGE Mean\;Squared\;Error\;(MSE)$$
-$$\LARGE = \frac{1}{N}\sum_{i=1}^{n}(Y_{i}-  Prediction_{i})^2$$
+<br>
+
+$$\Large MSE = \frac{1}{N}\sum_{i=1}^{n}(y_{i}-  Prediction_{i})^2$$
 <!-- $$\LARGE = \frac{1}{N}\sum_{i=1}^{n}(Y_{i}-  (\beta_{0} + \beta_{1}x_{1}))^2$$ -->
-
-
-<high>MSE In plain English</high>
-
-> How far, on average are the model fits away from the true values (squared)?
-
 
 
 ]
 
 .pull-right5[
+
 <br>
 
-$$\Large income = -0.254 + 0.167 \times age + \epsilon$$
-
-
-```{r, fig.width = 2.5, fig.height = 2.5, out.width = "40%"}
+```{r, fig.width = 3.5, fig.height = 2.65, out.width = "67%"}
 p+ geom_abline(slope = my_coef[2], intercept = my_coef[1], col = baselrbootcamp_cols("grey"), size = 1.5, alpha = .8) + 
   labs(title = "B", subtitle = paste0("B_0 = ", b_intercept, ", B_age = ", b_slope)) +
   annotate(geom = "segment", x = data$age, y = data$income, xend = data$age,  yend = data$b, col = baselrbootcamp_cols("magenta"))
@@ -429,67 +494,127 @@ data %>%
 |  3|  31|    5.1|      4.892| 0.0433|
 |  4|  44|    6.3|      7.050| 0.5625|
 |  5|  65|   10.9|     10.536| 0.1325|
+|  |  |   |      <b>MSE</b>| <b>0.16</b>|
 
-<center><h2>MSE = 0.16<h2></center>
-
-]
-
----
-
-.pull-left45[
-
-# R-Squared
-
-R-Squared $R^{2}$ is the most common method of calculating the <high>overall performance</high> of a model.
-
-$$\huge R^{2} = 1 - \frac{SS_{res}}{SS_{tot}}$$
-$R^{2}$ can range from 0 (Terrible) to 1 (Perfect!)
-
-|R2|Interpretation|
-|:----|:----|
-|0|Model explains no variance in Y|
-|.5|Model explains half the variance in Y|
-|1|Model explains *all* the variance in Y!|
-
-See [Wikipedia's R2 page](https://en.wikipedia.org/wiki/Coefficient_of_determination)
-
-]
-
-.pull-right5[
-
-<br><br><br>
-
-```{r, fig.cap = "<a href='https://en.wikipedia.org/wiki/Coefficient_of_determination'>Wikipedia</a>"}
-knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/r2_vis.png?token=AIFo1O9_s73zoAZhMLik8ePSEbmVeItDks5crP7kwA%3D%3D")
-```
 
 ]
 
 ---
 
-.pull-left45[
-
 # R-Squared
+
+.pull-left45[
 
 R-Squared $R^{2}$ is the most common method of calculating the <high>overall performance</high> of a model.
 
+<br>
+
 $$\huge R^{2} = 1 - \frac{SS_{res}}{SS_{tot}}$$
-$R^{2}$ can range from 0 (Terrible) to 1 (Perfect!)
 
-|R2|Interpretation|
-|:----|:----|
-|0|Model explains no variance in Y|
-|.5|Model explains half the variance in Y|
-|1|Model explains *all* the variance in Y!|
 
-See [Wikipedia's R2 page](https://en.wikipedia.org/wiki/Coefficient_of_determination)
+<table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%>
+  <col width="15%">
+  <col width="85%">
+<tr>
+  <td bgcolor="white">
+    <b>R<sup>2</sup></b>
+  </td>
+  <td bgcolor="white">
+    <b>Interpretation</b>
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+    0
+  </td>
+  <td bgcolor="white">
+    Model explains no variance in y.
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+   .5
+  </td>
+  <td bgcolor="white">
+    Model explains half the variance in y.
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+   1
+  </td>
+  <td bgcolor="white">
+    Model explains <i>all</i> half the variance in y.
+  </td> 
+</tr>
+</table>
 
 ]
 
 .pull-right5[
 
-<br><br><br><br><br><br><br>
-```{r, fig.width = 5, fig.height = 2.5, out.width = "100%"}
+<p align="center"> 
+  <img src="image/r2_vis.png">
+  <font style="font-size:10px"> from <a   href='https://en.wikipedia.org/wiki/Coefficient_of_determination'>Wikipedia</a></font>
+  </a>
+</p>
+]
+
+---
+
+# R-Squared
+
+.pull-left45[
+
+R-Squared $R^{2}$ is the most common method of calculating the <high>overall performance</high> of a model.
+
+<br>
+
+$$\huge R^{2} = 1 - \frac{SS_{res}}{SS_{tot}}$$
+
+
+<table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%>
+  <col width="15%">
+  <col width="85%">
+<tr>
+  <td bgcolor="white">
+    <b>R<sup>2</sup></b>
+  </td>
+  <td bgcolor="white">
+    <b>Interpretation</b>
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+    0
+  </td>
+  <td bgcolor="white">
+    Model explains no variance in y.
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+   .5
+  </td>
+  <td bgcolor="white">
+    Model explains half the variance in y.
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+   1
+  </td>
+  <td bgcolor="white">
+    Model explains <i>all</i> half the variance in y.
+  </td> 
+</tr>
+</table>
+
+]
+
+.pull-right5[
+
+```{r, fig.width = 5, fig.height = 3.5, out.width = "100%"}
 set.seed(100)
 data <- data %>%
   mutate(height = income * 8 + rnorm(5, mean = 0, sd = 40))
