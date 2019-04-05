@@ -89,6 +89,9 @@ By the end of this practical you will know how to:
 ```{r, echo = TRUE, eval = FALSE}
 # Load packages necessary for this script
 library(tidyverse)
+library(lme4)
+library(rsq)
+library(skewness)
 library(boot)
 library(quantreg)
 library(Rfit)
@@ -96,7 +99,7 @@ library(Rfit)
 
 4. Using the following template, load the `avocado.csv`, `avocado_cali.csv`, and `avocado_ny.csv` data sets into R and store them as a new objects called `avocado`, `avocado_cali`, and `avocado_ny` (Hint: Don't type the path directly! Use the "tab" completion!).
 
-```{r, echo = TRUE}
+```{r, echo = TRUE, eval = FALSE}
 # Load XXX.csv from the 1_Data folder
 
 XX <- read_csv(file = "XX/XX")
@@ -112,7 +115,7 @@ avocado_ny <- read_csv(file = "1_Data/avocado_ny.csv")
 
 5. Take a look at the first few rows of the data sets by printing them to the console.
 
-```{r, echo = TRUE}
+```{r, echo = TRUE, eval = FALSE}
 # Print XXX object
 XXX
 ```
@@ -126,7 +129,7 @@ avocado_ny
 
 7. Use the the `summary()` function to print more details on the columns of the data sets.
 
-```{r, echo = TRUE}
+```{r, echo = TRUE, eval = FALSE}
 # Show summary of XXX object
 summary(XXX)
 ```
@@ -140,7 +143,7 @@ summary(avocado_ny)
 
 8. Use the `View()` function to view the entire data sets in new windows
 
-```{r, echo = TRUE}
+```{r, echo = TRUE, eval = FALSE}
 # View data frame XXX 
 View(XXX)
 ```
@@ -152,17 +155,270 @@ View(avocado_cali)
 View(avocado_ny)
 ```
 
-### B - Missing variables
+### B - Assumptions
 
-1. In this pracical you will be working with a data set containing information on the sales volume of avocados across various areas in the US and over the the last three years. Your initial goal is to predict, whether  
+1. In this pracical you will be working with a data set containing information on the sales volume of avocados across various areas in the US and over the the last three years. Your initial goal is to predict, whether the sales `volume` is a function of the `price_per_avocado`. Begin by running a simple regression on the `avocado_cali` data set using `glm` and store the model as `m1`. See the template below.   
 
-```{r, echo = TRUE}
-# View data frame XXX 
-View(XXX)
+```{r, echo = TRUE, eval = FALSE}
+# regress volume on average price
+m1 <- glm(YY ~ XX, data = ZZ)
 ```
 
+```{r, echo = TRUE}
+# regress volume on average price
+m1 <- glm(volume ~ price_per_avocado, 
+          data = avocado_cali)
+```
 
-### C - Normality & Homoscedasticity
+2. Evaluate the model using `summary()`. Is the average price a good predictor of volume?
+
+```{r, echo = TRUE, eval = FALSE}
+# model summary
+summary(XX)
+```
+
+```{r, echo = TRUE, eval = FALSE}
+# model summary
+summary(m1)
+```
+
+3. According to test yes, the average price strongly predicts volumen. However, this does not imply that the relationship between average price and volume is described well by the regression line. Create a simple plot of the average price (x-axis) and volume (y-axis) using the template below. 
+
+```{r, echo = TRUE, eval = FALSE}
+# plot model
+plot(avocado_cali$XX, avocado_cali$YY)
+abline(m1)
+```
+
+```{r}
+# plot model
+plot(avocado_cali$price_per_avocado, avocado_cali$volume)
+abline(m1)
+```
+
+4. The plot revealed that the regression is actually not really a good summary of the data. Confirm this by plotting the residuals against the predicted values.    
+
+```{r, echo = TRUE, eval = FALSE}
+# Residual plot
+plot(predicted(XX), residuals(XX))
+```
+
+```{r}
+# Residual plot
+plot(predict(m1), residuals(m1))
+```
+
+5. The model fits the data badly including several serious violations of regression assumptions: Linearity, normality, and heteroscedascity do not seem to hold. One cause for these violations are missing variables. Add one other variable to the regression that contains information on the kind of avocado (see *Data* tab) and evaluate the model again.        
+
+```{r, echo = TRUE, eval = FALSE}
+# regress volume on average price and XX
+m2 <- glm(YY ~ XX1 + XX2, data = ZZ)
+plot(predict(m2), residuals(m2))
+```
+
+```{r}
+# regress volume on average price and XX
+m2 <- glm(volume ~ price_per_avocado + type,
+          data = avocado_cali)
+plot(predict(m2), residuals(m2))
+```
+
+6. Accounting for the different types of avocados has helped a great deal. The residual plot still does not look ideal. But at least the correlation between predicted values and residuals seems to have substantially decreased. Verify this by comparing the correlations. 
+
+```{r, echo = TRUE, eval = FALSE}
+# compare correlation of predicted values & residals
+cor(predict(XX), residuals(XX))
+cor(predict(YY), residuals(YY))
+```
+
+```{r}
+# compare correlation of predicted values & residals
+cor(predict(m1), residuals(m1))
+cor(predict(m2), residuals(m2))
+```
+
+7. The correlation actually has not come down, because the correlation for `m1` was despite the visual appearance already zero. Nonetheless, we are moving in the right direction. One other problem for the relationship is the very skewed distribution of `volume`. Inspect this by plotting a simple histogram of `volume`.  
+
+```{r, echo = TRUE, eval = FALSE}
+# histogram of volume
+hist(avocado_cali$XX)
+```
+
+```{r}
+# histogram of volume
+hist(avocado_cali$volume)
+```
+
+8. To deal with this problem one could engage in variable transformations, better would be to model the data using an appropriate probability distribution, which counts typically is a Poisson distribution. Fortunately, we don't have to do either. There is another variable called `volume_index` that is much better behaved. Verify this by also creating a histogram of this variable. 
+
+```{r, echo = TRUE, eval = FALSE}
+# histogram of volume_index
+hist(avocado_cali$XX)
+```
+
+```{r}
+# histogram of volume_index
+hist(avocado_cali$volume_index)
+```
+
+9. The distribution of `volume_index` is also not ideal, but at least it exhibits much less skewness. Verfiy this by computing the skewness of both variables using the `skewness` function from the `moments` package. 
+
+```{r, echo = TRUE, eval = FALSE}
+# skewness of volume and volume index
+skewness(avocado_cali$XX)
+skewness(avocado_cali$YY)
+```
+
+```{r}
+# skewness of volume and volume index
+skewness(avocado_cali$volume)
+skewness(avocado_cali$volume_index)
+```
+
+10. Now that you confirmed that `volume_index` is probably the better variable to model, run a regression of `volume_indes` on `price_per_avocado` and `type` and call the model `m3`.  
+
+```{r, echo = TRUE, eval = FALSE}
+# regress volume_index on average price and type
+m3 <- glm(YY ~ XX1 + XX2, data = ZZ)
+```
+
+```{r}
+# regress volume_index on average price and type
+m3 <- glm(volume_index ~ price_per_avocado + type,
+          data = avocado_cali)
+```
+
+12. Now plot the residuals of `m3` against the predicted values. What do you think have the residuals become more behaved?
+
+```{r}
+# evaluate m3
+plot(predict(m3), residuals(m3))
+```
+
+13. The residual behavior are still not ideal. There seems to still some skewness differences between low and high predicted values, but now one would not expect anymore that those would substantially alter the results. So, go on and evaluate the model using `summary()`.      
+
+```{r}
+# evaluate m3
+summmary(m3)
+```
+
+### C - Variance inflation
+
+1. In the previous section, you have evaluated the effect of price on volume controlling for the type of avocado. This has shown you that price indeed seems to exert strong influence on volume. Some of this impact, however, could be due to other third variables. For instance, it might be possible that the price simply went up through general inflation, while at the same time avocados became more popular. Control for this and other factors by including in the regression of `volume_index` the following variables in addition to `price_per_avocado` and `type`: `date`, `season`, `temperature`, `humidity`, `precipitation`, `type`. Call the model `m4`. 
+
+```{r}
+# new comprehensive model 4
+m4 <- glm(volume_index ~ price_per_avocado + type + date  + season + temperature + humidity + precipitation + type, data = avocado_cali)
+```
+
+2. Evaluate the model using `summary()` and compare it to the summary of `m3`. First, is the the effect of price still significant. Second, how have have the estimate changed and the standard error changed?
+
+```{r}
+# evaluate m3 and m4
+summary(m3)
+summary(m4)
+```
+
+3. You will have observed that both the estimate and the standard error went slightly up. The former is a result of the fact that the other variables took account of some variance in the price that is not related to volume. The latter is, as you can verify in the formula on the variance inflation factor, a result of two adversarial factors: (1) a better fit of the model and (2) an increased variance inflation factor. Let's inspect these two. First, evaluate the residual variance of `m3` and `m4` using the template below.
+
+```{r, echo = TRUE, eval = FALSE}
+# resdiaul variance of m3 and m4
+var_res1 <- var(residuals(XX))
+var_res2 <- var(residuals(YY))
+var_res1
+var_res2
+```
+
+```{r}
+# resdiaul variance of m3 and m4
+var_res1 <- var(residuals(m3))
+var_res2 <- var(residuals(m4))
+var_res1
+var_res2
+```
+
+4. You'll see that that the residual vairance decreased to about half. According to this the variance of the $beta$ weight (i.e., the square of the standard error should have also halved). Given that it has not, suggests that the variance inflation factor has increased by at least the same amount. Find out! Run two regression predicting `price_per_avocado`: First, by all other predictors in `m3`, i.e., `type`, and call the model `m_price1`. Second, by all other predictors in `m4` and call the model `m_price2`. 
+
+```{r, echo = TRUE, eval = FALSE}
+# predicting price_per_avocado
+m_price1 <- lm(price_per_avocado ~ XX, data = avocado_cali)
+m_price2 <- lm(price_per_avocado ~ XX + XX  + ..., data = avocado_cali)
+```
+
+```{r}
+# resdiual variance of m3 and m4
+m_price1 <- glm(price_per_avocado ~ type, data = avocado_cali)
+m_price2 <- glm(price_per_avocado ~ type + date  + season + temperature + humidity + precipitation, data = avocado_cali)
+```
+
+5. Next, calculate the $R^2$ value for both models and the variance inflation factor using the template below.  
+
+```{r, echo = TRUE, eval = FALSE}
+# proportion explained variance
+rsq1 <- rsq(XX)
+rsq2 <- rsq(YY)
+rsq1
+rsq2
+
+my_rsq=function(m,x) var(predict(m)) / var(x)
+
+my_rsq(m_price1, avocado_cali$price_per_avocado)
+
+# variance inflation factors
+1/(1-rsq(XX))
+1/(1-rsq(YY))
+```
+
+```{r}
+# proportion explained variance
+rsq1 <- rsq(m_price1)
+rsq2 <- rsq(m_price2)
+rsq1
+rsq2
+
+# variance inflation factors
+vif1 <- 1/(1-rsq1)
+vif2 <- 1/(1-rsq2)
+vif1
+vif2
+```
+
+6. So, while residual variance decreased from `.042` to `.022`, the variance inflation factor increased from `2.24` to `4.86`. Using these values we can actually compute the standard errors of `price_per_avocado` in model `m3` and `m4` following the formula on the respective slide. See code below. Confirm that the calculated values correspond to the standard errors in the summary outputs for `m1` and `m2`.
+
+Note: R determines the standard errors using a correction for degrees of freedom in the calculation of the residual variance. One can account for this by recalculating the residual variance using $\hat\sigma_e^2=\frac{\sum e^2}{n-df-1}$, with $df=2$ for `m3` and $df=9$ for `m4`.    
+
+```{r, echo = TRUE}
+# needed formula elements
+var_x <- var(avocado_cali$price_per_avocado)
+n = nrow(avocado_cali)
+
+# without correction -----
+
+# variance and standard error of price in m3
+var_beta1 <- (var_res1 / (var_x * (n-1))) * vif1 
+sqrt(var_beta1)
+
+# variance and standard error of price in m4
+var_beta2 =  (var_res2 / (var_x * (n-1))) * vif2 
+sqrt(var_beta2)
+
+# with correction -----
+
+# variance and standard error of price in m3 with correction
+var_c_res1 <- sum(residuals(m4)**2) / (n - 2 - 1)
+var_beta1 <- (var_c_res1 / (var_x * (n-1))) * vif1 
+sqrt(var_beta1)
+
+# variance and standard error of price in m4 with correction
+var_c_res2 <- sum(residuals(m4)**2) / (n - 9 - 1)
+var_beta1 <- (var_c_res2 / (var_x * (n-1))) * vif1 
+sqrt(var_beta1)
+
+```
+
+7. The above illustrates that including variables regressors in the regression is a double-edged sword. They improve the overal prediction and may uncover more pure relationships, but they will also increase our uncertainty over the true values of the regression weights by increasing the respective standard errors. If you like, see if you can find other combination of predictors that increase or decrease the standard error of the weight for price.  
+
+### C - Polynomial effects
 
 
 
@@ -214,8 +470,8 @@ The data set `avocado.csv` contains the data for all 52 regions. The smaller dat
 | `temperature_usa` | The country-wide temperature on the day of the data recording. |
 | `humidity` | The regional humidity on the day of the data recording. |
 | `humidity_usa` | The country-wide humidity on the day of the data recording. |
-| `precipation` | The regional precipation on the day of the data recording. |
-| `precipation_usa` | The country-wide precipation on the day of the data recording. |
+| `precipitation` | The regional precipitation on the day of the data recording. |
+| `precipitation_usa` | The country-wide precipitation on the day of the data recording. |
 | `year` | The year of the data recording. |
 | `season` | The season of the data recording. |
 | `date` | The date of the data recording. |

@@ -97,9 +97,6 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
-summary {
-  display: list-item;
-}
 </style>
 
 
@@ -107,74 +104,14 @@ summary {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-
-<style type="text/css">
-.tabset-dropdown > .nav-tabs {
-  display: inline-table;
-  max-height: 500px;
-  min-height: 44px;
-  overflow-y: auto;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs > li.active {
-  display: block;
-}
-
-.tabset-dropdown > .nav-tabs > li > a,
-.tabset-dropdown > .nav-tabs > li > a:focus,
-.tabset-dropdown > .nav-tabs > li > a:hover {
-  border: none;
-  display: inline-block;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
-  display: block;
-  float: none;
-}
-
-.tabset-dropdown > .nav-tabs > li {
-  display: none;
-}
-</style>
-
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
 </script>
 
 <!-- code folding -->
+
 
 
 
@@ -202,7 +139,8 @@ $(document).ready(function () {
 
 
 <p align="center" width="100%">
-<img src="image/placeholder.png" alt="Trulli" style="width:100%;height:280px"> <br> <font style="font-size:10px">from <a href="">shorted URL</a></font>
+<a href="https://www.youtube.com/watch?v=fn7-JZq0Yxs"><br />
+<img src="image/ghostbusters_slim.png" alt="Trulli" style="width:100%"></a> <br> <font style="font-size:10px">Peter Venkman alias Bill Murray in Ghostbusters, from <a href="https://ghostbusters.fandom.com/wiki/Peter_Venkman"> ghostbusters.fandom.com </a> </font>
 </p>
 <div id="section" class="section level1 tabset">
 <h1></h1>
@@ -247,6 +185,7 @@ View(XXX)</code></pre>
 </div>
 <div id="b---xxx" class="section level3">
 <h3>B - XXX</h3>
+<p>The term psi denotes anomalous processes of information or energy transfer that are currently unexplained in terms of known physical or biological mechanisms. Two variants of psi are precognition (conscious cognitive awareness) and premonition (affective apprehension) of a future event that could not otherwise be anticipated through any known inferential process. Precognition and premonition are themselves special cases of a more general phenomenon: the anomalous retroactive influence of some future event on an individual’s current responses, whether those responses are conscious or nonconscious, cognitive or affective. This article reports 9 experiments, involving more than 1,000 participants, that test for retroactive influence by “time-reversing” well-established psychological effects so that the individual’s responses are obtained before the putatively causal stimulus events occur. Data are presented for 4 time-reversed effects: precognitive approach to erotic stimuli and precognitive avoidance of negative stimuli; retroactive priming; retroactive habituation; and retroactive facilitation of recall. The mean effect size (d) in psi performance across all 9 experiments was 0.22, and all but one of the experiments yielded statistically significant results.</p>
 </div>
 <div id="x---advanced-xxx" class="section level3">
 <h3>X - Advanced: XXX</h3>
@@ -282,10 +221,10 @@ View(XXX)</code></pre>
 <p>SHORT VERBAL DESCRIPTION OF DATA SETS</p>
 <div id="variable-description" class="section level4">
 <h4>Variable description</h4>
-<table>
+<table style="width:75%;">
 <colgroup>
-<col width="26%" />
-<col width="73%" />
+<col width="20%" />
+<col width="54%" />
 </colgroup>
 <thead>
 <tr class="header">

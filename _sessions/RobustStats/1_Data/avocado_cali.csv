@@ -1,4 +1,4 @@
-"","volume","volume_index","price_per_avocado","type","temperature","temperature_usa","humidity","humidity_usa","precipation","precipation_usa","year","season","date","region","longitude","latitude"
+"","volume","volume_index","price_per_avocado","type","temperature","temperature_usa","humidity","humidity_usa","precipitation","precipitation_usa","year","season","date","region","longitude","latitude"
 "1",5040365.47,8.58601017452631,0.9,"conventional",15.51,9.29188679245283,94.72,84.6037735849057,0.66,8.09849056603774,2015,"winter",2015-12-27,"California",-76.50745,38.3004
 "2",4695737.21,8.49683372431753,0.94,"conventional",2.61,4.48358490566038,67.75,77.0588679245283,0,1.32169811320755,2015,"winter",2015-12-20,"California",-76.50745,38.3004
 "3",5259354.3,8.63986514835614,0.87,"conventional",14.38,12.1984905660377,96.68,88.6645283018868,0,6.2877358490566,2015,"winter",2015-12-13,"California",-76.50745,38.3004

@@ -143,7 +143,9 @@ avocado_w = avocado %>%
          humidity, humidity_usa, precipation, precipation_usa, year, season, Date, region, longitude, latitude) %>%
   rename(date = Date,
          volume = `Total Volume`,
-         price_per_avocado = AveragePrice)
+         price_per_avocado = AveragePrice,
+         precipitation = precipation,
+         precipitation_usa = precipation_usa)
 
 
 # cali
@@ -165,7 +167,7 @@ dim(avocado_ny)
 plot(avocado_cali$temperature, avocado_cali$volume)
 
 
-m1 = lm(volume ~ price_per_avocado, data = avocado_cali)
+m1 = glm(volume ~ price_per_avocado, data = avocado_cali)
 summary(m1)
 plot(predict(m1),residuals(m1))
 
