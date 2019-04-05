@@ -97,9 +97,6 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
-summary {
-  display: list-item;
-}
 </style>
 
 
@@ -107,74 +104,14 @@ summary {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-
-<style type="text/css">
-.tabset-dropdown > .nav-tabs {
-  display: inline-table;
-  max-height: 500px;
-  min-height: 44px;
-  overflow-y: auto;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs > li.active {
-  display: block;
-}
-
-.tabset-dropdown > .nav-tabs > li > a,
-.tabset-dropdown > .nav-tabs > li > a:focus,
-.tabset-dropdown > .nav-tabs > li > a:hover {
-  border: none;
-  display: inline-block;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
-  display: block;
-  float: none;
-}
-
-.tabset-dropdown > .nav-tabs > li {
-  display: none;
-}
-</style>
-
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
 </script>
 
 <!-- code folding -->
+
 
 
 
@@ -185,7 +122,7 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Linear Models I</h1>
-<h4 class="author"><em><HmRun style='HmRun-layout:fixed;width:100%;border:0;padding:0;margin:0'>
+<h4 class="author"><em><table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'>
 <col width='10%'>
 <col width='10%'>
 <tr style="border:none">
@@ -196,13 +133,13 @@ $(document).ready(function () {
 <img src='https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png' style='height:15px;width:80px'/>
 </td>
 </tr>
-</HmRun></em></h4>
+</table></em></h4>
 
 </div>
 
 
 <p align="center" width="100%">
-<img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/baseball.png?token=AIFo1PlxSH9Z8b82MTUkkJ8pNUE7-Gbyks5cqIaSwA%3D%3D" alt="Trulli" style="width:100%"> <br> <font style="font-size:10px">from <a href="">www.popsci.com</a></font>
+<img src="image/baseball.png" alt="Trulli" style="width:100%"> <br> <font style="font-size:10px">from <a href="">www.popsci.com</a></font>
 </p>
 <div id="section" class="section level1 tabset">
 <h1></h1>
@@ -386,8 +323,8 @@ XXX</code></pre>
 </div>
 <div id="b---simple-regression" class="section level3">
 <h3>B - Simple regression</h3>
-<div id="hits-and-salary" class="section level4">
-<h4>Hits and Salary</h4>
+<div id="hits-and-salary" class="section level5">
+<h5>Hits and Salary</h5>
 <p>In this section, we will answer the question: “Is there a relationship between the number of Hits a player had in 1986 (<code>Hits</code>) and his salary in 1987 (<code>Salary</code>)”?</p>
 <ol style="list-style-type: decimal">
 <li>Using the code below, create a scatterplot showing the relationship between Hits and Salary. Based on this plot, do you expect there to be a relationship between these variables?</li>
@@ -466,9 +403,9 @@ ggplot(data = data, aes(x = truth, y = fitted)) +
 <pre class="r"><code># Print r-squared value from hits_glm object
 rsq(XXX)</code></pre>
 </div>
-<div id="home-runs-hmrun-and-salary" class="section level4">
-<h4>Home Runs (HmRun) and Salary</h4>
-<p>In this section, we will answer the question: &quot;Is there a relationship between the number of home runs a player scores in 1986 his salary in 1987?</p>
+<div id="home-runs-hmrun-and-salary" class="section level5">
+<h5>Home Runs (HmRun) and Salary</h5>
+<p>In this section, we will answer the question: “Is there a relationship between the number of home runs a player scores in 1986 his salary in 1987?</p>
 <ol style="list-style-type: decimal">
 <li>Using the code below, create a scatterplot showing the relationship between HmRun and Salary. Based on this plot, what do you expect the relationship to be between HmRun and Salary?</li>
 </ol>
@@ -600,8 +537,8 @@ ggplot(data = data, aes(x = truth, y = fitted)) +
 <pre class="r"><code># Print r-squared value from all_glm
 rsq(XXX)</code></pre>
 </div>
-<div id="e---exploring-model-residuals" class="section level3">
-<h3>E - Exploring model residuals</h3>
+<div id="d---exploring-model-residuals" class="section level3">
+<h3>D - Exploring model residuals</h3>
 <ol style="list-style-type: decimal">
 <li>Using the <code>residuals()</code> function, save the residuals of your regression analysis to a vector called <code>all_resid</code></li>
 </ol>
@@ -633,11 +570,10 @@ ggplot(data, aes(x = abs_resid)) +
   geom_vline(xintercept = 0, col = &quot;red&quot;) +
   labs(title = &quot;Absolute Residuals of Salary GLM&quot;)</code></pre>
 </div>
-<div id="f---adjusting-your-model-with-formulas" class="section level3">
-<h3>F - Adjusting your model with formulas</h3>
-</div>
-<div id="excluding-variables-with--" class="section level3">
-<h3>Excluding variables with -</h3>
+<div id="e---adjusting-your-model-with-formulas" class="section level3">
+<h3>E - Adjusting your model with formulas</h3>
+<div id="excluding-variables-with--" class="section level5">
+<h5>Excluding variables with -</h5>
 <ol style="list-style-type: decimal">
 <li>Using the guides below, create a regression object <code>my_glm</code> predicting Salary based on all variables <em>except</em> for <code>AtBat</code> and <code>Hits</code></li>
 </ol>
@@ -647,8 +583,8 @@ ggplot(data, aes(x = abs_resid)) +
 <li>Using the <code>tidy()</code> function, print tidy results from your <code>my_glm</code> object, do you see that the variables you excluded are indeed not in the model?</li>
 </ol>
 </div>
-<div id="including-interactinos-with" class="section level3">
-<h3>Including interactinos with *</h3>
+<div id="including-interactinos-with" class="section level5">
+<h5>Including interactinos with *</h5>
 <ol start="3" style="list-style-type: decimal">
 <li>Using the guides below, create a regression object <code>my_glm</code> predicting Salary based the <em>interaction</em> between <code>AtBat</code> and <code>Hits</code></li>
 </ol>
@@ -658,8 +594,9 @@ ggplot(data, aes(x = abs_resid)) +
 <li>Using the <code>tidy()</code> function, print tidy results from your <code>my_glm</code> object, what outputs do you see? Do you see a significant interaction?</li>
 </ol>
 </div>
-<div id="g---predicting-values-for-new-data" class="section level3">
-<h3>G - Predicting values for new data</h3>
+</div>
+<div id="f---predicting-values-for-new-data" class="section level3">
+<h3>F - Predicting values for new data</h3>
 <ol style="list-style-type: decimal">
 <li>The <code>hitters_new.csv</code> file contains values from 10 new players, load this data as a new dataframe called <code>hitters_new</code></li>
 </ol>
@@ -854,10 +791,10 @@ rsq(hwy_mod)
 <p>SHORT VERBAL DESCRIPTION OF DATA SETS</p>
 <div id="variable-description" class="section level4">
 <h4>Variable description</h4>
-<table>
+<table style="width:75%;">
 <colgroup>
-<col width="26%" />
-<col width="73%" />
+<col width="20%" />
+<col width="54%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -979,11 +916,11 @@ rsq(hwy_mod)
 </div>
 <div id="functions-1" class="section level3">
 <h3>Functions</h3>
-<table>
+<table style="width:83%;">
 <colgroup>
-<col width="7%" />
-<col width="12%" />
-<col width="80%" />
+<col width="6%" />
+<col width="11%" />
+<col width="65%" />
 </colgroup>
 <thead>
 <tr class="header">

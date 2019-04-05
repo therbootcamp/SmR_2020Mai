@@ -1,6 +1,6 @@
 ---
 title: "Linear Models I"
-author: "<HmRun style='HmRun-layout:fixed;width:100%;border:0;padding:0;margin:0'><col width='10%'><col width='10%'>
+author: "<table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'><col width='10%'><col width='10%'>
   <tr style='border:none'>
     <td style='display:block;width:100%;text-align:left;vertical-align:bottom;padding:0;margin:0;border:none' nowrap>
       <font style='font-style:normal'>Statistics with R</font><br>
@@ -23,7 +23,7 @@ author: "<HmRun style='HmRun-layout:fixed;width:100%;border:0;padding:0;margin:0
     <td style='width:100%;vertical-align:bottom;text-align:right;padding:0;margin:0;border:none'>
       <img src='https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png' style='height:15px;width:80px'/>
     </td>
-  </tr></HmRun>"
+  </tr></table>"
 output:
   html_document:
     css: practical.css
@@ -52,7 +52,7 @@ mcdonalds <- read_csv("1_Data/mcdonalds.csv")
 ```
 
 <p align="center" width="100%">
-  <img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/baseball.png?token=AIFo1PlxSH9Z8b82MTUkkJ8pNUE7-Gbyks5cqIaSwA%3D%3D" alt="Trulli" style="width:100%">
+  <img src="image/baseball.png" alt="Trulli" style="width:100%">
   <br>
   <font style="font-size:10px">from <a href="">www.popsci.com</a></font>
 </p>
@@ -133,7 +133,7 @@ View(XXX)
 
 ### B - Simple regression
 
-#### Hits and Salary
+##### Hits and Salary
 
 In this section, we will answer the question: "Is there a relationship between the number of Hits a player had in 1986 (`Hits`) and his salary in 1987 (`Salary`)"?
 
@@ -291,7 +291,7 @@ rsq(XXX)
 rsq(hits_glm)
 ```
 
-#### Home Runs (HmRun) and Salary
+##### Home Runs (HmRun) and Salary
 
 In this section, we will answer the question: "Is there a relationship between the number of home runs a player scores in 1986 his salary in 1987?
 
@@ -549,7 +549,7 @@ rsq(XXX)
 rsq(HmRun_glm)
 ```
 
-### E - Exploring model residuals
+### D - Exploring model residuals
 
 1. Using the `residuals()` function, save the residuals of your regression analysis to a vector called `all_resid`
 
@@ -607,9 +607,9 @@ ggplot(data, aes(x = abs_resid)) +
   labs(title = "Absolute Residuals of Salary GLM")
 ```
 
-### F - Adjusting your model with formulas
+### E - Adjusting your model with formulas
 
-### Excluding variables with -
+##### Excluding variables with -
 
 1. Using the guides below, create a regression object `my_glm` predicting Salary based on all variables *except* for `AtBat` and `Hits`
 
@@ -630,7 +630,7 @@ tidy(my_glm)
 ```
 
 
-### Including interactinos with *
+##### Including interactinos with *
 
 
 3. Using the guides below, create a regression object `my_glm` predicting Salary based the *interaction* between `AtBat` and `Hits`
@@ -651,7 +651,7 @@ my_glm <- glm(formula = Salary ~ AtBat * Hits,
 tidy(my_glm)
 ```
 
-### G - Predicting values for new data
+### F - Predicting values for new data
 
 1. The `hitters_new.csv` file contains values from 10 new players, load this data as a new dataframe called `hitters_new`
 
