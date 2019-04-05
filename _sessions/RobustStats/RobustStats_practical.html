@@ -145,12 +145,12 @@ $(document).ready(function () {
 <h1></h1>
 <div id="overview" class="section level2">
 <h2>Overview</h2>
-<p>In this practical you’ll practice “XXX” with the <code>XXX</code> packages.</p>
+<p>In this practical you’ll explore issues surrounding the topic of robust statistics using a variety of packages (see <em>Functions</em>) tab. You’ll will explore sales of avocados across various locations in the US from 2015 to 2018.</p>
 <p>By the end of this practical you will know how to:</p>
 <ol style="list-style-type: decimal">
-<li></li>
-<li></li>
-<li></li>
+<li>Evaluate regression assumptions.</li>
+<li>Run off-the-shelve non-parametric tests.</li>
+<li>Run bootstrap analyses.</li>
 </ol>
 </div>
 <div id="tasks" class="section level2">
@@ -159,39 +159,361 @@ $(document).ready(function () {
 <h3>A - Setup</h3>
 <ol style="list-style-type: decimal">
 <li><p>Open your <code>BaselRBootcamp</code> R project. It should already have the folders <code>1_Data</code> and <code>2_Code</code>. Make sure that the data files listed in the <code>Datasets</code> section above are in your <code>1_Data</code> folder</p></li>
-<li><p>Open a new R script. At the top of the script, using comments, write your name and the date. Save it as a new file called <code>wrangling_practical.R</code> in the <code>2_Code</code> folder.</p></li>
+<li><p>Open a new R script. At the top of the script, using comments, write your name and the date. Save it as a new file called <code>robuststats_practical.R</code> in the <code>2_Code</code> folder.</p></li>
 <li><p>Using <code>library()</code> load the <code>tidyverse</code> package (if you don’t have it, you’ll need to install it with <code>install.packages()</code>)!</p></li>
 </ol>
 <pre class="r"><code># Load packages necessary for this script
-library(tidyverse)</code></pre>
+library(tidyverse)
+library(lubdridate)
+library(lme4)
+library(rsq)
+library(moments)
+library(boot)
+library(quantreg)
+library(Rfit)</code></pre>
 <ol start="4" style="list-style-type: decimal">
-<li>Using the following template, load the <code>XXX</code> data into R and store it as a new object called <code>XXX</code> (Hint: Don’t type the path directly! Use the “tab” completion!).</li>
+<li>Using the following template, load the <code>avocado.csv</code>, <code>avocado_cali.csv</code>, and <code>avocado_ny.csv</code> data sets into R and store them as a new objects called <code>avocado</code>, <code>avocado_cali</code>, and <code>avocado_ny</code> (Hint: Don’t type the path directly! Use the “tab” completion!).</li>
 </ol>
 <pre class="r"><code># Load XXX.csv from the 1_Data folder
 
 XX &lt;- read_csv(file = &quot;XX/XX&quot;)</code></pre>
+<pre class="r"><code># Load data sets from the 1_Data folder
+
+avocado &lt;- read_csv(file = &quot;1_Data/avocado.csv&quot;)
+avocado_cali &lt;- read_csv(file = &quot;1_Data/avocado_cali.csv&quot;)</code></pre>
 <ol start="5" style="list-style-type: decimal">
-<li>Take a look at the first few rows of the datasets by printing them to the console.</li>
+<li>Take a look at the first few rows of the data sets by printing them to the console.</li>
 </ol>
 <pre class="r"><code># Print XXX object
 XXX</code></pre>
 <ol start="7" style="list-style-type: decimal">
-<li><p>Use the the <code>summary()</code> function to print more details on the columns of the datasets.</p></li>
-<li><p>Use the <code>View()</code> function to view the entire dataframes in new windows</p></li>
+<li>Use the the <code>summary()</code> function to print more details on the columns of the data sets.</li>
 </ol>
-<pre class="r"><code>View(XXX)
+<pre class="r"><code># Show summary of XXX object
+summary(XXX)</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li>Use the <code>View()</code> function to view the entire data sets in new windows</li>
+</ol>
+<pre class="r"><code># View data frame XXX 
 View(XXX)</code></pre>
 </div>
-<div id="b---xxx" class="section level3">
-<h3>B - XXX</h3>
+<div id="b---assumptions" class="section level3">
+<h3>B - Assumptions</h3>
+<ol style="list-style-type: decimal">
+<li>In this practical, you will be working with a data set containing information on the sales volume of avocados across various areas in the US and over the the last three years. Your initial goal is to predict, whether the sales <code>volume</code> is a function of the <code>price_per_avocado</code>. Begin by running a simple regression on the <code>avocado_cali</code> data set using <code>lm</code> and store the model as <code>m1</code>. See the template below.</li>
+</ol>
+<p>Note: In this practical, we will be using the basic <code>lm</code> function, rather than the more general <code>lm</code> function.</p>
+<pre class="r"><code># regress volume on average price
+m1 &lt;- lm(YY ~ XX, data = ZZ)</code></pre>
+<pre class="r"><code># regress volume on average price
+m1 &lt;- lm(volume ~ price_per_avocado, 
+          data = avocado_cali)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Evaluate the model using <code>summary()</code>. Is the average price a good predictor of volume?</li>
+</ol>
+<pre class="r"><code># model summary
+summary(XX)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>According to test yes, the average price strongly predicts volume. However, this does not imply that the relationship between average price and volume is described well by the regression line. Create a simple plot of the average price (x-axis) and volume (y-axis) using the template below.</li>
+</ol>
+<pre class="r"><code># plot model
+plot(avocado_cali$XX, avocado_cali$YY)
+abline(m1)</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>The plot revealed that the regression is actually not really a good summary of the data. Confirm this by plotting the residuals against the predicted values.</li>
+</ol>
+<pre class="r"><code># Residual plot
+plot(predicted(XX), residuals(XX))</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>The model fits the data badly including several serious violations of regression assumptions: Linearity, normality, and heteroscedascity do not seem to hold. One cause for these violations are missing variables. Add one other variable to the regression that contains information on the kind of avocado (see <em>Data</em> tab) and evaluate the model again.</li>
+</ol>
+<pre class="r"><code># regress volume on average price and XX
+m2 &lt;- lm(YY ~ XX1 + XX2, data = ZZ)
+plot(predict(m2), residuals(m2))</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>Accounting for the different types of avocados has helped a great deal. The residual plot still does not look ideal. But at least the correlation between predicted values and residuals seems to have substantially decreased. Verify this by comparing the correlations.</li>
+</ol>
+<pre class="r"><code># compare correlation of predicted values &amp; residals
+cor(predict(XX), residuals(XX))
+cor(predict(YY), residuals(YY))</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li>The correlation actually has not come down, because the correlation for <code>m1</code> was despite the visual appearance already zero. Nonetheless, we are moving in the right direction. One other problem for the relationship is the very skewed distribution of <code>volume</code>. Inspect this by plotting a simple histogram of <code>volume</code>.</li>
+</ol>
+<pre class="r"><code># histogram of volume
+hist(avocado_cali$XX)</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li>To deal with this problem one could engage in variable transformations, better would be to model the data using an appropriate probability distribution, which counts typically is a Poisson distribution. Fortunately, we don’t have to do either. There is another variable called <code>volume_index</code> that is much better behaved. Verify this by also creating a histogram of this variable.</li>
+</ol>
+<pre class="r"><code># histogram of volume_index
+hist(avocado_cali$XX)</code></pre>
+<ol start="9" style="list-style-type: decimal">
+<li>The distribution of <code>volume_index</code> is also not ideal, but at least it exhibits much less skewness. Verify this by computing the skewness of both variables using the <code>skewness</code> function from the <code>moments</code> package.</li>
+</ol>
+<pre class="r"><code># skewness of volume and volume index
+skewness(avocado_cali$XX)
+skewness(avocado_cali$YY)</code></pre>
+<ol start="10" style="list-style-type: decimal">
+<li>Now that you confirmed that <code>volume_index</code> is probably the better variable to model, run a regression of <code>volume_indes</code> on <code>price_per_avocado</code> and <code>type</code> and call the model <code>m3</code>.</li>
+</ol>
+<pre class="r"><code># regress volume_index on average price and type
+m3 &lt;- lm(YY ~ XX1 + XX2, data = ZZ)</code></pre>
+<ol start="12" style="list-style-type: decimal">
+<li><p>Now plot the residuals of <code>m3</code> against the predicted values. What do you think have the residuals become more behaved?</p></li>
+<li><p>The residual behavior is still not ideal. There seems to still some skewness differences between low and high predicted values, but now one would not expect anymore that those would substantially alter the results. So, go on and evaluate the model using <code>summary()</code>.</p></li>
+</ol>
 </div>
-<div id="x---advanced-xxx" class="section level3">
-<h3>X - Advanced: XXX</h3>
+<div id="c---variance-inflation" class="section level3">
+<h3>C - Variance inflation</h3>
+<ol style="list-style-type: decimal">
+<li><p>In the previous section, you have evaluated the effect of price on volume controlling for the type of avocado. This has shown you that price indeed seems to exert strong influence on volume. Some of this impact, however, could be due to other third variables. For instance, it might be possible that the price simply went up through general inflation, while at the same time avocados became more popular. Control for this and other factors by including in the regression of <code>volume_index</code> the following variables in addition to <code>price_per_avocado</code> and <code>type</code>: <code>date</code>, <code>season</code>, <code>temperature</code>, <code>humidity</code>, <code>precipitation</code>, <code>type</code>. Call the model <code>m4</code>.</p></li>
+<li><p>Evaluate the model using <code>summary()</code> and compare it to the summary of <code>m3</code>. First, is the the effect of price still significant. Second, how have have the estimate changed and the standard error changed?</p></li>
+<li><p>You will have observed that both the estimate and the standard error went slightly up. The former is a result of the fact that the other variables took account of some variance in the price that is not related to volume. The latter is, as you can verify in the formula on the variance inflation factor, a result of two adversarial factors: (1) a better fit of the model and (2) an increased variance inflation factor. Let’s inspect these two. First, evaluate the residual variance of <code>m3</code> and <code>m4</code> using the template below.</p></li>
+</ol>
+<pre class="r"><code># resdiaul variance of m3 and m4
+var_res1 &lt;- var(residuals(XX))
+var_res2 &lt;- var(residuals(YY))
+var_res1
+var_res2</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>You’ll see that that the residual variance decreased to about half. According to this the variance of the <span class="math inline">\(beta\)</span> weight (i.e., the square of the standard error should have also halved). Given that it has not, suggests that the variance inflation factor has increased by at least the same amount. Find out! Run two regression predicting <code>price_per_avocado</code>: First, by all other predictors in <code>m3</code>, i.e., <code>type</code>, and call the model <code>m_price1</code>. Second, by all other predictors in <code>m4</code> and call the model <code>m_price2</code>.</li>
+</ol>
+<pre class="r"><code># predicting price_per_avocado
+m_price1 &lt;- lm(price_per_avocado ~ XX, data = avocado_cali)
+m_price2 &lt;- lm(price_per_avocado ~ XX + XX  + ..., data = avocado_cali)</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Next, calculate the <span class="math inline">\(R^2\)</span> value for both models and the variance inflation factor using the template below.</li>
+</ol>
+<pre class="r"><code># proportion explained variance
+rsq1 &lt;- rsq(XX)
+rsq2 &lt;- rsq(YY)
+rsq1
+rsq2
+
+my_rsq=function(m,x) var(predict(m)) / var(x)
+
+my_rsq(m_price1, avocado_cali$price_per_avocado)
+
+# variance inflation factors
+1/(1-rsq(XX))
+1/(1-rsq(YY))</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>So, while residual variance decreased from <code>.042</code> to <code>.022</code>, the variance inflation factor increased from <code>2.24</code> to <code>4.86</code>. Using these values we can actually compute the standard errors of <code>price_per_avocado</code> in model <code>m3</code> and <code>m4</code> following the formula on the respective slide. See code below. Confirm that the calculated values correspond to the standard errors in the summary outputs for <code>m1</code> and <code>m2</code>.</li>
+</ol>
+<p>Note: R determines the standard errors using a correction for degrees of freedom in the calculation of the residual variance. One can account for this by recalculating the residual variance using <span class="math inline">\(\hat\sigma_e^2=\frac{\sum e^2}{n-df-1}\)</span>, with <span class="math inline">\(df=2\)</span> for <code>m3</code> and <span class="math inline">\(df=9\)</span> for <code>m4</code>.</p>
+<pre class="r"><code># needed formula elements
+var_x &lt;- var(avocado_cali$price_per_avocado)
+n = nrow(avocado_cali)
+
+# without correction -----
+
+# variance and standard error of price in m3
+var_beta1 &lt;- (var_res1 / (var_x * (n-1))) * vif1 
+sqrt(var_beta1)
+
+# variance and standard error of price in m4
+var_beta2 =  (var_res2 / (var_x * (n-1))) * vif2 
+sqrt(var_beta2)
+
+# with correction -----
+
+# variance and standard error of price in m3 with correction
+var_c_res1 &lt;- sum(residuals(m4)**2) / (n - 2 - 1)
+var_beta1 &lt;- (var_c_res1 / (var_x * (n-1))) * vif1 
+sqrt(var_beta1)
+
+# variance and standard error of price in m4 with correction
+var_c_res2 &lt;- sum(residuals(m4)**2) / (n - 9 - 1)
+var_beta1 &lt;- (var_c_res2 / (var_x * (n-1))) * vif1 
+sqrt(var_beta1)</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li>The above illustrates that including variables regressors in the regression is a double-edged sword. They improve the overall prediction and may uncover more pure relationships, but they will also increase our uncertainty over the true values of the regression weights by increasing the respective standard errors. If you like, see if you can find other combination of predictors that increase or decrease the standard error of the weight for price.</li>
+</ol>
+</div>
+<div id="c---polynomial-effects" class="section level3">
+<h3>C - Polynomial effects</h3>
+<ol style="list-style-type: decimal">
+<li>So far we have assumed that all relationships are completely linear. However, it seems plausible the effect of price could, for instance, be a quadratic one or even of a higher polynomial. Create a regression predicting <code>volume_index</code> by <code>type</code>, <code>price_per_avocado</code>, and the quadratic effect of <code>price_per_avocado</code>. The latter can be included using the function <code>I()</code>. See template below.</li>
+</ol>
+<pre class="r"><code># linear and quadratic effect of price
+m5 &lt;- lm(YY ~ YY + XX + I(XX^2), 
+          data = avocado_cali)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Eva lute the model (<code>m5</code>) using <code>summary()</code>. Is the quadratic effect significant?</p></li>
+<li><p>Test whether the inclusion of the quadratic factor is warranted by testing <code>m5</code> against <code>m3</code> (the model without the quadratic effect) using <code>anova()</code>. Note: <code>anova()</code> performs a deviance test between two models, not an analysis of variance in the classical sense.</p></li>
+</ol>
+<pre class="r"><code># evaluate merit of quadratic effect
+anova(m3,m5)</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Yes, the quadratic effect improves the prediction of volume significantly. However, this came again with a substantial downside. You will see that the standard error of the linear effect of price went up dramatically. This is because <code>price_per_avocado</code> and <code>price_per_avocado^2</code> are highly correlated. To prevent this, the quadratic terms are typically centered, as implemented in the template below. Run the regression and compare the results to <code>m5</code>.</li>
+</ol>
+<pre class="r"><code># linear and quadratic effect of price
+m6 &lt;- lm(YY ~ YY + XX + I((XX - mean(XX)) ^2), 
+          data = avocado_cali)</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>You’ll see the standard error of the linear effect went back to about where it was in <code>m3</code> or <code>m4</code>. Try out if you can further improve the prediction of volume by including a cubic effect, i.e., <code>XX^3</code>.</li>
+</ol>
+</div>
+<div id="d---non-parametric-tests" class="section level3">
+<h3>D - Non-parametric tests</h3>
+<ol style="list-style-type: decimal">
+<li>Let’s now look at the development of avocado consumption over time. Use the following code to create data sets containing the Cali’ avocado consumption in 2016 and 2017.</li>
+</ol>
+<pre class="r"><code># Cali avocado volume 2016 &amp; 2017
+avocado_cali_2016 = avocado_cali %&gt;% 
+  filter(year == 2016)
+avocado_cali_2017 = avocado_cali %&gt;% 
+  filter(year == 2017, 
+         week(date) %in% week(avocado_cali_2016$date))</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Now test, whether the consumption has risen from 2016 to 2017 using a paired t-test, i.e., <code>t.test(X, Y, paired = TRUE)</code>. Try this out for both <code>volume</code> and <code>volume_index</code>.</li>
+</ol>
+<pre class="r"><code># compare Cali and NY avocado volume
+t.test(avocado_cali_2016$XX,
+       avocado_cali_2017$XX, paired = TRUE)
+
+# compare Cali and NY avocado volume_index
+t.test(avocado_cali_2016$YY,
+       avocado_cali_2017$YY, paired = TRUE)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>For <code>volume_index</code> the result turned out significant, 2017 indeed saw higher avocado consumption than 2016. However, for <code>volume</code> the result did not quite reach significance. This likely has to do with the fact that <code>volume</code> is extremely skewed. To confirm the result, run the same tests using a pared Wilcoxon test, i.e., <code>wilcox.test(XX, YY, paired = TRUE)</code>, which should not be affected by the skewness.</li>
+</ol>
+<pre class="r"><code># compare Cali and NY avocado volume
+wilcox.test(avocado_cali_2016$XX,
+            avocado_cali_2017$XX, paired = TRUE)
+
+# compare Cali and NY avocado volume_index
+wilcox.test(avocado_cali_2016$YY,
+            avocado_cali_2017$YY, paired = TRUE)</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>In fact, the Wilcoxon test shows significant results for both measures, suggesting that there indeed is a robust difference. Another, even more robust way of testing this is the sign test. Test this using the template below</li>
+</ol>
+<pre class="r"><code># sign test preparations
+signs = avocado_cali_2017$XX &gt; avocado_cali_2016$XX
+n_plus = sum(signs)
+n = length(signs)
+
+# sign test: p of receiving a larger n_plus than observed
+pbinom(n_plus, size = n, prob = .5)</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>The sign test confirms the results. Now, go explore and see whether you can find additional differences between the avocado years of 2016 and 2017 in California.</li>
+</ol>
+</div>
+<div id="e---robust-regression" class="section level3">
+<h3>E - Robust regression</h3>
+<ol style="list-style-type: decimal">
+<li><p>Remember that the residual distribution of our regression of <code>volume_index</code> on <code>price_per_avocado</code> and <code>type</code> was less than ideal? Take a look again by running the code below.</p></li>
+<li><p>The somewhat different residual distributions for high and low predictions suggest that we should take a look at robust regression analyses. Run similar regression models using the <code>rq</code> function from the <code>quantreg</code> package and the <code>rfit</code> function from the <code>Rfit</code> package using the template below.</p></li>
+</ol>
+<pre class="r"><code># quantile regression
+m3_q &lt;- rq(YY ~ XX + XX, data = ZZ)
+
+# rank-based regression
+m3_rb &lt;- rfit(YY ~ XX + XX, data = ZZ)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Compare the results of the original <code>m3</code> model to the two robust regression models using <code>summary()</code> on each model. Are the coefficients much different from each another?</p></li>
+<li><p>The solutions of the three model classes were quite similar, right? Now, try the same predicting <code>volume</code> instead of <code>volume_index</code>. Fit regressions using regular regression and the two robust approaches and compare the parameters.</p></li>
+<li><p>The numbers aren’t so easy to compare, but you will be able to confirm that the regular regression coefficients are far of the ones of the other two methods, especially for <code>price_per_avocado</code>. As in most circumstances, the difference is largest between the <code>rq</code> and <code>lm</code> results, with <code>rfit</code> being somewhere in the middle, but closer to <code>rq</code>. Now, as usual, go explore.</p></li>
+</ol>
+</div>
+<div id="x---advanced-bootstrap" class="section level3">
+<h3>X - Advanced: Bootstrap</h3>
+<p>Bootstrapping is an amazingly powerful tool to make inferences about the sampling distribution of any statistic you can come up with. Let’s try to use it to come up with standard errors for our favorite regression model: <code>volume_index ~ price_per_avocado + type</code>.</p>
+<ol style="list-style-type: decimal">
+<li>To use bootstrap, one needs to define a function that calculates the statistics for each of the different bootstrap samples provided to it. See the code below. Notice that the <code>data</code> argument has not been assigned our data set <code>avocado_cali</code> but rather carries the generic <code>data</code>, which will be provided to the function by the <code>boot</code> function. Run the function.</li>
+</ol>
+<pre class="r"><code># bootstrap function for linear model
+boot_lm &lt;- function(data, indices){
+  data &lt;- data[indices,] # select obs. in bootstrap sample
+  m &lt;- lm(volume_index ~ price_per_avocado + type, data = data)
+  coefficients(m)
+  }</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>The next step is to run the bootstrap mechanism using the <code>boot</code> function from the <code>boot</code> package to create the bootstrap results. Here we are now providing <code>avocado_cali</code> along with the function defined above and the number of repetitions <code>R</code>. Run the bootstrap.</li>
+</ol>
+<pre class="r"><code># bootstrap sampling results 
+B &lt;- boot(avocado_cali, statistic = boot_lm, R = 100)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Now you can evaluate the results. Print the <code>B</code> object. The output will be slightly different than usual. The column <code>original</code> contains the results of the regression model for the full data (i.e., <code>m3</code>). The column <code>bias</code> contains the differences between the average simulated parameters and the original parameters. If these are large, then this may, among other things, mean that you need to run a larger number of bootstrap samples. Finally, the column <code>std. error</code> contains the standard error across the bootstrap sampling results.</li>
+</ol>
+<pre class="r"><code># print bootstrap results
+B</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Finally, compare the standard errors of the <code>m3</code> or the other, robust regression models, to those of the bootstrap.</li>
+</ol>
+<pre class="r"><code># print bootstrap results
+summary(m3)</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Go explore. Can you figure out how to bootstrap the difference between the volumes of <code>avocado_cali_2016</code> and <code>avocado_cali_2017</code>?</li>
+</ol>
+</div>
+<div id="y---advanced-assumptions-pt.-2" class="section level3">
+<h3>Y - Advanced: Assumptions pt. 2</h3>
+<p>In this section you can full demonstrate your statistics Jedi-knight skills by analyzing the full <code>avocado</code> data set. Given that the <code>avocado</code> data set contains data from different regions the full data needs to modeled as a mixed model. Your goal is to specify a model that produces a relatively well-behaved looking residual plot, by including any necessary variables from the data set as fixed or random effects. See template below.</p>
+<pre class="r"><code># model
+mm &lt;- lmer(volume_index ~ XX + (1 | region), data = avocado)
+
+# residual plot
+plot(predict(mm), residuals(m,))</code></pre>
 </div>
 </div>
 <div id="examples" class="section level2">
 <h2>Examples</h2>
-<pre class="r"><code># EXAMPLE CODE</code></pre>
+<pre class="r"><code>library(tidyverse)
+
+# descriptive stats ----------------
+
+library(moments)
+
+var(hwy)      # variance
+skewness(hwy) # skewness
+
+
+# simple regression ----------------
+
+# model
+m &lt;- lm(hwy ~ displ, data = mpg)
+
+# evaluate model
+summary(m)     # summary results
+predict(m)     # predicted/fitted values
+residuals(m)   # residual errors
+rsq(m)         # r-square 
+1 / (1-rsq(m)) # variance inflation factor 
+
+# residual plot
+plot(predict(m), residuals(m))
+
+
+# model comparison ----------------
+
+# model
+m1 &lt;- lm(hwy ~ displ, data = mpg)
+
+# model + quadratic effect
+m2 &lt;- lm(hwy ~ I(displ^2), data = mpg)
+
+# anova
+anova(m1, m2)
+
+# non-parametric tests ----------------
+
+#  split data (not strictly necessary)
+mpg_suv     &lt;- mpg %&gt;% select(class == &#39;suv&#39;)
+mpg_compact &lt;- mpg %&gt;% select(class == &#39;compact&#39;)
+
+# wilcoxon
+wilcoxon.test(mpg_suv$hwy, mpg_compact$hwy)
+
+# robust regression ----------------
+
+library(quantreg)
+library(Rfit)
+
+# quantile regression
+m_q  &lt;- rq(hwy ~ displ, data = mpg)
+
+# rank-bsed regression
+m_rb &lt;- rfit(hwy ~ displ, data = mpg)</code></pre>
 </div>
 <div id="datasets" class="section level2">
 <h2>Datasets</h2>
@@ -205,18 +527,19 @@ View(XXX)</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><a href="">XXX</a></td>
-<td align="left">Nrow</td>
-<td align="left">Ncol</td>
+<td align="left"><a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/1_Data/avocado.csv">avocado.csv</a></td>
+<td align="left">17573</td>
+<td align="left">16</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="">XXX</a></td>
-<td align="left">Nrow</td>
-<td align="left">Ncol</td>
+<td align="left"><a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/1_Data/avocado_cali.csv">avocado_cali.csv</a></td>
+<td align="left">338</td>
+<td align="left">16</td>
 </tr>
 </tbody>
 </table>
-<p>SHORT VERBAL DESCRIPTION OF DATA SETS</p>
+<p>This data was downloaded from the <a href="https://en.wikipedia.org/wiki/Hass_avocado">Hass</a> Avocado Board website for the duration of April 2015 and May 2018. The data contain weekly (reported on Sundays) retail scan data for National retail volume (units) and price. Retail scan data comes directly from retailers’ cash registers based on actual retail sales of Hass avocados. The Average Price (of avocados) in the table reflects a per unit (per avocado) cost. Other varieties of avocados (e.g. greenskins) are not included in this table.</p>
+<p>The data set <code>avocado.csv</code> contains the data for all 52 regions. The smaller data set <code>avocado_cali.csv</code> contains the data for only California.</p>
 <div id="variable-description" class="section level4">
 <h4>Variable description</h4>
 <table style="width:75%;">
@@ -232,112 +555,68 @@ View(XXX)</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">XXX</td>
-<td align="left">XXX</td>
+<td align="left"><code>volume</code></td>
+<td align="left">The total number of sold avocados that week.</td>
 </tr>
 <tr class="even">
-<td align="left">XXX</td>
-<td align="left">age in years at baseline</td>
+<td align="left"><code>volume_index</code></td>
+<td align="left">A sales index scaling the sales number to the range of 0 to 10.</td>
 </tr>
 <tr class="odd">
-<td align="left">wtkg</td>
-<td align="left">weight in kg at baseline</td>
+<td align="left"><code>price_per_avocado</code></td>
+<td align="left">The average price of a single avocado.</td>
 </tr>
 <tr class="even">
-<td align="left">hemo</td>
-<td align="left">hemophilia (0=no, 1=yes)</td>
+<td align="left"><code>type</code></td>
+<td align="left">The type of avocado: “conventional” or “organic”.</td>
 </tr>
 <tr class="odd">
-<td align="left">homo</td>
-<td align="left">homosexual activity (0=no, 1=yes)</td>
+<td align="left"><code>temperature</code></td>
+<td align="left">The regional temperature on the day of the data recording.</td>
 </tr>
 <tr class="even">
-<td align="left">drugs</td>
-<td align="left">history of intravenous drug use (0=no, 1=yes)</td>
+<td align="left"><code>temperature_usa</code></td>
+<td align="left">The country-wide temperature on the day of the data recording.</td>
 </tr>
 <tr class="odd">
-<td align="left">karnof</td>
-<td align="left">Karnofsky score (on a scale of 0-100)</td>
+<td align="left"><code>humidity</code></td>
+<td align="left">The regional humidity on the day of the data recording.</td>
 </tr>
 <tr class="even">
-<td align="left">oprior</td>
-<td align="left">non-zidovudine antiretroviral therapy prior to initiation of study treatment (0=no, 1=yes)</td>
+<td align="left"><code>humidity_usa</code></td>
+<td align="left">The country-wide humidity on the day of the data recording.</td>
 </tr>
 <tr class="odd">
-<td align="left">z30</td>
-<td align="left">zidovudine use in the 30 days prior to treatment initiation (0=no, 1=yes)</td>
+<td align="left"><code>precipitation</code></td>
+<td align="left">The regional precipitation on the day of the data recording.</td>
 </tr>
 <tr class="even">
-<td align="left">zprior</td>
-<td align="left">zidovudine use prior to treatment initiation (0=no, 1=yes)</td>
+<td align="left"><code>precipitation_usa</code></td>
+<td align="left">The country-wide precipitation on the day of the data recording.</td>
 </tr>
 <tr class="odd">
-<td align="left">preanti</td>
-<td align="left">number of days of previously received antiretroviral therapy</td>
+<td align="left"><code>year</code></td>
+<td align="left">The year of the data recording.</td>
 </tr>
 <tr class="even">
-<td align="left">race</td>
-<td align="left">race (0=white, 1=non-white)</td>
+<td align="left"><code>season</code></td>
+<td align="left">The season of the data recording.</td>
 </tr>
 <tr class="odd">
-<td align="left">gender</td>
-<td align="left">gender (0=female, 1=male)</td>
+<td align="left"><code>date</code></td>
+<td align="left">The date of the data recording.</td>
 </tr>
 <tr class="even">
-<td align="left">str2</td>
-<td align="left">antiretroviral history (0=naive, 1=experienced)</td>
+<td align="left"><code>region</code></td>
+<td align="left">The region for which sales were recorded.</td>
 </tr>
 <tr class="odd">
-<td align="left">strat</td>
-<td align="left">antiretroviral history stratification (1=’antiretroviral naive’, 2=’&gt; 1 but ≤ 52 weeks of prior antiretroviral therapy’, 3=’&gt; 52 weeks’)</td>
+<td align="left"><code>longitude</code></td>
+<td align="left">The longitude of the region center.</td>
 </tr>
 <tr class="even">
-<td align="left">symptom</td>
-<td align="left">symptomatic indicator (0=asymptomatic, 1=symptomatic)</td>
-</tr>
-<tr class="odd">
-<td align="left">treat</td>
-<td align="left">treatment indicator (0=zidovudine only, 1=other therapies)</td>
-</tr>
-<tr class="even">
-<td align="left">offtrt</td>
-<td align="left">indicator of off-treatment before 96±5 weeks (0=no,1=yes)</td>
-</tr>
-<tr class="odd">
-<td align="left">cd40</td>
-<td align="left">CD4 T cell count at baseline</td>
-</tr>
-<tr class="even">
-<td align="left">cd420</td>
-<td align="left">CD4 T cell count at 20±5 weeks</td>
-</tr>
-<tr class="odd">
-<td align="left">cd496</td>
-<td align="left">CD4 T cell count at 96±5 weeks (=NA if missing)</td>
-</tr>
-<tr class="even">
-<td align="left">r</td>
-<td align="left">missing CD4 T cell count at 96±5 weeks (0=missing, 1=observed)</td>
-</tr>
-<tr class="odd">
-<td align="left">cd80</td>
-<td align="left">CD8 T cell count at baseline</td>
-</tr>
-<tr class="even">
-<td align="left">cd820</td>
-<td align="left">CD8 T cell count at 20±5 weeks</td>
-</tr>
-<tr class="odd">
-<td align="left">cens</td>
-<td align="left">indicator of observing the event in days</td>
-</tr>
-<tr class="even">
-<td align="left">days</td>
-<td align="left">number of days until the first occurrence of: (i) a decline in CD4 T cell count of at least 50 (ii) an event indicating progression to AIDS, or (iii) death.</td>
-</tr>
-<tr class="odd">
-<td align="left">arms</td>
-<td align="left">treatment arm (0=zidovudine, 1=zidovudine and didanosine, 2=zidovudine and zalcitabine, 3=didanosine).</td>
+<td align="left"><code>latitude</code></td>
+<td align="left">The latitude of the region center.</td>
 </tr>
 </tbody>
 </table>
@@ -360,15 +639,44 @@ View(XXX)</code></pre>
 <td align="left"><code>install.packages(&quot;tidyverse&quot;)</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>XX</code></td>
-<td align="left"><code>XX</code></td>
+<td align="left"><code>lubridate</code></td>
+<td align="left"><code>install.packages(&quot;lubridate&quot;)</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>moments</code></td>
+<td align="left"><code>install.packages(&quot;moments&quot;)</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>quantreg</code></td>
+<td align="left"><code>install.packages(&quot;quantreg&quot;)</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>boot</code></td>
+<td align="left"><code>install.packages(&quot;boot&quot;)</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>Rfit</code></td>
+<td align="left"><code>install.packages(&quot;Rfit&quot;)</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><code>lme4</code></td>
+<td align="left"><code>install.packages(&quot;lme4&quot;)</code></td>
+</tr>
+<tr class="even">
+<td align="left"><code>rsq</code></td>
+<td align="left"><code>install.packages(&quot;rsq&quot;)</code></td>
 </tr>
 </tbody>
 </table>
 </div>
 <div id="functions-1" class="section level3">
 <h3>Functions</h3>
-<table>
+<table style="width:83%;">
+<colgroup>
+<col width="6%" />
+<col width="11%" />
+<col width="65%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Function</th>
@@ -378,14 +686,39 @@ View(XXX)</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><code>XXX</code></td>
-<td align="left"><code>XXX</code></td>
-<td align="left">XXX</td>
+<td align="left"><code>lm</code></td>
+<td align="left"><code>stats</code></td>
+<td align="left">More basic version of <code>glm()</code> for regular regression models.</td>
 </tr>
 <tr class="even">
-<td align="left"><code>XXX</code></td>
-<td align="left"><code>XXX</code></td>
-<td align="left">XXX</td>
+<td align="left"><code>summary</code>, <code>rsq</code></td>
+<td align="left"><code>base</code></td>
+<td align="left">Print model summary / model R-squared</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>predict</code>, <code>residuals</code></td>
+<td align="left"><code>stats</code></td>
+<td align="left">Extract fitted values / residuals from model object.</td>
+</tr>
+<tr class="even">
+<td align="left"><code>rq</code></td>
+<td align="left"><code>quantreg</code></td>
+<td align="left">Conduct quantile regression.</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>rfit</code></td>
+<td align="left"><code>Rfit</code></td>
+<td align="left">Conduct rank-based regression.</td>
+</tr>
+<tr class="even">
+<td align="left"><code>wilcox.test</code></td>
+<td align="left"><code>stats</code></td>
+<td align="left">Wilcoxon test.</td>
+</tr>
+<tr class="odd">
+<td align="left"><code>pbinom</code></td>
+<td align="left"><code>stats</code></td>
+<td align="left">Cumulative binomial distribution. Useful for sign-test.</td>
 </tr>
 </tbody>
 </table>
@@ -395,13 +728,8 @@ View(XXX)</code></pre>
 <h2>Resources</h2>
 <div id="vignettes" class="section level3">
 <h3>vignettes</h3>
-<p>TEXT and LINKS</p>
-</div>
-<div id="cheatsheets" class="section level3">
-<h3>Cheatsheets</h3>
-<p align="center" width="100%">
-<a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf"> <img src="https://image.slidesharecdn.com/data-wrangling-cheatsheet-160705210122/95/data-wrangling-with-dplyr-and-tidyr-cheat-sheet-1-638.jpg?cb=1467752577" style="width:70%"></a> <br> <font style="font-size:10px">from <a href="https://www.rstudio.com/resources/cheatsheets/">R Studio</a></font>
-</p>
+<p>Links to decent introductory / tutorial papers:</p>
+<p><a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/RobustStats/literature/Berry1993.pdf">Regression assumptions</a>, <a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/RobustStats/literature/FoxWeisberg2013.pdf">Robust regression</a>, <a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/RobustStats/literature/KlokeMcKean2012.pdf">Rank-based regression with Rfit</a> <a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/RobustStats/literature/FoxWeisberg2013.pdf">Bootstrap</a> <a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/RobustStats/literature/Stine1995.pdf">Variance inflation</a></p>
 </div>
 </div>
 </div>

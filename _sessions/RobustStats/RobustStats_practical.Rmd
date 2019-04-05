@@ -60,13 +60,13 @@ library(tidyverse)
 
 ## Overview
 
-In this practical you'll explore issues sourrounding the topic of robust statistics using a variety of packages (see *Functions*) tab. You'll will explore sales of avocados across various locations in the US from 2015 to 2018. 
+In this practical you'll explore issues surrounding the topic of robust statistics using a variety of packages (see *Functions*) tab. You'll will explore sales of avocados across various locations in the US from 2015 to 2018. 
 
 By the end of this practical you will know how to:
 
 1. Evaluate regression assumptions.
 2. Run off-the-shelve non-parametric tests.
-3. Run bootsrap analyses.
+3. Run bootstrap analyses.
 
 ## Tasks
 
@@ -89,9 +89,10 @@ By the end of this practical you will know how to:
 ```{r, echo = TRUE, eval = FALSE}
 # Load packages necessary for this script
 library(tidyverse)
+library(lubdridate)
 library(lme4)
 library(rsq)
-library(skewness)
+library(moments)
 library(boot)
 library(quantreg)
 library(Rfit)
@@ -110,7 +111,6 @@ XX <- read_csv(file = "XX/XX")
 
 avocado <- read_csv(file = "1_Data/avocado.csv")
 avocado_cali <- read_csv(file = "1_Data/avocado_cali.csv")
-avocado_ny <- read_csv(file = "1_Data/avocado_ny.csv")
 ```
 
 5. Take a look at the first few rows of the data sets by printing them to the console.
@@ -122,7 +122,7 @@ XXX
 
 ```{r}
 # Print XXX object
-XXXavocado
+avocado
 avocado_cali
 avocado_ny
 ```
@@ -157,16 +157,18 @@ View(avocado_ny)
 
 ### B - Assumptions
 
-1. In this pracical you will be working with a data set containing information on the sales volume of avocados across various areas in the US and over the the last three years. Your initial goal is to predict, whether the sales `volume` is a function of the `price_per_avocado`. Begin by running a simple regression on the `avocado_cali` data set using `glm` and store the model as `m1`. See the template below.   
+1. In this practical, you will be working with a data set containing information on the sales volume of avocados across various areas in the US and over the the last three years. Your initial goal is to predict, whether the sales `volume` is a function of the `price_per_avocado`. Begin by running a simple regression on the `avocado_cali` data set using `lm` and store the model as `m1`. See the template below.   
+
+Note: In this practical, we will be using the basic `lm` function, rather than the more general `lm` function.
 
 ```{r, echo = TRUE, eval = FALSE}
 # regress volume on average price
-m1 <- glm(YY ~ XX, data = ZZ)
+m1 <- lm(YY ~ XX, data = ZZ)
 ```
 
 ```{r, echo = TRUE}
 # regress volume on average price
-m1 <- glm(volume ~ price_per_avocado, 
+m1 <- lm(volume ~ price_per_avocado, 
           data = avocado_cali)
 ```
 
@@ -177,12 +179,12 @@ m1 <- glm(volume ~ price_per_avocado,
 summary(XX)
 ```
 
-```{r, echo = TRUE, eval = FALSE}
+```{r}
 # model summary
 summary(m1)
 ```
 
-3. According to test yes, the average price strongly predicts volumen. However, this does not imply that the relationship between average price and volume is described well by the regression line. Create a simple plot of the average price (x-axis) and volume (y-axis) using the template below. 
+3. According to test yes, the average price strongly predicts volume. However, this does not imply that the relationship between average price and volume is described well by the regression line. Create a simple plot of the average price (x-axis) and volume (y-axis) using the template below. 
 
 ```{r, echo = TRUE, eval = FALSE}
 # plot model
@@ -212,13 +214,13 @@ plot(predict(m1), residuals(m1))
 
 ```{r, echo = TRUE, eval = FALSE}
 # regress volume on average price and XX
-m2 <- glm(YY ~ XX1 + XX2, data = ZZ)
+m2 <- lm(YY ~ XX1 + XX2, data = ZZ)
 plot(predict(m2), residuals(m2))
 ```
 
 ```{r}
 # regress volume on average price and XX
-m2 <- glm(volume ~ price_per_avocado + type,
+m2 <- lm(volume ~ price_per_avocado + type,
           data = avocado_cali)
 plot(predict(m2), residuals(m2))
 ```
@@ -261,7 +263,7 @@ hist(avocado_cali$XX)
 hist(avocado_cali$volume_index)
 ```
 
-9. The distribution of `volume_index` is also not ideal, but at least it exhibits much less skewness. Verfiy this by computing the skewness of both variables using the `skewness` function from the `moments` package. 
+9. The distribution of `volume_index` is also not ideal, but at least it exhibits much less skewness. Verify this by computing the skewness of both variables using the `skewness` function from the `moments` package. 
 
 ```{r, echo = TRUE, eval = FALSE}
 # skewness of volume and volume index
@@ -279,12 +281,12 @@ skewness(avocado_cali$volume_index)
 
 ```{r, echo = TRUE, eval = FALSE}
 # regress volume_index on average price and type
-m3 <- glm(YY ~ XX1 + XX2, data = ZZ)
+m3 <- lm(YY ~ XX1 + XX2, data = ZZ)
 ```
 
 ```{r}
 # regress volume_index on average price and type
-m3 <- glm(volume_index ~ price_per_avocado + type,
+m3 <- lm(volume_index ~ price_per_avocado + type,
           data = avocado_cali)
 ```
 
@@ -308,7 +310,7 @@ summmary(m3)
 
 ```{r}
 # new comprehensive model 4
-m4 <- glm(volume_index ~ price_per_avocado + type + date  + season + temperature + humidity + precipitation + type, data = avocado_cali)
+m4 <- lm(volume_index ~ price_per_avocado + type + date  + season + temperature + humidity + precipitation + type, data = avocado_cali)
 ```
 
 2. Evaluate the model using `summary()` and compare it to the summary of `m3`. First, is the the effect of price still significant. Second, how have have the estimate changed and the standard error changed?
@@ -337,7 +339,7 @@ var_res1
 var_res2
 ```
 
-4. You'll see that that the residual vairance decreased to about half. According to this the variance of the $beta$ weight (i.e., the square of the standard error should have also halved). Given that it has not, suggests that the variance inflation factor has increased by at least the same amount. Find out! Run two regression predicting `price_per_avocado`: First, by all other predictors in `m3`, i.e., `type`, and call the model `m_price1`. Second, by all other predictors in `m4` and call the model `m_price2`. 
+4. You'll see that that the residual variance decreased to about half. According to this the variance of the $beta$ weight (i.e., the square of the standard error should have also halved). Given that it has not, suggests that the variance inflation factor has increased by at least the same amount. Find out! Run two regression predicting `price_per_avocado`: First, by all other predictors in `m3`, i.e., `type`, and call the model `m_price1`. Second, by all other predictors in `m4` and call the model `m_price2`. 
 
 ```{r, echo = TRUE, eval = FALSE}
 # predicting price_per_avocado
@@ -347,8 +349,8 @@ m_price2 <- lm(price_per_avocado ~ XX + XX  + ..., data = avocado_cali)
 
 ```{r}
 # resdiual variance of m3 and m4
-m_price1 <- glm(price_per_avocado ~ type, data = avocado_cali)
-m_price2 <- glm(price_per_avocado ~ type + date  + season + temperature + humidity + precipitation, data = avocado_cali)
+m_price1 <- lm(price_per_avocado ~ type, data = avocado_cali)
+m_price2 <- lm(price_per_avocado ~ type + date  + season + temperature + humidity + precipitation, data = avocado_cali)
 ```
 
 5. Next, calculate the $R^2$ value for both models and the variance inflation factor using the template below.  
@@ -416,32 +418,324 @@ sqrt(var_beta1)
 
 ```
 
-7. The above illustrates that including variables regressors in the regression is a double-edged sword. They improve the overal prediction and may uncover more pure relationships, but they will also increase our uncertainty over the true values of the regression weights by increasing the respective standard errors. If you like, see if you can find other combination of predictors that increase or decrease the standard error of the weight for price.  
+7. The above illustrates that including variables regressors in the regression is a double-edged sword. They improve the overall prediction and may uncover more pure relationships, but they will also increase our uncertainty over the true values of the regression weights by increasing the respective standard errors. If you like, see if you can find other combination of predictors that increase or decrease the standard error of the weight for price.  
 
 ### C - Polynomial effects
 
+1. So far we have assumed that all relationships are completely linear. However, it seems plausible the effect of price could, for instance, be a quadratic one or even of a higher polynomial. Create a regression predicting `volume_index` by `type`, `price_per_avocado`, and the quadratic effect of `price_per_avocado`. The latter can be included using the function `I()`. See template below. 
 
+```{r, echo = TRUE, eval = FALSE}
+# linear and quadratic effect of price
+m5 <- lm(YY ~ YY + XX + I(XX^2), 
+          data = avocado_cali)
+```   
+
+```{r}
+# linear and quadratic effect of price
+m5 <- lm(volume_index ~ type + price_per_avocado + I(price_per_avocado^2), 
+          data = avocado_cali)
+``` 
+
+2. Eva lute the model (`m5`) using `summary()`. Is the quadratic effect significant?
+
+```{r}
+# linear and quadratic effect of price
+summary(m5)
+``` 
+
+3. Test whether the inclusion of the quadratic factor is warranted by testing `m5` against `m3` (the model without the quadratic effect) using `anova()`. Note: `anova()` performs a deviance test between two models, not an analysis of variance in the classical sense. 
+
+```{r, echo = TRUE, eval = FALSE}
+# evaluate merit of quadratic effect
+anova(m3,m5)
+``` 
+
+```{r}
+# evaluate merit of quadratic effect
+summary(m5)
+``` 
+
+4. Yes, the quadratic effect improves the prediction of volume significantly. However, this came again with a substantial downside. You will see that the standard error of the linear effect of price went up dramatically. This is because `price_per_avocado` and `price_per_avocado^2` are highly correlated. To prevent this, the quadratic terms are typically centered, as implemented in the template below. Run the regression and compare the results to `m5`.
+
+```{r, echo = TRUE, eval = FALSE}
+# linear and quadratic effect of price
+m6 <- lm(YY ~ YY + XX + I((XX - mean(XX)) ^2), 
+          data = avocado_cali)
+```   
+
+```{r}
+# linear and quadratic effect of price
+m6 <- lm(volume_index ~ type + price_per_avocado + I((price_per_avocado - mean(price_per_avocado))^2), 
+          data = avocado_cali)
+``` 
+
+5. You'll see the standard error of the linear effect went back to about where it was in `m3` or `m4`. Try out if you can further improve the prediction of volume by including a cubic effect, i.e., `XX^3`. 
 
 ### D - Non-parametric tests
 
+1. Let's now look at the development of avocado consumption over time. Use the following code to create data sets containing the Cali' avocado consumption in 2016 and 2017.
+
+```{r, echo = TRUE, eval = FALSE}
+# Cali avocado volume 2016 & 2017
+avocado_cali_2016 = avocado_cali %>% 
+  filter(year == 2016)
+avocado_cali_2017 = avocado_cali %>% 
+  filter(year == 2017, 
+         week(date) %in% week(avocado_cali_2016$date))
+``` 
+
+2. Now test, whether the consumption has risen from 2016 to 2017 using a paired t-test, i.e., `t.test(X, Y, paired = TRUE)`. Try this out for both `volume` and `volume_index`.
+
+```{r, echo = TRUE, eval = FALSE}
+# compare Cali and NY avocado volume
+t.test(avocado_cali_2016$XX,
+       avocado_cali_2017$XX, paired = TRUE)
+
+# compare Cali and NY avocado volume_index
+t.test(avocado_cali_2016$YY,
+       avocado_cali_2017$YY, paired = TRUE)
+``` 
+
+```{r}
+# compare Cali and NY avocado volume
+t.test(avocado_cali_2016$volume,
+       avocado_cali_2017$volume, paired = TRUE)
+
+# compare Cali and NY avocado volume_index
+t.test(avocado_cali_2016$volume_index,
+       avocado_cali_2017$volume_index, paired = TRUE)
+``` 
+
+3. For `volume_index` the result turned out significant, 2017 indeed saw higher avocado consumption than 2016. However, for `volume` the result did not quite reach significance. This likely has to do with the fact that `volume` is extremely skewed. To confirm the result, run the same tests using a pared Wilcoxon test, i.e., `wilcox.test(XX, YY, paired = TRUE)`, which should not be affected by the skewness. 
+
+```{r, echo = TRUE, eval = FALSE}
+# compare Cali and NY avocado volume
+wilcox.test(avocado_cali_2016$XX,
+            avocado_cali_2017$XX, paired = TRUE)
+
+# compare Cali and NY avocado volume_index
+wilcox.test(avocado_cali_2016$YY,
+            avocado_cali_2017$YY, paired = TRUE)
+``` 
+
+```{r}
+# compare Cali and NY avocado volume
+wilcox.test(avocado_cali_2016$volume,
+            avocado_cali_2017$volume, paired = TRUE)
+
+# compare Cali and NY avocado volume_index
+wilcox.test(avocado_cali_2016$volume_index,
+            avocado_cali_2017$volume_index, paired = TRUE)
+``` 
+
+4. In fact, the Wilcoxon test shows significant results for both measures, suggesting that there indeed is a robust difference. Another, even more robust way of testing this is the sign test. Test this using the template below
+
+```{r, echo = TRUE, eval = FALSE}
+# sign test preparations
+signs = avocado_cali_2017$XX > avocado_cali_2016$XX
+n_plus = sum(signs)
+n = length(signs)
+
+# sign test: p of receiving a larger n_plus than observed
+pbinom(n_plus, size = n, prob = .5)
+``` 
+
+```{r}
+# sign test preparations
+signs = avocado_cali_2017$volume > avocado_cali_2016$volume
+n_plus = sum(signs)
+n = length(signs)
+
+# sign test: p of receiving a larger n_plus than observed
+pbinom(n_plus, size = n, prob = .5)
+
+# sign test preparations
+signs = avocado_cali_2017$volume_index > avocado_cali_2016$volume_index
+n_plus = sum(signs)
+n = length(signs)
+
+# sign test: p of receiving a larger n_plus than observed
+pbinom(n_plus, size = n, prob = .5)
+
+``` 
+
+5. The sign test confirms the results. Now, go explore and see whether you can find additional differences between the avocado years of 2016 and 2017 in California.
+
+
 ### E - Robust regression
 
+1. Remember that the residual distribution of our regression of `volume_index` on `price_per_avocado` and `type` was less than ideal? Take a look again by running the code below. 
 
-### F - Bootstrap
+```{r}
+# regress volume_index on average price and type
+m3 <- lm(volume_index ~ price_per_avocado + type,
+          data = avocado_cali)
+plot(predict(m3), residuals(m3))
+
+```
+
+2. The somewhat different residual distributions for high and low predictions suggest that we should take a look at robust regression analyses. Run similar regression models using the `rq` function from the `quantreg` package and the `rfit` function from the `Rfit` package using the template below. 
+
+```{r, echo = TRUE, eval = FALSE}
+# quantile regression
+m3_q <- rq(YY ~ XX + XX, data = ZZ)
+
+# rank-based regression
+m3_rb <- rfit(YY ~ XX + XX, data = ZZ)
+```
+
+```{r}
+# quantile regression
+m3_q <- rq(volume_index ~ price_per_avocado + type, data = avocado_cali)
+
+# rank-based regression
+m3_rb <- rfit(volume_index ~ price_per_avocado + type, data = avocado_cali)
+```
+
+3. Compare the results of the original `m3` model to the two robust regression models using `summary()` on each model. Are the coefficients much different from each another?
+
+```{r}
+# regular regression
+summary(m3)
+
+# quantile regression
+summary(m3_q)
+
+# rank-based regression
+summary(m3_rb)
+```
+
+4. The solutions of the three model classes were quite similar, right? Now, try the same predicting `volume` instead of `volume_index`. Fit regressions using regular regression and the two robust approaches and compare the parameters. 
+
+```{r}
+# regular regression
+m3_2 <- lm(volume ~ price_per_avocado + type, data = avocado_cali)
+summary(m3_2)
+
+# quantile regression
+m3_q_2 <- rq(volume ~ price_per_avocado + type, data = avocado_cali)
+summary(m3_q_2)
+
+# rank-based regression
+m3_rb_2 <- rfit(volume ~ price_per_avocado + type, data = avocado_cali)
+summary(m3_rb_2)
+```
+
+5. The numbers aren't so easy to compare, but you will be able to confirm that the regular regression coefficients are far of the ones of the other two methods, especially for `price_per_avocado`. As in most circumstances, the difference is largest between the `rq` and `lm` results, with `rfit` being somewhere in the middle, but closer to `rq`. Now, as usual, go explore.
+
+### X - Advanced: Bootstrap
+
+Bootstrapping is an amazingly powerful tool to make inferences about the sampling distribution of any statistic you can come up with. Let's try to use it to come up with standard errors for our favorite regression model: `volume_index ~ price_per_avocado + type`.  
+
+1. To use bootstrap, one needs to define a function that calculates the statistics for each of the different bootstrap samples provided to it. See the code below. Notice that the `data` argument has not been assigned our data set `avocado_cali` but rather carries the generic `data`, which will be provided to the function by the `boot` function. Run the function. 
+
+```{r, echo = TRUE}
+# bootstrap function for linear model
+boot_lm <- function(data, indices){
+  data <- data[indices,] # select obs. in bootstrap sample
+  m <- lm(volume_index ~ price_per_avocado + type, data = data)
+  coefficients(m)
+  }
+```
+
+2. The next step is to run the bootstrap mechanism using the `boot` function from the `boot` package to create the bootstrap results. Here we are now providing `avocado_cali` along with the function defined above and the number of repetitions `R`. Run the bootstrap.
+
+```{r, echo = TRUE}
+# bootstrap sampling results 
+B <- boot(avocado_cali, statistic = boot_lm, R = 100)
+```
+
+3. Now you can evaluate the results. Print the `B` object. The output will be slightly different than usual. The column `original` contains the results of the regression model for the full data (i.e., `m3`). The column `bias` contains the differences between the average simulated parameters and the original parameters. If these are large, then this may, among other things, mean that you need to run a larger number of bootstrap samples.  Finally, the column `std. error` contains the standard error across the bootstrap sampling results. 
+
+```{r, echo = TRUE}
+# print bootstrap results
+B
+```
+
+4. Finally, compare the standard errors of the `m3` or the other, robust regression models, to those of the bootstrap. 
+
+```{r, echo = TRUE}
+# print bootstrap results
+summary(m3)
+```
+
+5. Go explore. Can you figure out how to bootstrap the difference between the volumes of `avocado_cali_2016` and `avocado_cali_2017`?
+
+### Y - Advanced: Assumptions pt. 2
+
+In this section you can full demonstrate your statistics Jedi-knight skills by analyzing the full `avocado` data set. Given that the `avocado` data set contains data from different regions the full data needs to modeled as a mixed model. Your goal is to specify a model that produces a relatively well-behaved looking residual plot, by including any necessary variables from the data set as fixed or random effects. See template below.
+
+```{r, echo = TRUE, eval = FALSE}
+# model
+mm <- lmer(volume_index ~ XX + (1 | region), data = avocado)
+
+# residual plot
+plot(predict(mm), residuals(m,))
+```
+
+
 
 
 ## Examples
 
 ```{r, eval = FALSE, echo = TRUE}
 
-# PRELIMINARIES ------------------------------
+library(tidyverse)
 
-require(moments)
-require(quantreg)
-require(Rfix)
+# descriptive stats ----------------
+
+library(moments)
+
+var(hwy)      # variance
+skewness(hwy) # skewness
 
 
+# simple regression ----------------
 
+# model
+m <- lm(hwy ~ displ, data = mpg)
+
+# evaluate model
+summary(m)     # summary results
+predict(m)     # predicted/fitted values
+residuals(m)   # residual errors
+rsq(m)         # r-square 
+1 / (1-rsq(m)) # variance inflation factor 
+
+# residual plot
+plot(predict(m), residuals(m))
+
+
+# model comparison ----------------
+
+# model
+m1 <- lm(hwy ~ displ, data = mpg)
+
+# model + quadratic effect
+m2 <- lm(hwy ~ I(displ^2), data = mpg)
+
+# anova
+anova(m1, m2)
+
+# non-parametric tests ----------------
+
+#  split data (not strictly necessary)
+mpg_suv     <- mpg %>% select(class == 'suv')
+mpg_compact <- mpg %>% select(class == 'compact')
+
+# wilcoxon
+wilcoxon.test(mpg_suv$hwy, mpg_compact$hwy)
+
+# robust regression ----------------
+
+library(quantreg)
+library(Rfit)
+
+# quantile regression
+m_q  <- rq(hwy ~ displ, data = mpg)
+
+# rank-bsed regression
+m_rb <- rfit(hwy ~ displ, data = mpg)
 
 ```
 
@@ -450,13 +744,12 @@ require(Rfix)
 
 |File | Rows | Columns |
 |:----|:-----|:------|
-|[avocado.csv]() | 17573 | 16 |
-|[avocado_cali.csv]() | 338 | 16 |
-|[avocado_ny.csv]() | 338 | 16 |
+|[avocado.csv](https://therbootcamp.github.io/SwR_2019Apr/_sessions/1_Data/avocado.csv) | 17573 | 16 |
+|[avocado_cali.csv](https://therbootcamp.github.io/SwR_2019Apr/_sessions/1_Data/avocado_cali.csv) | 338 | 16 |
 
 This data was downloaded from the [Hass](https://en.wikipedia.org/wiki/Hass_avocado) Avocado Board website for the duration of April 2015 and May 2018. The data contain weekly (reported on Sundays) retail scan data for National retail volume (units) and price. Retail scan data comes directly from retailers’ cash registers based on actual retail sales of Hass avocados. The Average Price (of avocados) in the table reflects a per unit (per avocado) cost. Other varieties of avocados (e.g. greenskins) are not included in this table.
 
-The data set `avocado.csv` contains the data for all 52 regions. The smaller datasets `avocado_cali.csv` and `avocado_ny.csv` contain the data of California and New York, respectively.
+The data set `avocado.csv` contains the data for all 52 regions. The smaller data set `avocado_cali.csv` contains the data for only California.
 
 #### Variable description
 
@@ -485,28 +778,37 @@ The data set `avocado.csv` contains the data for all 52 regions. The smaller dat
 
 |Package| Installation|
 |:------|:------|
+|`tidyverse`|`install.packages("tidyverse")`|
+|`lubridate`|`install.packages("lubridate")`|
 |`moments`|`install.packages("moments")`|
 |`quantreg`|`install.packages("quantreg")`|
+|`boot`|`install.packages("boot")`|
 |`Rfit`|`install.packages("Rfit")`|
+|`lme4`|`install.packages("lme4")`|
+|`rsq`|`install.packages("rsq")`|
+
 
 ### Functions
 
 | Function| Package | Description |
 |:---|:------|:---------------------------------------------|
-|     `XXX`|`XXX`| XXX | 
-|     `XXX`|`XXX`| XXX | 
+| `lm`|`stats`| More basic version of `glm()`  for regular regression models. | 
+| `summary`, `rsq` |`base`| Print model summary / model R-squared | 
+| `predict`, `residuals` |`stats`| Extract fitted values / residuals from model object. | 
+| `rq` |`quantreg`| Conduct quantile regression. | 
+| `rfit` |`Rfit`| Conduct rank-based regression. | 
+| `wilcox.test` |`stats`| Wilcoxon test. |
+| `pbinom` |`stats`| Cumulative binomial distribution. Useful for sign-test. |
 
 ## Resources
 
 ### vignettes
 
-TEXT and LINKS
+Links to decent introductory / tutorial papers: 
 
-### Cheatsheets
+[Regression assumptions](https://therbootcamp.github.io/SwR_2019Apr/_sessions/RobustStats/literature/Berry1993.pdf), 
+[Robust regression](https://therbootcamp.github.io/SwR_2019Apr/_sessions/RobustStats/literature/FoxWeisberg2013.pdf), 
+[Rank-based regression with Rfit](https://therbootcamp.github.io/SwR_2019Apr/_sessions/RobustStats/literature/KlokeMcKean2012.pdf)
+[Bootstrap](https://therbootcamp.github.io/SwR_2019Apr/_sessions/RobustStats/literature/FoxWeisberg2013.pdf)
+[Variance inflation](https://therbootcamp.github.io/SwR_2019Apr/_sessions/RobustStats/literature/Stine1995.pdf)
 
-<p align="center" width="100%">
-<a href="https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf">
-  <img src="https://image.slidesharecdn.com/data-wrangling-cheatsheet-160705210122/95/data-wrangling-with-dplyr-and-tidyr-cheat-sheet-1-638.jpg?cb=1467752577" style="width:70%"></a>
-  <br>
-  <font style="font-size:10px">from <a href="https://www.rstudio.com/resources/cheatsheets/">R Studio</a></font>
-</p>
