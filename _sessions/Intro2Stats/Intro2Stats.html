@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html>
   <head>
     <title>Intro to Statistics</title>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <meta name="author" content="Statistics with R   Basel R Bootcamp" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="baselrbootcamp.css" type="text/css" />
@@ -528,8 +528,7 @@ Using the binomial distributions on the right, answer the following questions:
 
 ### Q1
 
-If there is a 50% chance of a drug being successful, then out of 10 drugs, how likely is it that exactly 5 will be successful?
-
+If there is a 50% chance of a clinical trial being successful, then out of 10 trials, how likely is it that exactly 5 will be successful?
 
 ### Q2
 
@@ -565,9 +564,9 @@ Null hypothesis testing is a statistical framework where two alternative hypothe
 |Null (H0)|A proposed effect &lt;high&gt;does not exist&lt;/high&gt; and variation &lt;high&gt;is not systematic&lt;/high&gt;|Drug and placebo have the same effect|
 |Alternative (H1)|A proposed effect &lt;high&gt;does exist&lt;/high&gt; and variation &lt;high&gt;is systematic&lt;/high&gt;|Drug and placebo do *not* have the same effect|
 
-In order to compare these hypotheses, we need to calculate the likelihood of the data &lt;high&gt;given&lt;/high&gt; that one of these hypotheses are true.
+In order to compare these hypotheses, we calculate the likelihood of obtaining data &lt;high&gt;assuming&lt;/high&gt; that the null hypothesis is true.
 
-[Wikipedia: Null Hypothesis](https://en.wikipedia.org/wiki/Null_hypothesis)
+[Wikipedia: Null Hypothesis Testing (NHT)](https://en.wikipedia.org/wiki/Null_hypothesis)
 
 
 ]
@@ -588,11 +587,11 @@ Are these data consistent with H0?
 
 .pull-left5[
 
-# 7: Test statistic
+# 7: Test statistics
 
 Sample statistics (like means and standard deviations) are converted into &lt;high&gt;test statistics&lt;/high&gt;.
 
-Test statistics are are numbers that help you quantify how likely data is given a null hypothesis.
+Test statistics are unit-free numbers that help you quantify how likely data is given a null hypothesis.
 
 &lt;!-- `$$Test\;Statistic=\frac{Variance\;explained\;by\;a\;model}{Variance\;NOT\;explained\;by\;a\;model}$$` --&gt;
 
@@ -602,9 +601,9 @@ Different tests give you different test statistics:
 |:----|:----|
 |T-test|T-statistic|
 |Correlation test|Correlation coefficient|
-|Binomial|Number of successes|
+|ANOVA|F-statistic|
 
-Generally, the more extreme your test statistic is, the more evidence *against* the null hypothesis.
+Generally, the &lt;high&gt;more extreme&lt;/high&gt; (i.e.; highly positive or highly negative) your test statistic is, the &lt;high&gt;more evidence against&lt;/high&gt; the null hypothesis.
 
 
 ]
@@ -626,7 +625,7 @@ p-values are used to quantify the likelihood of data given the &lt;high&gt;proba
 
 |p-value Definition|
 |:----|
-|A p-value is the probability of obtaining a test statistic as extreme as what you got assuming a null hypothesis is true|
+|A p-value is the probability of obtaining test statistics as extreme as what you got assuming a null hypothesis is true|
 
 &gt; "How likely is it that I would get a test statistic of -2.51 if the mean amount of beer really is 33dl?"
 
@@ -651,29 +650,83 @@ If a p-value is *small* (i.e.; p &lt; .05), this means that the likelihood of ob
 ---
 
 
-.pull-left4[
+.pull-left5[
 
 # What about Oetlinger?
 
-Our &lt;high&gt;p-value&lt;/high&gt;, indicating the &lt;high&gt;likelihood of obtaining the data if the null hypothesis is true&lt;/high&gt;, was (only) 0.0273.
+|Step|Result|
+|:----|:-----|
+|Null Hypothesis (H0)|The mean amount of beer poured by Oetlinger is (exactly) equal to 33ml.|
+|Sample Statistics|Mean = 33, Standard Deviation = 3.90.|
+|Test statistic and p-value|We convert our stample statistics to a test statistic of &lt;high&gt;t = -2.51&lt;/high&gt; and a &lt;high&gt;p-value&lt;/high&gt; of &lt;high&gt;p = 0.0273|
 
-The data are very unlikely if the mean amount poured is really 33dl.
-
-It is so unlikely, that using the 0.05 threshold, we could conclude...
-
-The Oetlinger buvette is consistently pouring less than 33dl!
+&lt;high&gt;Conclusion&lt;/high&gt;: Using a p &lt; 0.05 threshold, we conclude that, because likelihood of obtaining the data if the null hypothesis is true is only .0273 (&lt; 0.05), then the null hypothesis is likely wrong, and *the Oetlinger buvette is consistently pouring less than 33dl!*
 
 *Note: These data are completely made up :) We're sure the Oetlinger Buvette is not ripping us off*
 
 ]
 
 
-.pull-right55[
-
+.pull-right45[
+&lt;br&gt;&lt;br&gt;
 &lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/beer_null_p.png?token=AIFo1KnzD3U7_pjvmk0K09hE2HkXISmAks5cq3AGwA%3D%3D" width="100%" style="display: block; margin: auto;" /&gt;
 
 
 ]
+
+
+---
+
+
+.pull-left5[
+
+# What about Oetlinger?
+
+|Step|Result|
+|:----|:-----|
+|Null Hypothesis (H0)|The mean amount of beer poured by Oetlinger is (exactly) equal to 33ml.|
+|Sample Statistics|Mean = 33, Standard Deviation = 3.90.|
+|Test statistic and p-value|We convert our stample statistics to a test statistic of &lt;high&gt;t = -2.51&lt;/high&gt; and a &lt;high&gt;p-value&lt;/high&gt; of &lt;high&gt;p = 0.0273|
+
+&lt;high&gt;Conclusion&lt;/high&gt;: Using a p &lt; 0.05 threshold, we conclude that, because likelihood of obtaining the data if the null hypothesis is true is only .0273 (&lt; 0.05), then the null hypothesis is likely wrong, and *the Oetlinger buvette is consistently pouring less than 33dl!*
+
+*Note: These data are completely made up :) We're sure the Oetlinger Buvette is not ripping us off*
+
+]
+
+
+.pull-right45[
+&lt;br&gt;
+### Doing our test in R!
+
+
+```r
+# Define beer sample
+beer &lt;- c(28, 31, 28, 37, 30, 
+          33, 25, 33, 24, 30)
+
+# Conduct one-sample t-test
+t.test(x = beer, 
+       mu = 33)
+```
+
+```
+## 
+## 	One Sample t-test
+## 
+## data:  beer
+## t = -2.5, df = 9, p-value = 0.03
+## alternative hypothesis: true mean is not equal to 33
+## 95 percent confidence interval:
+##  27.11 32.69
+## sample estimates:
+## mean of x 
+##      29.9
+```
+
+
+]
+
 
 
 ---
@@ -683,7 +736,6 @@ class: middle, center
 
 &lt;h1&gt;&lt;a href="https://therbootcamp.github.io/SwR_2019Apr/index.html"&gt;Schedule&lt;/a&gt;&lt;/h1&gt;
     </textarea>
-<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
@@ -694,79 +746,26 @@ class: middle, center
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
 });
-(function(d) {
-  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
   if (!r) return;
   s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
   d.head.appendChild(s);
-})(document);
-
-(function(d) {
-  var el = d.getElementsByClassName("remark-slides-area");
-  if (!el) return;
-  var slide, slides = slideshow.getSlides(), els = el[0].children;
-  for (var i = 1; i < slides.length; i++) {
-    slide = slides[i];
-    if (slide.properties.continued === "true" || slide.properties.count === "false") {
-      els[i - 1].className += ' has-continuation';
-    }
-  }
-  var s = d.createElement("style");
-  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
-  d.head.appendChild(s);
-})(document);
-// delete the temporary CSS (for displaying all slides initially) when the user
-// starts to view slides
-(function() {
-  var deleted = false;
-  slideshow.on('beforeShowSlide', function(slide) {
-    if (deleted) return;
-    var sheets = document.styleSheets, node;
-    for (var i = 0; i < sheets.length; i++) {
-      node = sheets[i].ownerNode;
-      if (node.dataset["target"] !== "print-only") continue;
-      node.parentNode.removeChild(node);
-    }
-    deleted = true;
-  });
 })();</script>
 
-<script>
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
   }
-})();
-</script>
-
-<script>
-slideshow._releaseMath = function(el) {
-  var i, text, code, codes = el.getElementsByTagName('code');
-  for (i = 0; i < codes.length;) {
-    code = codes[i];
-    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-      text = code.textContent;
-      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-          /^\$\$(.|\s)+\$\$$/.test(text) ||
-          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-        code.outerHTML = code.innerHTML;  // remove <code></code>
-        continue;
-      }
-    }
-    i++;
-  }
-};
-slideshow._releaseMath(document);
+});
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
 (function () {
   var script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
   if (location.protocol !== 'file:' && /^https?:/.test(script.src))
     script.src  = script.src.replace(/^https?:/, '');
   document.getElementsByTagName('head')[0].appendChild(script);

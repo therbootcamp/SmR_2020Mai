@@ -779,8 +779,7 @@ Using the binomial distributions on the right, answer the following questions:
 
 ### Q1
 
-If there is a 50% chance of a drug being successful, then out of 10 drugs, how likely is it that exactly 5 will be successful?
-
+If there is a 50% chance of a clinical trial being successful, then out of 10 trials, how likely is it that exactly 5 will be successful?
 
 ### Q2
 
@@ -841,9 +840,9 @@ Null hypothesis testing is a statistical framework where two alternative hypothe
 |Null (H0)|A proposed effect <high>does not exist</high> and variation <high>is not systematic</high>|Drug and placebo have the same effect|
 |Alternative (H1)|A proposed effect <high>does exist</high> and variation <high>is systematic</high>|Drug and placebo do *not* have the same effect|
 
-In order to compare these hypotheses, we need to calculate the likelihood of the data <high>given</high> that one of these hypotheses are true.
+In order to compare these hypotheses, we calculate the likelihood of obtaining data <high>assuming</high> that the null hypothesis is true.
 
-[Wikipedia: Null Hypothesis](https://en.wikipedia.org/wiki/Null_hypothesis)
+[Wikipedia: Null Hypothesis Testing (NHT)](https://en.wikipedia.org/wiki/Null_hypothesis)
 
 
 ]
@@ -866,11 +865,11 @@ drug_placebo_gg
 
 .pull-left5[
 
-# 7: Test statistic
+# 7: Test statistics
 
 Sample statistics (like means and standard deviations) are converted into <high>test statistics</high>.
 
-Test statistics are are numbers that help you quantify how likely data is given a null hypothesis.
+Test statistics are unit-free numbers that help you quantify how likely data is given a null hypothesis.
 
 <!-- $$Test\;Statistic=\frac{Variance\;explained\;by\;a\;model}{Variance\;NOT\;explained\;by\;a\;model}$$ -->
 
@@ -880,9 +879,9 @@ Different tests give you different test statistics:
 |:----|:----|
 |T-test|T-statistic|
 |Correlation test|Correlation coefficient|
-|Binomial|Number of successes|
+|ANOVA|F-statistic|
 
-Generally, the more extreme your test statistic is, the more evidence *against* the null hypothesis.
+Generally, the <high>more extreme</high> (i.e.; highly positive or highly negative) your test statistic is, the <high>more evidence against</high> the null hypothesis.
 
 
 ]
@@ -906,7 +905,7 @@ p-values are used to quantify the likelihood of data given the <high>probability
 
 |p-value Definition|
 |:----|
-|A p-value is the probability of obtaining a test statistic as extreme as what you got assuming a null hypothesis is true|
+|A p-value is the probability of obtaining test statistics as extreme as what you got assuming a null hypothesis is true|
 
 > "How likely is it that I would get a test statistic of -2.51 if the mean amount of beer really is 33dl?"
 
@@ -933,31 +932,70 @@ knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019
 ---
 
 
-.pull-left4[
+.pull-left5[
 
 # What about Oetlinger?
 
-Our <high>p-value</high>, indicating the <high>likelihood of obtaining the data if the null hypothesis is true</high>, was (only) 0.0273.
+|Step|Result|
+|:----|:-----|
+|Null Hypothesis (H0)|The mean amount of beer poured by Oetlinger is (exactly) equal to 33ml.|
+|Sample Statistics|Mean = 33, Standard Deviation = 3.90.|
+|Test statistic and p-value|We convert our stample statistics to a test statistic of <high>t = -2.51</high> and a <high>p-value</high> of <high>p = 0.0273|
 
-The data are very unlikely if the mean amount poured is really 33dl.
-
-It is so unlikely, that using the 0.05 threshold, we could conclude...
-
-The Oetlinger buvette is consistently pouring less than 33dl!
+<high>Conclusion</high>: Using a p < 0.05 threshold, we conclude that, because likelihood of obtaining the data if the null hypothesis is true is only .0273 (< 0.05), then the null hypothesis is likely wrong, and *the Oetlinger buvette is consistently pouring less than 33dl!*
 
 *Note: These data are completely made up :) We're sure the Oetlinger Buvette is not ripping us off*
 
 ]
 
 
-.pull-right55[
-
+.pull-right45[
+<br><br>
 ```{r, echo = FALSE, out.width = "100%"}
 knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/beer_null_p.png?token=AIFo1KnzD3U7_pjvmk0K09hE2HkXISmAks5cq3AGwA%3D%3D")
 ```
 
 
 ]
+
+
+---
+
+
+.pull-left5[
+
+# What about Oetlinger?
+
+|Step|Result|
+|:----|:-----|
+|Null Hypothesis (H0)|The mean amount of beer poured by Oetlinger is (exactly) equal to 33ml.|
+|Sample Statistics|Mean = 33, Standard Deviation = 3.90.|
+|Test statistic and p-value|We convert our stample statistics to a test statistic of <high>t = -2.51</high> and a <high>p-value</high> of <high>p = 0.0273|
+
+<high>Conclusion</high>: Using a p < 0.05 threshold, we conclude that, because likelihood of obtaining the data if the null hypothesis is true is only .0273 (< 0.05), then the null hypothesis is likely wrong, and *the Oetlinger buvette is consistently pouring less than 33dl!*
+
+*Note: These data are completely made up :) We're sure the Oetlinger Buvette is not ripping us off*
+
+]
+
+
+.pull-right45[
+<br>
+### Doing our test in R!
+
+```{r}
+# Define beer sample
+beer <- c(28, 31, 28, 37, 30, 
+          33, 25, 33, 24, 30)
+
+# Conduct one-sample t-test
+t.test(x = beer, 
+       mu = 33)
+```
+
+
+]
+
 
 
 ---
