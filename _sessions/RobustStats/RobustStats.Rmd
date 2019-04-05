@@ -240,7 +240,7 @@ Additionally, several <high>statistics can be computed to support the assessment
 
 The appropriateness of the model is best inspected (and demonstrated) using <high>graphical illustrations.</high> 
 
-Additionally there several <high>statistics can be computed to support the assessment.</high> 
+Additionally, several <high>statistics can be computed to support the assessment.</high> 
 
 
 <table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px">
