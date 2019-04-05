@@ -446,7 +446,7 @@ Populations are what we are really interested in
 
 We rarely have access to entire populations (when we do, we don't need to do statistics!)
 
-We must use <high>sampling procedures</high> to a smaller <high>sample</high> of cases.
+We must use <high>sampling procedures</high> to obtain a smaller <high>sample</high> of cases.
 
 Based on that sample, we try to make <high>inferences</high> to populations.
 
