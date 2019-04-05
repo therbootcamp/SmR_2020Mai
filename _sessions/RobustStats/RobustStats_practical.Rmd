@@ -65,7 +65,7 @@ In this practical you'll explore issues surrounding the topic of robust statisti
 By the end of this practical you will know how to:
 
 1. Evaluate regression assumptions.
-2. Run off-the-shelve non-parametric tests.
+2. Run off-the-shelf non-parametric tests.
 3. Run bootstrap analyses.
 
 ## Tasks

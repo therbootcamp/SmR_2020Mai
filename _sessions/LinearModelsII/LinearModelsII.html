@@ -191,7 +191,7 @@ Alternative: `\(H_{A}:\rho  \neq 0\)`, "There &lt;high&gt;is a &lt;/high&gt; (no
 
 .pull-right45[
 
-&lt;br&gt;
+&lt;br&gt;&lt;br&gt;
 &lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
 
 
@@ -344,7 +344,7 @@ income_htest$p.value
 
 ### *Does the mean of group A differ from group B?*
 
-Conduct a &lt;high&gt;t-test&lt;/high&gt; when you have one nominal independent variable with &lt;high&gt;2 levels&lt;/high&gt;
+Conduct a &lt;high&gt;t-test&lt;/high&gt; when you have one nominal independent variable with &lt;high&gt;2 levels&lt;/high&gt; A and B
 
 ### Formula
 
@@ -357,9 +357,248 @@ Conduct a &lt;high&gt;t-test&lt;/high&gt; when you have one nominal independent 
 |Group = A|x = 0|
 |Group = B|x = 1|
 
+]
+
+
+.pull-right5[
+
+
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ]
+
+
+
+---
+.pull-left45[
+
+# T-test
+
+### *Does the mean of group A differ from group B?*
+
+Conduct a &lt;high&gt;t-test&lt;/high&gt; when you have one nominal independent variable with &lt;high&gt;2 levels&lt;/high&gt; A and B
+
+### Test Statistic
+
+`$$\Large t = \frac{\bar{x}_{A}-\bar{x}_{B}}{\sqrt{s^{2}(\frac{1}{n_{A}}+\frac{1}{n_{B}})}}$$`
+`$$\Large s^{2} = Pooled\;variance$$`
+
+*Pooled variance means "Average Variance"* 
+
+See [formula on Wikipedia](https://en.wikipedia.org/wiki/Pooled_variance)
+
+]
+
+.pull-right5[
+
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+
+---
+.pull-left45[
+
+# T-test
+
+### *Does the mean of group A differ from group B?*
+
+Conduct a &lt;high&gt;t-test&lt;/high&gt; when you have one nominal independent variable with &lt;high&gt;2 levels&lt;/high&gt; A and B
+
+### Test Statistic
+
+`$$\Large t = \frac{\bar{x}_{A}-\bar{x}_{B}}{\sqrt{s^{2}(\frac{1}{n_{A}}+\frac{1}{n_{B}})}}$$`
+`$$\Large s^{2} = Pooled\;variance$$`
+
+*Pooled variance means "Average Variance"* 
+
+See [formula on Wikipedia](https://en.wikipedia.org/wiki/Pooled_variance)
+
+]
+
+.pull-right5[
+
+&lt;br&gt;
+*Do male and female baselers have different mean incomes?*
+
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-17-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+
+---
+.pull-left45[
+
+# T-test
+
+### *Does the mean of group A differ from group B?*
+
+Conduct a &lt;high&gt;t-test&lt;/high&gt; when you have one nominal independent variable with &lt;high&gt;2 levels&lt;/high&gt; A and B
+
+### Test Statistic
+
+`$$\Large t = \frac{\bar{x}_{A}-\bar{x}_{B}}{\sqrt{s^{2}(\frac{1}{n_{A}}+\frac{1}{n_{B}})}}$$`
+`$$\Large s^{2} = Pooled\;variance$$`
+
+*Pooled variance means "Average Variance"* 
+
+See [formula on Wikipedia](https://en.wikipedia.org/wiki/Pooled_variance)
+
+]
+
+.pull-right5[
+
+&lt;br&gt;
+### t-test with `t.test()`
+
+
+```r
+# 2-sample t-test
+income_htest &lt;- t.test(formula = income ~ sex,
+                       data = baselers)
+
+# Print
+income_htest
+```
+
+```
+## 
+## 	Welch Two Sample t-test
+## 
+## data:  income by sex
+## t = 4, df = 8500, p-value = 6e-05
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  120.6 352.2
+## sample estimates:
+## mean in group female   mean in group male 
+##                 7650                 7414
+```
+
+]
+
+
+
+---
+.pull-left45[
+
+# T-test
+
+### *Does the mean of group A differ from group B?*
+
+Conduct a &lt;high&gt;t-test&lt;/high&gt; when you have one nominal independent variable with &lt;high&gt;2 levels&lt;/high&gt; A and B
+
+### Test Statistic
+
+`$$\Large t = \frac{\bar{x}_{A}-\bar{x}_{B}}{\sqrt{s^{2}(\frac{1}{n_{A}}+\frac{1}{n_{B}})}}$$`
+`$$\Large s^{2} = Pooled\;variance$$`
+
+*Pooled variance means "Average Variance"* 
+
+See [formula on Wikipedia](https://en.wikipedia.org/wiki/Pooled_variance)
+
+]
+
+.pull-right5[
+
+&lt;br&gt;
+### t-test with `t.test()`
+
+
+```r
+# Show all named elements
+names(income_htest)
+```
+
+```
+## [1] "statistic"   "parameter"   "p.value"     "conf.int"    "estimate"    "null.value"  "alternative"
+## [8] "method"      "data.name"
+```
+
+```r
+# Print the test statistic
+income_htest$statistic
+```
+
+```
+##     t 
+## 4.001
+```
+
+```r
+# Print the p.value
+income_htest$p.value
+```
+
+```
+## [1] 6.366e-05
+```
+
+]
+
+
+
+
+---
+.pull-left45[
+
+# T-test
+
+### *Does the mean of group A differ from group B?*
+
+Conduct a &lt;high&gt;t-test&lt;/high&gt; when you have one nominal independent variable with &lt;high&gt;2 levels&lt;/high&gt; A and B
+
+### Test Statistic
+
+`$$\Large t = \frac{\bar{x}_{A}-\bar{x}_{B}}{\sqrt{s^{2}(\frac{1}{n_{A}}+\frac{1}{n_{B}})}}$$`
+`$$\Large s^{2} = Pooled\;variance$$`
+
+*Pooled variance means "Average Variance"* 
+
+See [formula on Wikipedia](https://en.wikipedia.org/wiki/Pooled_variance)
+
+]
+
+.pull-right5[
+
+&lt;br&gt;
+### t-test with `t.test()`
+
+
+```r
+# Show all named elements
+names(income_htest)
+```
+
+```
+## [1] "statistic"   "parameter"   "p.value"     "conf.int"    "estimate"    "null.value"  "alternative"
+## [8] "method"      "data.name"
+```
+
+```r
+# Print the test statistic
+income_htest$statistic
+```
+
+```
+##     t 
+## 4.001
+```
+
+```r
+# Print the p.value
+income_htest$p.value
+```
+
+```
+## [1] 6.366e-05
+```
+
+]
+
 
 ---
 .pull-left45[
@@ -396,276 +635,7 @@ class: middle, center
 ## How to conduct and understand hypothesis tests
 
 
----
 
-.pull-left35[
-
-# Hypothesis tests
-
-All of the basic &lt;high&gt;one and two sample hypothesis tests&lt;/high&gt; are included in the `stats` package.
-
-These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `formula`, or &lt;high&gt;individual vectors&lt;/high&gt; for the arguments `x`, and `y`
-
-| Hypothesis Test| R Function|
-|:------------|:------------|
-|     t-test|    `t.test()`|
-|     Correlation Test|    `cor.test()`|
-|     ANOVA|   `aov()`|
-|Post-hoc tests| `TukeyHSD()`|
-
-
-]
-
-
-.pull-right6[
-&lt;br&gt;
-*Do older baselers have higher incomes than younger baselers?*
-
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-15-1.png" width="90%" style="display: block; margin: auto;" /&gt;
-
-]
-
----
-
-.pull-left35[
-
-# Hypothesis tests
-
-All of the basic &lt;high&gt;one and two sample hypothesis tests&lt;/high&gt; are included in the `stats` package.
-
-These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `formula`, or &lt;high&gt;individual vectors&lt;/high&gt; for the arguments `x`, and `y`
-
-| Hypothesis Test| R Function|
-|:------------|:------------|
-|     t-test|    `t.test()`|
-|     Correlation Test|    `cor.test()`|
-|     ANOVA|   `aov()`|
-|Post-hoc tests| `TukeyHSD()`|
-
-
-]
-
-
-.pull-right6[
-&lt;br&gt;
-### Correlation test with `cor.test()`
-
-
-```r
-# Is there a relationship between age and income?
-
-income_htest &lt;- cor.test(formula = ~ age + income,
-                         data = baselers)
-
-# Print result
-income_htest
-```
-
-```
-## 
-## 	Pearson's product-moment correlation
-## 
-## data:  age and income
-## t = 180, df = 8500, p-value &lt;2e-16
-## alternative hypothesis: true correlation is not equal to 0
-## 95 percent confidence interval:
-##  0.8882 0.8968
-## sample estimates:
-##    cor 
-## 0.8926
-```
-
-]
-
----
-
-.pull-left35[
-
-# Hypothesis tests
-
-All of the basic &lt;high&gt;one and two sample hypothesis tests&lt;/high&gt; are included in the `stats` package.
-
-These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `formula`, or &lt;high&gt;individual vectors&lt;/high&gt; for the arguments `x`, and `y`
-
-| Hypothesis Test| R Function|
-|:------------|:------------|
-|     t-test|    `t.test()`|
-|     Correlation Test|    `cor.test()`|
-|     ANOVA|   `aov()`|
-|Post-hoc tests| `TukeyHSD()`|
-
-
-]
-
-
-.pull-right6[
-&lt;br&gt;
-### Correlation test with `cor.test()`
-
-
-```r
-# Show all named elements
-names(income_htest)
-```
-
-```
-## [1] "statistic"   "parameter"   "p.value"     "estimate"    "null.value"  "alternative" "method"     
-## [8] "data.name"   "conf.int"
-```
-
-```r
-# Show estimated correlation coefficient
-income_htest$estimate
-```
-
-```
-##    cor 
-## 0.8926
-```
-
-```r
-# Show p-value
-income_htest$p.value
-```
-
-```
-## [1] 0
-```
-
-]
-
-
----
-
-.pull-left35[
-
-# Hypothesis tests
-
-All of the basic &lt;high&gt;one and two sample hypothesis tests&lt;/high&gt; are included in the `stats` package.
-
-These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `formula`, or &lt;high&gt;individual vectors&lt;/high&gt; for the arguments `x`, and `y`
-
-| Hypothesis Test| R Function|
-|:------------|:------------|
-|     t-test|    `t.test()`|
-|     Correlation Test|    `cor.test()`|
-|     ANOVA|   `aov()`|
-|Post-hoc tests| `TukeyHSD()`|
-
-]
-
-.pull-right6[
-&lt;br&gt;
-*Do male and female baselers have different mean incomes?*
-
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-18-1.png" width="90%" style="display: block; margin: auto;" /&gt;
-
-]
-
----
-
-.pull-left35[
-
-# Hypothesis tests
-
-All of the basic &lt;high&gt;one and two sample hypothesis tests&lt;/high&gt; are included in the `stats` package.
-
-These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `formula`, or &lt;high&gt;individual vectors&lt;/high&gt; for the arguments `x`, and `y`
-
-| Hypothesis Test| R Function|
-|:------------|:------------|
-|     t-test|    `t.test()`|
-|     Correlation Test|    `cor.test()`|
-|     ANOVA|   `aov()`|
-|Post-hoc tests| `TukeyHSD()`|
-
-
-]
-
-.pull-right6[
-&lt;br&gt;
-### t-test with `t.test()`
-
-
-```r
-# 2-sample t-test
-income_htest &lt;- t.test(formula = income ~ sex,
-                       data = baselers)
-
-# Print
-income_htest
-```
-
-```
-## 
-## 	Welch Two Sample t-test
-## 
-## data:  income by sex
-## t = 4, df = 8500, p-value = 6e-05
-## alternative hypothesis: true difference in means is not equal to 0
-## 95 percent confidence interval:
-##  120.6 352.2
-## sample estimates:
-## mean in group female   mean in group male 
-##                 7650                 7414
-```
-
-]
-
----
-
-.pull-left35[
-
-# Hypothesis tests
-
-All of the basic &lt;high&gt;one and two sample hypothesis tests&lt;/high&gt; are included in the `stats` package.
-
-These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `formula`, or &lt;high&gt;individual vectors&lt;/high&gt; for the arguments `x`, and `y`
-
-| Hypothesis Test| R Function|
-|:------------|:------------|
-|     t-test|    `t.test()`|
-|     Correlation Test|    `cor.test()`|
-|     ANOVA|   `aov()`|
-|Post-hoc tests| `TukeyHSD()`|
-
-]
-
-.pull-right6[
-&lt;br&gt;
-### t-test with `t.test()`
-
-
-```r
-# Show all named elements
-names(income_htest)
-```
-
-```
-## [1] "statistic"   "parameter"   "p.value"     "conf.int"    "estimate"    "null.value"  "alternative"
-## [8] "method"      "data.name"
-```
-
-```r
-# Print the test statistic
-income_htest$statistic
-```
-
-```
-##     t 
-## 4.001
-```
-
-```r
-# Print the p.value
-income_htest$p.value
-```
-
-```
-## [1] 6.366e-05
-```
-
-]
 
 ---
 
@@ -860,7 +830,7 @@ noisy
 ```
 
 ```
-## [1]  88.29 108.07 114.18  94.04 111.42
+## [1] 102.01  95.64  96.29 112.09 103.67
 ```
 
 ```r
@@ -868,7 +838,7 @@ mean(noisy)
 ```
 
 ```
-## [1] 103.2
+## [1] 101.9
 ```
 
 ```r
@@ -876,7 +846,7 @@ sd(noisy)
 ```
 
 ```
-## [1] 11.38
+## [1] 6.666
 ```
 
 ```r
@@ -887,7 +857,7 @@ coin_flips
 ```
 
 ```
-##  [1] 1 0 1 0 0 1 1 0 1 0
+##  [1] 0 1 1 0 1 0 0 0 1 0
 ```
 
 
