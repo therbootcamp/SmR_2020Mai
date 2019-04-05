@@ -932,6 +932,11 @@ tidy(my_aov)  # Show tidy results
 |:----|:-----|:------|
 |[trial_ACTG175.csv](https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/trial_ACTG175.csv?token=AIFo1HP25ZzPdraeqxgLB9CrcSTQDN3Pks5cqOGGwA%3D%3D) | 2139 | 27 |
 
+```{r, echo = FALSE, out.width = "80%", eval = TRUE}
+knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/hammer_actg175_ss.jpg?token=AIFo1AUoJyymRihyXhI2vWK4Ace3H2hoks5csFmDwA%3D%3D")
+```
+
+
 The `trial_ACTG175.csv` data from the ACTG 175 clinical trial. ACTG 175 was a randomized clinical trial to compare monotherapy with zidovudine or didanosine with combination therapy with zidovudine and didanosine or zidovudine and zalcitabine in adults infected with the human immunodeficiency virus type I whose CD4 T cell counts were between 200 and 500 per cubic millimeter.
 
 The trial is documented in Hammer SM, et al. (1996), "A trial comparing nucleoside monotherapy with combination therapy in HIV-infected adults with CD4 cell counts from 200 to 500 per cubic millimeter.", New England Journal of Medicine, 335:1081–1090. The full publication can be found at https://www.nejm.org/doi/full/10.1056/NEJM199610103351501
