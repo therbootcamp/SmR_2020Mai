@@ -17,7 +17,7 @@ author: "Statistics with R<br>
   <a href='https://www.linkedin.com/company/basel-r-bootcamp/'>
     <i class='fab fa-linkedin' style='font-size: .9em;'></i>
   </a>"
-date: "February 2019"
+date: "April 2019"
 output:
   xaringan::moon_reader:
     css: ["default", "baselrbootcamp.css"]
@@ -146,7 +146,7 @@ We have an <high>ambitious schedule</high>!
 
 # Introduction
 
-<high>15 - 45 minutes</high> slide based introduction to help you understand the basic concepts, including:
+<high>30 - 45 minutes</high> slide based introduction to help you understand the basic concepts, including:
 <br><br>
 &emsp;&emsp;1 - Theory<br>
 &emsp;&emsp;2 - Code examples<br>
@@ -154,11 +154,10 @@ We have an <high>ambitious schedule</high>!
 <br><br>
 
 
-
 <high>All available online</high>. Follow along, and don't worry about memorizing
 
 <br><br>
-<a href="https://therbootcamp.github.io/R4DS_2019Feb/">This is a Link to our materials</a>.
+<a href="https://therbootcamp.github.io/SwR_2019Apr/">This is a Link to our materials</a>.
 <br><br>
 
 <high>Be interactive! Ask questions!</high>
@@ -210,9 +209,9 @@ We have an <high>ambitious schedule</high>!
 .pull-right5[
 <br>
 
-  <iframe src="https://therbootcamp.github.io/R4DS_2019Feb/_sessions/Data/Data_practical.html" height="480px" width = "500px"></iframe>
+  <iframe src="(https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsI/LinearModelsI_practical.html" height="480px" width = "500px"></iframe>
 
-  Example practical:<a href="https://therbootcamp.github.io/R4DS_2019Feb/_sessions/Data/Data_practical.html"> Data </a>
+  Example practical:<a href="(https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsI/LinearModelsI_practical.html"> Linear Models I </a>
 
 ]
 
@@ -272,12 +271,6 @@ At any time, you can <high>request a 15 minute 1-1 intensive</high> coaching ses
   <a href="https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf"><img border="0" alt="W3Schools" src="https://github.com/therbootcamp/therbootcamp.github.io/blob/master/_sessions/_image/datatransform_cheat_ss.png?raw=true" height="180"></a></p>
   </td>
 
-  <td>
-  <p align = 'center'>Data Visualization<br><br>
-  <a href="https://github.com/rstudio/cheatsheets/raw/master/data-visualization-2.1.pdf"><img border="0" alt="W3Schools" src="https://github.com/therbootcamp/therbootcamp.github.io/blob/master/_sessions/_image/datavis_cheat_ss.png?raw=true" height="180" ></a></p>
-  </td>
-  
-
   </tr>
 </table>
 <br>
@@ -330,7 +323,6 @@ At any time, you can <high>request a 15 minute 1-1 intensive</high> coaching ses
 
 ]
 
-
 ---
 
 .pull-left45[
@@ -375,7 +367,7 @@ At any time, you can <high>request a 15 minute 1-1 intensive</high> coaching ses
 
 <p align="center">
   <font size=8><hfont><high>Questions?</high></hfont></font><br>
-  <font size = 4><a href = "https://therbootcamp.github.io/R4DS_2019Feb/">Link to schedule</a></font>
+  <font size = 4><a href = "https://therbootcamp.github.io/SwR_2019Apr/">Link to schedule</a></font>
 </p>
 
 ]
@@ -383,7 +375,7 @@ At any time, you can <high>request a 15 minute 1-1 intensive</high> coaching ses
 
 .pull-right6[
 
-<img src="https://therbootcamp.github.io/R4DS_2019Feb/_sessions/Welcome/image/schedule.png" height="580" align="center">
+<img src="https://therbootcamp.github.io/SwR_2019Apr/_sessions/Welcome/image/schedule.png" height="580" align="center">
 
 
 ]
