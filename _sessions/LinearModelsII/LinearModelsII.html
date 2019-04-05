@@ -227,8 +227,6 @@ Alternative: `\(H_{A}:\rho  \neq 0\)`, "There &lt;high&gt;is a &lt;/high&gt; (no
 ]
 
 
-
-
 ---
 
 .pull-left4[
@@ -279,8 +277,6 @@ income_htest
 
 
 ]
-
-
 
 ---
 
@@ -362,7 +358,7 @@ Conduct a &lt;high&gt;t-test&lt;/high&gt; when you have one nominal independent 
 
 .pull-right5[
 
-
+&lt;br&gt;
 &lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
 
 
@@ -391,6 +387,7 @@ See [formula on Wikipedia](https://en.wikipedia.org/wiki/Pooled_variance)
 ]
 
 .pull-right5[
+&lt;br&gt;
 
 &lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
 
@@ -545,57 +542,26 @@ income_htest$p.value
 ---
 .pull-left45[
 
-# T-test
+# ANOVA
 
-### *Does the mean of group A differ from group B?*
+### *Do the means of my (many) groups differ?*
 
-Conduct a &lt;high&gt;t-test&lt;/high&gt; when you have one nominal independent variable with &lt;high&gt;2 levels&lt;/high&gt; A and B
+Conduct an &lt;high&gt;ANOVA&lt;/high&gt; when you have one nominal independent variable with &lt;high&gt;more than 2 levels&lt;/high&gt; A, B, C, ...
 
 ### Test Statistic
 
-`$$\Large t = \frac{\bar{x}_{A}-\bar{x}_{B}}{\sqrt{s^{2}(\frac{1}{n_{A}}+\frac{1}{n_{B}})}}$$`
-`$$\Large s^{2} = Pooled\;variance$$`
+`$$\large F = \frac{Variance\;Between\;Groups}{Variance\;Within\;Groups}$$`
 
-*Pooled variance means "Average Variance"* 
+&gt;Is the variability between my groups large relative to the variability within each group?
 
-See [formula on Wikipedia](https://en.wikipedia.org/wiki/Pooled_variance)
-
+See [ANOVA formula on Wikipedia](https://en.wikipedia.org/wiki/Analysis_of_variance)
 ]
 
 .pull-right5[
 
 &lt;br&gt;
-### t-test with `t.test()`
 
-
-```r
-# Show all named elements
-names(income_htest)
-```
-
-```
-## [1] "statistic"   "parameter"   "p.value"     "conf.int"    "estimate"    "null.value"  "alternative"
-## [8] "method"      "data.name"
-```
-
-```r
-# Print the test statistic
-income_htest$statistic
-```
-
-```
-##     t 
-## 4.001
-```
-
-```r
-# Print the p.value
-income_htest$p.value
-```
-
-```
-## [1] 6.366e-05
-```
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -603,99 +569,98 @@ income_htest$p.value
 ---
 .pull-left45[
 
-#  ANOVA
+# ANOVA
 
-### Data
+### *Do the means of my (many) groups differ?*
 
-IV: 2+ Discrete values
+Conduct an &lt;high&gt;ANOVA&lt;/high&gt; when you have one nominal independent variable with &lt;high&gt;more than 2 levels&lt;/high&gt; A, B, C, ...
 
-DV: Normally Distributed
+### Test Statistic
 
-### Formula
+`$$\large F = \frac{Variance\;Between\;Groups}{Variance\;Within\;Groups}$$`
 
+&gt;Is the variability between my groups large relative to the variability within each group?
 
-### Hypotheses
-
-Null Hypothesis
-
-Alternative Hypothesis
+See [ANOVA formula on Wikipedia](https://en.wikipedia.org/wiki/Analysis_of_variance)
 
 ]
 
 .pull-right5[
 
-Example
+
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-21-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ]
-
----
-class: middle, center
-
-# R
-## How to conduct and understand hypothesis tests
-
 
 
 
 ---
+.pull-left45[
 
-.pull-left35[
+# ANOVA
 
-# Hypothesis tests
+### *Do the means of my (many) groups differ?*
 
-All of the basic &lt;high&gt;one and two sample hypothesis tests&lt;/high&gt; are included in the `stats` package.
+Conduct an &lt;high&gt;ANOVA&lt;/high&gt; when you have one nominal independent variable with &lt;high&gt;more than 2 levels&lt;/high&gt; A, B, C, ...
 
-These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `formula`, or &lt;high&gt;individual vectors&lt;/high&gt; for the arguments `x`, and `y`
+### Test Statistic
 
-| Hypothesis Test| R Function|
-|:------------|:------------|
-|     t-test|    `t.test()`|
-|     Correlation Test|    `cor.test()`|
-|     ANOVA|   `aov()`|
-|Post-hoc tests| `TukeyHSD()`|
+`$$\large F = \frac{Variance\;Between\;Groups}{Variance\;Within\;Groups}$$`
+
+&gt;Is the variability between my groups large relative to the variability within each group?
+
+See [ANOVA formula on Wikipedia](https://en.wikipedia.org/wiki/Analysis_of_variance)
 
 ]
 
-.pull-right6[
-&lt;br&gt;
+.pull-right5[
+
 ### ANOVA with `aov()`
 
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-21-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;br&gt;
+*Is there a difference in height based on education?*
+
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-22-1.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 ]
+
+
 
 ---
+.pull-left45[
 
-.pull-left35[
+# ANOVA
 
-# Hypothesis tests
+### *Do the means of my (many) groups differ?*
 
-All of the basic &lt;high&gt;one and two sample hypothesis tests&lt;/high&gt; are included in the `stats` package.
+Conduct an &lt;high&gt;ANOVA&lt;/high&gt; when you have one nominal independent variable with &lt;high&gt;more than 2 levels&lt;/high&gt; A, B, C, ...
 
-These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `formula`, or &lt;high&gt;individual vectors&lt;/high&gt; for the arguments `x`, and `y`
+### Test Statistic
 
-| Hypothesis Test| R Function|
-|:------------|:------------|
-|     t-test|    `t.test()`|
-|     Correlation Test|    `cor.test()`|
-|     ANOVA|   `aov()`|
-|Post-hoc tests| `TukeyHSD()`|
+`$$\large F = \frac{Variance\;Between\;Groups}{Variance\;Within\;Groups}$$`
+
+&gt;Is the variability between my groups large relative to the variability within each group?
+
+See [ANOVA formula on Wikipedia](https://en.wikipedia.org/wiki/Analysis_of_variance)
 
 ]
 
-.pull-right6[
-&lt;br&gt;
+.pull-right5[
+
 ### ANOVA with `aov()`
+
+&lt;br&gt;
+*Is there a difference in height based on education?*
 
 
 ```r
 # Is there a relationship btwn education and height?
 
-height_htest &lt;- aov(formula = height ~ education,
-                    data = baselers)
+ht_htest &lt;- aov(formula = height ~ education,
+                data = baselers)
 
 # Print result
-height_htest
+ht_htest
 ```
 
 ```
@@ -713,33 +678,39 @@ height_htest
 
 ]
 
+
+
+
 ---
+.pull-left45[
 
-.pull-left35[
+# ANOVA
 
-# Hypothesis tests
+### *Do the means of my (many) groups differ?*
 
-All of the basic &lt;high&gt;one and two sample hypothesis tests&lt;/high&gt; are included in the `stats` package.
+Conduct an &lt;high&gt;ANOVA&lt;/high&gt; when you have one nominal independent variable with &lt;high&gt;more than 2 levels&lt;/high&gt; A, B, C, ...
 
-These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `formula`, or &lt;high&gt;individual vectors&lt;/high&gt; for the arguments `x`, and `y`
+### Test Statistic
 
-| Hypothesis Test| R Function|
-|:------------|:------------|
-|     t-test|    `t.test()`|
-|     Correlation Test|    `cor.test()`|
-|     ANOVA|   `aov()`|
-|Post-hoc tests| `TukeyHSD()`|
+`$$\large F = \frac{Variance\;Between\;Groups}{Variance\;Within\;Groups}$$`
+
+&gt;Is the variability between my groups large relative to the variability within each group?
+
+See [ANOVA formula on Wikipedia](https://en.wikipedia.org/wiki/Analysis_of_variance)
 
 ]
 
-.pull-right6[
-&lt;br&gt;
+.pull-right5[
+
 ### ANOVA with `aov()`
+
+&lt;br&gt;
+*Is there a difference in height based on education?*
 
 
 ```r
 # Show summary results
-summary(height_htest)
+summary(ht_htest)
 ```
 
 ```
@@ -752,33 +723,37 @@ summary(height_htest)
 
 ]
 
----
 
+---
 .pull-left35[
 
-# Hypothesis tests
+# ANOVA - Post-hoc tests
 
-All of the basic &lt;high&gt;one and two sample hypothesis tests&lt;/high&gt; are included in the `stats` package.
+### *Which groups differ?*
 
-These tests take either a &lt;high&gt;formula&lt;/high&gt; for the argument `formula`, or &lt;high&gt;individual vectors&lt;/high&gt; for the arguments `x`, and `y`
+After conducting an &lt;high&gt;ANOVA&lt;/high&gt;, conduct a &lt;high&gt;post-hoc test&lt;/high&gt; to see which specific pairs of groups differ
+.
+### Test Statistic
 
-| Hypothesis Test| R Function|
-|:------------|:------------|
-|     t-test|    `t.test()`|
-|     Correlation Test|    `cor.test()`|
-|     ANOVA|   `aov()`|
-|Post-hoc tests| `TukeyHSD()`|
+`$$\large t = \frac{\bar{x}_{A}-\bar{x}_{B}}{Total\;Variability}$$`
+
+See [Tukey's Test article on Wikipedia](https://en.wikipedia.org/wiki/Tukey%27s_range_test)
 
 ]
 
 .pull-right6[
+
+### Post-hoc tests with `TukeyHSD()`
+
 &lt;br&gt;
-### ANOVA with `aov()`
+*Is there a difference in height based on education?*
 
 
 ```r
-# post-hoc tests
-TukeyHSD(height_htest)
+# Conduct post-hoc tests
+#   Which pairs of groups differ?
+
+TukeyHSD(ht_htest)
 ```
 
 ```
@@ -788,16 +763,247 @@ TukeyHSD(height_htest)
 ## Fit: aov(formula = height ~ education, data = baselers)
 ## 
 ## $education
-##                                     diff    lwr    upr  p adj
-## obligatory_school-apprenticeship -0.2708 -1.322 0.7808 0.9115
-## SEK_II-apprenticeship            -1.0467 -2.340 0.2466 0.1599
-## SEK_III-apprenticeship            2.0228  1.301 2.7448 0.0000
-## SEK_II-obligatory_school         -0.7759 -2.277 0.7254 0.5451
-## SEK_III-obligatory_school         2.2936  1.244 3.3436 0.0000
-## SEK_III-SEK_II                    3.0695  1.777 4.3616 0.0000
+##                    diff     lwr    upr  p adj
+## High School-BA   0.2708 -0.7808 1.3223 0.9115
+## MS-BA           -0.7759 -2.2772 0.7254 0.5451
+## PhD-BA           2.2936  1.2435 3.3436 0.0000
+## MS-High School  -1.0467 -2.3400 0.2466 0.1599
+## PhD-High School  2.0228  1.3008 2.7448 0.0000
+## PhD-MS           3.0695  1.7774 4.3616 0.0000
 ```
 
 ]
+
+
+
+
+
+
+---
+
+.pull-left4[
+
+# `tidy()`
+
+The `tidy()` function from the `broom` package &lt;high&gt;converts&lt;/high&gt; the most important results of many statistical objects to a &lt;high&gt;data frame&lt;/high&gt;.
+
+
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/Erfurt_2018June/master/_sessions/_image/broom_hex.png" width="45%" style="display: block; margin: auto;" /&gt;
+
+
+```r
+# install and load broom
+install.packages('broom')
+library(broom)
+```
+
+
+Try `tidy()` on your favorite statistical object and see what you get!
+
+]
+
+.pull-right55[
+
+&lt;br&gt;&lt;br&gt;
+
+
+```r
+# Load broom package
+library(broom)   # For tidy()
+
+# Conduct correlation test
+height_income_htest &lt;- cor.test(formula = ~ height + income,
+                       data = baselers)
+
+# Standard printout
+height_income_htest
+```
+
+```
+## 
+## 	Pearson's product-moment correlation
+## 
+## data:  height and income
+## t = -2.5, df = 8500, p-value = 0.01
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  -0.048577 -0.006115
+## sample estimates:
+##      cor 
+## -0.02736
+```
+
+]
+
+
+---
+
+.pull-left4[
+
+# `tidy()`
+
+The `tidy()` function from the `broom` package &lt;high&gt;converts&lt;/high&gt; the most important results of many statistical objects to a &lt;high&gt;data frame&lt;/high&gt;.
+
+
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/Erfurt_2018June/master/_sessions/_image/broom_hex.png" width="45%" style="display: block; margin: auto;" /&gt;
+
+
+```r
+# install and load broom
+install.packages('broom')
+library(broom)
+```
+
+
+Try `tidy()` on your favorite statistical object and see what you get!
+
+]
+
+.pull-right55[
+
+&lt;br&gt;&lt;br&gt;
+
+
+```r
+# Load broom package
+library(broom)   # For tidy()
+
+# Conduct correlation test
+height_income_htest &lt;- cor.test(formula = ~ height + income,
+                       data = baselers)
+
+# tidy results
+tidy(height_income_htest)
+```
+
+```
+## # A tibble: 1 x 8
+##   estimate statistic p.value parameter conf.low conf.high method                               alternative
+##      &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;                                &lt;chr&gt;      
+## 1  -0.0274     -2.52  0.0116      8508  -0.0486  -0.00612 Pearson's product-moment correlation two.sided
+```
+
+]
+
+---
+
+.pull-left4[
+
+# `tidy()`
+
+The `tidy()` function from the `broom` package &lt;high&gt;converts&lt;/high&gt; the most important results of many statistical objects to a &lt;high&gt;data frame&lt;/high&gt;.
+
+
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/Erfurt_2018June/master/_sessions/_image/broom_hex.png" width="45%" style="display: block; margin: auto;" /&gt;
+
+
+```r
+# install and load broom
+install.packages('broom')
+library(broom)
+```
+
+
+Try `tidy()` on your favorite statistical object and see what you get!
+
+]
+
+.pull-right55[
+
+&lt;br&gt;&lt;br&gt;
+
+
+```r
+# Load broom package
+library(broom)   # For tidy()
+
+# Conduct t.test
+height_sex_ttest &lt;- t.test(formula = height ~ sex,
+                           data = baselers)
+
+# standard print out
+height_sex_ttest
+```
+
+```
+## 
+## 	Welch Two Sample t-test
+## 
+## data:  height by sex
+## t = -67, df = 9900, p-value &lt;2e-16
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  -14.41 -13.59
+## sample estimates:
+## mean in group female   mean in group male 
+##                  164                  178
+```
+
+]
+
+
+---
+
+.pull-left4[
+
+# `tidy()`
+
+The `tidy()` function from the `broom` package &lt;high&gt;converts&lt;/high&gt; the most important results of many statistical objects to a &lt;high&gt;data frame&lt;/high&gt;.
+
+
+&lt;img src="https://raw.githubusercontent.com/therbootcamp/Erfurt_2018June/master/_sessions/_image/broom_hex.png" width="45%" style="display: block; margin: auto;" /&gt;
+
+
+```r
+# install and load broom
+install.packages('broom')
+library(broom)
+```
+
+
+Try `tidy()` on your favorite statistical object and see what you get!
+
+]
+
+.pull-right55[
+
+&lt;br&gt;&lt;br&gt;
+
+
+```r
+# Load broom package
+library(broom)   # For tidy()
+
+# Conduct t.test
+height_sex_ttest &lt;- t.test(formula = height ~ sex,
+                           data = baselers)
+
+# tidy results
+tidy(height_sex_ttest)
+```
+
+```
+## # A tibble: 1 x 10
+##   estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high method               alternative
+##      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;                &lt;chr&gt;      
+## 1    -14.0      164.      178.     -66.6       0     9909.    -14.4     -13.6 Welch Two Sample t-… two.sided
+```
+
+]
+
+
+
+---
+
+class: middle, center
+
+&lt;h1&gt;&lt;a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/RegressionI/RegressionI_practical.html"&gt;Practical&lt;/a&gt;&lt;/h1&gt;
+
+
+
+---
+# Backup
+
 
 ---
 
@@ -830,7 +1036,7 @@ noisy
 ```
 
 ```
-## [1] 102.01  95.64  96.29 112.09 103.67
+## [1]  97.27  96.31 103.53 108.70  99.07
 ```
 
 ```r
@@ -838,7 +1044,7 @@ mean(noisy)
 ```
 
 ```
-## [1] 101.9
+## [1] 101
 ```
 
 ```r
@@ -846,7 +1052,7 @@ sd(noisy)
 ```
 
 ```
-## [1] 6.666
+## [1] 5.13
 ```
 
 ```r
@@ -857,138 +1063,11 @@ coin_flips
 ```
 
 ```
-##  [1] 0 1 1 0 1 0 0 0 1 0
+##  [1] 1 0 0 0 0 0 0 1 0 0
 ```
-
 
 
 ]
-
-
-
----
-
-.pull-left45[
-
-# `tidy()`
-
-The `tidy()` function from the `broom` package &lt;high&gt;converts&lt;/high&gt; the most important results of many statistical objects to a &lt;high&gt;data frame&lt;/high&gt;.
-
-
-&lt;img src="https://raw.githubusercontent.com/therbootcamp/Erfurt_2018June/master/_sessions/_image/broom_hex.png" width="45%" style="display: block; margin: auto;" /&gt;
-
-
-```r
-# install and load broom
-install.packages('broom')
-library(broom)
-```
-
-
-Try `tidy()` on your favorite statistical object and see what you get!
-
-]
-
-.pull-right5[
-
-&lt;br&gt;&lt;br&gt;
-
-
-```r
-# Load broom package
-library(broom)   # For tidy()
-
-# Conduct t-test
-income_htest &lt;- t.test(formula = tattoos ~ sex,
-                       data = baselers)
-
-# Standard print-out
-income_htest
-```
-
-```
-## 
-## 	Welch Two Sample t-test
-## 
-## data:  tattoos by sex
-## t = -7, df = 9900, p-value = 3e-12
-## alternative hypothesis: true difference in means is not equal to 0
-## 95 percent confidence interval:
-##  -0.4583 -0.2577
-## sample estimates:
-## mean in group female   mean in group male 
-##                1.633                1.991
-```
-
-]
-
-
----
-
-.pull-left45[
-
-# `tidy()`
-
-The `tidy()` function from the `broom` package &lt;high&gt;converts&lt;/high&gt; the most important results of many statistical objects to a &lt;high&gt;data frame&lt;/high&gt;.
-
-
-&lt;img src="https://raw.githubusercontent.com/therbootcamp/Erfurt_2018June/master/_sessions/_image/broom_hex.png" width="45%" style="display: block; margin: auto;" /&gt;
-
-
-```r
-# install and load broom
-install.packages('broom')
-library(broom)
-```
-
-
-Try `tidy()` on your favorite statistical object and see what you get!
-
-]
-
-.pull-right5[
-
-&lt;br&gt;&lt;br&gt;
-
-
-```r
-# Load broom package
-library(broom)   # For tidy()
-
-# Conduct t-test
-income_htest &lt;- t.test(formula = tattoos ~ sex,
-                       data = baselers)
-
-# tidy print-out
-tidy(income_htest)
-```
-
-```
-## # A tibble: 1 x 10
-##   estimate estimate1 estimate2 statistic  p.value parameter conf.low conf.high method              alternative
-##      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;               &lt;chr&gt;      
-## 1   -0.358      1.63      1.99     -7.00 2.79e-12     9878.   -0.458    -0.258 Welch Two Sample t… two.sided
-```
-
-]
-
-
----
-
-# Extensions to the linear model
-
-What is your dependent variable is not normally distributed?
-
-Binary; Logistic regression
-
-Skewed: Log the data!
-
-
----
-
-class: middle, center
-
-&lt;h1&gt;&lt;a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/RegressionI/RegressionI_practical.html"&gt;Practical&lt;/a&gt;&lt;/h1&gt;
     </textarea>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({

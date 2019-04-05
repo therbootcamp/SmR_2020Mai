@@ -76,9 +76,17 @@ knitr::opts_chunk$set(dpi = 300, echo = TRUE, warning = FALSE, fig.align = 'cent
 
 source("https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_materials/code/baselrbootcamp_palettes.R")
 
+library(broom)
 
 # Load data
 baselers <- readr::read_csv("1_Data/baselers.csv")
+
+baselers <- baselers %>%
+  mutate(education = case_when(education == "apprenticeship" ~ "High School",
+                               education == "obligatory_school" ~ "BA",
+                               education == "SEK_II" ~ "MS",
+                               education == "SEK_III" ~ "PhD",
+                               ))
 
 ```
 
@@ -373,8 +381,6 @@ ggplot(baselers, aes(x = age, y = income)) +
 ]
 
 
-
-
 ---
 
 .pull-left4[
@@ -412,8 +418,6 @@ income_htest
 
 
 ]
-
-
 
 ---
 
@@ -758,37 +762,43 @@ income_htest$p.value
 ---
 .pull-left45[
 
-# T-test
+# ANOVA
 
-### *Does the mean of group A differ from group B?*
+### *Do the means of my (many) groups differ?*
 
-Conduct a <high>t-test</high> when you have one nominal independent variable with <high>2 levels</high> A and B
+Conduct an <high>ANOVA</high> when you have one nominal independent variable with <high>more than 2 levels</high> A, B, C, ...
 
 ### Test Statistic
 
-$$\Large t = \frac{\bar{x}_{A}-\bar{x}_{B}}{\sqrt{s^{2}(\frac{1}{n_{A}}+\frac{1}{n_{B}})}}$$
-$$\Large s^{2} = Pooled\;variance$$
+$$\large F = \frac{Variance\;Between\;Groups}{Variance\;Within\;Groups}$$
 
-*Pooled variance means "Average Variance"* 
+>Is the variability between my groups large relative to the variability within each group?
 
-See [formula on Wikipedia](https://en.wikipedia.org/wiki/Pooled_variance)
-
+See [ANOVA formula on Wikipedia](https://en.wikipedia.org/wiki/Analysis_of_variance)
 ]
 
 .pull-right5[
 
 <br>
-### t-test with `t.test()`
 
-```{r}
-# Show all named elements
-names(income_htest)
+```{r, fig.width = 4.5, fig.height = 4, echo = FALSE}
+a_y <- rnorm(100, mean = 10, sd = 2)
+b_y <- rnorm(100, mean = 12, sd = 2)
+c_y <- rnorm(100, mean = 10, sd = 2)
 
-# Print the test statistic
-income_htest$statistic
+dat <- tibble(Group = rep(c("A", "B", "C"), each = 100),
+              Y = c(a_y, b_y, c_y))
 
-# Print the p.value
-income_htest$p.value
+mean_c <- dat %>% group_by(Group) %>% summarise(x = mean(Y)) %>% pull(x) %>% round(2)
+sd_avg <- dat %>% group_by(Group) %>% summarise(x = sd(Y)) %>% pull(x) %>% mean()
+
+
+ggplot(data = dat, aes(x = Group, y = Y)) +
+  stat_summary(geom = "bar", fun.y = "mean", col = "black", fill = "white") +
+                 geom_jitter(width = .1) +
+  annotate("segment", x = c(1, 2, 3), xend = c(1, 2, 3), y = mean_c - sd_avg, yend = mean_c + sd_avg, size = 2, col = baselrbootcamp_cols("magenta")) +
+  annotate("label", x = c(1, 2, 3), y = mean_c, label = mean_c) +
+  labs(title = "Ready for an ANOVA!")
 ```
 
 ]
@@ -797,62 +807,110 @@ income_htest$p.value
 ---
 .pull-left45[
 
-#  ANOVA
+# ANOVA
 
-### Data
+### *Do the means of my (many) groups differ?*
 
-IV: 2+ Discrete values
+Conduct an <high>ANOVA</high> when you have one nominal independent variable with <high>more than 2 levels</high> A, B, C, ...
 
-DV: Normally Distributed
+### Test Statistic
 
-### Formula
+$$\large F = \frac{Variance\;Between\;Groups}{Variance\;Within\;Groups}$$
 
+>Is the variability between my groups large relative to the variability within each group?
 
-### Hypotheses
-
-Null Hypothesis
-
-Alternative Hypothesis
+See [ANOVA formula on Wikipedia](https://en.wikipedia.org/wiki/Analysis_of_variance)
 
 ]
 
 .pull-right5[
 
-Example
+
+```{r, fig.width = 4, fig.height = 6, echo = FALSE, out.width = "80%"}
+set.seed(100)
+
+a_y <- rnorm(100, mean = 10, sd = 4) - .75
+b_y <- rnorm(100, mean = 10, sd = 4) + .25
+c_y <- rnorm(100, mean = 10, sd = 4) - .75
+
+dat <- tibble(Group = rep(c("A", "B", "C"), each = 100),
+              Y = c(a_y, b_y, c_y))
+
+mean_c <- dat %>% group_by(Group) %>% summarise(x = mean(Y)) %>% pull(x) %>% round(2)
+sd_avg <- dat %>% group_by(Group) %>% summarise(x = sd(Y)) %>% pull(x) %>% mean(2)
+
+fstat <- aov(data = dat, formula = Y ~ Group) %>% tidy() %>% slice(1) %>% pull(statistic) %>% round(2)
+p <- aov(data = dat, formula = Y ~ Group) %>% tidy() %>% slice(1) %>% pull(p.value) %>% round(2)
+
+
+a_gg <- ggplot(data = dat, aes(x = Group, y = Y)) +
+  stat_summary(geom = "bar", fun.y = "mean", col = "black", fill = "white") +
+                 geom_jitter(width = .1) +
+  annotate("segment", x = c(1, 2, 3), xend = c(1, 2, 3), y = mean_c - sd_avg, yend = mean_c + sd_avg, size = 2, col = baselrbootcamp_cols("magenta")) +
+  annotate("label", x = c(1, 2, 3), y = mean_c, label = mean_c) +
+  labs(title = paste0("F = ", fstat, ", p = ", p)) +
+  ylim(c(0, 20))
+
+
+
+
+a_y <- rnorm(100, mean = 10, sd = 2) - .75
+b_y <- rnorm(100, mean = 10, sd = 2) + .25
+c_y <- rnorm(100, mean = 10, sd = 2) - .75
+
+dat <- tibble(Group = rep(c("A", "B", "C"), each = 100),
+              Y = c(a_y, b_y, c_y))
+
+mean_c <- dat %>% group_by(Group) %>% summarise(x = mean(Y)) %>% pull(x) %>% round(2)
+sd_avg <- dat %>% group_by(Group) %>% summarise(x = sd(Y)) %>% pull(x) %>% mean(2)
+
+fstat <- aov(data = dat, formula = Y ~ Group) %>% tidy() %>% slice(1) %>% pull(statistic) %>% round(2)
+p <- aov(data = dat, formula = Y ~ Group) %>% tidy() %>% slice(1) %>% pull(p.value) %>% round(2)
+
+
+b_gg <- ggplot(data = dat, aes(x = Group, y = Y)) +
+  stat_summary(geom = "bar", fun.y = "mean", col = "black", fill = "white") +
+                 geom_jitter(width = .1) +
+  annotate("segment", x = c(1, 2, 3), xend = c(1, 2, 3), y = mean_c - sd_avg, yend = mean_c + sd_avg, size = 2, col = baselrbootcamp_cols("magenta")) +
+  annotate("label", x = c(1, 2, 3), y = mean_c, label = mean_c) +
+  labs(title = paste0("F = ", fstat, ", p = ", p)) +
+  ylim(c(0, 20))
+
+
+ggpubr::ggarrange(a_gg, b_gg, ncol = 1, nrow = 2)
+
+
+```
 
 ]
 
----
-class: middle, center
-
-# R
-## How to conduct and understand hypothesis tests
-
-
 
 
 ---
+.pull-left45[
 
-.pull-left35[
+# ANOVA
 
-# Hypothesis tests
+### *Do the means of my (many) groups differ?*
 
-All of the basic <high>one and two sample hypothesis tests</high> are included in the `stats` package.
+Conduct an <high>ANOVA</high> when you have one nominal independent variable with <high>more than 2 levels</high> A, B, C, ...
 
-These tests take either a <high>formula</high> for the argument `formula`, or <high>individual vectors</high> for the arguments `x`, and `y`
+### Test Statistic
 
-| Hypothesis Test| R Function|
-|:------------|:------------|
-|     t-test|    `t.test()`|
-|     Correlation Test|    `cor.test()`|
-|     ANOVA|   `aov()`|
-|Post-hoc tests| `TukeyHSD()`|
+$$\large F = \frac{Variance\;Between\;Groups}{Variance\;Within\;Groups}$$
+
+>Is the variability between my groups large relative to the variability within each group?
+
+See [ANOVA formula on Wikipedia](https://en.wikipedia.org/wiki/Analysis_of_variance)
 
 ]
 
-.pull-right6[
-<br>
+.pull-right5[
+
 ### ANOVA with `aov()`
+
+<br>
+*Is there a difference in height based on education?*
 
 ```{r, echo  = FALSE, warning = FALSE, fig.width = 6, fig.height = 4, dpi = 300, out.width = "90%"}
 ggplot(baselers, aes(x = education, y = height)) +
@@ -864,100 +922,304 @@ ggplot(baselers, aes(x = education, y = height)) +
 
 ]
 
+
+
 ---
+.pull-left45[
 
-.pull-left35[
+# ANOVA
 
-# Hypothesis tests
+### *Do the means of my (many) groups differ?*
 
-All of the basic <high>one and two sample hypothesis tests</high> are included in the `stats` package.
+Conduct an <high>ANOVA</high> when you have one nominal independent variable with <high>more than 2 levels</high> A, B, C, ...
 
-These tests take either a <high>formula</high> for the argument `formula`, or <high>individual vectors</high> for the arguments `x`, and `y`
+### Test Statistic
 
-| Hypothesis Test| R Function|
-|:------------|:------------|
-|     t-test|    `t.test()`|
-|     Correlation Test|    `cor.test()`|
-|     ANOVA|   `aov()`|
-|Post-hoc tests| `TukeyHSD()`|
+$$\large F = \frac{Variance\;Between\;Groups}{Variance\;Within\;Groups}$$
+
+>Is the variability between my groups large relative to the variability within each group?
+
+See [ANOVA formula on Wikipedia](https://en.wikipedia.org/wiki/Analysis_of_variance)
 
 ]
 
-.pull-right6[
-<br>
+.pull-right5[
+
 ### ANOVA with `aov()`
+
+<br>
+*Is there a difference in height based on education?*
 
 ```{r}
 # Is there a relationship btwn education and height?
 
-height_htest <- aov(formula = height ~ education,
-                    data = baselers)
+ht_htest <- aov(formula = height ~ education,
+                data = baselers)
 
 # Print result
-height_htest
+ht_htest
 ```
 
 ]
 
+
+
+
 ---
+.pull-left45[
 
-.pull-left35[
+# ANOVA
 
-# Hypothesis tests
+### *Do the means of my (many) groups differ?*
 
-All of the basic <high>one and two sample hypothesis tests</high> are included in the `stats` package.
+Conduct an <high>ANOVA</high> when you have one nominal independent variable with <high>more than 2 levels</high> A, B, C, ...
 
-These tests take either a <high>formula</high> for the argument `formula`, or <high>individual vectors</high> for the arguments `x`, and `y`
+### Test Statistic
 
-| Hypothesis Test| R Function|
-|:------------|:------------|
-|     t-test|    `t.test()`|
-|     Correlation Test|    `cor.test()`|
-|     ANOVA|   `aov()`|
-|Post-hoc tests| `TukeyHSD()`|
+$$\large F = \frac{Variance\;Between\;Groups}{Variance\;Within\;Groups}$$
+
+>Is the variability between my groups large relative to the variability within each group?
+
+See [ANOVA formula on Wikipedia](https://en.wikipedia.org/wiki/Analysis_of_variance)
 
 ]
 
-.pull-right6[
-<br>
+.pull-right5[
+
 ### ANOVA with `aov()`
+
+<br>
+*Is there a difference in height based on education?*
 
 ```{r}
 # Show summary results
-summary(height_htest)
+summary(ht_htest)
+```
+
+]
+
+
+---
+.pull-left35[
+
+# ANOVA - Post-hoc tests
+
+### *Which groups differ?*
+
+After conducting an <high>ANOVA</high>, conduct a <high>post-hoc test</high> to see which specific pairs of groups differ
+.
+### Test Statistic
+
+$$\large t = \frac{\bar{x}_{A}-\bar{x}_{B}}{Total\;Variability}$$
+
+See [Tukey's Test article on Wikipedia](https://en.wikipedia.org/wiki/Tukey%27s_range_test)
+
+]
+
+.pull-right6[
+
+### Post-hoc tests with `TukeyHSD()`
+
+<br>
+*Is there a difference in height based on education?*
+
+```{r}
+# Conduct post-hoc tests
+#   Which pairs of groups differ?
+
+TukeyHSD(ht_htest)
+```
+
+]
+
+
+
+
+
+
+---
+
+.pull-left4[
+
+# `tidy()`
+
+The `tidy()` function from the `broom` package <high>converts</high> the most important results of many statistical objects to a <high>data frame</high>.
+
+
+```{r, out.width = "45%", echo = FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/Erfurt_2018June/master/_sessions/_image/broom_hex.png")
+```
+
+```{r, eval = FALSE, echo = TRUE}
+# install and load broom
+install.packages('broom')
+library(broom)
+```
+
+
+Try `tidy()` on your favorite statistical object and see what you get!
+
+]
+
+.pull-right55[
+
+<br><br>
+
+```{r, eval = TRUE, echo = TRUE}
+# Load broom package
+library(broom)   # For tidy()
+
+# Conduct correlation test
+height_income_htest <- cor.test(formula = ~ height + income,
+                       data = baselers)
+
+# Standard printout
+height_income_htest
+```
+
+]
+
+
+---
+
+.pull-left4[
+
+# `tidy()`
+
+The `tidy()` function from the `broom` package <high>converts</high> the most important results of many statistical objects to a <high>data frame</high>.
+
+
+```{r, out.width = "45%", echo = FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/Erfurt_2018June/master/_sessions/_image/broom_hex.png")
+```
+
+```{r, eval = FALSE, echo = TRUE}
+# install and load broom
+install.packages('broom')
+library(broom)
+```
+
+
+Try `tidy()` on your favorite statistical object and see what you get!
+
+]
+
+.pull-right55[
+
+<br><br>
+
+```{r, eval = TRUE, echo = TRUE}
+# Load broom package
+library(broom)   # For tidy()
+
+# Conduct correlation test
+height_income_htest <- cor.test(formula = ~ height + income,
+                       data = baselers)
+
+# tidy results
+tidy(height_income_htest)
 ```
 
 ]
 
 ---
 
-.pull-left35[
+.pull-left4[
 
-# Hypothesis tests
+# `tidy()`
 
-All of the basic <high>one and two sample hypothesis tests</high> are included in the `stats` package.
+The `tidy()` function from the `broom` package <high>converts</high> the most important results of many statistical objects to a <high>data frame</high>.
 
-These tests take either a <high>formula</high> for the argument `formula`, or <high>individual vectors</high> for the arguments `x`, and `y`
 
-| Hypothesis Test| R Function|
-|:------------|:------------|
-|     t-test|    `t.test()`|
-|     Correlation Test|    `cor.test()`|
-|     ANOVA|   `aov()`|
-|Post-hoc tests| `TukeyHSD()`|
+```{r, out.width = "45%", echo = FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/Erfurt_2018June/master/_sessions/_image/broom_hex.png")
+```
+
+```{r, eval = FALSE, echo = TRUE}
+# install and load broom
+install.packages('broom')
+library(broom)
+```
+
+
+Try `tidy()` on your favorite statistical object and see what you get!
 
 ]
 
-.pull-right6[
-<br>
-### ANOVA with `aov()`
+.pull-right55[
 
-```{r}
-# post-hoc tests
-TukeyHSD(height_htest)
+<br><br>
+
+```{r, eval = TRUE, echo = TRUE}
+# Load broom package
+library(broom)   # For tidy()
+
+# Conduct t.test
+height_sex_ttest <- t.test(formula = height ~ sex,
+                           data = baselers)
+
+# standard print out
+height_sex_ttest
 ```
 
 ]
+
+
+---
+
+.pull-left4[
+
+# `tidy()`
+
+The `tidy()` function from the `broom` package <high>converts</high> the most important results of many statistical objects to a <high>data frame</high>.
+
+
+```{r, out.width = "45%", echo = FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/Erfurt_2018June/master/_sessions/_image/broom_hex.png")
+```
+
+```{r, eval = FALSE, echo = TRUE}
+# install and load broom
+install.packages('broom')
+library(broom)
+```
+
+
+Try `tidy()` on your favorite statistical object and see what you get!
+
+]
+
+.pull-right55[
+
+<br><br>
+
+```{r, eval = TRUE, echo = TRUE}
+# Load broom package
+library(broom)   # For tidy()
+
+# Conduct t.test
+height_sex_ttest <- t.test(formula = height ~ sex,
+                           data = baselers)
+
+# tidy results
+tidy(height_sex_ttest)
+```
+
+]
+
+
+
+---
+
+class: middle, center
+
+<h1><a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/RegressionI/RegressionI_practical.html">Practical</a></h1>
+
+
+
+---
+# Backup
+
 
 ---
 
@@ -999,111 +1261,5 @@ coin_flips
 ```
 
 
-
 ]
-
-
-
----
-
-.pull-left45[
-
-# `tidy()`
-
-The `tidy()` function from the `broom` package <high>converts</high> the most important results of many statistical objects to a <high>data frame</high>.
-
-
-```{r, out.width = "45%", echo = FALSE}
-knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/Erfurt_2018June/master/_sessions/_image/broom_hex.png")
-```
-
-```{r, eval = FALSE, echo = TRUE}
-# install and load broom
-install.packages('broom')
-library(broom)
-```
-
-
-Try `tidy()` on your favorite statistical object and see what you get!
-
-]
-
-.pull-right5[
-
-<br><br>
-
-```{r, eval = TRUE, echo = TRUE}
-# Load broom package
-library(broom)   # For tidy()
-
-# Conduct t-test
-income_htest <- t.test(formula = tattoos ~ sex,
-                       data = baselers)
-
-# Standard print-out
-income_htest
-```
-
-]
-
-
----
-
-.pull-left45[
-
-# `tidy()`
-
-The `tidy()` function from the `broom` package <high>converts</high> the most important results of many statistical objects to a <high>data frame</high>.
-
-
-```{r, out.width = "45%", echo = FALSE}
-knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/Erfurt_2018June/master/_sessions/_image/broom_hex.png")
-```
-
-```{r, eval = FALSE, echo = TRUE}
-# install and load broom
-install.packages('broom')
-library(broom)
-```
-
-
-Try `tidy()` on your favorite statistical object and see what you get!
-
-]
-
-.pull-right5[
-
-<br><br>
-
-```{r, eval = TRUE, echo = TRUE}
-# Load broom package
-library(broom)   # For tidy()
-
-# Conduct t-test
-income_htest <- t.test(formula = tattoos ~ sex,
-                       data = baselers)
-
-# tidy print-out
-tidy(income_htest)
-```
-
-]
-
-
----
-
-# Extensions to the linear model
-
-What is your dependent variable is not normally distributed?
-
-Binary; Logistic regression
-
-Skewed: Log the data!
-
-
----
-
-class: middle, center
-
-<h1><a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/RegressionI/RegressionI_practical.html">Practical</a></h1>
 
