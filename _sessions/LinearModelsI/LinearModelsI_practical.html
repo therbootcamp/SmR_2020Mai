@@ -97,6 +97,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -104,14 +107,74 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -405,7 +468,7 @@ rsq(XXX)</code></pre>
 </div>
 <div id="home-runs-hmrun-and-salary" class="section level5">
 <h5>Home Runs (HmRun) and Salary</h5>
-<p>In this section, we will answer the question: “Is there a relationship between the number of home runs a player scores in 1986 his salary in 1987?</p>
+<p>In this section, we will answer the question: &quot;Is there a relationship between the number of home runs a player scores in 1986 his salary in 1987?</p>
 <ol style="list-style-type: decimal">
 <li>Using the code below, create a scatterplot showing the relationship between HmRun and Salary. Based on this plot, what do you expect the relationship to be between HmRun and Salary?</li>
 </ol>
@@ -788,13 +851,13 @@ rsq(hwy_mod)
 </tr>
 </tbody>
 </table>
-<p>SHORT VERBAL DESCRIPTION OF DATA SETS</p>
+<p>The <code>hitters.csv</code> file contains Major League Baseball Data from the 1986 and 1987 seasons. The data originally come from the <code>ISLR</code> package.</p>
 <div id="variable-description" class="section level4">
 <h4>Variable description</h4>
-<table style="width:75%;">
+<table>
 <colgroup>
-<col width="20%" />
-<col width="54%" />
+<col width="26%" />
+<col width="73%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -916,11 +979,11 @@ rsq(hwy_mod)
 </div>
 <div id="functions-1" class="section level3">
 <h3>Functions</h3>
-<table style="width:83%;">
+<table>
 <colgroup>
-<col width="6%" />
-<col width="11%" />
-<col width="65%" />
+<col width="7%" />
+<col width="12%" />
+<col width="80%" />
 </colgroup>
 <thead>
 <tr class="header">
