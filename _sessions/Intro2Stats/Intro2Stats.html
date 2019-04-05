@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html>
   <head>
     <title>Intro to Statistics</title>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <meta name="author" content="Statistics with R   Basel R Bootcamp" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="baselrbootcamp.css" type="text/css" />
@@ -47,37 +47,42 @@ layout: true
 
 
 
-
-.pull-left6[
-
 # Our goal in the next hour
 
-In this hour, we will try to cover some of the basic principles of statistical inference.
+.pull-left55[
 
-1. Variability
-2. Sample statistics
-3. Sampling (samples vs. populations)
-4. Distributions
-5. Likelihood
-6. Null Hypothesis testing
-7. Test statistic
-8. P-values
+In this hour, we will try to cover some of the &lt;high&gt;basic principles of statistical inference&lt;/high&gt;.
 
-This is a lot to cover, and it may not be clear from the beginning.
+1. *Variability*
+2. *Sample statistics*
+3. *Sampling (samples vs. populations)*
+4. *Distributions*
+5. *Likelihood*
+6. *Null Hypothesis testing*
+7. *Test statistic*
+8. *P-values*
 
-But to help us, we'll think about it in terms of beer.
+This is a lot to cover, and it may not be clear from the beginning. To help us, &lt;high&gt;we'll think about it in terms of beer&lt;/high&gt;.
 
 ]
 
 
 .pull-right35[
 
-&lt;br&gt;&lt;br&gt;&lt;br&gt;
-&lt;img src="https://cdn.lynda.com/course/495322/495322-636154038826424503-16x9.jpg" style="display: block; margin: auto;" /&gt;
-
-&lt;br&gt;
-&lt;img src="https://marketingweek.imgix.net/content/uploads/2018/05/11123103/beer-750.jpg?auto=compress,format,&amp;crop=faces,entropy,edges&amp;fit=crop&amp;q=60&amp;w=750&amp;h=460" width="90%" style="display: block; margin: auto;" /&gt;
-
+&lt;p align="center"&gt;
+  &lt;img src="image/stats.jpg" width=300px&gt;
+  &lt;br&gt;
+  &lt;font style="font-size:10px"&gt;
+    from &lt;a href="https://cdn.lynda.com/course/"&gt;cdn.lynda.com&lt;/a&gt;
+  &lt;/font&gt;
+  &lt;br&gt;&lt;br&gt;
+  &lt;img src="image/beer.jpg" width=300px&gt;
+  &lt;br&gt;
+  &lt;font style="font-size:10px"&gt;
+    from &lt;a href="https://marketingweek.imgix.net"&gt; marketingweek.imgix.net&lt;/a&gt;
+  &lt;/font&gt;
+  
+&lt;/p&gt;
 
 ]
 
@@ -86,72 +91,94 @@ But to help us, we'll think about it in terms of beer.
 
 ---
 
-.pull-left6[
+.pull-left45[
 
-# Example: 
+# Example
 
-Basel has many nice "Buvette's" that serve drinks in warm months.
+Basel has many nice "Buvette's" that serve drinks in warm months. 
 
-The Oetlinger Buvette, one of our favorites, offers 33dl beers (or so they say...).
+The Oetlinger Buvette, one of our favorites, offers 33cl beers (or so they say...).
 
-*I am convinced that the Oetlinger Buvette 'underpouring' its beers and they are not truly 33dl.*
-&lt;br&gt;&lt;br&gt;
-&lt;center&gt;How can I formulate my belief into an &lt;high&gt;formal hypothesis?&lt;/high&gt;&lt;/center&gt;&lt;br&gt;
+&gt; I am convinced that the Oetlinger Buvette 'underpouring' its beers and they are not truly 33cl.
 
-&lt;center&gt;How can I collect &lt;high&gt;data to test the hypothesis?&lt;/center&gt;&lt;/high&gt;&lt;br&gt;
+#### How can I find out?
 
-&lt;center&gt;&lt;font size = 5&gt;What do you think?&lt;/font&gt;&lt;/center&gt;
+How can I formulate my belief into an &lt;high&gt;formal hypothesis?&lt;/high&gt;
+
+How can I collect &lt;high&gt;data to test the hypothesis?&lt;/center&gt;&lt;/high&gt;
+
+What do you think?
+
 ]
 
 
-.pull-right35[
+.pull-right45[
+
 &lt;br&gt;&lt;br&gt;
-&lt;img src="https://www.basel.com/extension/portal-basel/var/storage/images/media/bibliothek/basel-bilder/rhein-promenade/savoir-vivre-am-basler-rheinufer/92121-1-ger-DE/Savoir-vivre-am-Basler-Rheinufer_front_magnific.jpg" width="100%" style="display: block; margin: auto;" /&gt;
 
-
-
-&lt;img src="https://files.newsnetz.ch/story/1/7/7/17765134/14/topelement.jpg" width="100%" style="display: block; margin: auto;" /&gt;
-
+&lt;p align="center"&gt;
+  &lt;img src="image/basel1.jpg" width=350px&gt;
+  &lt;br&gt;
+  &lt;font style="font-size:10px"&gt;
+    from &lt;a href="https://www.basel.com/"&gt;basel.com&lt;/a&gt;
+  &lt;/font&gt;
+  &lt;br&gt;&lt;br&gt;
+  &lt;img src="image/basel2.jpg" width=350px&gt;
+  &lt;br&gt;
+  &lt;font style="font-size:10px"&gt;
+    from &lt;a href="https://files.newsnetz.ch"&gt; newsnetz.ch&lt;/a&gt;
+  &lt;/font&gt;
+  
+&lt;/p&gt;
 
 ]
 
 ---
 
-.pull-left6[
+.pull-left5[
 
 
 
 
-## Beer hypothesis
+# Beer hypothesis
 
-The mean amount poured in 33dl beers by the Oetlinger Buvette is less than 33dl
+The mean amount poured in 33cl beers by the Oetlinger Buvette is less than 33cl
 
 
 `$$\Large H0: \mu &lt; 33$$`
 
-## Beer Data
+### Beer Data
 
 I ordered 10 beers, and measured the exact amount in each cup, here are the results:
 
 
 
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-8-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-4-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ]
 
 
-.pull-right35[
+.pull-right45[
+
 &lt;br&gt;&lt;br&gt;
-&lt;img src="https://www.basel.com/extension/portal-basel/var/storage/images/media/bibliothek/basel-bilder/rhein-promenade/savoir-vivre-am-basler-rheinufer/92121-1-ger-DE/Savoir-vivre-am-Basler-Rheinufer_front_magnific.jpg" width="100%" style="display: block; margin: auto;" /&gt;
 
-
-
-&lt;img src="https://files.newsnetz.ch/story/1/7/7/17765134/14/topelement.jpg" width="100%" style="display: block; margin: auto;" /&gt;
-
+&lt;p align="center"&gt;
+  &lt;img src="image/basel1.jpg" width=350px&gt;
+  &lt;br&gt;
+  &lt;font style="font-size:10px"&gt;
+    from &lt;a href="https://www.basel.com/"&gt;basel.com&lt;/a&gt;
+  &lt;/font&gt;
+  &lt;br&gt;&lt;br&gt;
+  &lt;img src="image/basel2.jpg" width=350px&gt;
+  &lt;br&gt;
+  &lt;font style="font-size:10px"&gt;
+    from &lt;a href="https://files.newsnetz.ch"&gt; newsnetz.ch&lt;/a&gt;
+  &lt;/font&gt;
+  
+&lt;/p&gt;
 
 ]
-
 
 
 
@@ -159,9 +186,9 @@ I ordered 10 beers, and measured the exact amount in each cup, here are the resu
 ---
 
 
-.pull-left45[
-
 # 1. Variability
+
+.pull-left45[
 
 All interesting data processes have &lt;high&gt;variability&lt;/high&gt;
 
@@ -180,29 +207,30 @@ If there was no variability, there would be no need to do statistics.
 
 .pull-right45[
 
-Statistics is the process of understanding variability
-
-&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/variability_stock_drug.png?token=AIFo1Ck45ox-HHmcNvSnfBOLXhRRRjpVks5cq1a3wA%3D%3D" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;p align="center"&gt;
+  &lt;img src="image/variability_stock_drug.png" &gt;
+&lt;/p&gt;
 
 ]
 
 
 ---
 
+# 1. Variability
 
 .pull-left45[
 
-# 1. Variability
 
-In general, we distinguish between two types of variability
+There are two types of variability: &lt;high&gt;systematic and unsystematic variability&lt;/high&gt;.
+
+Statistical inference typically seeks to &lt;high&gt;separate total variability into systematic and unsystematic portions&lt;/high&gt;.
+
+&lt;br&gt;
 
 |Variability Type|Definition|
 |:-----|:-----|
 |Systematic| Variation that &lt;high&gt;can&lt;/high&gt; be explained by known variables|
 |Unsystematic |Variation that &lt;high&gt;cannot&lt;/high&gt; be explained by known variables|
-
-Statistical inference is the practice of discovering ways to separate overall variability into systematic and unsystematic portions.
-
 
 ]
 
@@ -213,9 +241,7 @@ Statistical inference is the practice of discovering ways to separate overall va
 
 
 
-&lt;br&gt;&lt;br&gt;
-
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -225,29 +251,28 @@ Statistical inference is the practice of discovering ways to separate overall va
 ---
 
 
-.pull-left45[
-
 # 1. Variability
 
-In general, we distinguish between two types of variability
+.pull-left45[
+
+
+There are two types of variability: &lt;high&gt;systematic and unsystematic variability&lt;/high&gt;.
+
+Statistical inference typically seeks to &lt;high&gt;separate total variability into systematic and unsystematic portions&lt;/high&gt;.
+
+&lt;br&gt;
 
 |Variability Type|Definition|
 |:-----|:-----|
 |Systematic| Variation that &lt;high&gt;can&lt;/high&gt; be explained by known variables|
 |Unsystematic |Variation that &lt;high&gt;cannot&lt;/high&gt; be explained by known variables|
 
-Statistical inference is the practice of discovering ways to separate overall variability into systematic and unsystematic portions.
-
-
 ]
 
 
 .pull-right45[
 
-
-&lt;br&gt;&lt;br&gt;
-
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-14-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -257,9 +282,11 @@ Statistical inference is the practice of discovering ways to separate overall va
 
 # 2. Sample Statistics
 
-Once we collect (varying) data, we always look for ways to &lt;high&gt;summarise&lt;/high&gt; the data into &lt;high&gt;sample statistics&lt;/high&gt;
+Once we collect data, we always look for ways to &lt;high&gt;summarise&lt;/high&gt; the data into &lt;high&gt;sample statistics&lt;/high&gt;
 
-Sample statistics usually (but not always) fall into one of two types:
+Sample statistics give us &lt;high&gt;estimates&lt;/high&gt; of key model parameters (more on this later) and usually (but not always) fall into one of two types:
+
+&lt;br&gt;
 
 |Type|Examples |
 |:----|:------|
@@ -267,22 +294,21 @@ Sample statistics usually (but not always) fall into one of two types:
 |Variability|Standard deviation, variance, range|
 
 
-Sample statistics give us &lt;high&gt;estimates&lt;/high&gt; of key model parameters (more on this later)
+
 
 ]
 
 
-.pull-right5[
+.pull-right45[
 
+&lt;br&gt;&lt;br&gt;
 
-### Raw data &amp; Sample Statistics
-
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-15-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto auto auto 0;" /&gt;
 
 
 `$$Mean = \frac{28+31+28+...}{10} = 29.9$$`
 
-`$$Standard \; Deviation = \sqrt{\frac{(28-29.9)^2+(31-29.9)^2+...}{10-1}} = 3.90$$`
+`$$Stand. \; Dev. = \sqrt{\frac{(28-29.9)^2+(31-29.9)^2+...}{10-1}} = 3.90$$`
 
 
 ]
@@ -292,6 +318,7 @@ Sample statistics give us &lt;high&gt;estimates&lt;/high&gt; of key model parame
 ---
 
 .pull-left45[
+
 # 3. Sampling Procedures
 
 In statistics, we always distinguish between a &lt;high&gt;sample&lt;/high&gt; and a &lt;/high&gt;population&lt;/high&gt;
@@ -299,21 +326,20 @@ In statistics, we always distinguish between a &lt;high&gt;sample&lt;/high&gt; a
 Populations are what we are really interested in
 - How will *all cancer patients* be affected by Drug X?
 - How will *future stocks* change?
-- What is the relationship between income and happiness in *all people*?
+- Or is the pouring amount different from 33cl?
 
-We rarely have access to entire populations (when we do, we don't need to do statistics!)
+To learn about the population, we must use &lt;high&gt;sampling procedures&lt;/high&gt; to obtain a &lt;high&gt;sample&lt;/high&gt; of cases.
 
-We must use &lt;high&gt;sampling procedures&lt;/high&gt; to obtain a smaller &lt;high&gt;sample&lt;/high&gt; of cases.
-
-Based on that sample, we try to make &lt;high&gt;inferences&lt;/high&gt; to populations.
+Then, inferential statistics allows us to &lt;high&gt;inferences&lt;/high&gt; to populations.
 
 
 ]
 
 
-.pull-right5[
+.pull-right45[
 
-&lt;br&gt;&lt;br&gt;
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
 &lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/sampling_procedure.png?token=AIFo1AUl-Ddz-zYZgoGbzwJoW8SO3LhUks5criQVwA%3D%3D" style="display: block; margin: auto;" /&gt;
 
 
@@ -328,154 +354,201 @@ Based on that sample, we try to make &lt;high&gt;inferences&lt;/high&gt; to popu
 
 # 4. Distributions
 
-Statistics is built on &lt;high&gt;calculating the likelihood of data&lt;/high&gt; given how we assume it varies
+(Parametric) statistics is built on &lt;high&gt;calculating the likelihood of data&lt;/high&gt; given a probability distribution.
 
-To make calculations, we need to define variability according to a &lt;high&gt;probability distribution&lt;/high&gt;.
+A probability distribution is a &lt;high&gt;mathematical formula&lt;/high&gt; that precisely defines &lt;high&gt;how likely&lt;/high&gt; every possible value in a dataset is. [List of distributions](https://en.wikipedia.org/wiki/List_of_probability_distributions).
 
-A probability distribution is a &lt;high&gt;mathematical formula&lt;/high&gt; that precisely defines &lt;high&gt;how likely&lt;/high&gt; every possible value in a dataset is.
+#### 3 key aspects of a distribution
 
-Probability distributions are &lt;high&gt;always positive&lt;/high&gt; and their &lt;high&gt;sum adds up to 1.0&lt;/high&gt;
+1. &lt;high&gt;Probability Density Function (PDF)&lt;/high&gt; - Formula defining the distribution (R knows these)
 
-[Wikipedia: Distribution List](https://en.wikipedia.org/wiki/List_of_probability_distributions)
+2. &lt;high&gt;Support&lt;/high&gt; - What values can x take on?
 
-]
-
-
-.pull-right5[
-
-### 3 key aspects of a distribution
-
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-17-1.png" width="90%" style="display: block; margin: auto;" /&gt;
-
-*1. Probability Density Function (PDF)*
-
-A formula that defines the distribution (you rarely need to know this)
-
-*2. Support*
-
-What values can x take on?
-
-*3. Parameters*
-
-Values that allow you to change the shape of the distribution? (e.g.; mean and variability?)
-
-]
+3. &lt;high&gt;Parameters&lt;/high&gt; - Values that allow you to change the shape of the distribution? (e.g.; mean and variability?)
 
 
----
-
-.pull-left45[
-
-## Normal (Gaussian) Distribution
-
-
-A 'bell-shaped curve'
-
-The most important and widely used distribution in all of statistics
-
-
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-18-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
 
 .pull-right45[
 
-### Details
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
 
-*Probability Density Function (PDF)*
-
-`$$\large f(x)= \frac{1}{\sigma \sqrt {2\pi }} e^{(x-\mu)^2/2\sigma^2}$$`
-
-*Support*
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 
-`$$\large x \; \epsilon (-\infty, \infty)$$`
-
-*Parameters*
-
-|Parameter|Meaning|
-|:-----|:-------|
-|$$\mu$$ | Center (mean)|
-|$$\sigma$$| Variability (standard deviation)|
 ]
 
 
 ---
+
+# Normal Distribution
 
 .pull-left45[
 
-## Uniform Distribution
 
+A *bell-shaped curve* aka Gaussian distribution, which is the &lt;high&gt;most important distribution in all of statistics&lt;/high&gt;.
 
-A 'Flat distribution'
+&lt;br&gt;
 
-Used when everything (within a range) is equally likely
-
-
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-19-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
 
-.pull-right5[
+.pull-right45[
 
-### Details
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
+  &lt;col width="30%"&gt;
+  &lt;col width="70%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white" style="padding-bottom:42px"&gt;
+    &lt;b&gt;Aspect&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white" style="padding-bottom:42px"&gt;
+    &lt;b&gt;Formula&lt;/b&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"" style="padding-bottom:42px;padding-top:42px"&gt;
+    &lt;i&gt;PDF&lt;/i&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;img src="image/norm_pdf.png" height=75px&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"" style="padding-bottom:42px;padding-top:42px"&gt;
+    &lt;i&gt;Support&lt;/i&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;img src="image/norm_sup.png" height=42px&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"" style="padding-bottom:42px;padding-top:42px"&gt;
+    &lt;i&gt;Parameters&lt;/i&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;img src="image/mu.png" height=27px&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; (Center; mean)&lt;br&gt;&lt;br&gt;
+    &lt;img src="image/sigma.png" height=22px&gt;  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; (Variability; stand. dev.)&lt;br&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;/table&gt;
 
 
-*Probability Density Function (PDF)*
-
-`$$\Large f(x)= \frac{1}{b-a}$$`
-
-*Support*
-
-
-`$$\Large x \; \epsilon (a, b)$$`
-
-
-*Parameters*
-
-|Parameter|Meaning|
-|:-----|:-------|
-|$$a$$ | Minimum|
-|$$b$$| Maximum|
 ]
-
 
 ---
+
+# Uniform Distribution
+
+.pull-left45[
+
+A 'Flat distribution', used &lt;high&gt;when everything is equally likely&lt;/high&gt;, within a range.
+
+&lt;br&gt;
+
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+.pull-right45[
+
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
+  &lt;col width="30%"&gt;
+  &lt;col width="70%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white" style="padding-bottom:42px"&gt;
+    &lt;b&gt;Aspect&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white" style="padding-bottom:42px"&gt;
+    &lt;b&gt;Formula&lt;/b&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"" style="padding-bottom:42px;padding-top:42px"&gt;
+    &lt;i&gt;PDF&lt;/i&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;img src="image/uniform_pdf.png" height=78px&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"" style="padding-bottom:42px;padding-top:42px"&gt;
+    &lt;i&gt;Support&lt;/i&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;img src="image/uniform_sup.png" height=42px&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"" style="padding-bottom:42px;padding-top:42px"&gt;
+    &lt;i&gt;Parameters&lt;/i&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;img src="image/a.png" height=20px&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; (Minimum)&lt;br&gt;&lt;br&gt;
+    &lt;img src="image/b.png" height=30px&gt;  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; (Maximum)&lt;br&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;/table&gt;
+
+]
+
+---
+
+# Binomial Distribution
 
 .pull-left5[
 
-## Binomial Distribution
+A discrete "Counting" distribution answering: If I flip a coin N times, with p(Head) = p, how many times will I get heads?
 
-A discrete "Counting" distribution
-
-If I flip a coin N times, with p(Head) = p, how many times will I get heads?
-
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-20-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
 
 .pull-right45[
 
-### Details
-
-
-*Probability Density Function (PDF)*
-
-`$$\large p(x) = {n \choose x}p^x(1-p)^{n-x}$$`
-*Support*
-
-
-`$$\large x \; \epsilon \{0, 1, ...n\}$$`
-
-*Parameters*
-
-|Parameter|Meaning|
-|:-----|:-------|
-|$$p$$| Probability of success on each trial|
-|$$n$$ | Number of trials (flips)|
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
+  &lt;col width="30%"&gt;
+  &lt;col width="70%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white" style="padding-bottom:42px"&gt;
+    &lt;b&gt;Aspect&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white" style="padding-bottom:42px"&gt;
+    &lt;b&gt;Formula&lt;/b&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"" style="padding-bottom:42px;padding-top:42px"&gt;
+    &lt;i&gt;PDF&lt;/i&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;img src="image/binomial_pdf.png" height=75px&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"" style="padding-bottom:42px;padding-top:42px"&gt;
+    &lt;i&gt;Support&lt;/i&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;img src="image/binomial_sup.png" height=42px&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"" style="padding-bottom:42px;padding-top:42px"&gt;
+    &lt;i&gt;Parameters&lt;/i&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;img src="image/p.png" height=25px&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; (p(success))&lt;br&gt;&lt;br&gt;
+    &lt;img src="image/n.png" height=22px&gt;  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; (No. trials)&lt;br&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;/table&gt;
 
 ]
 
@@ -500,16 +573,19 @@ Knowing this likelihood allows us to &lt;high&gt;fit parameters&lt;/high&gt;, &l
 ]
 
 
-.pull-right5[
+.pull-right45[
+
+&lt;br&gt;&lt;br&gt;
+
+&lt;p align = "center"&gt;
+  &lt;img src="image/Xofluza.jpg" width = 350px&gt;&lt;br&gt;
+  &lt;font style="font-size:10px"&gt;
+    An ad for xofluza, from &lt;a href="https://www.xofluza.com"&gt; xofluza.com&lt;/a&gt;
+  &lt;/font&gt;
+&lt;/p&gt;
 
 
-&lt;div class="figure" style="text-align: center"&gt;
-&lt;img src="https://www.xofluza.com/content/dam/gene/xofluza/hcp/images/Mobile/Xofluza-Flu-Efficacy-Primary-Endpoint-TTAS-01-Mobile.jpg" alt="An advertisement for xofluza" width="80%" /&gt;
-&lt;p class="caption"&gt;An advertisement for xofluza&lt;/p&gt;
-&lt;/div&gt;
-
-
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-22-1.png" width="75%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-14-1.png" width="75%" style="display: block; margin: auto;" /&gt;
 
 
 
@@ -528,23 +604,21 @@ Using the binomial distributions on the right, answer the following questions:
 
 ### Q1
 
-If there is a 50% chance of a drug being successful, then out of 10 drugs, how likely is it that exactly 5 will be successful?
+If there is a 50% chance of a drug being successful, then out of 10 drugs, &lt;high&gt;how likely is it that exactly 5 will be successful&lt;/high&gt;?
 
 
 ### Q2
 
-If there is a 10% chance that a customer will default on his/her loan, then out of 10 customers, how likely is it that none (0) will default?
+If there is a 10% chance that a customer will default on his/her loan, then out of 10 customers, &lt;high&gt;how likely is it that none (0) will default&lt;/high&gt;?
 
 ]
 
 
 .pull-right5[
 
-&lt;br&gt;&lt;br&gt;
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
 
-### 2 Binomial Distributions
-
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-24-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-16-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 
 ]
@@ -554,28 +628,61 @@ If there is a 10% chance that a customer will default on his/her loan, then out 
 
 ---
 
-.pull-left65[
+.pull-left45[
+
 
 # 6: Null hypothesis testing
 
-Null hypothesis testing is a statistical framework where two alternative hypotheses (the Null and the Alternative) are compared
+Null hypothesis testing is a statistical framework where one hypothesis (H&lt;sub&gt;0&lt;/sub&gt;) is tested to defend the other, alternative hypothesis (H&lt;sub&gt;1&lt;/sub&gt;).
 
-|Hypothesis|Description|Example|
-|:-----|:-----|:-------|
-|Null (H0)|A proposed effect &lt;high&gt;does not exist&lt;/high&gt; and variation &lt;high&gt;is not systematic&lt;/high&gt;|Drug and placebo have the same effect|
-|Alternative (H1)|A proposed effect &lt;high&gt;does exist&lt;/high&gt; and variation &lt;high&gt;is systematic&lt;/high&gt;|Drug and placebo do *not* have the same effect|
+This evaluation is performed by calculating the likelihood of the data &lt;high&gt;given&lt;/high&gt; that one of these hypotheses are true.
 
-In order to compare these hypotheses, we need to calculate the likelihood of the data &lt;high&gt;given&lt;/high&gt; that one of these hypotheses are true.
-
-[Wikipedia: Null Hypothesis](https://en.wikipedia.org/wiki/Null_hypothesis)
-
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
+  &lt;col width="16%"&gt;
+  &lt;col width="44%"&gt;
+  &lt;col width="40%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Hypothesis&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Description&lt;/b&gt;
+  &lt;/td&gt;  
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Example&lt;/b&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    Null (H&lt;sub&gt;0&lt;/sub&gt;)
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    A proposed effect &lt;high&gt;does not exist&lt;/high&gt; and variation &lt;high&gt;is not systematic&lt;/high&gt;.
+  &lt;/td&gt;  
+  &lt;td bgcolor="white"&gt;
+    Drug and placebo have the same effect.
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    Alternative (H&lt;sub&gt;1&lt;/sub&gt;)
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    A proposed effect &lt;high&gt;does exist&lt;/high&gt; and variation &lt;high&gt;is systematic&lt;/high&gt;
+  &lt;/td&gt;  
+  &lt;td bgcolor="white"&gt;
+    Drug and placebo do *not* have the same effect
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;/table&gt;
 
 ]
 
 
-.pull-right3[
-&lt;br&gt;&lt;br&gt;&lt;br&gt;
-Are these data consistent with H0?
+.pull-right45[
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
 
 &lt;img src="Intro2Stats_files/figure-html/fig.cap-1.png" style="display: block; margin: auto;" /&gt;
 
@@ -586,34 +693,64 @@ Are these data consistent with H0?
 ---
 
 
-.pull-left5[
+.pull-left45[
 
 # 7: Test statistic
 
 Sample statistics (like means and standard deviations) are converted into &lt;high&gt;test statistics&lt;/high&gt;.
 
-Test statistics are are numbers that help you quantify how likely data is given a null hypothesis.
+Test statistics are numbers that help you quantify how likely data is given a null hypothesis. Generally, the &lt;high&gt;more extreme&lt;/high&gt; your test statistic is, the &lt;high&gt;more evidence&lt;/high&gt; *against* the null hypothesis.
 
-&lt;!-- `$$Test\;Statistic=\frac{Variance\;explained\;by\;a\;model}{Variance\;NOT\;explained\;by\;a\;model}$$` --&gt;
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
+  &lt;col width="40%"&gt;
+  &lt;col width="60%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Test&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Test statistic&lt;/b&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    t-test
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    t-statistic
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    Correlation test
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Correlation coefficient
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    Binomial
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Number of successes
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;/table&gt;
 
-Different tests give you different test statistics:
 
-|Test|Test statistic|
-|:----|:----|
-|T-test|T-statistic|
-|Correlation test|Correlation coefficient|
-|Binomial|Number of successes|
-
-Generally, the more extreme your test statistic is, the more evidence *against* the null hypothesis.
 
 
 ]
 
 
-.pull-right5[
-&lt;br&gt;&lt;br&gt;
+.pull-right45[
 
-&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/beer_null.png?token=AIFo1GFEeag875nlAbAbeS8rdQAx0mW6ks5cq2_1wA%3D%3D" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+&lt;p align = "center"&gt;
+  &lt;img src="image/beer_null.png"&gt;
+&lt;/p&gt;
 
 ]
 
@@ -622,55 +759,60 @@ Generally, the more extreme your test statistic is, the more evidence *against* 
 
 # 8: P-value
 
-p-values are used to quantify the likelihood of data given the &lt;high&gt;probability distribution&lt;/high&gt; under the &lt;high&gt;null hypothesis&lt;/high&gt;
+*p*-values are used to quantify the likelihood of data given the &lt;high&gt;probability distribution&lt;/high&gt; under the &lt;high&gt;null hypothesis&lt;/high&gt;.
 
-|p-value Definition|
-|:----|
-|A p-value is the probability of obtaining a test statistic as extreme as what you got assuming a null hypothesis is true|
+If a p-value is *small* (i.e.; p &lt; .05), this means that the likelihood of obtaining that data given the null hypothesis is *small*, suggesting that the null hypothesis is *wrong*.
 
-&gt; "How likely is it that I would get a test statistic of -2.51 if the mean amount of beer really is 33dl?"
+#### Formally
 
-### p &lt; .05 = Reject H0
+A p-value is the probability of obtaining a test statistic as extreme as what you got assuming a null hypothesis is true
 
-If a p-value is *small* (i.e.; p &lt; .05), this means that the likelihood of obtaining that data given the null hypothesis is equally *small*, suggesting that the null hypothesis is *wrong*
+#### Decision rule
 
-&lt;high&gt;Warning!&lt;/high&gt; Wait until the New Statistics lecture for alternatives to this approach!
+&lt;font style="font-size:32px"&gt;&lt;high&gt;p &lt; .05 &amp;rarr; Reject H&lt;sub&gt;0&lt;/0&gt;&lt;/high&gt;&lt;/font&gt;
 
 ]
 
 
-.pull-right45[
+.pull-right4[
 
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
 
-&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/pvalue_level.png?token=AIFo1Djs5aBnmWvuT7bFn7IyTzZJ-bQ_ks5cq215wA%3D%3D" width="90%" style="display: block; margin: auto;" /&gt;
-
-
+&lt;p align = "center"&gt;
+  &lt;img src="image/pvalue_level.png" height=460px&gt;
+&lt;/p&gt;
 
 ]
 
 ---
 
 
-.pull-left4[
+.pull-left45[
 
 # What about Oetlinger?
 
-Our &lt;high&gt;p-value&lt;/high&gt;, indicating the &lt;high&gt;likelihood of obtaining the data if the null hypothesis is true&lt;/high&gt;, was (only) 0.0273.
+Our &lt;high&gt;&lt;i&gt;p&lt;/i&gt;-value&lt;/high&gt;, indicating the &lt;high&gt;likelihood of obtaining the data if the null hypothesis is true&lt;/high&gt;, was (only) `0.0273`.
 
-The data are very unlikely if the mean amount poured is really 33dl.
+The data are very unlikely, if the mean amount poured is really 33cl. 
 
 It is so unlikely, that using the 0.05 threshold, we could conclude...
 
-The Oetlinger buvette is consistently pouring less than 33dl!
+&lt;font style="font-size:32px"&gt;The Oetlinger buvette is pouring less than 33cl!&amp;#128551;&amp;#x1F620;&amp;#x1F92C;&lt;/font&gt; 
+
+&lt;br&gt;
 
 *Note: These data are completely made up :) We're sure the Oetlinger Buvette is not ripping us off*
 
 ]
 
 
-.pull-right55[
+.pull-right45[
 
-&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/beer_null_p.png?token=AIFo1KnzD3U7_pjvmk0K09hE2HkXISmAks5cq3AGwA%3D%3D" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+&lt;p align = "center"&gt;
+  &lt;img src="image/beer_null_p.png"&gt;
+&lt;/p&gt;
 
 
 ]
@@ -683,7 +825,6 @@ class: middle, center
 
 &lt;h1&gt;&lt;a href="https://therbootcamp.github.io/SwR_2019Apr/index.html"&gt;Schedule&lt;/a&gt;&lt;/h1&gt;
     </textarea>
-<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
@@ -694,57 +835,16 @@ class: middle, center
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
 });
-(function(d) {
-  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
   if (!r) return;
   s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
   d.head.appendChild(s);
-})(document);
-
-(function(d) {
-  var el = d.getElementsByClassName("remark-slides-area");
-  if (!el) return;
-  var slide, slides = slideshow.getSlides(), els = el[0].children;
-  for (var i = 1; i < slides.length; i++) {
-    slide = slides[i];
-    if (slide.properties.continued === "true" || slide.properties.count === "false") {
-      els[i - 1].className += ' has-continuation';
-    }
-  }
-  var s = d.createElement("style");
-  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
-  d.head.appendChild(s);
-})(document);
-// delete the temporary CSS (for displaying all slides initially) when the user
-// starts to view slides
-(function() {
-  var deleted = false;
-  slideshow.on('beforeShowSlide', function(slide) {
-    if (deleted) return;
-    var sheets = document.styleSheets, node;
-    for (var i = 0; i < sheets.length; i++) {
-      node = sheets[i].ownerNode;
-      if (node.dataset["target"] !== "print-only") continue;
-      node.parentNode.removeChild(node);
-    }
-    deleted = true;
-  });
 })();</script>
 
 <script>
 (function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
-</script>
-
-<script>
-slideshow._releaseMath = function(el) {
-  var i, text, code, codes = el.getElementsByTagName('code');
+  var i, text, code, codes = document.getElementsByTagName('code');
   for (i = 0; i < codes.length;) {
     code = codes[i];
     if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
@@ -758,15 +858,14 @@ slideshow._releaseMath = function(el) {
     }
     i++;
   }
-};
-slideshow._releaseMath(document);
+})();
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
 (function () {
   var script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
   if (location.protocol !== 'file:' && /^https?:/.test(script.src))
     script.src  = script.src.replace(/^https?:/, '');
   document.getElementsByTagName('head')[0].appendChild(script);

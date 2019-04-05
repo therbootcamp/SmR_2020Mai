@@ -375,7 +375,7 @@ At any time, you can <high>request a 15 minute 1-1 intensive</high> coaching ses
 
 .pull-right6[
 
-<img src="https://therbootcamp.github.io/SwR_2019Apr/_sessions/Welcome/image/schedule.png" height="580" align="center">
+<img src="image/schedule.png" height="580" align="center">
 
 
 ]
