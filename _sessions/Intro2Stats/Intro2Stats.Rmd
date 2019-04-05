@@ -444,9 +444,9 @@ Populations are what we are really interested in
 - How will *future stocks* change?
 - What is the relationship between income and happiness in *all people*?
 
-We rarely access to entire populations (when we do, we don't need to do statistics!)
+We rarely have access to entire populations (when we do, we don't need to do statistics!)
 
-We must use <high>sampling procedures</high> to a smaller <high>sample</high> of cases.
+We must use <high>sampling procedures</high> to obtain a smaller <high>sample</high> of cases.
 
 Based on that sample, we try to make <high>inferences</high> to populations.
 
@@ -594,7 +594,7 @@ p1 <- ggplot(data = data.frame(x = c(60, 130)), aes(x)) +
   ylab("Likelihood") +
   scale_y_continuous(breaks = NULL) +
   xlab("x") +
-  annotate("text", x = 77.5, .08, label =parse(text = paste0('a == 90 ~ b == 5')), size = 5) +
+  annotate("text", x = 77.5, .08, label =parse(text = paste0('a == 70 ~ b == 85')), size = 5) +
 annotate("text", x = 105, .035, label =parse(text = paste0('a == 80 ~ b == 120')), size = 5) +
   ylim(c(0, .1))
 
@@ -741,7 +741,8 @@ drug_placebo_gg <- ggplot(dat, aes(factor(drug), effect)) +
        x = "Condition",
        title = "Fictional data comparing Drug to Placebo arm") +
   scale_y_continuous(breaks = seq(0, 10, 1), limits = c(0, 7)) +
-  geom_label(data = avg, aes(x = drug, y = days_mean, label = round(days_mean, 2)))
+  geom_label(data = avg, aes(x = drug, y = days_mean, label = round(days_mean, 2))) +
+  theme(plot.title = element_text(size = 10))
 
 drug_placebo_gg
 ```
