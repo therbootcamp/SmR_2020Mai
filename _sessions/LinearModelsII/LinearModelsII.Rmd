@@ -223,7 +223,9 @@ drug_placebo_gg
 
 # Correlation test
 
-Conduct a correlation test when you have <high>1 Normally distributed independent variable</high>
+### *Does Y tend to change when X changes?*
+
+Conduct a <high>correlation test</high> when you have 2 continuous, Normally distributed independent variables X and Y.
 
 ### Formula
 
@@ -236,15 +238,10 @@ $$\LARGE \beta_{1}=\rho\frac{\sigma_{y}}{\sigma_{x}}$$
 <high>r</high> is the <high>sample correlation</high> between $x$ and $Y$
 
 
-
-### Hypotheses
-
-Null: $H_{0}:\rho  = 0$, Alternative: $H_{A}:\rho  \neq 0$
-
 ]
 
-.pull-right5[
-
+.pull-right45[
+<br>
 
 ```{r, echo = FALSE, fig.width = 5.25, fig.height = 5.25}
 set.seed(104)
@@ -293,11 +290,196 @@ ggpubr::ggarrange(pos_low_gg, neg_low_gg, pos_high_gg, neg_high_gg, ncol = 2, nr
 ```
 
 
+]
 
+
+---
+
+.pull-left4[
+
+# Correlation test
+
+### Correlation Coefficient
+
+```{r, echo = FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/correlation_coefficien_diagram.png?token=AIFo1BALlc9Z4fF-bO-VIsFcMfJn3zoQks5cr6w9wA%3D%3D")
+```
+
+### Hypotheses
+
+
+Null: $H_{0}:\rho  = 0$, "There <high>is no</high> correlation in the population"
+
+Alternative: $H_{A}:\rho  \neq 0$, "There <high>is a </high> (non-zero) correlation in the population!"
+
+]
+
+.pull-right45[
+
+<br>
+```{r, echo = FALSE, fig.width = 5.25, fig.height = 5.25}
+set.seed(104)
+x <- rnorm(20, mean = 10, sd = 2)
+pos_low <- x * 1 + rnorm(20, sd = 5)
+pos_high <- x * 1 + rnorm(20, sd = .5)
+neg_low <- x * -1 + rnorm(20, sd = 5)
+neg_high <- x * -1 + rnorm(20, sd = .5)
+
+pos_low_r <- cor(x, pos_low)
+pos_high_r <- cor(x, pos_high)
+neg_low_r <- cor(x, neg_low)
+neg_high_r <- cor(x, neg_high)
+
+
+dat <- tibble(x, pos_low, pos_high, neg_low, neg_high)
+
+pos_low_gg <- ggplot(dat, aes(x = x, y = pos_low)) +
+  geom_point() +
+  geom_smooth(se = FALSE, method = "lm", col = baselrbootcamp_cols("magenta")) +
+  labs(title = "Low, positive correlation",
+       subtitle = paste0("r = ", round(pos_low_r, 2)), x = "x", y = "y")
+
+pos_high_gg <- ggplot(dat, aes(x = x, y = pos_high)) +
+  geom_point() +
+  geom_smooth(se = FALSE, method = "lm", col = baselrbootcamp_cols("magenta")) +
+  labs(title = "High, negative correlation",
+       subtitle = paste0("r = ", round(pos_high_r, 2)), x = "x", y = "y")
+
+neg_low_gg <- ggplot(dat, aes(x = x, y = neg_low)) +
+  geom_point() +
+  geom_smooth(se = FALSE, method = "lm", col = baselrbootcamp_cols("magenta")) +
+  labs(title = "Low, negative correlation",
+       subtitle = paste0("r = ", round(neg_low_r, 2)), x = "x", y = "y")
+
+neg_high_gg <- ggplot(dat, aes(x = x, y = neg_high)) +
+  geom_point() +
+  geom_smooth(se = FALSE, method = "lm", col = baselrbootcamp_cols("magenta")) +
+  labs(title = "High, negative correlation",
+       subtitle = paste0("r = ", round(neg_high_r, 2)), x = "x", y = "y")
+
+
+ggpubr::ggarrange(pos_low_gg, neg_low_gg, pos_high_gg, neg_high_gg, ncol = 2, nrow = 2)
+```
 
 
 ]
 
+
+---
+
+.pull-left4[
+
+# Correlation test
+
+### Correlation Coefficient
+
+```{r, echo = FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/correlation_coefficien_diagram.png?token=AIFo1BALlc9Z4fF-bO-VIsFcMfJn3zoQks5cr6w9wA%3D%3D")
+```
+
+### Hypotheses
+
+
+Null: $H_{0}:\rho  = 0$, "There <high>is no</high> correlation in the population"
+
+Alternative: $H_{A}:\rho  \neq 0$, "There <high>is a </high> (non-zero) correlation in the population!"
+
+]
+
+.pull-right55[
+<br>
+*Do older baselers have higher incomes than younger baselers?*
+
+```{r, echo  = FALSE, warning = FALSE, fig.width = 4, fig.height = 4, dpi = 300, out.width = "90%"}
+ggplot(baselers, aes(x = age, y = income)) +
+  geom_point(alpha = .03) +
+  labs(title = "Age and Income of Baselers",
+       caption = "Fake data :)")
+```
+
+
+]
+
+
+
+
+---
+
+.pull-left4[
+
+# Correlation test
+
+### Correlation Coefficient
+
+```{r, echo = FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/correlation_coefficien_diagram.png?token=AIFo1BALlc9Z4fF-bO-VIsFcMfJn3zoQks5cr6w9wA%3D%3D")
+```
+
+### Hypotheses
+
+
+Null: $H_{0}:\rho  = 0$, "There <high>is no</high> correlation in the population"
+
+Alternative: $H_{A}:\rho  \neq 0$, "There <high>is a </high> (non-zero) correlation in the population!"
+
+]
+
+.pull-right55[
+<br>
+### Correlation test with `cor.test()`
+
+```{r}
+# Is there a relationship between age and income?
+
+income_htest <- cor.test(formula = ~ age + income,
+                         data = baselers)
+
+# Print result
+income_htest
+```
+
+
+]
+
+
+
+---
+
+.pull-left4[
+
+# Correlation test
+
+### Correlation Coefficient
+
+```{r, echo = FALSE}
+knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/correlation_coefficien_diagram.png?token=AIFo1BALlc9Z4fF-bO-VIsFcMfJn3zoQks5cr6w9wA%3D%3D")
+```
+
+### Hypotheses
+
+
+Null: $H_{0}:\rho  = 0$, "There <high>is no</high> correlation in the population"
+
+Alternative: $H_{A}:\rho  \neq 0$, "There <high>is a </high> (non-zero) correlation in the population!"
+
+]
+
+.pull-right55[
+<br>
+### Correlation test with `cor.test()`
+
+```{r}
+# Show all named elements
+names(income_htest)
+
+# Show estimated correlation coefficient
+income_htest$estimate
+
+# Show p-value
+income_htest$p.value
+```
+
+]
 
 
 ---
@@ -362,6 +544,117 @@ class: middle, center
 
 # R
 ## How to conduct and understand hypothesis tests
+
+
+---
+
+.pull-left35[
+
+# Hypothesis tests
+
+All of the basic <high>one and two sample hypothesis tests</high> are included in the `stats` package.
+
+These tests take either a <high>formula</high> for the argument `formula`, or <high>individual vectors</high> for the arguments `x`, and `y`
+
+| Hypothesis Test| R Function|
+|:------------|:------------|
+|     t-test|    `t.test()`|
+|     Correlation Test|    `cor.test()`|
+|     ANOVA|   `aov()`|
+|Post-hoc tests| `TukeyHSD()`|
+
+
+]
+
+
+.pull-right6[
+<br>
+*Do older baselers have higher incomes than younger baselers?*
+
+```{r, echo  = FALSE, warning = FALSE, fig.width = 4, fig.height = 4, dpi = 300, out.width = "90%"}
+ggplot(baselers, aes(x = age, y = income)) +
+  geom_point(alpha = .03) +
+  labs(title = "Age and Income of Baselers",
+       caption = "Fake data :)")
+```
+
+]
+
+---
+
+.pull-left35[
+
+# Hypothesis tests
+
+All of the basic <high>one and two sample hypothesis tests</high> are included in the `stats` package.
+
+These tests take either a <high>formula</high> for the argument `formula`, or <high>individual vectors</high> for the arguments `x`, and `y`
+
+| Hypothesis Test| R Function|
+|:------------|:------------|
+|     t-test|    `t.test()`|
+|     Correlation Test|    `cor.test()`|
+|     ANOVA|   `aov()`|
+|Post-hoc tests| `TukeyHSD()`|
+
+
+]
+
+
+.pull-right6[
+<br>
+### Correlation test with `cor.test()`
+
+```{r}
+# Is there a relationship between age and income?
+
+income_htest <- cor.test(formula = ~ age + income,
+                         data = baselers)
+
+# Print result
+income_htest
+```
+
+]
+
+---
+
+.pull-left35[
+
+# Hypothesis tests
+
+All of the basic <high>one and two sample hypothesis tests</high> are included in the `stats` package.
+
+These tests take either a <high>formula</high> for the argument `formula`, or <high>individual vectors</high> for the arguments `x`, and `y`
+
+| Hypothesis Test| R Function|
+|:------------|:------------|
+|     t-test|    `t.test()`|
+|     Correlation Test|    `cor.test()`|
+|     ANOVA|   `aov()`|
+|Post-hoc tests| `TukeyHSD()`|
+
+
+]
+
+
+.pull-right6[
+<br>
+### Correlation test with `cor.test()`
+
+```{r}
+# Show all named elements
+names(income_htest)
+
+# Show estimated correlation coefficient
+income_htest$estimate
+
+# Show p-value
+income_htest$p.value
+```
+
+]
+
 
 ---
 
@@ -462,116 +755,6 @@ names(income_htest)
 income_htest$statistic
 
 # Print the p.value
-income_htest$p.value
-```
-
-]
-
----
-
-.pull-left35[
-
-# Hypothesis tests
-
-All of the basic <high>one and two sample hypothesis tests</high> are included in the `stats` package.
-
-These tests take either a <high>formula</high> for the argument `formula`, or <high>individual vectors</high> for the arguments `x`, and `y`
-
-| Hypothesis Test| R Function|
-|:------------|:------------|
-|     t-test|    `t.test()`|
-|     Correlation Test|    `cor.test()`|
-|     ANOVA|   `aov()`|
-|Post-hoc tests| `TukeyHSD()`|
-
-
-]
-
-
-.pull-right6[
-<br>
-*Do older baselers have higher incomes than younger baselers?*
-
-```{r, echo  = FALSE, warning = FALSE, fig.width = 4, fig.height = 4, dpi = 300, out.width = "90%"}
-ggplot(baselers, aes(x = age, y = income)) +
-  geom_point(alpha = .03) +
-  labs(title = "Age and Income of Baselers",
-       caption = "Fake data :)")
-```
-
-]
-
----
-
-.pull-left35[
-
-# Hypothesis tests
-
-All of the basic <high>one and two sample hypothesis tests</high> are included in the `stats` package.
-
-These tests take either a <high>formula</high> for the argument `formula`, or <high>individual vectors</high> for the arguments `x`, and `y`
-
-| Hypothesis Test| R Function|
-|:------------|:------------|
-|     t-test|    `t.test()`|
-|     Correlation Test|    `cor.test()`|
-|     ANOVA|   `aov()`|
-|Post-hoc tests| `TukeyHSD()`|
-
-
-]
-
-
-.pull-right6[
-<br>
-### Correlation test with `cor.test()`
-
-```{r}
-# Is there a relationship between age and income?
-
-income_htest <- cor.test(formula = ~ age + income,
-                         data = baselers)
-
-# Print result
-income_htest
-```
-
-]
-
-
----
-
-.pull-left35[
-
-# Hypothesis tests
-
-All of the basic <high>one and two sample hypothesis tests</high> are included in the `stats` package.
-
-These tests take either a <high>formula</high> for the argument `formula`, or <high>individual vectors</high> for the arguments `x`, and `y`
-
-| Hypothesis Test| R Function|
-|:------------|:------------|
-|     t-test|    `t.test()`|
-|     Correlation Test|    `cor.test()`|
-|     ANOVA|   `aov()`|
-|Post-hoc tests| `TukeyHSD()`|
-
-
-]
-
-
-.pull-right6[
-<br>
-### Correlation test with `cor.test()`
-
-```{r}
-# Show all named elements
-names(income_htest)
-
-# Show estimated correlation coefficient
-income_htest$estimate
-
-# Show p-value
 income_htest$p.value
 ```
 
