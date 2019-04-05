@@ -97,9 +97,6 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
-summary {
-  display: list-item;
-}
 </style>
 
 
@@ -107,74 +104,14 @@ summary {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
-
-<style type="text/css">
-.tabset-dropdown > .nav-tabs {
-  display: inline-table;
-  max-height: 500px;
-  min-height: 44px;
-  overflow-y: auto;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs > li.active {
-  display: block;
-}
-
-.tabset-dropdown > .nav-tabs > li > a,
-.tabset-dropdown > .nav-tabs > li > a:focus,
-.tabset-dropdown > .nav-tabs > li > a:hover {
-  border: none;
-  display: inline-block;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
-  display: block;
-  float: none;
-}
-
-.tabset-dropdown > .nav-tabs > li {
-  display: none;
-}
-</style>
-
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
 </script>
 
 <!-- code folding -->
+
 
 
 
@@ -477,8 +414,8 @@ XXX$XXX</code></pre>
 <li><p>Using the <code>tidy()</code> function (from the <code>broom</code> package), create a ‘tidy’ version of your <code>age_cd40_test</code> object called <code>age_cd420_tidy</code></p></li>
 <li><p>Now, print your <code>age_cd420_tidy</code> object, how do the results look?</p></li>
 </ol>
-<div id="correlation-as-linear-model" class="section level4">
-<h4>Correlation as Linear Model</h4>
+<div id="correlation-as-linear-model" class="section level5">
+<h5>Correlation as Linear Model</h5>
 <ol start="10" style="list-style-type: decimal">
 <li>Conduct the same analysis you did before, but this time use the <code>glm()</code> function. Use the code skeleton below to help you. Do you get the same results as you did using <code>cor.test()</code>?</li>
 </ol>
@@ -542,8 +479,8 @@ symptom_cd40_tidy &lt;- tidy(xxx)</code></pre>
 <ol start="9" style="list-style-type: decimal">
 <li>Now, print your <code>symptom_cd40_tidy</code> object, how do the results look?</li>
 </ol>
-<div id="t-test-as-linear-model" class="section level4">
-<h4>T-test as Linear Model</h4>
+<div id="t-test-as-linear-model" class="section level5">
+<h5>T-test as Linear Model</h5>
 <ol start="10" style="list-style-type: decimal">
 <li>Conduct the same analysis you did before, but this time use the <code>glm()</code> function. Use the code skeleton below to help you. Do you get the same results as you did using <code>t.test()</code>? Which outputs are the same and which are different?</li>
 </ol>
@@ -597,8 +534,8 @@ days_arms_tidy &lt;- tidy(xxx)</code></pre>
 <ol start="9" style="list-style-type: decimal">
 <li>Now, print your <code>days_arms_tidy</code> object, how do the results look?</li>
 </ol>
-<div id="post-hoc-tests" class="section level4">
-<h4>Post-hoc tests</h4>
+<div id="post-hoc-tests" class="section level5">
+<h5>Post-hoc tests</h5>
 <ol start="10" style="list-style-type: decimal">
 <li>In order to compare pair-wise differences between groups after conducting an ANOVA, you need to conduct post-hoc tests. Using the <code>TukeyHSD()</code> function, conduct pair-wise tests to see which pairs of treatment arms differ in <code>days</code>. Save the result to an object called <code>days_arms_aov_post</code> `</li>
 </ol>
@@ -616,8 +553,8 @@ tidy(XXX)</code></pre>
 <li>Based on what you’ve seen, what are your conclusions? Which treatment arms seem to differ?</li>
 </ol>
 </div>
-<div id="anova-as-linear-model" class="section level4">
-<h4>ANOVA as Linear Model</h4>
+<div id="anova-as-linear-model" class="section level5">
+<h5>ANOVA as Linear Model</h5>
 <ol start="10" style="list-style-type: decimal">
 <li>Conduct the same analysis you did before, but this time use the <code>glm()</code> function. Use the code skeleton below to help you. Do you get the same results as you did using <code>aov()</code>? Which outputs are the same and which are different?</li>
 </ol>
@@ -662,8 +599,8 @@ ggplot(data = tibble(days_glm_absresid), aes(x = days_glm_absresid)) +
 <li>Using the code below, calculate the mean absolute residuals from the model. What do these mean?</li>
 </ol>
 </div>
-<div id="x---advanced" class="section level3">
-<h3>X - Advanced:</h3>
+<div id="x---advanced-choose-your-own-test" class="section level3">
+<h3>X - Advanced: Choose your own test!</h3>
 <p>For the remaining tasks, you choose the test! For each task, do the following:</p>
 <ul>
 <li>Visualize the data (use the code given in the sections above for help!)</li>
@@ -682,8 +619,9 @@ ggplot(data = tibble(days_glm_absresid), aes(x = days_glm_absresid)) +
 <pre class="r"><code>trial &lt;- trial %&gt;%
   mutate(cd496_change = cd496 - cd40)   # Add cd496_change to trial, indicating change from
                                         # in cd4 T cell count from baseline to 96 weeks.</code></pre>
-<div id="chi-square-test" class="section level4">
-<h4>Chi-square test</h4>
+</div>
+<div id="y---advanced-chi-square-test" class="section level3">
+<h3>Y - Advanced: Chi-square test</h3>
 <blockquote>
 <p>Research Question: Was there an unequal distribution of gender in the treatment arms?</p>
 </blockquote>
@@ -740,9 +678,8 @@ gender_arm_tidy &lt;- tidy(xxx)</code></pre>
 <ol start="9" style="list-style-type: decimal">
 <li>Now, print your <code>gender_arm_tidy</code> object, how do the results look?</li>
 </ol>
-</div>
-<div id="chi-square-as-linear-model" class="section level4">
-<h4>Chi-square as Linear Model</h4>
+<div id="chi-square-as-linear-model" class="section level5">
+<h5>Chi-square as Linear Model</h5>
 <ol start="10" style="list-style-type: decimal">
 <li>In the next section we’ll compare the <code>chisq.test()</code> result to one using <code>glm()</code>. However, before we do, we need to restructure the data a bit. Run the following code to create a dataframe containing the counts for each combination of arms and gender:</li>
 </ol>
@@ -764,7 +701,7 @@ arms_gender_counts &lt;- trial %&gt;%
 #  interaction between arms and gender
 
 arms_gender_glm &lt;- glm(formula = XXX ~ XXX * XXX, # Model counts by the interaction of arms and gender
-                       family = poisson,        # Use poisson model family to specify we are modelling counts
+                       family = &quot;poisson&quot;,        # Use poisson model family to specify we are modelling counts
                        data = XXX)
 
 # Print summary results as an anova table
@@ -879,7 +816,7 @@ tidy(my_ttest)  # Show tidy results
 # Q: Is there a difference in highway miles per gallon between car manufacturers?
 
 my_aov &lt;- aov(formula = hwy ~ manufacturer,     # DV ~ IV
-                   data = mpg)         # The data
+              data = mpg)                       # The data
                    
 
 my_aov  # Print result
@@ -956,10 +893,10 @@ tidy(my_aov)  # Show tidy results
 <p>The data were originally obtained from the <code>speff2trial</code> package.</p>
 <div id="variable-description" class="section level4">
 <h4>Variable description</h4>
-<table>
+<table style="width:75%;">
 <colgroup>
-<col width="26%" />
-<col width="73%" />
+<col width="20%" />
+<col width="54%" />
 </colgroup>
 <thead>
 <tr class="header">

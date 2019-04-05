@@ -253,7 +253,7 @@ age_cd420_tidy <- tidy(age_cd40_test)
 age_cd420_tidy
 ```
 
-#### Correlation as Linear Model
+##### Correlation as Linear Model
 
 10. Conduct the same analysis you did before, but this time use the `glm()` function. Use the code skeleton below to help you. Do you get the same results as you did using `cor.test()`?
 
@@ -382,7 +382,7 @@ symptom_cd40_tidy <- tidy(symptom_cd40_test)
 symptom_cd40_tidy
 ```
 
-#### T-test as Linear Model
+##### T-test as Linear Model
 
 10. Conduct the same analysis you did before, but this time use the `glm()` function. Use the code skeleton below to help you. Do you get the same results as you did using `t.test()`? Which outputs are the same and which are different?
 
@@ -487,7 +487,7 @@ days_arms_tidy <- tidy(days_arms_aov)
 days_arms_tidy
 ```
 
-#### Post-hoc tests
+##### Post-hoc tests
 
 10. In order to compare pair-wise differences between groups after conducting an ANOVA, you need to conduct post-hoc tests. Using the `TukeyHSD()` function, conduct pair-wise tests to see which pairs of treatment arms differ in `days`. Save the result to an object called `days_arms_aov_post`
 `
@@ -516,7 +516,7 @@ tidy(XXX)
 
 13. Based on what you've seen, what are your conclusions? Which treatment arms seem to differ?
 
-#### ANOVA as Linear Model
+##### ANOVA as Linear Model
 
 10. Conduct the same analysis you did before, but this time use the `glm()` function. Use the code skeleton below to help you. Do you get the same results as you did using `aov()`? Which outputs are the same and which are different?
 
@@ -585,7 +585,7 @@ ggplot(data = tibble(days_glm_absresid), aes(x = days_glm_absresid)) +
 mean(abs(resid(XXX)))
 ```
 
-### X - Advanced:
+### X - Advanced: Choose your own test!
 
 For the remaining tasks, you choose the test!  For each task, do the following:
 
@@ -611,7 +611,7 @@ trial <- trial %>%
                                         # in cd4 T cell count from baseline to 96 weeks.
 ```
 
-#### Chi-square test
+### Y - Advanced: Chi-square test
 
 > Research Question:
 > Was there an unequal distribution of gender in the treatment arms?
@@ -714,7 +714,7 @@ gender_arm_tidy <- tidy(gender_arm_test)
 gender_arm_tidy
 ```
 
-#### Chi-square as Linear Model
+##### Chi-square as Linear Model
 
 10. In the next section we'll compare the `chisq.test()` result to one using `glm()`. However, before we do, we need to restructure the data a bit. Run the following code to create a dataframe containing the counts for each combination of arms and gender:
 
@@ -739,7 +739,7 @@ arms_gender_counts <- trial %>%
 #  interaction between arms and gender
 
 arms_gender_glm <- glm(formula = XXX ~ XXX * XXX, # Model counts by the interaction of arms and gender
-                       family = poisson,        # Use poisson model family to specify we are modelling counts
+                       family = "poisson",        # Use poisson model family to specify we are modelling counts
                        data = XXX)
 
 # Print summary results as an anova table
@@ -753,8 +753,8 @@ anova(arms_gender_glm,
 #  interaction between arms and gender
 
 arms_gender_glm <- glm(formula = counts ~ arms * gender, 
-                      family = poisson, 
-                      data = arms_gender_counts)
+                       family = "poisson", 
+                       data = arms_gender_counts)
 
 # Print summary results as an anova table
 anova(arms_gender_glm, 
@@ -870,7 +870,7 @@ tidy(my_ttest)  # Show tidy results
 # Q: Is there a difference in highway miles per gallon between car manufacturers?
 
 my_aov <- aov(formula = hwy ~ manufacturer,     # DV ~ IV
-                   data = mpg)         # The data
+              data = mpg)                       # The data
                    
 
 my_aov  # Print result
