@@ -17,7 +17,7 @@ author: "Statistics with R<br>
   <a href='https://www.linkedin.com/company/basel-r-bootcamp/'>
     <i class='fab fa-linkedin' style='font-size: .9em;'></i>
   </a>"
-date: "February 2019"
+date: "April 2019"
 output:
   xaringan::moon_reader:
     css: ["default", "baselrbootcamp.css"]

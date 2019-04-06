@@ -1,6 +1,5 @@
 ---
 title: "Linear Models II"
-subtitle: "Hypothesis Testing Applications"
 author: "Statistics with R<br>
   <a href='https://therbootcamp.github.io'>
     Basel R Bootcamp
@@ -85,7 +84,7 @@ baselers <- baselers %>%
   mutate(education = case_when(education == "apprenticeship" ~ "High School",
                                education == "obligatory_school" ~ "BA",
                                education == "SEK_II" ~ "MS",
-                               education == "SEK_III" ~ "PhD",
+                               education == "SEK_III" ~ "PhD"
                                ))
 
 ```
@@ -1216,8 +1215,7 @@ tidy(height_sex_ttest)
 
 class: middle, center
 
-<h1><a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/RegressionI/RegressionI_practical.html">Practical</a></h1>
-
+<h1><a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsII/LinearModelsII_practical.html">Practical</a></h1>
 
 
 ---

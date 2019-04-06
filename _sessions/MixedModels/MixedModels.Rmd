@@ -268,7 +268,7 @@ ggplot(s_dat, aes(x, y)) +
 
 Let's assume we want to evaluate the effect of a drug (in different doses). We have data of a clinical trial over three sites.
 
-Here's how we would run one regression per sites (but is it a good idea to do so?):
+Here's how we would run one regression per site (but is it a good idea to do so?):
 
 ```{r eval = FALSE}
 
@@ -483,7 +483,7 @@ You let two subjects rate two movies once when they are sober and once when they
 # Random Effects
 
 .pull-left45[
-With random effects, we can account for random variability in the data that comes from different sources. We are usually not interested in the concrete instantiation of a particular level.
+With random effects, we can account for random variability in the data that comes from different sources that introduce dependency in the data. We are usually not interested in the concrete instantiation of a particular level.
 
 Random effects:
 
