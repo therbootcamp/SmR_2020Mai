@@ -1,7 +1,7 @@
 ---
 title: "Next steps"
 author: "
-  R for Data Science<br>
+  Statistics with R<br>
   <a href='https://therbootcamp.github.io'>
     Basel R Bootcamp
   </a>
@@ -18,7 +18,7 @@ author: "
   <a href='https://www.linkedin.com/company/basel-r-bootcamp/'>
     <i class='fab fa-linkedin' style='font-size: .9em;'></i>
   </a>"
-date: "February 2019"
+date: "April 2019"
 output:
   xaringan::moon_reader:
     css: ["default", "baselrbootcamp.css"]
@@ -47,7 +47,7 @@ layout: true
     </a>
     <a href="https://therbootcamp.github.io/">
       <font color="#7E7E7E">
-       Introduction to R | February 2019
+       Statistics with R | April 2019
       </font>
     </a>
     </span>
@@ -69,7 +69,7 @@ options(digits = 4)
 
 .pull-left45[
 <br><br><br><br><br>
-#  Hello Data Scientist!
+#  Hello Statistician!
 
 In 2 days, 8 sessions, and 16 hours you have come a long way.
 
