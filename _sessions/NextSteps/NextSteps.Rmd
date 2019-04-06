@@ -71,41 +71,75 @@ options(digits = 4)
 <br><br><br><br><br>
 #  Hello Data Scientist!
 
-In 3 days, 9 sessions, and 21 hours you have come a long way.
+In 2 days, 8 sessions, and 16 hours you have come a long way.
 
 ]
 
 .pull-right4[
 
-<img src="https://therbootcamp.github.io/R4DS_2019Feb/_sessions/Welcome/image/schedule.png" height="580" align="center">
+<img src="https://therbootcamp.github.io/SwR_2019Apr/_sessions/Welcome/image/schedule.png" height="580" align="center">
+]
+
+---
+
+.pull-left45[
+
+All models are wrong, but some are useful.
+
+Box
+
+
+]
+
+.pull-right45[
+
+"An approximate answer to the right problem is worth a good deal more than an exact answer to an approximate problem." -- John Tukey
+
 ]
 
 ---
 
 .pull-left35[
 
-#  Data Scientist
+"To call in the statistician after the experiment is done may be no more than asking him to perform a post-mortem examination: he may be able to say what the experiment died of."
+ Fisher
+ 
 
-> *80% of a data scientist’s valuable time is spent simply finding, cleaning, and organizing data, leaving only 20% to actually perform analysis.*
+He uses statistics like a drunken man uses a lamp post, more for support than illumination.
 
-> Harvard Business Review
-
+  Andrew Lang
+ 
 ]
 
 .pull-right6[
-<br><br>
-<p align = "center">
-<img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/data_scientist_activities.jpg" height = 500><br>
-<font size=2><a href="https://www.wsj.com">Wall Street Journal</a>
-</p>
+
+
 
 ]
-
-
 
 ---
 
 
+
+Statistical thinking will one day be as necessary a qualification for efficient citizenship as the ability to read and write.
+
+HG Wells
+
+"It's easy to lie with statistics; it is easier to lie without them."
+
+Frederick Mosteller
+
+---
+
+The subjectivist (i.e. Bayesian) states his judgements, whereas the objectivist sweeps them under the carpet by calling assumptions knowledge, and he basks in the glorious objectivity of science.
+
+I.J. Good
+
+
+If your experiment needs statistics, you ought to have done a better experiment.
+
+Ernest rutherford
+----
 
 
 # Stuff we didn't cover
