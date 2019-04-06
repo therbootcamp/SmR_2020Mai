@@ -87,6 +87,10 @@ baselers <- baselers %>%
                                education == "SEK_III" ~ "PhD"
                                ))
 
+print2 <- function(x, nlines=10,...) {
+   cat(head(capture.output(print(x,...)), nlines), sep="\n")}
+
+
 ```
 
 
@@ -288,6 +292,8 @@ drug_placebo_gg
 
 .pull-left45[
 
+<br2>
+
 <font style="font-size:22px"><b>Does Y tend to change when X changes?</b></font>
 
 Conduct a <high>correlation test</high> when you have 2 continuous, Normally distributed independent variables X and Y.
@@ -350,6 +356,8 @@ pos_low_gg
 # Correlation test
 
 .pull-left45[
+
+<br2>
 
 <font style="font-size:22px"><b>Correlation Coefficient</b></font>
 
@@ -421,6 +429,8 @@ ggpubr::ggarrange(pos_low_gg, neg_low_gg, pos_high_gg, neg_high_gg, ncol = 2, nr
 
 .pull-left45[
 
+<br2>
+
 <font style="font-size:22px"><b>Correlation Coefficient</b></font>
 
 <p align = "center">
@@ -452,6 +462,8 @@ ggplot(baselers, aes(x = age, y = income)) +
 # Correlation test
 
 .pull-left45[
+
+<br2>
 
 <font style="font-size:22px"><b>Correlation Coefficient</b></font>
 
@@ -487,6 +499,8 @@ income_htest
 # Correlation test
 
 .pull-left45[
+
+<br2>
 
 <font style="font-size:22px"><b>Correlation Coefficient</b></font>
 
@@ -526,6 +540,8 @@ income_htest$p.value
 # t-test
 
 .pull-left45[
+
+<br2>
 
 <font style="font-size:22px"><b>Does the mean of group A differ from group B?</b></font>
 
@@ -610,6 +626,8 @@ a_gg
 # t-test
 
 .pull-left45[
+
+<br2>
 
 <font style="font-size:22px"><b>Does the mean of group A differ from group B?</b></font>
 
@@ -738,6 +756,8 @@ t_test_grid_gg
 
 .pull-left45[
 
+<br2>
+
 <font style="font-size:22px"><b>Does the mean of group A differ from group B?</b></font>
 
 Conduct a <high>t-test</high> when you have one nominal independent variable with <high>2 levels</high> A and B
@@ -776,6 +796,8 @@ ggplot(baselers, aes(x = sex, y = income, col = sex)) +
 
 .pull-left45[
 
+<br2>
+
 <font style="font-size:22px"><b>Does the mean of group A differ from group B?</b></font>
 
 Conduct a <high>t-test</high> when you have one nominal independent variable with <high>2 levels</high> A and B
@@ -811,6 +833,8 @@ income_htest
 # t-test
 
 .pull-left45[
+
+<br2>
 
 <font style="font-size:22px"><b>Does the mean of group A differ from group B?</b></font>
 
@@ -850,11 +874,14 @@ income_htest$p.value
 
 .pull-left45[
 
+<br2>
+
 <font style="font-size:22px"><b>Do the means of my (many) groups differ?</b></font>
 
 Conduct an <high>ANOVA</high> when you have one nominal independent variable with <high>more than 2 levels</high> A, B, C, ...
 
 <font style="font-size:22px"><b>Formula</b></font>
+
 <br>
 
 $$\Large F = \frac{Variance\;Between\;Groups}{Variance\;Within\;Groups}$$
@@ -891,28 +918,34 @@ ggplot(data = dat, aes(x = Group, y = Y)) +
 
 
 ---
+
 .pull-left45[
 
 # ANOVA
 
-### *Do the means of my (many) groups differ?*
+<br2>
+
+<font style="font-size:22px"><b>Do the means of my (many) groups differ?</b></font>
 
 Conduct an <high>ANOVA</high> when you have one nominal independent variable with <high>more than 2 levels</high> A, B, C, ...
 
-### Test Statistic
+<font style="font-size:22px"><b>Formula</b></font>
 
-$$\large F = \frac{Variance\;Between\;Groups}{Variance\;Within\;Groups}$$
+<br>
 
->Is the variability between my groups large relative to the variability within each group?
+$$\Large F = \frac{Variance\;Between\;Groups}{Variance\;Within\;Groups}$$
 
-See [ANOVA formula on Wikipedia](https://en.wikipedia.org/wiki/Analysis_of_variance)
+<br>
+
+*Is the variability between my groups large relative to the variability within each group?*
 
 ]
 
 .pull-right5[
 
+<br><br><br>
 
-```{r, fig.width = 4, fig.height = 6, echo = FALSE, out.width = "80%"}
+```{r, fig.width = 4, fig.height = 4.7, echo = FALSE, out.width = "80%"}
 set.seed(100)
 
 a_y <- rnorm(100, mean = 10, sd = 4) - .75
@@ -973,32 +1006,32 @@ ggpubr::ggarrange(a_gg, b_gg, ncol = 1, nrow = 2)
 
 
 ---
+
+# ANOVA with `aov()`
+
 .pull-left45[
 
-# ANOVA
+<br2>
 
-### *Do the means of my (many) groups differ?*
+<font style="font-size:22px"><b>Do the means of my (many) groups differ?</b></font>
 
 Conduct an <high>ANOVA</high> when you have one nominal independent variable with <high>more than 2 levels</high> A, B, C, ...
 
-### Test Statistic
+<font style="font-size:22px"><b>Formula</b></font>
 
-$$\large F = \frac{Variance\;Between\;Groups}{Variance\;Within\;Groups}$$
+<br>
 
->Is the variability between my groups large relative to the variability within each group?
+$$\Large F = \frac{Variance\;Between\;Groups}{Variance\;Within\;Groups}$$
 
-See [ANOVA formula on Wikipedia](https://en.wikipedia.org/wiki/Analysis_of_variance)
+<br>
+
+*Is the variability between my groups large relative to the variability within each group?*
 
 ]
 
-.pull-right5[
+.pull-right45[
 
-### ANOVA with `aov()`
-
-<br>
-*Is there a difference in height based on education?*
-
-```{r, echo  = FALSE, warning = FALSE, fig.width = 4, fig.height = 3, dpi = 300, out.width = "100%"}
+```{r, echo  = FALSE, warning = FALSE, fig.width = 4, fig.height = 3.7, dpi = 300, out.width = "100%"}
 ggplot(baselers, aes(x = education, y = height, col = education)) +
   geom_jitter(alpha = .05, width = .1, col = "black") +
      geom_boxplot() +
@@ -1012,33 +1045,33 @@ ggplot(baselers, aes(x = education, y = height, col = education)) +
 
 
 ---
+
+# ANOVA with `aov()`
+
 .pull-left45[
 
-# ANOVA
+<br2>
 
-### *Do the means of my (many) groups differ?*
+<font style="font-size:22px"><b>Do the means of my (many) groups differ?</b></font>
 
 Conduct an <high>ANOVA</high> when you have one nominal independent variable with <high>more than 2 levels</high> A, B, C, ...
 
-### Test Statistic
+<font style="font-size:22px"><b>Formula</b></font>
 
-$$\large F = \frac{Variance\;Between\;Groups}{Variance\;Within\;Groups}$$
+<br>
 
->Is the variability between my groups large relative to the variability within each group?
+$$\Large F = \frac{Variance\;Between\;Groups}{Variance\;Within\;Groups}$$
 
-See [ANOVA formula on Wikipedia](https://en.wikipedia.org/wiki/Analysis_of_variance)
+<br>
+
+*Is the variability between my groups large relative to the variability within each group?*
 
 ]
 
-.pull-right5[
-
-### ANOVA with `aov()`
-
-<br>
-*Is there a difference in height based on education?*
+.pull-right45[
 
 ```{r}
-# Is there a relationship btwn education and height?
+# Is there a relationship height ~ education?
 
 ht_htest <- aov(formula = height ~ education,
                 data = baselers)
@@ -1053,30 +1086,31 @@ ht_htest
 
 
 ---
+
+# ANOVA with `aov()`
+
 .pull-left45[
 
-# ANOVA
+<br2>
 
-### *Do the means of my (many) groups differ?*
+<font style="font-size:22px"><b>Do the means of my (many) groups differ?</b></font>
 
 Conduct an <high>ANOVA</high> when you have one nominal independent variable with <high>more than 2 levels</high> A, B, C, ...
 
-### Test Statistic
+<font style="font-size:22px"><b>Formula</b></font>
 
-$$\large F = \frac{Variance\;Between\;Groups}{Variance\;Within\;Groups}$$
+<br>
 
->Is the variability between my groups large relative to the variability within each group?
+$$\Large F = \frac{Variance\;Between\;Groups}{Variance\;Within\;Groups}$$
 
-See [ANOVA formula on Wikipedia](https://en.wikipedia.org/wiki/Analysis_of_variance)
+<br>
+
+*Is the variability between my groups large relative to the variability within each group?*
 
 ]
 
-.pull-right5[
-
-### ANOVA with `aov()`
-
-<br>
-*Is there a difference in height based on education?*
+.pull-right45[
+  
 
 ```{r}
 # Show summary results
@@ -1087,34 +1121,34 @@ summary(ht_htest)
 
 
 ---
+
 .pull-left35[
 
-# ANOVA - Post-hoc tests
+# ANOVA post-hoc with `TukeyHSD()`
 
-### *Which groups differ?*
+<br2>
+
+<font style="font-size:22px"><b>Which groups differ?</b></font>
 
 After conducting an <high>ANOVA</high>, conduct a <high>post-hoc test</high> to see which specific pairs of groups differ
 .
-### Test Statistic
+<font style="font-size:22px"><b>Formula</b></font>
 
-$$\large t = \frac{\bar{x}_{A}-\bar{x}_{B}}{Total\;Variability}$$
+<br>
 
-See [Tukey's Test article on Wikipedia](https://en.wikipedia.org/wiki/Tukey%27s_range_test)
+$$\Large t = \frac{\bar{x}_{A}-\bar{x}_{B}}{Total\;Variability}$$
 
 ]
 
-.pull-right6[
-
-### Post-hoc tests with `TukeyHSD()`
+.pull-right55[
 
 <br>
-*Is there a difference in height based on education?*
 
 ```{r}
 # Conduct post-hoc tests
 #   Which pairs of groups differ?
 
-TukeyHSD(ht_htest)
+print2(TukeyHSD(ht_htest),20)
 ```
 
 ]
@@ -1126,31 +1160,22 @@ TukeyHSD(ht_htest)
 
 ---
 
-.pull-left4[
-
 # `tidy()`
+
+.pull-left4[
 
 The `tidy()` function from the `broom` package <high>converts</high> the most important results of many statistical objects to a <high>data frame</high>.
 
-
-```{r, out.width = "45%", echo = FALSE}
-knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/Erfurt_2018June/master/_sessions/_image/broom_hex.png")
-```
-
-```{r, eval = FALSE, echo = TRUE}
-# install and load broom
-install.packages('broom')
-library(broom)
-```
-
-
 Try `tidy()` on your favorite statistical object and see what you get!
+
+<p align = "center">
+  <img src="image/broom_hex.png" style="padding-bottom:25px" height=200px>
+</p>
+
 
 ]
 
 .pull-right55[
-
-<br><br>
 
 ```{r, eval = TRUE, echo = TRUE}
 # Load broom package
@@ -1169,31 +1194,21 @@ income_htest
 
 ---
 
-.pull-left4[
-
 # `tidy()`
+
+.pull-left4[
 
 The `tidy()` function from the `broom` package <high>converts</high> the most important results of many statistical objects to a <high>data frame</high>.
 
-
-```{r, out.width = "45%", echo = FALSE}
-knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/Erfurt_2018June/master/_sessions/_image/broom_hex.png")
-```
-
-```{r, eval = FALSE, echo = TRUE}
-# install and load broom
-install.packages('broom')
-library(broom)
-```
-
-
 Try `tidy()` on your favorite statistical object and see what you get!
+
+<p align = "center">
+  <img src="image/broom_hex.png" style="padding-bottom:25px" height=200px>
+</p>
 
 ]
 
 .pull-right55[
-
-<br><br>
 
 ```{r, eval = TRUE, echo = TRUE}
 # Load broom package
@@ -1203,7 +1218,6 @@ library(broom)   # For tidy()
 income_htest <- cor.test(formula = ~ height + income,
                          data = baselers)
 
-# tidy results
 tidy(income_htest)
 ```
 
@@ -1211,31 +1225,22 @@ tidy(income_htest)
 
 ---
 
-.pull-left4[
-
 # `tidy()`
+
+.pull-left4[
 
 The `tidy()` function from the `broom` package <high>converts</high> the most important results of many statistical objects to a <high>data frame</high>.
 
-
-```{r, out.width = "45%", echo = FALSE}
-knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/Erfurt_2018June/master/_sessions/_image/broom_hex.png")
-```
-
-```{r, eval = FALSE, echo = TRUE}
-# install and load broom
-install.packages('broom')
-library(broom)
-```
-
-
 Try `tidy()` on your favorite statistical object and see what you get!
+
+<p align = "center">
+  <img src="image/broom_hex.png" style="padding-bottom:25px" height=200px>
+</p>
+
 
 ]
 
 .pull-right55[
-
-<br><br>
 
 ```{r, eval = TRUE, echo = TRUE}
 # Load broom package
@@ -1244,8 +1249,6 @@ library(broom)   # For tidy()
 # Conduct t.test
 height_sex_ttest <- t.test(formula = height ~ sex,
                            data = baselers)
-
-# standard print out
 height_sex_ttest
 ```
 
@@ -1254,31 +1257,22 @@ height_sex_ttest
 
 ---
 
-.pull-left4[
-
 # `tidy()`
+
+.pull-left4[
 
 The `tidy()` function from the `broom` package <high>converts</high> the most important results of many statistical objects to a <high>data frame</high>.
 
-
-```{r, out.width = "45%", echo = FALSE}
-knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/Erfurt_2018June/master/_sessions/_image/broom_hex.png")
-```
-
-```{r, eval = FALSE, echo = TRUE}
-# install and load broom
-install.packages('broom')
-library(broom)
-```
-
-
 Try `tidy()` on your favorite statistical object and see what you get!
+
+<p align = "center">
+  <img src="image/broom_hex.png" style="padding-bottom:25px" height=200px>
+</p>
+
 
 ]
 
 .pull-right55[
-
-<br><br>
 
 ```{r, eval = TRUE, echo = TRUE}
 # Load broom package
@@ -1297,45 +1291,251 @@ tidy(height_sex_ttest)
 
 ---
 
-.pull-left35[
-# Simulation functions
+.pull-left45[
+
+# Distribution functions
 
 R has a several functions that allow you to draw <high>random samples</high> data from specified distributions:
 
-|Type|Function|
-|:----|:------|
-|Normal|`rnorm(n, mean, sd)`|
-|Uniform|`runif(n, min, max)`|
-|Binomial|`rbinom(n, size, prob)`|
-|Sample|`sample(x)`|
 
-These allow you to run your own <high>simulations</high>!
+<table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%>
+  <col width="25%">
+  <col width="25%">
+  <col width="25%">
+  <col width="25%">
+<tr>
+  <td bgcolor="white">
+    <b>Type</b>
+  </td>
+  <td bgcolor="white">
+    <b>CDF</b>
+  </td> 
+  <td bgcolor="white">
+    <b>CDF<sup>-1</sup></b>
+  </td> 
+    <td bgcolor="white">
+    <b>Simulate</b>
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+    Normal
+  </td>
+  <td bgcolor="white">
+    <mono>pnorm()</mono>
+  </td> 
+  <td bgcolor="white">
+    <mono>qnorm()</mono>
+  </td> 
+    <td bgcolor="white">
+    <mono>rnorm()</mono>
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+    Uniform
+  </td>
+  <td bgcolor="white">
+    <mono>punif()</mono>
+  </td> 
+  <td bgcolor="white">
+    <mono>qunif()</mono>
+  </td> 
+    <td bgcolor="white">
+    <mono>runif()</mono>
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+    F
+  </td>
+  <td bgcolor="white">
+    <mono>pf()</mono>
+  </td> 
+  <td bgcolor="white">
+    <mono>qf()</mono>
+  </td> 
+    <td bgcolor="white">
+    <mono>rf()</mono>
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+    Binomial
+  </td>
+  <td bgcolor="white">
+    <mono>pbinom()</mono>
+  </td> 
+  <td bgcolor="white">
+    <mono>qbinom()</mono>
+  </td> 
+    <td bgcolor="white">
+    <mono>rbinom()</mono>
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+    Chi-square
+  </td>
+  <td bgcolor="white">
+    <mono>pchisq()</mono>
+  </td> 
+  <td bgcolor="white">
+    <mono>qchisq()</mono>
+  </td> 
+    <td bgcolor="white">
+    <mono>rchisq()</mono>
+  </td> 
+</tr>
+</table>
 
+<br>
+
+<high>CDF</high> - Cumulative Density Function<br><high>CDF<sup>-1</sup></high> - Inverse Cumulative Density Function
 ]
 
-.pull-right6[
+.pull-right45[
 
-*Drawing Random Samples*
+<br><br><br><br>
 
 ```{r, echo = TRUE}
-# 5 samples from N(mean = 100, sd = 10)
-noisy <- rnorm(n = 5, mean = 100, sd = 10)
+# Pr(z ≤ 2)
+pnorm(2, mean = 0, sd = 1)
 
-noisy
+# z for p(z ≤ x) = 68%
+qnorm(.68, mean = 0, sd = 1)
 
-mean(noisy)
-
-sd(noisy)
-
-# Simulate 10 coin flilps
-coin_flips <- rbinom(n = 10, size = 1, prob = .5)
-
-coin_flips
+# simulate z
+rnorm(23, mean = 0, sd = 1)
 
 ```
 
 
 ]
+
+---
+
+.pull-left45[
+
+# Distribution functions
+
+R has a several functions that allow you to draw <high>random samples</high> data from specified distributions:
+
+
+<table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%>
+  <col width="25%">
+  <col width="25%">
+  <col width="25%">
+  <col width="25%">
+<tr>
+  <td bgcolor="white">
+    <b>Type</b>
+  </td>
+  <td bgcolor="white">
+    <b>CDF</b>
+  </td> 
+  <td bgcolor="white">
+    <b>CDF<sup>-1</sup></b>
+  </td> 
+    <td bgcolor="white">
+    <b>Simulate</b>
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+    Normal
+  </td>
+  <td bgcolor="white">
+    <mono>pnorm()</mono>
+  </td> 
+  <td bgcolor="white">
+    <mono>qnorm()</mono>
+  </td> 
+    <td bgcolor="white">
+    <mono>rnorm()</mono>
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+    Uniform
+  </td>
+  <td bgcolor="white">
+    <mono>punif()</mono>
+  </td> 
+  <td bgcolor="white">
+    <mono>qunif()</mono>
+  </td> 
+    <td bgcolor="white">
+    <mono>runif()</mono>
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+    F
+  </td>
+  <td bgcolor="white">
+    <mono>pf()</mono>
+  </td> 
+  <td bgcolor="white">
+    <mono>qf()</mono>
+  </td> 
+    <td bgcolor="white">
+    <mono>rf()</mono>
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+    Binomial
+  </td>
+  <td bgcolor="white">
+    <mono>pbinom()</mono>
+  </td> 
+  <td bgcolor="white">
+    <mono>qbinom()</mono>
+  </td> 
+    <td bgcolor="white">
+    <mono>rbinom()</mono>
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+    Chi-square
+  </td>
+  <td bgcolor="white">
+    <mono>pchisq()</mono>
+  </td> 
+  <td bgcolor="white">
+    <mono>qchisq()</mono>
+  </td> 
+    <td bgcolor="white">
+    <mono>rchisq()</mono>
+  </td> 
+</tr>
+</table>
+
+<br>
+
+<high>CDF</high> - Cumulative Density Function<br><high>CDF<sup>-1</sup></high> - Inverse Cumulative Density Function
+]
+
+.pull-right45[
+
+<br><br><br><br>
+
+```{r, echo = TRUE}
+# Pr(t ≤ 2)
+pt(2, df = 99)
+
+# z for p(z ≤ x) = 68%
+qt(.68, df = 99)
+
+# simulate z
+rt(23, df = 99)
+
+```
+
+]
+
 
 ---
 
