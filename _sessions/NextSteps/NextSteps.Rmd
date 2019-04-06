@@ -82,65 +82,191 @@ In 2 days, 8 sessions, and 16 hours you have come a long way.
 
 ---
 
-.pull-left45[
 
-All models are wrong, but some are useful.
+<table style="cellspacing:0; cellpadding:0; border:none; padding-top:50px" width=90%>
+  <col width="42%">
+  <col width="5%">
+  <col width="42%">
+  <tr>
+  <td bgcolor="white" align="center">
+    <img src="image/box_fit.png" height = 300px style="border-radius:50px"><br>
+    <font style="font-size:10px"> from <a href="https://anomaly.io/about/">nomaly.io</a>
+  </td>
+  <td bgcolor="white" align="center">
+  </td>
+  <td bgcolor="white" align="center">
+    <img src="image/tukey_fit.png" height = 300px style="border-radius:50px"><br>
+    <font style="font-size:10px"> from <a     href="https://artsandculture.google.com/entity/m025r9k">artsandculture.google.com</a>
+  </td>  
+</tr>
 
-Box
+<tr>
+  <td bgcolor="white" align="center" width="50%">
+     <br><font style="font-size:22px"><high>"All models are wrong, but some are useful."</high></font>
+  </td>
+  <td bgcolor="white" align="center">
+  </td>
+  <td bgcolor="white" align="center">
+     <br><font style="font-size:22px"><high>"An approximate answer to the right problem is worth a good deal more than an exact answer to an approximate problem."</high></font><br><br>
+    
+  </td>  
+</tr>
 
+<tr>
+  <td bgcolor="white" align="center">
+     <font style="font-size:22px">George E. P. Box</font><br>
+     <font style="font-size:14px">1919-2013</font>
+  </td>
+  <td>
+  </td>
+  <td bgcolor="white" align="center">
+    <font style="font-size:22px">John W. Tukey</font><br>
+     <font style="font-size:14px">1915-2000</font>
+  </td>  
+</tr>
 
-]
-
-.pull-right45[
-
-"An approximate answer to the right problem is worth a good deal more than an exact answer to an approximate problem." -- John Tukey
-
-]
-
----
-
-.pull-left35[
-
-"To call in the statistician after the experiment is done may be no more than asking him to perform a post-mortem examination: he may be able to say what the experiment died of."
- Fisher
- 
-
-He uses statistics like a drunken man uses a lamp post, more for support than illumination.
-
-  Andrew Lang
- 
-]
-
-.pull-right6[
-
-
-
-]
-
----
-
-
-
-Statistical thinking will one day be as necessary a qualification for efficient citizenship as the ability to read and write.
-
-HG Wells
-
-"It's easy to lie with statistics; it is easier to lie without them."
-
-Frederick Mosteller
+</table>
 
 ---
 
-The subjectivist (i.e. Bayesian) states his judgements, whereas the objectivist sweeps them under the carpet by calling assumptions knowledge, and he basks in the glorious objectivity of science.
 
-I.J. Good
+<table style="cellspacing:0; cellpadding:0; border:none; padding-top:50px" width=90%>
+  <col width="42%">
+  <col width="5%">
+  <col width="42%">
+  <tr>
+  <td bgcolor="white" align="center">
+    <img src="image/fisher_fit.png" height = 300px style="border-radius:50px"><br>
+    <font style="font-size:10px"> from <a href="https://www.hamhigh.co.uk/news/heritage/">hamhigh.co.uk</a>
+  </td>
+  <td bgcolor="white" align="center">
+  </td>
+  <td bgcolor="white" align="center">
+    <img src="image/lang_fit.png" height = 300px style="border-radius:50px"><br>
+    <font style="font-size:10px"> from <a     href="https://en.wikiquote.org/wiki/Andrew_Lang ">wikiquote.org</a>
+  </td>  
+</tr>
+
+<tr>
+  <td bgcolor="white" align="center" width="50%">
+     <br><font style="font-size:22px"><high>"To call in the statistician after the experiment is done may be no more than asking him to perform a post-mortem examination: he may be able to say what the experiment died of."</high></font>
+  </td>
+  <td bgcolor="white" align="center">
+  </td>
+  <td bgcolor="white" align="center">
+     <br><font style="font-size:22px"><high>"[He] uses statistics like a drunken man uses a lamp post, more for support than illumination."</high></font><br><br>
+    
+  </td>  
+</tr>
+
+<tr>
+  <td bgcolor="white" align="center">
+     <font style="font-size:22px">Ronald A. Fisher</font><br>
+     <font style="font-size:14px">1890-1962</font>
+  </td>
+  <td>
+  </td>
+  <td bgcolor="white" align="center">
+    <font style="font-size:22px">Andrew Lang</font><br>
+     <font style="font-size:14px">1844-1912</font>
+  </td>  
+</tr>
+
+</table>
+
+---
 
 
-If your experiment needs statistics, you ought to have done a better experiment.
+<table style="cellspacing:0; cellpadding:0; border:none; padding-top:50px" width=90%>
+  <col width="42%">
+  <col width="5%">
+  <col width="42%">
+  <tr>
+  <td bgcolor="white" align="center">
+    <img src="image/wells_fit.png" height = 300px style="border-radius:50px"><br>
+    <font style="font-size:10px"> from <a href="https://www.independent.co.uk/arts-entertainment/">independent.co.uk</a>
+  </td>
+  <td bgcolor="white" align="center">
+  </td>
+  <td bgcolor="white" align="center">
+    <img src="image/mosteller_fit.png" height = 300px style="border-radius:50px"><br>
+    <font style="font-size:10px"> from <a href="https://www.americanscientist.org/">americanscientist.org</a>
+  </td>  
+</tr>
 
-Ernest rutherford
-----
+<tr>
+  <td bgcolor="white" align="center" width="50%">
+     <br><font style="font-size:22px"><high>"Statistical thinking will one day be as necessary a qualification for efficient citizenship as the ability to read and write."</high></font>
+  </td>
+  <td bgcolor="white" align="center">
+  </td>
+  <td bgcolor="white" align="center">
+     <br><font style="font-size:22px"><high>"It's easy to lie with statistics; it is easier to lie without them."</high></font><br><br>
+    
+  </td>  
+</tr>
 
+<tr>
+  <td bgcolor="white" align="center">
+     <font style="font-size:22px">H. G. Wells</font><br>
+     <font style="font-size:14px">1866-1946</font>
+  </td>
+  <td>
+  </td>
+  <td bgcolor="white" align="center">
+    <font style="font-size:22px">C. Frederick Mosteller</font><br>
+     <font style="font-size:14px">1916-2006</font>
+  </td>  
+</tr>
+
+</table>
+
+---
+
+<table style="cellspacing:0; cellpadding:0; border:none; padding-top:50px" width=90%>
+  <col width="42%">
+  <col width="5%">
+  <col width="42%">
+  <tr>
+  <td bgcolor="white" align="center">
+    <img src="image/good_fit.png" height = 300px style="border-radius:50px"><br>
+    <font style="font-size:10px"> from <a href="http://www.bigear.org/CSMO/HTML/CS06/cs06p13.htm">bigear.org</a>
+  </td>
+  <td bgcolor="white" align="center">
+  </td>
+  <td bgcolor="white" align="center">
+    <img src="image/rutherford_fit.png" height = 300px style="border-radius:50px"><br>
+    <font style="font-size:10px"> from <a href="https://de.wikipedia.org/wiki/Ernest_Rutherford">wikipedia.org</a>
+  </td>  
+</tr>
+
+<tr>
+  <td bgcolor="white" align="center" width="50%">
+     <br><font style="font-size:22px"><high>"The subjectivist (i.e. Bayesian) states his judgements, whereas the objectivist sweeps them under the carpet by calling assumptions knowledge, and he basks in the glorious objectivity of science."</high></font>
+  </td>
+  <td bgcolor="white" align="center">
+  </td>
+  <td bgcolor="white" align="center">
+     <br><font style="font-size:22px"><high>"If your experiment needs statistics, you ought to have done a better experiment."</high></font><br><br>
+    
+  </td>  
+</tr>
+
+<tr>
+  <td bgcolor="white" align="center">
+     <font style="font-size:22px">I. J. Good</font><br>
+     <font style="font-size:14px">1916-2009</font>
+  </td>
+  <td>
+  </td>
+  <td bgcolor="white" align="center">
+    <font style="font-size:22px">Ernest Rutherford</font><br>
+     <font style="font-size:14px">1871-1937</font>
+  </td>  
+</tr>
+</table>
+
+---
 
 # Stuff we didn't cover
 
@@ -149,7 +275,7 @@ Ernest rutherford
 <font size = 6>
 
 1. Networks<br>
-2. Statistics<br>
+2. Tidyverse<br>
 3. Machine learning<br>
 4. Text analysis<br>
 5. Rcpp<br>
@@ -184,66 +310,38 @@ A <high>social graph</high> of package Co-authors using [`tidyverse`](https://cr
   <font size=2>source <a href="https://www.r-bloggers.com/exploring-the-cran-social-network/">R-bloggers.com</a></p>
   ]
 
-
 ---
+
+# Tidyverse
 
 .pull-left5[
 
-# Stats
-
-> "It's easy to lie with statistics; it is easier to lie without them."
-
-> Frederick Mosteller
-
-<br>
+<font style="font-size:28px"><i>...in the narrow sense</i></font><br>
 
 | Package| Description| 
 |:------|:------------|
-| [`stats`](https://www.rdocumentation.org/packages/stats/versions/3.5.1)  | Linear, generalized linear models, individual tests, and distributions.|
-| [`lme4`](https://cran.r-project.org/web/packages/lme4/index.html), [`afex`](https://cran.r-project.org/web/packages/afex/index.html)  | Mixed-mode, hierarchical regression.|
-| [`sem`](https://cran.r-project.org/web/packages/sem/index.html), [`lavaan`](https://cran.r-project.org/web/packages/lavaan/index.html), [`OpenMx`](https://cran.r-project.org/web/packages/OpenMx/index.html) | Structural equation modeling. |
-| [`survival`](https://cran.r-project.org/web/packages/survival/index.html) | Survival analysis. |
+| [`ggplot2`](https://cran.r-project.org/web/packages/caret/index.html) | Amazing package for plotting.  |
+| [`dplyr`](https://cran.r-project.org/web/packages/mlr/index.html) | Amazing package for data wrangling | 
+| [`tidyr`](https://cran.r-project.org/web/packages/e1071/index.html) | Helper functions to get your data tidy  |
+| [`readr`](https://cran.r-project.org/web/packages/randomForest/index.html) | Powerful package for reading in data.  |
+| [`purrr`](https://cran.r-project.org/web/packages/rpart/index.html) | Package for functional programming in R. |
+| [`tibble`](https://cran.r-project.org/web/packages/FFTrees/index.html) | Package providig the `tibble` class |
+| [`stringr`](https://cran.r-project.org/web/packages/cluster/index.html) | Amazing package for string manipulation |
+| [`forcats`](https://cran.r-project.org/web/packages/fastcluster/index.html) | Package to solve common problems with factors |
+ 
+
 
 ]
 
 .pull-right4[
-<br><br>
-<p align = "center">
-<img src="https://imgs.xkcd.com/comics/p_values_2x.png" height = 500><br>
-<font size=2><a href="http://www.xkcd.com/">xkcd.com</a>
+
+<font style="font-size:28px"><i>...in the broad sense</i></font><br>
+
+<p align="center">
+<img src="image/rstudio.jpg" height=380px></img>
 </p>
 ]
----
 
-
-.pull-left5[
-
-# Bayesian statistics
-
-> The subjectivist (i.e. Bayesian) states his judgements, whereas the objectivist sweeps them under the carpet by calling assumptions knowledge, and he basks in the glorious objectivity of science.
-
-> I. J. Good
-
-
-| Package| Description| 
-|:------|:------------|
-| [`BayesFactor`](https://cran.r-project.org/web/packages/BayesFactor/index.html), [`rstanarm`](https://cran.r-project.org/web/packages/rstanarm/index.html)  | Bayesian linear models. As easy as non-Bayesian methods. |
-| [`rjags`](https://cran.r-project.org/web/packages/rjags/index.html), [`rstan`](https://cran.r-project.org/web/packages/rstan/index.html)  | Build flexible, hierarchical Bayesian models. |
-| [`mcmc`](https://cran.r-project.org/web/packages/mcmc/index.html)| Metropolis algorithms. |
-| [`bridgesampling`](https://cran.r-project.org/web/packages/mcmc/index.html)| Estimating marginal likelihoods using bridgesampling. |
-
-  ]
-
-
-
-.pull-right4[
-<br><br>
-<p align = "center">
-<img src="https://i.stack.imgur.com/tStr4.png" height=500><br>
-<font size=2><a href="http://www.xkcd.com/">xkcd.com</a>
-</p>
-
-]
 
 
 ---
@@ -369,8 +467,9 @@ ggmap(get_map(c(7.588576, 47.559601),zoom=16))
 1. Practice<br>
 2. Read books<br>
 3. Consult websites<br>
-4. Attend R group<br>
-5. Get consulting<br>
+4. Get consulting<br>
+5. More Bootcamps<br>
+
 ]
 
 </font>
@@ -575,25 +674,6 @@ The web is a great place to learn about R.
 
 .pull-left45[
 
-
-<p align="center">
-
-<a class="project-link" href="mailto:therbootcamp@gmail.com?subject=Preregistration for Statistics with R&body=I would like to preregister for the R Bootcamp on 'Statistics with R' in February/March 2019 (tbc) in Basel, Switzerland." align="center">
-
-<font style="font-size:26px;weight:700"> Statistics with R</font><br>
-<br>
-<img src="image/statistics.png" height="260px" width="480px"></img><br>
-
-<high>2 days, April 6-7, 2019</high><br><br><br>
-</a>
-
-</p>
-
-
-]
-
-.pull-right45[
-
 <p align="center">
 
 <a href = "https://advancedstudies.unibas.ch/courses/course/applied-machine-learning-with-r-208291">
@@ -606,6 +686,26 @@ The web is a great place to learn about R.
 </p>
 
 ]
+
+.pull-right45[
+
+
+<p align="center">
+
+<a href = "https://advancedstudies.unibas.ch/studienangebot/kurs/r-for-data-science-208287">
+
+<font style="font-size:26px;weight:700"> Statistics with R</font><br>
+<br>
+<img src="image/data_science.png" height="260px" width="480px"></img><br>
+
+<high>2 days, June 11-12, 2019</high><br><br><br>
+</a>
+
+</p>
+
+
+]
+
 
 
 
