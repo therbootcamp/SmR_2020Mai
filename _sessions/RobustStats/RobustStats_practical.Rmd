@@ -107,7 +107,7 @@ library(Rfit)
 XX <- read_csv(file = "XX/XX")
 ```
 
-```{r, echo = TRUE}
+```{r}
 # Load data sets from the 1_Data folder
 
 avocado <- read_csv(file = "1_Data/avocado.csv")
@@ -735,7 +735,7 @@ library(Rfit)
 # quantile regression
 m_q  <- rq(hwy ~ displ, data = mpg)
 
-# rank-bsed regression
+# rank-based regression
 m_rb <- rfit(hwy ~ displ, data = mpg)
 
 ```
