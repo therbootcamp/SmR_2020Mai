@@ -1133,7 +1133,7 @@ A p-value is the probability of obtaining a test statistic as extreme or extreme
     Sample statistics
   </td>
   <td bgcolor="white">
-    Mean = 29 <br>Std. Deviation = 3.90.
+    Mean = 29.9 <br>Std. Deviation = 3.90.
   </td>  
 </tr>
 <tr>
