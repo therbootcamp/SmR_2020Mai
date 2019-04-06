@@ -397,7 +397,7 @@ Note: R determines the standard errors using a correction for degrees of freedom
 ```{r, echo = TRUE}
 # needed formula elements
 var_x <- var(avocado_cali$price_per_avocado)
-n = nrow(avocado_cali)
+n <- nrow(avocado_cali)
 
 # without correction -----
 
@@ -406,20 +406,21 @@ var_beta1 <- (var_res1 / (var_x * (n-1))) * vif1
 sqrt(var_beta1)
 
 # variance and standard error of price in m4
-var_beta2 =  (var_res2 / (var_x * (n-1))) * vif2 
+var_beta2 <- (var_res2 / (var_x * (n-1))) * vif2 
 sqrt(var_beta2)
 
 # with correction -----
 
 # variance and standard error of price in m3 with correction
-var_c_res1 <- sum(residuals(m4)**2) / (n - 2 - 1)
+var_c_res1 <- sum(residuals(m3)**2) / (n - 2 - 1)
 var_beta1 <- (var_c_res1 / (var_x * (n-1))) * vif1 
 sqrt(var_beta1)
 
 # variance and standard error of price in m4 with correction
 var_c_res2 <- sum(residuals(m4)**2) / (n - 9 - 1)
-var_beta1 <- (var_c_res2 / (var_x * (n-1))) * vif1 
-sqrt(var_beta1)
+var_beta2 <- (var_c_res2 / (var_x * (n-1))) * vif2 
+sqrt(var_beta2)
+
 
 ```
 

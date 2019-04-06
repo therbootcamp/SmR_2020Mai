@@ -368,7 +368,7 @@ vif2</code></pre>
 <p>Note: R determines the standard errors using a correction for degrees of freedom in the calculation of the residual variance. One can account for this by recalculating the residual variance using <span class="math inline">\(\hat\sigma_e^2=\frac{\sum e^2}{n-df-1}\)</span>, with <span class="math inline">\(df=2\)</span> for <code>m3</code> and <span class="math inline">\(df=9\)</span> for <code>m4</code>.</p>
 <pre class="r"><code># needed formula elements
 var_x &lt;- var(avocado_cali$price_per_avocado)
-n = nrow(avocado_cali)
+n &lt;- nrow(avocado_cali)
 
 # without correction -----
 
@@ -377,20 +377,20 @@ var_beta1 &lt;- (var_res1 / (var_x * (n-1))) * vif1
 sqrt(var_beta1)
 
 # variance and standard error of price in m4
-var_beta2 =  (var_res2 / (var_x * (n-1))) * vif2 
+var_beta2 &lt;- (var_res2 / (var_x * (n-1))) * vif2 
 sqrt(var_beta2)
 
 # with correction -----
 
 # variance and standard error of price in m3 with correction
-var_c_res1 &lt;- sum(residuals(m4)**2) / (n - 2 - 1)
+var_c_res1 &lt;- sum(residuals(m3)**2) / (n - 2 - 1)
 var_beta1 &lt;- (var_c_res1 / (var_x * (n-1))) * vif1 
 sqrt(var_beta1)
 
 # variance and standard error of price in m4 with correction
 var_c_res2 &lt;- sum(residuals(m4)**2) / (n - 9 - 1)
-var_beta1 &lt;- (var_c_res2 / (var_x * (n-1))) * vif1 
-sqrt(var_beta1)</code></pre>
+var_beta2 &lt;- (var_c_res2 / (var_x * (n-1))) * vif2 
+sqrt(var_beta2)</code></pre>
 <ol start="7" style="list-style-type: decimal">
 <li>The above illustrates that including variables regressors in the regression is a double-edged sword. They improve the overall prediction and may uncover more pure relationships, but they will also increase our uncertainty over the true values of the regression weights by increasing the respective standard errors. If you like, see if you can find other combination of predictors that increase or decrease the standard error of the weight for price.</li>
 </ol>
