@@ -70,9 +70,7 @@ h6 {
 
 <link rel="stylesheet" href="practical.css" type="text/css" />
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -103,8 +101,6 @@ summary {
 </style>
 
 
-
-<div class="container-fluid main-container">
 
 <!-- tabsets -->
 
@@ -179,14 +175,23 @@ $(document).ready(function () {
 
 
 
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
 
 <div class="fluid-row" id="header">
 
 
 
 <h1 class="title toc-ignore">Robust Statistics</h1>
-<h3 class="subtitle"><em>Testing regression assumptions, non-parametric tests, and bootstrapped analyses</em></h3>
-<h4 class="author"><em><table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'>
+<h3 class="subtitle">Testing regression assumptions, non-parametric tests, and bootstrapped analyses</h3>
+<h4 class="author"><table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'>
 <col width='10%'>
 <col width='10%'>
 <tr style="border:none">
@@ -197,7 +202,7 @@ $(document).ready(function () {
 <img src='https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png' style='height:15px;width:80px'/>
 </td>
 </tr>
-</table></em></h4>
+</table></h4>
 
 </div>
 
@@ -236,15 +241,11 @@ library(boot)
 library(quantreg)
 library(Rfit)</code></pre>
 <ol start="4" style="list-style-type: decimal">
-<li>Using the following template, load the <code>avocado.csv</code>, <code>avocado_cali.csv</code>, and <code>avocado_ny.csv</code> data sets into R and store them as a new objects called <code>avocado</code>, <code>avocado_cali</code>, and <code>avocado_ny</code> (Hint: Don’t type the path directly! Use the “tab” completion!).</li>
+<li>Using the following template, load the <code>avocado.csv</code>, and <code>avocado_cali.csv</code> data sets into R and store them as a new objects called <code>avocado</code>, and <code>avocado_cali</code> (Hint: Don’t type the path directly! Use the “tab” completion!).</li>
 </ol>
 <pre class="r"><code># Load XXX.csv from the 1_Data folder
 
 XX &lt;- read_csv(file = &quot;XX/XX&quot;)</code></pre>
-<pre class="r"><code># Load data sets from the 1_Data folder
-
-avocado &lt;- read_csv(file = &quot;1_Data/avocado.csv&quot;)
-avocado_cali &lt;- read_csv(file = &quot;1_Data/avocado_cali.csv&quot;)</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>Take a look at the first few rows of the data sets by printing them to the console.</li>
 </ol>
@@ -576,7 +577,7 @@ library(Rfit)
 # quantile regression
 m_q  &lt;- rq(hwy ~ displ, data = mpg)
 
-# rank-bsed regression
+# rank-based regression
 m_rb &lt;- rfit(hwy ~ displ, data = mpg)</code></pre>
 </div>
 <div id="datasets" class="section level2">
@@ -606,10 +607,10 @@ m_rb &lt;- rfit(hwy ~ displ, data = mpg)</code></pre>
 <p>The data set <code>avocado.csv</code> contains the data for all 52 regions. The smaller data set <code>avocado_cali.csv</code> contains the data for only California.</p>
 <div id="variable-description" class="section level4">
 <h4>Variable description</h4>
-<table>
+<table style="width:75%;">
 <colgroup>
-<col width="26%" />
-<col width="73%" />
+<col width="20%" />
+<col width="54%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -735,11 +736,11 @@ m_rb &lt;- rfit(hwy ~ displ, data = mpg)</code></pre>
 </div>
 <div id="functions-1" class="section level3">
 <h3>Functions</h3>
-<table>
+<table style="width:83%;">
 <colgroup>
-<col width="7%" />
-<col width="12%" />
-<col width="80%" />
+<col width="6%" />
+<col width="11%" />
+<col width="65%" />
 </colgroup>
 <thead>
 <tr class="header">
