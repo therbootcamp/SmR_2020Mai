@@ -54,20 +54,18 @@ layout: true
 
 .pull-left5[
 
-&lt;u&gt;Linear Model Equation&lt;/u&gt;
+&lt;p style="padding-bottom:20px"&gt;&lt;u&gt;Linear Model Equation&lt;/u&gt;&lt;/p&gt;
 
-`$$\Large Y = \beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2} +  ... + \beta_{n}x_{n} + \epsilon$$`
+`$$\Large y = \beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2} +  ... + \beta_{n}x_{n} + \epsilon$$`
 
-&lt;br&gt;
+&lt;p style="padding-top:20px"&gt;&lt;u&gt;Hypothesis tests are linear models!&lt;/u&gt;&lt;br&gt;&lt;br&gt;
 
-&lt;u&gt;Hypothesis tests are linear models!&lt;/u&gt;
+In fact, many of your favorite hypothesis tests, including &lt;high&gt;t-tests&lt;/high&gt;, &lt;high&gt;correlation tests&lt;/high&gt;, and &lt;high&gt;ANOVAs&lt;/high&gt; can all be expressed as linear models! &lt;br&gt;&lt;br&gt;
 
-In fact, many of your favorite hypothesis tests, including &lt;high&gt;t-tests&lt;/high&gt;, &lt;high&gt;correlation tests&lt;/high&gt;, and &lt;high&gt;ANOVAs&lt;/high&gt; can all be expressed as linear models! 
+This means that you can use the `lm()` or `glm()` function to do all of these tests!&lt;br&gt;&lt;br&gt;
 
-This means that you can use the `lm()` or `glm()` function to do all of these tests!
-
-However, R also has special &lt;high&gt;hypothesis test functions&lt;/high&gt; with more user-friendly outputs.
-
+However, R also has special &lt;high&gt;hypothesis test functions&lt;/high&gt; with more user-friendly outputs.&lt;br&gt;&lt;br&gt;
+&lt;/p&gt;
 
 ]
 
@@ -82,57 +80,120 @@ However, R also has special &lt;high&gt;hypothesis test functions&lt;/high&gt; w
 
 ---
 
-
-.pull-left55[
-
 # Linear Model Applications
 
-All of these tests assume your dependent variable is &lt;high&gt;Normally distributed&lt;/high&gt;.
+.pull-left5[
 
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-3-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-3-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
-What differentiates these tests is the scale of your independent variable
+Many of these tests assume your dependent variable is &lt;high&gt;normally distributed&lt;/high&gt;. What differentiates these tests is typically the &lt;high&gt;scale of your independent variable&lt;/high&gt;.
 
-### Independent Variable Scales
+&lt;u&gt; Types of predictor variables &lt;/u&gt;
 
-|Scale|Description|Examples|
-|:-----|:------|
-|Nominal|A discrete category without order|Sex, College, Favorite Color|
-|Ratio|A continuous number|Income, Height, |
+&lt;table style="cellspacing:0; cellpadding:0; border:none" width=100%&gt;
+  &lt;col width="10%"&gt;
+  &lt;col width="45%"&gt;
+  &lt;col width="40%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Scale&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Description&lt;/b&gt;
+  &lt;/td&gt; 
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Examples&lt;/b&gt;
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    Nominal
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    A discrete category without order
+  &lt;/td&gt; 
+  &lt;td bgcolor="white"&gt;
+    Sex, College, Favorite Color
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    Ratio
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    A continuous number
+  &lt;/td&gt; 
+  &lt;td bgcolor="white"&gt;
+    Income, Height, Weight
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;/table&gt;
 
 
 ]
 
 .pull-right4[
 
-&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/linear_model_vendiagram.png?token=AIFo1EwgCqkIpF_GPncSc5Y7WbO0S7Maks5crjjrwA%3D%3D" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;p align = "center"&gt;
+  &lt;img src="image/linear_model_vendiagram.png" height="430px"&gt;
+&lt;/p&gt;
 
 ]
 
 ---
-
-.pull-left65[
 
 # Null hypothesis testing
 
-Null hypothesis testing is a statistical framework where two alternative hypotheses (the Null and the Alternative) are compared
+.pull-left45[
 
-|Hypothesis|Description|Example|
-|:-----|:-----|:-------|
-|Null (H0)|A proposed effect &lt;high&gt;does not exist&lt;/high&gt;|Drug and placebo have the same effect|
-|Alternative (H1)|A proposed effect &lt;high&gt;does exist&lt;/high&gt;|Drug and placebo do *not* have the same effect|
+Null hypothesis testing is a statistical framework where one hypothesis (H&lt;sub&gt;0&lt;/sub&gt;) is tested to defend the other, alternative hypothesis (H&lt;sub&gt;1&lt;/sub&gt;).
 
-[Wikipedia: Null Hypothesis](https://en.wikipedia.org/wiki/Null_hypothesis)
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
+  &lt;col width="16%"&gt;
+  &lt;col width="44%"&gt;
+  &lt;col width="40%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Hypothesis&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Description&lt;/b&gt;
+  &lt;/td&gt;  
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Example&lt;/b&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    Null (H&lt;sub&gt;0&lt;/sub&gt;)
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    A proposed effect &lt;high&gt;does not exist&lt;/high&gt; and variation &lt;high&gt;is not systematic&lt;/high&gt;.
+  &lt;/td&gt;  
+  &lt;td bgcolor="white"&gt;
+    Drug and placebo have the same effect.
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    Alternative (H&lt;sub&gt;1&lt;/sub&gt;)
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    A proposed effect &lt;high&gt;does exist&lt;/high&gt; and variation &lt;high&gt;is systematic&lt;/high&gt;
+  &lt;/td&gt;  
+  &lt;td bgcolor="white"&gt;
+    Drug and placebo do *not* have the same effect
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;/table&gt;
 
 
 ]
 
 
-.pull-right3[
-&lt;br&gt;&lt;br&gt;&lt;br&gt;
-Are these data consistent with H0?
+.pull-right45[
 
-&lt;img src="LinearModelsII_files/figure-html/fig.cap-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-4-1.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 
 ]
@@ -140,59 +201,46 @@ Are these data consistent with H0?
 
 ---
 
-.pull-left45[
-
 # Correlation test
 
-### *Does Y tend to change when X changes?*
+.pull-left45[
+
+&lt;font style="font-size:22px"&gt;&lt;b&gt;Does Y tend to change when X changes?&lt;/b&gt;&lt;/font&gt;
 
 Conduct a &lt;high&gt;correlation test&lt;/high&gt; when you have 2 continuous, Normally distributed independent variables X and Y.
 
-### Formula
+&lt;font style="font-size:22px"&gt;&lt;b&gt;Formula&lt;/b&gt;&lt;/font&gt;
 
 `$$\LARGE Y=\beta_{0}+\beta_{1}x$$`
 
 `$$\LARGE \beta_{1}=\rho\frac{\sigma_{y}}{\sigma_{x}}$$`
 
-&lt;high&gt;p&lt;/high&gt; is the &lt;high&gt;population correlation&lt;/high&gt; between `\(x\)` and `\(Y\)`
-
-&lt;high&gt;r&lt;/high&gt; is the &lt;high&gt;sample correlation&lt;/high&gt; between `\(x\)` and `\(Y\)`
-
-
-]
-
-.pull-right45[
-&lt;br&gt;
-
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto;" /&gt;
-
-
-]
-
-
----
-
-.pull-left4[
-
-# Correlation test
-
-### Correlation Coefficient
-
-&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/correlation_coefficien_diagram.png?token=AIFo1BALlc9Z4fF-bO-VIsFcMfJn3zoQks5cr6w9wA%3D%3D" style="display: block; margin: auto;" /&gt;
-
-### Hypotheses
-
-
-Null: `\(H_{0}:\rho  = 0\)`, "There &lt;high&gt;is no&lt;/high&gt; correlation in the population"
-
-Alternative: `\(H_{A}:\rho  \neq 0\)`, "There &lt;high&gt;is a &lt;/high&gt; (non-zero) correlation in the population!"
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
+  &lt;col width="15%"&gt;
+  &lt;col width="85%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &amp;#x3C1;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    The &lt;high&gt;population correlation&lt;/high&gt; between x and Y
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;r&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    The &lt;high&gt;sample correlation&lt;/high&gt; between x and Y
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;/table&gt;
 
 ]
 
 .pull-right45[
 
-&lt;br&gt;&lt;br&gt;
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-5-1.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 
 ]
@@ -200,16 +248,17 @@ Alternative: `\(H_{A}:\rho  \neq 0\)`, "There &lt;high&gt;is a &lt;/high&gt; (no
 
 ---
 
-.pull-left4[
-
 # Correlation test
 
-### Correlation Coefficient
+.pull-left45[
 
-&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/correlation_coefficien_diagram.png?token=AIFo1BALlc9Z4fF-bO-VIsFcMfJn3zoQks5cr6w9wA%3D%3D" style="display: block; margin: auto;" /&gt;
+&lt;font style="font-size:22px"&gt;&lt;b&gt;Correlation Coefficient&lt;/b&gt;&lt;/font&gt;
 
-### Hypotheses
+&lt;p align = "center"&gt;
+  &lt;img src="image/correlation_coefficien_diagram_cropped.png" width="100%" style="padding-bottom:15px"&gt;
+&lt;/p&gt;
 
+&lt;font style="font-size:22px"&gt;&lt;b&gt;Hypotheses&lt;/b&gt;&lt;/font&gt;
 
 Null: `\(H_{0}:\rho  = 0\)`, "There &lt;high&gt;is no&lt;/high&gt; correlation in the population"
 
@@ -217,26 +266,54 @@ Alternative: `\(H_{A}:\rho  \neq 0\)`, "There &lt;high&gt;is a &lt;/high&gt; (no
 
 ]
 
-.pull-right55[
-&lt;br&gt;
-*Do older baselers have higher incomes than younger baselers?*
+.pull-right45[
 
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-9-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
+
+
+]
+
+
+---
+
+# Correlation test
+
+.pull-left45[
+
+&lt;font style="font-size:22px"&gt;&lt;b&gt;Correlation Coefficient&lt;/b&gt;&lt;/font&gt;
+
+&lt;p align = "center"&gt;
+  &lt;img src="image/correlation_coefficien_diagram_cropped.png" width="100%" style="padding-bottom:15px"&gt;
+&lt;/p&gt;
+
+&lt;font style="font-size:22px"&gt;&lt;b&gt;Hypotheses&lt;/b&gt;&lt;/font&gt;
+
+Null: `\(H_{0}:\rho  = 0\)`, "There &lt;high&gt;is no&lt;/high&gt; correlation in the population"
+
+Alternative: `\(H_{A}:\rho  \neq 0\)`, "There &lt;high&gt;is a &lt;/high&gt; (non-zero) correlation in the population!"
+
+]
+
+.pull-right45[
+
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
 ---
 
-.pull-left4[
 
 # Correlation test
 
-### Correlation Coefficient
+.pull-left45[
 
-&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/correlation_coefficien_diagram.png?token=AIFo1BALlc9Z4fF-bO-VIsFcMfJn3zoQks5cr6w9wA%3D%3D" style="display: block; margin: auto;" /&gt;
+&lt;font style="font-size:22px"&gt;&lt;b&gt;Correlation Coefficient&lt;/b&gt;&lt;/font&gt;
 
-### Hypotheses
+&lt;p align = "center"&gt;
+  &lt;img src="image/correlation_coefficien_diagram_cropped.png" width="100%" style="padding-bottom:15px"&gt;
+&lt;/p&gt;
 
+&lt;font style="font-size:22px"&gt;&lt;b&gt;Hypotheses&lt;/b&gt;&lt;/font&gt;
 
 Null: `\(H_{0}:\rho  = 0\)`, "There &lt;high&gt;is no&lt;/high&gt; correlation in the population"
 
@@ -244,9 +321,7 @@ Alternative: `\(H_{A}:\rho  \neq 0\)`, "There &lt;high&gt;is a &lt;/high&gt; (no
 
 ]
 
-.pull-right55[
-&lt;br&gt;
-### Correlation test with `cor.test()`
+.pull-right45[
 
 
 ```r
@@ -278,16 +353,17 @@ income_htest
 
 ---
 
-.pull-left4[
-
 # Correlation test
 
-### Correlation Coefficient
+.pull-left45[
 
-&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/correlation_coefficien_diagram.png?token=AIFo1BALlc9Z4fF-bO-VIsFcMfJn3zoQks5cr6w9wA%3D%3D" style="display: block; margin: auto;" /&gt;
+&lt;font style="font-size:22px"&gt;&lt;b&gt;Correlation Coefficient&lt;/b&gt;&lt;/font&gt;
 
-### Hypotheses
+&lt;p align = "center"&gt;
+  &lt;img src="image/correlation_coefficien_diagram_cropped.png" width="100%" style="padding-bottom:15px"&gt;
+&lt;/p&gt;
 
+&lt;font style="font-size:22px"&gt;&lt;b&gt;Hypotheses&lt;/b&gt;&lt;/font&gt;
 
 Null: `\(H_{0}:\rho  = 0\)`, "There &lt;high&gt;is no&lt;/high&gt; correlation in the population"
 
@@ -295,9 +371,9 @@ Alternative: `\(H_{A}:\rho  \neq 0\)`, "There &lt;high&gt;is a &lt;/high&gt; (no
 
 ]
 
-.pull-right55[
-&lt;br&gt;
-### Correlation test with `cor.test()`
+.pull-right45[
+
+
 
 
 ```r
@@ -306,8 +382,11 @@ names(income_htest)
 ```
 
 ```
-## [1] "statistic"   "parameter"   "p.value"     "estimate"    "null.value"  "alternative" "method"     
-## [8] "data.name"   "conf.int"
+## [1] "statistic"   "parameter"  
+## [3] "p.value"     "estimate"   
+## [5] "null.value"  "alternative"
+## [7] "method"      "data.name"  
+## [9] "conf.int"
 ```
 
 ```r
@@ -336,28 +415,51 @@ income_htest$p.value
 
 # T-test
 
-### *Does the mean of group A differ from group B?*
+&lt;font style="font-size:22px"&gt;&lt;b&gt;Does the mean of group A differ from group B?&lt;/b&gt;&lt;/font&gt;
 
 Conduct a &lt;high&gt;t-test&lt;/high&gt; when you have one nominal independent variable with &lt;high&gt;2 levels&lt;/high&gt; A and B
 
-### Formula
+&lt;font style="font-size:22px"&gt;&lt;b&gt;Formula&lt;/b&gt;&lt;/font&gt;
 
 `$$\LARGE Y=\beta_{0}+\beta_{1}x$$`
 
 `$$\beta_{0} = Mean\;of\;group\;A, \beta_{1} = Mean\;of\;group\;B$$`
 
-|Group|x|
-|:----|:----|
-|Group = A|x = 0|
-|Group = B|x = 1|
 
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
+  &lt;col width="50%"&gt;
+  &lt;col width="50%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Group&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;x&lt;/b&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    Group = A
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    x = 0
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    Group = B
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    x = 1
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;/table&gt;
 ]
 
 
-.pull-right5[
+.pull-right45[
 
-&lt;br&gt;
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-11-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ]
@@ -387,7 +489,7 @@ See [formula on Wikipedia](https://en.wikipedia.org/wiki/Pooled_variance)
 .pull-right5[
 &lt;br&gt;
 
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-12-1.png" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -418,7 +520,7 @@ See [formula on Wikipedia](https://en.wikipedia.org/wiki/Pooled_variance)
 &lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
 *Do male and female baselers have different mean incomes?*
 
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-16-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-13-1.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -509,8 +611,11 @@ names(income_htest)
 ```
 
 ```
-## [1] "statistic"   "parameter"   "p.value"     "conf.int"    "estimate"    "null.value"  "alternative"
-## [8] "method"      "data.name"
+## [1] "statistic"   "parameter"  
+## [3] "p.value"     "conf.int"   
+## [5] "estimate"    "null.value" 
+## [7] "alternative" "method"     
+## [9] "data.name"
 ```
 
 ```r
@@ -559,7 +664,7 @@ See [ANOVA formula on Wikipedia](https://en.wikipedia.org/wiki/Analysis_of_varia
 
 &lt;br&gt;
 
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -586,7 +691,7 @@ See [ANOVA formula on Wikipedia](https://en.wikipedia.org/wiki/Analysis_of_varia
 .pull-right5[
 
 
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-20-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-17-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -618,7 +723,7 @@ See [ANOVA formula on Wikipedia](https://en.wikipedia.org/wiki/Analysis_of_varia
 &lt;br&gt;
 *Is there a difference in height based on education?*
 
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-21-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-18-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -712,11 +817,16 @@ summary(ht_htest)
 ```
 
 ```
-##               Df  Sum Sq Mean Sq F value Pr(&gt;F)    
-## education      3   12440    4147    26.2 &lt;2e-16 ***
-## Residuals   9996 1582357     158                   
+##               Df  Sum Sq Mean Sq F value
+## education      3   12440    4147    26.2
+## Residuals   9996 1582357     158        
+##             Pr(&gt;F)    
+## education   &lt;2e-16 ***
+## Residuals             
 ## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## Signif. codes:  
+##   0 '***' 0.001 '**' 0.01 '*' 0.05 '.'
+##   0.1 ' ' 1
 ```
 
 ]
@@ -761,13 +871,20 @@ TukeyHSD(ht_htest)
 ## Fit: aov(formula = height ~ education, data = baselers)
 ## 
 ## $education
-##                    diff     lwr    upr  p adj
-## High School-BA   0.2708 -0.7808 1.3223 0.9115
-## MS-BA           -0.7759 -2.2772 0.7254 0.5451
-## PhD-BA           2.2936  1.2435 3.3436 0.0000
-## MS-High School  -1.0467 -2.3400 0.2466 0.1599
-## PhD-High School  2.0228  1.3008 2.7448 0.0000
-## PhD-MS           3.0695  1.7774 4.3616 0.0000
+##                    diff     lwr    upr
+## High School-BA   0.2708 -0.7808 1.3223
+## MS-BA           -0.7759 -2.2772 0.7254
+## PhD-BA           2.2936  1.2435 3.3436
+## MS-High School  -1.0467 -2.3400 0.2466
+## PhD-High School  2.0228  1.3008 2.7448
+## PhD-MS           3.0695  1.7774 4.3616
+##                  p adj
+## High School-BA  0.9115
+## MS-BA           0.5451
+## PhD-BA          0.0000
+## MS-High School  0.1599
+## PhD-High School 0.0000
+## PhD-MS          0.0000
 ```
 
 ]
@@ -876,9 +993,12 @@ tidy(income_htest)
 
 ```
 ## # A tibble: 1 x 8
-##   estimate statistic p.value parameter conf.low conf.high method                               alternative
-##      &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;                                &lt;chr&gt;      
-## 1  -0.0274     -2.52  0.0116      8508  -0.0486  -0.00612 Pearson's product-moment correlation two.sided
+##   estimate statistic p.value parameter
+##      &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;int&gt;
+## 1  -0.0274     -2.52  0.0116      8508
+## # … with 4 more variables: conf.low &lt;dbl&gt;,
+## #   conf.high &lt;dbl&gt;, method &lt;chr&gt;,
+## #   alternative &lt;chr&gt;
 ```
 
 ]
@@ -982,9 +1102,13 @@ tidy(height_sex_ttest)
 
 ```
 ## # A tibble: 1 x 10
-##   estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high method               alternative
-##      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;                &lt;chr&gt;      
-## 1    -14.0      164.      178.     -66.6       0     9909.    -14.4     -13.6 Welch Two Sample t-… two.sided
+##   estimate estimate1 estimate2 statistic
+##      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+## 1    -14.0      164.      178.     -66.6
+## # … with 6 more variables: p.value &lt;dbl&gt;,
+## #   parameter &lt;dbl&gt;, conf.low &lt;dbl&gt;,
+## #   conf.high &lt;dbl&gt;, method &lt;chr&gt;,
+## #   alternative &lt;chr&gt;
 ```
 
 ]
