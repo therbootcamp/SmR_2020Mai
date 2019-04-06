@@ -444,16 +444,16 @@ p_value(fit = XXX)</code></pre>
 
 # There is nothing to see here...
 
-# Just a random sidenote (which is actually very interesting, so you may want to
-# to read on even if this kind of defies the purpose of this part to prevent you from
+# Just a random sidenote (which is actually very interesting so you may want to
+# to read on, even if this kind of defies the purpose of this part to prevent you from
 # looking at the answers first; so consider first completing the task and then reading
 # the random but somehow terribly interesting sidenote):
 #     Did you know that the reason why R uses the arrow &quot;&lt;-&quot; as assignment
-#     operator is because it is based on S, which in turn is based on APL.
+#     operator is because it is based on S, which in turn is based on APL?
 #     Now apparently, APL was designed on a specific keyboard that had a
 #     &quot;&lt;-&quot; key and there was no &quot;==&quot; implemented to test equality. So equality
-#     was tested using &quot;=&quot; and &quot;&lt;-&quot; was chosen as asignment operator
-#     (info obtained from this blogpost: https://colinfay.me/r-assignment/)</code></pre>
+#     was tested using &quot;=&quot; and &quot;&lt;-&quot; was chosen as assignment operator
+#     (info obtained from this blogpost: https://colinfay.me/r-assignment/).</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>The answer to the last task is that you can constrain the correlation of the random intercepts and random slopes to zero. Use the double bar <code>||</code> in the random effects structure, that is <code>(design_matrix||grouping_variable)</code> to do this. Fit the maximal model but constrain the correlations to zero.</li>
 </ol>
