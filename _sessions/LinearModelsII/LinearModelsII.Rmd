@@ -439,7 +439,7 @@ Alternative: $H_{A}:\rho  \neq 0$, "There <high>is a </high> (non-zero) correlat
 
 ```{r, echo  = FALSE, warning = FALSE, fig.width = 4.5, fig.height = 4.5, dpi = 300, out.width = "100%"}
 ggplot(baselers, aes(x = age, y = income)) +
-  geom_point(alpha = .03, col = baselrbootcamp_cols("green")) +
+  geom_point(alpha = .03, col = baselrbootcamp_cols("magenta")) +
   labs(title = "Age and Income of Baselers",
        caption = "Fake data :)")
 ```
@@ -755,10 +755,10 @@ $$\Large s^{2} = Pooled\;variance$$
 
 .pull-right45[
 
-```{r, echo  = FALSE, warning = FALSE, fig.width = 5, fig.height = 3.5, dpi = 300, out.width = "90%"}
+```{r, echo  = FALSE, warning = FALSE, fig.width = 4, fig.height = 4, dpi = 300, out.width = "100%"}
 ggplot(baselers, aes(x = sex, y = income, col = sex)) +
     geom_jitter(alpha = .01, width = .1, col = "black") +
-   geom_boxplot() +
+   geom_boxplot(col = baselrbootcamp_cols(c("magenta","green"))) +
   labs(title = "Income of female and male baselers",
        caption = "Fake data :)",
        x = "Sex",
@@ -845,26 +845,27 @@ income_htest$p.value
 
 
 ---
-.pull-left45[
 
 # ANOVA
 
-### *Do the means of my (many) groups differ?*
+.pull-left45[
+
+<font style="font-size:22px"><b>Do the means of my (many) groups differ?</b></font>
 
 Conduct an <high>ANOVA</high> when you have one nominal independent variable with <high>more than 2 levels</high> A, B, C, ...
 
-### Test Statistic
+<font style="font-size:22px"><b>Formula</b></font>
+<br>
 
-$$\large F = \frac{Variance\;Between\;Groups}{Variance\;Within\;Groups}$$
-
->Is the variability between my groups large relative to the variability within each group?
-
-See [ANOVA formula on Wikipedia](https://en.wikipedia.org/wiki/Analysis_of_variance)
-]
-
-.pull-right5[
+$$\Large F = \frac{Variance\;Between\;Groups}{Variance\;Within\;Groups}$$
 
 <br>
+
+*Is the variability between my groups large relative to the variability within each group?*
+
+]
+
+.pull-right45[
 
 ```{r, fig.width = 4.5, fig.height = 4, echo = FALSE}
 a_y <- rnorm(100, mean = 10, sd = 2)

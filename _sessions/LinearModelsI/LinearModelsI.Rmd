@@ -278,10 +278,10 @@ $$\LARGE y=\beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2}+...+ \beta_{n} x_{n} + \
     &#x3B2;<sub>1</sub>, &#x3B2;<sub>2</sub>, ...
   </td>
   <td bgcolor="white">
-    Coefficient for &#x3B2;<sub>1</sub>, &#x3B2;<sub>2</sub>, ...
+    Coefficient for x<sub>1</sub>, x<sub>2</sub>, ...
   </td> 
   <td bgcolor="white">
-     For every increase of 1 in Coefficient for &#x3B2;<sub>1</sub>, &#x3B2;<sub>2</sub>, ... how does y change?
+     For every increase of 1 in coefficient for x<sub>1</sub>, x<sub>2</sub>, ... how does y change?
   </td> 
 </tr>
 </table>
@@ -499,7 +499,7 @@ data %>%
 
 ---
 
-# R-Squared (R2)
+# R<sup>2</sup> (R-Squared)
 
 .pull-left45[
 
@@ -560,7 +560,7 @@ $$\huge R^{2} = 1 - \frac{SS_{res}}{SS_{tot}}$$
 
 ---
 
-# R-Squared (R2)
+# R<sup>2</sup> (R-Squared)
 
 .pull-left45[
 
@@ -612,7 +612,7 @@ $$\huge R^{2} = 1 - \frac{SS_{res}}{SS_{tot}}$$
 
 .pull-right5[
 
-### 2 Models with different R2 values
+<p align="center"><i>2 Models with different R2 values</i></p>
 
 ```{r, fig.width = 5, fig.height = 3, out.width = "100%"}
 set.seed(100)
