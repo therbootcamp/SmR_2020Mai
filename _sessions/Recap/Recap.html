@@ -3,7 +3,7 @@
   <head>
     <title>Recap</title>
     <meta charset="utf-8">
-    <meta name="author" content="R for Data Science   Basel R Bootcamp" />
+    <meta name="author" content="Statistics with R   Basel R Bootcamp" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="baselrbootcamp.css" type="text/css" />
   </head>
@@ -12,8 +12,8 @@
 class: center, middle, inverse, title-slide
 
 # Recap
-### R for Data Science<br/> <a href='https://therbootcamp.github.io'> Basel R Bootcamp </a> <br> <a href='https://therbootcamp.github.io/R4DS_2019Feb/'> <i class='fas fa-clock' style='font-size:.9em;'></i> </a>  <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;' ></i> </a>  <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a>  <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a>
-### February 2019
+### Statistics with R<br/> <a href='https://therbootcamp.github.io'> Basel R Bootcamp </a> <br> <a href='https://therbootcamp.github.io/R4DS_2019Feb/'> <i class='fas fa-clock' style='font-size:.9em;'></i> </a>  <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;' ></i> </a>  <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a>  <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a>
+### April 2019
 
 ---
 
@@ -34,7 +34,7 @@ layout: true
     &lt;/a&gt;
     &lt;a href="https://therbootcamp.github.io/"&gt;
       &lt;font color="#7E7E7E"&gt;
-       R Bootcamp Bern | February 2019
+       Statistics with R | April 2019
       &lt;/font&gt;
     &lt;/a&gt;
     &lt;/span&gt;
@@ -46,187 +46,157 @@ layout: true
 
 
 
-# Essentials: 12 basic R lessons
-
-.pull-left4[
-1. Everything is an object
-2. Use `&lt;-` to create/change objects
-3. Name objects using `_`
-4. Objects have classes
-5. Everything happens through functions
-6. Functions have (default) arguments
-7. Functions expect certain object classes
-8. View help files using `?`
-9. Study errors and warnings
-10. Use RStudio and projects
-11. Use editor and auto-complete
-12. Comment and format for readability
-]
-
----
-
-# 3 Object types for data
-
-.pull-left4[
-
-R has 3 main data objects...
-
-&lt;high&gt;`list`&lt;/high&gt; - R's multi-purpose container
-- Can carry any data, incl. lists
-- Often used for function outputs
-
-&lt;high&gt;`tibbles`&lt;/high&gt; - R's spreadsheet
-- Specific type of `list`
-- Typical data format
-- For multi-variable data sets
-
-&lt;high&gt;`vectors`&lt;/high&gt; - R's data container
-- Actually carries the data
-- Contain data of 1 of many types
-
-]
-
-.pull-right55[
-&lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/main_objects.png"&gt;&lt;/img&gt;
-]
-
-
-
----
-
-.pull-left4[
-
-# Functions
-
-Functions have 3 elements:
-
-1 - &lt;high&gt;Name&lt;/high&gt;: Used to refer to the function and call (execute) it.
-
-2 - &lt;high&gt;Arguments&lt;/high&gt;: Used to provide (data) inputs and to control what the function does. Arguments with default values (e.g., `use = "everything"`) need not be specified. Arguments without default values (e.g., `x`) need be specified. &lt;high&gt;Inputs must have the appropriate class!&lt;/high&gt;
-
-3 - &lt;high&gt;Body&lt;/high&gt;: The code that uses the inputs (arguments) to produce the desired output. The code of the functions body is based &lt;high&gt;copies of the inputs&lt;/high&gt;, which are named according to the arguments names. 
-
-]
-
-.pull-right55[
-  &lt;br&gt;&lt;br&gt;
-  &lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/function.png"&gt;&lt;/img&gt;
-]
-
----
-
-# Documentation
-
-.pull-left5[
-
-R documentation (&lt;high&gt;help files&lt;/high&gt; and &lt;high&gt;vignettes&lt;/high&gt;) will become very to use once you are familiar with the basic R vocabulary. 
-
-Pay attention to...
-
-&lt;high&gt;Usage&lt;/high&gt; - shows how to use function, its arguments and their defaults.&lt;br&gt;&lt;high&gt;Arguments&lt;/high&gt; - describes arguments, and their `class`.&lt;br&gt;&lt;high&gt;Value&lt;/high&gt; - describes what the function returns.&lt;br&gt;&lt;high&gt;Examples&lt;/high&gt; - provide working R code.
-
-
-```r
-# To access help files
-?name_of_function
-
-# search help files
-??name_of_function
-```
-
-]
-
-.pull-right5[
-
-```r
-?cor
-```
-&lt;p align="center"&gt;&lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/help_cor.png" width="500"&gt;&lt;/p&gt;
-]
-
-
----
-
-# Data Input/Output
 
 .pull-left45[
 
-Raw data can come in many shapes and sizes, but &lt;high&gt;R's got you covered&lt;/high&gt;.
-&lt;br&gt;&lt;br&gt;
-.pull-left65[
 
-| Package     |   Description|
-|:----------------|:-------------------------------------------------------|
-| `readr`| `.csv`, `.txt`, etc. |
-| `haven`| `.sav`, `.sas7bdat`, `.dta`          |
-| `readxl`  | `.xls`, `.xlsx` |
-| `R.matlab` | `.mat` |
-| `jsonlite` | `.json` |
-| `rvest` | `.html` |
-| `XML`, `xml2` | `.xml` |
+# Null hypothesis testing
+
+
+Null hypothesis testing is a statistical framework where one hypothesis (H&lt;sub&gt;0&lt;/sub&gt;) is tested to defend the other, alternative hypothesis (H&lt;sub&gt;1&lt;/sub&gt;).
+
+This evaluation is performed by calculating the likelihood of obtaining the data &lt;high&gt;assuming&lt;/high&gt; that the null hypothesis true.
+
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
+  &lt;col width="16%"&gt;
+  &lt;col width="44%"&gt;
+  &lt;col width="40%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Hypothesis&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Description&lt;/b&gt;
+  &lt;/td&gt;  
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Example&lt;/b&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    Null (H&lt;sub&gt;0&lt;/sub&gt;)
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    A proposed effect &lt;high&gt;does not exist&lt;/high&gt; and variation &lt;high&gt;is not systematic&lt;/high&gt;.
+  &lt;/td&gt;  
+  &lt;td bgcolor="white"&gt;
+    Drug and placebo have the same effect.
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    Alternative (H&lt;sub&gt;1&lt;/sub&gt;)
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    A proposed effect &lt;high&gt;does exist&lt;/high&gt; and variation &lt;high&gt;is systematic&lt;/high&gt;
+  &lt;/td&gt;  
+  &lt;td bgcolor="white"&gt;
+    Drug and placebo do *not* have the same effect
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;/table&gt;
 
 ]
 
-]
 
 .pull-right45[
 
-&lt;img src="http://uc3.co/wp-content/uploads/2012/10/cloud-hoskins.jpg"&gt;
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
 
-]
----
 
-# Finding the file path
 
-.pull-left4[
+&lt;img src="Recap_files/figure-html/unnamed-chunk-2-1.png" width="100%" /&gt;
 
-1 - Identify the file path using the &lt;high&gt;auto-complete&lt;/high&gt;.  
-
-2 - Initiate auto-complete and browse through the folder structure by placing the cursor between two quotation marks and using the &lt;high&gt;tab key&lt;/high&gt;.
-
-&lt;p align="center"&gt;
-  &lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/tab.png" height="80px"&gt;&lt;/img&gt;
-&lt;/p&gt;
-
-3 - Auto-complete begins with the project folder - &lt;high&gt;place your data inside your project folder!&lt;/high&gt;
-
-] 
-
-.pull-right55[
-
-&lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/load_baselers_ss.jpg"&gt;&lt;/img&gt;
 
 ]
 
+
 ---
+
 .pull-left45[
 
-# What is wrangling?
+# Likelihood
 
-&lt;font size = 5&gt;&lt;high&gt;Transform&lt;/high&gt;&lt;/font&gt;
+Using the binomial distributions on the right, answer the following questions:
 
-Change column names
+### Q1
 
-Add new columns
+If there is a 50% chance of a clinical trial being successful, then out of 10 drugs, &lt;high&gt;how likely is it that exactly 5 will be successful&lt;/high&gt;?
 
-&lt;font size = 5&gt;&lt;high&gt;Organise&lt;/high&gt;&lt;/font&gt;
 
-Sort data by columns
+### Q2
 
-Merging data from two separate dataframes
+If there is a 10% chance that a customer will default on his/her loan, then out of 10 customers, &lt;high&gt;how likely is it that none (0) will default&lt;/high&gt;?
 
-Move data between columns and rows
-
-&lt;font size = &gt;&lt;high&gt;Aggregate&lt;/high&gt;&lt;/font&gt;
-
-Group data and summarise
 ]
 
 
 .pull-right5[
-&lt;br&gt;
-&lt;p align="center"&gt;
-  &lt;img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/organise_transform_aggregate.png" height = "550px"&gt;
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+&lt;img src="Recap_files/figure-html/unnamed-chunk-3-1.png" width="100%" /&gt;
+
+]
+
+---
+
+
+.pull-left45[
+
+# Test statistics
+
+Sample statistics (like means and standard deviations) are converted into &lt;high&gt;test statistics&lt;/high&gt;.
+
+Test statistics are unit-free numbers that help you quantify how likely data is given a null hypothesis. The &lt;high&gt;more extreme&lt;/high&gt; (i.e.; highly positive or highly negative) your test statistic is, the &lt;high&gt;more evidence against&lt;/high&gt; the null hypothesis.
+
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
+  &lt;col width="40%"&gt;
+  &lt;col width="60%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Test&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Test statistic&lt;/b&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    t-test
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    t-statistic
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    Correlation test
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    t-statistic
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    Binomial
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    z-statistic
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;/table&gt;
+
+
+]
+
+
+.pull-right45[
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+&lt;p align = "center"&gt;
+  &lt;img src="image/beer_null.png"&gt;
 &lt;/p&gt;
 
 ]
@@ -234,37 +204,394 @@ Group data and summarise
 
 ---
 
+# What is a linear model?
 
-# The Pipe!  &lt;high&gt;`%&gt;%`&lt;/high&gt;
+.pull-left5[
 
-.pull-left4[
-
-`dplyr` makes extensive use of a new operator called the "Pipe" &lt;high&gt;`%&gt;%`&lt;/high&gt;&lt;br&gt;
-
-Read the "Pipe" &lt;high&gt;`%&gt;%`&lt;/high&gt; as "And Then..."
+A linear model is &lt;high&gt;just addition and multiplication&lt;/high&gt; and can be written in the following forms: 
 
 &lt;br&gt;
 
+&lt;center&gt;&lt;u&gt;Version 1&lt;/u&gt;&lt;center&gt;
+
+`$$\huge y = \beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2} +  ... + \beta_{n}x_{n} + \epsilon$$`
+
+&lt;br&gt;
+
+&lt;center&gt;&lt;u&gt;Version 2&lt;/u&gt;&lt;center&gt;
+
+
+`$$\huge y = \beta_{0} + \sum_{i=1}^{n}\beta_{i}x_{i}+ \epsilon$$`
+
+
+]
+
+
+.pull-right4[
+
+&lt;p align = "center"&gt;
+  &lt;img src="image/math.jpg"&gt;&lt;br&gt;
+  &lt;font style="font-size:10px"&gt;
+    from &lt;a href="https://66.media.tumblr.com/6e401f0cffebf9c7440894d4fa6c48b2/tumblr_o0af44kS071u7w7kwo1_1280.jpg"&gt; media.tumblr.com&lt;/a&gt;
+  &lt;/font&gt;
+&lt;/p&gt;
+
+]
+
+---
+
+# R&lt;sup&gt;2&lt;/sup&gt; (R-Squared)
+
+.pull-left45[
+
+R-Squared `\(R^{2}\)` is the most common method of calculating the &lt;high&gt;overall performance&lt;/high&gt; of a model.
+
+&lt;br&gt;
+
+`$$\huge R^{2} = 1 - \frac{SS_{res}}{SS_{tot}}$$`
+
+
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
+  &lt;col width="15%"&gt;
+  &lt;col width="85%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;R&lt;sup&gt;2&lt;/sup&gt;&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Interpretation&lt;/b&gt;
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    0
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Model explains no variance in y.
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+   .5
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Model explains half the variance in y.
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+   1
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Model explains &lt;i&gt;all&lt;/i&gt; half the variance in y.
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;/table&gt;
+
+]
+
+.pull-right5[
+
+&lt;p align="center"&gt; 
+  &lt;img src="image/r2_vis.png"&gt;
+  &lt;font style="font-size:10px"&gt; from &lt;a   href='https://en.wikipedia.org/wiki/Coefficient_of_determination'&gt;Wikipedia&lt;/a&gt;&lt;/font&gt;
+  &lt;/a&gt;
+&lt;/p&gt;
+]
+
+
+
+---
+
+# Key Functions
+
+.pull-left35[
+
+&lt;font style="font-size:20px"&gt;&lt;u&gt;Fitting&lt;/u&gt;&lt;/p&gt;
+
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
+  &lt;col width="40%"&gt;
+  &lt;col width="60%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Function&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Description&lt;/b&gt;
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;glm(formula, data)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Fit a linear model to data and calculate best coefficients
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;font style="font-size:20px"&gt;&lt;u&gt;Evaluation&lt;/u&gt;&lt;/p&gt;
+
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
+  &lt;col width="40%"&gt;
+  &lt;col width="60%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Function&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Description&lt;/b&gt;
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+   &lt;mono&gt;coef(mod)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Get coefficients from a model
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+   &lt;mono&gt;fitted(mod)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Get fitted results.
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+   &lt;mono&gt;resid(mod)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Get residuals (errors)
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;/table&gt;
+
+]
+
+.pull-right6[
+
 
 ```r
-# Start with data
-data %&gt;% # AND THEN...
-  
-DO_SOMETHING %&gt;% # AND THEN...
-  
-DO_SOMETHING %&gt;% # AND THEN...
-  
-DO_SOMETHING %&gt;% # AND THEN...
+# Create a model income_glm
+
+# Y = income
+# X1 = age, X2 = children
+
+income_glm &lt;- glm(formula = income ~ age + children,
+                  data = baselers)
+```
+
+&lt;br&gt;
+
+| id| income| age| children|
+|--:|------:|---:|--------:|
+|  1|   6300|  44|        2|
+|  2|  10900|  65|        2|
+
+]
+
+
+---
+
+# Key Functions
+
+.pull-left35[
+
+
+&lt;font style="font-size:20px"&gt;&lt;u&gt;Fitting&lt;/u&gt;&lt;/p&gt;
+
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
+  &lt;col width="40%"&gt;
+  &lt;col width="60%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Function&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Description&lt;/b&gt;
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;glm(formula, data)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Fit a linear model to data and calculate best coefficients
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;font style="font-size:20px"&gt;&lt;u&gt;Evaluation&lt;/u&gt;&lt;/p&gt;
+
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
+  &lt;col width="40%"&gt;
+  &lt;col width="60%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Function&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Description&lt;/b&gt;
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+   &lt;mono&gt;coef(mod)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Get coefficients from a model
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+   &lt;mono&gt;fitted(mod)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Get fitted results.
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+   &lt;mono&gt;resid(mod)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Get residuals (errors)
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;/table&gt;
+
+]
+
+.pull-right6[
+
+
+
+```r
+# Print income_glm
+
+income_glm
+```
+
+```
+## 
+## Call:  glm(formula = income ~ age + children, data = baselers)
+## 
+## Coefficients:
+## (Intercept)          age     children  
+##      871.10       149.25         7.78  
+## 
+## Degrees of Freedom: 8509 Total (i.e. Null);  8507 Residual
+##   (1490 observations deleted due to missingness)
+## Null Deviance:	    6.33e+10 
+## Residual Deviance: 1.29e+10 	AIC: 145000
 ```
 
 ]
 
-.pull-right55[
 
-&lt;p align="center"&gt;
-  &lt;img src="https://upload.wikimedia.org/wikipedia/en/thumb/b/b9/MagrittePipe.jpg/300px-MagrittePipe.jpg" width = "450px"&gt;&lt;br&gt;
-  This is not a pipe (but %&gt;% is!)
-&lt;/p&gt;
+
+---
+
+# Key Functions
+
+.pull-left35[
+
+&lt;font style="font-size:20px"&gt;&lt;u&gt;Fitting&lt;/u&gt;&lt;/p&gt;
+
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
+  &lt;col width="40%"&gt;
+  &lt;col width="60%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Function&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Description&lt;/b&gt;
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;glm(formula, data)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Fit a linear model to data and calculate best coefficients
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;font style="font-size:20px"&gt;&lt;u&gt;Evaluation&lt;/u&gt;&lt;/p&gt;
+
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
+  &lt;col width="40%"&gt;
+  &lt;col width="60%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Function&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Description&lt;/b&gt;
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+   &lt;mono&gt;coef(mod)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Get coefficients from a model
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+   &lt;mono&gt;fitted(mod)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Get fitted results.
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+   &lt;mono&gt;resid(mod)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Get residuals (errors)
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;/table&gt;
+
+]
+
+.pull-right6[
+
+
+```r
+# Show summary info
+summary(income_glm)
+```
+
+
+
+```
+## 
+## Call:
+## glm(formula = income ~ age + children, data = baselers)
+## 
+## Deviance Residuals: 
+##    Min      1Q  Median      3Q     Max  
+##  -4250    -835       5     820    4779  
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  871.101     44.959    19.4   &lt;2e-16 ***
+## age          149.249      0.818   182.5   &lt;2e-16 ***
+## children       7.777     12.861     0.6     0.55    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for gaussian family taken to be 1513138)
+```
 
 ]
 
@@ -284,7 +611,7 @@ DO_SOMETHING %&gt;% # AND THEN...
 
 .pull-right45[
 
-&lt;img src="https://therbootcamp.github.io/R4DS_2019Feb/_sessions/Welcome/image/schedule.png" height="580" align="center"&gt;
+&lt;img src="https://therbootcamp.github.io/SwR_2019Apr/_sessions/Welcome/image/schedule.png" height="580" align="center"&gt;
 
 
 ]
