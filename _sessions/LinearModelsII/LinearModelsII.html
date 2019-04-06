@@ -333,13 +333,13 @@ Alternative: `\(H_{A}:\rho  \neq 0\)`, "There &lt;high&gt;is a &lt;/high&gt; (no
 
 
 ```r
-# Is there a relationship between age and income?
+# Relationship between age and income?
 
-income_htest &lt;- cor.test(formula = ~ age + income,
-                         data = baselers)
+inc_ht &lt;- cor.test(formula = ~ age + income,
+                   data = baselers)
 
 # Print result
-income_htest
+inc_ht
 ```
 
 ```
@@ -388,7 +388,7 @@ Alternative: `\(H_{A}:\rho  \neq 0\)`, "There &lt;high&gt;is a &lt;/high&gt; (no
 
 ```r
 # Show all named elements
-names(income_htest)
+names(inc_ht)
 ```
 
 ```
@@ -401,7 +401,7 @@ names(income_htest)
 
 ```r
 # Show estimated correlation coefficient
-income_htest$estimate
+inc_ht$estimate
 ```
 
 ```
@@ -411,7 +411,7 @@ income_htest$estimate
 
 ```r
 # Show p-value
-income_htest$p.value
+inc_ht$p.value
 ```
 
 ```
@@ -569,11 +569,11 @@ Conduct a &lt;high&gt;t-test&lt;/high&gt; when you have one nominal independent 
 
 ```r
 # 2-sample t-test
-income_htest &lt;- t.test(formula = income ~ sex,
-                       data = baselers)
+inc_ht &lt;- t.test(formula = income ~ sex,
+                 data = baselers)
 
 # Print
-income_htest
+inc_ht
 ```
 
 ```
@@ -621,7 +621,7 @@ Conduct a &lt;high&gt;t-test&lt;/high&gt; when you have one nominal independent 
 
 ```r
 # Show all named elements
-names(income_htest)
+names(inc_ht)
 ```
 
 ```
@@ -634,7 +634,7 @@ names(income_htest)
 
 ```r
 # Print the test statistic
-income_htest$statistic
+inc_ht$statistic
 ```
 
 ```
@@ -644,7 +644,7 @@ income_htest$statistic
 
 ```r
 # Print the p.value
-income_htest$p.value
+inc_ht$p.value
 ```
 
 ```
@@ -781,13 +781,13 @@ Conduct an &lt;high&gt;ANOVA&lt;/high&gt; when you have one nominal independent 
 
 
 ```r
-# Is there a relationship height ~ education?
-
-ht_htest &lt;- aov(formula = height ~ education,
+# Relationship height and education?
+height_ht &lt;- 
+  aov(formula = height ~ education,
                 data = baselers)
 
 # Print result
-ht_htest
+height_ht
 ```
 
 ```
@@ -838,7 +838,7 @@ Conduct an &lt;high&gt;ANOVA&lt;/high&gt; when you have one nominal independent 
 
 ```r
 # Show summary results
-summary(ht_htest)
+summary(height_ht)
 ```
 
 ```
@@ -882,12 +882,14 @@ After conducting an &lt;high&gt;ANOVA&lt;/high&gt;, conduct a &lt;high&gt;post-h
 &lt;br&gt;
 
 
+
 ```r
 # Conduct post-hoc tests
 #   Which pairs of groups differ?
 
-print2(TukeyHSD(ht_htest),20)
+TukeyHSD(height_ht)
 ```
+
 
 ```
 ##   Tukey multiple comparisons of means

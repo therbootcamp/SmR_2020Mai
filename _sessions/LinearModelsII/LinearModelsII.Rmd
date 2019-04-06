@@ -482,13 +482,13 @@ Alternative: $H_{A}:\rho  \neq 0$, "There <high>is a </high> (non-zero) correlat
 .pull-right45[
 
 ```{r}
-# Is there a relationship between age and income?
+# Relationship between age and income?
 
-income_htest <- cor.test(formula = ~ age + income,
-                         data = baselers)
+inc_ht <- cor.test(formula = ~ age + income,
+                   data = baselers)
 
 # Print result
-income_htest
+inc_ht
 ```
 
 
@@ -524,13 +524,13 @@ options(width=43)
 
 ```{r}
 # Show all named elements
-names(income_htest)
+names(inc_ht)
 
 # Show estimated correlation coefficient
-income_htest$estimate
+inc_ht$estimate
 
 # Show p-value
-income_htest$p.value
+inc_ht$p.value
 ```
 
 ]
@@ -817,11 +817,11 @@ $$\Large s^{2} = Pooled\;variance$$
 
 ```{r}
 # 2-sample t-test
-income_htest <- t.test(formula = income ~ sex,
-                       data = baselers)
+inc_ht <- t.test(formula = income ~ sex,
+                 data = baselers)
 
 # Print
-income_htest
+inc_ht
 ```
 
 ]
@@ -854,13 +854,13 @@ $$\Large s^{2} = Pooled\;variance$$
 
 ```{r}
 # Show all named elements
-names(income_htest)
+names(inc_ht)
 
 # Print the test statistic
-income_htest$statistic
+inc_ht$statistic
 
 # Print the p.value
-income_htest$p.value
+inc_ht$p.value
 ```
 
 ]
@@ -1071,13 +1071,13 @@ $$\Large F = \frac{Variance\;Between\;Groups}{Variance\;Within\;Groups}$$
 .pull-right45[
 
 ```{r}
-# Is there a relationship height ~ education?
-
-ht_htest <- aov(formula = height ~ education,
+# Relationship height and education?
+height_ht <- 
+  aov(formula = height ~ education,
                 data = baselers)
 
 # Print result
-ht_htest
+height_ht
 ```
 
 ]
@@ -1114,7 +1114,7 @@ $$\Large F = \frac{Variance\;Between\;Groups}{Variance\;Within\;Groups}$$
 
 ```{r}
 # Show summary results
-summary(ht_htest)
+summary(height_ht)
 ```
 
 ]
@@ -1144,11 +1144,19 @@ $$\Large t = \frac{\bar{x}_{A}-\bar{x}_{B}}{Total\;Variability}$$
 
 <br>
 
-```{r}
+
+```{r, eval = FALSE}
 # Conduct post-hoc tests
 #   Which pairs of groups differ?
 
-print2(TukeyHSD(ht_htest),20)
+TukeyHSD(height_ht)
+```
+
+```{r, echo  =F}
+# Conduct post-hoc tests
+#   Which pairs of groups differ?
+
+print2(TukeyHSD(height_ht),20)
 ```
 
 ]
