@@ -806,16 +806,15 @@ Shortcut to <high>rerun chunk</high>:<br><br2><font size = 6>  &#8984;/ctrl + &#
 
 .pull-right5[
 
-```{r, eval=F}
-# import packages
+```{r, eval = FALSE}
+# Load packages with library()
 library(tidyverse)
 library(yarrr)
 library(lme4)
 
-# import data
+# import data with 
 baselers <- read_delim(file = "baselers.txt",
                        delim = '\t')
-
 ```
 ]
 

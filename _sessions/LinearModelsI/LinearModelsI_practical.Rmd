@@ -310,7 +310,7 @@ ggplot(hitters, aes(x = HmRun, y = Salary)) +
        caption = "Did you know that SPSS stands for 'Shitty Piece of Shitty Shit'?")
 ```
 
-2. Conduct a regression analysis predicting a diamond's `Salary` as a function of its `HmRun` value. Save the result to an object called `HmRun_glm`.
+2. Conduct a regression analysis predicting a player's `Salary` as a function of its `HmRun` value. Save the result to an object called `HmRun_glm`.
 
 ```{r, echo = TRUE, eval = FALSE}
 # Create HmRun_glm, a glm model predicting Salary as a function of HmRun
