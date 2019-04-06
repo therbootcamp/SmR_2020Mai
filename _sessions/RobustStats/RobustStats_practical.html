@@ -270,9 +270,6 @@ View(XXX)</code></pre>
 <p>Note: In this practical, we will be using the basic <code>lm</code> function, rather than the more general <code>lm</code> function.</p>
 <pre class="r"><code># regress volume on average price
 m1 &lt;- lm(YY ~ XX, data = ZZ)</code></pre>
-<pre class="r"><code># regress volume on average price
-m1 &lt;- lm(volume ~ price_per_avocado, 
-          data = avocado_cali)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Evaluate the model using <code>summary()</code>. Is the average price a good predictor of volume?</li>
 </ol>
@@ -288,7 +285,7 @@ abline(m1)</code></pre>
 <li>The plot revealed that the regression is actually not really a good summary of the data. Confirm this by plotting the residuals against the predicted values.</li>
 </ol>
 <pre class="r"><code># Residual plot
-plot(predicted(XX), residuals(XX))</code></pre>
+plot(predict(XX), residuals(XX))</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>The model fits the data badly including several serious violations of regression assumptions: Linearity, normality, and heteroscedascity do not seem to hold. One cause for these violations are missing variables. Add one other variable to the regression that contains information on the kind of avocado (see <em>Data</em> tab) and evaluate the model again.</li>
 </ol>

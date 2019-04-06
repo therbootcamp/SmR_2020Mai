@@ -167,7 +167,7 @@ Note: In this practical, we will be using the basic `lm` function, rather than t
 m1 <- lm(YY ~ XX, data = ZZ)
 ```
 
-```{r, echo = TRUE}
+```{r}
 # regress volume on average price
 m1 <- lm(volume ~ price_per_avocado, 
           data = avocado_cali)
@@ -203,7 +203,7 @@ abline(m1)
 
 ```{r, echo = TRUE, eval = FALSE}
 # Residual plot
-plot(predicted(XX), residuals(XX))
+plot(predict(XX), residuals(XX))
 ```
 
 ```{r}
