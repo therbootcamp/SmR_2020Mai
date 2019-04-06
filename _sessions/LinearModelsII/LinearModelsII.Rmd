@@ -611,8 +611,6 @@ a_gg
 
 .pull-left45[
 
-
-
 <font style="font-size:22px"><b>Does the mean of group A differ from group B?</b></font>
 
 Conduct a <high>t-test</high> when you have one nominal independent variable with <high>2 levels</high> A and B
@@ -621,6 +619,8 @@ Conduct a <high>t-test</high> when you have one nominal independent variable wit
 
 $$\Large t = \frac{\bar{x}_{A}-\bar{x}_{B}}{\sqrt{s^{2}(\frac{1}{n_{A}}+\frac{1}{n_{B}})}}$$
 $$\Large s^{2} = Pooled\;variance$$
+
+<br>
 
 *Pooled variance means "Average Variance"* 
 
@@ -733,26 +733,27 @@ t_test_grid_gg
 
 
 ---
+
+# t-test
+
 .pull-left45[
 
-# T-test
-
-### *Does the mean of group A differ from group B?*
+<font style="font-size:22px"><b>Does the mean of group A differ from group B?</b></font>
 
 Conduct a <high>t-test</high> when you have one nominal independent variable with <high>2 levels</high> A and B
 
-### Test Statistic
+<font style="font-size:22px"><b>Formula</b></font>
 
 $$\Large t = \frac{\bar{x}_{A}-\bar{x}_{B}}{\sqrt{s^{2}(\frac{1}{n_{A}}+\frac{1}{n_{B}})}}$$
 $$\Large s^{2} = Pooled\;variance$$
 
-*Pooled variance means "Average Variance"* 
+<br>
 
-See [formula on Wikipedia](https://en.wikipedia.org/wiki/Pooled_variance)
+*Pooled variance means "Average Variance"* 
 
 ]
 
-.pull-right5[
+.pull-right45[
 
 ```{r, echo  = FALSE, warning = FALSE, fig.width = 5, fig.height = 3.5, dpi = 300, out.width = "90%"}
 ggplot(baselers, aes(x = sex, y = income, col = sex)) +
@@ -770,21 +771,23 @@ ggplot(baselers, aes(x = sex, y = income, col = sex)) +
 
 
 ---
+
+# t-test
+
 .pull-left45[
 
-# T-test
-
-### *Does the mean of group A differ from group B?*
+<font style="font-size:22px"><b>Does the mean of group A differ from group B?</b></font>
 
 Conduct a <high>t-test</high> when you have one nominal independent variable with <high>2 levels</high> A and B
 
-### Test Statistic
+<font style="font-size:22px"><b>Formula</b></font>
 
 $$\Large t = \frac{\bar{x}_{A}-\bar{x}_{B}}{\sqrt{s^{2}(\frac{1}{n_{A}}+\frac{1}{n_{B}})}}$$
 $$\Large s^{2} = Pooled\;variance$$
 
-*Pooled variance means "Average Variance"* 
+<br>
 
+*Pooled variance means "Average Variance"* 
 
 ]
 
@@ -804,29 +807,26 @@ income_htest
 
 
 ---
+
+# t-test
+
 .pull-left45[
 
-# T-test
-
-### *Does the mean of group A differ from group B?*
+<font style="font-size:22px"><b>Does the mean of group A differ from group B?</b></font>
 
 Conduct a <high>t-test</high> when you have one nominal independent variable with <high>2 levels</high> A and B
 
-### Test Statistic
+<font style="font-size:22px"><b>Formula</b></font>
 
 $$\Large t = \frac{\bar{x}_{A}-\bar{x}_{B}}{\sqrt{s^{2}(\frac{1}{n_{A}}+\frac{1}{n_{B}})}}$$
 $$\Large s^{2} = Pooled\;variance$$
 
+<br>
+
 *Pooled variance means "Average Variance"* 
 
-See [formula on Wikipedia](https://en.wikipedia.org/wiki/Pooled_variance)
-
 ]
-
-.pull-right5[
-
-<br>
-### t-test with `t.test()`
+.pull-right45[
 
 ```{r}
 # Show all named elements
