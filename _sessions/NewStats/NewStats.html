@@ -548,11 +548,7 @@ Delta + SE * qt(.95, N - 1) * c(-1, 1)
 ```
 
 ```
-<<<<<<< HEAD
-## [1] -1.4501 -0.9865
-=======
-## [1] -1.1710 -0.6488
->>>>>>> 3b76091504969d69d4cf04b048260ecba00c5ff1
+## [1] -1.4453 -0.9915
 ```
 
 ]
@@ -635,11 +631,7 @@ boot.ci(boot_res)
 ## 
 ## Intervals : 
 ## Level      Normal              Basic         
-<<<<<<< HEAD
-## 95%   (-1.495, -0.942 )   (-1.489, -0.938 )
-=======
-## 95%   (-1.2181, -0.6066 )   (-1.2279, -0.6229 )
->>>>>>> 3b76091504969d69d4cf04b048260ecba00c5ff1
+## 95%   (-1.461, -0.951 )   (-1.454, -0.944 )
 ```
 
 ]
@@ -786,29 +778,16 @@ stan_glm(income ~ height,
 ##  predictors:   2
 ## ------
 ##             Median MAD_SD
-<<<<<<< HEAD
-## (Intercept) 9286.8 2242.6
-## height       -10.8   13.2
+## (Intercept) 9211.1 2105.4
+## height       -10.4   12.2
 ## 
 ## Auxiliary parameter(s):
 ##       Median MAD_SD
-## sigma 2640.1  111.0
+## sigma 2634.4  103.4
 ## 
 ## Sample avg. posterior predictive distribution of y:
 ##          Median MAD_SD
-## mean_PPD 7444.8  215.1
-=======
-## (Intercept) 9229.7 2126.7
-## height       -10.6   12.4
-## 
-## Auxiliary parameter(s):
-##       Median MAD_SD
-## sigma 2635.2  106.9
-## 
-## Sample avg. posterior predictive distribution of y:
-##          Median MAD_SD
-## mean_PPD 7431.3  218.9
->>>>>>> 3b76091504969d69d4cf04b048260ecba00c5ff1
+## mean_PPD 7440.5  211.1
 ## 
 ## ------
 ## * For help interpreting the printed output see ?print.stanreg
@@ -927,23 +906,12 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   d.head.appendChild(s);
 })();</script>
 
-<script>
-(function() {
-  var i, text, code, codes = document.getElementsByTagName('code');
-  for (i = 0; i < codes.length;) {
-    code = codes[i];
-    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-      text = code.textContent;
-      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-          /^\$\$(.|\s)+\$\$$/.test(text) ||
-          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-        code.outerHTML = code.innerHTML;  // remove <code></code>
-        continue;
-      }
-    }
-    i++;
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
   }
-})();
+});
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
