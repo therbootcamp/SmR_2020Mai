@@ -371,14 +371,12 @@ Alternative: $H_{A}:\rho  \neq 0$, "There <high>is a </high> (non-zero) correlat
 
 ```{r, echo  = FALSE, warning = FALSE, fig.width = 4, fig.height = 4, dpi = 300, out.width = "90%"}
 ggplot(baselers, aes(x = age, y = income)) +
-  geom_point(alpha = .03) +
+  geom_point(alpha = .03, col = baselrbootcamp_cols("green")) +
   labs(title = "Age and Income of Baselers",
        caption = "Fake data :)")
 ```
 
-
 ]
-
 
 ---
 
@@ -505,7 +503,8 @@ a_gg <- ggplot(data = dat) +
   annotate("label", x = c(1, 2), y = mean_c, label = mean_c)  +
    labs(title = "Ready for a t-test!", y = "Y (Normally Distributed)") +
   ylim(0, 25) +
-    coord_cartesian(clip = 'off')
+    coord_cartesian(clip = 'off') +
+  guides(fill = FALSE)
 
 a_gg
 ```
@@ -664,15 +663,18 @@ See [formula on Wikipedia](https://en.wikipedia.org/wiki/Pooled_variance)
 
 .pull-right5[
 
-<br>
+<br><br><br><br><br>
 *Do male and female baselers have different mean incomes?*
 
-```{r, echo  = FALSE, warning = FALSE, fig.width = 4, fig.height = 4, dpi = 300, out.width = "90%"}
-ggplot(baselers, aes(x = sex, y = income)) +
+```{r, echo  = FALSE, warning = FALSE, fig.width = 5, fig.height = 3.5, dpi = 300, out.width = "90%"}
+ggplot(baselers, aes(x = sex, y = income, col = sex)) +
+    geom_jitter(alpha = .01, width = .1, col = "black") +
    geom_boxplot() +
-  geom_jitter(alpha = .01, width = .1) +
   labs(title = "Income of female and male baselers",
-       caption = "Fake data :)")
+       caption = "Fake data :)",
+       x = "Sex",
+       y = "Income (per month)") +
+  guides(col = FALSE)
 ```
 
 ]
@@ -911,12 +913,13 @@ See [ANOVA formula on Wikipedia](https://en.wikipedia.org/wiki/Analysis_of_varia
 <br>
 *Is there a difference in height based on education?*
 
-```{r, echo  = FALSE, warning = FALSE, fig.width = 6, fig.height = 4, dpi = 300, out.width = "90%"}
-ggplot(baselers, aes(x = education, y = height)) +
-   geom_boxplot() +
-  geom_jitter(alpha = .01, width = .1) +
+```{r, echo  = FALSE, warning = FALSE, fig.width = 4, fig.height = 3, dpi = 300, out.width = "100%"}
+ggplot(baselers, aes(x = education, y = height, col = education)) +
+  geom_jitter(alpha = .05, width = .1, col = "black") +
+     geom_boxplot() +
   labs(title = "Baseler height based on education",
-       caption = "Fake data :)")
+       caption = "Fake data :)") +
+  guides(col = FALSE)
 ```
 
 ]
@@ -1069,11 +1072,11 @@ Try `tidy()` on your favorite statistical object and see what you get!
 library(broom)   # For tidy()
 
 # Conduct correlation test
-height_income_htest <- cor.test(formula = ~ height + income,
-                       data = baselers)
+income_htest <- cor.test(formula = ~ height + income,
+                         data = baselers)
 
 # Standard printout
-height_income_htest
+income_htest
 ```
 
 ]
@@ -1112,11 +1115,11 @@ Try `tidy()` on your favorite statistical object and see what you get!
 library(broom)   # For tidy()
 
 # Conduct correlation test
-height_income_htest <- cor.test(formula = ~ height + income,
-                       data = baselers)
+income_htest <- cor.test(formula = ~ height + income,
+                         data = baselers)
 
 # tidy results
-tidy(height_income_htest)
+tidy(income_htest)
 ```
 
 ]

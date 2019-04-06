@@ -220,11 +220,11 @@ We have an <high>ambitious schedule</high>!
 
 # Datasets
 
-You will be working with many <high>diverse datasets</high> in the practicals
+You will be working with many <high>diverse, real-world datasets</high> in the practicals
 
 1 - Predicting baseball player salaries.
 
-2 - Analysing the results from a real clinical trial.
+2 - Analysing the results from a real clinical trial on patients with AIDS.
 
 3 - Analysing the "Tomatometer" movie ratings of raters who were either sober or under the influence of alcohol.
 
