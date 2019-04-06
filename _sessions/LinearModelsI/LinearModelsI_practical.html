@@ -560,7 +560,7 @@ rsq(XXX)</code></pre>
 <div id="c---multiple-regression" class="section level3">
 <h3>C - Multiple Regression</h3>
 <ol style="list-style-type: decimal">
-<li>Create an object called <code>all_glm</code> which predicts price based on <em>all</em> variables in the <code>hitters</code> dataframe. Assign the result to an object called <code>all_glm</code>.Use the following guide to help you:</li>
+<li>Create an object called <code>all_glm</code> which predicts price based on <em>all</em> variables in the <code>hitters</code> dataframe. To do this, use the <code>formula = Salary ~ .</code> notation. Assign the result to an object called <code>all_glm</code>.Use the following guide to help you:</li>
 </ol>
 <pre class="r"><code># Create all_glm, a glm object modelling Salary based on ALL variables in hitters
 all_glm &lt;- glm(formula = XXX ~ .,
@@ -686,14 +686,14 @@ ggplot(data, aes(x = abs_resid)) +
   select(Salary, Hits)</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li><p>You should have already created your <code>hits_glm</code> object in an earlier question. Print your <code>hits_glm</code> object again to see what the model coefficients are.</p></li>
-<li><p>Based on the coefficients you’ve observed, what should the predicted value of the first player in <code>hitters_new</code> be (hint: Salary = Intercept + Coefficient * Hits)</p></li>
+<li><p>Based on the coefficients you’ve observed, what should the predicted value of the first player in <code>hitters_new</code> be? Answer this by calculating the value ‘by hand’ (Hint: Salary = Intercept + Coefficient * Hits)</p></li>
 <li><p>Using your <code>hits_glm</code> object, predict the salaries of these new players using the <code>predict()</code> function. Save the results to an object called <code>hitters_new_pred</code>:</p></li>
 </ol>
 <pre class="r"><code>hitters_new_pred &lt;- predict(object = XXX,    # glm object
                             newdata = XXX)   # New dataframe</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li><p>Print your <code>hitters_new_pred</code> object, what are these values?</p></li>
-<li><p>Does the first value match the value you calculated by hand?</p></li>
+<li><p>Does the first value match the value you calculated ‘by hand’? Aren’t you glad that R can do this for you and you don’t have to constantly calculate values manually?</p></li>
 </ol>
 </div>
 <div id="x---challenges" class="section level3">
