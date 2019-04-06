@@ -1015,7 +1015,7 @@ If a p-value is *small* (i.e.; p < .05), this means that the likelihood of obtai
 
 #### Formally
 
-A p-value is the probability of obtaining a test statistic as extreme as what you got assuming a null hypothesis is true
+A p-value is the probability of obtaining a test statistic as extreme or extremer as what you got assuming a null hypothesis is true
 
 #### Decision rule
 
