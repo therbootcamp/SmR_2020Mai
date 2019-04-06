@@ -436,7 +436,7 @@ Conduct a &lt;high&gt;t-test&lt;/high&gt; when you have one nominal independent 
 
 `$$\LARGE Y=\beta_{0}+\beta_{1}x$$`
 
-`$$\beta_{0} = Mean\;of\;group\;A, \beta_{1} = Differen\;between \;groups$$`
+`$$\beta_{0} = Mean\;of\;group\;A, \beta_{1} = Difference\;between \;groups$$`
 
 
 &lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:25px" width=100%&gt;
@@ -1217,7 +1217,7 @@ R has a several functions that allow you to draw &lt;high&gt;random samples&lt;/
 
 ```r
 # Pr(z ≤ 2)
-pnorm(2, mean = 0, sd = 1)
+pnorm(q = 2, mean = 0, sd = 1)
 ```
 
 ```
@@ -1225,17 +1225,17 @@ pnorm(2, mean = 0, sd = 1)
 ```
 
 ```r
-# z for p(z ≤ x) = 68%
-qnorm(.68, mean = 0, sd = 1)
+# z for p(z ≤ x) = 95%
+qnorm(p = .95, mean = 0, sd = 1)
 ```
 
 ```
-## [1] 0.4677
+## [1] 1.645
 ```
 
 ```r
 # simulate z
-rnorm(23, mean = 0, sd = 1)
+rnorm(n = 23, mean = 0, sd = 1)
 ```
 
 ```
@@ -1362,7 +1362,7 @@ R has a several functions that allow you to draw &lt;high&gt;random samples&lt;/
 
 ```r
 # Pr(t ≤ 2)
-pt(2, df = 99)
+pt(q = 2, df = 99)
 ```
 
 ```
@@ -1370,17 +1370,17 @@ pt(2, df = 99)
 ```
 
 ```r
-# z for p(z ≤ x) = 68%
-qt(.68, df = 99)
+# t for p(t ≤ x) = 95%
+qt(p = .95, df = 99)
 ```
 
 ```
-## [1] 0.4691
+## [1] 1.66
 ```
 
 ```r
-# simulate z
-rt(23, df = 99)
+# simulate t
+rt(n = 20, df = 99)
 ```
 
 ```
@@ -1389,7 +1389,6 @@ rt(23, df = 99)
 ##  [9]  0.67891  0.98415 -1.16118  1.24822
 ## [13]  0.98867 -1.09769 -0.46602 -0.52857
 ## [17] -0.96983  1.32325  0.34523  1.03262
-## [21] -0.13193 -2.37821 -0.15682
 ```
 
 ]

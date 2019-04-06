@@ -400,7 +400,7 @@ pos_low_gg <- ggplot(dat, aes(x = x, y = pos_low)) +
 pos_high_gg <- ggplot(dat, aes(x = x, y = pos_high)) +
   geom_point() +
   geom_smooth(se = FALSE, method = "lm", col = baselrbootcamp_cols("magenta")) +
-  labs(title = "High, negative corr.",
+  labs(title = "High, positive corr.",
        subtitle = paste0("r = ", round(pos_high_r, 2)), x = "x", y = "y")
 
 neg_low_gg <- ggplot(dat, aes(x = x, y = neg_low)) +
@@ -551,7 +551,7 @@ Conduct a <high>t-test</high> when you have one nominal independent variable wit
 
 $$\LARGE Y=\beta_{0}+\beta_{1}x$$
 
-$$\beta_{0} = Mean\;of\;group\;A, \beta_{1} = Differen\;between \;groups$$
+$$\beta_{0} = Mean\;of\;group\;A, \beta_{1} = Difference\;between \;groups$$
 
 
 <table style="cellspacing:0; cellpadding:0; border:none; padding-top:25px" width=100%>
@@ -1408,13 +1408,13 @@ R has a several functions that allow you to draw <high>random samples</high> dat
 
 ```{r, echo = TRUE}
 # Pr(z ≤ 2)
-pnorm(2, mean = 0, sd = 1)
+pnorm(q = 2, mean = 0, sd = 1)
 
-# z for p(z ≤ x) = 68%
-qnorm(.68, mean = 0, sd = 1)
+# z for p(z ≤ x) = 95%
+qnorm(p = .95, mean = 0, sd = 1)
 
 # simulate z
-rnorm(23, mean = 0, sd = 1)
+rnorm(n = 23, mean = 0, sd = 1)
 
 ```
 
@@ -1532,13 +1532,13 @@ R has a several functions that allow you to draw <high>random samples</high> dat
 
 ```{r, echo = TRUE}
 # Pr(t ≤ 2)
-pt(2, df = 99)
+pt(q = 2, df = 99)
 
-# z for p(z ≤ x) = 68%
-qt(.68, df = 99)
+# t for p(t ≤ x) = 95%
+qt(p = .95, df = 99)
 
-# simulate z
-rt(23, df = 99)
+# simulate t
+rt(n = 20, df = 99)
 
 ```
 
