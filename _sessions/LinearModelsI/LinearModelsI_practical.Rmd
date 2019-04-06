@@ -644,7 +644,7 @@ tidy(my_glm)
 ```
 
 
-##### Including interactinos with *
+##### Including interactions with *
 
 
 3. Using the guides below, create a regression object `my_glm` predicting Salary based the *interaction* between `AtBat` and `Hits`
