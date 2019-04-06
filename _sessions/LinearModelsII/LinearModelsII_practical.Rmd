@@ -666,11 +666,11 @@ trial <- trial %>%
 ```{r, eval= FALSE, echo = TRUE}
 # Calculate percentage of Male in each treatment arm
 
-arm_gender <- trial %>%
+molecule_gender <- trial %>%
   group_by(molecule) %>%
   summarise(male_p = mean(gender == "Male"))
 
-ggplot(data = arm_gender, mapping = aes(x = molecule, y = male_p)) + 
+ggplot(data = molecule_gender, mapping = aes(x = molecule, y = male_p)) + 
   geom_bar(stat = "identity") +
   ylim(c(0, 1)) +
   labs(title = "ACTG175 AIDS trial",
@@ -679,84 +679,84 @@ ggplot(data = arm_gender, mapping = aes(x = molecule, y = male_p)) +
        y = "Percent Male (gender)")
 ```
 
-2. Using the `chisq.test()` function, create an object called `gender_arm_test` which conducts a chi-square test comparing the frequencies of each gender (`gender`) for each level of molecule (`molecule`).
+2. Using the `chisq.test()` function, create an object called `gender_molecule_test` which conducts a chi-square test comparing the frequencies of each gender (`gender`) for each level of molecule (`molecule`).
 
 - Note: The `chisq.test()` function (unfortunately) does not support formulas, so we have to enter the data in as two separate (factor) vectors:
 
 ```{r, eval = FALSE, echo = TRUE}
-# Chi-square test comparing the frequencies of each gender for each treatment arm
+# Chi-square test comparing the frequencies of each gender for each molecule
 
 XXX <- chisq.test(x = factor(trial$XXX),
                   y = factor(trial$XXX))
 ```
 
 ```{r}
-# Chi-square test comparing the frequencies of each gender for each treatment arm
+# Chi-square test comparing the frequencies of each gender for each molecule
 
-gender_arm_test <- chisq.test(x = factor(trial$gender),
+gender_molecule_test <- chisq.test(x = factor(trial$gender),
                               y = factor(trial$molecule))
 ```
 
-3. Print the `gender_arm_test` object to see summary outputs.
+3. Print the `gender_molecule_test` object to see summary outputs.
 
 ```{r}
-gender_arm_test
+gender_molecule_test
 ```
 
-4. Apply the `names()` function to your `gender_arm_test` object to see all of its named elements
+4. Apply the `names()` function to your `gender_molecule_test` object to see all of its named elements
 
 ```{r, eval = FALSE, echo = TRUE}
-# See all named elements of gender_arm_test
+# See all named elements of gender_molecule_test
 names(XXX)
 ```
 
 ```{r, eval = FALSE, echo = TRUE}
-# See all named elements of gender_arm_test
-names(gender_arm_test)
+# See all named elements of gender_molecule_test
+names(gender_molecule_test)
 ```
 
-5. Using the `XXX$XXX` notation, print the *observed* frequencies in your `gender_arm_test` object. What do these values mean?
+5. Using the `XXX$XXX` notation, print the *observed* frequencies in your `gender_molecule_test` object. What do these values mean?
 
 ```{r, eval = FALSE, echo = TRUE}
-# Print observed frequencies in the gender_arm_test object
+# Print observed frequencies in the gender_molecule_test object
 XXX$XXX
 ```
 
 ```{r}
-# Print observed frequencies in the gender_arm_test object
+# Print observed frequencies in the gender_molecule_test object
 gender_arm_test$observed
 ```
 
-6. Using the `XXX$XXX` notation, print the *expected* frequencies in your `gender_arm_test` object. What do these values mean?
+6. Using the `XXX$XXX` notation, print the *expected* frequencies in your `gender_molecule_test` object. What do these values mean?
 
 ```{r, eval = FALSE, echo = TRUE}
-# Print expected frequencies in the gender_arm_test object
+# Print expected frequencies in the gender_molecule_test object
 XXX$XXX
 ```
 
 ```{r}
-# Print expected frequencies in the gender_arm_test object
+# Print expected frequencies in the gender_molecule_test object
 gender_arm_test$expected
 ```
 
-7. Using the `tidy()` function (from the `broom` package), create a 'tidy' version of your `gender_arm_test` object called `gender_arm_tidy`
+7. Using the `tidy()` function (from the `broom` package), create a 'tidy' version of your `gender_molecule_test` object called `gender_molecule_tidy`
 
 ```{r, eval = FALSE, echo = TRUE}
-# Create a 'tidy' version of my gender_arm_test called gender_arm_tidy
+# Create a 'tidy' version of my gender_molecule_test called gender_molecule_tidy
 
-gender_arm_tidy <- tidy(xxx)
+gender_molecule_tidy <- tidy(xxx)
 ```
 
 ```{r}
 # Create a 'tidy' version of my gender_arm_test object
 
-gender_arm_tidy <- tidy(gender_arm_test)
+gender_molecule_tidy <- tidy(gender_molecule_test)
 ```
 
-9. Now, print your `gender_arm_tidy` object, how do the results look?
+9. Now, print your `gender_molecule_tidy` object, how do the results look?
 
 ```{r}
-gender_arm_tidy
+gender_molecule_tidy
 ```
 
 ##### Chi-square as Linear Model
@@ -993,32 +993,18 @@ The data were originally obtained from the `speff2trial` package.
 | Name | Description |
 |:-------------|:-------------------------------------|
 | patient_id | patient's ID number |
+|molecule| treatment arm (0=zidovudine, 1=zidovudine and didanosine, 2=zidovudine and zalcitabine, 3=didanosine).|
+|days| number of days until the first occurrence of: (i) a decline in CD4 T cell count of at least 50 (ii) an event indicating progression to AIDS, or (iii) death.|
 | age | age in years at baseline|
 |weight_kg| weight in kg at baseline|
-|hemo| hemophilia (0=no, 1=yes)|
-|homo| homosexual activity (0=no, 1=yes)|
 |drug_history| history of intravenous drug use (0=no, 1=yes)|
-|karnof| Karnofsky score (on a scale of 0-100)|
-|oprior| non-zidovudine antiretroviral therapy prior to initiation of study treatment (0=no, 1=yes)|
-|z30| zidovudine use in the 30 days prior to treatment initiation (0=no, 1=yes)|
-|zprior| zidovudine use prior to treatment initiation (0=no, 1=yes)|
-|preanti| number of days of previously received antiretroviral therapy|
 |race| race (0=white, 1=non-white)|
 |gender| gender (0=female, 1=male)|
-|str2| antiretroviral history (0=naive, 1=experienced)|
-|strat| antiretroviral history stratification (1=’antiretroviral naive’, 2=’> 1 but ≤ 52 weeks of prior antiretroviral therapy’, 3=’> 52 weeks’)|
-|symptom| symptomatic indicator (0=asymptomatic, 1=symptomatic)|
-|treat| treatment indicator (0=zidovudine only, 1=other therapies)|
-|offtrt| indicator of off-treatment before 96±5 weeks (0=no,1=yes)|
+|symptomatic| symptomatic indicator (0=asymptomatic, 1=symptomatic)|
 |cd4_baseline| CD4 T cell count at baseline|
-|cd420| CD4 T cell count at 20±5 weeks|
 |cd4_96_weeks| CD4 T cell count at 96±5 weeks (=NA if missing)|
-|r| missing CD4 T cell count at 96±5 weeks (0=missing, 1=observed)|
 |cd8_baseline| CD8 T cell count at baseline|
 |cd8_20_weeks| CD8 T cell count at 20±5 weeks|
-|cens| indicator of observing the event in days|
-|days| number of days until the first occurrence of: (i) a decline in CD4 T cell count of at least 50 (ii) an event indicating progression to AIDS, or (iii) death.|
-|molecule| treatment arm (0=zidovudine, 1=zidovudine and didanosine, 2=zidovudine and zalcitabine, 3=didanosine).|
 
 ## Functions
 
