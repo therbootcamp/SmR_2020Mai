@@ -252,7 +252,7 @@ hist(avocado_cali$XX)
 hist(avocado_cali$volume)
 ```
 
-8. To deal with this problem one could engage in variable transformations, better would be to model the data using an appropriate probability distribution, which counts typically is a Poisson distribution. Fortunately, we don't have to do either. There is another variable called `volume_index` that is much better behaved. Verify this by also creating a histogram of this variable. 
+8. To deal with this problem one could engage in variable transformations, but it would be better to model the data using an appropriate probability distribution. In the case of counts this typically is a Poisson distribution. Fortunately, we don't have to do either. There is another variable called `volume_index` that is much better behaved. Verify this by also creating a histogram of this variable. 
 
 ```{r, echo = TRUE, eval = FALSE}
 # histogram of volume_index
