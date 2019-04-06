@@ -315,7 +315,7 @@ hist(avocado_cali$XX)</code></pre>
 skewness(avocado_cali$XX)
 skewness(avocado_cali$YY)</code></pre>
 <ol start="10" style="list-style-type: decimal">
-<li>Now that you confirmed that <code>volume_index</code> is probably the better variable to model, run a regression of <code>volume_indes</code> on <code>price_per_avocado</code> and <code>type</code> and call the model <code>m3</code>.</li>
+<li>Now that you confirmed that <code>volume_index</code> is probably the better variable to model, run a regression predicting <code>volume_index</code> with <code>price_per_avocado</code> and <code>type</code> and call the model <code>m3</code>.</li>
 </ol>
 <pre class="r"><code># regress volume_index on average price and type
 m3 &lt;- lm(YY ~ XX1 + XX2, data = ZZ)</code></pre>

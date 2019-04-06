@@ -278,7 +278,7 @@ skewness(avocado_cali$volume)
 skewness(avocado_cali$volume_index)
 ```
 
-10. Now that you confirmed that `volume_index` is probably the better variable to model, run a regression of `volume_indes` on `price_per_avocado` and `type` and call the model `m3`.  
+10. Now that you confirmed that `volume_index` is probably the better variable to model, run a regression predicting `volume_index` with `price_per_avocado` and `type` and call the model `m3`.  
 
 ```{r, echo = TRUE, eval = FALSE}
 # regress volume_index on average price and type
