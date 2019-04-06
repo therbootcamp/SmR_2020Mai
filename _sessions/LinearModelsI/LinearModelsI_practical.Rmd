@@ -144,7 +144,8 @@ In this section, we will answer the question: "Is there a relationship between t
 ggplot(hitters, aes(x = Hits, y = Salary)) +
   geom_point(col = "skyblue") +
   labs(title = "Baseball player Hits vs Salary",
-       subtitle = "My first plot in the 'Statistics with R' bootcmp!")
+       subtitle = "My first plot in the 'Statistics with R' bootcamp!",
+       caption = "I love R!!!!")
 ```
 
 2. Using the guide below, conduct a regression analysis predicting a player's `Salary` as a function of his `Hits` value. Save the result to an object called `hits_glm`.
@@ -275,7 +276,8 @@ ggplot(data = data, aes(x = truth, y = fitted)) +
   geom_point() +
   geom_abline(slope = 1, intercept = 0) +
   labs(title = "Relationship between model fits and true Salaries",
-       subtitle = "Formula = Salary ~ Hits") +
+       subtitle = "Formula = Salary ~ Hits"m,
+       caption = "I still love R!!!") +
   geom_segment(aes(x = truth, y = truth, xend = truth, yend = fitted), 
                col = "red") +
   xlim(c(-300, 3000)) +
@@ -301,8 +303,11 @@ In this section, we will answer the question: "Is there a relationship between t
 
 ```{r, echo = TRUE, eval = FALSE}
 ggplot(hitters, aes(x = HmRun, y = Salary)) +
-  geom_point() +
-  theme_minimal()
+  geom_point(col = "tomato2") +
+  labs(x = "Home Runs",
+       y = "Salary",
+       title = "Predicting Salary from Home Runs",
+       caption = "Did you know that SPSS stands for 'Shitty Piece of Shitty Shit'?")
 ```
 
 2. Conduct a regression analysis predicting a diamond's `Salary` as a function of its `HmRun` value. Save the result to an object called `HmRun_glm`.
@@ -424,8 +429,11 @@ data <- tibble(truth = hitters$Salary,
 ggplot(data = data, aes(x = truth, y = fitted)) +  
   geom_point() +
   geom_abline(slope = 1, intercept = 0) +
-  labs(title = "Relationship between model fits and true Salaries",
-       subtitle = "Formula = Salary ~ HmRun") +
+  labs(title = "Relationship between model fits and true salaries",
+       subtitle = "Formula = Salary ~ HmRun",
+       x = "True Salaries",
+       y = "Model Predicted Salaries",
+       caption = "Have I mentioned how great R is??") +
   geom_segment(aes(x = truth, y = truth, xend = truth, yend = fitted), 
                col = "red") +
   xlim(c(-300, 3000)) +
@@ -533,7 +541,9 @@ ggplot(data = data, aes(x = truth, y = fitted)) +
   geom_point() +
   geom_abline(slope = 1, intercept = 0) +
   labs(title = "Relationship between model fits and true Salaries",
-       subtitle = "Formula = Salary ~ .") +
+       subtitle = "Formula = Salary ~ .",
+       x = "True Salaries",
+       y = "Model Predicted Salaries") +
   geom_segment(aes(x = truth, y = truth, xend = truth, yend = fitted), 
                col = "red") +
   xlim(c(-300, 3000)) +
@@ -574,7 +584,8 @@ data <- tibble(resid = all_resid)
 ggplot(data, aes(x = resid)) + 
   geom_histogram(col = "white") +
   geom_vline(xintercept = 0, col = "red") +
-  labs(title = "Residuals of Salary GLM")
+  labs(title = "Residuals of salary regression model",
+       x = "Model residual (Predicted - Truth)")
 ```
 
 4. Using the `abs()` function, create a new vector called `all_abs_resid` which contains the *absolute* residuals. Use the following guide
@@ -606,7 +617,8 @@ data <- tibble(abs_resid = all_abs_resid)
 ggplot(data, aes(x = abs_resid)) + 
   geom_histogram(col = "white") +
   geom_vline(xintercept = 0, col = "red") +
-  labs(title = "Absolute Residuals of Salary GLM")
+  labs(title = "Absolute Residuals of Salary GLM",
+       x = "Absolute Model Residuals (smaller is better)")
 ```
 
 ### E - Adjusting your model with formulas
