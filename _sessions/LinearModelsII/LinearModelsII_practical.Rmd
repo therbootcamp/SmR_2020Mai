@@ -68,12 +68,11 @@ In this practical you'll practice specific hypothesis testing extensions of the 
 By the end of this practical you will know how to:
 
 1. Conduct a t-test (one sample, two sample, and paired)
-2. Conduct a correlation test
-3. Conduct an ANVOA
-4. Conduct a chi-square test
+2. Conduct a correlation test and compare to glm
+3. Conduct an ANOVA and compare to glm
+4. Select and run the appopriate test for the appropriate research question.
 
 ## Tasks
-
 
 ### A - Setup
 
