@@ -499,7 +499,7 @@ data %>%
 
 ---
 
-# R-Squared
+# R-Squared (R2)
 
 .pull-left45[
 
@@ -560,7 +560,7 @@ $$\huge R^{2} = 1 - \frac{SS_{res}}{SS_{tot}}$$
 
 ---
 
-# R-Squared
+# R-Squared (R2)
 
 .pull-left45[
 
@@ -612,7 +612,9 @@ $$\huge R^{2} = 1 - \frac{SS_{res}}{SS_{tot}}$$
 
 .pull-right5[
 
-```{r, fig.width = 5, fig.height = 3.5, out.width = "100%"}
+### 2 Models with different R2 values
+
+```{r, fig.width = 5, fig.height = 3, out.width = "100%"}
 set.seed(100)
 data <- data %>%
   mutate(height = income * 8 + rnorm(5, mean = 0, sd = 40))
