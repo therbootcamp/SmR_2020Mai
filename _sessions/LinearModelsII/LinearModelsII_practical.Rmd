@@ -601,11 +601,11 @@ ggplot(data = tibble(days_glm_resid), aes(x = days_glm_resid)) +
        y = 'Frequency')
 ```
 
-5. Using the code below, calculate the mean absolute residuals from the model. What do these mean?
+5. Using the code below, calculate the mean residuals from the model. What do these mean?
 
 ```{r, eval = FALSE, echo = TRUE}
-# Calculate the mean absolute residuals of the model
-mean(abs(resid(XXX)))
+# Calculate the mean residuals of the model
+mean(resid(XXX))
 ```
 
 6. Using the code below, visualise the *absolute* residuals from the model. What does this mean?
