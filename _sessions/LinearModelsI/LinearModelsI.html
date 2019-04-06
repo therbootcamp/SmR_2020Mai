@@ -227,10 +227,10 @@ A linear model is &lt;high&gt;just addition and multiplication&lt;/high&gt; and 
     &amp;#x3B2;&lt;sub&gt;1&lt;/sub&gt;, &amp;#x3B2;&lt;sub&gt;2&lt;/sub&gt;, ...
   &lt;/td&gt;
   &lt;td bgcolor="white"&gt;
-    Coefficient for &amp;#x3B2;&lt;sub&gt;1&lt;/sub&gt;, &amp;#x3B2;&lt;sub&gt;2&lt;/sub&gt;, ...
+    Coefficient for x&lt;sub&gt;1&lt;/sub&gt;, x&lt;sub&gt;2&lt;/sub&gt;, ...
   &lt;/td&gt; 
   &lt;td bgcolor="white"&gt;
-     For every increase of 1 in Coefficient for &amp;#x3B2;&lt;sub&gt;1&lt;/sub&gt;, &amp;#x3B2;&lt;sub&gt;2&lt;/sub&gt;, ... how does y change?
+     For every increase of 1 in coefficient for x&lt;sub&gt;1&lt;/sub&gt;, x&lt;sub&gt;2&lt;/sub&gt;, ... how does y change?
   &lt;/td&gt; 
 &lt;/tr&gt;
 &lt;/table&gt;
@@ -348,7 +348,7 @@ MSE:  The average squared distance between the prediction and the data.
 
 ---
 
-# R-Squared (R2)
+# R&lt;sup&gt;2&lt;/sup&gt; (R-Squared)
 
 .pull-left45[
 
@@ -409,7 +409,7 @@ R-Squared `\(R^{2}\)` is the most common method of calculating the &lt;high&gt;o
 
 ---
 
-# R-Squared (R2)
+# R&lt;sup&gt;2&lt;/sup&gt; (R-Squared)
 
 .pull-left45[
 
@@ -989,12 +989,23 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   d.head.appendChild(s);
 })();</script>
 
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
   }
-});
+})();
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
