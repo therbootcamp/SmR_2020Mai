@@ -473,35 +473,75 @@ class: middle, center
 
 ---
 
-.pull-left35[
-
 # Key Functions
 
-### Fitting
+.pull-left35[
 
-|Function|Description|
-|:------|:--------|
-|`glm(formula, data)`|Fit a linear model to data and calculate best coefficients|
+&lt;font style="font-size:20px"&gt;&lt;u&gt;Fitting&lt;/u&gt;&lt;/p&gt;
 
-### Evaluation
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
+  &lt;col width="40%"&gt;
+  &lt;col width="60%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Function&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Description&lt;/b&gt;
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;glm(formula, data)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Fit a linear model to data and calculate best coefficients
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;/table&gt;
 
-|Function|Description|
-|:------|:--------|
-|`coef(mod)`|Get coefficients from a model|
-|`fitted(mod)`|Get fitted results|
-|`resid(mod)`|Get residuals (errors)|
+&lt;font style="font-size:20px"&gt;&lt;u&gt;Evaluation&lt;/u&gt;&lt;/p&gt;
 
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
+  &lt;col width="40%"&gt;
+  &lt;col width="60%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Function&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Description&lt;/b&gt;
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+   &lt;mono&gt;coef(mod)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Get coefficients from a model
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+   &lt;mono&gt;fitted(mod)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Get fitted results.
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+   &lt;mono&gt;resid(mod)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Get residuals (errors)
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;/table&gt;
 
 ]
 
 .pull-right6[
-
-`baselers`
-
-| id| income| age| children|
-|--:|------:|---:|--------:|
-|  1|   6300|  44|        2|
-|  2|  10900|  65|        2|
 
 
 ```r
@@ -514,40 +554,89 @@ income_glm &lt;- glm(formula = income ~ age + children,
                   data = baselers)
 ```
 
-]
-
-
----
-
-.pull-left35[
-
-# Key Functions
-
-### Fitting
-
-|Function|Description|
-|:------|:--------|
-|`glm(formula, data)`|Fit a linear model to data and calculate best coefficients|
-
-### Evaluation
-
-|Function|Description|
-|:------|:--------|
-|`coef(mod)`|Get coefficients from a model|
-|`fitted(mod)`|Get fitted results|
-|`resid(mod)`|Get residuals (errors)|
-
-
-]
-
-.pull-right6[
-
-`baselers`
+&lt;br&gt;
 
 | id| income| age| children|
 |--:|------:|---:|--------:|
 |  1|   6300|  44|        2|
 |  2|  10900|  65|        2|
+
+]
+
+
+---
+
+# Key Functions
+
+.pull-left35[
+
+
+&lt;font style="font-size:20px"&gt;&lt;u&gt;Fitting&lt;/u&gt;&lt;/p&gt;
+
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
+  &lt;col width="40%"&gt;
+  &lt;col width="60%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Function&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Description&lt;/b&gt;
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;glm(formula, data)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Fit a linear model to data and calculate best coefficients
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;/table&gt;
+
+&lt;font style="font-size:20px"&gt;&lt;u&gt;Evaluation&lt;/u&gt;&lt;/p&gt;
+
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
+  &lt;col width="40%"&gt;
+  &lt;col width="60%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Function&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Description&lt;/b&gt;
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+   &lt;mono&gt;coef(mod)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Get coefficients from a model
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+   &lt;mono&gt;fitted(mod)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Get fitted results.
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+   &lt;mono&gt;resid(mod)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Get residuals (errors)
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;/table&gt;
+
+]
+
+.pull-right6[
+
 
 
 ```r
@@ -575,24 +664,71 @@ income_glm
 
 ---
 
-.pull-left35[
-
 # Key Functions
 
-### Fitting
+.pull-left35[
 
-|Function|Description|
-|:------|:--------|
-|`glm(formula, data)`|Fit a linear model to data and calculate best coefficients|
+&lt;font style="font-size:20px"&gt;&lt;u&gt;Fitting&lt;/u&gt;&lt;/p&gt;
 
-### Evaluation
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
+  &lt;col width="40%"&gt;
+  &lt;col width="60%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Function&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Description&lt;/b&gt;
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;glm(formula, data)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Fit a linear model to data and calculate best coefficients
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;/table&gt;
 
-|Function|Description|
-|:------|:--------|
-|`coef(mod)`|Get coefficients from a model|
-|`fitted(mod)`|Get fitted results|
-|`resid(mod)`|Get residuals (errors)|
+&lt;font style="font-size:20px"&gt;&lt;u&gt;Evaluation&lt;/u&gt;&lt;/p&gt;
 
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
+  &lt;col width="40%"&gt;
+  &lt;col width="60%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Function&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Description&lt;/b&gt;
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+   &lt;mono&gt;coef(mod)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Get coefficients from a model
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+   &lt;mono&gt;fitted(mod)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Get fitted results.
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+   &lt;mono&gt;resid(mod)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Get residuals (errors)
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;/table&gt;
 
 ]
 
@@ -601,9 +737,10 @@ income_glm
 
 ```r
 # Show summary info
-
 summary(income_glm)
 ```
+
+
 
 ```
 ## 
@@ -623,13 +760,6 @@ summary(income_glm)
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for gaussian family taken to be 1513138)
-## 
-##     Null deviance: 6.3307e+10  on 8509  degrees of freedom
-## Residual deviance: 1.2872e+10  on 8507  degrees of freedom
-##   (1490 observations deleted due to missingness)
-## AIC: 145250
-## 
-## Number of Fisher Scoring iterations: 2
 ```
 
 ]
@@ -637,53 +767,92 @@ summary(income_glm)
 
 ---
 
-.pull-left35[
-
 # Key Functions
 
-### Fitting
+.pull-left35[
 
-|Function|Description|
-|:------|:--------|
-|`glm(formula, data)`|Fit a linear model to data and calculate best coefficients|
+&lt;font style="font-size:20px"&gt;&lt;u&gt;Fitting&lt;/u&gt;&lt;/p&gt;
 
-### Evaluation
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
+  &lt;col width="40%"&gt;
+  &lt;col width="60%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Function&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Description&lt;/b&gt;
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;glm(formula, data)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Fit a linear model to data and calculate best coefficients
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;/table&gt;
 
-|Function|Description|
-|:------|:--------|
-|`coef(mod)`|Get coefficients from a model|
-|`fitted(mod)`|Get fitted results|
-|`resid(mod)`|Get residuals (errors)|
+&lt;font style="font-size:20px"&gt;&lt;u&gt;Evaluation&lt;/u&gt;&lt;/p&gt;
+
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
+  &lt;col width="40%"&gt;
+  &lt;col width="60%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Function&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Description&lt;/b&gt;
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+   &lt;mono&gt;coef(mod)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Get coefficients from a model
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+   &lt;mono&gt;fitted(mod)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Get fitted results.
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+   &lt;mono&gt;resid(mod)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Get residuals (errors)
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;/table&gt;
 
 
 ]
 
 .pull-right6[
 
-`baselers`
-
-| id| income| age| children|&lt;high&gt;fitted&lt;/high&gt;|&lt;high&gt;resid&lt;/high&gt;|
-|--:|------:|---:|:--------|:----|:-----|
-|  1|   6300|  44|        2|7454|-1153.6|
-|  2|  10900|  65|        2|10588|312.2|
 
 
 
 ```r
 # Get fitted values (only first 5)
+fitted(income_glm)
 
-fitted(income_glm)[1:5]
+# Get residuals (only first 10)
+resid(income_glm)
 ```
+
 
 ```
 ##     1     2     3     4     5 
 ##  7454 10588  5513  4916  4461
-```
-
-```r
-# Get residuals (only first 10)
-
-resid(income_glm)[1:5]
 ```
 
 ```
@@ -691,29 +860,76 @@ resid(income_glm)[1:5]
 ## -1153.6   312.2  -413.4  -716.4  -460.9
 ```
 
+&lt;br&gt;
+
+| id| income| age| children|&lt;high&gt;fitted&lt;/high&gt;|&lt;high&gt;resid&lt;/high&gt;|
+|--:|------:|---:|:--------|:----|:-----|
+|  1|   6300|  44|        2|7454|-1153.6|
+|  2|  10900|  65|        2|10588|312.2|
+
 ]
 
 
 
 ---
 
-.pull-left35[
-
 # Key Functions
 
-### Fitting
+.pull-left35[
 
-|Function|Description|
-|:------|:--------|
-|`glm(formula, data)`|Fit a linear model to data and calculate best coefficients|
+&lt;font style="font-size:20px"&gt;&lt;u&gt;Fitting&lt;/u&gt;&lt;/p&gt;
 
-### Extras
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
+  &lt;col width="40%"&gt;
+  &lt;col width="60%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Function&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Description&lt;/b&gt;
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;mono&gt;glm(formula, data)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Fit a linear model to data and calculate best coefficients
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;/table&gt;
 
-|Function|Package|Description|
-|:------|:--------|:------|
-|`rsq(mod)`|`rsq`|Print R2 value from a model|
-|`tidy(mod)`|`broom`| Get 'tidy' results from a model|
+&lt;font style="font-size:20px"&gt;&lt;u&gt;Evaluation&lt;/u&gt;&lt;/p&gt;
 
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
+  &lt;col width="40%"&gt;
+  &lt;col width="60%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Function&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Description&lt;/b&gt;
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+   &lt;mono&gt;rsq(mod)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Get R&lt;sup&gt;2&lt;/sup&gt; value from model.
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+   &lt;mono&gt;tidy(mod)&lt;/mono&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Get tidy results from a model.
+  &lt;/td&gt; 
+&lt;/tr&gt;
+&lt;/table&gt;
 
 ]
 

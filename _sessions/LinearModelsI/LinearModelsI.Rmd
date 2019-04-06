@@ -71,7 +71,6 @@ options(digits = 4)
 # Load packages
 require(tidyverse)
 
-
 print2 <- function(x, nlines=10,...) {
    cat(head(capture.output(print(x,...)), nlines), sep="\n")}
 
@@ -662,35 +661,75 @@ class: middle, center
 
 ---
 
-.pull-left35[
-
 # Key Functions
 
-### Fitting
+.pull-left35[
 
-|Function|Description|
-|:------|:--------|
-|`glm(formula, data)`|Fit a linear model to data and calculate best coefficients|
+<font style="font-size:20px"><u>Fitting</u></p>
 
-### Evaluation
+<table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%>
+  <col width="40%">
+  <col width="60%">
+<tr>
+  <td bgcolor="white">
+    <b>Function</b>
+  </td>
+  <td bgcolor="white">
+    <b>Description</b>
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+    <mono>glm(formula, data)</mono>
+  </td>
+  <td bgcolor="white">
+    Fit a linear model to data and calculate best coefficients
+  </td> 
+</tr>
+</table>
 
-|Function|Description|
-|:------|:--------|
-|`coef(mod)`|Get coefficients from a model|
-|`fitted(mod)`|Get fitted results|
-|`resid(mod)`|Get residuals (errors)|
+<font style="font-size:20px"><u>Evaluation</u></p>
 
+<table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%>
+  <col width="40%">
+  <col width="60%">
+<tr>
+  <td bgcolor="white">
+    <b>Function</b>
+  </td>
+  <td bgcolor="white">
+    <b>Description</b>
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+   <mono>coef(mod)</mono>
+  </td>
+  <td bgcolor="white">
+    Get coefficients from a model
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+   <mono>fitted(mod)</mono>
+  </td>
+  <td bgcolor="white">
+    Get fitted results.
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+   <mono>resid(mod)</mono>
+  </td>
+  <td bgcolor="white">
+    Get residuals (errors)
+  </td> 
+</tr>
+</table>
 
 ]
 
 .pull-right6[
-
-`baselers`
-
-| id| income| age| children|
-|--:|------:|---:|--------:|
-|  1|   6300|  44|        2|
-|  2|  10900|  65|        2|
 
 ```{r, echo = TRUE}
 # Create a model income_glm
@@ -702,40 +741,89 @@ income_glm <- glm(formula = income ~ age + children,
                   data = baselers)
 ```
 
-]
-
-
----
-
-.pull-left35[
-
-# Key Functions
-
-### Fitting
-
-|Function|Description|
-|:------|:--------|
-|`glm(formula, data)`|Fit a linear model to data and calculate best coefficients|
-
-### Evaluation
-
-|Function|Description|
-|:------|:--------|
-|`coef(mod)`|Get coefficients from a model|
-|`fitted(mod)`|Get fitted results|
-|`resid(mod)`|Get residuals (errors)|
-
-
-]
-
-.pull-right6[
-
-`baselers`
+<br>
 
 | id| income| age| children|
 |--:|------:|---:|--------:|
 |  1|   6300|  44|        2|
 |  2|  10900|  65|        2|
+
+]
+
+
+---
+
+# Key Functions
+
+.pull-left35[
+
+
+<font style="font-size:20px"><u>Fitting</u></p>
+
+<table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%>
+  <col width="40%">
+  <col width="60%">
+<tr>
+  <td bgcolor="white">
+    <b>Function</b>
+  </td>
+  <td bgcolor="white">
+    <b>Description</b>
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+    <mono>glm(formula, data)</mono>
+  </td>
+  <td bgcolor="white">
+    Fit a linear model to data and calculate best coefficients
+  </td> 
+</tr>
+</table>
+
+<font style="font-size:20px"><u>Evaluation</u></p>
+
+<table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%>
+  <col width="40%">
+  <col width="60%">
+<tr>
+  <td bgcolor="white">
+    <b>Function</b>
+  </td>
+  <td bgcolor="white">
+    <b>Description</b>
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+   <mono>coef(mod)</mono>
+  </td>
+  <td bgcolor="white">
+    Get coefficients from a model
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+   <mono>fitted(mod)</mono>
+  </td>
+  <td bgcolor="white">
+    Get fitted results.
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+   <mono>resid(mod)</mono>
+  </td>
+  <td bgcolor="white">
+    Get residuals (errors)
+  </td> 
+</tr>
+</table>
+
+]
+
+.pull-right6[
+
 
 ```{r, echo = TRUE}
 # Print income_glm
@@ -748,33 +836,85 @@ income_glm
 
 ---
 
-.pull-left35[
-
 # Key Functions
 
-### Fitting
+.pull-left35[
 
-|Function|Description|
-|:------|:--------|
-|`glm(formula, data)`|Fit a linear model to data and calculate best coefficients|
+<font style="font-size:20px"><u>Fitting</u></p>
 
-### Evaluation
+<table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%>
+  <col width="40%">
+  <col width="60%">
+<tr>
+  <td bgcolor="white">
+    <b>Function</b>
+  </td>
+  <td bgcolor="white">
+    <b>Description</b>
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+    <mono>glm(formula, data)</mono>
+  </td>
+  <td bgcolor="white">
+    Fit a linear model to data and calculate best coefficients
+  </td> 
+</tr>
+</table>
 
-|Function|Description|
-|:------|:--------|
-|`coef(mod)`|Get coefficients from a model|
-|`fitted(mod)`|Get fitted results|
-|`resid(mod)`|Get residuals (errors)|
+<font style="font-size:20px"><u>Evaluation</u></p>
 
+<table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%>
+  <col width="40%">
+  <col width="60%">
+<tr>
+  <td bgcolor="white">
+    <b>Function</b>
+  </td>
+  <td bgcolor="white">
+    <b>Description</b>
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+   <mono>coef(mod)</mono>
+  </td>
+  <td bgcolor="white">
+    Get coefficients from a model
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+   <mono>fitted(mod)</mono>
+  </td>
+  <td bgcolor="white">
+    Get fitted results.
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+   <mono>resid(mod)</mono>
+  </td>
+  <td bgcolor="white">
+    Get residuals (errors)
+  </td> 
+</tr>
+</table>
 
 ]
 
 .pull-right6[
 
-```{r, echo = TRUE}
+```{r, echo = TRUE, eval = F}
 # Show summary info
-
 summary(income_glm)
+```
+
+
+```{r, echo = FALSE}
+# Show summary info
+print2(summary(income_glm),17)
 ```
 
 ]
@@ -782,70 +922,165 @@ summary(income_glm)
 
 ---
 
-.pull-left35[
-
 # Key Functions
 
-### Fitting
+.pull-left35[
 
-|Function|Description|
-|:------|:--------|
-|`glm(formula, data)`|Fit a linear model to data and calculate best coefficients|
+<font style="font-size:20px"><u>Fitting</u></p>
 
-### Evaluation
+<table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%>
+  <col width="40%">
+  <col width="60%">
+<tr>
+  <td bgcolor="white">
+    <b>Function</b>
+  </td>
+  <td bgcolor="white">
+    <b>Description</b>
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+    <mono>glm(formula, data)</mono>
+  </td>
+  <td bgcolor="white">
+    Fit a linear model to data and calculate best coefficients
+  </td> 
+</tr>
+</table>
 
-|Function|Description|
-|:------|:--------|
-|`coef(mod)`|Get coefficients from a model|
-|`fitted(mod)`|Get fitted results|
-|`resid(mod)`|Get residuals (errors)|
+<font style="font-size:20px"><u>Evaluation</u></p>
+
+<table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%>
+  <col width="40%">
+  <col width="60%">
+<tr>
+  <td bgcolor="white">
+    <b>Function</b>
+  </td>
+  <td bgcolor="white">
+    <b>Description</b>
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+   <mono>coef(mod)</mono>
+  </td>
+  <td bgcolor="white">
+    Get coefficients from a model
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+   <mono>fitted(mod)</mono>
+  </td>
+  <td bgcolor="white">
+    Get fitted results.
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+   <mono>resid(mod)</mono>
+  </td>
+  <td bgcolor="white">
+    Get residuals (errors)
+  </td> 
+</tr>
+</table>
 
 
 ]
 
 .pull-right6[
 
-`baselers`
+
+
+```{r, echo = TRUE, eval = FALSE}
+# Get fitted values (only first 5)
+fitted(income_glm)
+
+# Get residuals (only first 10)
+resid(income_glm)
+```
+
+```{r, eval = TRUE, echo  =FALSE}
+# Get fitted values (only first 5)
+fitted(income_glm)[1:5]
+
+# Get residuals (only first 10)
+resid(income_glm)[1:5]
+```
+
+<br>
 
 | id| income| age| children|<high>fitted</high>|<high>resid</high>|
 |--:|------:|---:|:--------|:----|:-----|
 |  1|   6300|  44|        2|7454|-1153.6|
 |  2|  10900|  65|        2|10588|312.2|
 
-
-```{r, echo = TRUE}
-# Get fitted values (only first 5)
-
-fitted(income_glm)[1:5]
-
-# Get residuals (only first 10)
-
-resid(income_glm)[1:5]
-```
-
 ]
 
 
 
 ---
 
-.pull-left35[
-
 # Key Functions
 
-### Fitting
+.pull-left35[
 
-|Function|Description|
-|:------|:--------|
-|`glm(formula, data)`|Fit a linear model to data and calculate best coefficients|
+<font style="font-size:20px"><u>Fitting</u></p>
 
-### Extras
+<table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%>
+  <col width="40%">
+  <col width="60%">
+<tr>
+  <td bgcolor="white">
+    <b>Function</b>
+  </td>
+  <td bgcolor="white">
+    <b>Description</b>
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+    <mono>glm(formula, data)</mono>
+  </td>
+  <td bgcolor="white">
+    Fit a linear model to data and calculate best coefficients
+  </td> 
+</tr>
+</table>
 
-|Function|Package|Description|
-|:------|:--------|:------|
-|`rsq(mod)`|`rsq`|Print R2 value from a model|
-|`tidy(mod)`|`broom`| Get 'tidy' results from a model|
+<font style="font-size:20px"><u>Evaluation</u></p>
 
+<table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%>
+  <col width="40%">
+  <col width="60%">
+<tr>
+  <td bgcolor="white">
+    <b>Function</b>
+  </td>
+  <td bgcolor="white">
+    <b>Description</b>
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+   <mono>rsq(mod)</mono>
+  </td>
+  <td bgcolor="white">
+    Get R<sup>2</sup> value from model.
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+   <mono>tidy(mod)</mono>
+  </td>
+  <td bgcolor="white">
+    Get tidy results from a model.
+  </td> 
+</tr>
+</table>
 
 ]
 
