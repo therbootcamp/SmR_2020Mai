@@ -69,7 +69,7 @@ options(digits = 4)
 
 .pull-left45[
 <br><br><br><br><br>
-#  Hello Data Scientist!
+#  Hello Statistician!
 
 In 2 days, 8 sessions, and 16 hours you have come a long way.
 
