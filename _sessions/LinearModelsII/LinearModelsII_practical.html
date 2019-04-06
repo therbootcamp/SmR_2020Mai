@@ -70,9 +70,7 @@ h6 {
 
 <link rel="stylesheet" href="practical.css" type="text/css" />
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -103,8 +101,6 @@ summary {
 </style>
 
 
-
-<div class="container-fluid main-container">
 
 <!-- tabsets -->
 
@@ -179,24 +175,32 @@ $(document).ready(function () {
 
 
 
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
 
 <div class="fluid-row" id="header">
 
 
 
 <h1 class="title toc-ignore">Linear Models <i>applications</i></h1>
-<h4 class="author"><em><table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'>
+<h4 class="author"><table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'>
 <col width='10%'>
 <col width='10%'>
 <tr style="border:none">
-<!-- <td style='display:block;width:100%;text-align:left;vertical-align:bottom;padding:0;margin:0;border:none' nowrap> -->
-<font style='font-style:normal'>Statistics with R</font><br> <a href='https://therbootcamp.github.io/SWR_2019Apr/'> <i class='fas fa-clock' style='font-size:.9em;' ></i> </a> <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;'></i> </a> <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a> <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a> <a href='https://therbootcamp.github.io'> <font style='font-style:normal'>Basel R Bootcamp</font> </a>
+<!-- <td style='display:block;width:100%;text-align:left;vertical-align:bottom;padding:0;margin:0;border:none' nowrap> --> <font style='font-style:normal'>Statistics with R</font><br> <a href='https://therbootcamp.github.io/SwR_2019Apr/'> <i class='fas fa-clock' style='font-size:.9em;' ></i> </a> <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;'></i> </a> <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a> <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a> <a href='https://therbootcamp.github.io'> <font style='font-style:normal'>Basel R Bootcamp</font> </a>
 </td>
 <td style="width:100%;vertical-align:bottom;text-align:right;padding:0;margin:0;border:none">
 <img src='https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png' style='height:15px;width:80px'/>
 </td>
 </tr>
-</table></em></h4>
+</table></h4>
 
 </div>
 
@@ -242,96 +246,180 @@ XX &lt;- read_csv(file = &quot;XX/XX&quot;)</code></pre>
 <table>
 <thead>
 <tr class="header">
-<th align="right">patient_id</th>
-<th align="left">molecule</th>
-<th align="right">days</th>
+<th align="right">pidnum</th>
 <th align="right">age</th>
-<th align="right">weight_kg</th>
-<th align="left">drug_history</th>
+<th align="right">wtkg</th>
+<th align="left">hemo</th>
+<th align="left">homo</th>
+<th align="left">drugs</th>
+<th align="right">karnof</th>
+<th align="left">oprior</th>
+<th align="left">z30</th>
+<th align="left">zprior</th>
+<th align="right">preanti</th>
 <th align="left">race</th>
 <th align="left">gender</th>
-<th align="left">symptomatic</th>
-<th align="right">cd4_baseline</th>
-<th align="right">cd4_96_weeks</th>
-<th align="right">cd8_baseline</th>
-<th align="right">cd8_20_weeks</th>
+<th align="left">str2</th>
+<th align="left">strat</th>
+<th align="left">symptom</th>
+<th align="left">treat</th>
+<th align="left">offtrt</th>
+<th align="right">cd40</th>
+<th align="right">cd420</th>
+<th align="right">cd496</th>
+<th align="left">r</th>
+<th align="right">cd80</th>
+<th align="right">cd820</th>
+<th align="right">cens</th>
+<th align="right">days</th>
+<th align="left">arms</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="right">10056</td>
-<td align="left">Zidovudine and Zalcitabine</td>
-<td align="right">948</td>
 <td align="right">48</td>
 <td align="right">89.8</td>
 <td align="left">No</td>
+<td align="left">No</td>
+<td align="left">No</td>
+<td align="right">100</td>
+<td align="left">No</td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+<td align="right">0</td>
 <td align="left">White</td>
 <td align="left">Female</td>
+<td align="left">Naive</td>
+<td align="left">None</td>
 <td align="left">Asymptomatic</td>
+<td align="left">Other</td>
+<td align="left">No</td>
 <td align="right">422</td>
+<td align="right">477</td>
 <td align="right">660</td>
+<td align="left">Observed</td>
 <td align="right">566</td>
 <td align="right">324</td>
+<td align="right">0</td>
+<td align="right">948</td>
+<td align="left">zidovudine and zalcitabine</td>
 </tr>
 <tr class="even">
 <td align="right">10059</td>
-<td align="left">Didanosine</td>
-<td align="right">1002</td>
 <td align="right">61</td>
 <td align="right">49.4</td>
 <td align="left">No</td>
+<td align="left">No</td>
+<td align="left">No</td>
+<td align="right">90</td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+<td align="right">895</td>
 <td align="left">White</td>
 <td align="left">Female</td>
+<td align="left">Experienced</td>
+<td align="left">More than 52 Weeks</td>
 <td align="left">Asymptomatic</td>
+<td align="left">Other</td>
+<td align="left">No</td>
 <td align="right">162</td>
+<td align="right">218</td>
 <td align="right">NA</td>
+<td align="left">Missing</td>
 <td align="right">392</td>
 <td align="right">564</td>
+<td align="right">1</td>
+<td align="right">1002</td>
+<td align="left">didanosine</td>
 </tr>
 <tr class="odd">
 <td align="right">10089</td>
-<td align="left">Didanosine</td>
-<td align="right">961</td>
 <td align="right">45</td>
 <td align="right">88.5</td>
+<td align="left">No</td>
 <td align="left">Yes</td>
+<td align="left">Yes</td>
+<td align="right">90</td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+<td align="right">707</td>
 <td align="left">White</td>
 <td align="left">Male</td>
+<td align="left">Experienced</td>
+<td align="left">More than 52 Weeks</td>
 <td align="left">Asymptomatic</td>
+<td align="left">Other</td>
+<td align="left">Yes</td>
 <td align="right">326</td>
+<td align="right">274</td>
 <td align="right">122</td>
+<td align="left">Observed</td>
 <td align="right">2063</td>
 <td align="right">1893</td>
+<td align="right">0</td>
+<td align="right">961</td>
+<td align="left">didanosine</td>
 </tr>
 <tr class="even">
 <td align="right">10093</td>
-<td align="left">Didanosine</td>
-<td align="right">1166</td>
 <td align="right">47</td>
 <td align="right">85.3</td>
 <td align="left">No</td>
+<td align="left">Yes</td>
+<td align="left">No</td>
+<td align="right">100</td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+<td align="right">1399</td>
 <td align="left">White</td>
 <td align="left">Male</td>
+<td align="left">Experienced</td>
+<td align="left">More than 52 Weeks</td>
 <td align="left">Asymptomatic</td>
+<td align="left">Other</td>
+<td align="left">No</td>
 <td align="right">287</td>
+<td align="right">394</td>
 <td align="right">NA</td>
+<td align="left">Missing</td>
 <td align="right">1590</td>
 <td align="right">966</td>
+<td align="right">0</td>
+<td align="right">1166</td>
+<td align="left">didanosine</td>
 </tr>
 <tr class="odd">
 <td align="right">10124</td>
-<td align="left">Zidovudine</td>
-<td align="right">1090</td>
 <td align="right">43</td>
 <td align="right">66.7</td>
 <td align="left">No</td>
+<td align="left">Yes</td>
+<td align="left">No</td>
+<td align="right">100</td>
+<td align="left">No</td>
+<td align="left">Yes</td>
+<td align="left">Yes</td>
+<td align="right">1352</td>
 <td align="left">White</td>
 <td align="left">Male</td>
+<td align="left">Experienced</td>
+<td align="left">More than 52 Weeks</td>
 <td align="left">Asymptomatic</td>
+<td align="left">Zidovudine only</td>
+<td align="left">No</td>
 <td align="right">504</td>
+<td align="right">353</td>
 <td align="right">660</td>
+<td align="left">Observed</td>
 <td align="right">870</td>
 <td align="right">782</td>
+<td align="right">0</td>
+<td align="right">1090</td>
+<td align="left">zidovudine</td>
 </tr>
 </tbody>
 </table>
@@ -899,10 +987,10 @@ tidy(my_aov)  # Show tidy results
 <p>The data were originally obtained from the <code>speff2trial</code> package.</p>
 <div id="variable-description" class="section level4">
 <h4>Variable description</h4>
-<table>
+<table style="width:75%;">
 <colgroup>
-<col width="26%" />
-<col width="73%" />
+<col width="20%" />
+<col width="54%" />
 </colgroup>
 <thead>
 <tr class="header">
