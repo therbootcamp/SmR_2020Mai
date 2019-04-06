@@ -461,17 +461,22 @@ c(1, 2, 3, NA) %&gt;% mean(na.rm = TRUE)
 
 .pull-right5[
 
+&lt;high&gt;Install new packages&lt;/high&gt; with `install.packages()`
+
 
 ```r
-# load package: Every time
-library(tidyverse)
+# install package: Only do this once!
+install.packages("tidyverse")
+```
+&lt;high&gt;Load existing packages&lt;/high&gt; with `library()`
 
-# load package: Every time
+
+```r
+# load package: EVERY TIME you write code
 library(tidyverse)
 ```
 
-&lt;p align="center"&gt;&lt;img src="image/tidyverse.png" height="300"&gt;&lt;/p&gt;
-
+&lt;p align="center"&gt;&lt;img src="image/tidyverse.png" height="200"&gt;&lt;/p&gt;
 
 ]
 
@@ -603,7 +608,7 @@ print(baselers)
 ```
 ## # A tibble: 10,000 x 20
 ##       id sex     age height weight income
-##    &lt;int&gt; &lt;chr&gt; &lt;int&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+##    &lt;dbl&gt; &lt;chr&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;
 ##  1     1 male     44   174.  113.    6300
 ##  2     2 male     65   180.   75.2  10900
 ##  3     3 fema…    31   168.   55.5   5100
@@ -958,12 +963,13 @@ baselers &lt;- read_delim(file = "baselers.txt",
 2. &lt;mono&gt;&lt;-&lt;/mono&gt; creates/changes objects
 3. Everything happens through functions
 4. Functions have (default) arguments
-5. Find help with &lt;mono&gt;?&lt;/mono&gt;
-6. Data lives in data frames
-7. 3 data types + factors
-8. `formula` and `data` specify a model 
-9. Use RStudio and projects
-10. &lt;high&gt;Use editor, shortcuts, auto-complete&lt;/high&gt;
+5. Functions live in packages
+6. Find help with &lt;mono&gt;?&lt;/mono&gt;
+7. Data lives in data frames
+8. 3 data types + factors&lt;/high&gt;
+9. &lt;mono&gt;formula&lt;/mono&gt; and &lt;mono&gt;data&lt;/mono&gt; specify a model
+10. Use RStudio and projects
+11. &lt;high&gt;Use editor, shortcuts, auto-complete&lt;/high&gt;
 ]
 
 .pull-right55[
@@ -981,12 +987,13 @@ baselers &lt;- read_delim(file = "baselers.txt",
 2. &lt;mono&gt;&lt;-&lt;/mono&gt; creates/changes objects
 3. Everything happens through functions
 4. Functions have (default) arguments
-5. Find help with &lt;mono&gt;?&lt;/mono&gt;
-6. Data lives in data frames
-7. 3 data types + factors
-8. `formula` and `data` specify a model 
-9. Use RStudio and projects
-10. &lt;high&gt;Use editor, shortcuts, auto-complete&lt;/high&gt;
+5. Functions live in packages
+6. Find help with &lt;mono&gt;?&lt;/mono&gt;
+7. Data lives in data frames
+8. 3 data types + factors&lt;/high&gt;
+9. &lt;mono&gt;formula&lt;/mono&gt; and &lt;mono&gt;data&lt;/mono&gt; specify a model
+10. Use RStudio and projects
+11. &lt;high&gt;Use editor, shortcuts, auto-complete&lt;/high&gt;
 ]
 
 .pull-right55[
@@ -1025,23 +1032,12 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   d.head.appendChild(s);
 })();</script>
 
-<script>
-(function() {
-  var i, text, code, codes = document.getElementsByTagName('code');
-  for (i = 0; i < codes.length;) {
-    code = codes[i];
-    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-      text = code.textContent;
-      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-          /^\$\$(.|\s)+\$\$$/.test(text) ||
-          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-        code.outerHTML = code.innerHTML;  // remove <code></code>
-        continue;
-      }
-    }
-    i++;
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
   }
-})();
+});
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

@@ -403,17 +403,20 @@ c(1, 2, 3, NA) %>% mean(na.rm = TRUE)
 
 .pull-right5[
 
-```{r, eval = F}
-# load package: Every time
-library(tidyverse)
+<high>Install new packages</high> with `install.packages()`
 
-# load package: Every time
-library(tidyverse)
+```{r, eval = FALSE}
+# install package: Only do this once!
+install.packages("tidyverse")
+```
+<high>Load existing packages</high> with `library()`
 
+```{r, eval = FALSE}
+# load package: EVERY TIME you write code
+library(tidyverse)
 ```
 
-<p align="center"><img src="image/tidyverse.png" height="300"></p>
-
+<p align="center"><img src="image/tidyverse.png" height="200"></p>
 
 ]
 
