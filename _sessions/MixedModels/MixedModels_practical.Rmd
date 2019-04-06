@@ -1,5 +1,6 @@
 ---
 title: "Mixed Models"
+subtitle: "Linear models with hierarchical data"
 author: "<table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'><col width='10%'><col width='10%'>
   <tr style='border:none'>
     <td style='display:block;width:100%;text-align:left;vertical-align:bottom;padding:0;margin:0;border:none' nowrap>
@@ -48,7 +49,7 @@ library(sjstats)
 library(pbkrtest)
 
 # Load data
-tom <- read_csv("1_Data/Tomatometer_dat.csv")
+tom <- read_csv("1_Data/tomatometer.csv")
 schools <- read_csv("1_Data/schools.csv")
 cr <- read_csv("1_Data/cancer_remission.csv")
 ```
