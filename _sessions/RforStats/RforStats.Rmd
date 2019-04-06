@@ -895,8 +895,7 @@ baselers <- read_delim(file = "baselers.txt",
 ---
 
 class: middle, center
-
-<h1><a href="https://raw.githubusercontent.com/therbootcamp/appliedML_2019Jan/master/1_Data/baselrbootcamp_appliedML_data.zip">Download</a></h1>
+<h1><a href="https://therbootcamp.github.io/SwR_2019Apr/1_Data/BaselRBootcamp.zip">Download</a></h1>
 
 ---
 
