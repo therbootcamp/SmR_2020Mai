@@ -165,19 +165,20 @@ It's slow, but...
 
 ---
 
-# Essentials: 10 basic R lessons 
+# Essentials: 11 basic R lessons 
 
 .pull-left4[
 1. <high>Everything is an object</high>
 2. <high><mono><-</mono> creates/changes objects</high>
 3. Everything happens through functions
 4. Functions have (default) arguments
-5. Find help with <mono>?</mono>
-6. Data lives in data frames
-7. 3 data types + factors
-8. `formula` and `data` specify a model 
-9. Use RStudio and projects
-10. Use editor, shortcuts, auto-complete
+5. Functions live in packages
+6. Find help with <mono>?</mono>
+7. Data lives in data frames
+8. 3 data types + factors
+9. `formula` and `data` specify a model 
+10. Use RStudio and projects
+11. Use editor, shortcuts, auto-complete
 ]
 
 .pull-right5[
@@ -190,19 +191,20 @@ It's slow, but...
 
 ---
 
-# Essentials: 10 basic R lessons 
+# Essentials: 11 basic R lessons 
 
 .pull-left4[
 1. <high>Everything is an object</high>
 2. <high><mono><-</mono> creates/changes objects</high>
 3. Everything happens through functions
 4. Functions have (default) arguments
-5. Find help with <mono>?</mono>
-6. Data lives in data frames
-7. 3 data types + factors
-8. `formula` and `data` specify a model 
-9. Use RStudio and projects
-10. Use editor, shortcuts, auto-complete
+5. Functions live in packages
+6. Find help with <mono>?</mono>
+7. Data lives in data frames
+8. 3 data types + factors
+9. `formula` and `data` specify a model 
+10. Use RStudio and projects
+11. Use editor, shortcuts, auto-complete
 ]
 
 .pull-right5[
@@ -225,19 +227,20 @@ one_two_three
 
 ---
 
-# Essentials: 10 basic R lessons 
+# Essentials: 11 basic R lessons 
 
 .pull-left4[
 1. <high>Everything is an object</high>
 2. <high><mono><-</mono> creates/changes objects</high>
 3. Everything happens through functions
 4. Functions have (default) arguments
-5. Find help with <mono>?</mono>
-6. Data lives in data frames
-7. 3 data types + factors
-8. `formula` and `data` specify a model 
-9. Use RStudio and projects
-10. Use editor, shortcuts, auto-complete
+5. Functions live in packages
+6. Find help with <mono>?</mono>
+7. Data lives in data frames
+8. 3 data types + factors
+9. `formula` and `data` specify a model 
+10. Use RStudio and projects
+11. Use editor, shortcuts, auto-complete
 ]
 
 .pull-right5[
@@ -256,19 +259,20 @@ one_two_three
 
 ---
 
-# Essentials: 10 basic R lessons 
+# Essentials: 11 basic R lessons 
 
 .pull-left4[
 1. Everything is an object
 2. <mono><-</mono> creates/changes objects
 3. <high>Everything happens through functions</high>
 4. Functions have (default) arguments
-5. Find help with <mono>?</mono>
-6. Data lives in data frames
-7. 3 data types + factors
-8. `formula` and `data` specify a model 
-9. Use RStudio and projects
-10. Use editor, shortcuts, auto-complete
+5. Functions live in packages
+6. Find help with <mono>?</mono>
+7. Data lives in data frames
+8. 3 data types + factors
+9. `formula` and `data` specify a model 
+10. Use RStudio and projects
+11. Use editor, shortcuts, auto-complete
 ]
 
 .pull-right5[
@@ -290,19 +294,20 @@ mean(one_two_three)
 
 ---
 
-# Essentials: 10 basic R lessons 
+# Essentials: 11 basic R lessons 
 
 .pull-left4[
 1. Everything is an object
 2. <mono><-</mono> creates/changes objects
 3. Everything happens through functions
 4. <high>Functions have (default) arguments</high>
-5. Find help with <mono>?</mono>
-6. Data lives in data frames
-7. 3 data types + factors
-8. `formula` and `data` specify a model 
-9. Use RStudio and projects
-10. Use editor, shortcuts, auto-complete
+5. Functions live in packages
+6. Find help with <mono>?</mono>
+7. Data lives in data frames
+8. 3 data types + factors
+9. `formula` and `data` specify a model 
+10. Use RStudio and projects
+11. Use editor, shortcuts, auto-complete
 ]
 
 .pull-right5[
@@ -324,19 +329,20 @@ mean(x = c(1, 2, 3, NA), na.rm = TRUE)
 
 ---
 
-# Essentials: 10 basic R lessons 
+# Essentials: 11 basic R lessons  
 
 .pull-left4[
 1. Everything is an object
 2. <mono><-</mono> creates/changes objects
 3. Everything happens through functions
 4. <high>Functions have (default) arguments</high>
-5. Find help with <mono>?</mono>
-6. Data lives in data frames
-7. 3 data types + factors
-8. `formula` and `data` specify a model 
-9. Use RStudio and projects
-10. Use editor, shortcuts, auto-complete
+5. Functions live in packages
+6. Find help with <mono>?</mono>
+7. Data lives in data frames
+8. 3 data types + factors
+9. `formula` and `data` specify a model 
+10. Use RStudio and projects
+11. Use editor, shortcuts, auto-complete
 ]
 
 .pull-right5[
@@ -355,19 +361,78 @@ c(1, 2, 3, NA) %>% mean(na.rm = TRUE)
 
 ---
 
-# Essentials: 10 basic R lessons 
+# Essentials: 11 basic R lessons 
 
 .pull-left4[
 1. Everything is an object
 2. <mono><-</mono> creates/changes objects
 3. Everything happens through functions
 4. Functions have (default) arguments
-5. <high>Find help with <mono>?</mono></high>
-6. Data lives in data frames
-7. 3 data types + factors
-8. `formula` and `data` specify a model 
-9. Use RStudio and projects
-10. Use editor, shortcuts, auto-complete
+5. <high>Functions live in packages</high>
+6. Find help with <mono>?</mono>
+7. Data lives in data frames
+8. 3 data types + factors
+9. `formula` and `data` specify a model 
+10. Use RStudio and projects
+11. Use editor, shortcuts, auto-complete
+]
+
+.pull-right5[
+
+<p align="center"><img src="image/packages.png" height="400"></p>
+
+]
+
+---
+
+# Essentials: 11 basic R lessons 
+
+.pull-left4[
+1. Everything is an object
+2. <mono><-</mono> creates/changes objects
+3. Everything happens through functions
+4. Functions have (default) arguments
+5. <high>Functions live in packages</high>
+6. Find help with <mono>?</mono>
+7. Data lives in data frames
+8. 3 data types + factors
+9. `formula` and `data` specify a model 
+10. Use RStudio and projects
+11. Use editor, shortcuts, auto-complete
+]
+
+.pull-right5[
+
+```{r, eval = F}
+# load package: Every time
+library(tidyverse)
+
+# load package: Every time
+library(tidyverse)
+
+```
+
+<p align="center"><img src="image/tidyverse.png" height="300"></p>
+
+
+]
+
+---
+
+# Essentials: 11 basic R lessons 
+
+.pull-left4[
+1. Everything is an object
+2. <mono><-</mono> creates/changes objects
+3. Everything happens through functions
+4. Functions have (default) arguments
+5. Functions live in packages
+6. <high>Find help with <mono>?</mono></high>
+7. Data lives in data frames
+8. 3 data types + factors
+9. `formula` and `data` specify a model 
+10. Use RStudio and projects
+11. Use editor, shortcuts, auto-complete
 ]
 
 .pull-right5[
@@ -379,19 +444,20 @@ c(1, 2, 3, NA) %>% mean(na.rm = TRUE)
 
 ---
 
-# Essentials: 10 basic R lessons 
+# Essentials: 11 basic R lessons 
 
 .pull-left4[
 1. Everything is an object
 2. <mono><-</mono> creates/changes objects
 3. Everything happens through functions
 4. Functions have (default) arguments
-5. <high>Find help with <mono>?</mono></high>
-6. Data lives in data frames
-7. 3 data types + factors
-8. `formula` and `data` specify a model 
-9. Use RStudio and projects
-10. Use editor, shortcuts, auto-complete
+5. Functions live in packages
+6. <high>Find help with <mono>?</mono></high>
+7. Data lives in data frames
+8. 3 data types + factors
+9. `formula` and `data` specify a model 
+10. Use RStudio and projects
+11. Use editor, shortcuts, auto-complete
 ]
 
 .pull-right5[
@@ -403,19 +469,20 @@ c(1, 2, 3, NA) %>% mean(na.rm = TRUE)
 
 ---
 
-# Essentials: 10 basic R lessons 
+# Essentials: 11 basic R lessons 
 
 .pull-left4[
 1. Everything is an object
 2. <mono><-</mono> creates/changes objects
 3. Everything happens through functions
 4. Functions have (default) arguments
-5. Find help with <mono>?</mono>
-6. <high>Data lives in data frames</high>
-7. 3 data types + factors
-8. `formula` and `data` specify a model 
-9. Use RStudio and projects
-10. Use editor, shortcuts, auto-complete
+5. Functions live in packages
+6. Find help with <mono>?</mono>
+7. <high>Data lives in data frames</high>
+8. 3 data types + factors
+9. `formula` and `data` specify a model 
+10. Use RStudio and projects
+11. Use editor, shortcuts, auto-complete
 ]
 
 .pull-right55[
@@ -424,19 +491,20 @@ c(1, 2, 3, NA) %>% mean(na.rm = TRUE)
 
 ---
 
-# Essentials: 10 basic R lessons 
+# Essentials: 11 basic R lessons 
 
 .pull-left4[
 1. Everything is an object
 2. <mono><-</mono> creates/changes objects
 3. Everything happens through functions
 4. Functions have (default) arguments
-5. Find help with <mono>?</mono>
-6. Data lives in data frames
-7. <high>3 data types + factors</high>
-8. `formula` and `data` specify a model 
-9. Use RStudio and projects
-10. Use editor, shortcuts, auto-complete
+5. Functions live in packages
+6. Find help with <mono>?</mono>
+7. Data lives in data frames
+8. <high>3 data types + factors</high>
+9. `formula` and `data` specify a model 
+10. Use RStudio and projects
+11. Use editor, shortcuts, auto-complete
 ]
 
 
@@ -447,19 +515,20 @@ c(1, 2, 3, NA) %>% mean(na.rm = TRUE)
 
 ---
 
-# Essentials: 10 basic R lessons 
+# Essentials: 11 basic R lessons 
 
 .pull-left4[
 1. Everything is an object
 2. <mono><-</mono> creates/changes objects
 3. Everything happens through functions
 4. Functions have (default) arguments
-5. Find help with <mono>?</mono>
-6. Data lives in data frames
-7. <high>3 data types + factors</high>
-8. `formula` and `data` specify a model 
-9. Use RStudio and projects
-10. Use editor, shortcuts, auto-complete
+5. Functions live in packages
+6. Find help with <mono>?</mono>
+7. Data lives in data frames
+8. <high>3 data types + factors</high>
+9. `formula` and `data` specify a model 
+10. Use RStudio and projects
+11. Use editor, shortcuts, auto-complete
 ]
 
 
@@ -476,19 +545,20 @@ print(baselers)
 
 ---
 
-# Essentials: 10 basic R lessons 
+# Essentials: 11 basic R lessons 
 
 .pull-left4[
 1. Everything is an object
 2. <mono><-</mono> creates/changes objects
 3. Everything happens through functions
 4. Functions have (default) arguments
-5. Find help with <mono>?</mono>
-6. Data lives in data frames
-7. <high>3 data types + factors</high>
-8. `formula` and `data` specify a model 
-9. Use RStudio and projects
-10. Use editor, shortcuts, auto-complete
+5. Functions live in packages
+6. Find help with <mono>?</mono>
+7. Data lives in data frames
+8. <high>3 data types + factors</high>
+9. `formula` and `data` specify a model 
+10. Use RStudio and projects
+11. Use editor, shortcuts, auto-complete
 ]
 
 .pull-right5[
@@ -517,19 +587,20 @@ options(max.print=100,width=110)
 
 ---
 
-# Essentials: 10 basic R lessons 
+# Essentials: 11 basic R lessons 
 
 .pull-left4[
 1. Everything is an object
 2. <mono><-</mono> creates/changes objects
 3. Everything happens through functions
 4. Functions have (default) arguments
-5. Find help with <mono>?</mono>
-6. Data lives in data frames
-7. <high>3 data types + factors</high>
-8. `formula` and `data` specify a model 
-9. Use RStudio and projects
-10. Use editor, shortcuts, auto-complete
+5. Functions live in packages
+6. Find help with <mono>?</mono>
+7. Data lives in data frames
+8. <high>3 data types + factors</high>
+9. `formula` and `data` specify a model 
+10. Use RStudio and projects
+11. Use editor, shortcuts, auto-complete
 ]
 
 
@@ -554,19 +625,20 @@ options(max.print=100,width=110)
 
 ---
 
-# Essentials: 10 basic R lessons 
+# Essentials: 11 basic R lessons 
 
 .pull-left4[
 1. Everything is an object
 2. <mono><-</mono> creates/changes objects
 3. Everything happens through functions
 4. Functions have (default) arguments
-5. Find help with <mono>?</mono>
-6. Data lives in data frames
-7. 3 data types + factors
-8. <high><mono>formula</mono> and <mono>data</mono> specify a model</high>
-9. Use RStudio and projects
-10. Use editor, shortcuts, auto-complete
+5. Functions live in packages
+6. Find help with <mono>?</mono>
+7. Data lives in data frames
+8. 3 data types + factors</high>
+9. <high><mono>formula</mono> and <mono>data</mono> specify a model</high>
+10. Use RStudio and projects
+11. Use editor, shortcuts, auto-complete
 ]
 
 
@@ -585,19 +657,20 @@ my_lm <- lm(formula = income ~ age + height,
 
 ---
 
-# Essentials: 10 basic R lessons 
+# Essentials: 11 basic R lessons 
 
 .pull-left4[
 1. Everything is an object
 2. <mono><-</mono> creates/changes objects
 3. Everything happens through functions
 4. Functions have (default) arguments
-5. Find help with <mono>?</mono>
-6. Data lives in data frames
-7. 3 data types + factors
-8. <high><mono>formula</mono> and <mono>data</mono> specify a model</high>
-9. Use RStudio and projects
-10. Use editor, shortcuts, auto-complete
+5. Functions live in packages
+6. Find help with <mono>?</mono>
+7. Data lives in data frames
+8. 3 data types + factors</high>
+9. <high><mono>formula</mono> and <mono>data</mono> specify a model</high>
+10. Use RStudio and projects
+11. Use editor, shortcuts, auto-complete
 ]
 
 
@@ -630,19 +703,20 @@ my_lm <- lm(formula = income ~ . - id,
 
 ---
 
-# Essentials: 10 basic R lessons 
+# Essentials: 11 basic R lessons 
 
 .pull-left4[
 1. Everything is an object
 2. <mono><-</mono> creates/changes objects
 3. Everything happens through functions
 4. Functions have (default) arguments
-5. Find help with <mono>?</mono>
-6. Data lives in data frames
-7. 4 types of data
-8. `formula` and `data` specify a model 
-9. <high>Use RStudio and projects</high>
-10. Use editor, shortcuts, auto-complete
+5. Functions live in packages
+6. Find help with <mono>?</mono>
+7. Data lives in data frames
+8. 3 data types + factors</high>
+9. <mono>formula</mono> and <mono>data</mono> specify a model
+10. <high>Use RStudio and projects</high>
+11. Use editor, shortcuts, auto-complete
 ]
 
 .pull-right5[
@@ -653,19 +727,20 @@ save workspace and history &#9679; set project specific options &#9679; access f
 
 ---
 
-# Essentials: 10 basic R lessons 
+# Essentials: 11 basic R lessons 
 
 .pull-left4[
 1. Everything is an object
 2. <mono><-</mono> creates/changes objects
 3. Everything happens through functions
 4. Functions have (default) arguments
-5. Find help with <mono>?</mono>
-6. Data lives in data frames
-7. 4 types of data
-8. `formula` and `data` specify a model 
-9. <high>Use RStudio and projects</high>
-10. Use editor, shortcuts, auto-complete
+5. Functions live in packages
+6. Find help with <mono>?</mono>
+7. Data lives in data frames
+8. 3 data types + factors</high>
+9. <mono>formula</mono> and <mono>data</mono> specify a model
+10. <high>Use RStudio and projects</high>
+11. Use editor, shortcuts, auto-complete
 ]
 
 .pull-right5[
@@ -680,19 +755,20 @@ Complement projects by a <high>folder structure</high> appropriate for your proj
 
 ---
 
-# Essentials: 10 basic R lessons 
+# Essentials: 11 basic R lessons 
 
 .pull-left4[
 1. Everything is an object
 2. <mono><-</mono> creates/changes objects
 3. Everything happens through functions
 4. Functions have (default) arguments
-5. Find help with <mono>?</mono>
-6. Data lives in data frames
-7. 4 types of data
-8. `formula` and `data` specify a model 
-9. Use RStudio and projects
-10. <high>Use editor, shortcuts, auto-complete</high>
+5. Functions live in packages
+6. Find help with <mono>?</mono>
+7. Data lives in data frames
+8. 3 data types + factors</high>
+9. <mono>formula</mono> and <mono>data</mono> specify a model
+10. Use RStudio and projects
+11. <high>Use editor, shortcuts, auto-complete</high>
 ]
 
 
@@ -707,19 +783,20 @@ Shortcut to <high>rerun chunk</high>:<br><br2><font size = 6>  &#8984;/ctrl + &#
 
 ---
 
-# Essentials: 10 basic R lessons 
+# Essentials: 11 basic R lessons 
 
 .pull-left4[
 1. Everything is an object
 2. <mono><-</mono> creates/changes objects
 3. Everything happens through functions
 4. Functions have (default) arguments
-5. Find help with <mono>?</mono>
-6. Data lives in data frames
-7. 4 types of data
-8. `formula` and `data` specify a model 
-9. Use RStudio and projects
-10. <high>Use editor, shortcuts, auto-complete</high>
+5. Functions live in packages
+6. Find help with <mono>?</mono>
+7. Data lives in data frames
+8. 3 data types + factors</high>
+9. <mono>formula</mono> and <mono>data</mono> specify a model
+10. Use RStudio and projects
+11. <high>Use editor, shortcuts, auto-complete</high>
 ]
 
 
@@ -740,19 +817,20 @@ baselers <- read_delim(file = "baselers.txt",
 
 ---
 
-# Essentials: 10 basic R lessons 
+# Essentials: 11 basic R lessons 
 
 .pull-left4[
 1. Everything is an object
 2. <mono><-</mono> creates/changes objects
 3. Everything happens through functions
 4. Functions have (default) arguments
-5. Find help with <mono>?</mono></high>
-6. Data lives in data frames
-7. 4 types of data
-8. `formula` and `data` specify a model 
-9. Use RStudio and projects
-10. <high>Use editor, shortcuts, auto-complete</high>
+5. Functions live in packages
+6. Find help with <mono>?</mono>
+7. Data lives in data frames
+8. 3 data types + factors</high>
+9. <mono>formula</mono> and <mono>data</mono> specify a model
+10. Use RStudio and projects
+11. <high>Use editor, shortcuts, auto-complete</high>
 ]
 
 .pull-right55[
@@ -763,19 +841,20 @@ baselers <- read_delim(file = "baselers.txt",
 
 ---
 
-# Essentials: 10 basic R lessons 
+# Essentials: 11 basic R lessons 
 
 .pull-left4[
 1. Everything is an object
 2. <mono><-</mono> creates/changes objects
 3. Everything happens through functions
 4. Functions have (default) arguments
-5. Find help with <mono>?</mono>
-6. Data lives in data frames
-7. 4 types of data
-8. `formula` and `data` specify a model 
-9. Use RStudio and projects
-10. <high>Use editor, shortcuts, auto-complete</high>
+5. Functions live in packages
+6. Find help with <mono>?</mono>
+7. Data lives in data frames
+8. 3 data types + factors</high>
+9. <mono>formula</mono> and <mono>data</mono> specify a model
+10. Use RStudio and projects
+11. <high>Use editor, shortcuts, auto-complete</high>
 ]
 
 .pull-right55[
@@ -786,19 +865,20 @@ baselers <- read_delim(file = "baselers.txt",
 
 ---
 
-# Essentials: 10 basic R lessons 
+# Essentials: 11 basic R lessons 
 
 .pull-left4[
 1. Everything is an object
 2. <mono><-</mono> creates/changes objects
 3. Everything happens through functions
 4. Functions have (default) arguments
-5. Find help with <mono>?</mono>
-6. Data lives in data frames
-7. 4 types of data
-8. `formula` and `data` specify a model 
-9. Use RStudio and projects
-10. <high>Use editor, shortcuts, auto-complete</high>
+5. Functions live in packages
+6. Find help with <mono>?</mono>
+7. Data lives in data frames
+8. 3 data types + factors</high>
+9. <mono>formula</mono> and <mono>data</mono> specify a model
+10. Use RStudio and projects
+11. <high>Use editor, shortcuts, auto-complete</high>
 ]
 
 .pull-right55[
