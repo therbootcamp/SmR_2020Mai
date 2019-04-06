@@ -42,7 +42,7 @@ output:
 |:--|:-------------|:-------------|
 |0| Welcome!<br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/Welcome/Welcome.html) | Recap |
 |1|Intro to Stats<br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/Intro2Stats/Intro2Stats.html#1)| Mixed Models  <br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/MixedModels/MixedModels.html#1), [practical](https://therbootcamp.github.io/SwR_2019Apr/_sessions/MixedModels/MixedModels_practical.html) |
-|2|  R for Stats  | Robust statistics |
+|2|  R for Stats<br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/RforStats/RforStats.html)  | Robust statistics |
 |3|  Linear Models I<br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsI/LinearModelsI.html), [practical](https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsI/LinearModelsI_practical.html)| New statistics|
 |4|  Linear Models II<br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsII/LinearModelsII.html), [practical](https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsII/LinearModelsII_practical.html)  | Next Steps |
 <br>
@@ -66,5 +66,5 @@ output:
 
 
 <p align="left"><br>
-    <img border="0" alt="Apr2019Schedule" src="https://therbootcamp.github.io/RwS_2019Apr/_sessions/Welcome/image/schedule.png" style="width:410px">
+    <img border="0" alt="Apr2019Schedule" src="https://therbootcamp.github.io/SwR_2019Apr/_sessions/Welcome/image/schedule.png" style="width:410px">
 </p>
