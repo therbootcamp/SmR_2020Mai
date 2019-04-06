@@ -287,7 +287,7 @@ one_two_three + 100
 one_two_three
 
 # function mean()
-mean(one_two_three)
+mean(x = one_two_three)
 
 ```
 ]
@@ -409,6 +409,7 @@ c(1, 2, 3, NA) %>% mean(na.rm = TRUE)
 # install package: Only do this once!
 install.packages("tidyverse")
 ```
+
 <high>Load existing packages</high> with `library()`
 
 ```{r, eval = FALSE}

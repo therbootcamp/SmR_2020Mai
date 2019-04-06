@@ -658,7 +658,9 @@ ggpubr::ggarrange(b, a, ncol = 2, nrow = 1)
 ---
 class: middle, center
 
-# How to fit linear models in R
+# How to fit and and dissect linear models in R
+
+## with `glm()`
 
 ---
 
