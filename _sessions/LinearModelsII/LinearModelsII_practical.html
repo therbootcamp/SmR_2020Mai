@@ -402,7 +402,7 @@ XXX$XXX</code></pre>
 </ol>
 <pre class="r"><code># GLM predicting a patient&#39;s CD4 T cell count at baseline form their age at baseline 
 age_cd4_baseline_glm &lt;- glm(formula = XXX ~ XXX,
-                    data = XXX)
+                            data = XXX)
 
 # Print &#39;tidy&#39; results
 tidy(XXX)</code></pre>
@@ -486,7 +486,7 @@ tidy(XXX)</code></pre>
   stat_summary(geom = &quot;bar&quot;, fun.y = &quot;mean&quot;, fill = &quot;white&quot;, col = &quot;black&quot;) +
   geom_jitter(width = .2, alpha = .2) +
   labs(title = &quot;ACTG175 Trial&quot;,
-       subtitle = &quot;Baseline CD4 T cell count and symptoms&quot;,
+       subtitle = &quot;Did the molecule affect days until negative events?&quot;,
        x = &quot;Treatment Arm (molecule)&quot;,
        y = &quot;Number of days until a major negative event (days)&quot;) +
   guides(col = FALSE)</code></pre>

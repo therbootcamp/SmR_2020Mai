@@ -262,7 +262,7 @@ age_cd4_baseline_tidy
 ```{r, eval = FALSE, echo = TRUE}
 # GLM predicting a patient's CD4 T cell count at baseline form their age at baseline 
 age_cd4_baseline_glm <- glm(formula = XXX ~ XXX,
-                    data = XXX)
+                            data = XXX)
 
 # Print 'tidy' results
 tidy(XXX)
@@ -419,7 +419,7 @@ ggplot(data = trial, mapping = aes(x = molecule, y = days, col = molecule)) +
   stat_summary(geom = "bar", fun.y = "mean", fill = "white", col = "black") +
   geom_jitter(width = .2, alpha = .2) +
   labs(title = "ACTG175 Trial",
-       subtitle = "Baseline CD4 T cell count and symptoms",
+       subtitle = "Did the molecule affect days until negative events?",
        x = "Treatment Arm (molecule)",
        y = "Number of days until a major negative event (days)") +
   guides(col = FALSE)
@@ -799,8 +799,8 @@ anova(molecule_gender_glm,
 #  interaction between molecule and gender
 
 molecule_gender_glm <- glm(formula = counts ~ molecule * gender, 
-                       family = "poisson", 
-                       data = molecule_gender_counts)
+                           family = "poisson", 
+                           data = molecule_gender_counts)
 
 # Print summary results as an anova table
 anova(molecule_gender_glm, 

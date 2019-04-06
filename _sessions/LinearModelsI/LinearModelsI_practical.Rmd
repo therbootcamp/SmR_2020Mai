@@ -910,7 +910,6 @@ The `hitters.csv` file contains Major League Baseball Data from the 1986 and 198
 | `broom` | `install.packages("broom")` |
 | `rsq` | `install.packages("rsq")` |
 
-
 ### Functions
 
 | Function| Package | Description |
