@@ -698,7 +698,7 @@ my_lm <- lm(formula = income ~ .,
 <high>Subtract variables</high> using `-`
 
 ```{r}
-# Use  y ~ . to include ALL variables
+# Remove variables with -
 my_lm <- lm(formula = income ~ . - id,
             data = baselers)
 ```
