@@ -370,8 +370,10 @@ my_rsq <- function(m, x) {
 my_rsq(m_price1, avocado_cali$price_per_avocado)
 
 # variance inflation factors
-1/(1-rsq(XX))
-1/(1-rsq(YY))
+vif1 <- 1/(1-rsq1)
+vif2 <- 1/(1-rsq2)
+vif1
+vif2
 ```
 
 ```{r}

@@ -358,8 +358,10 @@ my_rsq &lt;- function(m, x) {
 my_rsq(m_price1, avocado_cali$price_per_avocado)
 
 # variance inflation factors
-1/(1-rsq(XX))
-1/(1-rsq(YY))</code></pre>
+vif1 &lt;- 1/(1-rsq1)
+vif2 &lt;- 1/(1-rsq2)
+vif1
+vif2</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li>So, while residual variance decreased from <code>.042</code> to <code>.022</code>, the variance inflation factor increased from <code>2.24</code> to <code>4.86</code>. Using these values we can actually compute the standard errors of <code>price_per_avocado</code> in model <code>m3</code> and <code>m4</code> following the formula on the respective slide. See code below. Confirm that the calculated values correspond to the standard errors in the summary outputs for <code>m1</code> and <code>m2</code>.</li>
 </ol>
