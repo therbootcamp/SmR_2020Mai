@@ -141,8 +141,9 @@ In this section, we will answer the question: "Is there a relationship between t
 
 ```{r, echo = TRUE, eval = FALSE}
 ggplot(hitters, aes(x = Hits, y = Salary)) +
-  geom_point() +
-  theme_minimal()
+  geom_point(col = "skyblue") +
+  labs(title = "Baseball player Hits vs Salary",
+       subtitle = "My first plot in the 'Statistics with R' bootcmp!")
 ```
 
 2. Using the guide below, conduct a regression analysis predicting a player's `Salary` as a function of his `Hits` value. Save the result to an object called `hits_glm`.
@@ -154,7 +155,7 @@ hits_glm <- glm(formula = XXX ~ XXX,
 
 ```{r}
 hits_glm <- glm(formula = Salary ~ Hits,
-                   data = hitters)
+                data = hitters)
 ```
 
 
