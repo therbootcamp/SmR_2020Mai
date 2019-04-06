@@ -299,7 +299,7 @@ t.25 <- qt(p = .025, df = length(hit_rate_diff) - 1)
 t97.5 <- qt(p = .975, df = length(hit_rate_diff) - 1)
 ```
 
-7. Compare the two t-values. Anything surprising? Given the symmetric nature of the t-distribution the two values are their respective mirror image. OK, now you have all the ingredients that you need to construct a confidence interval. To calculate the lower bound, you want to move exactly `t.25` times the standard error to the left of the mean hit rate difference. And to calculate the bound, you want to move exactly `t97.5` times the standard error to the right of the mean hit rate difference. Do this and name the lower and upper bounds `hit_rate_lowerb` and `hit_rate_upperb`.
+7. Compare the two t-values. Anything surprising? Given the symmetric nature of the t-distribution the two values are their respective mirror image. Ok, now you have all the ingredients that you need to construct a confidence interval. To calculate the lower bound, you want to move exactly `t.25` times the standard error to the left of the mean hit rate difference. And to calculate the bound, you want to move exactly `t97.5` times the standard error to the right of the mean hit rate difference. Do this and name the lower and upper bounds `hit_rate_lowerb` and `hit_rate_upperb`.
 
 ```{r}
 # confidence limits
