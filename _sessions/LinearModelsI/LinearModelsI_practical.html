@@ -70,7 +70,9 @@ h6 {
 
 <link rel="stylesheet" href="practical.css" type="text/css" />
 
+</head>
 
+<body>
 
 <style type = "text/css">
 .main-container {
@@ -101,6 +103,8 @@ summary {
 </style>
 
 
+
+<div class="container-fluid main-container">
 
 <!-- tabsets -->
 
@@ -175,23 +179,14 @@ $(document).ready(function () {
 
 
 
-</head>
-
-<body>
-
-
-<div class="container-fluid main-container">
-
-
-
 
 <div class="fluid-row" id="header">
 
 
 
 <h1 class="title toc-ignore">Linear Models I</h1>
-<h3 class="subtitle">Creating and dissecting linear regression models</h3>
-<h4 class="author"><table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'>
+<h3 class="subtitle"><em>Creating and dissecting linear regression models</em></h3>
+<h4 class="author"><em><table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'>
 <col width='10%'>
 <col width='10%'>
 <tr style="border:none">
@@ -202,7 +197,7 @@ $(document).ready(function () {
 <img src='https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png' style='height:15px;width:80px'/>
 </td>
 </tr>
-</table></h4>
+</table></em></h4>
 
 </div>
 
@@ -477,7 +472,7 @@ rsq(XXX)</code></pre>
 </div>
 <div id="home-runs-hmrun-and-salary" class="section level5">
 <h5>Home Runs (HmRun) and Salary</h5>
-<p>In this section, we will answer the question: “Is there a relationship between the number of home runs a player scores in 1986 his salary in 1987?</p>
+<p>In this section, we will answer the question: &quot;Is there a relationship between the number of home runs a player scores in 1986 his salary in 1987?</p>
 <ol style="list-style-type: decimal">
 <li>Using the code below, create a scatterplot showing the relationship between HmRun and Salary. Based on this plot, what do you expect the relationship to be between HmRun and Salary?</li>
 </ol>
@@ -638,7 +633,7 @@ ggplot(data, aes(x = resid)) +
 <ol start="4" style="list-style-type: decimal">
 <li>Using the <code>abs()</code> function, create a new vector called <code>all_abs_resid</code> which contains the <em>absolute</em> residuals. Use the following guide</li>
 </ol>
-<pre class="r"><code>all_resid &lt;- abs(residuals(XXX))</code></pre>
+<pre class="r"><code>all_abs_resid &lt;- abs(residuals(XXX))</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li><p>Using <code>min()</code>, <code>max()</code>, <code>mean()</code>, <code>median()</code>, and <code>sd()</code>, calculate summary statistics for the absolute residuals <code>all_abs_resid</code>. Do the values look like they make sense?</p></li>
 <li><p>Using the following code, Create a histogram of the absolute residuals <code>all_abs_resid</code>. How do you interpret this plot?</p></li>
@@ -873,10 +868,10 @@ rsq(hwy_mod)
 <p>The <code>hitters.csv</code> file contains Major League Baseball Data from the 1986 and 1987 seasons. The data originally come from the <code>ISLR</code> package.</p>
 <div id="variable-description" class="section level4">
 <h4>Variable description</h4>
-<table style="width:75%;">
+<table>
 <colgroup>
-<col width="20%" />
-<col width="54%" />
+<col width="26%" />
+<col width="73%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -998,11 +993,11 @@ rsq(hwy_mod)
 </div>
 <div id="functions-1" class="section level3">
 <h3>Functions</h3>
-<table style="width:83%;">
+<table>
 <colgroup>
-<col width="6%" />
-<col width="11%" />
-<col width="65%" />
+<col width="7%" />
+<col width="12%" />
+<col width="80%" />
 </colgroup>
 <thead>
 <tr class="header">
