@@ -453,7 +453,7 @@ rsq(HmRun_glm)
 
 ### C - Multiple Regression
 
-1. Create an object called `Salary_glm` which predicts price based on *all* variables in the `hitters` dataframe. Assign the result to an object called `all_glm`.Use the following guide to help you:
+1. Create an object called `all_glm` which predicts salary based on *all* variables in the `hitters` dataframe. To do this, use the `formula = Salary ~ .` notation. Assign the result to an object called `all_glm`.Use the following guide to help you:
 
 ```{r, eval = FALSE, echo = TRUE}
 # Create all_glm, a glm object modelling Salary based on ALL variables in hitters
@@ -591,7 +591,7 @@ ggplot(data, aes(x = resid)) +
 4. Using the `abs()` function, create a new vector called `all_abs_resid` which contains the *absolute* residuals. Use the following guide
 
 ```{r, echo = TRUE, eval = FALSE}
-all_resid <- abs(residuals(XXX))
+all_abs_resid <- abs(residuals(XXX))
 ```
 
 ```{r}
@@ -688,7 +688,7 @@ hitters_new %>%
 
 3. You should have already created your `hits_glm` object in an earlier question. Print your `hits_glm` object again to see what the model coefficients are.
 
-4. Based on the coefficients you've observed, what should the predicted value of the first player in `hitters_new` be (hint: Salary = Intercept + Coefficient * Hits)
+4. Based on the coefficients you've observed, what should the predicted value of the first player in `hitters_new` be? Answer this by calculating the value 'by hand' (Hint: Salary = Intercept + Coefficient * Hits)
 
 5. Using your `hits_glm` object, predict the salaries of these new players using the `predict()` function. Save the results to an object called `hitters_new_pred`:
 
@@ -708,7 +708,7 @@ predict(object = hits_glm,
 hitters_new_pred
 ```
 
-7. Does the first value match the value you calculated by hand?
+7. Does the first value match the value you calculated 'by hand'? Aren't you glad that R can do this for you and you don't have to constantly calculate values manually?
 
 ### X - Challenges
 
@@ -909,7 +909,6 @@ The `hitters.csv` file contains Major League Baseball Data from the 1986 and 198
 |`tidyverse`|`install.packages("tidyverse")`|
 | `broom` | `install.packages("broom")` |
 | `rsq` | `install.packages("rsq")` |
-
 
 ### Functions
 
