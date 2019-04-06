@@ -2,7 +2,7 @@
 title: "Linear Models <i>applications</i>"
 author: "<table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'><col width='10%'><col width='10%'>
   <tr style='border:none'>
-    <td style='display:block;width:100%;text-align:left;vertical-align:bottom;padding:0;margin:0;border:none' nowrap>
+    <!-- <td style='display:block;width:100%;text-align:left;vertical-align:bottom;padding:0;margin:0;border:none' nowrap> -->
       <font style='font-style:normal'>Statistics with R</font><br>
       <a href='https://therbootcamp.github.io/SWR_2019Apr/'>
         <i class='fas fa-clock' style='font-size:.9em;' ></i>
