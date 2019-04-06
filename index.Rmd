@@ -40,11 +40,11 @@ output:
 ### Materials
 |  | Day 1<br>Basics| Day 2<br> Advanced| 
 |:--|:-------------|:-------------|
-|0| Welcome!<br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/Welcome/Welcome.html) | Recap |
-|1|Intro to Stats<br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/Intro2Stats/Intro2Stats.html#1)| Mixed Models |
-|2|  R for Stats<br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/RforStats/RforStats.html)  | Robust statistics |
-|3|  Linear Models I<br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsI/LinearModelsI.html), [practical](https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsI/LinearModelsI_practical.html)| New statistics|
-|4|  Linear Models II<br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsII/LinearModelsII.html), [practical](https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsII/LinearModelsII_practical.html)  | Next Steps |
+|0| Welcome!<br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/Welcome/Welcome.html) | Recap<br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/Recap/Recap.html) |
+|1| Intro to Stats<br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/Intro2Stats/Intro2Stats.html#1)| Mixed Models<br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/MixedModels/MixedModels.html), [practical](https://therbootcamp.github.io/SwR_2019Apr/_sessions/MixedModels/MixedModels_practical.html) |
+|2| R for Stats<br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/RforStats/RforStats.html)  | Robust statistics<br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/RobustStats/RobustStats.html), [practical](https://therbootcamp.github.io/SwR_2019Apr/_sessions/RobustStats/RobustStats_practical.html) |
+|3| Linear Models I<br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsI/LinearModelsI.html), [practical](https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsI/LinearModelsI_practical.html)| New statistics <br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/NewStats/NewStats.html), [practical](https://therbootcamp.github.io/SwR_2019Apr/_sessions/NewStats/NewStats_practical.html)|
+|4| Linear Models II<br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsII/LinearModelsII.html), [practical](https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsII/LinearModelsII_practical.html)  | Look ahead <br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/NextSteps/NextSteps.html) |
 <br>
 
 
