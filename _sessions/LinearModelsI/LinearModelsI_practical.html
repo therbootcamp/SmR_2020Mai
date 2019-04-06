@@ -396,7 +396,8 @@ XXX</code></pre>
 <pre class="r"><code>ggplot(hitters, aes(x = Hits, y = Salary)) +
   geom_point(col = &quot;skyblue&quot;) +
   labs(title = &quot;Baseball player Hits vs Salary&quot;,
-       subtitle = &quot;My first plot in the &#39;Statistics with R&#39; bootcmp!&quot;)</code></pre>
+       subtitle = &quot;My first plot in the &#39;Statistics with R&#39; bootcamp!&quot;,
+       caption = &quot;I love R!!!!&quot;)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Using the guide below, conduct a regression analysis predicting a player’s <code>Salary</code> as a function of his <code>Hits</code> value. Save the result to an object called <code>hits_glm</code>.</li>
 </ol>
@@ -457,7 +458,8 @@ ggplot(data = data, aes(x = truth, y = fitted)) +
   geom_point() +
   geom_abline(slope = 1, intercept = 0) +
   labs(title = &quot;Relationship between model fits and true Salaries&quot;,
-       subtitle = &quot;Formula = Salary ~ Hits&quot;) +
+       subtitle = &quot;Formula = Salary ~ Hits&quot;m,
+       caption = &quot;I still love R!!!&quot;) +
   geom_segment(aes(x = truth, y = truth, xend = truth, yend = fitted), 
                col = &quot;red&quot;) +
   xlim(c(-300, 3000)) +
@@ -475,8 +477,11 @@ rsq(XXX)</code></pre>
 <li>Using the code below, create a scatterplot showing the relationship between HmRun and Salary. Based on this plot, what do you expect the relationship to be between HmRun and Salary?</li>
 </ol>
 <pre class="r"><code>ggplot(hitters, aes(x = HmRun, y = Salary)) +
-  geom_point() +
-  theme_minimal()</code></pre>
+  geom_point(col = &quot;tomato2&quot;) +
+  labs(x = &quot;Home Runs&quot;,
+       y = &quot;Salary&quot;,
+       title = &quot;Predicting Salary from Home Runs&quot;,
+       caption = &quot;Did you know that SPSS stands for &#39;Shitty Piece of Shitty Shit&#39;?&quot;)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Conduct a regression analysis predicting a diamond’s <code>Salary</code> as a function of its <code>HmRun</code> value. Save the result to an object called <code>HmRun_glm</code>.</li>
 </ol>
@@ -536,8 +541,11 @@ data &lt;- tibble(truth = hitters$Salary,
 ggplot(data = data, aes(x = truth, y = fitted)) +  
   geom_point() +
   geom_abline(slope = 1, intercept = 0) +
-  labs(title = &quot;Relationship between model fits and true Salaries&quot;,
-       subtitle = &quot;Formula = Salary ~ HmRun&quot;) +
+  labs(title = &quot;Relationship between model fits and true salaries&quot;,
+       subtitle = &quot;Formula = Salary ~ HmRun&quot;,
+       x = &quot;True Salaries&quot;,
+       y = &quot;Model Predicted Salaries&quot;,
+       caption = &quot;Have I mentioned how great R is??&quot;) +
   geom_segment(aes(x = truth, y = truth, xend = truth, yend = fitted), 
                col = &quot;red&quot;) +
   xlim(c(-300, 3000)) +
@@ -591,7 +599,9 @@ ggplot(data = data, aes(x = truth, y = fitted)) +
   geom_point() +
   geom_abline(slope = 1, intercept = 0) +
   labs(title = &quot;Relationship between model fits and true Salaries&quot;,
-       subtitle = &quot;Formula = Salary ~ .&quot;) +
+       subtitle = &quot;Formula = Salary ~ .&quot;,
+       x = &quot;True Salaries&quot;,
+       y = &quot;Model Predicted Salaries&quot;) +
   geom_segment(aes(x = truth, y = truth, xend = truth, yend = fitted), 
                col = &quot;red&quot;) +
   xlim(c(-300, 3000)) +
@@ -618,7 +628,8 @@ data &lt;- tibble(resid = all_resid)
 ggplot(data, aes(x = resid)) + 
   geom_histogram(col = &quot;white&quot;) +
   geom_vline(xintercept = 0, col = &quot;red&quot;) +
-  labs(title = &quot;Residuals of Salary GLM&quot;)</code></pre>
+  labs(title = &quot;Residuals of salary regression model&quot;,
+       x = &quot;Model residual (Predicted - Truth)&quot;)</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Using the <code>abs()</code> function, create a new vector called <code>all_abs_resid</code> which contains the <em>absolute</em> residuals. Use the following guide</li>
 </ol>
@@ -633,7 +644,8 @@ data &lt;- tibble(abs_resid = all_abs_resid)
 ggplot(data, aes(x = abs_resid)) + 
   geom_histogram(col = &quot;white&quot;) +
   geom_vline(xintercept = 0, col = &quot;red&quot;) +
-  labs(title = &quot;Absolute Residuals of Salary GLM&quot;)</code></pre>
+  labs(title = &quot;Absolute Residuals of Salary GLM&quot;,
+       x = &quot;Absolute Model Residuals (smaller is better)&quot;)</code></pre>
 </div>
 <div id="e---adjusting-your-model-with-formulas" class="section level3">
 <h3>E - Adjusting your model with formulas</h3>
@@ -648,8 +660,8 @@ ggplot(data, aes(x = abs_resid)) +
 <li>Using the <code>tidy()</code> function, print tidy results from your <code>my_glm</code> object, do you see that the variables you excluded are indeed not in the model?</li>
 </ol>
 </div>
-<div id="including-interactinos-with" class="section level5">
-<h5>Including interactinos with *</h5>
+<div id="including-interactions-with" class="section level5">
+<h5>Including interactions with *</h5>
 <ol start="3" style="list-style-type: decimal">
 <li>Using the guides below, create a regression object <code>my_glm</code> predicting Salary based the <em>interaction</em> between <code>AtBat</code> and <code>Hits</code></li>
 </ol>
