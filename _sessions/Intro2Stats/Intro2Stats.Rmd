@@ -473,11 +473,7 @@ Then, inferential statistics allows us to <high>inferences</high> to populations
 knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/sampling_procedure.png?token=AIFo1AUl-Ddz-zYZgoGbzwJoW8SO3LhUks5criQVwA%3D%3D")
 ```
 
-
-
 ]
-
-
 
 ---
 
@@ -1013,7 +1009,7 @@ Test statistics are unit-free numbers that help you quantify how likely data is 
 
 # 8: P-value
 
-*p*-values are used to quantify the likelihood of data given the <high>probability distribution</high> under the <high>null hypothesis</high>.
+*p*-values are used to quantify the likelihood of data given the <high>probability distribution</high> under the <high>null hypothesis (H0)</high>.
 
 If a p-value is *small* (i.e.; p < .05), this means that the likelihood of obtaining that data given the null hypothesis is *small*, suggesting that the null hypothesis is *wrong*.
 
@@ -1025,15 +1021,17 @@ A p-value is the probability of obtaining a test statistic as extreme as what yo
 
 <font style="font-size:32px"><high>p < .05 &rarr; Reject H<sub>0</0></high></font>
 
+*The data are too unlikely to occcur if H0 was really true (therefore I conclude H0 must not be true)*
+
 ]
 
 
 .pull-right4[
 
-<br><br><br>
+<br><br>
 
 <p align = "center">
-  <img src="image/pvalue_level.png" height=460px>
+  <img src="image/pvalue_level.png" height=500px>
 </p>
 
 ]
@@ -1069,7 +1067,7 @@ A p-value is the probability of obtaining a test statistic as extreme as what yo
     Sample statistics
   </td>
   <td bgcolor="white">
-    Mean = 33, Stand. Deviation = 3.90.
+    Mean = 33<br>Std. Deviation = 3.90.
   </td>  
 </tr>
 <tr>
@@ -1089,9 +1087,9 @@ A p-value is the probability of obtaining a test statistic as extreme as what yo
 ]
 
 
-.pull-right45[
+.pull-right5[
 
-<br><br><br>
+<br>
 
 <p align = "center">
   <img src="image/beer_null_p.png">
@@ -1131,7 +1129,7 @@ A p-value is the probability of obtaining a test statistic as extreme as what yo
     Sample statistics
   </td>
   <td bgcolor="white">
-    Mean = 33, Stand. Deviation = 3.90.
+    Mean = 33<br>Std. Deviation = 3.90.
   </td>  
 </tr>
 <tr>
@@ -1152,9 +1150,11 @@ A p-value is the probability of obtaining a test statistic as extreme as what yo
 ]
 
 
-.pull-right45[
+.pull-right5[
 
-<br><br><br><br>
+<br>
+
+### T-test in R
 
 ```{r}
 # Define beer sample
@@ -1162,8 +1162,8 @@ beer <- c(28, 31, 28, 37, 30,
           33, 25, 33, 24, 30)
 
 # Conduct one-sample t-test
-t.test(x = beer, 
-       mu = 33)
+t.test(x = beer,   # Sample values
+       mu = 33)    # Null Hypothesis
 ```
 
 

@@ -417,7 +417,7 @@ See [formula on Wikipedia](https://en.wikipedia.org/wiki/Pooled_variance)
 
 .pull-right5[
 
-&lt;br&gt;
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
 *Do male and female baselers have different mean incomes?*
 
 &lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-17-1.png" width="90%" style="display: block; margin: auto;" /&gt;
@@ -620,7 +620,7 @@ See [ANOVA formula on Wikipedia](https://en.wikipedia.org/wiki/Analysis_of_varia
 &lt;br&gt;
 *Is there a difference in height based on education?*
 
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-22-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-22-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -812,11 +812,11 @@ Try `tidy()` on your favorite statistical object and see what you get!
 library(broom)   # For tidy()
 
 # Conduct correlation test
-height_income_htest &lt;- cor.test(formula = ~ height + income,
-                       data = baselers)
+income_htest &lt;- cor.test(formula = ~ height + income,
+                         data = baselers)
 
 # Standard printout
-height_income_htest
+income_htest
 ```
 
 ```
@@ -869,11 +869,11 @@ Try `tidy()` on your favorite statistical object and see what you get!
 library(broom)   # For tidy()
 
 # Conduct correlation test
-height_income_htest &lt;- cor.test(formula = ~ height + income,
-                       data = baselers)
+income_htest &lt;- cor.test(formula = ~ height + income,
+                         data = baselers)
 
 # tidy results
-tidy(height_income_htest)
+tidy(income_htest)
 ```
 
 ```
