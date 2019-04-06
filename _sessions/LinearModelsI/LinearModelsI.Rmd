@@ -155,7 +155,6 @@ $$\huge y = \beta_{0} + \sum_{i=1}^{n}\beta_{i}x_{i}+ \epsilon$$
   </font>
 </p>
 
-
 ]
 
 ---

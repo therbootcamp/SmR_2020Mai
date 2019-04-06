@@ -50,31 +50,32 @@ layout: true
 
 
 
-.pull-left55[
-
 # Linear Model Applications
 
-In the last session, we saw that a linear model is one that can be written in the following form &lt;br&gt;
+.pull-left5[
 
-*Linear Model Equation*
+&lt;u&gt;Linear Model Equation&lt;/u&gt;
 
-`$$\LARGE Y = \beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2} +  ... + \beta_{n}x_{n} + \epsilon$$`
+`$$\Large Y = \beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2} +  ... + \beta_{n}x_{n} + \epsilon$$`
 
-*Hypothesis tests are linear models!*
+&lt;br&gt;
 
-In fact, many of your favorite hypothesis tests tests, including &lt;high&gt;t-tests&lt;/high&gt;, &lt;high&gt;correlation tests&lt;/high&gt;, and &lt;high&gt;ANOVAs&lt;/high&gt; can all be expressed as linear models! 
+&lt;u&gt;Hypothesis tests are linear models!&lt;/u&gt;
 
-This means that you can use the `glm()` function to do all of these tests!
+In fact, many of your favorite hypothesis tests, including &lt;high&gt;t-tests&lt;/high&gt;, &lt;high&gt;correlation tests&lt;/high&gt;, and &lt;high&gt;ANOVAs&lt;/high&gt; can all be expressed as linear models! 
 
-However, R also has special &lt;high&gt;hypothesis test functions&lt;/high&gt; that allow you to perform hypothesis tests with more user-friendly outputs.
+This means that you can use the `lm()` or `glm()` function to do all of these tests!
+
+However, R also has special &lt;high&gt;hypothesis test functions&lt;/high&gt; with more user-friendly outputs.
 
 
 ]
 
 .pull-right4[
 
-&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/linear_model_vendiagram.png?token=AIFo1EwgCqkIpF_GPncSc5Y7WbO0S7Maks5crjjrwA%3D%3D" width="100%" style="display: block; margin: auto;" /&gt;
-
+&lt;p align = "center"&gt;
+  &lt;img src="image/linear_model_vendiagram.png" height="430px"&gt;
+&lt;/p&gt;
 
 ]
 
@@ -88,7 +89,7 @@ However, R also has special &lt;high&gt;hypothesis test functions&lt;/high&gt; t
 
 All of these tests assume your dependent variable is &lt;high&gt;Normally distributed&lt;/high&gt;.
 
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-4-1.png" width="60%" style="display: block; margin: auto;" /&gt;
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-3-1.png" width="60%" style="display: block; margin: auto;" /&gt;
 
 What differentiates these tests is the scale of your independent variable
 
@@ -163,7 +164,7 @@ Conduct a &lt;high&gt;correlation test&lt;/high&gt; when you have 2 continuous, 
 .pull-right45[
 &lt;br&gt;
 
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-6-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-5-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ]
@@ -191,7 +192,7 @@ Alternative: `\(H_{A}:\rho  \neq 0\)`, "There &lt;high&gt;is a &lt;/high&gt; (no
 .pull-right45[
 
 &lt;br&gt;&lt;br&gt;
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-7-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ]
@@ -220,11 +221,9 @@ Alternative: `\(H_{A}:\rho  \neq 0\)`, "There &lt;high&gt;is a &lt;/high&gt; (no
 &lt;br&gt;
 *Do older baselers have higher incomes than younger baselers?*
 
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-10-1.png" width="90%" style="display: block; margin: auto;" /&gt;
-
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-9-1.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 ]
-
 
 ---
 
@@ -358,7 +357,7 @@ Conduct a &lt;high&gt;t-test&lt;/high&gt; when you have one nominal independent 
 .pull-right5[
 
 &lt;br&gt;
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-14-1.png" style="display: block; margin: auto;" /&gt;
 
 
 ]
@@ -388,7 +387,7 @@ See [formula on Wikipedia](https://en.wikipedia.org/wiki/Pooled_variance)
 .pull-right5[
 &lt;br&gt;
 
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-16-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-15-1.png" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -419,7 +418,7 @@ See [formula on Wikipedia](https://en.wikipedia.org/wiki/Pooled_variance)
 &lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
 *Do male and female baselers have different mean incomes?*
 
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-17-1.png" width="90%" style="display: block; margin: auto;" /&gt;
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-16-1.png" width="90%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -560,7 +559,7 @@ See [ANOVA formula on Wikipedia](https://en.wikipedia.org/wiki/Analysis_of_varia
 
 &lt;br&gt;
 
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-20-1.png" style="display: block; margin: auto;" /&gt;
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-19-1.png" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -587,7 +586,7 @@ See [ANOVA formula on Wikipedia](https://en.wikipedia.org/wiki/Analysis_of_varia
 .pull-right5[
 
 
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-21-1.png" width="80%" style="display: block; margin: auto;" /&gt;
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-20-1.png" width="80%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -619,7 +618,7 @@ See [ANOVA formula on Wikipedia](https://en.wikipedia.org/wiki/Analysis_of_varia
 &lt;br&gt;
 *Is there a difference in height based on education?*
 
-&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-22-1.png" width="100%" style="display: block; margin: auto;" /&gt;
+&lt;img src="LinearModelsII_files/figure-html/unnamed-chunk-21-1.png" width="100%" style="display: block; margin: auto;" /&gt;
 
 ]
 
@@ -991,18 +990,6 @@ tidy(height_sex_ttest)
 ]
 
 
-
----
-
-class: middle, center
-
-&lt;h1&gt;&lt;a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsII/LinearModelsII_practical.html"&gt;Practical&lt;/a&gt;&lt;/h1&gt;
-
-
----
-# Backup
-
-
 ---
 
 .pull-left35[
@@ -1066,6 +1053,12 @@ coin_flips
 
 
 ]
+
+---
+
+class: middle, center
+
+&lt;h1&gt;&lt;a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsII/LinearModelsII_practical.html"&gt;Practical&lt;/a&gt;&lt;/h1&gt;
     </textarea>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({

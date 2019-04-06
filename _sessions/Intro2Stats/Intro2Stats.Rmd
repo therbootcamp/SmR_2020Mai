@@ -183,10 +183,10 @@ beer_data <- tibble(beer, id = 1:length(beer))
 
 # Beer hypothesis
 
-The mean amount poured in 33cl beers by the Oetlinger Buvette is less than 33cl
+The mean amount poured in 33cl beers by the Oetlinger Buvette is less than 33cl:
 
 
-$$\Large H0: \mu < 33$$
+$$\Large H1: \mu < 33$$
 
 ### Beer Data
 
