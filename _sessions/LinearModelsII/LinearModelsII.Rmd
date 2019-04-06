@@ -551,7 +551,7 @@ Conduct a <high>t-test</high> when you have one nominal independent variable wit
 
 $$\LARGE Y=\beta_{0}+\beta_{1}x$$
 
-$$\beta_{0} = Mean\;of\;group\;A, \beta_{1} = Mean\;of\;group\;B$$
+$$\beta_{0} = Mean\;of\;group\;A, \beta_{1} = Differen\;between \;groups$$
 
 
 <table style="cellspacing:0; cellpadding:0; border:none; padding-top:25px" width=100%>
