@@ -325,7 +325,7 @@ A <high>social graph</high> of package Co-authors using [`tidyverse`](https://cr
 | [`tidyr`](https://cran.r-project.org/web/packages/e1071/index.html) | Helper functions to get your data tidy  |
 | [`readr`](https://cran.r-project.org/web/packages/randomForest/index.html) | Powerful package for reading in data.  |
 | [`purrr`](https://cran.r-project.org/web/packages/rpart/index.html) | Package for functional programming in R. |
-| [`tibble`](https://cran.r-project.org/web/packages/FFTrees/index.html) | Package providig the `tibble` class |
+| [`tibble`](https://cran.r-project.org/web/packages/FFTrees/index.html) | Package providing the `tibble` class |
 | [`stringr`](https://cran.r-project.org/web/packages/cluster/index.html) | Amazing package for string manipulation |
 | [`forcats`](https://cran.r-project.org/web/packages/fastcluster/index.html) | Package to solve common problems with factors |
  
@@ -417,7 +417,7 @@ A <high>social graph</high> of package Co-authors using [`tidyverse`](https://cr
 
 # Rcpp
 
-By now one of the most referenced R packages is Rcpp - <high>R's interface to C++</high>. With often relatively little effort due to <high>Rcpp sugar</high>, Rcpp can provide vast speed improvements, which many packages today rely on Rcpp in the background for <high>swift code execution</high>. Rcpp becomes particularly powerful, when supplemented with `BH`, which makes avaialble a collection <high>free, peer-reviewed C++ libraries</high>, and [RcppArmdillo](http://arma.sourceforge.net/), which available the high-performance <high>Armadillo</high> library for linear algebra methods. 
+By now one of the most referenced R packages is Rcpp - <high>R's interface to C++</high>. With often relatively little effort due to <high>Rcpp sugar</high>, Rcpp can provide vast speed improvements, which many packages today rely on Rcpp in the background for <high>swift code execution</high>. Rcpp becomes particularly powerful, when supplemented with `BH`, which makes available a collection <high>free, peer-reviewed C++ libraries</high>, and [RcppArmdillo](http://arma.sourceforge.net/), which available the high-performance <high>Armadillo</high> library for linear algebra methods. 
 
 
 .pull-left4[

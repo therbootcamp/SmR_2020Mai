@@ -303,7 +303,7 @@ A &lt;high&gt;social graph&lt;/high&gt; of package Co-authors using [`tidyverse`
 | [`tidyr`](https://cran.r-project.org/web/packages/e1071/index.html) | Helper functions to get your data tidy  |
 | [`readr`](https://cran.r-project.org/web/packages/randomForest/index.html) | Powerful package for reading in data.  |
 | [`purrr`](https://cran.r-project.org/web/packages/rpart/index.html) | Package for functional programming in R. |
-| [`tibble`](https://cran.r-project.org/web/packages/FFTrees/index.html) | Package providig the `tibble` class |
+| [`tibble`](https://cran.r-project.org/web/packages/FFTrees/index.html) | Package providing the `tibble` class |
 | [`stringr`](https://cran.r-project.org/web/packages/cluster/index.html) | Amazing package for string manipulation |
 | [`forcats`](https://cran.r-project.org/web/packages/fastcluster/index.html) | Package to solve common problems with factors |
  
@@ -388,7 +388,7 @@ A &lt;high&gt;social graph&lt;/high&gt; of package Co-authors using [`tidyverse`
 
 # Rcpp
 
-By now one of the most referenced R packages is Rcpp - &lt;high&gt;R's interface to C++&lt;/high&gt;. With often relatively little effort due to &lt;high&gt;Rcpp sugar&lt;/high&gt;, Rcpp can provide vast speed improvements, which many packages today rely on Rcpp in the background for &lt;high&gt;swift code execution&lt;/high&gt;. Rcpp becomes particularly powerful, when supplemented with `BH`, which makes avaialble a collection &lt;high&gt;free, peer-reviewed C++ libraries&lt;/high&gt;, and [RcppArmdillo](http://arma.sourceforge.net/), which available the high-performance &lt;high&gt;Armadillo&lt;/high&gt; library for linear algebra methods. 
+By now one of the most referenced R packages is Rcpp - &lt;high&gt;R's interface to C++&lt;/high&gt;. With often relatively little effort due to &lt;high&gt;Rcpp sugar&lt;/high&gt;, Rcpp can provide vast speed improvements, which many packages today rely on Rcpp in the background for &lt;high&gt;swift code execution&lt;/high&gt;. Rcpp becomes particularly powerful, when supplemented with `BH`, which makes available a collection &lt;high&gt;free, peer-reviewed C++ libraries&lt;/high&gt;, and [RcppArmdillo](http://arma.sourceforge.net/), which available the high-performance &lt;high&gt;Armadillo&lt;/high&gt; library for linear algebra methods. 
 
 
 .pull-left4[
@@ -707,23 +707,12 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   d.head.appendChild(s);
 })();</script>
 
-<script>
-(function() {
-  var i, text, code, codes = document.getElementsByTagName('code');
-  for (i = 0; i < codes.length;) {
-    code = codes[i];
-    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-      text = code.textContent;
-      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-          /^\$\$(.|\s)+\$\$$/.test(text) ||
-          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-        code.outerHTML = code.innerHTML;  // remove <code></code>
-        continue;
-      }
-    }
-    i++;
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
   }
-})();
+});
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
