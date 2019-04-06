@@ -85,41 +85,42 @@ source("https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/ma
 ```
 
 
-
-.pull-left6[
-
 # Our goal in the next hour
 
-In this hour, we will try to cover some of the basic principles of statistical inference.
+.pull-left55[
 
-1. Variability
-2. Sample statistics
-3. Sampling (samples vs. populations)
-4. Distributions
-5. Likelihood
-6. Null Hypothesis testing
-7. Test statistic
-8. P-values
+In this hour, we will try to cover some of the <high>basic principles of statistical inference</high>.
 
-This is a lot to cover, and it may not be clear from the beginning.
+1. *Variability*
+2. *Sample statistics*
+3. *Sampling (samples vs. populations)*
+4. *Distributions*
+5. *Likelihood*
+6. *Null Hypothesis testing*
+7. *Test statistic*
+8. *P-values*
 
-But to help us, we'll think about it in terms of beer.
+This is a lot to cover, and it may not be clear from the beginning. To help us, <high>we'll think about it in terms of beer</high>.
 
 ]
 
 
 .pull-right35[
 
-<br><br><br>
-```{r, echo = FALSE}
-knitr::include_graphics("https://cdn.lynda.com/course/495322/495322-636154038826424503-16x9.jpg")
-```
-
-<br>
-```{r, echo = FALSE, out.width = "90%"}
-knitr::include_graphics("https://marketingweek.imgix.net/content/uploads/2018/05/11123103/beer-750.jpg?auto=compress,format,&crop=faces,entropy,edges&fit=crop&q=60&w=750&h=460")
-```
-
+<p align="center">
+  <img src="image/stats.jpg" width=300px>
+  <br>
+  <font style="font-size:10px">
+    from <a href="https://cdn.lynda.com/course/">cdn.lynda.com</a>
+  </font>
+  <br><br>
+  <img src="image/beer.jpg" width=300px>
+  <br>
+  <font style="font-size:10px">
+    from <a href="https://marketingweek.imgix.net"> marketingweek.imgix.net</a>
+  </font>
+  
+</p>
 
 ]
 
@@ -128,42 +129,51 @@ knitr::include_graphics("https://marketingweek.imgix.net/content/uploads/2018/05
 
 ---
 
-.pull-left6[
+.pull-left45[
 
-# Example: 
+# Example
 
-Basel has many nice "Buvette's" that serve drinks in warm months.
+Basel has many nice "Buvette's" that serve drinks in warm months. 
 
-The Oetlinger Buvette, one of our favorites, offers 33dl beers (or so they say...).
+The Oetlinger Buvette, one of our favorites, offers 33cl beers (or so they say...).
 
-*I am convinced that the Oetlinger Buvette 'underpouring' its beers and they are not truly 33dl.*
-<br><br>
-<center>How can I formulate my belief into an <high>formal hypothesis?</high></center><br>
+> I am convinced that the Oetlinger Buvette 'underpouring' its beers and they are not truly 33cl.
 
-<center>How can I collect <high>data to test the hypothesis?</center></high><br>
+#### How can I find out?
 
-<center><font size = 5>What do you think?</font></center>
+How can I formulate my belief into an <high>formal hypothesis?</high>
+
+How can I collect <high>data to test the hypothesis?</center></high>
+
+What do you think?
+
 ]
 
 
-.pull-right35[
+.pull-right45[
+
 <br><br>
-```{r, echo = FALSE, out.width = "100%"}
-knitr::include_graphics("https://www.basel.com/extension/portal-basel/var/storage/images/media/bibliothek/basel-bilder/rhein-promenade/savoir-vivre-am-basler-rheinufer/92121-1-ger-DE/Savoir-vivre-am-Basler-Rheinufer_front_magnific.jpg")
-```
 
-
-
-```{r, echo = FALSE, out.width = "100%"}
-knitr::include_graphics("https://files.newsnetz.ch/story/1/7/7/17765134/14/topelement.jpg")
-```
-
+<p align="center">
+  <img src="image/basel1.jpg" width=350px>
+  <br>
+  <font style="font-size:10px">
+    from <a href="https://www.basel.com/">basel.com</a>
+  </font>
+  <br><br>
+  <img src="image/basel2.jpg" width=350px>
+  <br>
+  <font style="font-size:10px">
+    from <a href="https://files.newsnetz.ch"> newsnetz.ch</a>
+  </font>
+  
+</p>
 
 ]
 
 ---
 
-.pull-left6[
+.pull-left5[
 
 ```{r, echo= FALSE}
 beer <- c(28, 31, 28, 37, 30, 33, 25, 33, 24, 30)
@@ -171,14 +181,14 @@ beer_data <- tibble(beer, id = 1:length(beer))
 ```
 
 
-## Beer hypothesis
+# Beer hypothesis
 
-The mean amount poured in 33dl beers by the Oetlinger Buvette is less than 33dl
+The mean amount poured in 33cl beers by the Oetlinger Buvette is less than 33cl
 
 
 $$\Large H0: \mu < 33$$
 
-## Beer Data
+### Beer Data
 
 I ordered 10 beers, and measured the exact amount in each cup, here are the results:
 
@@ -188,13 +198,13 @@ beer_data <- tibble(beer, id = 1:length(beer))
 ```
 
 
-```{r, echo = FALSE, out.width = "80%", fig.align = 'center', fig.width = 5, fig.height = 3}
+```{r, echo = FALSE, out.width = "80%", fig.align = 'center', fig.width = 4.5, fig.height = 2.7}
 beer_gg <- ggplot(beer_data, aes(x = id, y = beer)) +
   geom_hline(yintercept = 33, col = baselrbootcamp_cols("green")) +
   geom_text(data = beer_data %>% filter(beer > 30), aes(label = beer), nudge_y = 2) +
     geom_text(data = beer_data %>% filter(beer <= 30), aes(label = beer), nudge_y = -2) +
   scale_x_continuous(breaks = 1:10) +
-  labs(y = "Amount in dl", title = "10 beers from Oetlinger Buvette") +
+  labs(y = "Amount in cl", title = "10 beers from Oetlinger Buvette") +
   ylim(c(20, 40)) +
   geom_point(size = 2.5)
 
@@ -204,21 +214,26 @@ beer_gg
 ]
 
 
-.pull-right35[
+.pull-right45[
+
 <br><br>
-```{r, echo = FALSE, out.width = "100%"}
-knitr::include_graphics("https://www.basel.com/extension/portal-basel/var/storage/images/media/bibliothek/basel-bilder/rhein-promenade/savoir-vivre-am-basler-rheinufer/92121-1-ger-DE/Savoir-vivre-am-Basler-Rheinufer_front_magnific.jpg")
-```
 
-
-
-```{r, echo = FALSE, out.width = "100%"}
-knitr::include_graphics("https://files.newsnetz.ch/story/1/7/7/17765134/14/topelement.jpg")
-```
-
+<p align="center">
+  <img src="image/basel1.jpg" width=350px>
+  <br>
+  <font style="font-size:10px">
+    from <a href="https://www.basel.com/">basel.com</a>
+  </font>
+  <br><br>
+  <img src="image/basel2.jpg" width=350px>
+  <br>
+  <font style="font-size:10px">
+    from <a href="https://files.newsnetz.ch"> newsnetz.ch</a>
+  </font>
+  
+</p>
 
 ]
-
 
 
 
@@ -226,9 +241,9 @@ knitr::include_graphics("https://files.newsnetz.ch/story/1/7/7/17765134/14/topel
 ---
 
 
-.pull-left45[
-
 # 1. Variability
+
+.pull-left45[
 
 All interesting data processes have <high>variability</high>
 
@@ -247,31 +262,30 @@ If there was no variability, there would be no need to do statistics.
 
 .pull-right45[
 
-Statistics is the process of understanding variability
-
-```{r, echo = FALSE, out.width = "90%"}
-knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/variability_stock_drug.png?token=AIFo1Ck45ox-HHmcNvSnfBOLXhRRRjpVks5cq1a3wA%3D%3D")
-```
+<p align="center">
+  <img src="image/variability_stock_drug.png" >
+</p>
 
 ]
 
 
 ---
 
+# 1. Variability
 
 .pull-left45[
 
-# 1. Variability
 
-In general, we distinguish between two types of variability
+There are two types of variability: <high>systematic and unsystematic variability</high>.
+
+Statistical inference typically seeks to <high>separate total variability into systematic and unsystematic portions</high>.
+
+<br>
 
 |Variability Type|Definition|
 |:-----|:-----|
 |Systematic| Variation that <high>can</high> be explained by known variables|
 |Unsystematic |Variation that <high>cannot</high> be explained by known variables|
-
-Statistical inference is the practice of discovering ways to separate overall variability into systematic and unsystematic portions.
-
 
 ]
 
@@ -301,7 +315,7 @@ dat <- tibble(id, income, exercise, happiness, happiness2, group = rep("Baselers
 overall <- ggplot(dat, aes(x = id, y = happiness)) +
   geom_point() +
   labs(y = "Happiness",
-       x = "id",
+       x = "ID",
        title = "Total Variability in Happiness")
 
 
@@ -339,10 +353,8 @@ high_cont <- ggplot(dat, aes(exercise, happiness2)) +
 ```
 
 
-<br><br>
-
 ```{r, echo = FALSE, fig.width = 4, fig.height = 4, dpi= 200, out.width = "100%"}
-overall + scale_x_continuous(seq(1, 50, 1))
+overall #+ scale_x_continuous(seq(1, 50, 1))
 ```
 
 
@@ -353,27 +365,26 @@ overall + scale_x_continuous(seq(1, 50, 1))
 ---
 
 
-.pull-left45[
-
 # 1. Variability
 
-In general, we distinguish between two types of variability
+.pull-left45[
+
+
+There are two types of variability: <high>systematic and unsystematic variability</high>.
+
+Statistical inference typically seeks to <high>separate total variability into systematic and unsystematic portions</high>.
+
+<br>
 
 |Variability Type|Definition|
 |:-----|:-----|
 |Systematic| Variation that <high>can</high> be explained by known variables|
 |Unsystematic |Variation that <high>cannot</high> be explained by known variables|
 
-Statistical inference is the practice of discovering ways to separate overall variability into systematic and unsystematic portions.
-
-
 ]
 
 
 .pull-right45[
-
-
-<br><br>
 
 ```{r, echo = FALSE, fig.width = 6, fig.height = 6, dpi= 200, out.width = "100%"}
 ggpubr::ggarrange(low_fact, high_fact, low_cont, high_cont, ncol = 2, nrow = 2)
@@ -387,9 +398,11 @@ ggpubr::ggarrange(low_fact, high_fact, low_cont, high_cont, ncol = 2, nrow = 2)
 
 # 2. Sample Statistics
 
-Once we collect (varying) data, we always look for ways to <high>summarise</high> the data into <high>sample statistics</high>
+Once we collect data, we always look for ways to <high>summarise</high> the data into <high>sample statistics</high>
 
-Sample statistics usually (but not always) fall into one of two types:
+Sample statistics give us <high>estimates</high> of key model parameters (more on this later) and usually (but not always) fall into one of two types:
+
+<br>
 
 |Type|Examples |
 |:----|:------|
@@ -397,22 +410,21 @@ Sample statistics usually (but not always) fall into one of two types:
 |Variability|Standard deviation, variance, range|
 
 
-Sample statistics give us <high>estimates</high> of key model parameters (more on this later)
+
 
 ]
 
 
-.pull-right5[
+.pull-right45[
 
+<br><br>
 
-### Raw data & Sample Statistics
-
-```{r, echo = FALSE, fig.width = 4, fig.height = 3, dpi = 200, out.width = "100%"}
+```{r, echo = FALSE, fig.width = 4, fig.align="left", fig.height = 3, dpi = 200, out.width = "100%"}
 ggplot(beer_data, aes(x = id, y = beer)) +
   geom_text(data = beer_data %>% filter(beer > 30), aes(label = beer), nudge_y = 2) +
     geom_text(data = beer_data %>% filter(beer <= 30), aes(label = beer), nudge_y = -2) +
   scale_x_continuous(breaks = 1:10) +
-  labs(y = "Amount in dl", title = "10 beers from Oetlinger Buvette") +
+  labs(y = "Amount in cl", title = "10 beers from Oetlinger Buvette") +
   ylim(c(20, 40)) +
   geom_hline(yintercept = mean(beer_data$beer), col = baselrbootcamp_cols("green"), size = 1.5) +
   geom_segment(aes(x = id, y = beer, xend = id, yend = 29.9), col = baselrbootcamp_cols("yellow"), lty = 1, size= 1.5) +
@@ -425,7 +437,7 @@ ggplot(beer_data, aes(x = id, y = beer)) +
 
 $$Mean = \frac{28+31+28+...}{10} = 29.9$$
 
-$$Standard \; Deviation = \sqrt{\frac{(28-29.9)^2+(31-29.9)^2+...}{10-1}} = 3.90$$
+$$Stand. \; Dev. = \sqrt{\frac{(28-29.9)^2+(31-29.9)^2+...}{10-1}} = 3.90$$
 
 
 ]
@@ -435,6 +447,7 @@ $$Standard \; Deviation = \sqrt{\frac{(28-29.9)^2+(31-29.9)^2+...}{10-1}} = 3.90
 ---
 
 .pull-left45[
+
 # 3. Sampling Procedures
 
 In statistics, we always distinguish between a <high>sample</high> and a </high>population</high>
@@ -442,21 +455,20 @@ In statistics, we always distinguish between a <high>sample</high> and a </high>
 Populations are what we are really interested in
 - How will *all cancer patients* be affected by Drug X?
 - How will *future stocks* change?
-- What is the relationship between income and happiness in *all people*?
+- Or is the pouring amount different from 33cl?
 
-We rarely have access to entire populations (when we do, we don't need to do statistics!)
+To learn about the population, we must use <high>sampling procedures</high> to obtain a <high>sample</high> of cases.
 
-We must use <high>sampling procedures</high> to obtain a smaller <high>sample</high> of cases.
-
-Based on that sample, we try to make <high>inferences</high> to populations.
+Then, inferential statistics allows us to <high>inferences</high> to populations.
 
 
 ]
 
 
-.pull-right5[
+.pull-right45[
 
-<br><br>
+<br><br><br>
+
 ```{r, echo = FALSE}
 knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/sampling_procedure.png?token=AIFo1AUl-Ddz-zYZgoGbzwJoW8SO3LhUks5criQVwA%3D%3D")
 ```
@@ -473,24 +485,28 @@ knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019
 
 # 4. Distributions
 
-Statistics is built on <high>calculating the likelihood of data</high> given how we assume it varies
+(Parametric) statistics is built on <high>calculating the likelihood of data</high> given a probability distribution.
 
-To make calculations, we need to define variability according to a <high>probability distribution</high>.
+A probability distribution is a <high>mathematical formula</high> that precisely defines <high>how likely</high> every possible value in a dataset is. [List of distributions](https://en.wikipedia.org/wiki/List_of_probability_distributions).
 
-A probability distribution is a <high>mathematical formula</high> that precisely defines <high>how likely</high> every possible value in a dataset is.
+#### 3 key aspects of a distribution
 
-Probability distributions are <high>always positive</high> and their <high>sum adds up to 1.0</high>
+1. <high>Probability Density Function (PDF)</high> - Formula defining the distribution (R knows these)
 
-[Wikipedia: Distribution List](https://en.wikipedia.org/wiki/List_of_probability_distributions)
+2. <high>Support</high> - What values can x take on?
+
+3. <high>Parameters</high> - Values that allow you to change the shape of the distribution? (e.g.; mean and variability?)
+
+
 
 ]
 
 
-.pull-right5[
+.pull-right45[
 
-### 3 key aspects of a distribution
+<br><br><br><br>
 
-```{r, echo = FALSE, fig.width = 4, fig.height = 2, out.width = "90%", dpi=200}
+```{r, echo = FALSE, fig.width = 4, fig.height = 4, out.width = "100%", dpi=200}
 
 p1 <- ggplot(data = data.frame(x = c(60, 140)), aes(x)) +
   stat_function(fun = dnorm, n = 1001, args = list(mean = 110, sd = 10), col = baselrbootcamp_cols("green"),size = 2) + 
@@ -506,46 +522,23 @@ annotate("text", x = 120, .05, label =parse(text = paste0('mu == 110 ~ sigma == 
 p1
 ```
 
-*1. Probability Density Function (PDF)*
-
-A formula that defines the distribution (you rarely need to know this)
-
-*2. Support*
-
-What values can x take on?
-
-*3. Parameters*
-
-Values that allow you to change the shape of the distribution? (e.g.; mean and variability?)
 
 ]
 
 
 ---
 
+# Normal Distribution
+
 .pull-left45[
 
-## Normal (Gaussian) Distribution
 
+A *bell-shaped curve* aka Gaussian distribution, which is the <high>most important distribution in all of statistics</high>.
 
-A 'bell-shaped curve'
+<br>
 
-The most important and widely used distribution in all of statistics
+```{r, echo = FALSE, fig.width = 4, fig.height = 2.5, out.width = "100%", dpi=200}
 
-
-```{r, echo = FALSE, fig.width = 4, fig.height = 3, out.width = "100%", dpi=200}
-
-p1 <- ggplot(data = data.frame(x = c(60, 140)), aes(x)) +
-  stat_function(fun = dnorm, n = 1001, args = list(mean = 110, sd = 10), col = baselrbootcamp_cols("green"),size = 2) + 
-    stat_function(fun = dnorm, n = 1001, args = list(mean = 90, sd = 5), col = baselrbootcamp_cols("yellow"),size = 2) + 
-  ylab("Likelihood") +
-  scale_y_continuous(breaks = NULL) +
-  xlab("x") +
-  annotate("text", x = 90, .09, label =parse(text = paste0('mu == 90 ~ sigma == 5')), size = 5) +
-annotate("text", x = 120, .05, label =parse(text = paste0('mu == 110 ~ sigma == 10')), size = 5) +
-  ylim(c(0, .1))
-
-  
 p1
 ```
 
@@ -554,39 +547,58 @@ p1
 
 .pull-right45[
 
-### Details
+<table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%>
+  <col width="30%">
+  <col width="70%">
+<tr>
+  <td bgcolor="white" style="padding-bottom:42px">
+    <b>Aspect</b>
+  </td>
+  <td bgcolor="white" style="padding-bottom:42px">
+    <b>Formula</b>
+  </td>  
+</tr>
+<tr>
+  <td bgcolor="white"" style="padding-bottom:42px;padding-top:42px">
+    <i>PDF</i>
+  </td>
+  <td bgcolor="white">
+    <img src="image/norm_pdf.png" height=75px>
+  </td>  
+</tr>
+<tr>
+  <td bgcolor="white"" style="padding-bottom:42px;padding-top:42px">
+    <i>Support</i>
+  </td>
+  <td bgcolor="white">
+    <img src="image/norm_sup.png" height=42px>
+  </td>  
+</tr>
+<tr>
+  <td bgcolor="white"" style="padding-bottom:42px;padding-top:42px">
+    <i>Parameters</i>
+  </td>
+  <td bgcolor="white">
+    <img src="image/mu.png" height=27px> &nbsp;&nbsp;&nbsp;&nbsp; (Center; mean)<br><br>
+    <img src="image/sigma.png" height=22px>  &nbsp;&nbsp;&nbsp;&nbsp; (Variability; stand. dev.)<br>
+  </td>  
+</tr>
+</table>
 
-*Probability Density Function (PDF)*
 
-$$\large f(x)= \frac{1}{\sigma \sqrt {2\pi }} e^{(x-\mu)^2/2\sigma^2}$$
-
-*Support*
-
-
-$$\large x \; \epsilon (-\infty, \infty)$$
-
-*Parameters*
-
-|Parameter|Meaning|
-|:-----|:-------|
-|$$\mu$$ | Center (mean)|
-|$$\sigma$$| Variability (standard deviation)|
 ]
-
 
 ---
 
+# Uniform Distribution
+
 .pull-left45[
 
-## Uniform Distribution
+A 'Flat distribution', used <high>when everything is equally likely</high>, within a range.
 
+<br>
 
-A 'Flat distribution'
-
-Used when everything (within a range) is equally likely
-
-
-```{r, echo = FALSE, fig.width = 4, fig.height = 3, out.width = "100%", dpi=200}
+```{r, echo = FALSE, fig.width = 4, fig.height = 2.5, out.width = "100%", dpi=200}
 
 p1 <- ggplot(data = data.frame(x = c(60, 130)), aes(x)) +
   stat_function(fun = dunif, n = 1001, args = list(min = 80, max = 120), col = baselrbootcamp_cols("green"),size = 2) + 
@@ -605,39 +617,55 @@ p1
 ]
 
 
-.pull-right5[
+.pull-right45[
 
-### Details
+<table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%>
+  <col width="30%">
+  <col width="70%">
+<tr>
+  <td bgcolor="white" style="padding-bottom:42px">
+    <b>Aspect</b>
+  </td>
+  <td bgcolor="white" style="padding-bottom:42px">
+    <b>Formula</b>
+  </td>  
+</tr>
+<tr>
+  <td bgcolor="white"" style="padding-bottom:42px;padding-top:42px">
+    <i>PDF</i>
+  </td>
+  <td bgcolor="white">
+    <img src="image/uniform_pdf.png" height=78px>
+  </td>  
+</tr>
+<tr>
+  <td bgcolor="white"" style="padding-bottom:42px;padding-top:42px">
+    <i>Support</i>
+  </td>
+  <td bgcolor="white">
+    <img src="image/uniform_sup.png" height=42px>
+  </td>  
+</tr>
+<tr>
+  <td bgcolor="white"" style="padding-bottom:42px;padding-top:42px">
+    <i>Parameters</i>
+  </td>
+  <td bgcolor="white">
+    <img src="image/a.png" height=20px> &nbsp;&nbsp;&nbsp;&nbsp; (Minimum)<br><br>
+    <img src="image/b.png" height=30px>  &nbsp;&nbsp;&nbsp;&nbsp; (Maximum)<br>
+  </td>  
+</tr>
+</table>
 
-
-*Probability Density Function (PDF)*
-
-$$\Large f(x)= \frac{1}{b-a}$$
-
-*Support*
-
-
-$$\Large x \; \epsilon (a, b)$$
-
-
-*Parameters*
-
-|Parameter|Meaning|
-|:-----|:-------|
-|$$a$$ | Minimum|
-|$$b$$| Maximum|
 ]
-
 
 ---
 
+# Binomial Distribution
+
 .pull-left5[
 
-## Binomial Distribution
-
-A discrete "Counting" distribution
-
-If I flip a coin N times, with p(Head) = p, how many times will I get heads?
+A discrete "Counting" distribution answering: If I flip a coin N times, with p(Head) = p, how many times will I get heads?
 
 ```{r, echo = FALSE, fig.width = 4, fig.height = 3, out.width = "100%", dpi=200}
 
@@ -670,23 +698,43 @@ p1
 
 .pull-right45[
 
-### Details
-
-
-*Probability Density Function (PDF)*
-
-$$\large p(x) = {n \choose x}p^x(1-p)^{n-x}$$
-*Support*
-
-
-$$\large x \; \epsilon \{0, 1, ...n\}$$
-
-*Parameters*
-
-|Parameter|Meaning|
-|:-----|:-------|
-|$$p$$| Probability of success on each trial|
-|$$n$$ | Number of trials (flips)|
+<table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%>
+  <col width="30%">
+  <col width="70%">
+<tr>
+  <td bgcolor="white" style="padding-bottom:42px">
+    <b>Aspect</b>
+  </td>
+  <td bgcolor="white" style="padding-bottom:42px">
+    <b>Formula</b>
+  </td>  
+</tr>
+<tr>
+  <td bgcolor="white"" style="padding-bottom:42px;padding-top:42px">
+    <i>PDF</i>
+  </td>
+  <td bgcolor="white">
+    <img src="image/binomial_pdf.png" height=75px>
+  </td>  
+</tr>
+<tr>
+  <td bgcolor="white"" style="padding-bottom:42px;padding-top:42px">
+    <i>Support</i>
+  </td>
+  <td bgcolor="white">
+    <img src="image/binomial_sup.png" height=42px>
+  </td>  
+</tr>
+<tr>
+  <td bgcolor="white"" style="padding-bottom:42px;padding-top:42px">
+    <i>Parameters</i>
+  </td>
+  <td bgcolor="white">
+    <img src="image/p.png" height=25px> &nbsp;&nbsp;&nbsp;&nbsp; (p(success))<br><br>
+    <img src="image/n.png" height=22px>  &nbsp;&nbsp;&nbsp;&nbsp; (No. trials)<br>
+  </td>  
+</tr>
+</table>
 
 ]
 
@@ -711,12 +759,16 @@ Knowing this likelihood allows us to <high>fit parameters</high>, <high>test</hi
 ]
 
 
-.pull-right5[
+.pull-right45[
 
+<br><br>
 
-```{r, echo = FALSE, out.width = "80%", fig.cap = "An advertisement for xofluza"}
-knitr::include_graphics("https://www.xofluza.com/content/dam/gene/xofluza/hcp/images/Mobile/Xofluza-Flu-Efficacy-Primary-Endpoint-TTAS-01-Mobile.jpg")
-```
+<p align = "center">
+  <img src="image/Xofluza.jpg" width = 350px><br>
+  <font style="font-size:10px">
+    An ad for xofluza, from <a href="https://www.xofluza.com"> xofluza.com</a>
+  </font>
+</p>
 
 
 ```{r, echo = FALSE, fig.width = 3.5, fig.height = 2.5, out.width = "75%"}
@@ -764,6 +816,7 @@ annotate("text", x = 2, .15, label =parse(text = paste0('mu == 1 ~ sigma == 3'))
 
   
 p1
+
 ```
 
 
@@ -779,22 +832,21 @@ Using the binomial distributions on the right, answer the following questions:
 
 ### Q1
 
-If there is a 50% chance of a clinical trial being successful, then out of 10 trials, how likely is it that exactly 5 will be successful?
+If there is a 50% chance of a clinical trial being successful, then out of 10 drugs, <high>how likely is it that exactly 5 will be successful</high>?
+
 
 ### Q2
 
-If there is a 10% chance that a customer will default on his/her loan, then out of 10 customers, how likely is it that none (0) will default?
+If there is a 10% chance that a customer will default on his/her loan, then out of 10 customers, <high>how likely is it that none (0) will default</high>?
 
 ]
 
 
 .pull-right5[
 
-<br><br>
+<br><br><br><br>
 
-### 2 Binomial Distributions
-
-```{r, echo = FALSE, fig.width = 4, fig.height = 3, out.width = "100%", dpi=200}
+```{r, echo = FALSE, fig.width = 4, fig.height = 3.35, out.width = "100%", dpi=200}
 
 d1 <-  data.frame(x = seq(0, 10, 1),
                                y = dbinom(seq(0, 10, 1), size = 10, prob = .5))
@@ -829,28 +881,62 @@ p1
 
 ---
 
-.pull-left65[
+.pull-left45[
+
 
 # 6: Null hypothesis testing
 
-Null hypothesis testing is a statistical framework where two alternative hypotheses (the Null and the Alternative) are compared
 
-|Hypothesis|Description|Example|
-|:-----|:-----|:-------|
-|Null (H0)|A proposed effect <high>does not exist</high> and variation <high>is not systematic</high>|Drug and placebo have the same effect|
-|Alternative (H1)|A proposed effect <high>does exist</high> and variation <high>is systematic</high>|Drug and placebo do *not* have the same effect|
+Null hypothesis testing is a statistical framework where one hypothesis (H<sub>0</sub>) is tested to defend the other, alternative hypothesis (H<sub>1</sub>).
 
-In order to compare these hypotheses, we calculate the likelihood of obtaining data <high>assuming</high> that the null hypothesis is true.
+This evaluation is performed by calculating the likelihood of obtaining the data <high>assuming</high> that the null hypothesis true.
 
-[Wikipedia: Null Hypothesis Testing (NHT)](https://en.wikipedia.org/wiki/Null_hypothesis)
-
+<table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%>
+  <col width="16%">
+  <col width="44%">
+  <col width="40%">
+<tr>
+  <td bgcolor="white">
+    <b>Hypothesis</b>
+  </td>
+  <td bgcolor="white">
+    <b>Description</b>
+  </td>  
+  <td bgcolor="white">
+    <b>Example</b>
+  </td>  
+</tr>
+<tr>
+  <td bgcolor="white">
+    Null (H<sub>0</sub>)
+  </td>
+  <td bgcolor="white">
+    A proposed effect <high>does not exist</high> and variation <high>is not systematic</high>.
+  </td>  
+  <td bgcolor="white">
+    Drug and placebo have the same effect.
+  </td>  
+</tr>
+<tr>
+  <td bgcolor="white">
+    Alternative (H<sub>1</sub>)
+  </td>
+  <td bgcolor="white">
+    A proposed effect <high>does exist</high> and variation <high>is systematic</high>
+  </td>  
+  <td bgcolor="white">
+    Drug and placebo do *not* have the same effect
+  </td>  
+</tr>
+</table>
 
 ]
 
 
-.pull-right3[
-<br><br><br>
-Are these data consistent with H0?
+.pull-right45[
+
+<br><br><br><br>
+
 
 ```{r, echo = FALSE, fig.width = 3, fig.height = 3, fig.cap }
 drug_placebo_gg
@@ -863,36 +949,62 @@ drug_placebo_gg
 ---
 
 
-.pull-left5[
+.pull-left45[
 
 # 7: Test statistics
 
 Sample statistics (like means and standard deviations) are converted into <high>test statistics</high>.
 
-Test statistics are unit-free numbers that help you quantify how likely data is given a null hypothesis.
+Test statistics are unit-free numbers that help you quantify how likely data is given a null hypothesis. The <high>more extreme</high> (i.e.; highly positive or highly negative) your test statistic is, the <high>more evidence against</high> the null hypothesis.
 
-<!-- $$Test\;Statistic=\frac{Variance\;explained\;by\;a\;model}{Variance\;NOT\;explained\;by\;a\;model}$$ -->
-
-Different tests give you different test statistics:
-
-|Test|Test statistic|
-|:----|:----|
-|T-test|T-statistic|
-|Correlation test|Correlation coefficient|
-|ANOVA|F-statistic|
-
-Generally, the <high>more extreme</high> (i.e.; highly positive or highly negative) your test statistic is, the <high>more evidence against</high> the null hypothesis.
+<table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%>
+  <col width="40%">
+  <col width="60%">
+<tr>
+  <td bgcolor="white">
+    <b>Test</b>
+  </td>
+  <td bgcolor="white">
+    <b>Test statistic</b>
+  </td>  
+</tr>
+<tr>
+  <td bgcolor="white">
+    t-test
+  </td>
+  <td bgcolor="white">
+    t-statistic
+  </td>  
+</tr>
+<tr>
+  <td bgcolor="white">
+    Correlation test
+  </td>
+  <td bgcolor="white">
+    Correlation coefficient
+  </td>  
+</tr>
+<tr>
+  <td bgcolor="white">
+    Binomial
+  </td>
+  <td bgcolor="white">
+    Number of successes
+  </td>  
+</tr>
+</table>
 
 
 ]
 
 
-.pull-right5[
-<br><br>
+.pull-right45[
 
-```{r, echo = FALSE, out.width = "100%"}
-knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/beer_null.png?token=AIFo1GFEeag875nlAbAbeS8rdQAx0mW6ks5cq2_1wA%3D%3D")
-```
+<br><br><br><br>
+
+<p align = "center">
+  <img src="image/beer_null.png">
+</p>
 
 ]
 
@@ -901,48 +1013,76 @@ knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019
 
 # 8: P-value
 
-p-values are used to quantify the likelihood of data given the <high>probability distribution</high> under the <high>null hypothesis</high>
+*p*-values are used to quantify the likelihood of data given the <high>probability distribution</high> under the <high>null hypothesis</high>.
 
-|p-value Definition|
-|:----|
-|A p-value is the probability of obtaining test statistics as extreme as what you got assuming a null hypothesis is true|
+If a p-value is *small* (i.e.; p < .05), this means that the likelihood of obtaining that data given the null hypothesis is *small*, suggesting that the null hypothesis is *wrong*.
 
-> "How likely is it that I would get a test statistic of -2.51 if the mean amount of beer really is 33dl?"
+#### Formally
 
-### p < .05 = Reject H0
+A p-value is the probability of obtaining a test statistic as extreme as what you got assuming a null hypothesis is true
 
-If a p-value is *small* (i.e.; p < .05), this means that the likelihood of obtaining that data given the null hypothesis is equally *small*, suggesting that the null hypothesis is *wrong*
+#### Decision rule
 
-<high>Warning!</high> Wait until the New Statistics lecture for alternatives to this approach!
+<font style="font-size:32px"><high>p < .05 &rarr; Reject H<sub>0</0></high></font>
 
 ]
 
 
-.pull-right45[
+.pull-right4[
 
+<br><br><br>
 
-```{r, echo = FALSE, out.width = "90%"}
-knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/pvalue_level.png?token=AIFo1Djs5aBnmWvuT7bFn7IyTzZJ-bQ_ks5cq215wA%3D%3D")
-```
-
-
+<p align = "center">
+  <img src="image/pvalue_level.png" height=460px>
+</p>
 
 ]
 
 ---
 
 
-.pull-left5[
+.pull-left45[
 
 # What about Oetlinger?
 
-|Step|Result|
-|:----|:-----|
-|Null Hypothesis (H0)|The mean amount of beer poured by Oetlinger is (exactly) equal to 33ml.|
-|Sample Statistics|Mean = 33, Standard Deviation = 3.90.|
-|Test statistic and p-value|We convert our stample statistics to a test statistic of <high>t = -2.51</high> and a <high>p-value</high> of <high>p = 0.0273|
+<table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%>
+  <col width="30%">
+  <col width="70%">
+<tr>
+  <td bgcolor="white">
+    <b>Step</b>
+  </td>
+  <td bgcolor="white">
+    <b>Result</b>
+  </td>  
+</tr>
+<tr>
+  <td bgcolor="white">
+    H<sub>0</sub>
+  </td>
+  <td bgcolor="white">
+    The mean amount of beer poured by Oetlinger is 33ml.
+  </td>  
+</tr>
+<tr>
+  <td bgcolor="white">
+    Sample statistics
+  </td>
+  <td bgcolor="white">
+    Mean = 33, Stand. Deviation = 3.90.
+  </td>  
+</tr>
+<tr>
+  <td bgcolor="white">
+    Test and <i>p</i>-value
+  </td>
+  <td bgcolor="white">
+    We calculated, based on the sample statistics, a test statistic of <high><i>t</i>=-2.51</high> and a <high>p-value</high> of <high><i>p</>=0.0273</high>
+  </td>  
+</tr>
+</table>
 
-<high>Conclusion</high>: Using a p < 0.05 threshold, we conclude that, because likelihood of obtaining the data if the null hypothesis is true is only .0273 (< 0.05), then the null hypothesis is likely wrong, and *the Oetlinger buvette is consistently pouring less than 33dl!*
+<high>Conclusion</high> - Using a p < 0.05 threshold, we conclude that the null hypothesis is likely wrong and that...the Oetlinger buvette is pouring less than 33cl!
 
 *Note: These data are completely made up :) We're sure the Oetlinger Buvette is not ripping us off*
 
@@ -950,11 +1090,12 @@ knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019
 
 
 .pull-right45[
-<br><br>
-```{r, echo = FALSE, out.width = "100%"}
-knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/beer_null_p.png?token=AIFo1KnzD3U7_pjvmk0K09hE2HkXISmAks5cq3AGwA%3D%3D")
-```
 
+<br><br><br>
+
+<p align = "center">
+  <img src="image/beer_null_p.png">
+</p>
 
 ]
 
@@ -962,17 +1103,49 @@ knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019
 ---
 
 
-.pull-left5[
+.pull-left45[
 
 # What about Oetlinger?
 
-|Step|Result|
-|:----|:-----|
-|Null Hypothesis (H0)|The mean amount of beer poured by Oetlinger is (exactly) equal to 33ml.|
-|Sample Statistics|Mean = 33, Standard Deviation = 3.90.|
-|Test statistic and p-value|We convert our stample statistics to a test statistic of <high>t = -2.51</high> and a <high>p-value</high> of <high>p = 0.0273|
+<table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%>
+  <col width="30%">
+  <col width="70%">
+<tr>
+  <td bgcolor="white">
+    <b>Step</b>
+  </td>
+  <td bgcolor="white">
+    <b>Result</b>
+  </td>  
+</tr>
+<tr>
+  <td bgcolor="white">
+    H<sub>0</sub>
+  </td>
+  <td bgcolor="white">
+    The mean amount of beer poured by Oetlinger is 33ml.
+  </td>  
+</tr>
+<tr>
+  <td bgcolor="white">
+    Sample statistics
+  </td>
+  <td bgcolor="white">
+    Mean = 33, Stand. Deviation = 3.90.
+  </td>  
+</tr>
+<tr>
+  <td bgcolor="white">
+    Test and <i>p</i>-value
+  </td>
+  <td bgcolor="white">
+    We calculated, based on the sample statistics, a test statistic of <high><i>t</i>=-2.51</high> and a <high>p-value</high> of <high><i>p</>=0.0273</high>
+  </td>  
+</tr>
+</table>
 
-<high>Conclusion</high>: Using a p < 0.05 threshold, we conclude that, because likelihood of obtaining the data if the null hypothesis is true is only .0273 (< 0.05), then the null hypothesis is likely wrong, and *the Oetlinger buvette is consistently pouring less than 33dl!*
+
+<high>Conclusion</high> - Using a p < 0.05 threshold, we conclude that the null hypothesis is likely wrong and that...the Oetlinger buvette is pouring less than 33cl!
 
 *Note: These data are completely made up :) We're sure the Oetlinger Buvette is not ripping us off*
 
@@ -980,8 +1153,8 @@ knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019
 
 
 .pull-right45[
-<br>
-### Doing our test in R!
+
+<br><br><br><br>
 
 ```{r}
 # Define beer sample
