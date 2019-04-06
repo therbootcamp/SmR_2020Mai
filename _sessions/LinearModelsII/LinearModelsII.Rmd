@@ -400,7 +400,7 @@ pos_low_gg <- ggplot(dat, aes(x = x, y = pos_low)) +
 pos_high_gg <- ggplot(dat, aes(x = x, y = pos_high)) +
   geom_point() +
   geom_smooth(se = FALSE, method = "lm", col = baselrbootcamp_cols("magenta")) +
-  labs(title = "High, negative corr.",
+  labs(title = "High, positive corr.",
        subtitle = paste0("r = ", round(pos_high_r, 2)), x = "x", y = "y")
 
 neg_low_gg <- ggplot(dat, aes(x = x, y = neg_low)) +
@@ -1534,10 +1534,10 @@ R has a several functions that allow you to draw <high>random samples</high> dat
 # Pr(t ≤ 2)
 pt(2, df = 99)
 
-# z for p(z ≤ x) = 68%
+# t for p(t ≤ x) = 68%
 qt(.68, df = 99)
 
-# simulate z
+# simulate t
 rt(23, df = 99)
 
 ```
