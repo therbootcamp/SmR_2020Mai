@@ -99,7 +99,7 @@ library(quantreg)
 library(Rfit)
 ```
 
-4. Using the following template, load the `avocado.csv`, `avocado_cali.csv`, and `avocado_ny.csv` data sets into R and store them as a new objects called `avocado`, `avocado_cali`, and `avocado_ny` (Hint: Don't type the path directly! Use the "tab" completion!).
+4. Using the following template, load the `avocado.csv`, and `avocado_cali.csv` data sets into R and store them as a new objects called `avocado`, and `avocado_cali` (Hint: Don't type the path directly! Use the "tab" completion!).
 
 ```{r, echo = TRUE, eval = FALSE}
 # Load XXX.csv from the 1_Data folder
