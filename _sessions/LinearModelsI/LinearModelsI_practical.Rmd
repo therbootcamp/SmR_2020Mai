@@ -276,7 +276,7 @@ ggplot(data = data, aes(x = truth, y = fitted)) +
   geom_point() +
   geom_abline(slope = 1, intercept = 0) +
   labs(title = "Relationship between model fits and true Salaries",
-       subtitle = "Formula = Salary ~ Hits"m,
+       subtitle = "Formula = Salary ~ Hits",
        caption = "I still love R!!!") +
   geom_segment(aes(x = truth, y = truth, xend = truth, yend = fitted), 
                col = "red") +

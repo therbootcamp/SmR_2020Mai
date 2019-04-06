@@ -252,7 +252,7 @@ hist(avocado_cali$XX)
 hist(avocado_cali$volume)
 ```
 
-8. To deal with this problem one could engage in variable transformations, better would be to model the data using an appropriate probability distribution, which counts typically is a Poisson distribution. Fortunately, we don't have to do either. There is another variable called `volume_index` that is much better behaved. Verify this by also creating a histogram of this variable. 
+8. To deal with this problem one could engage in variable transformations, but it would be better to model the data using an appropriate probability distribution. In the case of counts this typically is a Poisson distribution. Fortunately, we don't have to do either. There is another variable called `volume_index` that is much better behaved. Verify this by also creating a histogram of this variable. 
 
 ```{r, echo = TRUE, eval = FALSE}
 # histogram of volume_index
@@ -278,7 +278,7 @@ skewness(avocado_cali$volume)
 skewness(avocado_cali$volume_index)
 ```
 
-10. Now that you confirmed that `volume_index` is probably the better variable to model, run a regression of `volume_indes` on `price_per_avocado` and `type` and call the model `m3`.  
+10. Now that you confirmed that `volume_index` is probably the better variable to model, run a regression predicting `volume_index` with `price_per_avocado` and `type` and call the model `m3`.  
 
 ```{r, echo = TRUE, eval = FALSE}
 # regress volume_index on average price and type
@@ -307,11 +307,11 @@ summmary(m3)
 
 ### C - Variance inflation
 
-1. In the previous section, you have evaluated the effect of price on volume controlling for the type of avocado. This has shown you that price indeed seems to exert strong influence on volume. Some of this impact, however, could be due to other third variables. For instance, it might be possible that the price simply went up through general inflation, while at the same time avocados became more popular. Control for this and other factors by including in the regression of `volume_index` the following variables in addition to `price_per_avocado` and `type`: `date`, `season`, `temperature`, `humidity`, `precipitation`, `type`. Call the model `m4`. 
+1. In the previous section, you have evaluated the effect of price on volume controlling for the type of avocado. This has shown you that price indeed seems to exert strong influence on volume. Some of this impact, however, could be due to other third variables. For instance, it might be possible that the price simply went up through general inflation, while at the same time avocados became more popular. Control for this and other factors by including in the regression of `volume_index` the following variables in addition to `price_per_avocado` and `type`: `date`, `season`, `temperature`, `humidity`, `precipitation`. Call the model `m4`. 
 
 ```{r}
 # new comprehensive model 4
-m4 <- lm(volume_index ~ price_per_avocado + type + date  + season + temperature + humidity + precipitation + type, data = avocado_cali)
+m4 <- lm(volume_index ~ price_per_avocado + type + date  + season + temperature + humidity + precipitation, data = avocado_cali)
 ```
 
 2. Evaluate the model using `summary()` and compare it to the summary of `m3`. First, is the the effect of price still significant. Second, how have have the estimate changed and the standard error changed?
@@ -363,13 +363,17 @@ rsq2 <- rsq(YY)
 rsq1
 rsq2
 
-my_rsq=function(m,x) var(predict(m)) / var(x)
+my_rsq <- function(m, x) {
+  var(predict(m)) / var(x)
+}
 
 my_rsq(m_price1, avocado_cali$price_per_avocado)
 
 # variance inflation factors
-1/(1-rsq(XX))
-1/(1-rsq(YY))
+vif1 <- 1/(1-rsq1)
+vif2 <- 1/(1-rsq2)
+vif1
+vif2
 ```
 
 ```{r}

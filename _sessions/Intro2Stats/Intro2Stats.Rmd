@@ -706,7 +706,7 @@ p1
   </td>  
 </tr>
 <tr>
-  <td bgcolor="white"" style="padding-bottom:42px;padding-top:42px">
+  <td bgcolor="white" style="padding-bottom:42px;padding-top:42px">
     <i>PDF</i>
   </td>
   <td bgcolor="white">
@@ -714,7 +714,7 @@ p1
   </td>  
 </tr>
 <tr>
-  <td bgcolor="white"" style="padding-bottom:42px;padding-top:42px">
+  <td bgcolor="white" style="padding-bottom:42px;padding-top:42px">
     <i>Support</i>
   </td>
   <td bgcolor="white">
@@ -722,7 +722,7 @@ p1
   </td>  
 </tr>
 <tr>
-  <td bgcolor="white"" style="padding-bottom:42px;padding-top:42px">
+  <td bgcolor="white" style="padding-bottom:42px;padding-top:42px">
     <i>Parameters</i>
   </td>
   <td bgcolor="white">

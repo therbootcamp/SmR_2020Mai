@@ -304,7 +304,7 @@ cor(predict(YY), residuals(YY))</code></pre>
 <pre class="r"><code># histogram of volume
 hist(avocado_cali$XX)</code></pre>
 <ol start="8" style="list-style-type: decimal">
-<li>To deal with this problem one could engage in variable transformations, better would be to model the data using an appropriate probability distribution, which counts typically is a Poisson distribution. Fortunately, we don’t have to do either. There is another variable called <code>volume_index</code> that is much better behaved. Verify this by also creating a histogram of this variable.</li>
+<li>To deal with this problem one could engage in variable transformations, but it would be better to model the data using an appropriate probability distribution. In the case of counts this typically is a Poisson distribution. Fortunately, we don’t have to do either. There is another variable called <code>volume_index</code> that is much better behaved. Verify this by also creating a histogram of this variable.</li>
 </ol>
 <pre class="r"><code># histogram of volume_index
 hist(avocado_cali$XX)</code></pre>
@@ -315,7 +315,7 @@ hist(avocado_cali$XX)</code></pre>
 skewness(avocado_cali$XX)
 skewness(avocado_cali$YY)</code></pre>
 <ol start="10" style="list-style-type: decimal">
-<li>Now that you confirmed that <code>volume_index</code> is probably the better variable to model, run a regression of <code>volume_indes</code> on <code>price_per_avocado</code> and <code>type</code> and call the model <code>m3</code>.</li>
+<li>Now that you confirmed that <code>volume_index</code> is probably the better variable to model, run a regression predicting <code>volume_index</code> with <code>price_per_avocado</code> and <code>type</code> and call the model <code>m3</code>.</li>
 </ol>
 <pre class="r"><code># regress volume_index on average price and type
 m3 &lt;- lm(YY ~ XX1 + XX2, data = ZZ)</code></pre>
@@ -327,7 +327,7 @@ m3 &lt;- lm(YY ~ XX1 + XX2, data = ZZ)</code></pre>
 <div id="c---variance-inflation" class="section level3">
 <h3>C - Variance inflation</h3>
 <ol style="list-style-type: decimal">
-<li><p>In the previous section, you have evaluated the effect of price on volume controlling for the type of avocado. This has shown you that price indeed seems to exert strong influence on volume. Some of this impact, however, could be due to other third variables. For instance, it might be possible that the price simply went up through general inflation, while at the same time avocados became more popular. Control for this and other factors by including in the regression of <code>volume_index</code> the following variables in addition to <code>price_per_avocado</code> and <code>type</code>: <code>date</code>, <code>season</code>, <code>temperature</code>, <code>humidity</code>, <code>precipitation</code>, <code>type</code>. Call the model <code>m4</code>.</p></li>
+<li><p>In the previous section, you have evaluated the effect of price on volume controlling for the type of avocado. This has shown you that price indeed seems to exert strong influence on volume. Some of this impact, however, could be due to other third variables. For instance, it might be possible that the price simply went up through general inflation, while at the same time avocados became more popular. Control for this and other factors by including in the regression of <code>volume_index</code> the following variables in addition to <code>price_per_avocado</code> and <code>type</code>: <code>date</code>, <code>season</code>, <code>temperature</code>, <code>humidity</code>, <code>precipitation</code>. Call the model <code>m4</code>.</p></li>
 <li><p>Evaluate the model using <code>summary()</code> and compare it to the summary of <code>m3</code>. First, is the the effect of price still significant. Second, how have have the estimate changed and the standard error changed?</p></li>
 <li><p>You will have observed that both the estimate and the standard error went slightly up. The former is a result of the fact that the other variables took account of some variance in the price that is not related to volume. The latter is, as you can verify in the formula on the variance inflation factor, a result of two adversarial factors: (1) a better fit of the model and (2) an increased variance inflation factor. Let’s inspect these two. First, evaluate the residual variance of <code>m3</code> and <code>m4</code> using the template below.</p></li>
 </ol>
@@ -351,13 +351,17 @@ rsq2 &lt;- rsq(YY)
 rsq1
 rsq2
 
-my_rsq=function(m,x) var(predict(m)) / var(x)
+my_rsq &lt;- function(m, x) {
+  var(predict(m)) / var(x)
+}
 
 my_rsq(m_price1, avocado_cali$price_per_avocado)
 
 # variance inflation factors
-1/(1-rsq(XX))
-1/(1-rsq(YY))</code></pre>
+vif1 &lt;- 1/(1-rsq1)
+vif2 &lt;- 1/(1-rsq2)
+vif1
+vif2</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li>So, while residual variance decreased from <code>.042</code> to <code>.022</code>, the variance inflation factor increased from <code>2.24</code> to <code>4.86</code>. Using these values we can actually compute the standard errors of <code>price_per_avocado</code> in model <code>m3</code> and <code>m4</code> following the formula on the respective slide. See code below. Confirm that the calculated values correspond to the standard errors in the summary outputs for <code>m1</code> and <code>m2</code>.</li>
 </ol>
