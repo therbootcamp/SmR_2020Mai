@@ -168,10 +168,10 @@ hit_rate_erotic <- psi1$hit_rate[psi1$condition == "erotic"]
 hit_rate_erotic_delta <- XX - 50
 
 # calculate d
-d = mean(XX - YY) / sd(XX)
+d <- mean(XX - YY) / sd(XX)
 ```
 
-```{r, echo = TRUE, eval = FALSE}
+```{r}
 # extract erotic hit rate
 hit_rate_erotic <- psi1$hit_rate[psi1$condition == "erotic"]
 
@@ -186,13 +186,19 @@ d = mean(hit_rate_erotic_delta) / sd(hit_rate_erotic_delta)
 
 ```{r, echo = TRUE, eval = FALSE}
 # N to test d=.25, alpha = .05, power = .95
-pa <- pwr.t.test(d = XX, sig.level = XX, power = XX, alternative = "greater")
+pa <- pwr.t.test(d = XX, 
+                 sig.level = XX, 
+                 power = XX, 
+                 alternative = "greater")
 pa
 ```
 
 ```{r}
 # N to test d=.25, alpha = .05, power = .95
-pa <- pwr.t.test(d = .25, sig.level = .05, power = .95, alternative = "greater")
+pa <- pwr.t.test(d = .25, 
+                 sig.level = .05, 
+                 power = .95, 
+                 alternative = "greater")
 pa
 ```
 
@@ -207,7 +213,10 @@ plot.power.htest(pa)
 
 ```{r}
 # Bems post-hoc power
-pa_bem <- pwr.t.test(n = length(hit_rate_erotic), d = .25, sig.level = .05, alternative = "greater")
+pa_bem <- pwr.t.test(n = length(hit_rate_erotic), 
+                     d = .25, 
+                     sig.level = .05, 
+                     alternative = "greater")
 pa_bem
 ```
 
@@ -216,11 +225,17 @@ pa_bem
 
 ```{r}
 # Bems post-hoc power
-pa_bem.1 <- pwr.t.test(n = length(hit_rate_erotic), d = .1, sig.level = .05, alternative = "greater")
+pa_bem.1 <- pwr.t.test(n = length(hit_rate_erotic), 
+                       d = .1, 
+                       sig.level = .05, 
+                       alternative = "greater")
 pa_bem.1
 
 # Sample
-pa.1<- pwr.t.test(d = .1, sig.level = .05, power = .95, alternative = "greater")
+pa.1 <- pwr.t.test(d = .1, 
+                  sig.level = .05, 
+                  power = .95, 
+                  alternative = "greater")
 pa.1
 ```
 
@@ -237,7 +252,9 @@ hit_rate_erotic <- psi1$hit_rate[psi1$condition == "erotic"]
 hit_rate_neutral <- psi1$hit_rate[psi1$condition != "erotic"]
 
 # compute t-test
-test <- t.test(XX, YY, paired = T)
+test <- t.test(x = XX, 
+               y = YY, 
+               paired = TRUE)
 
 ```
 
@@ -278,8 +295,8 @@ hit_rate_diff_se <- sd(hit_rate_diff) / sqrt(length(hit_rate_diff))
 
 ```{r}
 # t-values for p = 2.5% and p = 97.5%
-t.25 <- qt(.025, df = length(hit_rate_diff) - 1)
-t97.5 <- qt(.975, df = length(hit_rate_diff) - 1)
+t.25 <- qt(p = .025, df = length(hit_rate_diff) - 1)
+t97.5 <- qt(p = .975, df = length(hit_rate_diff) - 1)
 ```
 
 7. Compare the two t-values. Anything surprising? Given the symmetric nature of the t-distribution the two values are their respective mirror image. OK, now you have all the ingredients that you need to construct a confidence interval. To calculate the lower bound, you want to move exactly `t.25` times the standard error to the left of the mean hit rate difference. And to calculate the bound, you want to move exactly `t97.5` times the standard error to the right of the mean hit rate difference. Do this and name the lower and upper bounds `hit_rate_lowerb` and `hit_rate_upperb`.
@@ -300,7 +317,8 @@ hit_rate_upperb <- hit_rate_diff_mean + t97.5 * hit_rate_diff_se
 
 ```{r, echo = TRUE, message=F, warning=F}
 # Bayesian regression predicting hit_rate by gender and condition
-bm1 <- stan_glm(hit_rate ~ gender + condition, data = psi1)
+bm1 <- stan_glm(formula = hit_rate ~ gender + condition, 
+                data = psi1)
 ```
 
 2. Print the object and inspect the output. You'll see it looks different than the output of a regular regression. Focusing only on the part after the separating hyphens, there are three main parts:
@@ -322,9 +340,11 @@ posterior_interval(bm1)
 
 ```{r, echo = TRUE, message=F, warning=F}
 # Bayesian regression predicting hit_rate by gender and condition
-psi1$gender_dummy = as.numeric(psi1$gender == 'Male')
-psi1$condition_dummy = as.numeric(psi1$condition == "erotic")
-bm2 <- regressionBF(formula = hit_rate ~ gender_dummy + condition_dummy, data = psi1)
+psi1$gender_dummy <- as.numeric(psi1$gender == 'Male')
+psi1$condition_dummy <- as.numeric(psi1$condition == "erotic")
+
+bm2 <- regressionBF(formula = hit_rate ~ gender_dummy + condition_dummy, 
+                    data = psi1)
 ```
 
 5. Print `bm2` and inspect the output. You'll see it's very different. The `BayesFactor` focuses more on model comparisons than parameter estimation. Accordingly, the output informs you about a model comparison, in this case, between the regression model provided and a model only containing an intercept as a predictor, the `Intercept only` model. The results are what is known *BayesFactor*s. The `BayesFactor` quantifies the amount of evidence that the data provides in favor of the model in question, relative to the comparison model. Values larger than 1 mean that the data favors the model in question, although only values above 10 are considered meaningful. Values lower than 1 indicate that the comparison model is actually more likely. The output presents results independently for each predictor and their combination. So what is it in this case? Are the predictors any good. 
