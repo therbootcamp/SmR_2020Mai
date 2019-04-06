@@ -453,7 +453,7 @@ rsq(HmRun_glm)
 
 ### C - Multiple Regression
 
-1. Create an object called `all_glm` which predicts price based on *all* variables in the `hitters` dataframe. To do this, use the `formula = Salary ~ .` notation. Assign the result to an object called `all_glm`.Use the following guide to help you:
+1. Create an object called `all_glm` which predicts salary based on *all* variables in the `hitters` dataframe. To do this, use the `formula = Salary ~ .` notation. Assign the result to an object called `all_glm`.Use the following guide to help you:
 
 ```{r, eval = FALSE, echo = TRUE}
 # Create all_glm, a glm object modelling Salary based on ALL variables in hitters
