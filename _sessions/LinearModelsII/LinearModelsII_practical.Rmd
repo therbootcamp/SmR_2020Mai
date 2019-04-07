@@ -1,6 +1,5 @@
 ---
 title: "Linear Models II"
-subtitle: "Hypothesis testing and the general linear model"
 author: "<table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'><col width='10%'><col width='10%'>
   <tr style='border:none'>
     <!-- <td style='display:block;width:100%;text-align:left;vertical-align:bottom;padding:0;margin:0;border:none' nowrap> -->
@@ -52,7 +51,7 @@ trial <- read_csv(file = "1_Data/trial_ACTG175.csv")
 ```
 
 <p align="center" width="100%">
-  <img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/cinicaltrial_wide.png?token=AIFo1HsHC0LwU8xjFOB4tKAdFGwNML1Iks5cqNM8wA%3D%3D" alt="Trulli" style="width:100%">
+  <img src="image/cinicaltrial_wide.png" alt="Trulli" style="width:100%">
   <br>
   <font style="font-size:10px">from <a href="https://www.finance-monthly.com/2017/08/gail-adinamis-and-the-leading-global-provider-of-ambulant-healthcare-services-for-clinical-trials/">FinanceMonthly.com</a></font>
 </p>

@@ -485,7 +485,7 @@ You let two subjects rate two movies once when they are sober and once when they
 # Random Effects
 
 .pull-left45[
-With random effects, we can account for random variability in the data that comes from different sources that introduce dependency in the data. We are usually not interested in the concrete instantiation of a particular level.
+With random effects, we can <high>account for "random"" variability</high> in the data that comes from different sources that introduce dependency in the data. We are usually not interested in the concrete instantiation of a particular level.
 
 Random effects:
 
@@ -493,9 +493,8 @@ Random effects:
 * are always categorical variables (<high>factors</high>)
 * are thought to be randomly drawn from the population 
 
-As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/2017/04/introduction-mixed-models.pdf):
-
-> By specifying random effects in our model, we are able to factor out the idiosyncasies of our sample and obtain a more general estimate of the fixed effects of interest.
+*"By specifying random effects in our model, we are able to factor out the idiosyncasies of our sample and obtain a more general estimate of the fixed effects of interest."*
+<font style="font-size:10px"><a href="http://davidkellen.org/wp-content/uploads/2017/04/introduction-mixed-models.pdf">Singmann & Kellen, 2017
 
 
 ]
@@ -531,11 +530,7 @@ When estimating random intercepts, only <high>one additional parameter</high> is
 
 .pull-right45[
 
-<b>Random Intercepts Only<b>
-
 <img src="image/RI_example.png" width="65%" style="display: block; margin: auto;" />
-
-<b>Random Intercepts and Random Slopes<b>
 
 <img src="image/MEM_example.png" width="65%" style="display: block; margin: auto;" />
 
