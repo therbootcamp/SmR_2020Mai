@@ -450,12 +450,12 @@ ggmap(get_map(c(7.588576, 47.559601),zoom=16))
 ]
 
 .pull-right45[
+<br>
+<center><a href="https://forms.gle/aJ6jk9Tq6YcyCsSg6">Bootcamp Follow-up Survey Link</a></center>
 
-<p align="center"><br><br><iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdGYg5kPpINYoHJ9ronAr8eEE6w8Y9SG0r-oqGv-tw_sWh-UQ/viewform?embedded=true" width="430" height="550">Wird geladen...</iframe></p>
-
+<p align="center"><iframe src="https://forms.gle/aJ6jk9Tq6YcyCsSg6" width="430" height="500">Wird geladen...</iframe></p>
 
 ]
-
 
 ---
 
@@ -681,7 +681,7 @@ The web is a great place to learn about R.
 <br>
 <img src="image/machine_learning.png" height="260px" width="480px"></img><br>
 
-<high>2 days, May 11-12, 2019</high></a>
+<high>Basel, 2 days, May 11-12, 2019</high></a>
 
 </p>
 
@@ -694,11 +694,11 @@ The web is a great place to learn about R.
 
 <a href = "https://advancedstudies.unibas.ch/studienangebot/kurs/r-for-data-science-208287">
 
-<font style="font-size:26px;weight:700"> Statistics with R</font><br>
+<font style="font-size:26px;weight:700">R for Data Science</font><br>
 <br>
 <img src="image/data_science.png" height="260px" width="480px"></img><br>
 
-<high>2 days, June 11-12, 2019</high><br><br><br>
+<high>Basel, 2 days, June 11-12, 2019</high><br><br><br>
 </a>
 
 </p>
@@ -710,11 +710,10 @@ The web is a great place to learn about R.
 
 
 ---
+class: center, middle
 
+# One more thing...
 
-# Thank you
-
-
-<a href="http://i.imgur.com/PgtvQar.png"><font size=5>Here is an R Joke.</font></a><br><br>
-<font size=5>And now one more thing</font>...
+<!-- <a href="http://i.imgur.com/PgtvQar.png"><font size=5>Here is an R Joke.</font></a><br><br> -->
+<!-- <font size=5>And now one more thing</font>... -->
 
