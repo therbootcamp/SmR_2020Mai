@@ -167,7 +167,7 @@ hit_rate_erotic <- psi1$hit_rate[psi1$condition == "erotic"]
 hit_rate_erotic_delta <- XX - 50
 
 # calculate d
-d <- mean(XX - YY) / sd(XX)
+d <- mean(YY) / sd(YY)
 ```
 
 ```{r}
@@ -178,7 +178,7 @@ hit_rate_erotic <- psi1$hit_rate[psi1$condition == "erotic"]
 hit_rate_erotic_delta <- hit_rate_erotic - 50
 
 # calculate d
-d = mean(hit_rate_erotic_delta) / sd(hit_rate_erotic_delta)
+d <- mean(hit_rate_erotic_delta) / sd(hit_rate_erotic_delta)
 ```
 
 2. An effect size of `d = .25` is typically considered a small, but meaningful effect. Let us know take the perspective of rival researchers, who would like to replicate Bem's effect. Specifically, we would like to conduct an experiment that has a small chance of false positives, e.g., $\alpha = 0.05$ (`sig.level`) and an equally low chance of missing the effect, i.e., $\beta = .05$ implying $1-\beta = power = .95$. How many observations would we have to make to be able to conduct such a test? Use the template below. 

@@ -447,7 +447,7 @@ sqrt(var_beta2)
 
 ```{r, echo = TRUE, eval = FALSE}
 # linear and quadratic effect of price
-m5 <- lm(formula = YY ~ YY + XX + I(XX ^ 2), 
+m5 <- lm(formula = YY ~ XX + XX + I(XX ^ 2), 
          data = avocado_cali)
 ```   
 
@@ -457,7 +457,7 @@ m5 <- lm(formula = volume_index ~ type + price_per_avocado + I(price_per_avocado
           data = avocado_cali)
 ``` 
 
-2. Eva lute the model (`m5`) using `summary()`. Is the quadratic effect significant?
+2. Evaluate the model (`m5`) using `summary()`. Is the quadratic effect significant?
 
 ```{r}
 # linear and quadratic effect of price
@@ -480,7 +480,7 @@ summary(m5)
 
 ```{r, echo = TRUE, eval = FALSE}
 # linear and quadratic effect of price
-m6 <- lm(formula = YY ~ YY + XX + I((XX - mean(XX)) ^2), 
+m6 <- lm(formula = YY ~ XX + XX + I((XX - mean(XX)) ^2), 
          data = avocado_cali)
 ```   
 
