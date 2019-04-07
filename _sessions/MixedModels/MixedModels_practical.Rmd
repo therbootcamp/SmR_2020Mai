@@ -109,7 +109,7 @@ library(sjstats)
 XX <- read_csv(file = "XX/XX")
 
 # Load school.csv from the 1_Data folder
-XX<- read_csv("XX/XX")
+XX <- read_csv(file = "XX/XX")
 ```
 
 
@@ -118,7 +118,7 @@ XX<- read_csv("XX/XX")
 tom <- read_csv(file = "1_Data/tomatometer.csv")
 
 # Load school.csv from the 1_Data folder
-schools <- read_csv("1_Data/schools.csv")
+schools <- read_csv(file = "1_Data/schools.csv")
 ```
 
 5. Take a look at the first few rows of the datasets by printing them to the console.
@@ -167,7 +167,7 @@ In the first part of this practical we will work with the `tom` data example fro
 
 ```{r, echo = TRUE, eval = FALSE}
 # Use lm, as lmer only works if at least one random effect is specified
-FE_mod <- glm(XXX ~ XXX, 
+FE_mod <- glm(formula = XXX ~ XXX, 
               data = XXX)
 
 # Inspect the results
@@ -176,7 +176,7 @@ summary(XXX)
 
 ```{r}
 # Use lm, as lmer only works if at least one random effect is specified
-FE_mod <- glm(Tomatometer ~ State, 
+FE_mod <- glm(formula = Tomatometer ~ State, 
               data = tom)
 
 # look at the resuts
@@ -195,7 +195,7 @@ tom <- tom %>%
 
 ```{r}
 # Use lm, as lmer only works if at least one random effect is specified
-FE_mod <- glm(Tomatometer ~ State, 
+FE_mod <- glm(formula = Tomatometer ~ State, 
               data = tom)
 
 # look at the resuts
@@ -209,7 +209,7 @@ summary(FE_mod)
 
 ```{r echo = TRUE, eval = FALSE}
 # Mixed effects model with by-subject random intercepts
-subj_RI_mod <- lmer(XXX ~ XXX +           # These are the fixed effects
+subj_RI_mod <- lmer(formula = XXX ~ XXX +           # These are the fixed effects
                     (1|XXX),              # These are the random effects
                     data = XXX,           # Specify the data used
                     REML = FALSE)
@@ -217,7 +217,7 @@ subj_RI_mod <- lmer(XXX ~ XXX +           # These are the fixed effects
 
 ```{r}
 # Mixed effects model with by-subject random intercepts
-subj_RI_mod <- lmer(Tomatometer ~ State + # These are the fixed effects
+subj_RI_mod <- lmer(formula = Tomatometer ~ State + # These are the fixed effects
                     (1|ID),               # These are the random effects
                     data = tom,        # Specify the data used
                     REML = FALSE)
@@ -241,6 +241,7 @@ summary(FE_mod)
 8. Sometimes it is useful to extract the estimates from the model output (e.g., so we don't have to manually type them, which would be error prone). Extract the fixed effects from `subj_RI_mod` using the `fixef()` function.
 
 ```{r echo = TRUE, eval = FALSE}
+# Print fixed effects from subj_RI_mod
 fixef(XXX)
 ```
 
@@ -248,9 +249,15 @@ fixef(XXX)
 fixef(subj_RI_mod)
 ```
 
-9. Now extract the random effects using the `ranef()` function.
+9. Now extract the random effects from `subj_RI_mod` using the `ranef()` function.
+
+```{r echo = TRUE, eval = FALSE}
+# Print random effects from subj_RI_mod
+ranef(XXX)
+```
 
 ```{r}
+# Print random effects from subj_RI_mod
 ranef(subj_RI_mod)
 ```
 
@@ -258,7 +265,7 @@ ranef(subj_RI_mod)
 
 ```{r echo = TRUE, eval = FALSE}
 # Mixed effects model with by-subject random intercepts and slopes
-subj_RI_RS_mod <- lmer(XXX ~ XXX +          # These are the fixed effects
+subj_RI_RS_mod <- lmer(formula = XXX ~ XXX +          # These are the fixed effects
                       (XXX|XXX),            # These are the random effects
                       data = XXX,           # Specify the data used
                       REML = FALSE)
@@ -266,13 +273,13 @@ subj_RI_RS_mod <- lmer(XXX ~ XXX +          # These are the fixed effects
 
 ```{r}
 # Mixed effects model with by-subject random intercepts and slopes
-subj_RI_RS_mod <- lmer(Tomatometer ~ State + # These are the fixed effects
+subj_RI_RS_mod <- lmer(formula = Tomatometer ~ State + # These are the fixed effects
                       (State|ID),            # These are the random effects
                       data = tom,         # Specify the data used
                       REML = FALSE)
 ```
 
-11. Compare the outputs of the fixed effects only model, of the by-subjects random intercepts model, and of the by-subjects random intercepts and slopes model. Did the coefficients change? Why not? What did change?
+11. Compare the outputs of the fixed effects only model, of the by-subjects random intercepts model, and of the by-subjects random intercepts and slopes model. Do this by applying the `summary()` function to each of the objects. Did the coefficients change? Why not? What did change?
 
 ```{r}
 summary(subj_RI_RS_mod)
@@ -289,7 +296,7 @@ summary(FE_mod)
 
 ```{r echo = TRUE, eval = FALSE}
 # Mixed effects model with by-subject and by-movie random intercepts and slopes
-max_mod <- lmer(XXX ~ XXX +           # These are the fixed effects
+max_mod <- lmer(formula = XXX ~ XXX +           # These are the fixed effects
                (XXX|XXX) + (XXX|XXX), # These are the random effects
                data = XXX,            # Specify the data used
                REML = FALSE,
@@ -299,7 +306,7 @@ max_mod <- lmer(XXX ~ XXX +           # These are the fixed effects
 
 ```{r}
 # Mixed effects model with by-subject and by-movie random intercepts and slopes
-max_mod <- lmer(Tomatometer ~ State +       # These are the fixed effects
+max_mod <- lmer(formula = Tomatometer ~ State +       # These are the fixed effects
                (State|ID) + (State|Movie),  # These are the random effects
                data = tom,               # Specify the data used
                REML = FALSE,
@@ -430,7 +437,7 @@ One possibility to obtain p-values is by conducting a likelihood ratio test ([LR
 
 ```{r echo = TRUE, eval = FALSE}
 # Intercept only mixed effects model with by-subject and by-movie random intercepts
-IO_mod <- lmer(XXX ~ 1 +         # There are no fixed effects so add 1 to fit the intercept
+IO_mod <- lmer(formula = XXX ~ 1 +         # There are no fixed effects so add 1 to fit the intercept
               (1|XXX) + (1|XXX), # These are the random effects
               data = XXX,        # Specify the data used
               REML = FALSE)
@@ -438,7 +445,7 @@ IO_mod <- lmer(XXX ~ 1 +         # There are no fixed effects so add 1 to fit th
 
 ```{r}
 # Intercept only mixed effects model with by-subject and by-movie random intercepts
-IO_mod <- lmer(Tomatometer ~ 1 +    # There are no fixed effects so add 1 to fit the intercept
+IO_mod <- lmer(formula = Tomatometer ~ 1 +    # There are no fixed effects so add 1 to fit the intercept
                (1|ID) + (1|Movie),  # These are the random effects
                data = tom,       # Specify the data used
                REML = FALSE)
@@ -455,7 +462,7 @@ summary(IO_mod)
 
 ```{r echo = TRUE, eval = FALSE}
 # Intercept only mixed effects model with by-subject and by-movie random intercepts
-RI_mod <- lmer(XXX ~ XXX +         # The fixed effects
+RI_mod <- lmer(formula = XXX ~ XXX +         # The fixed effects
               (1|XXX) + (1|XXX),   # These are the random effects
               data = XXX,          # Specify the data used
               REML = FALSE,
@@ -465,7 +472,7 @@ RI_mod <- lmer(XXX ~ XXX +         # The fixed effects
 
 ```{r}
 # Intercept only mixed effects model with by-subject and by-movie random intercepts
-RI_mod <- lmer(Tomatometer ~ State +    # The fixed effects
+RI_mod <- lmer(formula = Tomatometer ~ State +    # The fixed effects
                (1|ID) + (1|Movie),  # These are the random effects
                data = tom,       # Specify the data used
                REML = FALSE,
@@ -567,7 +574,7 @@ We will follow their example and use $\alpha_{LRT} = 0.2$. As the `anova()` func
 
 ```{r echo = TRUE, eval = FALSE}
 # Constrained mixed effects model with by-subject and by-movie random intercepts and slopes
-con_mod <- lmer(XXX ~ XXX +             # These are the fixed effects
+con_mod <- lmer(formula = XXX ~ XXX +             # These are the fixed effects
                (XXX||XXX) + (XXX||XXX), # These are the random effects
                data = XXX,              # Specify the data used
                REML = FALSE,
@@ -577,7 +584,7 @@ con_mod <- lmer(XXX ~ XXX +             # These are the fixed effects
 
 ```{r}
 # Constrained mixed effects model with by-subject and by-movie random intercepts and slopes
-con_mod <- lmer(Tomatometer ~ State +         # These are the fixed effects
+con_mod <- lmer(formula = Tomatometer ~ State +         # These are the fixed effects
                (State||ID) + (State||Movie),  # These are the random effects
                data = tom,                 # Specify the data used
                REML = FALSE,
@@ -722,7 +729,7 @@ table(schools$school, schools$class)
 
 ```{r}
 # Hierarchical mixed effects model
-hier_mod <- lmer(extra ~ open + social + # These are the fixed effects
+hier_mod <- lmer(formula = extra ~ open + social + # These are the fixed effects
                (1|school/class),        # These are the nested random effects
                data = schools,          # Specify the data used
                REML = FALSE)
@@ -744,7 +751,7 @@ summary(hier_mod)
 
 ```{r}
 # Hierarchical mixed effects model
-cross_mod <- lmer(extra ~ open + agree +  # These are the fixed effects
+cross_mod <- lmer(formula = extra ~ open + agree +  # These are the fixed effects
                  (1|school) + (1|class),  # These are the crossed random effects
                  data = schools,          # Specify the data used
                  REML = FALSE)
@@ -778,7 +785,7 @@ summary(cross_mod)
 ```{r}
 # Constrained model with by-subjects random intercepts and slopes, without their
 # correlation, and with by-movie random intercepts
-con_mod2 <- lmer(Tomatometer ~ State +         # These are the fixed effects
+con_mod2 <- lmer(formula = Tomatometer ~ State +         # These are the fixed effects
                 (State||ID) + (1|Movie),      # These are the random effects
                 data = tom,                 # Specify the data used
                 REML = FALSE,
@@ -817,7 +824,7 @@ d_diff > st1
 1. Now we will look at generalized linear mixed effects model. Load the `cancer_remission.csv` data into R and save it as `cr`.
 
 ```{r}
-cr <- read_csv("1_Data/cancer_remission.csv")
+cr <- read_csv(file = "1_Data/cancer_remission.csv")
 ```
 
 2. Take a look at the data. It is a subset of simulated data from [UCLA Institute for Digital Research and Education Search this website](https://stats.idre.ucla.edu/).
@@ -831,7 +838,7 @@ View(cr)
 3. Predict cancer remission (`remission`) by the cancer stage (`CancerStage`), the length of the patients stay (`LengthofStay`), the doctors experience (`Experience`), and by specifying by doctor (`DID`) random intercepts. Use the `glmer` function with `family = binomial` to do this. Also, use the "bobyqa" optimizer as in some examples before.
 
 ```{r}
-cr_mod <- glmer(XXX ~ XXX + XXX + XXX +
+cr_mod <- glmer(formula = XXX ~ XXX + XXX + XXX +
                 (1 | XXX),
                 data = XXX,
                 family = binomial, # with this you tell glmer to run a logistic regression
@@ -840,7 +847,7 @@ cr_mod <- glmer(XXX ~ XXX + XXX + XXX +
 
 
 ```{r}
-cr_mod <- glmer(remission ~ CancerStage + LengthofStay + Experience +
+cr_mod <- glmer(formula = remission ~ CancerStage + LengthofStay + Experience +
                 (1 | DID),
                 data = cr,
                 family = binomial, # with this you tell glmer to run a logistic regression
@@ -888,13 +895,13 @@ head(sleepstudy)
 
 # fixed effects only model predicting the reaction time
 # from the number of days with sleep deprivation
-sleep_FE <- glm(Reaction ~ Days, data = sleepstudy)
+sleep_FE <- glm(formula = Reaction ~ Days, data = sleepstudy)
 
 # inspect model
 summary(sleep_FE)
 
 # intercept only model mixed effects model
-sleep_IO <- lmer(Reaction ~ 1 + (1|Subject),
+sleep_IO <- lmer(formula = Reaction ~ 1 + (1|Subject),
                  data = sleepstudy,
                  REML = FALSE)
 
@@ -902,7 +909,7 @@ sleep_IO <- lmer(Reaction ~ 1 + (1|Subject),
 summary(sleep_IO)
 
 # run random interceptes model
-sleep_RI <- lmer(Reaction ~ Days + (1|Subject),
+sleep_RI <- lmer(formula = Reaction ~ Days + (1|Subject),
                  data = sleepstudy,
                  REML = FALSE)
 
@@ -919,7 +926,7 @@ p_value(sleep_RI, p.kr = TRUE)
 anova(sleep_IO, sleep_RI)
 
 # run mixed effects model without correlations between random effects parameters
-sleep_nc <- lmer(Reaction ~ Days + (Days||Subject),
+sleep_nc <- lmer(formula = Reaction ~ Days + (Days||Subject),
                  data = sleepstudy,
                  REML = FALSE)
 
@@ -930,9 +937,9 @@ converge_ok(sleep_nc)
 summary(sleep_nc)
 
 # run maximal model (by-subjects random slopes and intercepts)
-sleep_max <- lmer(Reaction ~ Days + (Days|Subject),
-                 data = sleepstudy,
-                 REML = FALSE)
+sleep_max <- lmer(formula = Reaction ~ Days + (Days|Subject),
+                  data = sleepstudy,
+                  REML = FALSE)
 
 # check whether the model converged
 converge_ok(sleep_max)

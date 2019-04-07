@@ -241,7 +241,7 @@ library(sjstats)</code></pre>
 XX &lt;- read_csv(file = &quot;XX/XX&quot;)
 
 # Load school.csv from the 1_Data folder
-XX&lt;- read_csv(&quot;XX/XX&quot;)</code></pre>
+XX &lt;- read_csv(file = &quot;XX/XX&quot;)</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>Take a look at the first few rows of the datasets by printing them to the console.</li>
 </ol>
@@ -266,7 +266,7 @@ View(XXX)</code></pre>
 <li>Run fixed effects only model predicting <code>Tomatometer</code> with <code>State</code> and save the result as <code>FE_mod</code>. Then inspect the results.</li>
 </ol>
 <pre class="r"><code># Use lm, as lmer only works if at least one random effect is specified
-FE_mod &lt;- glm(XXX ~ XXX, 
+FE_mod &lt;- glm(formula = XXX ~ XXX, 
               data = XXX)
 
 # Inspect the results
@@ -283,7 +283,7 @@ tom &lt;- tom %&gt;%
 <li><p>Now run a model with by-subjects random intercepts (subjects identifiers are stored in the <code>ID</code> variable). <em>Hint</em>: Random effects are specified in parenthesis in the formula in the following way <code>(</code><a href="https://en.wikipedia.org/wiki/Design_matrix">design_matrix</a><code>|grouping_variable)</code>. <strong>Note</strong>: The <code>REML = FALSE</code> in the model specification tells R to fit the model using maximum likelihood (ML), rather than restricted maximal likelihood (REML; for more information on this in a technical approach see <a href="https://projecteuclid.org/euclid.cbms/1462106081">here</a> and <a href="http://www.stats.net.au/Maths_REML_manual.pdf">here</a>, for a less technical approach see <a href="https://en.wikipedia.org/wiki/Restricted_maximum_likelihood">here</a>). This will later be important for certain model comparisons that only work if the model was fitted using ML.</p></li>
 </ol>
 <pre class="r"><code># Mixed effects model with by-subject random intercepts
-subj_RI_mod &lt;- lmer(XXX ~ XXX +           # These are the fixed effects
+subj_RI_mod &lt;- lmer(formula = XXX ~ XXX +           # These are the fixed effects
                     (1|XXX),              # These are the random effects
                     data = XXX,           # Specify the data used
                     REML = FALSE)</code></pre>
@@ -292,22 +292,27 @@ subj_RI_mod &lt;- lmer(XXX ~ XXX +           # These are the fixed effects
 <li><p>Did the effect of <code>State</code> change, now that you incorporated the random effects? Can you find out what did change from the model outputs?</p></li>
 <li><p>Sometimes it is useful to extract the estimates from the model output (e.g., so we don’t have to manually type them, which would be error prone). Extract the fixed effects from <code>subj_RI_mod</code> using the <code>fixef()</code> function.</p></li>
 </ol>
-<pre class="r"><code>fixef(XXX)</code></pre>
+<pre class="r"><code># Print fixed effects from subj_RI_mod
+fixef(XXX)</code></pre>
 <ol start="9" style="list-style-type: decimal">
-<li><p>Now extract the random effects using the <code>ranef()</code> function.</p></li>
-<li><p>Expand your mixed effects model from task B4 by adding by-subjects slopes. <em>Hint</em>: add the <code>State</code> variable to the left side of the bar <code>|</code> in the random effects part of the formula.</p></li>
+<li>Now extract the random effects from <code>subj_RI_mod</code> using the <code>ranef()</code> function.</li>
+</ol>
+<pre class="r"><code># Print random effects from subj_RI_mod
+ranef(XXX)</code></pre>
+<ol start="10" style="list-style-type: decimal">
+<li>Expand your mixed effects model from task B4 by adding by-subjects slopes. <em>Hint</em>: add the <code>State</code> variable to the left side of the bar <code>|</code> in the random effects part of the formula.</li>
 </ol>
 <pre class="r"><code># Mixed effects model with by-subject random intercepts and slopes
-subj_RI_RS_mod &lt;- lmer(XXX ~ XXX +          # These are the fixed effects
+subj_RI_RS_mod &lt;- lmer(formula = XXX ~ XXX +          # These are the fixed effects
                       (XXX|XXX),            # These are the random effects
                       data = XXX,           # Specify the data used
                       REML = FALSE)</code></pre>
 <ol start="11" style="list-style-type: decimal">
-<li><p>Compare the outputs of the fixed effects only model, of the by-subjects random intercepts model, and of the by-subjects random intercepts and slopes model. Did the coefficients change? Why not? What did change?</p></li>
+<li><p>Compare the outputs of the fixed effects only model, of the by-subjects random intercepts model, and of the by-subjects random intercepts and slopes model. Do this by applying the <code>summary()</code> function to each of the objects. Did the coefficients change? Why not? What did change?</p></li>
 <li><p>Each movie was rated in both states, so there is also a repetition in the items, which again leads to a violation of the independence assumption. To account for this, expand the model from task B9 by adding by-movie random intercepts and slopes. <em>Note</em>: The additional argument specifies a different optimizer such that the model converges.</p></li>
 </ol>
 <pre class="r"><code># Mixed effects model with by-subject and by-movie random intercepts and slopes
-max_mod &lt;- lmer(XXX ~ XXX +           # These are the fixed effects
+max_mod &lt;- lmer(formula = XXX ~ XXX +           # These are the fixed effects
                (XXX|XXX) + (XXX|XXX), # These are the random effects
                data = XXX,            # Specify the data used
                REML = FALSE,
@@ -377,7 +382,7 @@ LMM_plot</code></pre>
 <li>First, fit an intercept only model (<code>IO_mod</code>) where you predict <code>Tomatometer</code> with only the grand mean, and the by-subjects and by-movies random intercepts.</li>
 </ol>
 <pre class="r"><code># Intercept only mixed effects model with by-subject and by-movie random intercepts
-IO_mod &lt;- lmer(XXX ~ 1 +         # There are no fixed effects so add 1 to fit the intercept
+IO_mod &lt;- lmer(formula = XXX ~ 1 +         # There are no fixed effects so add 1 to fit the intercept
               (1|XXX) + (1|XXX), # These are the random effects
               data = XXX,        # Specify the data used
               REML = FALSE)</code></pre>
@@ -386,7 +391,7 @@ IO_mod &lt;- lmer(XXX ~ 1 +         # There are no fixed effects so add 1 to fit
 <li><p>Now fit the same model as in task E1, but add the <code>State</code> variables. Save the output as <code>RI_mod</code>. Note that we again need to use another optimizer to avoid convergence problems (You don’t need to worry about this now, you can use the code template below).</p></li>
 </ol>
 <pre class="r"><code># Intercept only mixed effects model with by-subject and by-movie random intercepts
-RI_mod &lt;- lmer(XXX ~ XXX +         # The fixed effects
+RI_mod &lt;- lmer(formula = XXX ~ XXX +         # The fixed effects
               (1|XXX) + (1|XXX),   # These are the random effects
               data = XXX,          # Specify the data used
               REML = FALSE,
@@ -454,7 +459,7 @@ p_value(fit = XXX)</code></pre>
 <li>The answer to the last task is that you can constrain the correlation of the random intercepts and random slopes to zero. Use the double bar <code>||</code> in the random effects structure, that is <code>(design_matrix||grouping_variable)</code> to do this. Fit the maximal model but constrain the correlations to zero.</li>
 </ol>
 <pre class="r"><code># Constrained mixed effects model with by-subject and by-movie random intercepts and slopes
-con_mod &lt;- lmer(XXX ~ XXX +             # These are the fixed effects
+con_mod &lt;- lmer(formula = XXX ~ XXX +             # These are the fixed effects
                (XXX||XXX) + (XXX||XXX), # These are the random effects
                data = XXX,              # Specify the data used
                REML = FALSE,
@@ -571,13 +576,13 @@ head(sleepstudy)
 
 # fixed effects only model predicting the reaction time
 # from the number of days with sleep deprivation
-sleep_FE &lt;- glm(Reaction ~ Days, data = sleepstudy)
+sleep_FE &lt;- glm(formula = Reaction ~ Days, data = sleepstudy)
 
 # inspect model
 summary(sleep_FE)
 
 # intercept only model mixed effects model
-sleep_IO &lt;- lmer(Reaction ~ 1 + (1|Subject),
+sleep_IO &lt;- lmer(formula = Reaction ~ 1 + (1|Subject),
                  data = sleepstudy,
                  REML = FALSE)
 
@@ -585,7 +590,7 @@ sleep_IO &lt;- lmer(Reaction ~ 1 + (1|Subject),
 summary(sleep_IO)
 
 # run random interceptes model
-sleep_RI &lt;- lmer(Reaction ~ Days + (1|Subject),
+sleep_RI &lt;- lmer(formula = Reaction ~ Days + (1|Subject),
                  data = sleepstudy,
                  REML = FALSE)
 
@@ -602,7 +607,7 @@ p_value(sleep_RI, p.kr = TRUE)
 anova(sleep_IO, sleep_RI)
 
 # run mixed effects model without correlations between random effects parameters
-sleep_nc &lt;- lmer(Reaction ~ Days + (Days||Subject),
+sleep_nc &lt;- lmer(formula = Reaction ~ Days + (Days||Subject),
                  data = sleepstudy,
                  REML = FALSE)
 
@@ -613,9 +618,9 @@ converge_ok(sleep_nc)
 summary(sleep_nc)
 
 # run maximal model (by-subjects random slopes and intercepts)
-sleep_max &lt;- lmer(Reaction ~ Days + (Days|Subject),
-                 data = sleepstudy,
-                 REML = FALSE)
+sleep_max &lt;- lmer(formula = Reaction ~ Days + (Days|Subject),
+                  data = sleepstudy,
+                  REML = FALSE)
 
 # check whether the model converged
 converge_ok(sleep_max)

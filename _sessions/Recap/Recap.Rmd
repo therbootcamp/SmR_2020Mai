@@ -124,7 +124,7 @@ This evaluation is performed by calculating the likelihood of obtaining the data
     A proposed effect <high>does exist</high> and variation <high>is systematic</high>
   </td>  
   <td bgcolor="white">
-    Drug and placebo do *not* have the same effect
+    Drug and placebo do <b><i>not</i></b> have the same effect
   </td>  
 </tr>
 </table>
@@ -134,7 +134,18 @@ This evaluation is performed by calculating the likelihood of obtaining the data
 
 .pull-right45[
 
-<br><br><br><br>
+<br>
+
+<b>Question</b><br>
+<i>Does "Drug X" reduce flu recovery time versus a placebo?</i>
+
+<b>Hypotheses</b><br>
+
+
+$$\large H_{0}: \mu_{Drug\;X} = \mu_{Placebo}$$
+$$\large H_{1}: \mu_{Drug\;X} \neq \mu_{Placebo}$$
+
+<b>Sample Data</b>
 
 ```{r, echo = FALSE}
 
@@ -142,10 +153,10 @@ set.seed(105)
 x <- rnorm(50, mean = 50, sd = 10)
 
 id <- 1:50
-drug <- sample(c("Drug", "Placebo"), size = 50, replace = TRUE)
+drug <- sample(c("2.Drug X", "1.Placebo"), size = 50, replace = TRUE)
 effect <- rnorm(50)
-effect[drug == "Drug"] <- 2.3 + rnorm(sum(drug == "Drug"), mean = 0, sd = 1.5) - .41
-effect[drug == "Placebo"] <- 3.3 + rnorm(sum(drug == "Placebo"), mean = 0, sd = 1.5) - .12
+effect[drug == "2.Drug X"] <- 2.3 + rnorm(sum(drug == "2.Drug X"), mean = 0, sd = 1.5) - .41
+effect[drug == "1.Placebo"] <- 3.3 + rnorm(sum(drug == "1.Placebo"), mean = 0, sd = 1.5) - .12
 
 dat <- tibble(id, drug, effect, group = rep("Baselers", 50))
 avg <- dat %>%
@@ -153,16 +164,16 @@ avg <- dat %>%
   summarise(days_mean = mean(effect))
 
 drug_placebo_gg <- ggplot(dat, aes(factor(drug), effect)) +
-  geom_jitter(width = .05) +
+  geom_jitter(width = .05, alpha = .5) +
   labs(y = "Days",
        x = "Condition",
-       title = "Fictional data comparing Drug to Placebo arm") +
+       title = "Flu recovery time in days",
+       caption = "Note: Fictional data") +
   scale_y_continuous(breaks = seq(0, 10, 1), limits = c(0, 7)) +
-  geom_label(data = avg, aes(x = drug, y = days_mean, label = round(days_mean, 2))) +
-  theme(plot.title = element_text(size = 10))
+  geom_label(data = avg, aes(x = drug, y = days_mean, label = round(days_mean, 2)))
 ```
 
-```{r, echo = FALSE, fig.width = 3, fig.height = 3, out.width="100%", warning=F, dpi=300}
+```{r, echo = FALSE, fig.width = 3, fig.height = 2.5, out.width="70%", warning=F, dpi=300, fig.align = 'center'}
 drug_placebo_gg
 ```
 
