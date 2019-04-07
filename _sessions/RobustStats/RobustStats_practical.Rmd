@@ -338,7 +338,7 @@ summary(m3)
 summary(m4)
 ```
 
-3. You will have observed that both the estimate and the standard error went slightly up. The former is a result of the fact that the other variables took account of some variance in the price that is not related to volume. The latter is, as you can verify in the formula on the variance inflation factor, a result of two adversarial factors: (1) a better fit of the model and (2) an increased variance inflation factor. Let's inspect these two. First, evaluate the residual variance of `m3` and `m4` using the template below.
+3. You will have observed that the estimate got more extreme and the standard error went slightly up. The former is a result of the fact that the other variables took account of some variance in the price that is not related to volume. The latter is, as you can verify in the formula on the variance inflation factor, a result of two adversarial factors: (1) a better fit of the model and (2) an increased variance inflation factor. Let's inspect these two. First, evaluate the residual variance of `m3` and `m4` using the template below.
 
 ```{r, echo = TRUE, eval = FALSE}
 # residaul variance of m3 and m4
