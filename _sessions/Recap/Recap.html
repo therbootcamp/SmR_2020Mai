@@ -91,7 +91,7 @@ This evaluation is performed by calculating the likelihood of obtaining the data
     A proposed effect &lt;high&gt;does exist&lt;/high&gt; and variation &lt;high&gt;is systematic&lt;/high&gt;
   &lt;/td&gt;  
   &lt;td bgcolor="white"&gt;
-    Drug and placebo do *not* have the same effect
+    Drug and placebo do &lt;b&gt;&lt;i&gt;not&lt;/i&gt;&lt;/b&gt; have the same effect
   &lt;/td&gt;  
 &lt;/tr&gt;
 &lt;/table&gt;
@@ -101,11 +101,22 @@ This evaluation is performed by calculating the likelihood of obtaining the data
 
 .pull-right45[
 
-&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&lt;br&gt;
+
+&lt;b&gt;Question&lt;/b&gt;&lt;br&gt;
+&lt;i&gt;Does "Drug X" reduce flu recovery time versus a placebo?&lt;/i&gt;
+
+&lt;b&gt;Hypotheses&lt;/b&gt;&lt;br&gt;
+
+
+`$$\large H_{0}: \mu_{Drug\;X} = \mu_{Placebo}$$`
+`$$\large H_{1}: \mu_{Drug\;X} \neq \mu_{Placebo}$$`
+
+&lt;b&gt;Sample Data&lt;/b&gt;
 
 
 
-&lt;img src="Recap_files/figure-html/unnamed-chunk-2-1.png" width="100%" /&gt;
+&lt;img src="Recap_files/figure-html/unnamed-chunk-2-1.png" width="70%" style="display: block; margin: auto;" /&gt;
 
 
 ]
@@ -633,23 +644,12 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   d.head.appendChild(s);
 })();</script>
 
-<script>
-(function() {
-  var i, text, code, codes = document.getElementsByTagName('code');
-  for (i = 0; i < codes.length;) {
-    code = codes[i];
-    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-      text = code.textContent;
-      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-          /^\$\$(.|\s)+\$\$$/.test(text) ||
-          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-        code.outerHTML = code.innerHTML;  // remove <code></code>
-        continue;
-      }
-    }
-    i++;
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
   }
-})();
+});
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
