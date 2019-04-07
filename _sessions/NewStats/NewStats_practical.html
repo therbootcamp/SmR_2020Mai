@@ -70,9 +70,7 @@ h6 {
 
 <link rel="stylesheet" href="practical.css" type="text/css" />
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -97,22 +95,92 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
 
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
 });
 </script>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -122,7 +190,7 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">New Statistics</h1>
-<h4 class="author"><em><table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'>
+<h4 class="author"><table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'>
 <col width='10%'>
 <col width='10%'>
 <tr style="border:none">
@@ -133,7 +201,7 @@ $(document).ready(function () {
 <img src='https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png' style='height:15px;width:80px'/>
 </td>
 </tr>
-</table></em></h4>
+</table></h4>
 
 </div>
 
@@ -201,10 +269,10 @@ View(psi2)</code></pre>
 <div id="b---psi-hacking-competitions" class="section level3">
 <h3>B - p(si)-Hacking competitions</h3>
 <ol style="list-style-type: decimal">
-<li>The first part of this practical consists of two a p-hacking competitions.</li>
+<li>The first part of this practical consists of two p-hacking competitions.</li>
 </ol>
-<p>1.1 The goal of both competition is to achieve the smallest possible p-value by hacking the sh__ out of the Bem’s experimental data. To do this find up to three analyses that either show that people actually have <em>psi</em> abilities (i.e., that <code>hit_rate</code> higher than chance) and that other variables can predict <em>psi</em> ability (i.e., <code>hit_rate</code>, implying the existence of <em>psi</em>). There are no rules. You can use any test. You are even permitted to use only parts of the (e.g., using <code>data %&gt;% filter(condition)</code>).</p>
-<p>1.2 For each of two competitions you are permitted to submit up to 3 models. You work alone or join forces with other participants. For information on the data and variables see the <em>Datasets</em> tab. The key criterion is <code>hit_rate</code>. The person or group submitting the lowest p-value for a competition wins 🍫🍫🍫.</p>
+<p>1.1 The goal of both competitions is to achieve the smallest possible p-value by hacking the sh__ out of the Bem’s experimental data. To do this find up to three analyses that either show that people actually have <em>psi</em> abilities (i.e., that <code>hit_rate</code> higher than chance) and that other variables can predict <em>psi</em> ability (i.e., <code>hit_rate</code>, implying the existence of <em>psi</em>). There are no rules. You can use any test. You are even permitted to use only parts of the data (e.g., using <code>data %&gt;% filter(condition)</code>).</p>
+<p>1.2 For each of the two competitions you are permitted to submit up to 3 models. You work alone or join forces with other participants. For information on the data and variables see the <em>Datasets</em> tab. The key criterion is <code>hit_rate</code>. The person or group submitting the lowest p-value for a competition wins 🍫🍫🍫.</p>
 <p>1.3 Submit your results using these links:</p>
 <p><a href="https://docs.google.com/forms/d/e/1FAIpQLScw5MmBX9wnmv3YO7SzdqdWMWSSwdCjWu0EUM2kurLRJLpEOQ/viewform?usp=sf_link"><font color="#EA4B68" style="font-size:18px;font-weight:900">Submit competition 1</font></a>, <a href="https://docs.google.com/forms/d/e/1FAIpQLSeJDsFtOSCFx7KmjzG4qq2bBMArPMWdaFKmUOqFfthspDhshQ/viewform?usp=sf_link"><font color="#EA4B68" style="font-size:18px;font-weight:900">Submit competition 2</font></a></p>
 </div>
@@ -220,7 +288,7 @@ hit_rate_erotic &lt;- psi1$hit_rate[psi1$condition == &quot;erotic&quot;]
 hit_rate_erotic_delta &lt;- XX - 50
 
 # calculate d
-d &lt;- mean(XX - YY) / sd(XX)</code></pre>
+d &lt;- mean(YY) / sd(YY)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>An effect size of <code>d = .25</code> is typically considered a small, but meaningful effect. Let us know take the perspective of rival researchers, who would like to replicate Bem’s effect. Specifically, we would like to conduct an experiment that has a small chance of false positives, e.g., <span class="math inline">\(\alpha = 0.05\)</span> (<code>sig.level</code>) and an equally low chance of missing the effect, i.e., <span class="math inline">\(\beta = .05\)</span> implying <span class="math inline">\(1-\beta = power = .95\)</span>. How many observations would we have to make to be able to conduct such a test? Use the template below.</li>
 </ol>
@@ -234,7 +302,7 @@ pa</code></pre>
 <li><p>The analysis shows that we would have to run a study with 347 individuals. You can also illustrate this using <code>plot.power.htest()</code>. Apply the function to <code>pa</code>.</p></li>
 <li><p>Using the plot, you can also already get an idea, how large the power, i.e., the probability of detecting an effect given that it is truly there to detect, was for Bem’s study. You can also again use the <code>pwr.t.test()</code> function. To do this, set <code>n = length(hit_rate_erotic)</code> and <code>power = NULL</code>. Call the result <code>pa_bem</code>.</p></li>
 <li><p>The previous analysis is called post-hoc (after the fact) power analysis, which should not be confused with an actual power analysis carried out before the data collection. In Bem’s case we find that the power was only <code>.547</code> meaning that there was almost only a 50-50 chance that an effect of the observed size could have been observed. Let’s now consider what would happen, if the effect was actually very small, say <code>d = .1</code>. What large would Bem’s post-hoc power have been and how large a sample size was necessary for <code>power = .95</code>.</p></li>
-<li><p>Bem’s post-hoc power would have been a meager 17.4%, while the N necessary for a conclusive study lies upwards of 2000 individuals. This means that Bem either knew we would be finding a substantive effect, or he actually engaged in pretty poor study planning. Go explore, can you determine the post-hoc power and n necessary your analyses? Use <code>pwr.r.test()</code> for correlation tests and <code>pwr.chisq.test()</code> for chi-square tests. Unfortunately, there are not functions for regression models.</p></li>
+<li><p>Bem’s post-hoc power would have been a meager 17.4%, while the N necessary for a conclusive study lies upwards of 2000 individuals. This means that Bem either knew we would be finding a substantive effect, or he actually engaged in pretty poor study planning. Go explore, can you determine the post-hoc power and n necessary your analyses? Use <code>pwr.r.test()</code> for correlation tests and <code>pwr.chisq.test()</code> for chi-square tests. Unfortunately, there are no functions for regression models.</p></li>
 </ol>
 </div>
 <div id="d---confidence-intervals" class="section level3">
@@ -283,7 +351,7 @@ bm1 &lt;- stan_glm(formula = hit_rate ~ gender + condition,
 </ul>
 <ol start="3" style="list-style-type: decimal">
 <li><p>In order to make statistical decisions, Bayesian statistics commonly relies on intervals, which in Bayesian statistics are called <em>credible interval</em> rather than <em>confidence interval</em>. Credible intervals truly provide the ranges that encompass the true value with 95% probability, which cannot strictly be said about confidence intervals. You can compute these intervals using the <code>posterior_interval()</code> function on the <code>bm1</code> object.</p></li>
-<li><p>Now let’s run the same analysis using the <code>BayesFactor</code> package using the <code>lmBF</code> function.</p></li>
+<li><p>Now let’s run the same analysis using the <code>BayesFactor</code> package using the <code>regressionBF</code> function.</p></li>
 </ol>
 <pre class="r"><code># Bayesian regression predicting hit_rate by gender and condition
 psi1$gender_dummy &lt;- as.numeric(psi1$gender == &#39;Male&#39;)
