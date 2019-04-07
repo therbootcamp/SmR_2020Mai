@@ -298,14 +298,14 @@ A linear model is <high>just addition and multiplication</high> and can be writt
 
 <center><u>Version 1</u><center>
 
-$$\huge y = \beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2} +  ... + \beta_{n}x_{n} + \epsilon$$
+$$\Large y = \beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2} +  ... + \beta_{n}x_{n} + \epsilon$$
 
 <br>
 
 <center><u>Version 2</u><center>
 
 
-$$\huge y = \beta_{0} + \sum_{i=1}^{n}\beta_{i}x_{i}+ \epsilon$$
+$$\Large y = \beta_{0} + \sum_{i=1}^{n}\beta_{i}x_{i}+ \epsilon$$
 
 
 ]
