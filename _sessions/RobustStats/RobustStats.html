@@ -325,9 +325,9 @@ anova(model_1, model_2)
 ## 
 ## Model 1: error_rate ~ stress
 ## Model 2: error_rate ~ stress + stress2
-##   Res.Df RSS Df Sum of Sq   F Pr(&gt;F)    
-## 1    298 246                            
-## 2    297 102  1       144 419 &lt;2e-16 ***
+##   Res.Df   RSS Df Sum of Sq   F Pr(&gt;F)    
+## 1    298 249.2                            
+## 2    297  94.5  1       155 486 &lt;2e-16 ***
 ## ---
 ## Signif. codes:  
 ##   0 '***' 0.001 '**' 0.01 '*' 0.05 '.'
@@ -545,7 +545,7 @@ time_2 &lt;- c(27, 16, 23, 8, 15, 21)
 
 # sign test
 N &lt;- length(time_1)
-n_plus = sum(sign(time_1 - time_2) == 1)
+n_plus &lt;- sum(sign(time_1 - time_2) == 1)
 ps &lt;- dbinom(x = n_plus : N, 
              size = N, 
              prob = .5) # H0 assumption 
@@ -734,7 +734,8 @@ They all &lt;high&gt;minimize a specific function `\(\rho\)` of the residuals&lt
 ```r
 # Quantile regression
 library(quantreg)
-m &lt;- rq(formula = y ~ x, data = outlier_df)
+m &lt;- rq(formula = y ~ x, 
+        data = outlier_df)
 summary(m)
 ```
 

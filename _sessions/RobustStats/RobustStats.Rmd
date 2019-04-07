@@ -574,7 +574,7 @@ time_2 <- c(27, 16, 23, 8, 15, 21)
 
 # sign test
 N <- length(time_1)
-n_plus = sum(sign(time_1 - time_2) == 1)
+n_plus <- sum(sign(time_1 - time_2) == 1)
 ps <- dbinom(x = n_plus : N, 
              size = N, 
              prob = .5) # H0 assumption 
@@ -773,7 +773,8 @@ options(width=35)
 ```{r, message=F, warning=F}
 # Quantile regression
 library(quantreg)
-m <- rq(formula = y ~ x, data = outlier_df)
+m <- rq(formula = y ~ x, 
+        data = outlier_df)
 summary(m)
 
 ```
