@@ -540,7 +540,7 @@ Confidence intervals essentially are &lt;high&gt;rearranged significance tests&l
 
 
 ```r
-# standard confidence intervall
+# standard confidence interval
 N     &lt;- length(t_1)
 Delta &lt;- mean(t_1 - t_2)
 SE    &lt;- sd(t_1 - t_2) / sqrt(N)
@@ -548,7 +548,7 @@ Delta + SE * qt(.95, N - 1) * c(-1, 1)
 ```
 
 ```
-## [1] -1.132 -0.699
+## [1] -1.3823 -0.9211
 ```
 
 ]
@@ -631,7 +631,7 @@ boot.ci(boot_res)
 ## 
 ## Intervals : 
 ## Level      Normal              Basic         
-## 95%   (-1.1644, -0.6662 )   (-1.1687, -0.6712 )
+## 95%   (-1.410, -0.871 )   (-1.415, -0.864 )
 ```
 
 ]
@@ -758,8 +758,9 @@ The &lt;a href="https://cran.r-project.org/package=rstanarm/"&gt;&lt;mono&gt;&lt
 
 ```r
 # Baysian stats with rstanarm
-require(rstanarm)
-stan_glm(income ~ height,
+library(rstanarm)
+
+stan_glm(formula = income ~ height,
          data = baselers)
 ```
 
@@ -778,16 +779,16 @@ stan_glm(income ~ height,
 ##  predictors:   2
 ## ------
 ##             Median MAD_SD
-## (Intercept) 9176.3 2241.2
-## height       -10.2   13.1
+## (Intercept) 9290.8 2225.1
+## height       -10.9   12.9
 ## 
 ## Auxiliary parameter(s):
 ##       Median MAD_SD
-## sigma 2640.8  112.6
+## sigma 2639.4  110.4
 ## 
 ## Sample avg. posterior predictive distribution of y:
 ##          Median MAD_SD
-## mean_PPD 7438.7  213.4
+## mean_PPD 7439.0  214.7
 ## 
 ## ------
 ## * For help interpreting the printed output see ?print.stanreg
@@ -857,9 +858,10 @@ The &lt;a href="https://cran.r-project.org/package=rstanarm/"&gt;&lt;mono&gt;&lt
 
 
 ```r
-# Baysian stats with rstanarm
-require(BayesFactor)
-lmBF(income ~ height,
+# Baysian stats with BayesFactor
+library(BayesFactor)
+
+lmBF(formula = income ~ height,
      data = baselers)
 ```
 
@@ -906,23 +908,12 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   d.head.appendChild(s);
 })();</script>
 
-<script>
-(function() {
-  var i, text, code, codes = document.getElementsByTagName('code');
-  for (i = 0; i < codes.length;) {
-    code = codes[i];
-    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-      text = code.textContent;
-      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-          /^\$\$(.|\s)+\$\$$/.test(text) ||
-          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-        code.outerHTML = code.innerHTML;  // remove <code></code>
-        continue;
-      }
-    }
-    i++;
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
   }
-})();
+});
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

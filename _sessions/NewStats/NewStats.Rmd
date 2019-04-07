@@ -547,14 +547,14 @@ Confidence intervals essentially are <high>rearranged significance tests</high>.
 
 
 ```{r, echo = F}
-# standard confidence intervall
-t_1 = rnorm(100, 3, 1) 
-t_2 = rnorm(100, 4, 1) 
+# standard confidence interval
+t_1 <- rnorm(100, 3, 1) 
+t_2 <- rnorm(100, 4, 1) 
 
 ```
 
 ```{r}
-# standard confidence intervall
+# standard confidence interval
 N     <- length(t_1)
 Delta <- mean(t_1 - t_2)
 SE    <- sd(t_1 - t_2) / sqrt(N)
@@ -758,8 +758,9 @@ The <a href="https://cran.r-project.org/package=rstanarm/"><mono><b>rstanarm</b>
 
 ```{r, eval = F}
 # Baysian stats with rstanarm
-require(rstanarm)
-stan_glm(income ~ height,
+library(rstanarm)
+
+stan_glm(formula = income ~ height,
          data = baselers)
 ```
 
@@ -768,9 +769,10 @@ stan_glm(income ~ height,
 .pull-right5[
 
 ```{r, include = FALSE}
-require(rstanarm)
+library(rstanarm)
+
 # Baysian stats with rstanarm
-stan_res = stan_glm(income ~ height,
+stan_res <- stan_glm(formula = income ~ height,
      data = baselers[!is.na(baselers$income) & !is.na(baselers$height),][1:300,])
 ```
 
@@ -841,9 +843,10 @@ The <a href="https://cran.r-project.org/package=rstanarm/"><mono><b>rstanarm</b>
 </table>
 
 ```{r, eval = F}
-# Baysian stats with rstanarm
-require(BayesFactor)
-lmBF(income ~ height,
+# Baysian stats with BayesFactor
+library(BayesFactor)
+
+lmBF(formula = income ~ height,
      data = baselers)
 ```
 
@@ -852,9 +855,10 @@ lmBF(income ~ height,
 .pull-right5[
 
 ```{r, include = FALSE}
-# Baysian stats with rstanarm
-require(BayesFactor)
-bf_res = lmBF(income ~ height,
+# Baysian stats with BayesFactor
+library(BayesFactor)
+
+bf_res <- lmBF(formula = income ~ height,
      data = baselers[!is.na(baselers$income) & !is.na(baselers$height),][1:300,])
 ```
 
