@@ -217,7 +217,7 @@ plot(x = predict(XX),
 plot(predict(m1), residuals(m1))
 ```
 
-5. The model fits the data badly including several serious violations of regression assumptions: Linearity, normality, and heteroscedascity do not seem to hold. One cause for these violations are missing variables. Add one other variable to the regression that contains information on the kind of avocado (see *Data* tab) and evaluate the model again.        
+5. The model fits the data badly including several serious violations of regression assumptions: Linearity, normality, and homooscedascity do not seem to hold. One cause for these violations are missing variables. Add one other variable to the regression that contains information on the kind of avocado (see *Data* tab) and evaluate the model again.        
 
 ```{r, echo = TRUE, eval = FALSE}
 # regress volume on average price and XX
@@ -707,7 +707,7 @@ mm <- lmer(formula = volume_index ~ XX + (1 | region),
            data = avocado)
 
 # residual plot
-plot(x = predict(mm), y = residuals(m,))
+plot(x = predict(mm), y = residuals(mm))
 ```
 
 

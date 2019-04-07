@@ -681,7 +681,7 @@ The web is a great place to learn about R.
 <br>
 <img src="image/machine_learning.png" height="260px" width="480px"></img><br>
 
-<high>Basel, 2 days, May 11-12, 2019</high></a>
+<high>Basel, May 11-12, 2019</high></a>
 
 </p>
 
@@ -698,7 +698,7 @@ The web is a great place to learn about R.
 <br>
 <img src="image/data_science.png" height="260px" width="480px"></img><br>
 
-<high>Basel, 2 days, June 11-12, 2019</high><br><br><br>
+<high>Basel, June 11-12, 2019</high><br><br><br>
 </a>
 
 </p>
