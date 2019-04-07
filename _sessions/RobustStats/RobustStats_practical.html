@@ -70,9 +70,7 @@ h6 {
 
 <link rel="stylesheet" href="practical.css" type="text/css" />
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -97,22 +95,92 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
 
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
 });
 </script>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -122,7 +190,7 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Robust Statistics</h1>
-<h4 class="author"><em><table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'>
+<h4 class="author"><table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'>
 <col width='10%'>
 <col width='10%'>
 <tr style="border:none">
@@ -133,7 +201,7 @@ $(document).ready(function () {
 <img src='https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png' style='height:15px;width:80px'/>
 </td>
 </tr>
-</table></em></h4>
+</table></h4>
 
 </div>
 
@@ -343,10 +411,10 @@ sqrt(var_beta2)</code></pre>
 <li>So far we have assumed that all relationships are completely linear. However, it seems plausible the effect of price could, for instance, be a quadratic one or even of a higher polynomial. Create a regression predicting <code>volume_index</code> by <code>type</code>, <code>price_per_avocado</code>, and the quadratic effect of <code>price_per_avocado</code>. The latter can be included using the function <code>I()</code>. See template below.</li>
 </ol>
 <pre class="r"><code># linear and quadratic effect of price
-m5 &lt;- lm(formula = YY ~ YY + XX + I(XX ^ 2), 
+m5 &lt;- lm(formula = YY ~ XX + XX + I(XX ^ 2), 
          data = avocado_cali)</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li><p>Eva lute the model (<code>m5</code>) using <code>summary()</code>. Is the quadratic effect significant?</p></li>
+<li><p>Evaluate the model (<code>m5</code>) using <code>summary()</code>. Is the quadratic effect significant?</p></li>
 <li><p>Test whether the inclusion of the quadratic factor is warranted by testing <code>m5</code> against <code>m3</code> (the model without the quadratic effect) using <code>anova()</code>. Note: <code>anova()</code> performs a deviance test between two models, not an analysis of variance in the classical sense.</p></li>
 </ol>
 <pre class="r"><code># evaluate merit of quadratic effect
@@ -355,7 +423,7 @@ anova(m3, m5)</code></pre>
 <li>Yes, the quadratic effect improves the prediction of volume significantly. However, this came again with a substantial downside. You will see that the standard error of the linear effect of price went up dramatically. This is because <code>price_per_avocado</code> and <code>price_per_avocado^2</code> are highly correlated. To prevent this, the quadratic terms are typically centered, as implemented in the template below. Run the regression and compare the results to <code>m5</code>.</li>
 </ol>
 <pre class="r"><code># linear and quadratic effect of price
-m6 &lt;- lm(formula = YY ~ YY + XX + I((XX - mean(XX)) ^2), 
+m6 &lt;- lm(formula = YY ~ XX + XX + I((XX - mean(XX)) ^2), 
          data = avocado_cali)</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>You’ll see the standard error of the linear effect went back to about where it was in <code>m3</code> or <code>m4</code>. Try out if you can further improve the prediction of volume by including a cubic effect, i.e., <code>XX^3</code>.</li>
