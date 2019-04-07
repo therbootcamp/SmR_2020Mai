@@ -685,8 +685,8 @@ For two reasons Bayesian statistics has long been rejected...
 However,...
 
 &nbsp;&nbsp;&nbsp;&nbsp; 1 Computers have become <high>fast enough</high><br><br>
-&nbsp;&nbsp;&nbsp;&nbsp; 2 statistical inference is <high>necessarily</high><br> 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <high>subjective</high>.<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp; 2 Statistical inference is <high>necessarily</high><br> 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <high>subjective</high><br><br>
 &nbsp;&nbsp;&nbsp;&nbsp; 3 The influence of priors can be limited<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; through <high>ignorance priors<high>
 

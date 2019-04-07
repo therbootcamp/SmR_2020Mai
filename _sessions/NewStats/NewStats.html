@@ -554,7 +554,7 @@ Delta + SE * qt(.95, N - 1) * c(-1, 1)
 ```
 
 ```
-## [1] -1.164 -0.697
+## [1] -1.3120 -0.8363
 ```
 
 ]
@@ -637,7 +637,7 @@ boot.ci(boot_res)
 ## 
 ## Intervals : 
 ## Level      Normal              Basic         
-## 95%   (-1.2002, -0.6610 )   (-1.1983, -0.6817 )
+## 95%   (-1.351, -0.800 )   (-1.347, -0.799 )
 ```
 
 ]
@@ -685,8 +685,8 @@ For two reasons Bayesian statistics has long been rejected...
 However,...
 
 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 1 Computers have become &lt;high&gt;fast enough&lt;/high&gt;&lt;br&gt;&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 2 statistical inference is &lt;high&gt;necessarily&lt;/high&gt;&lt;br&gt; 
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;high&gt;subjective&lt;/high&gt;.&lt;br&gt;&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 2 Statistical inference is &lt;high&gt;necessarily&lt;/high&gt;&lt;br&gt; 
+&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;high&gt;subjective&lt;/high&gt;&lt;br&gt;&lt;br&gt;
 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 3 The influence of priors can be limited&lt;br&gt;
 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; through &lt;high&gt;ignorance priors&lt;high&gt;
 
@@ -785,16 +785,16 @@ stan_glm(formula = income ~ height,
 ##  predictors:   2
 ## ------
 ##             Median MAD_SD
-## (Intercept) 9253.5 2145.3
+## (Intercept) 9276.1 2152.9
 ## height       -10.7   12.5
 ## 
 ## Auxiliary parameter(s):
 ##       Median MAD_SD
-## sigma 2635.0  107.1
+## sigma 2636.8  110.1
 ## 
 ## Sample avg. posterior predictive distribution of y:
 ##          Median MAD_SD
-## mean_PPD 7442.6  212.3
+## mean_PPD 7448.2  221.0
 ## 
 ## ------
 ## * For help interpreting the printed output see ?print.stanreg
