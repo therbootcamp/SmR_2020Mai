@@ -554,7 +554,7 @@ Delta + SE * qt(.95, N - 1) * c(-1, 1)
 ```
 
 ```
-## [1] -1.2603 -0.7457
+## [1] -1.164 -0.697
 ```
 
 ]
@@ -614,7 +614,7 @@ Confidence intervals essentially are &lt;high&gt;rearranged significance tests&l
 
 
 ```r
-# bootstrapped confidence intervall
+# bootstrapped confidence interval
 bf &lt;- function(x,ind) {
   sum(x[ind])/length(x[ind])
   }
@@ -637,7 +637,7 @@ boot.ci(boot_res)
 ## 
 ## Intervals : 
 ## Level      Normal              Basic         
-## 95%   (-1.319, -0.701 )   (-1.309, -0.698 )
+## 95%   (-1.2002, -0.6610 )   (-1.1983, -0.6817 )
 ```
 
 ]
@@ -785,16 +785,16 @@ stan_glm(formula = income ~ height,
 ##  predictors:   2
 ## ------
 ##             Median MAD_SD
-## (Intercept) 9269.0 2109.1
-## height       -10.8   12.3
+## (Intercept) 9253.5 2145.3
+## height       -10.7   12.5
 ## 
 ## Auxiliary parameter(s):
 ##       Median MAD_SD
-## sigma 2636.4  103.2
+## sigma 2635.0  107.1
 ## 
 ## Sample avg. posterior predictive distribution of y:
 ##          Median MAD_SD
-## mean_PPD 7430.0  219.1
+## mean_PPD 7442.6  212.3
 ## 
 ## ------
 ## * For help interpreting the printed output see ?print.stanreg

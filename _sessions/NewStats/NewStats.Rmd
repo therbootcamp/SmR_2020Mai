@@ -258,7 +258,6 @@ library(pwr)
 pwr.t.test(sig.level = .05, 
            power = .95, 
            d = .8) # large effect
-
 ```
 
 ]
@@ -623,7 +622,7 @@ Confidence intervals essentially are <high>rearranged significance tests</high>.
 
 
 ```{r, eval = F}
-# bootstrapped confidence intervall
+# bootstrapped confidence interval
 bf <- function(x,ind) {
   sum(x[ind])/length(x[ind])
   }
@@ -632,7 +631,7 @@ boot.ci(boot_res)
 ```
 
 ```{r, echo = F}
-# bootstrapped confidence intervall
+# bootstrapped confidence interval
 bf <- function(x,ind) {
   sum(x[ind])/length(x[ind])
   }
