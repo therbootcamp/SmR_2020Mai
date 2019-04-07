@@ -548,11 +548,7 @@ Delta + SE * qt(.95, N - 1) * c(-1, 1)
 ```
 
 ```
-<<<<<<< HEAD
-## [1] -1.0173 -0.5666
-=======
-## [1] -1.1300 -0.6315
->>>>>>> 976199de53924c07e74168fb5a0e23d3b33142cc
+## [1] -1.132 -0.699
 ```
 
 ]
@@ -635,11 +631,7 @@ boot.ci(boot_res)
 ## 
 ## Intervals : 
 ## Level      Normal              Basic         
-<<<<<<< HEAD
-## 95%   (-1.0533, -0.5211 )   (-1.0466, -0.5117 )
-=======
-## 95%   (-1.1734, -0.5840 )   (-1.1685, -0.5946 )
->>>>>>> 976199de53924c07e74168fb5a0e23d3b33142cc
+## 95%   (-1.1644, -0.6662 )   (-1.1687, -0.6712 )
 ```
 
 ]
@@ -666,7 +658,7 @@ The prior permits calculation of a &lt;high&gt;true &lt;i&gt;p&lt;/i&gt;-value&l
 
 &lt;br&gt;
 &lt;p align = "center"&gt;
-&lt;img src="image/Bayes.png" height=520px&gt;&lt;br&gt;
+&lt;img src="image/bayes.png" height=520px&gt;&lt;br&gt;
 &lt;font style="font-size:10px"&gt;from &lt;a = href="https://xkcd.com/1132/"&gt;xkcd.com&lt;/a&gt;&lt;/font&gt;
 &lt;/p&gt;
 
@@ -698,7 +690,7 @@ However,...
 
 &lt;br&gt;
 &lt;p align = "center"&gt;
-&lt;img src="image/Bayes.png" height=520px&gt;&lt;br&gt;
+&lt;img src="image/bayes.png" height=520px&gt;&lt;br&gt;
 &lt;font style="font-size:10px"&gt;from &lt;a = href="https://xkcd.com/1132/"&gt;xkcd.com&lt;/a&gt;&lt;/font&gt;
 &lt;/p&gt;
 
@@ -786,29 +778,16 @@ stan_glm(income ~ height,
 ##  predictors:   2
 ## ------
 ##             Median MAD_SD
-<<<<<<< HEAD
-## (Intercept) 9343.5 2191.2
-## height       -11.0   12.7
+## (Intercept) 9176.3 2241.2
+## height       -10.2   13.1
 ## 
 ## Auxiliary parameter(s):
 ##       Median MAD_SD
-## sigma 2638.9  106.0
+## sigma 2640.8  112.6
 ## 
 ## Sample avg. posterior predictive distribution of y:
 ##          Median MAD_SD
-## mean_PPD 7436.5  216.1
-=======
-## (Intercept) 9292.0 2124.4
-## height       -10.8   12.4
-## 
-## Auxiliary parameter(s):
-##       Median MAD_SD
-## sigma 2638.5  103.6
-## 
-## Sample avg. posterior predictive distribution of y:
-##          Median MAD_SD
-## mean_PPD 7433.2  214.9
->>>>>>> 976199de53924c07e74168fb5a0e23d3b33142cc
+## mean_PPD 7438.7  213.4
 ## 
 ## ------
 ## * For help interpreting the printed output see ?print.stanreg

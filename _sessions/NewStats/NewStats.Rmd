@@ -659,7 +659,7 @@ The prior permits calculation of a <high>true <i>p</i>-value</high>, the <high>p
 
 <br>
 <p align = "center">
-<img src="image/Bayes.png" height=520px><br>
+<img src="image/bayes.png" height=520px><br>
 <font style="font-size:10px">from <a = href="https://xkcd.com/1132/">xkcd.com</a></font>
 </p>
 
@@ -691,7 +691,7 @@ However,...
 
 <br>
 <p align = "center">
-<img src="image/Bayes.png" height=520px><br>
+<img src="image/bayes.png" height=520px><br>
 <font style="font-size:10px">from <a = href="https://xkcd.com/1132/">xkcd.com</a></font>
 </p>
 
