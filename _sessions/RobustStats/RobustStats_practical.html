@@ -70,9 +70,7 @@ h6 {
 
 <link rel="stylesheet" href="practical.css" type="text/css" />
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -97,22 +95,92 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
 
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
 });
 </script>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -122,7 +190,7 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Robust Statistics</h1>
-<h4 class="author"><em><table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'>
+<h4 class="author"><table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'>
 <col width='10%'>
 <col width='10%'>
 <tr style="border:none">
@@ -133,7 +201,7 @@ $(document).ready(function () {
 <img src='https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png' style='height:15px;width:80px'/>
 </td>
 </tr>
-</table></em></h4>
+</table></h4>
 
 </div>
 
@@ -216,7 +284,7 @@ cols(
   humidity_usa = col_double(),
   precipitation = col_double(),
   precipitation_usa = col_double(),
-  year = col_integer(),
+  year = col_double(),
   season = col_character(),
   date = col_date(format = &quot;&quot;),
   region = col_character(),
@@ -236,7 +304,7 @@ cols(
   humidity_usa = col_double(),
   precipitation = col_double(),
   precipitation_usa = col_double(),
-  year = col_integer(),
+  year = col_double(),
   season = col_character(),
   date = col_date(format = &quot;&quot;),
   region = col_character(),
@@ -265,7 +333,7 @@ avocado</code></pre>
 10 7.43e4         4.24             1.07 conv…        9.06           14.6 
 # … with 17,563 more rows, and 10 more variables: humidity &lt;dbl&gt;,
 #   humidity_usa &lt;dbl&gt;, precipitation &lt;dbl&gt;, precipitation_usa &lt;dbl&gt;,
-#   year &lt;int&gt;, season &lt;chr&gt;, date &lt;date&gt;, region &lt;chr&gt;, longitude &lt;dbl&gt;,
+#   year &lt;dbl&gt;, season &lt;chr&gt;, date &lt;date&gt;, region &lt;chr&gt;, longitude &lt;dbl&gt;,
 #   latitude &lt;dbl&gt;</code></pre>
 <pre class="r"><code>avocado_cali</code></pre>
 <pre><code># A tibble: 338 x 16
@@ -283,7 +351,7 @@ avocado</code></pre>
 10 4.59e6         8.47             1.12 conv…       14.9            14.6 
 # … with 328 more rows, and 10 more variables: humidity &lt;dbl&gt;,
 #   humidity_usa &lt;dbl&gt;, precipitation &lt;dbl&gt;, precipitation_usa &lt;dbl&gt;,
-#   year &lt;int&gt;, season &lt;chr&gt;, date &lt;date&gt;, region &lt;chr&gt;, longitude &lt;dbl&gt;,
+#   year &lt;dbl&gt;, season &lt;chr&gt;, date &lt;date&gt;, region &lt;chr&gt;, longitude &lt;dbl&gt;,
 #   latitude &lt;dbl&gt;</code></pre>
 <ol start="7" style="list-style-type: decimal">
 <li>Use the the <code>summary()</code> function to print more details on the columns of the data sets.</li>
@@ -764,11 +832,11 @@ avocado_cali_2017 &lt;- avocado_cali %&gt;%
 <ol start="2" style="list-style-type: decimal">
 <li>Now test, whether the consumption has risen from 2016 to 2017 using a paired t-test, i.e., <code>t.test(X, Y, paired = TRUE)</code>. Try this out for both <code>volume</code> and <code>volume_index</code>.</li>
 </ol>
-<pre class="r"><code># compare Cali and NY avocado volume
+<pre class="r"><code># compare Cali avocado volume 2016 &amp; 2017
 t.test(x = avocado_cali_2016$XX,
        y = avocado_cali_2017$XX, 
        paired = TRUE)</code></pre>
-<pre class="r"><code># compare Cali and NY avocado volume
+<pre class="r"><code># compare Cali avocado volume 2016 &amp; 2017
 t.test(avocado_cali_2016$volume,
        avocado_cali_2017$volume, paired = TRUE)</code></pre>
 <pre><code>
@@ -782,7 +850,7 @@ alternative hypothesis: true difference in means is not equal to 0
 sample estimates:
 mean of the differences 
                  152275 </code></pre>
-<pre class="r"><code># compare Cali and NY avocado volume_index
+<pre class="r"><code># compare Cali avocado volume_index 2016 &amp; 2017
 t.test(avocado_cali_2016$volume_index,
        avocado_cali_2017$volume_index, paired = TRUE)</code></pre>
 <pre><code>
@@ -799,16 +867,16 @@ mean of the differences
 <ol start="3" style="list-style-type: decimal">
 <li>For <code>volume_index</code> the result turned out significant, 2017 indeed saw higher avocado consumption than 2016. However, for <code>volume</code> the result did not quite reach significance. This likely has to do with the fact that <code>volume</code> is extremely skewed. To confirm the result, run the same tests using a pared Wilcoxon test, i.e., <code>wilcox.test(XX, YY, paired = TRUE)</code>, which should not be affected by the skewness.</li>
 </ol>
-<pre class="r"><code># compare Cali and NY avocado volume
+<pre class="r"><code># compare Cali avocado volume 2016 &amp; 2017
 wilcox.test(x = avocado_cali_2016$XX,
             y = avocado_cali_2017$XX, 
             paired = TRUE)
 
-# compare Cali and NY avocado volume_index
+# compare Cali avocado volume_index 2016 &amp; 2017
 wilcox.test(x = avocado_cali_2016$YY,
             y = avocado_cali_2017$YY, 
             paired = TRUE)</code></pre>
-<pre class="r"><code># compare Cali and NY avocado volume
+<pre class="r"><code># compare Cali avocado volume 2016 &amp; 2017
 wilcox.test(avocado_cali_2016$volume,
             avocado_cali_2017$volume, paired = TRUE)</code></pre>
 <pre><code>
@@ -817,7 +885,7 @@ wilcox.test(avocado_cali_2016$volume,
 data:  avocado_cali_2016$volume and avocado_cali_2017$volume
 V = 3000, p-value = 0.01
 alternative hypothesis: true location shift is not equal to 0</code></pre>
-<pre class="r"><code># compare Cali and NY avocado volume_index
+<pre class="r"><code># compare Cali avocado volume_index 2016 &amp; 2017
 wilcox.test(avocado_cali_2016$volume_index,
             avocado_cali_2017$volume_index, paired = TRUE)</code></pre>
 <pre><code>
@@ -1031,10 +1099,10 @@ boot(data = avocado_cali, statistic = boot_lm, R = 100)
 
 
 Bootstrap Statistics :
-    original    bias    std. error
-t1*    9.381  0.000239      0.0541
-t2*   -0.549 -0.000107      0.0450
-t3*   -3.646  0.000602      0.0337</code></pre>
+    original   bias    std. error
+t1*    9.381 -0.00513      0.0538
+t2*   -0.549  0.00362      0.0454
+t3*   -3.646 -0.00153      0.0359</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Finally, compare the standard errors of the <code>m3</code> or the other, robust regression models, to those of the bootstrap.</li>
 </ol>

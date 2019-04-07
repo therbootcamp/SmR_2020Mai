@@ -509,7 +509,7 @@ avocado_cali_2017 <- avocado_cali %>%
 2. Now test, whether the consumption has risen from 2016 to 2017 using a paired t-test, i.e., `t.test(X, Y, paired = TRUE)`. Try this out for both `volume` and `volume_index`.
 
 ```{r, echo = TRUE, eval = FALSE}
-# compare Cali and NY avocado volume
+# compare Cali avocado volume 2016 & 2017
 t.test(x = avocado_cali_2016$XX,
        y = avocado_cali_2017$XX, 
        paired = TRUE)
@@ -517,11 +517,11 @@ t.test(x = avocado_cali_2016$XX,
 ``` 
 
 ```{r}
-# compare Cali and NY avocado volume
+# compare Cali avocado volume 2016 & 2017
 t.test(avocado_cali_2016$volume,
        avocado_cali_2017$volume, paired = TRUE)
 
-# compare Cali and NY avocado volume_index
+# compare Cali avocado volume_index 2016 & 2017
 t.test(avocado_cali_2016$volume_index,
        avocado_cali_2017$volume_index, paired = TRUE)
 ``` 
@@ -529,23 +529,23 @@ t.test(avocado_cali_2016$volume_index,
 3. For `volume_index` the result turned out significant, 2017 indeed saw higher avocado consumption than 2016. However, for `volume` the result did not quite reach significance. This likely has to do with the fact that `volume` is extremely skewed. To confirm the result, run the same tests using a pared Wilcoxon test, i.e., `wilcox.test(XX, YY, paired = TRUE)`, which should not be affected by the skewness. 
 
 ```{r, echo = TRUE, eval = FALSE}
-# compare Cali and NY avocado volume
+# compare Cali avocado volume 2016 & 2017
 wilcox.test(x = avocado_cali_2016$XX,
             y = avocado_cali_2017$XX, 
             paired = TRUE)
 
-# compare Cali and NY avocado volume_index
+# compare Cali avocado volume_index 2016 & 2017
 wilcox.test(x = avocado_cali_2016$YY,
             y = avocado_cali_2017$YY, 
             paired = TRUE)
 ``` 
 
 ```{r}
-# compare Cali and NY avocado volume
+# compare Cali avocado volume 2016 & 2017
 wilcox.test(avocado_cali_2016$volume,
             avocado_cali_2017$volume, paired = TRUE)
 
-# compare Cali and NY avocado volume_index
+# compare Cali avocado volume_index 2016 & 2017
 wilcox.test(avocado_cali_2016$volume_index,
             avocado_cali_2017$volume_index, paired = TRUE)
 ``` 
