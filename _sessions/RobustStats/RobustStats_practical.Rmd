@@ -707,7 +707,7 @@ mm <- lmer(formula = volume_index ~ XX + (1 | region),
            data = avocado)
 
 # residual plot
-plot(x = predict(mm), y = residuals(m,))
+plot(x = predict(mm), y = residuals(mm))
 ```
 
 
