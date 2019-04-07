@@ -325,9 +325,9 @@ anova(model_1, model_2)
 ## 
 ## Model 1: error_rate ~ stress
 ## Model 2: error_rate ~ stress + stress2
-##   Res.Df   RSS Df Sum of Sq   F Pr(&gt;F)    
-## 1    298 217.6                            
-## 2    297  86.4  1       131 451 &lt;2e-16 ***
+##   Res.Df RSS Df Sum of Sq   F Pr(&gt;F)    
+## 1    298 246                            
+## 2    297 102  1       144 419 &lt;2e-16 ***
 ## ---
 ## Signif. codes:  
 ##   0 '***' 0.001 '**' 0.01 '*' 0.05 '.'
@@ -733,8 +733,8 @@ They all &lt;high&gt;minimize a specific function `\(\rho\)` of the residuals&lt
 
 ```r
 # Quantile regression
-require(quantreg)
-m = rq(y ~ x, data = outlier_df)
+library(quantreg)
+m &lt;- rq(formula = y ~ x, data = outlier_df)
 summary(m)
 ```
 
@@ -844,8 +844,8 @@ They all &lt;high&gt;minimize a specific function `\(\rho\)` of the residuals&lt
 
 ```r
 # Rank-based regression
-require(Rfit)
-m = rfit(y ~ x, data = outlier_df)
+library(Rfit)
+m &lt;- rfit(formula = y ~ x, data = outlier_df)
 summary(m)
 ```
 
@@ -958,7 +958,7 @@ Bootstrapping can be used to obtain sampling distributions for any statistic.
 
 ```r
 # Bootstrap
-require(boot)
+library(boot)
 
 # bootstrap function
 stat_fun &lt;- function(data, indices){

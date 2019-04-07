@@ -69,7 +69,7 @@ options(width = 110)
 options(digits = 4)
 
 # Load packages
-require(tidyverse)
+library(tidyverse)
 
 
 # Load data
@@ -772,8 +772,8 @@ options(width=35)
 
 ```{r, message=F, warning=F}
 # Quantile regression
-require(quantreg)
-m = rq(y ~ x, data = outlier_df)
+library(quantreg)
+m <- rq(formula = y ~ x, data = outlier_df)
 summary(m)
 
 ```
@@ -883,8 +883,8 @@ options(width=35)
 
 ```{r, message=F, warning=F}
 # Rank-based regression
-require(Rfit)
-m = rfit(y ~ x, data = outlier_df)
+library(Rfit)
+m <- rfit(formula = y ~ x, data = outlier_df)
 summary(m)
 ```
 
@@ -990,7 +990,7 @@ options(width=43)
 
 ```{r, message=F, warning=F}
 # Bootstrap
-require(boot)
+library(boot)
 
 # bootstrap function
 stat_fun <- function(data, indices){
