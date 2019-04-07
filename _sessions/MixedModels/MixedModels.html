@@ -207,9 +207,7 @@ mod_s3 &lt;- lm(formula = Effect ~ Dose,
 
 A better way of analysing data where the IID assumption is violated than running separate regressions is to use mixed effects models.
 
-
 Mixed effects models combine two kinds of effects that serve different purposes:
-
 
 &lt;high&gt;Fixed effects&lt;/high&gt;
 
@@ -593,7 +591,7 @@ We want to predict the &lt;high&gt;Tomatometer&lt;/high&gt; rating with &lt;high
 LMM_out &lt;- XXX(formula = XXX ~ XXX +
 # by-ID random slopes and intercepts
                   (XXX) +
-# by-ID random slopes and intercepts
+# by-Movie random slopes and intercepts
                   (XXX),
 # define data
                 data = tomato)
@@ -636,7 +634,7 @@ We want to predict the &lt;high&gt;Tomatometer&lt;/high&gt; rating with &lt;high
 LMM_out &lt;- lmer(formula = Tomatometer ~ State +
 # by-ID random slopes and intercepts
                   (State|ID) +
-# by-ID random slopes and intercepts
+# by-Movie random slopes and intercepts
                   (State|Movie),
 # define data
                 data = tomato)

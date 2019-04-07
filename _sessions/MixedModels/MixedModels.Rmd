@@ -321,9 +321,7 @@ ggplot(s_dat, aes(x, y, col = Site)) +
 
 A better way of analysing data where the IID assumption is violated than running separate regressions is to use mixed effects models.
 
-
 Mixed effects models combine two kinds of effects that serve different purposes:
-
 
 <high>Fixed effects</high>
 
@@ -761,7 +759,7 @@ We want to predict the <high>Tomatometer</high> rating with <high>State</high> a
 LMM_out <- XXX(formula = XXX ~ XXX +
 # by-ID random slopes and intercepts
                   (XXX) +
-# by-ID random slopes and intercepts
+# by-Movie random slopes and intercepts
                   (XXX),
 # define data
                 data = tomato)
@@ -803,7 +801,7 @@ We want to predict the <high>Tomatometer</high> rating with <high>State</high> a
 LMM_out <- lmer(formula = Tomatometer ~ State +
 # by-ID random slopes and intercepts
                   (State|ID) +
-# by-ID random slopes and intercepts
+# by-Movie random slopes and intercepts
                   (State|Movie),
 # define data
                 data = tomato)
