@@ -326,8 +326,8 @@ anova(model_1, model_2)
 ## Model 1: error_rate ~ stress
 ## Model 2: error_rate ~ stress + stress2
 ##   Res.Df   RSS Df Sum of Sq   F Pr(&gt;F)    
-## 1    298 249.2                            
-## 2    297  94.5  1       155 486 &lt;2e-16 ***
+## 1    298 236.5                            
+## 2    297  60.6  1       176 863 &lt;2e-16 ***
 ## ---
 ## Signif. codes:  
 ##   0 '***' 0.001 '**' 0.01 '*' 0.05 '.'
@@ -846,7 +846,8 @@ They all &lt;high&gt;minimize a specific function `\(\rho\)` of the residuals&lt
 ```r
 # Rank-based regression
 library(Rfit)
-m &lt;- rfit(formula = y ~ x, data = outlier_df)
+m &lt;- rfit(formula = y ~ x, 
+          data = outlier_df)
 summary(m)
 ```
 

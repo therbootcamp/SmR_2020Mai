@@ -885,7 +885,8 @@ options(width=35)
 ```{r, message=F, warning=F}
 # Rank-based regression
 library(Rfit)
-m <- rfit(formula = y ~ x, data = outlier_df)
+m <- rfit(formula = y ~ x, 
+          data = outlier_df)
 summary(m)
 ```
 
