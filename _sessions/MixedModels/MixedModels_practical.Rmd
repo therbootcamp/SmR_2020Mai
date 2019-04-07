@@ -241,6 +241,7 @@ summary(FE_mod)
 8. Sometimes it is useful to extract the estimates from the model output (e.g., so we don't have to manually type them, which would be error prone). Extract the fixed effects from `subj_RI_mod` using the `fixef()` function.
 
 ```{r echo = TRUE, eval = FALSE}
+# Print fixed effects from subj_RI_mod
 fixef(XXX)
 ```
 
@@ -248,9 +249,15 @@ fixef(XXX)
 fixef(subj_RI_mod)
 ```
 
-9. Now extract the random effects using the `ranef()` function.
+9. Now extract the random effects from `subj_RI_mod` using the `ranef()` function.
+
+```{r echo = TRUE, eval = FALSE}
+# Print random effects from subj_RI_mod
+ranef(XXX)
+```
 
 ```{r}
+# Print random effects from subj_RI_mod
 ranef(subj_RI_mod)
 ```
 
@@ -272,7 +279,7 @@ subj_RI_RS_mod <- lmer(formula = Tomatometer ~ State + # These are the fixed eff
                       REML = FALSE)
 ```
 
-11. Compare the outputs of the fixed effects only model, of the by-subjects random intercepts model, and of the by-subjects random intercepts and slopes model. Did the coefficients change? Why not? What did change?
+11. Compare the outputs of the fixed effects only model, of the by-subjects random intercepts model, and of the by-subjects random intercepts and slopes model. Do this by applying the `summary()` function to each of the objects. Did the coefficients change? Why not? What did change?
 
 ```{r}
 summary(subj_RI_RS_mod)

@@ -292,10 +292,15 @@ subj_RI_mod &lt;- lmer(formula = XXX ~ XXX +           # These are the fixed eff
 <li><p>Did the effect of <code>State</code> change, now that you incorporated the random effects? Can you find out what did change from the model outputs?</p></li>
 <li><p>Sometimes it is useful to extract the estimates from the model output (e.g., so we don’t have to manually type them, which would be error prone). Extract the fixed effects from <code>subj_RI_mod</code> using the <code>fixef()</code> function.</p></li>
 </ol>
-<pre class="r"><code>fixef(XXX)</code></pre>
+<pre class="r"><code># Print fixed effects from subj_RI_mod
+fixef(XXX)</code></pre>
 <ol start="9" style="list-style-type: decimal">
-<li><p>Now extract the random effects using the <code>ranef()</code> function.</p></li>
-<li><p>Expand your mixed effects model from task B4 by adding by-subjects slopes. <em>Hint</em>: add the <code>State</code> variable to the left side of the bar <code>|</code> in the random effects part of the formula.</p></li>
+<li>Now extract the random effects from <code>subj_RI_mod</code> using the <code>ranef()</code> function.</li>
+</ol>
+<pre class="r"><code># Print random effects from subj_RI_mod
+ranef(XXX)</code></pre>
+<ol start="10" style="list-style-type: decimal">
+<li>Expand your mixed effects model from task B4 by adding by-subjects slopes. <em>Hint</em>: add the <code>State</code> variable to the left side of the bar <code>|</code> in the random effects part of the formula.</li>
 </ol>
 <pre class="r"><code># Mixed effects model with by-subject random intercepts and slopes
 subj_RI_RS_mod &lt;- lmer(formula = XXX ~ XXX +          # These are the fixed effects
@@ -303,7 +308,7 @@ subj_RI_RS_mod &lt;- lmer(formula = XXX ~ XXX +          # These are the fixed e
                       data = XXX,           # Specify the data used
                       REML = FALSE)</code></pre>
 <ol start="11" style="list-style-type: decimal">
-<li><p>Compare the outputs of the fixed effects only model, of the by-subjects random intercepts model, and of the by-subjects random intercepts and slopes model. Did the coefficients change? Why not? What did change?</p></li>
+<li><p>Compare the outputs of the fixed effects only model, of the by-subjects random intercepts model, and of the by-subjects random intercepts and slopes model. Do this by applying the <code>summary()</code> function to each of the objects. Did the coefficients change? Why not? What did change?</p></li>
 <li><p>Each movie was rated in both states, so there is also a repetition in the items, which again leads to a violation of the independence assumption. To account for this, expand the model from task B9 by adding by-movie random intercepts and slopes. <em>Note</em>: The additional argument specifies a different optimizer such that the model converges.</p></li>
 </ol>
 <pre class="r"><code># Mixed effects model with by-subject and by-movie random intercepts and slopes
