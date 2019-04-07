@@ -70,7 +70,9 @@ h6 {
 
 <link rel="stylesheet" href="practical.css" type="text/css" />
 
+</head>
 
+<body>
 
 <style type = "text/css">
 .main-container {
@@ -95,92 +97,22 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
-summary {
-  display: list-item;
-}
 </style>
 
 
+
+<div class="container-fluid main-container">
 
 <!-- tabsets -->
-
-<style type="text/css">
-.tabset-dropdown > .nav-tabs {
-  display: inline-table;
-  max-height: 500px;
-  min-height: 44px;
-  overflow-y: auto;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs > li.active {
-  display: block;
-}
-
-.tabset-dropdown > .nav-tabs > li > a,
-.tabset-dropdown > .nav-tabs > li > a:focus,
-.tabset-dropdown > .nav-tabs > li > a:hover {
-  border: none;
-  display: inline-block;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
-  display: block;
-  float: none;
-}
-
-.tabset-dropdown > .nav-tabs > li {
-  display: none;
-}
-</style>
-
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
 });
 </script>
 
 <!-- code folding -->
 
 
-
-
-</head>
-
-<body>
-
-
-<div class="container-fluid main-container">
 
 
 
@@ -190,8 +122,7 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Linear Models II</h1>
-<h3 class="subtitle">Hypothesis testing and the general linear model</h3>
-<h4 class="author"><table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'>
+<h4 class="author"><em><table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'>
 <col width='10%'>
 <col width='10%'>
 <tr style="border:none">
@@ -201,13 +132,13 @@ $(document).ready(function () {
 <img src='https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png' style='height:15px;width:80px'/>
 </td>
 </tr>
-</table></h4>
+</table></em></h4>
 
 </div>
 
 
 <p align="center" width="100%">
-<img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/cinicaltrial_wide.png?token=AIFo1HsHC0LwU8xjFOB4tKAdFGwNML1Iks5cqNM8wA%3D%3D" alt="Trulli" style="width:100%"> <br> <font style="font-size:10px">from <a href="https://www.finance-monthly.com/2017/08/gail-adinamis-and-the-leading-global-provider-of-ambulant-healthcare-services-for-clinical-trials/">FinanceMonthly.com</a></font>
+<img src="image/cinicaltrial_wide.png" alt="Trulli" style="width:100%"> <br> <font style="font-size:10px">from <a href="https://www.finance-monthly.com/2017/08/gail-adinamis-and-the-leading-global-provider-of-ambulant-healthcare-services-for-clinical-trials/">FinanceMonthly.com</a></font>
 </p>
 <div id="section" class="section level1 tabset">
 <h1></h1>

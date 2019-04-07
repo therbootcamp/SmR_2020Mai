@@ -315,7 +315,7 @@ You let two subjects rate two movies once when they are sober and once when they
 # Random Effects
 
 .pull-left45[
-With random effects, we can account for random variability in the data that comes from different sources that introduce dependency in the data. We are usually not interested in the concrete instantiation of a particular level.
+With random effects, we can &lt;high&gt;account for "random"" variability&lt;/high&gt; in the data that comes from different sources that introduce dependency in the data. We are usually not interested in the concrete instantiation of a particular level.
 
 Random effects:
 
@@ -323,9 +323,8 @@ Random effects:
 * are always categorical variables (&lt;high&gt;factors&lt;/high&gt;)
 * are thought to be randomly drawn from the population 
 
-As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/2017/04/introduction-mixed-models.pdf):
-
-&gt; By specifying random effects in our model, we are able to factor out the idiosyncasies of our sample and obtain a more general estimate of the fixed effects of interest.
+*"By specifying random effects in our model, we are able to factor out the idiosyncasies of our sample and obtain a more general estimate of the fixed effects of interest."*
+&lt;font style="font-size:10px"&gt;&lt;a href="http://davidkellen.org/wp-content/uploads/2017/04/introduction-mixed-models.pdf"&gt;Singmann &amp; Kellen, 2017
 
 
 ]
@@ -361,11 +360,7 @@ When estimating random intercepts, only &lt;high&gt;one additional parameter&lt;
 
 .pull-right45[
 
-&lt;b&gt;Random Intercepts Only&lt;b&gt;
-
 &lt;img src="image/RI_example.png" width="65%" style="display: block; margin: auto;" /&gt;
-
-&lt;b&gt;Random Intercepts and Random Slopes&lt;b&gt;
 
 &lt;img src="image/MEM_example.png" width="65%" style="display: block; margin: auto;" /&gt;
 
@@ -678,12 +673,23 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   d.head.appendChild(s);
 })();</script>
 
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
   }
-});
+})();
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
