@@ -647,8 +647,9 @@ The web is a great place to learn about R.
 <p align="center">
 <font size = 5>Markus Steiner</font><br><br><br>
 <a href="https://github.com/mdsteiner"><b>github.com/mdsteiner</b></a><br>
-<font size=4><i>package: </i></font> 
-<a href="https://github.com/ndphillips/ShinyPsych"><b>ShinyPsych</b> <br><br><br>
+<font size=4><i>packages: </i></font> 
+<a href="https://github.com/mdsteiner/ShinyPsych"><b>ShinyPsych</b></a>, <br>
+<a href="https://github.com/mdsteiner/EFAdiff"><b>EFAdiff</b></a> <br><br>
 </p></th>
 
 <th class="tg-yw4l">
