@@ -36,8 +36,8 @@ knitr::opts_chunk$set(comment = NA,
                       fig.width = 6, 
                       fig.height = 6,
                       fig.align = 'center',
-                      echo = FALSE, 
-                      eval = FALSE, 
+                      echo = TRUE, 
+                      eval = TRUE, 
                       warning = FALSE)
 
 options(digits = 3)
@@ -87,10 +87,10 @@ By the end of this practical you will know how to:
 
 3. Using `library()` load the `tidyverse` package (if you don't have it, you'll need to install it with `install.packages()`)!
 
-```{r, echo = TRUE, eval = FALSE}
+```{r, echo = TRUE}
 # Load packages necessary for this script
 library(tidyverse)
-library(lubdridate)
+library(lubridate)
 library(lme4)
 library(rsq)
 library(moments)
@@ -126,7 +126,6 @@ XXX
 # Print XXX object
 avocado
 avocado_cali
-avocado_ny
 ```
 
 7. Use the the `summary()` function to print more details on the columns of the data sets.
@@ -140,7 +139,6 @@ summary(XXX)
 # Show summary of XXX object
 summary(avocado)
 summary(avocado_cali)
-summary(avocado_ny)
 ```
 
 8. Use the `View()` function to view the entire data sets in new windows
@@ -320,7 +318,7 @@ plot(x = predict(m3),
 
 ```{r}
 # evaluate m3
-summmary(m3)
+summary(m3)
 ```
 
 ### C - Variance inflation
@@ -345,8 +343,8 @@ summary(m4)
 
 ```{r, echo = TRUE, eval = FALSE}
 # residaul variance of m3 and m4
-var_res1 <- var(x = residuals(XX))
-var_res2 <- var(x = residuals(YY))
+var_res1 <- var(residuals(XX))
+var_res2 <- var(residuals(YY))
 
 var_res1
 var_res2
@@ -354,8 +352,8 @@ var_res2
 
 ```{r}
 # resdiaul variance of m3 and m4
-var_res1 <- var(x = residuals(m3))
-var_res2 <- var(x = residuals(m4))
+var_res1 <- var(residuals(m3))
+var_res2 <- var(residuals(m4))
 var_res1
 var_res2
 ```
@@ -388,12 +386,6 @@ rsq1 <- rsq(XX)
 rsq2 <- rsq(YY)
 rsq1
 rsq2
-
-my_rsq <- function(m, x) {
-  var(predict(m)) / var(x)
-}
-
-my_rsq(m_price1, avocado_cali$price_per_avocado)
 
 # variance inflation factors
 vif1 <- 1 / (1 - rsq1)
@@ -505,7 +497,7 @@ m6 <- lm(volume_index ~ type + price_per_avocado + I((price_per_avocado - mean(p
 
 1. Let's now look at the development of avocado consumption over time. Use the following code to create data sets containing the Cali' avocado consumption in 2016 and 2017.
 
-```{r, echo = TRUE, eval = FALSE}
+```{r, echo = TRUE}
 # Cali avocado volume 2016 & 2017
 avocado_cali_2016 <- avocado_cali %>% 
   filter(year == 2016)
@@ -523,10 +515,6 @@ t.test(x = avocado_cali_2016$XX,
        y = avocado_cali_2017$XX, 
        paired = TRUE)
 
-# compare Cali and NY avocado volume_index
-t.test(x = avocado_cali_2016$YY,
-       y = avocado_cali_2017$YY, 
-       paired = TRUE)
 ``` 
 
 ```{r}
@@ -678,7 +666,7 @@ boot_lm <- function(data, indices){
   
   data <- data[indices,] # select obs. in bootstrap sample
   
-  m <- lm(vvolume_index ~ price_per_avocado + type, 
+  m <- lm(volume_index ~ price_per_avocado + type, 
           data = data)
   
   coefficients(m)
