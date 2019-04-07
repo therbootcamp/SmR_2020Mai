@@ -216,6 +216,9 @@ Increasing sample size means &lt;high&gt;narrower sampling distributions&lt;/hig
 
 
 ```r
+# Load pwr package for pwr.t.test
+library(pwr)
+
 # N for large effect in t-test
 pwr.t.test(sig.level = .05, 
            power = .95, 
@@ -256,6 +259,9 @@ Increasing sample size means &lt;high&gt;narrower sampling distributions&lt;/hig
 
 
 ```r
+# Load pwr package for pwr.t.test
+library(pwr)
+
 # N for small effect in t-test
 pwr.t.test(sig.level = .05, 
            power = .95, 
@@ -548,7 +554,7 @@ Delta + SE * qt(.95, N - 1) * c(-1, 1)
 ```
 
 ```
-## [1] -1.3823 -0.9211
+## [1] -1.2603 -0.7457
 ```
 
 ]
@@ -631,7 +637,7 @@ boot.ci(boot_res)
 ## 
 ## Intervals : 
 ## Level      Normal              Basic         
-## 95%   (-1.410, -0.871 )   (-1.415, -0.864 )
+## 95%   (-1.319, -0.701 )   (-1.309, -0.698 )
 ```
 
 ]
@@ -779,16 +785,16 @@ stan_glm(formula = income ~ height,
 ##  predictors:   2
 ## ------
 ##             Median MAD_SD
-## (Intercept) 9290.8 2225.1
-## height       -10.9   12.9
+## (Intercept) 9269.0 2109.1
+## height       -10.8   12.3
 ## 
 ## Auxiliary parameter(s):
 ##       Median MAD_SD
-## sigma 2639.4  110.4
+## sigma 2636.4  103.2
 ## 
 ## Sample avg. posterior predictive distribution of y:
 ##          Median MAD_SD
-## mean_PPD 7439.0  214.7
+## mean_PPD 7430.0  219.1
 ## 
 ## ------
 ## * For help interpreting the printed output see ?print.stanreg

@@ -251,6 +251,9 @@ Increasing sample size means <high>narrower sampling distributions</high> and <h
 .pull-right5[
 
 ```{r}
+# Load pwr package for pwr.t.test
+library(pwr)
+
 # N for large effect in t-test
 pwr.t.test(sig.level = .05, 
            power = .95, 
@@ -278,6 +281,9 @@ Increasing sample size means <high>narrower sampling distributions</high> and <h
 .pull-right5[
 
 ```{r}
+# Load pwr package for pwr.t.test
+library(pwr)
+
 # N for small effect in t-test
 pwr.t.test(sig.level = .05, 
            power = .95, 
