@@ -548,7 +548,7 @@ Delta + SE * qt(.95, N - 1) * c(-1, 1)
 ```
 
 ```
-## [1] -1.4453 -0.9915
+## [1] -1.0173 -0.5666
 ```
 
 ]
@@ -631,7 +631,7 @@ boot.ci(boot_res)
 ## 
 ## Intervals : 
 ## Level      Normal              Basic         
-## 95%   (-1.461, -0.951 )   (-1.454, -0.944 )
+## 95%   (-1.0533, -0.5211 )   (-1.0466, -0.5117 )
 ```
 
 ]
@@ -778,16 +778,16 @@ stan_glm(income ~ height,
 ##  predictors:   2
 ## ------
 ##             Median MAD_SD
-## (Intercept) 9211.1 2105.4
-## height       -10.4   12.2
+## (Intercept) 9343.5 2191.2
+## height       -11.0   12.7
 ## 
 ## Auxiliary parameter(s):
 ##       Median MAD_SD
-## sigma 2634.4  103.4
+## sigma 2638.9  106.0
 ## 
 ## Sample avg. posterior predictive distribution of y:
 ##          Median MAD_SD
-## mean_PPD 7440.5  211.1
+## mean_PPD 7436.5  216.1
 ## 
 ## ------
 ## * For help interpreting the printed output see ?print.stanreg
@@ -906,12 +906,23 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   d.head.appendChild(s);
 })();</script>
 
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+<script>
+(function() {
+  var i, text, code, codes = document.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
   }
-});
+})();
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
