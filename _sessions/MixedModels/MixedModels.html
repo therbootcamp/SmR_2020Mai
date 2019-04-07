@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html>
   <head>
     <title>Mixed Effects Models</title>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <meta name="author" content="Statistics with R   Basel R Bootcamp" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="baselrbootcamp.css" type="text/css" />
@@ -144,7 +144,7 @@ Here's how we would run a regression over all sites (but is it a good idea to do
 
 
 ```r
-mod &lt;- lm(Effect ~ Dose,
+mod &lt;- lm(formula = Effect ~ Dose,
           data = clinical_data)
 ```
 
@@ -175,13 +175,13 @@ Here's how we would run one regression per site (but is it a good idea to do so?
 
 
 ```r
-mod_s1 &lt;- lm(Effect ~ Dose,
+mod_s1 &lt;- lm(formula = Effect ~ Dose,
              data = site1_data)
 
-mod_s2 &lt;- lm(Effect ~ Dose,
+mod_s2 &lt;- lm(formula = Effect ~ Dose,
              data = site2_data)
 
-mod_s3 &lt;- lm(Effect ~ Dose,
+mod_s3 &lt;- lm(formula = Effect ~ Dose,
              data = site3_data)
 ```
 
@@ -203,7 +203,7 @@ mod_s3 &lt;- lm(Effect ~ Dose,
 
 # Mixed Effects Model
 
-.pull-left45[
+.pull-left5[
 
 A better way of analysing data where the IID assumption is violated than running separate regressions is to use mixed effects models.
 
@@ -220,7 +220,7 @@ Mixed effects models combine two kinds of effects that serve different purposes:
 
 
 ```r
-LMM &lt;- lmer(y ~ FE1 + FE2 + # Fixed
+LMM &lt;- lmer(formula = y ~ FE1 + FE2 + # Fixed
               (FE1|RE) + (FE2|RE), # Random
             data = df) # Data
 ```
@@ -243,7 +243,7 @@ LMM &lt;- lmer(y ~ FE1 + FE2 + # Fixed
 
 # Fixed Effects
 
-.pull-left45[
+.pull-left5[
 
 &lt;br&gt;
 
@@ -254,7 +254,7 @@ So far we only considered "fixed effects only" models (e.g., simple regression, 
 
 ```r
 # continuous predictor
-mod &lt;- lm(Effect ~ Dose,
+mod &lt;- lm(formula = Effect ~ Dose,
           data = clinical_data)
 ```
 
@@ -346,12 +346,12 @@ As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/
 
 We can differentiate two kinds of random effects:
 
-* &lt;high&gt;Random Intercepts&lt;/high&gt;
-    * Estimated average deviations of each random effects factor level from the grand mean.
+&lt;high&gt;Random Intercepts&lt;/high&gt;&lt;br&gt;
+* Estimated average deviations of each random effects factor level from the grand mean.
     
     
-* &lt;high&gt;Random Slopes&lt;/high&gt;
-    * Estimated deviations of each random effects factor level from the fixed effect slopes.
+&lt;high&gt;Random Slopes&lt;/high&gt;&lt;br&gt;
+* Estimated deviations of each random effects factor level from the fixed effect slopes.
 
 **Note:**
 When estimating random intercepts, only &lt;high&gt;one additional parameter&lt;/high&gt; is estimated: The &lt;high&gt;variance&lt;/high&gt; of the normal distribution the random intercepts are thought to stem from.
@@ -360,9 +360,13 @@ When estimating random intercepts, only &lt;high&gt;one additional parameter&lt;
 
 .pull-right45[
 
-&lt;img src="image/RI_example.png" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;b&gt;Random Intercepts Only&lt;b&gt;
 
-&lt;img src="image/MEM_example.png" width="70%" style="display: block; margin: auto;" /&gt;
+&lt;img src="image/RI_example.png" width="65%" style="display: block; margin: auto;" /&gt;
+
+&lt;b&gt;Random Intercepts and Random Slopes&lt;b&gt;
+
+&lt;img src="image/MEM_example.png" width="65%" style="display: block; margin: auto;" /&gt;
 
 
 ]
@@ -510,7 +514,7 @@ Several packages exist to run mixed effects models in R. Here are some of them:
 
 ]
 
-.pull-right45[
+.pull-right5[
 
 &lt;br&gt;
 
@@ -519,7 +523,7 @@ Several packages exist to run mixed effects models in R. Here are some of them:
 # mixed model using lme4::lmer()
 
 # fixed effects
-LMM_out &lt;- lmer(Reaction ~ Days +
+LMM_out &lt;- lmer(formula = Reaction ~ Days +
 # by-ID random slopes and intercepts
                   (Days|Subject),
 # define data
@@ -572,7 +576,7 @@ We want to predict the &lt;high&gt;Tomatometer&lt;/high&gt; rating with &lt;high
 
 ]
 
-.pull-right45[
+.pull-right5[
 
 &lt;br&gt;
 
@@ -583,7 +587,7 @@ We want to predict the &lt;high&gt;Tomatometer&lt;/high&gt; rating with &lt;high
 # mixed model using lme4::lmer()
 
 # fixed effects
-LMM_out &lt;- XXX(XXX ~ XXX +
+LMM_out &lt;- XXX(formula = XXX ~ XXX +
 # by-ID random slopes and intercepts
                   (XXX) +
 # by-ID random slopes and intercepts
@@ -615,16 +619,18 @@ We want to predict the &lt;high&gt;Tomatometer&lt;/high&gt; rating with &lt;high
 
 ]
 
-.pull-right45[
+.pull-right5[
 
 &lt;br&gt;
+
+*Here is how we would specify the model:*
 
 
 ```r
 # mixed model using lme4::lmer()
 
 # fixed effects
-LMM_out &lt;- lmer(Tomatometer ~ State +
+LMM_out &lt;- lmer(formula = Tomatometer ~ State +
 # by-ID random slopes and intercepts
                   (State|ID) +
 # by-ID random slopes and intercepts
@@ -654,7 +660,6 @@ class: middle, center
 
 &lt;h1&gt;&lt;a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/MixedModels/MixedModels_practical.html"&gt;Practical&lt;/a&gt;&lt;/h1&gt;
     </textarea>
-<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
@@ -665,79 +670,26 @@ class: middle, center
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
 });
-(function(d) {
-  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+(function() {
+  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
   if (!r) return;
   s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
   d.head.appendChild(s);
-})(document);
-
-(function(d) {
-  var el = d.getElementsByClassName("remark-slides-area");
-  if (!el) return;
-  var slide, slides = slideshow.getSlides(), els = el[0].children;
-  for (var i = 1; i < slides.length; i++) {
-    slide = slides[i];
-    if (slide.properties.continued === "true" || slide.properties.count === "false") {
-      els[i - 1].className += ' has-continuation';
-    }
-  }
-  var s = d.createElement("style");
-  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
-  d.head.appendChild(s);
-})(document);
-// delete the temporary CSS (for displaying all slides initially) when the user
-// starts to view slides
-(function() {
-  var deleted = false;
-  slideshow.on('beforeShowSlide', function(slide) {
-    if (deleted) return;
-    var sheets = document.styleSheets, node;
-    for (var i = 0; i < sheets.length; i++) {
-      node = sheets[i].ownerNode;
-      if (node.dataset["target"] !== "print-only") continue;
-      node.parentNode.removeChild(node);
-    }
-    deleted = true;
-  });
 })();</script>
 
-<script>
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
   }
-})();
-</script>
-
-<script>
-slideshow._releaseMath = function(el) {
-  var i, text, code, codes = el.getElementsByTagName('code');
-  for (i = 0; i < codes.length;) {
-    code = codes[i];
-    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-      text = code.textContent;
-      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-          /^\$\$(.|\s)+\$\$$/.test(text) ||
-          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-        code.outerHTML = code.innerHTML;  // remove <code></code>
-        continue;
-      }
-    }
-    i++;
-  }
-};
-slideshow._releaseMath(document);
+});
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
 (function () {
   var script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
   if (location.protocol !== 'file:' && /^https?:/.test(script.src))
     script.src  = script.src.replace(/^https?:/, '');
   document.getElementsByTagName('head')[0].appendChild(script);

@@ -71,7 +71,7 @@ options(digits = 4)
 # Load packages
 library(tidyverse)
 library(lme4)
-tomato_df <- read_csv("1_Data/Tomatometer_dat.csv")
+tomato_df <- read_csv("1_Data/Tomatometer.csv")
 df <- read_csv("1_Data/MEM_example.csv")
 grand_mean <- mean(df$tomatometer)
 
@@ -226,7 +226,7 @@ Here's how we would run a regression over all sites (but is it a good idea to do
 
 ```{r eval = FALSE}
 
-mod <- lm(Effect ~ Dose,
+mod <- lm(formula = Effect ~ Dose,
           data = clinical_data)
 
 ```
@@ -272,13 +272,13 @@ Here's how we would run one regression per site (but is it a good idea to do so?
 
 ```{r eval = FALSE}
 
-mod_s1 <- lm(Effect ~ Dose,
+mod_s1 <- lm(formula = Effect ~ Dose,
              data = site1_data)
 
-mod_s2 <- lm(Effect ~ Dose,
+mod_s2 <- lm(formula = Effect ~ Dose,
              data = site2_data)
 
-mod_s3 <- lm(Effect ~ Dose,
+mod_s3 <- lm(formula = Effect ~ Dose,
              data = site3_data)
 
 ```
@@ -317,7 +317,7 @@ ggplot(s_dat, aes(x, y, col = Site)) +
 
 # Mixed Effects Model
 
-.pull-left45[
+.pull-left5[
 
 A better way of analysing data where the IID assumption is violated than running separate regressions is to use mixed effects models.
 
@@ -333,7 +333,7 @@ Mixed effects models combine two kinds of effects that serve different purposes:
 
 
 ```{r eval = FALSE}
-LMM <- lmer(y ~ FE1 + FE2 + # Fixed
+LMM <- lmer(formula = y ~ FE1 + FE2 + # Fixed
               (FE1|RE) + (FE2|RE), # Random
             data = df) # Data
 ```
@@ -352,7 +352,8 @@ LMM <- lmer(y ~ FE1 + FE2 + # Fixed
 tomato_df <- tomato_df %>%
   mutate(State = factor(State, levels = c("Sober", "Drunk")))
 
-model1<-lmer(Tomatometer ~ State + (State|ID) + (State|Movie), data=tomato_df)
+model1<-lmer(formula = Tomatometer ~ State + (State|ID) + (State|Movie), 
+             data=tomato_df)
 
 m_line <- fixef(model1)
 
@@ -397,7 +398,7 @@ ggplot(tomato_df, aes(State, Tomatometer))+
 
 # Fixed Effects
 
-.pull-left45[
+.pull-left5[
 
 <br>
 
@@ -408,7 +409,7 @@ So far we only considered "fixed effects only" models (e.g., simple regression, 
 ```{r eval = FALSE}
 
 # continuous predictor
-mod <- lm(Effect ~ Dose,
+mod <- lm(formula = Effect ~ Dose,
           data = clinical_data)
 
 ```
@@ -515,12 +516,12 @@ As expressed by [Singmann and Kellen](http://davidkellen.org/wp-content/uploads/
 
 We can differentiate two kinds of random effects:
 
-* <high>Random Intercepts</high>
-    * Estimated average deviations of each random effects factor level from the grand mean.
+<high>Random Intercepts</high><br>
+* Estimated average deviations of each random effects factor level from the grand mean.
     
     
-* <high>Random Slopes</high>
-    * Estimated deviations of each random effects factor level from the fixed effect slopes.
+<high>Random Slopes</high><br>
+* Estimated deviations of each random effects factor level from the fixed effect slopes.
 
 **Note:**
 When estimating random intercepts, only <high>one additional parameter</high> is estimated: The <high>variance</high> of the normal distribution the random intercepts are thought to stem from.
@@ -529,9 +530,13 @@ When estimating random intercepts, only <high>one additional parameter</high> is
 
 .pull-right45[
 
-<img src="image/RI_example.png" width="70%" style="display: block; margin: auto;" />
+<b>Random Intercepts Only<b>
 
-<img src="image/MEM_example.png" width="70%" style="display: block; margin: auto;" />
+<img src="image/RI_example.png" width="65%" style="display: block; margin: auto;" />
+
+<b>Random Intercepts and Random Slopes<b>
+
+<img src="image/MEM_example.png" width="65%" style="display: block; margin: auto;" />
 
 
 ]
@@ -679,7 +684,7 @@ Several packages exist to run mixed effects models in R. Here are some of them:
 
 ]
 
-.pull-right45[
+.pull-right5[
 
 <br>
 
@@ -687,7 +692,7 @@ Several packages exist to run mixed effects models in R. Here are some of them:
 # mixed model using lme4::lmer()
 
 # fixed effects
-LMM_out <- lmer(Reaction ~ Days +
+LMM_out <- lmer(formula = Reaction ~ Days +
 # by-ID random slopes and intercepts
                   (Days|Subject),
 # define data
@@ -740,7 +745,7 @@ We want to predict the <high>Tomatometer</high> rating with <high>State</high> a
 
 ]
 
-.pull-right45[
+.pull-right5[
 
 <br>
 
@@ -750,7 +755,7 @@ We want to predict the <high>Tomatometer</high> rating with <high>State</high> a
 # mixed model using lme4::lmer()
 
 # fixed effects
-LMM_out <- XXX(XXX ~ XXX +
+LMM_out <- XXX(formula = XXX ~ XXX +
 # by-ID random slopes and intercepts
                   (XXX) +
 # by-ID random slopes and intercepts
@@ -782,15 +787,17 @@ We want to predict the <high>Tomatometer</high> rating with <high>State</high> a
 
 ]
 
-.pull-right45[
+.pull-right5[
 
 <br>
+
+*Here is how we would specify the model:*
 
 ```{r eval = FALSE}
 # mixed model using lme4::lmer()
 
 # fixed effects
-LMM_out <- lmer(Tomatometer ~ State +
+LMM_out <- lmer(formula = Tomatometer ~ State +
 # by-ID random slopes and intercepts
                   (State|ID) +
 # by-ID random slopes and intercepts
