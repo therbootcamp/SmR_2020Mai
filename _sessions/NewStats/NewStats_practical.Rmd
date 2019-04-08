@@ -35,14 +35,18 @@ knitr::opts_chunk$set(comment = NA,
                       fig.width = 6, 
                       fig.height = 6,
                       fig.align = 'center',
-                      echo = FALSE, 
-                      eval = FALSE, 
-                      warning = FALSE)
+                      echo = TRUE, 
+                      eval = TRUE, 
+                      warning = FALSE,
+                      message = FALSE)
 
 options(digits = 3)
 
 # Load packages
 library(tidyverse)
+library(pwr)
+library(rstanarm)
+library(BayesFactor)
 
 # Load packages
 #read_csv("1_Data/...")
@@ -253,6 +257,18 @@ hit_rate_neutral <- psi1$hit_rate[psi1$condition != "erotic"]
 # compute t-test
 test <- t.test(x = XX, 
                y = YY, 
+               paired = TRUE)
+
+```
+
+```{r}
+# extract hit rates 
+hit_rate_erotic <- psi1$hit_rate[psi1$condition == "erotic"]
+hit_rate_neutral <- psi1$hit_rate[psi1$condition != "erotic"]
+
+# compute t-test
+test <- t.test(x = hit_rate_erotic, 
+               y = hit_rate_neutral, 
                paired = TRUE)
 
 ```

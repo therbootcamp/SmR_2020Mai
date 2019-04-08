@@ -8,19 +8,15 @@ to_path = '_sessions/_pdf/'
 # htmls to be saved as pdf
 htmls = c(
   'Welcome/Welcome.html',
-  'IntroToR/IntroToR.html',
-  'Data/Data.html',
-  'Data/Data_practical.html',
-  'Wrangling/Wrangling.html',
-  'Wrangling/Wrangling_practical.html',
-  'Analysing/Analysing.html',
-  'Analysing/Analysing_practical.html',
-  'Plotting/Plotting.html',
-  'Plotting/Plotting_practical.html',
-  'CaseStudies/Financial_Data_Case_Study.html',
-  'CaseStudies/Clinical_Data_Case_Study.html',
+  'Intro2Stats/Intro2Stats.html',
+  'RforStats/RforStats.html',
+  'LinearModelsI/LinearModelsI.html',
+  'LinearModelsII/LinearModelsII.html',
+  'MixedModels/MixedModels.html',
+  'RobustStats/RobustStats.html',
+  'NewStats/NewStats.html',
   'NextSteps/NextSteps.html'
-)
+  )
 
 # get pdf names
 pdfs = stringr::str_replace_all(
@@ -30,7 +26,7 @@ pdfs = stringr::str_replace_all(
 
 
 # save as pdf
-for(i in 1:length(htmls)){
+for(i in length(htmls)){
   
   webshot::webshot(paste0(from_path, htmls[i]),
                    paste0(to_path, pdfs[i]),
@@ -39,7 +35,7 @@ for(i in 1:length(htmls)){
 }
 
 # zip files
-zip(paste0(to_path, 'Intro2DataScienceWithR_pdfs.zip'),
+zip(paste0(to_path, 'StatisticsWithR_slide_pdfs.zip'),
     c(paste0(to_path, pdfs), paste0(to_path, 'README.rtf'))
     )
 

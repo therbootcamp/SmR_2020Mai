@@ -70,7 +70,9 @@ h6 {
 
 <link rel="stylesheet" href="practical.css" type="text/css" />
 
+</head>
 
+<body>
 
 <style type = "text/css">
 .main-container {
@@ -95,92 +97,22 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
-summary {
-  display: list-item;
-}
 </style>
 
 
+
+<div class="container-fluid main-container">
 
 <!-- tabsets -->
-
-<style type="text/css">
-.tabset-dropdown > .nav-tabs {
-  display: inline-table;
-  max-height: 500px;
-  min-height: 44px;
-  overflow-y: auto;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
-  font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
-}
-
-.tabset-dropdown > .nav-tabs > li.active {
-  display: block;
-}
-
-.tabset-dropdown > .nav-tabs > li > a,
-.tabset-dropdown > .nav-tabs > li > a:focus,
-.tabset-dropdown > .nav-tabs > li > a:hover {
-  border: none;
-  display: inline-block;
-  border-radius: 4px;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
-  display: block;
-  float: none;
-}
-
-.tabset-dropdown > .nav-tabs > li {
-  display: none;
-}
-</style>
-
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
 });
 </script>
 
 <!-- code folding -->
 
 
-
-
-</head>
-
-<body>
-
-
-<div class="container-fluid main-container">
 
 
 
@@ -190,7 +122,7 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Robust Statistics</h1>
-<h4 class="author"><table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'>
+<h4 class="author"><em><table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'>
 <col width='10%'>
 <col width='10%'>
 <tr style="border:none">
@@ -201,7 +133,7 @@ $(document).ready(function () {
 <img src='https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png' style='height:15px;width:80px'/>
 </td>
 </tr>
-</table></h4>
+</table></em></h4>
 
 </div>
 
@@ -226,9 +158,15 @@ $(document).ready(function () {
 <div id="a---setup" class="section level3">
 <h3>A - Setup</h3>
 <ol style="list-style-type: decimal">
-<li><p>Open your <code>BaselRBootcamp</code> R project. It should already have the folders <code>1_Data</code> and <code>2_Code</code>. Make sure that the data files listed in the <code>Datasets</code> section above are in your <code>1_Data</code> folder</p></li>
-<li><p>Open a new R script. At the top of the script, using comments, write your name and the date. Save it as a new file called <code>robuststats_practical.R</code> in the <code>2_Code</code> folder.</p></li>
-<li><p>Using <code>library()</code> load the <code>tidyverse</code> package (if you don’t have it, you’ll need to install it with <code>install.packages()</code>)!</p></li>
+<li>Open your <code>BaselRBootcamp</code> R project. It should already have the folders <code>1_Data</code> and <code>2_Code</code>. Make sure that the data files listed in the <code>Datasets</code> section above are in your <code>1_Data</code> folder</li>
+</ol>
+<pre class="r"><code># Done!</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Open a new R script. At the top of the script, using comments, write your name and the date. Save it as a new file called <code>robuststats_practical.R</code> in the <code>2_Code</code> folder.</li>
+</ol>
+<pre class="r"><code># Done!</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Using <code>library()</code> load the <code>tidyverse</code> package (if you don’t have it, you’ll need to install it with <code>install.packages()</code>)!</li>
 </ol>
 <pre class="r"><code># Load packages necessary for this script
 library(tidyverse)
@@ -246,21 +184,125 @@ library(Rfit)</code></pre>
 
 XX &lt;- read_csv(file = &quot;XX/XX&quot;)
 XX &lt;- read_csv(file = &quot;XX/XX&quot;)</code></pre>
+<pre class="r"><code># Load data sets from the 1_Data folder
+
+avocado &lt;- read_csv(file = &quot;1_Data/avocado.csv&quot;)
+avocado_cali &lt;- read_csv(file = &quot;1_Data/avocado_cali.csv&quot;)</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>Take a look at the first few rows of the data sets by printing them to the console.</li>
 </ol>
 <pre class="r"><code># Print XXX object
 XXX</code></pre>
+<pre class="r"><code># Print XXX object
+avocado</code></pre>
+<pre><code># A tibble: 17,573 x 16
+   volume volume_index price_per_avoca… type  temperature temperature_usa
+    &lt;dbl&gt;        &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;           &lt;dbl&gt;
+ 1 6.42e4         4.12             1.33 conv…        6.06            9.29
+ 2 5.49e4         3.99             1.35 conv…       -1.1             4.48
+ 3 1.18e5         4.63             0.93 conv…        7.11           12.2 
+ 4 7.90e4         4.29             1.08 conv…        1.5             7.32
+ 5 5.10e4         3.93             1.28 conv…       -2               6.23
+ 6 5.60e4         4.01             1.26 conv…        4.43            5.63
+ 7 8.35e4         4.34             0.99 conv…        4.38            9.56
+ 8 1.09e5         4.57             0.98 conv…        4.96           10.2 
+ 9 9.98e4         4.49             1.02 conv…        8.72           14.6 
+10 7.43e4         4.24             1.07 conv…        9.06           14.6 
+# … with 17,563 more rows, and 10 more variables: humidity &lt;dbl&gt;,
+#   humidity_usa &lt;dbl&gt;, precipitation &lt;dbl&gt;, precipitation_usa &lt;dbl&gt;,
+#   year &lt;int&gt;, season &lt;chr&gt;, date &lt;date&gt;, region &lt;chr&gt;, longitude &lt;dbl&gt;,
+#   latitude &lt;dbl&gt;</code></pre>
+<pre class="r"><code>avocado_cali</code></pre>
+<pre><code># A tibble: 338 x 16
+   volume volume_index price_per_avoca… type  temperature temperature_usa
+    &lt;dbl&gt;        &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;       &lt;dbl&gt;           &lt;dbl&gt;
+ 1 5.04e6         8.59             0.9  conv…       15.5             9.29
+ 2 4.70e6         8.50             0.94 conv…        2.61            4.48
+ 3 5.26e6         8.64             0.87 conv…       14.4            12.2 
+ 4 5.78e6         8.76             0.78 conv…        5.93            7.32
+ 5 4.58e6         8.46             0.91 conv…        9.76            6.23
+ 6 4.80e6         8.53             0.92 conv…        6.23            5.63
+ 7 5.76e6         8.75             0.83 conv…        8.33            9.56
+ 8 5.15e6         8.61             0.98 conv…       10.5            10.2 
+ 9 5.83e6         8.77             0.95 conv…       14.7            14.6 
+10 4.59e6         8.47             1.12 conv…       14.9            14.6 
+# … with 328 more rows, and 10 more variables: humidity &lt;dbl&gt;,
+#   humidity_usa &lt;dbl&gt;, precipitation &lt;dbl&gt;, precipitation_usa &lt;dbl&gt;,
+#   year &lt;int&gt;, season &lt;chr&gt;, date &lt;date&gt;, region &lt;chr&gt;, longitude &lt;dbl&gt;,
+#   latitude &lt;dbl&gt;</code></pre>
 <ol start="7" style="list-style-type: decimal">
 <li>Use the the <code>summary()</code> function to print more details on the columns of the data sets.</li>
 </ol>
 <pre class="r"><code># Show summary of XXX object
 summary(XXX)</code></pre>
+<pre class="r"><code># Show summary of XXX object
+summary(avocado)</code></pre>
+<pre><code>     volume          volume_index  price_per_avocado     type          
+ Min.   :      85   Min.   :0.16   Min.   :0.44      Length:17573      
+ 1st Qu.:   10568   1st Qu.:2.77   1st Qu.:1.10      Class :character  
+ Median :  100154   Median :4.49   Median :1.37      Mode  :character  
+ Mean   :  545560   Mean   :4.47   Mean   :1.41                        
+ 3rd Qu.:  399422   3rd Qu.:5.76   3rd Qu.:1.67                        
+ Max.   :11274749   Max.   :9.65   Max.   :3.25                        
+  temperature    temperature_usa    humidity      humidity_usa 
+ Min.   :-21.4   Min.   :-3.99   Min.   :  7.4   Min.   :55.9  
+ 1st Qu.:  6.0   1st Qu.: 6.31   1st Qu.: 63.3   1st Qu.:66.0  
+ Median : 14.9   Median :13.01   Median : 74.6   Median :70.8  
+ Mean   : 13.6   Mean   :13.47   Mean   : 72.0   Mean   :71.8  
+ 3rd Qu.: 22.0   3rd Qu.:21.93   3rd Qu.: 84.0   3rd Qu.:77.1  
+ Max.   : 37.9   Max.   :26.87   Max.   :100.0   Max.   :89.4  
+ precipitation   precipitation_usa      year         season         
+ Min.   :  0.0   Min.   : 0.09     Min.   :2015   Length:17573      
+ 1st Qu.:  0.0   1st Qu.: 1.19     1st Qu.:2015   Class :character  
+ Median :  0.1   Median : 1.91     Median :2016   Mode  :character  
+ Mean   :  2.8   Mean   : 2.76     Mean   :2016                     
+ 3rd Qu.:  2.2   3rd Qu.: 3.73     3rd Qu.:2017                     
+ Max.   :224.8   Max.   :13.33     Max.   :2018                     
+      date               region            longitude         latitude   
+ Min.   :2015-01-04   Length:17573       Min.   :-122.7   Min.   :26.1  
+ 1st Qu.:2015-10-25   Class :character   1st Qu.:-105.0   1st Qu.:34.1  
+ Median :2016-08-14   Mode  :character   Median : -85.8   Median :38.6  
+ Mean   :2016-08-13                      Mean   : -91.3   Mean   :37.9  
+ 3rd Qu.:2017-06-04                      3rd Qu.: -78.9   3rd Qu.:41.9  
+ Max.   :2018-03-25                      Max.   : -71.1   Max.   :47.7  </code></pre>
+<pre class="r"><code>summary(avocado_cali)</code></pre>
+<pre><code>     volume          volume_index  price_per_avocado     type          
+ Min.   :   70004   Min.   :4.19   Min.   :0.67      Length:338        
+ 1st Qu.:  140345   1st Qu.:4.78   1st Qu.:1.08      Class :character  
+ Median : 1698251   Median :6.67   Median :1.38      Mode  :character  
+ Mean   : 3044324   Mean   :6.79   Mean   :1.40                        
+ 3rd Qu.: 5871189   3rd Qu.:8.78   3rd Qu.:1.66                        
+ Max.   :11213596   Max.   :9.64   Max.   :2.58                        
+  temperature    temperature_usa    humidity      humidity_usa 
+ Min.   :-9.86   Min.   :-3.99   Min.   : 45.1   Min.   :55.9  
+ 1st Qu.: 5.63   1st Qu.: 6.31   1st Qu.: 62.9   1st Qu.:66.0  
+ Median :12.71   Median :13.01   Median : 73.2   Median :70.8  
+ Mean   :13.53   Mean   :13.48   Mean   : 73.5   Mean   :71.8  
+ 3rd Qu.:22.81   3rd Qu.:21.93   3rd Qu.: 83.3   3rd Qu.:77.1  
+ Max.   :30.91   Max.   :26.87   Max.   :100.0   Max.   :89.4  
+ precipitation  precipitation_usa      year         season         
+ Min.   : 0.0   Min.   : 0.09     Min.   :2015   Length:338        
+ 1st Qu.: 0.0   1st Qu.: 1.19     1st Qu.:2015   Class :character  
+ Median : 0.1   Median : 1.91     Median :2016   Mode  :character  
+ Mean   : 2.2   Mean   : 2.76     Mean   :2016                     
+ 3rd Qu.: 1.2   3rd Qu.: 3.73     3rd Qu.:2017                     
+ Max.   :42.8   Max.   :13.33     Max.   :2018                     
+      date               region            longitude        latitude   
+ Min.   :2015-01-04   Length:338         Min.   :-76.5   Min.   :38.3  
+ 1st Qu.:2015-10-25   Class :character   1st Qu.:-76.5   1st Qu.:38.3  
+ Median :2016-08-14   Mode  :character   Median :-76.5   Median :38.3  
+ Mean   :2016-08-14                      Mean   :-76.5   Mean   :38.3  
+ 3rd Qu.:2017-06-04                      3rd Qu.:-76.5   3rd Qu.:38.3  
+ Max.   :2018-03-25                      Max.   :-76.5   Max.   :38.3  </code></pre>
 <ol start="8" style="list-style-type: decimal">
 <li>Use the <code>View()</code> function to view the entire data sets in new windows</li>
 </ol>
 <pre class="r"><code># View data frame XXX 
 View(XXX)</code></pre>
+<pre class="r"><code># View data frame XXX 
+View(avocado)
+View(avocado_cali)
+View(avocado_ny)</code></pre>
 </div>
 <div id="b---assumptions" class="section level3">
 <h3>B - Assumptions</h3>
@@ -271,11 +313,34 @@ View(XXX)</code></pre>
 <pre class="r"><code># regress volume on average price
 m1 &lt;- lm(formula = YY ~ XX, 
          data = ZZ)</code></pre>
+<pre class="r"><code># regress volume on average price
+m1 &lt;- lm(formula = volume ~ price_per_avocado, 
+          data = avocado_cali)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Evaluate the model using <code>summary()</code>. Is the average price a good predictor of volume?</li>
 </ol>
 <pre class="r"><code># model summary
 summary(XX)</code></pre>
+<pre class="r"><code># model summary
+summary(m1)</code></pre>
+<pre><code>
+Call:
+lm(formula = volume ~ price_per_avocado, data = avocado_cali)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-4692333 -1486900   351468  1342770  4276676 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)       11577703     371529    31.2   &lt;2e-16 ***
+price_per_avocado -6115691     256440   -23.9   &lt;2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 1840000 on 336 degrees of freedom
+Multiple R-squared:  0.629, Adjusted R-squared:  0.628 
+F-statistic:  569 on 1 and 336 DF,  p-value: &lt;2e-16</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>According to test yes, the average price strongly predicts volume. However, this does not imply that the relationship between average price and volume is described well by the regression line. Create a simple plot of the average price (x-axis) and volume (y-axis) using the template below.</li>
 </ol>
@@ -285,12 +350,22 @@ plot(x = avocado_cali$XX,
 
 # Add regression line
 abline(m1)</code></pre>
+<pre class="r"><code># plot model
+plot(x = avocado_cali$price_per_avocado, 
+     y = avocado_cali$volume)
+
+# Add regression line
+abline(m1)</code></pre>
+<p><img src="RobustStats_practical_files/figure-html/unnamed-chunk-17-1.png" width="576" style="display: block; margin: auto;" /></p>
 <ol start="4" style="list-style-type: decimal">
 <li>The plot revealed that the regression is actually not really a good summary of the data. Confirm this by plotting the residuals against the predicted values.</li>
 </ol>
 <pre class="r"><code># Residual plot
 plot(x = predict(XX), 
      y = residuals(XX))</code></pre>
+<pre class="r"><code># Residual plot
+plot(predict(m1), residuals(m1))</code></pre>
+<p><img src="RobustStats_practical_files/figure-html/unnamed-chunk-19-1.png" width="576" style="display: block; margin: auto;" /></p>
 <ol start="5" style="list-style-type: decimal">
 <li>The model fits the data badly including several serious violations of regression assumptions: Linearity, normality, and homooscedascity do not seem to hold. One cause for these violations are missing variables. Add one other variable to the regression that contains information on the kind of avocado (see <em>Data</em> tab) and evaluate the model again.</li>
 </ol>
@@ -300,6 +375,12 @@ m2 &lt;- lm(formula = YY ~ XX1 + XX2,
 
 plot(x = predict(m2), 
      y = residuals(m2))</code></pre>
+<pre class="r"><code># regress volume on average price and XX
+m2 &lt;- lm(volume ~ price_per_avocado + type,
+          data = avocado_cali)
+
+plot(predict(m2), residuals(m2))</code></pre>
+<p><img src="RobustStats_practical_files/figure-html/unnamed-chunk-21-1.png" width="576" style="display: block; margin: auto;" /></p>
 <ol start="6" style="list-style-type: decimal">
 <li>Accounting for the different types of avocados has helped a great deal. The residual plot still does not look ideal. But at least the correlation between predicted values and residuals seems to have substantially decreased. Verify this by comparing the correlations.</li>
 </ol>
@@ -309,39 +390,141 @@ cor(x = predict(XX),
 
 cor(x = predict(YY), 
     y = residuals(YY))</code></pre>
+<pre class="r"><code># compare correlation of predicted values &amp; residals
+cor(predict(m1), residuals(m1))</code></pre>
+<pre><code>[1] 4.57e-17</code></pre>
+<pre class="r"><code>cor(predict(m2), residuals(m2))</code></pre>
+<pre><code>[1] -1.55e-16</code></pre>
 <ol start="7" style="list-style-type: decimal">
 <li>The correlation actually has not come down, because the correlation for <code>m1</code> was despite the visual appearance already zero. Nonetheless, we are moving in the right direction. One other problem for the relationship is the very skewed distribution of <code>volume</code>. Inspect this by plotting a simple histogram of <code>volume</code>.</li>
 </ol>
 <pre class="r"><code># histogram of volume
 hist(x = avocado_cali$XX)</code></pre>
+<pre class="r"><code># histogram of volume
+hist(x = avocado_cali$volume)</code></pre>
+<p><img src="RobustStats_practical_files/figure-html/unnamed-chunk-25-1.png" width="576" style="display: block; margin: auto;" /></p>
 <ol start="8" style="list-style-type: decimal">
 <li>To deal with this problem one could engage in variable transformations, but it would be better to model the data using an appropriate probability distribution. In the case of counts this typically is a Poisson distribution. Fortunately, we don’t have to do either. There is another variable called <code>volume_index</code> that is much better behaved. Verify this by also creating a histogram of this variable.</li>
 </ol>
 <pre class="r"><code># histogram of volume_index
 hist(x = avocado_cali$XX)</code></pre>
+<pre class="r"><code># histogram of volume_index
+hist(x = avocado_cali$volume_index)</code></pre>
+<p><img src="RobustStats_practical_files/figure-html/unnamed-chunk-27-1.png" width="576" style="display: block; margin: auto;" /></p>
 <ol start="9" style="list-style-type: decimal">
 <li>The distribution of <code>volume_index</code> is also not ideal, but at least it exhibits much less skewness. Verify this by computing the skewness of both variables using the <code>skewness</code> function from the <code>moments</code> package.</li>
 </ol>
 <pre class="r"><code># skewness of volume and volume index
 skewness(x = avocado_cali$XX)
 skewness(x = avocado_cali$YY)</code></pre>
+<pre class="r"><code># skewness of volume and volume index
+skewness(x = avocado_cali$volume)</code></pre>
+<pre><code>[1] 0.249</code></pre>
+<pre class="r"><code>skewness(x = avocado_cali$volume_index)</code></pre>
+<pre><code>[1] -0.0029</code></pre>
 <ol start="10" style="list-style-type: decimal">
 <li>Now that you confirmed that <code>volume_index</code> is probably the better variable to model, run a regression predicting <code>volume_index</code> with <code>price_per_avocado</code> and <code>type</code> and call the model <code>m3</code>.</li>
 </ol>
 <pre class="r"><code># regress volume_index on average price and type
 m3 &lt;- lm(formula = YY ~ XX1 + XX2, 
          data = ZZ)</code></pre>
+<pre class="r"><code># regress volume_index on average price and type
+m3 &lt;- lm(volume_index ~ price_per_avocado + type,
+          data = avocado_cali)</code></pre>
 <ol start="12" style="list-style-type: decimal">
-<li><p>Now plot the residuals of <code>m3</code> against the predicted values. What do you think have the residuals become more behaved?</p></li>
-<li><p>The residual behavior is still not ideal. There seems to still some skewness differences between low and high predicted values, but now one would not expect anymore that those would substantially alter the results. So, go on and evaluate the model using <code>summary()</code>.</p></li>
+<li>Now plot the residuals of <code>m3</code> against the predicted values. What do you think have the residuals become more behaved?</li>
 </ol>
+<pre class="r"><code># evaluate m3
+plot(x = predict(m3), 
+     y = residuals(m3))</code></pre>
+<p><img src="RobustStats_practical_files/figure-html/unnamed-chunk-32-1.png" width="576" style="display: block; margin: auto;" /></p>
+<ol start="13" style="list-style-type: decimal">
+<li>The residual behavior is still not ideal. There seems to still some skewness differences between low and high predicted values, but now one would not expect anymore that those would substantially alter the results. So, go on and evaluate the model using <code>summary()</code>.</li>
+</ol>
+<pre class="r"><code># evaluate m3
+summary(m3)</code></pre>
+<pre><code>
+Call:
+lm(formula = volume_index ~ price_per_avocado + type, data = avocado_cali)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.5125 -0.1401  0.0209  0.1463  0.6566 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)         9.3814     0.0500   187.7   &lt;2e-16 ***
+price_per_avocado  -0.5493     0.0429   -12.8   &lt;2e-16 ***
+typeorganic        -3.6459     0.0334  -109.0   &lt;2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 0.206 on 335 degrees of freedom
+Multiple R-squared:  0.989, Adjusted R-squared:  0.989 
+F-statistic: 1.58e+04 on 2 and 335 DF,  p-value: &lt;2e-16</code></pre>
 </div>
 <div id="c---variance-inflation" class="section level3">
 <h3>C - Variance inflation</h3>
 <ol style="list-style-type: decimal">
-<li><p>In the previous section, you have evaluated the effect of price on volume controlling for the type of avocado. This has shown you that price indeed seems to exert strong influence on volume. Some of this impact, however, could be due to other third variables. For instance, it might be possible that the price simply went up through general inflation, while at the same time avocados became more popular. Control for this and other factors by including in the regression of <code>volume_index</code> the following variables in addition to <code>price_per_avocado</code> and <code>type</code>, <code>date</code>, <code>season</code>, <code>temperature</code>, <code>humidity</code>, <code>precipitation</code>. Call the model <code>m4</code>.</p></li>
-<li><p>Evaluate the model using <code>summary()</code> and compare it to the summary of <code>m3</code>. First, is the the effect of price still significant. Second, how have have the estimate changed and the standard error changed?</p></li>
-<li><p>You will have observed that the estimate got more extreme and the standard error went slightly up. The former is a result of the fact that the other variables took account of some variance in the price that is not related to volume. The latter is, as you can verify in the formula on the variance inflation factor, a result of two adversarial factors: (1) a better fit of the model and (2) an increased variance inflation factor. Let’s inspect these two. First, evaluate the residual variance of <code>m3</code> and <code>m4</code> using the template below.</p></li>
+<li>In the previous section, you have evaluated the effect of price on volume controlling for the type of avocado. This has shown you that price indeed seems to exert strong influence on volume. Some of this impact, however, could be due to other third variables. For instance, it might be possible that the price simply went up through general inflation, while at the same time avocados became more popular. Control for this and other factors by including in the regression of <code>volume_index</code> the following variables in addition to <code>price_per_avocado</code> and <code>type</code>, <code>date</code>, <code>season</code>, <code>temperature</code>, <code>humidity</code>, <code>precipitation</code>. Call the model <code>m4</code>.</li>
+</ol>
+<pre class="r"><code># new comprehensive model 4
+m4 &lt;- lm(formula = volume_index ~ price_per_avocado + type + date  + season + temperature + humidity + precipitation, 
+         data = avocado_cali)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Evaluate the model using <code>summary()</code> and compare it to the summary of <code>m3</code>. First, is the the effect of price still significant. Second, how have have the estimate changed and the standard error changed?</li>
+</ol>
+<pre class="r"><code># evaluate m3 and m4
+summary(m3)</code></pre>
+<pre><code>
+Call:
+lm(formula = volume_index ~ price_per_avocado + type, data = avocado_cali)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.5125 -0.1401  0.0209  0.1463  0.6566 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)         9.3814     0.0500   187.7   &lt;2e-16 ***
+price_per_avocado  -0.5493     0.0429   -12.8   &lt;2e-16 ***
+typeorganic        -3.6459     0.0334  -109.0   &lt;2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 0.206 on 335 degrees of freedom
+Multiple R-squared:  0.989, Adjusted R-squared:  0.989 
+F-statistic: 1.58e+04 on 2 and 335 DF,  p-value: &lt;2e-16</code></pre>
+<pre class="r"><code>summary(m4)</code></pre>
+<pre><code>
+Call:
+lm(formula = volume_index ~ price_per_avocado + type + date + 
+    season + temperature + humidity + precipitation, data = avocado_cali)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.4198 -0.0968  0.0009  0.0834  0.6833 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)        2.74e+00   4.64e-01    5.91  8.7e-09 ***
+price_per_avocado -7.73e-01   4.62e-02  -16.73  &lt; 2e-16 ***
+typeorganic       -3.52e+00   3.14e-02 -112.00  &lt; 2e-16 ***
+date               4.03e-04   2.83e-05   14.25  &lt; 2e-16 ***
+seasonspring       1.50e-01   2.80e-02    5.37  1.5e-07 ***
+seasonsummer       1.44e-01   3.07e-02    4.70  3.8e-06 ***
+seasonwinter       5.59e-02   3.57e-02    1.57   0.1179    
+temperature        3.10e-03   1.53e-03    2.02   0.0441 *  
+humidity          -1.56e-03   8.92e-04   -1.75   0.0814 .  
+precipitation      4.49e-03   1.71e-03    2.62   0.0091 ** 
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 0.15 on 328 degrees of freedom
+Multiple R-squared:  0.995, Adjusted R-squared:  0.994 
+F-statistic: 6.6e+03 on 9 and 328 DF,  p-value: &lt;2e-16</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>You will have observed that the estimate got more extreme and the standard error went slightly up. The former is a result of the fact that the other variables took account of some variance in the price that is not related to volume. The latter is, as you can verify in the formula on the variance inflation factor, a result of two adversarial factors: (1) a better fit of the model and (2) an increased variance inflation factor. Let’s inspect these two. First, evaluate the residual variance of <code>m3</code> and <code>m4</code> using the template below.</li>
 </ol>
 <pre class="r"><code># residaul variance of m3 and m4
 var_res1 &lt;- var(residuals(XX))
@@ -349,6 +532,13 @@ var_res2 &lt;- var(residuals(YY))
 
 var_res1
 var_res2</code></pre>
+<pre class="r"><code># resdiaul variance of m3 and m4
+var_res1 &lt;- var(residuals(m3))
+var_res2 &lt;- var(residuals(m4))
+var_res1</code></pre>
+<pre><code>[1] 0.042</code></pre>
+<pre class="r"><code>var_res2</code></pre>
+<pre><code>[1] 0.022</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>You’ll see that that the residual variance decreased to about half. According to this the variance of the <span class="math inline">\(beta\)</span> weight (i.e., the square of the standard error should have also halved). Given that it has not, suggests that the variance inflation factor has increased by at least the same amount. Find out! Run two regression predicting <code>price_per_avocado</code>: First, by all other predictors in <code>m3</code>, i.e., <code>type</code>, and call the model <code>m_price1</code>. Second, by all other predictors in <code>m4</code> and call the model <code>m_price2</code>.</li>
 </ol>
@@ -357,6 +547,12 @@ m_price1 &lt;- lm(formula = price_per_avocado ~ XX,
                data = avocado_cali)
 
 m_price2 &lt;- lm(formula = price_per_avocado ~ XX + XX  + ..., 
+               data = avocado_cali)</code></pre>
+<pre class="r"><code># resdiual variance of m3 and m4
+m_price1 &lt;- lm(formula = price_per_avocado ~ type, 
+               data = avocado_cali)
+
+m_price2 &lt;- lm(formula = price_per_avocado ~ type + date  + season + temperature + humidity + precipitation, 
                data = avocado_cali)</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>Next, calculate the <span class="math inline">\(R^2\)</span> value for both models and the variance inflation factor using the template below.</li>
@@ -372,6 +568,20 @@ vif1 &lt;- 1 / (1 - rsq1)
 vif2 &lt;- 1 / (1 - rsq2)
 vif1
 vif2</code></pre>
+<pre class="r"><code># proportion explained variance
+rsq1 &lt;- rsq(m_price1)
+rsq2 &lt;- rsq(m_price2)
+rsq1</code></pre>
+<pre><code>[1] 0.553</code></pre>
+<pre class="r"><code>rsq2</code></pre>
+<pre><code>[1] 0.794</code></pre>
+<pre class="r"><code># variance inflation factors
+vif1 &lt;- 1/(1-rsq1)
+vif2 &lt;- 1/(1-rsq2)
+vif1</code></pre>
+<pre><code>[1] 2.24</code></pre>
+<pre class="r"><code>vif2</code></pre>
+<pre><code>[1] 4.86</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li>So, while residual variance decreased from <code>.042</code> to <code>.022</code>, the variance inflation factor increased from <code>2.24</code> to <code>4.86</code>. Using these values we can actually compute the standard errors of <code>price_per_avocado</code> in model <code>m3</code> and <code>m4</code> following the formula on the respective slide. See code below. Confirm that the calculated values correspond to the standard errors in the summary outputs for <code>m1</code> and <code>m2</code>.</li>
 </ol>
@@ -384,23 +594,24 @@ n &lt;- nrow(avocado_cali)
 
 # variance and standard error of price in m3
 var_beta1 &lt;- (var_res1 / (var_x * (n-1))) * vif1 
-sqrt(var_beta1)
-
-# variance and standard error of price in m4
+sqrt(var_beta1)</code></pre>
+<pre><code>[1] 0.0428</code></pre>
+<pre class="r"><code># variance and standard error of price in m4
 var_beta2 &lt;- (var_res2 / (var_x * (n-1))) * vif2 
-sqrt(var_beta2)
-
-# with correction -----
+sqrt(var_beta2)</code></pre>
+<pre><code>[1] 0.0456</code></pre>
+<pre class="r"><code># with correction -----
 
 # variance and standard error of price in m3 with correction
 var_c_res1 &lt;- sum(residuals(m3)**2) / (n - 2 - 1)
 var_beta1 &lt;- (var_c_res1 / (var_x * (n-1))) * vif1 
-sqrt(var_beta1)
-
-# variance and standard error of price in m4 with correction
+sqrt(var_beta1)</code></pre>
+<pre><code>[1] 0.0429</code></pre>
+<pre class="r"><code># variance and standard error of price in m4 with correction
 var_c_res2 &lt;- sum(residuals(m4)**2) / (n - 9 - 1)
 var_beta2 &lt;- (var_c_res2 / (var_x * (n-1))) * vif2 
 sqrt(var_beta2)</code></pre>
+<pre><code>[1] 0.0462</code></pre>
 <ol start="7" style="list-style-type: decimal">
 <li>The above illustrates that including variables regressors in the regression is a double-edged sword. They improve the overall prediction and may uncover more pure relationships, but they will also increase our uncertainty over the true values of the regression weights by increasing the respective standard errors. If you like, see if you can find other combination of predictors that increase or decrease the standard error of the weight for price.</li>
 </ol>
@@ -413,18 +624,72 @@ sqrt(var_beta2)</code></pre>
 <pre class="r"><code># linear and quadratic effect of price
 m5 &lt;- lm(formula = YY ~ XX + XX + I(XX ^ 2), 
          data = avocado_cali)</code></pre>
+<pre class="r"><code># linear and quadratic effect of price
+m5 &lt;- lm(formula = volume_index ~ type + price_per_avocado + I(price_per_avocado^2), 
+          data = avocado_cali)</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li><p>Evaluate the model (<code>m5</code>) using <code>summary()</code>. Is the quadratic effect significant?</p></li>
-<li><p>Test whether the inclusion of the quadratic factor is warranted by testing <code>m5</code> against <code>m3</code> (the model without the quadratic effect) using <code>anova()</code>. Note: <code>anova()</code> performs a deviance test between two models, not an analysis of variance in the classical sense.</p></li>
+<li>Evaluate the model (<code>m5</code>) using <code>summary()</code>. Is the quadratic effect significant?</li>
+</ol>
+<pre class="r"><code># linear and quadratic effect of price
+summary(m5)</code></pre>
+<pre><code>
+Call:
+lm(formula = volume_index ~ type + price_per_avocado + I(price_per_avocado^2), 
+    data = avocado_cali)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.4958 -0.1337  0.0064  0.1417  0.5849 
+
+Coefficients:
+                       Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)              9.8686     0.1506   65.51  &lt; 2e-16 ***
+typeorganic             -3.6093     0.0346 -104.24  &lt; 2e-16 ***
+price_per_avocado       -1.2474     0.2083   -5.99  5.5e-09 ***
+I(price_per_avocado^2)   0.2232     0.0652    3.42    7e-04 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 0.202 on 334 degrees of freedom
+Multiple R-squared:  0.99,  Adjusted R-squared:  0.99 
+F-statistic: 1.09e+04 on 3 and 334 DF,  p-value: &lt;2e-16</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Test whether the inclusion of the quadratic factor is warranted by testing <code>m5</code> against <code>m3</code> (the model without the quadratic effect) using <code>anova()</code>. Note: <code>anova()</code> performs a deviance test between two models, not an analysis of variance in the classical sense.</li>
 </ol>
 <pre class="r"><code># evaluate merit of quadratic effect
 anova(m3, m5)</code></pre>
+<pre class="r"><code># evaluate merit of quadratic effect
+summary(m5)</code></pre>
+<pre><code>
+Call:
+lm(formula = volume_index ~ type + price_per_avocado + I(price_per_avocado^2), 
+    data = avocado_cali)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.4958 -0.1337  0.0064  0.1417  0.5849 
+
+Coefficients:
+                       Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)              9.8686     0.1506   65.51  &lt; 2e-16 ***
+typeorganic             -3.6093     0.0346 -104.24  &lt; 2e-16 ***
+price_per_avocado       -1.2474     0.2083   -5.99  5.5e-09 ***
+I(price_per_avocado^2)   0.2232     0.0652    3.42    7e-04 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 0.202 on 334 degrees of freedom
+Multiple R-squared:  0.99,  Adjusted R-squared:  0.99 
+F-statistic: 1.09e+04 on 3 and 334 DF,  p-value: &lt;2e-16</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Yes, the quadratic effect improves the prediction of volume significantly. However, this came again with a substantial downside. You will see that the standard error of the linear effect of price went up dramatically. This is because <code>price_per_avocado</code> and <code>price_per_avocado^2</code> are highly correlated. To prevent this, the quadratic terms are typically centered, as implemented in the template below. Run the regression and compare the results to <code>m5</code>.</li>
 </ol>
 <pre class="r"><code># linear and quadratic effect of price
 m6 &lt;- lm(formula = YY ~ XX + XX + I((XX - mean(XX)) ^2), 
          data = avocado_cali)</code></pre>
+<pre class="r"><code># linear and quadratic effect of price
+m6 &lt;- lm(volume_index ~ type + price_per_avocado + I((price_per_avocado - mean(price_per_avocado))^2), 
+          data = avocado_cali)</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>You’ll see the standard error of the linear effect went back to about where it was in <code>m3</code> or <code>m4</code>. Try out if you can further improve the prediction of volume by including a cubic effect, i.e., <code>XX^3</code>.</li>
 </ol>
@@ -448,6 +713,34 @@ avocado_cali_2017 &lt;- avocado_cali %&gt;%
 t.test(x = avocado_cali_2016$XX,
        y = avocado_cali_2017$XX, 
        paired = TRUE)</code></pre>
+<pre class="r"><code># compare Cali avocado volume 2016 &amp; 2017
+t.test(avocado_cali_2016$volume,
+       avocado_cali_2017$volume, paired = TRUE)</code></pre>
+<pre><code>
+    Paired t-test
+
+data:  avocado_cali_2016$volume and avocado_cali_2017$volume
+t = 2, df = 100, p-value = 0.05
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+  -3290 307840
+sample estimates:
+mean of the differences 
+                 152275 </code></pre>
+<pre class="r"><code># compare Cali avocado volume_index 2016 &amp; 2017
+t.test(avocado_cali_2016$volume_index,
+       avocado_cali_2017$volume_index, paired = TRUE)</code></pre>
+<pre><code>
+    Paired t-test
+
+data:  avocado_cali_2016$volume_index and avocado_cali_2017$volume_index
+t = 2, df = 100, p-value = 0.03
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 0.0056 0.0965
+sample estimates:
+mean of the differences 
+                  0.051 </code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>For <code>volume_index</code> the result turned out significant, 2017 indeed saw higher avocado consumption than 2016. However, for <code>volume</code> the result did not quite reach significance. This likely has to do with the fact that <code>volume</code> is extremely skewed. To confirm the result, run the same tests using a pared Wilcoxon test, i.e., <code>wilcox.test(XX, YY, paired = TRUE)</code>, which should not be affected by the skewness.</li>
 </ol>
@@ -460,6 +753,24 @@ wilcox.test(x = avocado_cali_2016$XX,
 wilcox.test(x = avocado_cali_2016$YY,
             y = avocado_cali_2017$YY, 
             paired = TRUE)</code></pre>
+<pre class="r"><code># compare Cali avocado volume 2016 &amp; 2017
+wilcox.test(avocado_cali_2016$volume,
+            avocado_cali_2017$volume, paired = TRUE)</code></pre>
+<pre><code>
+    Wilcoxon signed rank test with continuity correction
+
+data:  avocado_cali_2016$volume and avocado_cali_2017$volume
+V = 3000, p-value = 0.01
+alternative hypothesis: true location shift is not equal to 0</code></pre>
+<pre class="r"><code># compare Cali avocado volume_index 2016 &amp; 2017
+wilcox.test(avocado_cali_2016$volume_index,
+            avocado_cali_2017$volume_index, paired = TRUE)</code></pre>
+<pre><code>
+    Wilcoxon signed rank test with continuity correction
+
+data:  avocado_cali_2016$volume_index and avocado_cali_2017$volume_index
+V = 3000, p-value = 0.02
+alternative hypothesis: true location shift is not equal to 0</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>In fact, the Wilcoxon test shows significant results for both measures, suggesting that there indeed is a robust difference. Another, even more robust way of testing this is the sign test. Test this using the template below</li>
 </ol>
@@ -470,6 +781,22 @@ n &lt;- length(signs)
 
 # sign test: p of receiving a larger n_plus than observed
 pbinom(q = n_plus, size = n, prob = .5)</code></pre>
+<pre class="r"><code># sign test preparations
+signs = avocado_cali_2017$volume &gt; avocado_cali_2016$volume
+n_plus = sum(signs)
+n = length(signs)
+
+# sign test: p of receiving a larger n_plus than observed
+pbinom(n_plus, size = n, prob = .5)</code></pre>
+<pre><code>[1] 0.0475</code></pre>
+<pre class="r"><code># sign test preparations
+signs = avocado_cali_2017$volume_index &gt; avocado_cali_2016$volume_index
+n_plus = sum(signs)
+n = length(signs)
+
+# sign test: p of receiving a larger n_plus than observed
+pbinom(n_plus, size = n, prob = .5)</code></pre>
+<pre><code>[1] 0.0475</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>The sign test confirms the results. Now, go explore and see whether you can find additional differences between the avocado years of 2016 and 2017 in California.</li>
 </ol>
@@ -477,8 +804,17 @@ pbinom(q = n_plus, size = n, prob = .5)</code></pre>
 <div id="e---robust-regression" class="section level3">
 <h3>E - Robust regression</h3>
 <ol style="list-style-type: decimal">
-<li><p>Remember that the residual distribution of our regression of <code>volume_index</code> on <code>price_per_avocado</code> and <code>type</code> was less than ideal? Take a look again by running the code below.</p></li>
-<li><p>The somewhat different residual distributions for high and low predictions suggest that we should take a look at robust regression analyses. Run similar regression models using the <code>rq</code> function from the <code>quantreg</code> package and the <code>rfit</code> function from the <code>Rfit</code> package using the template below.</p></li>
+<li>Remember that the residual distribution of our regression of <code>volume_index</code> on <code>price_per_avocado</code> and <code>type</code> was less than ideal? Take a look again by running the code below.</li>
+</ol>
+<pre class="r"><code># regress volume_index on average price and type
+m3 &lt;- lm(formula = volume_index ~ price_per_avocado + type,
+         data = avocado_cali)
+
+plot(x = predict(m3),
+     y = residuals(m3))</code></pre>
+<p><img src="RobustStats_practical_files/figure-html/unnamed-chunk-57-1.png" width="576" style="display: block; margin: auto;" /></p>
+<ol start="2" style="list-style-type: decimal">
+<li>The somewhat different residual distributions for high and low predictions suggest that we should take a look at robust regression analyses. Run similar regression models using the <code>rq</code> function from the <code>quantreg</code> package and the <code>rfit</code> function from the <code>Rfit</code> package using the template below.</li>
 </ol>
 <pre class="r"><code># quantile regression
 m3_q &lt;- rq(formula = YY ~ XX + XX, 
@@ -487,10 +823,120 @@ m3_q &lt;- rq(formula = YY ~ XX + XX,
 # rank-based regression
 m3_rb &lt;- rfit(formula = YY ~ XX + XX, 
               data = ZZ)</code></pre>
+<pre class="r"><code># quantile regression
+m3_q &lt;- rq(formula = volume_index ~ price_per_avocado + type, 
+           data = avocado_cali)
+
+# rank-based regression
+m3_rb &lt;- rfit(formula = volume_index ~ price_per_avocado + type, 
+              data = avocado_cali)</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li><p>Compare the results of the original <code>m3</code> model to the two robust regression models using <code>summary()</code> on each model. Are the coefficients much different from each another?</p></li>
-<li><p>The solutions of the three model classes were quite similar, right? Now, try the same predicting <code>volume</code> instead of <code>volume_index</code>. Fit regressions using regular regression and the two robust approaches and compare the parameters.</p></li>
-<li><p>The numbers aren’t so easy to compare, but you will be able to confirm that the regular regression coefficients are far of the ones of the other two methods, especially for <code>price_per_avocado</code>. As in most circumstances, the difference is largest between the <code>rq</code> and <code>lm</code> results, with <code>rfit</code> being somewhere in the middle, but closer to <code>rq</code>. Now, as usual, go explore.</p></li>
+<li>Compare the results of the original <code>m3</code> model to the two robust regression models using <code>summary()</code> on each model. Are the coefficients much different from each another?</li>
+</ol>
+<pre class="r"><code># regular regression
+summary(m3)</code></pre>
+<pre><code>
+Call:
+lm(formula = volume_index ~ price_per_avocado + type, data = avocado_cali)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.5125 -0.1401  0.0209  0.1463  0.6566 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)         9.3814     0.0500   187.7   &lt;2e-16 ***
+price_per_avocado  -0.5493     0.0429   -12.8   &lt;2e-16 ***
+typeorganic        -3.6459     0.0334  -109.0   &lt;2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 0.206 on 335 degrees of freedom
+Multiple R-squared:  0.989, Adjusted R-squared:  0.989 
+F-statistic: 1.58e+04 on 2 and 335 DF,  p-value: &lt;2e-16</code></pre>
+<pre class="r"><code># quantile regression
+summary(m3_q)</code></pre>
+<pre><code>
+Call: rq(formula = volume_index ~ price_per_avocado + type, data = avocado_cali)
+
+tau: [1] 0.5
+
+Coefficients:
+                  coefficients lower bd upper bd
+(Intercept)        9.433        9.320    9.478  
+price_per_avocado -0.590       -0.672   -0.488  
+typeorganic       -3.572       -3.704   -3.501  </code></pre>
+<pre class="r"><code># rank-based regression
+summary(m3_rb)</code></pre>
+<pre><code>Call:
+rfit.default(formula = volume_index ~ price_per_avocado + type, 
+    data = avocado_cali)
+
+Coefficients:
+                  Estimate Std. Error t.value p.value    
+(Intercept)         9.3919     0.0509   184.5  &lt;2e-16 ***
+price_per_avocado  -0.5487     0.0428   -12.8  &lt;2e-16 ***
+typeorganic        -3.6200     0.0334  -108.5  &lt;2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+Overall Wald Test: 31306 p-value: 0 </code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>The solutions of the three model classes were quite similar, right? Now, try the same predicting <code>volume</code> instead of <code>volume_index</code>. Fit regressions using regular regression and the two robust approaches and compare the parameters.</li>
+</ol>
+<pre class="r"><code># regular regression
+m3_2 &lt;- lm(formula = volume ~ price_per_avocado + type, 
+           data = avocado_cali)
+summary(m3_2)</code></pre>
+<pre><code>
+Call:
+lm(formula = volume ~ price_per_avocado + type, data = avocado_cali)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-2029523  -338620   -65747   347099  4692280 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)        7418161     181045   40.97  &lt; 2e-16 ***
+price_per_avocado -1338574     155354   -8.62  2.8e-16 ***
+typeorganic       -5012181     121165  -41.37  &lt; 2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 745000 on 335 degrees of freedom
+Multiple R-squared:  0.939, Adjusted R-squared:  0.939 
+F-statistic: 2.59e+03 on 2 and 335 DF,  p-value: &lt;2e-16</code></pre>
+<pre class="r"><code># quantile regression
+m3_q_2 &lt;- rq(formula = volume ~ price_per_avocado + type, 
+             data = avocado_cali)
+summary(m3_q_2)</code></pre>
+<pre><code>
+Call: rq(formula = volume ~ price_per_avocado + type, data = avocado_cali)
+
+tau: [1] 0.5
+
+Coefficients:
+                  coefficients lower bd   upper bd  
+(Intercept)         6.06e+06     5.68e+06  1.80e+308
+price_per_avocado  -1.54e+05    -3.16e+05  -4.18e+04
+typeorganic        -5.64e+06    -6.39e+06  -5.41e+06</code></pre>
+<pre class="r"><code># rank-based regression
+m3_rb_2 &lt;- rfit(formula = volume ~ price_per_avocado + type, 
+                data = avocado_cali)
+summary(m3_rb_2)</code></pre>
+<pre><code>Call:
+rfit.default(formula = volume ~ price_per_avocado + type, data = avocado_cali)
+
+Coefficients:
+                  Estimate Std. Error t.value p.value    
+(Intercept)        6364041      79963   79.59 &lt; 2e-16 ***
+price_per_avocado  -455914      68632   -6.64 1.2e-10 ***
+typeorganic       -5453701      53528 -101.88 &lt; 2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+Overall Wald Test: 25548 p-value: 0 </code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>The numbers aren’t so easy to compare, but you will be able to confirm that the regular regression coefficients are far of the ones of the other two methods, especially for <code>price_per_avocado</code>. As in most circumstances, the difference is largest between the <code>rq</code> and <code>lm</code> results, with <code>rfit</code> being somewhere in the middle, but closer to <code>rq</code>. Now, as usual, go explore.</li>
 </ol>
 </div>
 <div id="x---advanced-bootstrap" class="section level3">
@@ -521,11 +967,43 @@ B &lt;- boot(data = avocado_cali,
 </ol>
 <pre class="r"><code># print bootstrap results
 B</code></pre>
+<pre><code>
+ORDINARY NONPARAMETRIC BOOTSTRAP
+
+
+Call:
+boot(data = avocado_cali, statistic = boot_lm, R = 100)
+
+
+Bootstrap Statistics :
+    original   bias    std. error
+t1*    9.381  0.00536      0.0557
+t2*   -0.549 -0.00488      0.0481
+t3*   -3.646  0.00452      0.0356</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Finally, compare the standard errors of the <code>m3</code> or the other, robust regression models, to those of the bootstrap.</li>
 </ol>
 <pre class="r"><code># print bootstrap results
 summary(m3)</code></pre>
+<pre><code>
+Call:
+lm(formula = volume_index ~ price_per_avocado + type, data = avocado_cali)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.5125 -0.1401  0.0209  0.1463  0.6566 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)         9.3814     0.0500   187.7   &lt;2e-16 ***
+price_per_avocado  -0.5493     0.0429   -12.8   &lt;2e-16 ***
+typeorganic        -3.6459     0.0334  -109.0   &lt;2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 0.206 on 335 degrees of freedom
+Multiple R-squared:  0.989, Adjusted R-squared:  0.989 
+F-statistic: 1.58e+04 on 2 and 335 DF,  p-value: &lt;2e-16</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>Go explore. Can you figure out how to bootstrap the difference between the volumes of <code>avocado_cali_2016</code> and <code>avocado_cali_2017</code>?</li>
 </ol>
