@@ -70,9 +70,7 @@ h6 {
 
 <link rel="stylesheet" href="practical.css" type="text/css" />
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -97,22 +95,92 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
 
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
 });
 </script>
 
 <!-- code folding -->
 
 
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
 
 
 
@@ -122,7 +190,7 @@ $(document).ready(function () {
 
 
 <h1 class="title toc-ignore">Mixed Models</h1>
-<h4 class="author"><em><table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'>
+<h4 class="author"><table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'>
 <col width='10%'>
 <col width='10%'>
 <tr style="border:none">
@@ -133,7 +201,7 @@ $(document).ready(function () {
 <img src='https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png' style='height:15px;width:80px'/>
 </td>
 </tr>
-</table></em></h4>
+</table></h4>
 
 </div>
 
@@ -162,9 +230,15 @@ $(document).ready(function () {
 <div id="a---setup" class="section level3">
 <h3>A - Setup</h3>
 <ol style="list-style-type: decimal">
-<li><p>Open your <code>BaselRBootcamp</code> R project. It should already have the folders <code>1_Data</code> and <code>2_Code</code>. Make sure that the data files listed in the <code>Datasets</code> section above are in your <code>1_Data</code> folder</p></li>
-<li><p>Open a new R script. At the top of the script, using comments, write your name and the date. Save it as a new file called <code>MixedModels_practical.R</code> in the <code>2_Code</code> folder.</p></li>
-<li><p>Using <code>library()</code> load the <code>tidyverse</code>, <code>lme4</code>, and <code>sjstats</code> packages (if you don’t have them, you’ll need to install them with <code>install.packages()</code>)!</p></li>
+<li>Open your <code>BaselRBootcamp</code> R project. It should already have the folders <code>1_Data</code> and <code>2_Code</code>. Make sure that the data files listed in the <code>Datasets</code> section above are in your <code>1_Data</code> folder</li>
+</ol>
+<pre class="r"><code># Done!</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Open a new R script. At the top of the script, using comments, write your name and the date. Save it as a new file called <code>MixedModels_practical.R</code> in the <code>2_Code</code> folder.</li>
+</ol>
+<pre class="r"><code># Done!</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Using <code>library()</code> load the <code>tidyverse</code>, <code>lme4</code>, and <code>sjstats</code> packages (if you don’t have them, you’ll need to install them with <code>install.packages()</code>)!</li>
 </ol>
 <pre class="r"><code># Load packages necessary for this script
 library(tidyverse)
@@ -178,22 +252,99 @@ XX &lt;- read_csv(file = &quot;XX/XX&quot;)
 
 # Load school.csv from the 1_Data folder
 XX &lt;- read_csv(file = &quot;XX/XX&quot;)</code></pre>
+<pre class="r"><code># Load tomatometer.csv from the 1_Data folder
+tom &lt;- read_csv(file = &quot;1_Data/tomatometer.csv&quot;)</code></pre>
+<pre><code>Parsed with column specification:
+cols(
+  ID = col_double(),
+  Movie = col_character(),
+  State = col_character(),
+  Tomatometer = col_double()
+)</code></pre>
+<pre class="r"><code># Load school.csv from the 1_Data folder
+schools &lt;- read_csv(file = &quot;1_Data/schools.csv&quot;)</code></pre>
+<pre><code>Parsed with column specification:
+cols(
+  id = col_double(),
+  extra = col_double(),
+  open = col_double(),
+  agree = col_double(),
+  social = col_double(),
+  class = col_character(),
+  school = col_character()
+)</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>Take a look at the first few rows of the datasets by printing them to the console.</li>
 </ol>
 <pre class="r"><code># Print the object(s)
 XXX
 XXX</code></pre>
+<pre class="r"><code># Print the tom object
+tom</code></pre>
+<pre><code># A tibble: 5,995 x 4
+      ID Movie State Tomatometer
+   &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;       &lt;dbl&gt;
+ 1     1 M1    Sober        28.3
+ 2     1 M2    Sober        27.5
+ 3     1 M3    Sober        11.5
+ 4     1 M4    Sober        17.2
+ 5     1 M5    Sober        31.0
+ 6     1 M6    Sober        36.1
+ 7     1 M7    Sober        31.1
+ 8     1 M8    Sober        32.7
+ 9     1 M9    Sober        44.1
+10     1 M10   Sober        22.6
+# … with 5,985 more rows</code></pre>
+<pre class="r"><code>schools</code></pre>
+<pre><code># A tibble: 1,200 x 7
+      id extra  open agree social class school
+   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+ 1     1  63.7  43.4  38.0   75.1 d     IV    
+ 2     2  69.5  46.9  31.5   98.1 a     VI    
+ 3     3  79.7  32.3  40.2  116.  d     VI    
+ 4     4  63.0  44.4  30.5   90.5 c     IV    
+ 5     5  64.2  36.9  37.4   98.5 d     IV    
+ 6     6  51.0  46.3  38.8   75.2 d     I     
+ 7     7  60.1  37.0  38.6   95.9 d     III   
+ 8     8  64.2  42.2  34.9   91.5 d     IV    
+ 9     9  56.7  32.8  31.7  115.  a     III   
+10    10  47.2  44.3  25.0  123.  b     I     
+# … with 1,190 more rows</code></pre>
 <ol start="7" style="list-style-type: decimal">
 <li>Use the the <code>summary()</code> function to print more details on the columns of the datasets.</li>
 </ol>
 <pre class="r"><code>summary(XXX)
 summary(XXX)</code></pre>
+<pre class="r"><code>summary(tom)</code></pre>
+<pre><code>       ID           Movie              State            Tomatometer  
+ Min.   :  1.0   Length:5995        Length:5995        Min.   : 0.0  
+ 1st Qu.: 50.5   Class :character   Class :character   1st Qu.:29.1  
+ Median :100.0   Mode  :character   Mode  :character   Median :40.6  
+ Mean   :100.5                                         Mean   :42.5  
+ 3rd Qu.:150.5                                         3rd Qu.:55.4  
+ Max.   :200.0                                         Max.   :98.1  </code></pre>
+<pre class="r"><code>summary(schools)</code></pre>
+<pre><code>       id           extra           open          agree     
+ Min.   :   1   Min.   :30.2   Min.   :22.3   Min.   :18.5  
+ 1st Qu.: 301   1st Qu.:54.2   1st Qu.:36.2   1st Qu.:31.9  
+ Median : 600   Median :60.2   Median :40.0   Median :35.1  
+ Mean   : 600   Mean   :60.3   Mean   :40.1   Mean   :35.1  
+ 3rd Qu.: 900   3rd Qu.:66.5   3rd Qu.:43.9   3rd Qu.:38.4  
+ Max.   :1200   Max.   :90.8   Max.   :57.9   Max.   :58.4  
+     social         class              school         
+ Min.   : 46.3   Length:1200        Length:1200       
+ 1st Qu.: 89.3   Class :character   Class :character  
+ Median : 99.2   Mode  :character   Mode  :character  
+ Mean   : 99.5                                        
+ 3rd Qu.:109.8                                        
+ Max.   :152.0                                        </code></pre>
 <ol start="8" style="list-style-type: decimal">
 <li>Use the <code>View()</code> function to view the entire dataframe(s) in a new window.</li>
 </ol>
 <pre class="r"><code>View(XXX)
 View(XXX)</code></pre>
+<pre class="r"><code>View(tom)
+View(schools)</code></pre>
 </div>
 <div id="b---running-a-linear-mixed-effects-model" class="section level3">
 <h3>B - Running a Linear Mixed Effects Model</h3>
@@ -207,6 +358,34 @@ FE_mod &lt;- glm(formula = XXX ~ XXX,
 
 # Inspect the results
 summary(XXX)</code></pre>
+<pre class="r"><code># Use lm, as lmer only works if at least one random effect is specified
+FE_mod &lt;- glm(formula = Tomatometer ~ State, 
+              data = tom)
+
+# look at the resuts
+summary(FE_mod)</code></pre>
+<pre><code>
+Call:
+glm(formula = Tomatometer ~ State, data = tom)
+
+Deviance Residuals: 
+   Min      1Q  Median      3Q     Max  
+-43.26   -7.61   -0.03    7.65   42.71  
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   55.443      0.212     261   &lt;2e-16 ***
+StateSober   -25.806      0.300     -86   &lt;2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for gaussian family taken to be 135)
+
+    Null deviance: 1806949  on 5994  degrees of freedom
+Residual deviance:  808883  on 5993  degrees of freedom
+AIC: 46423
+
+Number of Fisher Scoring iterations: 2</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Currently “Drunk” is taken as base state, so the intercept shows the mean at state “Drunk” and the slope shows how much lower the ratings in <code>State == &quot;Sober&quot;</code> are. To obtain a more intuitive model with “Sober” as the base level, <em>coerce</em> the <code>State</code> variable into a factor and set the levels. Do this by running the following code.</li>
 </ol>
@@ -214,7 +393,37 @@ summary(XXX)</code></pre>
 tom &lt;- tom %&gt;%
   mutate(State = factor(State, levels = c(&quot;Sober&quot;, &quot;Drunk&quot;)))</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li><p>Now rerun your model from task B1.</p></li>
+<li>Now rerun your model from task B1.</li>
+</ol>
+<pre class="r"><code># Use lm, as lmer only works if at least one random effect is specified
+FE_mod &lt;- glm(formula = Tomatometer ~ State, 
+              data = tom)
+
+# look at the resuts
+summary(FE_mod)</code></pre>
+<pre><code>
+Call:
+glm(formula = Tomatometer ~ State, data = tom)
+
+Deviance Residuals: 
+   Min      1Q  Median      3Q     Max  
+-43.26   -7.61   -0.03    7.65   42.71  
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   29.637      0.212     140   &lt;2e-16 ***
+StateDrunk    25.806      0.300      86   &lt;2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for gaussian family taken to be 135)
+
+    Null deviance: 1806949  on 5994  degrees of freedom
+Residual deviance:  808883  on 5993  degrees of freedom
+AIC: 46423
+
+Number of Fisher Scoring iterations: 2</code></pre>
+<ol start="4" style="list-style-type: decimal">
 <li><p>Compare the model output of B3 with the one you obtained in B1. How did the coefficients change? Why?</p></li>
 <li><p>Now run a model with by-subjects random intercepts (subjects identifiers are stored in the <code>ID</code> variable). <em>Hint</em>: Random effects are specified in parenthesis in the formula in the following way <code>(</code><a href="https://en.wikipedia.org/wiki/Design_matrix">design_matrix</a><code>|grouping_variable)</code>. <strong>Note</strong>: The <code>REML = FALSE</code> in the model specification tells R to fit the model using maximum likelihood (ML), rather than restricted maximal likelihood (REML; for more information on this in a technical approach see <a href="https://projecteuclid.org/euclid.cbms/1462106081">here</a> and <a href="http://www.stats.net.au/Maths_REML_manual.pdf">here</a>, for a less technical approach see <a href="https://en.wikipedia.org/wiki/Restricted_maximum_likelihood">here</a>). This will later be important for certain model comparisons that only work if the model was fitted using ML.</p></li>
 </ol>
@@ -223,18 +432,288 @@ subj_RI_mod &lt;- lmer(formula = XXX ~ XXX +           # These are the fixed eff
                     (1|XXX),              # These are the random effects
                     data = XXX,           # Specify the data used
                     REML = FALSE)</code></pre>
+<pre class="r"><code># Mixed effects model with by-subject random intercepts
+subj_RI_mod &lt;- lmer(formula = Tomatometer ~ State + # These are the fixed effects
+                    (1|ID),               # These are the random effects
+                    data = tom,        # Specify the data used
+                    REML = FALSE)</code></pre>
 <ol start="6" style="list-style-type: decimal">
-<li><p>Using <code>summary()</code>, inspect the results of the mixed effects model.</p></li>
-<li><p>Did the effect of <code>State</code> change, now that you incorporated the random effects? Can you find out what did change from the model outputs?</p></li>
-<li><p>Sometimes it is useful to extract the estimates from the model output (e.g., so we don’t have to manually type them, which would be error prone). Extract the fixed effects from <code>subj_RI_mod</code> using the <code>fixef()</code> function.</p></li>
+<li>Using <code>summary()</code>, inspect the results of the mixed effects model.</li>
+</ol>
+<pre class="r"><code>summary(subj_RI_mod)</code></pre>
+<pre><code>Linear mixed model fit by maximum likelihood  [&#39;lmerMod&#39;]
+Formula: Tomatometer ~ State + (1 | ID)
+   Data: tom
+
+     AIC      BIC   logLik deviance df.resid 
+   45279    45305   -22635    45271     5991 
+
+Scaled residuals: 
+   Min     1Q Median     3Q    Max 
+-3.670 -0.662  0.005  0.667  4.014 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ ID       (Intercept)  31.8     5.64   
+ Residual             103.1    10.15   
+Number of obs: 5995, groups:  ID, 200
+
+Fixed effects:
+            Estimate Std. Error t value
+(Intercept)   29.634      0.440    67.3
+StateDrunk    25.815      0.262    98.4
+
+Correlation of Fixed Effects:
+           (Intr)
+StateDrunk -0.298</code></pre>
+<pre class="r"><code>summary(FE_mod)</code></pre>
+<pre><code>
+Call:
+glm(formula = Tomatometer ~ State, data = tom)
+
+Deviance Residuals: 
+   Min      1Q  Median      3Q     Max  
+-43.26   -7.61   -0.03    7.65   42.71  
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   29.637      0.212     140   &lt;2e-16 ***
+StateDrunk    25.806      0.300      86   &lt;2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for gaussian family taken to be 135)
+
+    Null deviance: 1806949  on 5994  degrees of freedom
+Residual deviance:  808883  on 5993  degrees of freedom
+AIC: 46423
+
+Number of Fisher Scoring iterations: 2</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li>Did the effect of <code>State</code> change, now that you incorporated the random effects? Can you find out what did change from the model outputs?</li>
+</ol>
+<pre class="r"><code># While the estimates of the fixed effects did not change, the t-values did change
+# substantially (the t-value for StateDrunk in FE_mod is lower than the one in
+# subj_RI_mod, and the one for the intercept dropped by 50%).</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li>Sometimes it is useful to extract the estimates from the model output (e.g., so we don’t have to manually type them, which would be error prone). Extract the fixed effects from <code>subj_RI_mod</code> using the <code>fixef()</code> function.</li>
 </ol>
 <pre class="r"><code># Print fixed effects from subj_RI_mod
 fixef(XXX)</code></pre>
+<pre class="r"><code>fixef(subj_RI_mod)</code></pre>
+<pre><code>(Intercept)  StateDrunk 
+       29.6        25.8 </code></pre>
 <ol start="9" style="list-style-type: decimal">
 <li>Now extract the random effects from <code>subj_RI_mod</code> using the <code>ranef()</code> function.</li>
 </ol>
 <pre class="r"><code># Print random effects from subj_RI_mod
 ranef(XXX)</code></pre>
+<pre class="r"><code># Print random effects from subj_RI_mod
+ranef(subj_RI_mod)</code></pre>
+<pre><code>$ID
+    (Intercept)
+1      -3.72667
+2      -2.70725
+3      -9.30260
+4       9.34072
+5       0.53670
+6     -10.29137
+7      -6.84484
+8       3.88843
+9       0.34551
+10      2.71830
+11      2.13535
+12      8.48446
+13    -10.96901
+14      6.26632
+15     -6.61537
+16     -6.12848
+17      1.48922
+18      6.63510
+19     -9.08709
+20     -7.72281
+21      2.43045
+22      3.40350
+23      2.74789
+24     -5.33134
+25      0.16750
+26      2.68319
+27     -4.58569
+28      6.68480
+29     -5.98544
+30      1.80638
+31     -5.51928
+32     -5.85655
+33      1.01406
+34     -0.88831
+35     -2.69176
+36      2.52656
+37     -2.00271
+38      3.57485
+39     -5.52901
+40     -3.45215
+41      4.54121
+42    -10.03567
+43      5.07659
+44     -2.44412
+45     -5.86155
+46     11.14202
+47     -1.91923
+48      1.73472
+49      0.25704
+50     -4.65665
+51     -9.76560
+52     -3.26407
+53      0.13204
+54     -3.51976
+55     -4.09580
+56      4.27692
+57     -2.98161
+58     -1.51631
+59     10.44240
+60     -4.56785
+61      4.67294
+62     -4.90100
+63      8.46020
+64      6.64420
+65     -4.24220
+66     -1.58203
+67     -4.55004
+68      2.48010
+69     -1.20119
+70      1.00701
+71      6.57440
+72     -4.93223
+73     -3.91590
+74      3.65264
+75     -1.82554
+76      2.50970
+77     -2.43900
+78     -0.34239
+79      0.96237
+80     -4.56023
+81      2.59965
+82     -2.98027
+83     -2.23420
+84     -2.35557
+85     -3.98495
+86      6.09909
+87      2.03265
+88     -0.16937
+89      5.94204
+90     -1.14358
+91      2.58765
+92      0.87057
+93      8.42346
+94     -2.20985
+95      2.06736
+96     12.15186
+97      7.10375
+98      0.35536
+99      7.60744
+100   -12.25240
+101    -8.94774
+102    -5.53636
+103     8.16086
+104     2.72944
+105    -3.24956
+106    -2.67552
+107     9.08858
+108     9.66545
+109    -2.83804
+110     6.13601
+111     6.86645
+112    -5.61401
+113    -2.28125
+114     0.34448
+115     0.41903
+116    -8.49295
+117    -2.87699
+118     1.37610
+119     5.49082
+120     3.15692
+121    14.25065
+122    -1.08276
+123     2.39225
+124    -2.88023
+125     0.96372
+126    -9.49349
+127     1.53127
+128     0.55844
+129     3.10027
+130     6.52566
+131    -1.27722
+132    -3.75534
+133    -3.78681
+134   -12.96350
+135     4.21634
+136     0.00956
+137    -5.24179
+138    -7.55851
+139     5.66366
+140    -1.44616
+141    -7.79828
+142     0.10655
+143    -7.51961
+144    16.93483
+145     6.49490
+146    -4.23681
+147     7.16867
+148    -0.82098
+149    -1.32887
+150     0.95348
+151    -4.09563
+152     4.41867
+153    -4.01217
+154    -0.37468
+155     0.77177
+156    -5.56181
+157    -1.84094
+158     8.57867
+159    -0.62826
+160     0.34012
+161     5.15346
+162    -4.89625
+163     1.04244
+164     4.08565
+165    -1.41477
+166    -3.89184
+167     3.92631
+168     7.13471
+169     6.76708
+170     0.80036
+171     0.77873
+172     3.37548
+173    -2.07455
+174     6.98781
+175    -1.37140
+176     5.88747
+177     3.24726
+178    -2.03141
+179     5.09084
+180    -5.30449
+181     0.17091
+182     1.14726
+183    -0.25429
+184     4.67817
+185    -1.39411
+186     0.96866
+187    -5.14298
+188    -0.60384
+189     4.03981
+190     0.26823
+191    -5.37581
+192    -8.78411
+193   -11.40835
+194     6.90097
+195     4.83762
+196    -4.47838
+197    -5.63746
+198    -3.13302
+199    -0.39908
+200    12.51086
+
+with conditional variances for &quot;ID&quot; </code></pre>
 <ol start="10" style="list-style-type: decimal">
 <li>Expand your mixed effects model from task B4 by adding by-subjects slopes. <em>Hint</em>: add the <code>State</code> variable to the left side of the bar <code>|</code> in the random effects part of the formula.</li>
 </ol>
@@ -243,9 +722,96 @@ subj_RI_RS_mod &lt;- lmer(formula = XXX ~ XXX +          # These are the fixed e
                       (XXX|XXX),            # These are the random effects
                       data = XXX,           # Specify the data used
                       REML = FALSE)</code></pre>
+<pre class="r"><code># Mixed effects model with by-subject random intercepts and slopes
+subj_RI_RS_mod &lt;- lmer(formula = Tomatometer ~ State + # These are the fixed effects
+                      (State|ID),            # These are the random effects
+                      data = tom,         # Specify the data used
+                      REML = FALSE)</code></pre>
 <ol start="11" style="list-style-type: decimal">
-<li><p>Compare the outputs of the fixed effects only model, of the by-subjects random intercepts model, and of the by-subjects random intercepts and slopes model. Do this by applying the <code>summary()</code> function to each of the objects. Did the coefficients change? Why not? What did change?</p></li>
-<li><p>Each movie was rated in both states, so there is also a repetition in the items, which again leads to a violation of the independence assumption. To account for this, expand the model from task B9 by adding by-movie random intercepts and slopes. <em>Note</em>: The additional argument specifies a different optimizer such that the model converges.</p></li>
+<li>Compare the outputs of the fixed effects only model, of the by-subjects random intercepts model, and of the by-subjects random intercepts and slopes model. Do this by applying the <code>summary()</code> function to each of the objects. Did the coefficients change? Why not? What did change?</li>
+</ol>
+<pre class="r"><code>summary(subj_RI_RS_mod)</code></pre>
+<pre><code>Linear mixed model fit by maximum likelihood  [&#39;lmerMod&#39;]
+Formula: Tomatometer ~ State + (State | ID)
+   Data: tom
+
+     AIC      BIC   logLik deviance df.resid 
+   44906    44947   -22447    44894     5989 
+
+Scaled residuals: 
+   Min     1Q Median     3Q    Max 
+-3.539 -0.659  0.020  0.669  3.977 
+
+Random effects:
+ Groups   Name        Variance Std.Dev. Corr
+ ID       (Intercept) 16.6     4.07         
+          StateDrunk  37.0     6.08     0.26
+ Residual             93.5     9.67         
+Number of obs: 5995, groups:  ID, 200
+
+Fixed effects:
+            Estimate Std. Error t value
+(Intercept)   29.635      0.338    87.8
+StateDrunk    25.818      0.498    51.9
+
+Correlation of Fixed Effects:
+           (Intr)
+StateDrunk 0.004 </code></pre>
+<pre class="r"><code>summary(subj_RI_mod)</code></pre>
+<pre><code>Linear mixed model fit by maximum likelihood  [&#39;lmerMod&#39;]
+Formula: Tomatometer ~ State + (1 | ID)
+   Data: tom
+
+     AIC      BIC   logLik deviance df.resid 
+   45279    45305   -22635    45271     5991 
+
+Scaled residuals: 
+   Min     1Q Median     3Q    Max 
+-3.670 -0.662  0.005  0.667  4.014 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ ID       (Intercept)  31.8     5.64   
+ Residual             103.1    10.15   
+Number of obs: 5995, groups:  ID, 200
+
+Fixed effects:
+            Estimate Std. Error t value
+(Intercept)   29.634      0.440    67.3
+StateDrunk    25.815      0.262    98.4
+
+Correlation of Fixed Effects:
+           (Intr)
+StateDrunk -0.298</code></pre>
+<pre class="r"><code>summary(FE_mod)</code></pre>
+<pre><code>
+Call:
+glm(formula = Tomatometer ~ State, data = tom)
+
+Deviance Residuals: 
+   Min      1Q  Median      3Q     Max  
+-43.26   -7.61   -0.03    7.65   42.71  
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   29.637      0.212     140   &lt;2e-16 ***
+StateDrunk    25.806      0.300      86   &lt;2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for gaussian family taken to be 135)
+
+    Null deviance: 1806949  on 5994  degrees of freedom
+Residual deviance:  808883  on 5993  degrees of freedom
+AIC: 46423
+
+Number of Fisher Scoring iterations: 2</code></pre>
+<pre class="r"><code># For FE_mod and subj_RI_mod the answer is the same as in task B5. The coefficients
+# again didn&#39;t change, as the group means obviously also didn&#39;t change. But again
+# the t-values changed considerably (e.g. the StateDrunk t-value in subj_RI_mod
+# is 98.31, the on in subj_RI_RS_mod is 51.81).</code></pre>
+<ol start="12" style="list-style-type: decimal">
+<li>Each movie was rated in both states, so there is also a repetition in the items, which again leads to a violation of the independence assumption. To account for this, expand the model from task B9 by adding by-movie random intercepts and slopes. <em>Note</em>: The additional argument specifies a different optimizer such that the model converges.</li>
 </ol>
 <pre class="r"><code># Mixed effects model with by-subject and by-movie random intercepts and slopes
 max_mod &lt;- lmer(formula = XXX ~ XXX +           # These are the fixed effects
@@ -254,22 +820,203 @@ max_mod &lt;- lmer(formula = XXX ~ XXX +           # These are the fixed effects
                REML = FALSE,
                control = lmerControl(optimizer = &quot;bobyqa&quot;)) # use a different optimizer
                                                             # to avoid non convergence</code></pre>
+<pre class="r"><code># Mixed effects model with by-subject and by-movie random intercepts and slopes
+max_mod &lt;- lmer(formula = Tomatometer ~ State +       # These are the fixed effects
+               (State|ID) + (State|Movie),  # These are the random effects
+               data = tom,               # Specify the data used
+               REML = FALSE,
+               control = lmerControl(optimizer = &quot;bobyqa&quot;)) # use a different optimizer
+                                                            # to avoid non convergence</code></pre>
 <ol start="13" style="list-style-type: decimal">
-<li><p>The <code>converge_ok()</code> function from the <code>sjstats</code> package let’s you check whether the model converged or not. If the functions returns <code>TRUE</code> you’re good. Test whether <code>max_mod</code> converged.</p></li>
-<li><p><code>max_mod</code> is now the <em>maximal model justified by the design</em>. What does this mean? Why is it a good thing to specify this model?</p></li>
-<li><p>Compare the results with those of the earlier models by looking at their summary outputs using <code>summary()</code>.</p></li>
-<li><p>What changed with the increasingly complex random effects structure?</p></li>
+<li>The <code>converge_ok()</code> function from the <code>sjstats</code> package let’s you check whether the model converged or not. If the functions returns <code>TRUE</code> you’re good. Test whether <code>max_mod</code> converged.</li>
 </ol>
+<pre class="r"><code>converge_ok(max_mod)</code></pre>
+<pre><code>1.35601713944997e-06 
+                TRUE </code></pre>
+<ol start="14" style="list-style-type: decimal">
+<li><code>max_mod</code> is now the <em>maximal model justified by the design</em>. What does this mean? Why is it a good thing to specify this model?</li>
+</ol>
+<pre class="r"><code># It means you specified all the possible random effects, including their correlations.
+# Barr and colleagues found that Type I error rates are inflated in case of failure to
+# specify the maximal structure. The results of the next task indeed confirm this. However,
+# there is a tradeoff, as we will learn later on.</code></pre>
+<ol start="15" style="list-style-type: decimal">
+<li>Compare the results with those of the earlier models by looking at their summary outputs using <code>summary()</code>.</li>
+</ol>
+<pre class="r"><code>summary(max_mod)</code></pre>
+<pre><code>Linear mixed model fit by maximum likelihood  [&#39;lmerMod&#39;]
+Formula: Tomatometer ~ State + (State | ID) + (State | Movie)
+   Data: tom
+Control: lmerControl(optimizer = &quot;bobyqa&quot;)
+
+     AIC      BIC   logLik deviance df.resid 
+   41815    41876   -20899    41797     5986 
+
+Scaled residuals: 
+   Min     1Q Median     3Q    Max 
+-3.656 -0.666  0.004  0.676  4.322 
+
+Random effects:
+ Groups   Name        Variance Std.Dev. Corr 
+ ID       (Intercept) 19.4     4.40          
+          StateDrunk  42.9     6.55     0.13 
+ Movie    (Intercept) 24.9     4.99          
+          StateDrunk  29.9     5.47     -0.05
+ Residual             52.5     7.24          
+Number of obs: 5995, groups:  ID, 200; Movie, 15
+
+Fixed effects:
+            Estimate Std. Error t value
+(Intercept)    29.63       1.33    22.2
+StateDrunk     25.83       1.50    17.2
+
+Correlation of Fixed Effects:
+           (Intr)
+StateDrunk -0.042</code></pre>
+<pre class="r"><code>summary(subj_RI_RS_mod)</code></pre>
+<pre><code>Linear mixed model fit by maximum likelihood  [&#39;lmerMod&#39;]
+Formula: Tomatometer ~ State + (State | ID)
+   Data: tom
+
+     AIC      BIC   logLik deviance df.resid 
+   44906    44947   -22447    44894     5989 
+
+Scaled residuals: 
+   Min     1Q Median     3Q    Max 
+-3.539 -0.659  0.020  0.669  3.977 
+
+Random effects:
+ Groups   Name        Variance Std.Dev. Corr
+ ID       (Intercept) 16.6     4.07         
+          StateDrunk  37.0     6.08     0.26
+ Residual             93.5     9.67         
+Number of obs: 5995, groups:  ID, 200
+
+Fixed effects:
+            Estimate Std. Error t value
+(Intercept)   29.635      0.338    87.8
+StateDrunk    25.818      0.498    51.9
+
+Correlation of Fixed Effects:
+           (Intr)
+StateDrunk 0.004 </code></pre>
+<pre class="r"><code>summary(subj_RI_mod)</code></pre>
+<pre><code>Linear mixed model fit by maximum likelihood  [&#39;lmerMod&#39;]
+Formula: Tomatometer ~ State + (1 | ID)
+   Data: tom
+
+     AIC      BIC   logLik deviance df.resid 
+   45279    45305   -22635    45271     5991 
+
+Scaled residuals: 
+   Min     1Q Median     3Q    Max 
+-3.670 -0.662  0.005  0.667  4.014 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ ID       (Intercept)  31.8     5.64   
+ Residual             103.1    10.15   
+Number of obs: 5995, groups:  ID, 200
+
+Fixed effects:
+            Estimate Std. Error t value
+(Intercept)   29.634      0.440    67.3
+StateDrunk    25.815      0.262    98.4
+
+Correlation of Fixed Effects:
+           (Intr)
+StateDrunk -0.298</code></pre>
+<pre class="r"><code>summary(FE_mod)</code></pre>
+<pre><code>
+Call:
+glm(formula = Tomatometer ~ State, data = tom)
+
+Deviance Residuals: 
+   Min      1Q  Median      3Q     Max  
+-43.26   -7.61   -0.03    7.65   42.71  
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)   29.637      0.212     140   &lt;2e-16 ***
+StateDrunk    25.806      0.300      86   &lt;2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+(Dispersion parameter for gaussian family taken to be 135)
+
+    Null deviance: 1806949  on 5994  degrees of freedom
+Residual deviance:  808883  on 5993  degrees of freedom
+AIC: 46423
+
+Number of Fisher Scoring iterations: 2</code></pre>
+<ol start="16" style="list-style-type: decimal">
+<li>What changed with the increasingly complex random effects structure?</li>
+</ol>
+<pre class="r"><code># The t-value for the State effect changed dramatically. Now it is &quot;only&quot; 17.28.
+# While still substantial, this illustrates the point Barr et al. 2013 make in their
+# paper where they argue that for confirmatory hypothesis testing one should always
+# specify the maximal random effects structure justified by the design, as otherwise
+# the Type I error rate is inflated (i.e., the fixed effects are too often classified
+# as being significant, even though they are in truth not related to the outcome
+# variable).</code></pre>
 </div>
 <div id="c---r2" class="section level3">
 <h3>C - <span class="math inline">\(R^2\)</span></h3>
 <p>When fitting statistical models, we are often interested in how much systematic variation they can capture. In linear (mixed effects) models this is the <span class="math inline">\(R^2\)</span> value (the coefficient of determination); for generalized (mixed effects) models, we can compute pseudo <span class="math inline">\(R^2\)</span> values.</p>
 <ol style="list-style-type: decimal">
-<li><p>We will use the <code>r2()</code> function from the <code>sjstats</code> package to compute <span class="math inline">\(R^2\)</span> values. Look at the help menu of the function to get an overview of what models you can use it for.</p></li>
-<li><p>Compute the <span class="math inline">\(R^2\)</span> of the maximal model.</p></li>
-<li><p>What does the output of the last task mean? What is the marginal <span class="math inline">\(R^2\)</span> and what is the conditional <span class="math inline">\(R^2\)</span>?</p></li>
-<li><p>Compare the <span class="math inline">\(R^2\)</span> values of <code>max_mod</code> with those of less complex models. Are the changes large? Which <span class="math inline">\(R^2\)</span> values changed?</p></li>
+<li>We will use the <code>r2()</code> function from the <code>sjstats</code> package to compute <span class="math inline">\(R^2\)</span> values. Look at the help menu of the function to get an overview of what models you can use it for.</li>
 </ol>
+<pre class="r"><code>?r2</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Compute the <span class="math inline">\(R^2\)</span> of the maximal model.</li>
+</ol>
+<pre class="r"><code>r2(max_mod)</code></pre>
+<pre><code>
+R-Squared for (Generalized) Linear (Mixed) Model
+
+Family : gaussian (identity)
+Formula: list(~State | ID, ~State | Movie) Tomatometer ~ State NA
+
+   Marginal R2: 0.552
+Conditional R2: 0.826</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>What does the output of the last task mean? What is the marginal <span class="math inline">\(R^2\)</span> and what is the conditional <span class="math inline">\(R^2\)</span>?</li>
+</ol>
+<pre class="r"><code># The marginal r-squared only considers the variance of the fixed effects. In this
+# case this means that the fixed in our maximal model can account for 55% of the variation
+# in the data.
+# The conditional r-squared takes both the fixed and random effects into account. Our maximal
+# model can thus account for 83% of the variance in the data.</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Compare the <span class="math inline">\(R^2\)</span> values of <code>max_mod</code> with those of less complex models. Are the changes large? Which <span class="math inline">\(R^2\)</span> values changed?</li>
+</ol>
+<pre class="r"><code>r2(max_mod)</code></pre>
+<pre><code>
+R-Squared for (Generalized) Linear (Mixed) Model
+
+Family : gaussian (identity)
+Formula: list(~State | ID, ~State | Movie) Tomatometer ~ State NA
+
+   Marginal R2: 0.552
+Conditional R2: 0.826</code></pre>
+<pre class="r"><code>r2(subj_RI_RS_mod)</code></pre>
+<pre><code>
+R-Squared for (Generalized) Linear (Mixed) Model
+
+Family : gaussian (identity)
+Formula: ~State | ID Tomatometer ~ State NA
+
+   Marginal R2: 0.552
+Conditional R2: 0.690</code></pre>
+<pre class="r"><code>r2(subj_RI_mod)</code></pre>
+<pre><code>
+R-Squared for (Generalized) Linear (Mixed) Model
+
+Family : gaussian (identity)
+Formula: ~1 | ID Tomatometer ~ State NA
+
+   Marginal R2: 0.553
+Conditional R2: 0.658</code></pre>
 </div>
 <div id="d---visualize-your-model" class="section level3">
 <h3>D - Visualize Your Model</h3>
@@ -307,6 +1054,7 @@ LMM_plot &lt;- ggplot(tom, aes(State, Tomatometer)) +
   )
 
 LMM_plot</code></pre>
+<p><img src="MixedModels_practical_files/figure-html/unnamed-chunk-37-1.png" width="576" style="display: block; margin: auto;" /></p>
 </div>
 <div id="e---computing-p-values-for-fixed-effects" class="section level3">
 <h3>E - Computing p-Values for Fixed Effects</h3>
@@ -322,9 +1070,38 @@ IO_mod &lt;- lmer(formula = XXX ~ 1 +         # There are no fixed effects so ad
               (1|XXX) + (1|XXX), # These are the random effects
               data = XXX,        # Specify the data used
               REML = FALSE)</code></pre>
+<pre class="r"><code># Intercept only mixed effects model with by-subject and by-movie random intercepts
+IO_mod &lt;- lmer(formula = Tomatometer ~ 1 +    # There are no fixed effects so add 1 to fit the intercept
+               (1|ID) + (1|Movie),  # These are the random effects
+               data = tom,       # Specify the data used
+               REML = FALSE)</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li><p>Look at the model output using <code>summary()</code>.</p></li>
-<li><p>Now fit the same model as in task E1, but add the <code>State</code> variables. Save the output as <code>RI_mod</code>. Note that we again need to use another optimizer to avoid convergence problems (You don’t need to worry about this now, you can use the code template below).</p></li>
+<li>Look at the model output using <code>summary()</code>.</li>
+</ol>
+<pre class="r"><code>summary(IO_mod)</code></pre>
+<pre><code>Linear mixed model fit by maximum likelihood  [&#39;lmerMod&#39;]
+Formula: Tomatometer ~ 1 + (1 | ID) + (1 | Movie)
+   Data: tom
+
+     AIC      BIC   logLik deviance df.resid 
+   50332    50359   -25162    50324     5991 
+
+Scaled residuals: 
+   Min     1Q Median     3Q    Max 
+-2.416 -0.819 -0.034  0.805  3.153 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ ID       (Intercept)  27.2     5.22   
+ Movie    (Intercept)  30.4     5.51   
+ Residual             244.2    15.63   
+Number of obs: 5995, groups:  ID, 200; Movie, 15
+
+Fixed effects:
+            Estimate Std. Error t value
+(Intercept)    42.54       1.48    28.7</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Now fit the same model as in task E1, but add the <code>State</code> variables. Save the output as <code>RI_mod</code>. Note that we again need to use another optimizer to avoid convergence problems (You don’t need to worry about this now, you can use the code template below).</li>
 </ol>
 <pre class="r"><code># Intercept only mixed effects model with by-subject and by-movie random intercepts
 RI_mod &lt;- lmer(formula = XXX ~ XXX +         # The fixed effects
@@ -333,12 +1110,35 @@ RI_mod &lt;- lmer(formula = XXX ~ XXX +         # The fixed effects
               REML = FALSE,
               control = lmerControl(optimizer = &quot;bobyqa&quot;)) # use a different optimizer
                                                             # to avoid non convergence</code></pre>
+<pre class="r"><code># Intercept only mixed effects model with by-subject and by-movie random intercepts
+RI_mod &lt;- lmer(formula = Tomatometer ~ State +    # The fixed effects
+               (1|ID) + (1|Movie),  # These are the random effects
+               data = tom,       # Specify the data used
+               REML = FALSE,
+               control = lmerControl(optimizer = &quot;bobyqa&quot;)) # use a different optimizer
+                                                            # to avoid non convergence</code></pre>
 <ol start="4" style="list-style-type: decimal">
-<li><p>Check whether <code>RI_mod</code> converged using the <code>converge_ok()</code> function.</p></li>
-<li><p>Perform an LRT using the <code>anova()</code> function, by entering both model outputs (<code>IO_mod</code>, and <code>RI_mod</code>) as arguments. Is the difference significant? What does this mean?</p></li>
+<li>Check whether <code>RI_mod</code> converged using the <code>converge_ok()</code> function.</li>
+</ol>
+<pre class="r"><code>converge_ok(RI_mod)</code></pre>
+<pre><code>9.19191550083649e-08 
+                TRUE </code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Perform an LRT using the <code>anova()</code> function, by entering both model outputs (<code>IO_mod</code>, and <code>RI_mod</code>) as arguments. Is the difference significant? What does this mean?</li>
 </ol>
 <pre class="r"><code># Perform an LRT using the anova() function
 anova(XXX, XXX)</code></pre>
+<pre class="r"><code># Perform an LRT using the anova() function
+anova(IO_mod, RI_mod)</code></pre>
+<pre><code>Data: tom
+Models:
+IO_mod: Tomatometer ~ 1 + (1 | ID) + (1 | Movie)
+RI_mod: Tomatometer ~ State + (1 | ID) + (1 | Movie)
+       Df   AIC   BIC logLik deviance Chisq Chi Df Pr(&gt;Chisq)    
+IO_mod  4 50332 50359 -25162    50324                            
+RI_mod  5 43214 43247 -21602    43204  7121      1     &lt;2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
 <div id="confidence-intervals" class="section level4">
 <h4>Confidence Intervals</h4>
@@ -348,6 +1148,9 @@ anova(XXX, XXX)</code></pre>
 </ol>
 <pre class="r"><code># Compute confidence intervals for the fixed effects
 ci_mod &lt;- confint(XXX)</code></pre>
+<pre class="r"><code># Compute confidence intervals for the fixed effects
+ci_mod &lt;- confint(max_mod)</code></pre>
+<pre><code>Computing profile confidence intervals ...</code></pre>
 <ol start="7" style="list-style-type: decimal">
 <li>Print the <code>ci_mod</code> object. Do the confidence intervals you obtained match the conclusion you drew from inspecting the t-values and the LRT?</li>
 </ol>
@@ -359,9 +1162,23 @@ ci_mod &lt;- confint(XXX)</code></pre>
 </ol>
 <pre class="r"><code># Compute p-values for the fixed effects
 p_value(fit = XXX)</code></pre>
+<pre class="r"><code># Compute p-values for the fixed effects
+p_value(fit = max_mod)</code></pre>
+<pre><code>Computing p-values via Wald-statistics approximation (treating t as Wald z).</code></pre>
+<pre><code>         term p.value std.error
+1 (Intercept)       0      1.33
+2  StateDrunk       0      1.50</code></pre>
 <ol start="9" style="list-style-type: decimal">
-<li><p>As this test may not be appropriate for mixed effects models, we can extend the <code>p_value()</code> function with an additional argument, <code>p.kr = TRUE</code>. Then the function will compute p-values based on conditional F-tests with <a href="https://www.jstatsoft.org/article/view/v059i09">Kenward-Roger approximation</a> for the degrees of freedom. Repeat the previous task by extending the function with <code>p.kr = TRUE</code>.</p></li>
-<li><p>Compare the output of the tasks E8 and E9 Did things change? The reason why not is that the assumptions were all satisfied as the data was simulated with these assumptions, but with noisier real life data this may look different.</p></li>
+<li>As this test may not be appropriate for mixed effects models, we can extend the <code>p_value()</code> function with an additional argument, <code>p.kr = TRUE</code>. Then the function will compute p-values based on conditional F-tests with <a href="https://www.jstatsoft.org/article/view/v059i09">Kenward-Roger approximation</a> for the degrees of freedom. Repeat the previous task by extending the function with <code>p.kr = TRUE</code>.</li>
+</ol>
+<pre class="r"><code># Compute p-values for the fixed effects with Kenward-Roger approximation
+p_value(fit = max_mod, p.kr = TRUE)</code></pre>
+<pre><code>Computing p-values via Kenward-Roger approximation. Use `p.kr = FALSE` if computation takes too long.</code></pre>
+<pre><code>         term p.value std.error
+1 (Intercept)       0      1.37
+2  StateDrunk       0      1.54</code></pre>
+<ol start="10" style="list-style-type: decimal">
+<li>Compare the output of the tasks E8 and E9 Did things change? The reason why not is that the assumptions were all satisfied as the data was simulated with these assumptions, but with noisier real life data this may look different.</li>
 </ol>
 </div>
 </div>
@@ -401,8 +1218,20 @@ con_mod &lt;- lmer(formula = XXX ~ XXX +             # These are the fixed effec
                REML = FALSE,
                control = lmerControl(optimizer = &quot;bobyqa&quot;)) # use a different optimizer
                                                             # to avoid non convergence</code></pre>
+<pre class="r"><code># Constrained mixed effects model with by-subject and by-movie random intercepts and slopes
+con_mod &lt;- lmer(formula = Tomatometer ~ State +         # These are the fixed effects
+               (State||ID) + (State||Movie),  # These are the random effects
+               data = tom,                 # Specify the data used
+               REML = FALSE,
+               control = lmerControl(optimizer = &quot;bobyqa&quot;)) # use a different optimizer
+                                                            # to avoid non convergence</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li><p>Check whether the model converged using <code>converge_ok()</code>.</p></li>
+<li>Check whether the model converged using <code>converge_ok()</code>.</li>
+</ol>
+<pre class="r"><code>converge_ok(con_mod)</code></pre>
+<pre><code>0.00528726235046066 
+              FALSE </code></pre>
+<ol start="4" style="list-style-type: decimal">
 <li><p>This model didn’t converge. This can happen and it’s not always easy to find out how to get the model to converge. One way would be to use different Bayesian methods with the <code>rstanarm</code> package. This is rather advanced and we will ignore it for now, but should this happen to you in your work you may not want to interpret this model.</p></li>
 <li><p>Now let’s prepare the setup for the LRT. The difference in the deviances of two models (defined as negative two times the log-likelihood) approximately follows a <span class="math inline">\(\chi^2\)</span> distribution. Therefore we can test the significance by testing whether the <span class="math inline">\(\chi^2\)</span> value is larger than a threshold value. To do this we set up our <span class="math inline">\(\alpha_{LRT}\)</span> and derive the threshold value. Do this by running the following code.</p></li>
 </ol>
@@ -414,16 +1243,37 @@ st &lt;- qchisq(1 - alpha, df = 2) # derive the critical value above which the d
 <li>Now we can compute the difference in the deviances by subtracting the deviance from the more complex model from the constrained model. Extract the deviances from the two models using the <code>deviance()</code> function from the <code>stats</code> package and save the difference as <code>d_diff</code>.</li>
 </ol>
 <pre class="r"><code>d_diff &lt;- deviance(XXX) - deviance(XXX)</code></pre>
+<pre class="r"><code>d_diff &lt;- deviance(con_mod) - deviance(max_mod)</code></pre>
 <ol start="7" style="list-style-type: decimal">
-<li><p>Test whether the difference in deviance is large enough to be classified as a significant deviance according to our <span class="math inline">\(\alpha_{LRT}\)</span> level. <em>Hint</em>: Test whether <code>d_diff</code> is larger than the significance threshold <code>st</code>.</p></li>
-<li><p>The output of the previous task was <code>FALSE</code>. What does that mean? Do you keep the maximal model in this case? What would it mean if the result were <code>TRUE</code>, how would your next steps look?</p></li>
+<li>Test whether the difference in deviance is large enough to be classified as a significant deviance according to our <span class="math inline">\(\alpha_{LRT}\)</span> level. <em>Hint</em>: Test whether <code>d_diff</code> is larger than the significance threshold <code>st</code>.</li>
 </ol>
+<pre class="r"><code># Test whether the difference in the deviance between the two models is large enough
+# to be considered significant
+d_diff &gt; st</code></pre>
+<pre><code>[1] FALSE</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li>The output of the previous task was <code>FALSE</code>. What does that mean? Do you keep the maximal model in this case? What would it mean if the result were <code>TRUE</code>, how would your next steps look?</li>
+</ol>
+<pre class="r"><code># FALSE as output in this case means that the difference between the models was
+# not large enough that we can consider the maximal model to fit the data better.</code></pre>
 </div>
 <div id="g---residual-variances" class="section level3">
 <h3>G - Residual Variances</h3>
 <ol style="list-style-type: decimal">
-<li><p>We may be interested in knowing the residual variance (the error; denoted as within group variance in the output), and the random effects variances. Extract this information from the maximal model output by using the <code>re_var()</code> function from the <code>sjstats</code> package.</p></li>
-<li><p>Look at the output from the last task. Are the different variances large? Is the within group variance or the between group variance larger and how do you interpret this information?</p></li>
+<li>We may be interested in knowing the residual variance (the error; denoted as within group variance in the output), and the random effects variances. Extract this information from the maximal model output by using the <code>re_var()</code> function from the <code>sjstats</code> package.</li>
+</ol>
+<pre class="r"><code>re_var(max_mod)</code></pre>
+<pre><code>      Within-group-variance:   52.474
+     Between-group-variance:   19.393 (ID)
+     Between-group-variance:   24.874 (Movie)
+      Random-slope-variance:   42.903 (ID.StateDrunk)
+      Random-slope-variance:   29.893 (Movie.StateDrunk)
+ Slope-Intercept-covariance:    3.710 (ID.(Intercept))
+ Slope-Intercept-covariance:   -1.270 (Movie.(Intercept))
+Slope-Intercept-correlation:    0.129 (ID)
+Slope-Intercept-correlation:   -0.047 (Movie)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Look at the output from the last task. Are the different variances large? Is the within group variance or the between group variance larger and how do you interpret this information?</li>
 </ol>
 </div>
 <div id="x---challenges" class="section level3">
@@ -442,6 +1292,105 @@ st &lt;- qchisq(1 - alpha, df = 2) # derive the critical value above which the d
 pb_mod &lt;- PBmodcomp(largeModel = XXX, 
                     smallModel = XXX, 
                     nsim = XXX)</code></pre>
+<pre class="r"><code># perform parametric bootstrap
+pb_mod &lt;- PBmodcomp(largeModel = max_mod,
+                    smallModel = IO_mod,
+                    nsim = 100)</code></pre>
+<pre><code>boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular
+boundary (singular) fit: see ?isSingular</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Print the <code>pb_mod</code> object and inspect the results. Are the results different from the other tests you’ve performed before? How does the p-value from the parametric bootstrap test compare to the one obtained from the likelihood test?</li>
 </ol>
@@ -450,12 +1399,57 @@ pb_mod &lt;- PBmodcomp(largeModel = XXX,
 <h4>Intra-Class Correlation</h4>
 <p>The intra-class correlation (ICC) is “the proportion of the variance explained by the grouping structure in the population” (Hox 2002, p.15). It is calculated by dividing the between-group variance by the sum of the within-group and the between-group variance (i.e., the total variance).</p>
 <ol style="list-style-type: decimal">
-<li><p>Compute the ICC of the maximal model using the <code>icc()</code> function from the <code>sjstats</code> package.</p></li>
-<li><p>Take a look at the output. Did you notice the warning? This is because the ICC cannot be interpreted in the same way for random slopes and intercepts models. Add the argument <code>adjusted = TRUE</code> to your ICC call to take care of the warning.</p></li>
+<li>Compute the ICC of the maximal model using the <code>icc()</code> function from the <code>sjstats</code> package.</li>
+</ol>
+<pre class="r"><code>icc(max_mod)</code></pre>
+<pre><code>Caution! ICC for random-slope-intercept models usually not meaningful. Use `adjusted = TRUE` to use the mean random effect variance to calculate the ICC. See &#39;Note&#39; in `?icc`.</code></pre>
+<pre><code>
+Intraclass Correlation Coefficient for Linear mixed model
+
+Family : gaussian (identity)
+Formula: Tomatometer ~ State + (State | ID) + (State | Movie)
+
+     ICC (ID): 0.2005
+  ICC (Movie): 0.2571</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Take a look at the output. Did you notice the warning? This is because the ICC cannot be interpreted in the same way for random slopes and intercepts models. Add the argument <code>adjusted = TRUE</code> to your ICC call to take care of the warning.</li>
+</ol>
+<pre class="r"><code>icc(max_mod, adjusted = TRUE)</code></pre>
+<pre><code>
+Intraclass Correlation Coefficient for Generalized Linear Mixed Model
+
+Family : gaussian (identity)
+Formula: list(~State | ID, ~State | Movie) Tomatometer ~ State NA
+
+   Adjusted ICC: 0.6130
+Conditional ICC: 0.2748</code></pre>
+<ol start="3" style="list-style-type: decimal">
 <li><p>Check the <code>icc()</code> help page to understand what happened now that you added the <code>adjusted = TRUE</code> argument.</p></li>
 <li><p>Often, the ICC is computed on the intercept only model with random intercepts. In task C1. you have already fitted this model and saved it as <code>IO_mod</code>. Compute the ICC form this model. <em>Hint</em>: no need to use the <code>adjusted</code> argument, as no random slopes are involved.</p></li>
-<li><p>Now do the same for the <code>RI_mod</code>, that differs from the <code>IO_mod</code> you’ve just used only in that it also contains the fixed effect.</p></li>
-<li><p>Compare the outputs of the last two tasks. Did things change? Think about what these changes mean.</p></li>
+</ol>
+<pre class="r"><code>icc(IO_mod)</code></pre>
+<pre><code>
+Intraclass Correlation Coefficient for Linear mixed model
+
+Family : gaussian (identity)
+Formula: Tomatometer ~ 1 + (1 | ID) + (1 | Movie)
+
+     ICC (ID): 0.0902
+  ICC (Movie): 0.1006</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Now do the same for the <code>RI_mod</code>, that differs from the <code>IO_mod</code> you’ve just used only in that it also contains the fixed effect.</li>
+</ol>
+<pre class="r"><code>icc(RI_mod)</code></pre>
+<pre><code>
+Intraclass Correlation Coefficient for Linear mixed model
+
+Family : gaussian (identity)
+Formula: Tomatometer ~ State + (1 | ID) + (1 | Movie)
+
+     ICC (ID): 0.2448
+  ICC (Movie): 0.2289</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Compare the outputs of the last two tasks. Did things change? Think about what these changes mean.</li>
 </ol>
 </div>
 <div id="crossed-versus-nested-random-effects" class="section level4">
@@ -466,34 +1460,248 @@ pb_mod &lt;- PBmodcomp(largeModel = XXX,
 <li>Now we will work with the <code>school</code> data set you have already loaded in section A. Using the <code>table()</code> function, create a cross table of school and class. (<em>Hint</em>: You’ll have to enter the variables separately.)</li>
 </ol>
 <pre class="r"><code>table(XXX, XXX)</code></pre>
+<pre class="r"><code>table(schools$school, schools$class)</code></pre>
+<pre><code>     
+       a  b  c  d
+  I   50 50 50 50
+  II  50 50 50 50
+  III 50 50 50 50
+  IV  50 50 50 50
+  V   50 50 50 50
+  VI  50 50 50 50</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li><p>Fit a mixed effects model predicting extraversion (<code>extra</code>) with openness (<code>open</code>) and the social score (<code>social</code>) with random intercepts for classes nested in school and save it as <code>hier_mod</code>. <em>Hint</em>: The nested random effects structure is specified with the following syntax <code>(1|higher_level_variable/lower_level_variable)</code>.</p></li>
-<li><p>Did the model converge? Check with <code>converge_ok()</code></p></li>
-<li><p>Inspect the model output using <code>summary()</code>.</p></li>
-<li><p>Now fit the same model but with crossed random intercepts as in the sections before, rather than with nested random intercepts. Save the output as <code>cross_mod</code>.</p></li>
-<li><p>Check whether the model converged.</p></li>
-<li><p>Inspect the output using the <code>summary()</code> function.</p></li>
-<li><p>Did the results change compared to the ones for the nested random effects structure?</p></li>
+<li>Fit a mixed effects model predicting extraversion (<code>extra</code>) with openness (<code>open</code>) and the social score (<code>social</code>) with random intercepts for classes nested in school and save it as <code>hier_mod</code>. <em>Hint</em>: The nested random effects structure is specified with the following syntax <code>(1|higher_level_variable/lower_level_variable)</code>.</li>
 </ol>
+<pre class="r"><code># Hierarchical mixed effects model
+hier_mod &lt;- lmer(formula = extra ~ open + social + # These are the fixed effects
+               (1|school/class),        # These are the nested random effects
+               data = schools,          # Specify the data used
+               REML = FALSE)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Did the model converge? Check with <code>converge_ok()</code></li>
+</ol>
+<pre class="r"><code>converge_ok(hier_mod)</code></pre>
+<pre><code>0.00147383412711221 
+              FALSE </code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Inspect the model output using <code>summary()</code>.</li>
+</ol>
+<pre class="r"><code>summary(hier_mod)</code></pre>
+<pre><code>Linear mixed model fit by maximum likelihood  [&#39;lmerMod&#39;]
+Formula: extra ~ open + social + (1 | school/class)
+   Data: schools
+
+     AIC      BIC   logLik deviance df.resid 
+    3545     3575    -1766     3533     1194 
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-10.015  -0.334   0.015   0.341  10.580 
+
+Random effects:
+ Groups       Name        Variance Std.Dev.
+ class:school (Intercept)  8.186   2.861   
+ school       (Intercept) 77.838   8.823   
+ Residual                  0.967   0.984   
+Number of obs: 1200, groups:  class:school, 24; school, 6
+
+Fixed effects:
+            Estimate Std. Error t value
+(Intercept) 6.00e+01   3.66e+00   16.39
+open        6.03e-03   4.96e-03    1.22
+social      5.18e-04   1.85e-03    0.28
+
+Correlation of Fixed Effects:
+       (Intr) open  
+open   -0.054       
+social -0.050 -0.006</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Now fit the same model but with crossed random intercepts as in the sections before, rather than with nested random intercepts. Save the output as <code>cross_mod</code>.</li>
+</ol>
+<pre class="r"><code># Hierarchical mixed effects model
+cross_mod &lt;- lmer(formula = extra ~ open + agree +  # These are the fixed effects
+                 (1|school) + (1|class),  # These are the crossed random effects
+                 data = schools,          # Specify the data used
+                 REML = FALSE)</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>Check whether the model converged.</li>
+</ol>
+<pre class="r"><code>converge_ok(cross_mod)</code></pre>
+<pre><code>6.91482090087394e-06 
+                TRUE </code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li>Inspect the output using the <code>summary()</code> function.</li>
+</ol>
+<pre class="r"><code>summary(cross_mod)</code></pre>
+<pre><code>Linear mixed model fit by maximum likelihood  [&#39;lmerMod&#39;]
+Formula: extra ~ open + agree + (1 | school) + (1 | class)
+   Data: schools
+
+     AIC      BIC   logLik deviance df.resid 
+    4716     4746    -2352     4704     1194 
+
+Scaled residuals: 
+   Min     1Q Median     3Q    Max 
+-7.898 -0.544  0.012  0.531  8.237 
+
+Random effects:
+ Groups   Name        Variance Std.Dev.
+ school   (Intercept) 81.17    9.01    
+ class    (Intercept)  5.61    2.37    
+ Residual              2.78    1.67    
+Number of obs: 1200, groups:  school, 6; class, 4
+
+Fixed effects:
+            Estimate Std. Error t value
+(Intercept) 60.02428    3.89319   15.42
+open         0.01084    0.00834    1.30
+agree       -0.00545    0.00959   -0.57
+
+Correlation of Fixed Effects:
+      (Intr) open  
+open  -0.085       
+agree -0.086 -0.008</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li>Did the results change compared to the ones for the nested random effects structure?</li>
+</ol>
+<pre class="r"><code># There are changes in t-values, and estimates of the fixed effects. Furthermore,
+# the variance estimates of the random effects changed, as well as the goodness of fit,
+# that is the model with the crossed random effects structure fits way worse.</code></pre>
 </div>
 <div id="more-random-effects-selection" class="section level4">
 <h4>More Random Effects Selection</h4>
 <ol style="list-style-type: decimal">
-<li><p>In task D6 you found out that the constrained model with correlations between random effects set to zero is not significantly worse than the maximal model. Thus, if you were testing a confirmatory hypothesis, you should choose this model rather than the maximal model. What we didn’t do in section F is to proceed with our backward selection procedure. This is now your task. Fit a model with by-subject random intercepts and slopes, but without their correlation, and with by-movie random intercepts.</p></li>
-<li><p>Now perform the procedure of Section D. to evaluate which of the two models to keep. <em>Note</em>: You will have to set the <code>df</code> argument in the <code>qchisq()</code> function to <code>df = 1</code> because these two models only differ in one degree of freedom.</p></li>
-<li><p>What is your conclusion which model to keep and work with?</p></li>
+<li>In task D6 you found out that the constrained model with correlations between random effects set to zero is not significantly worse than the maximal model. Thus, if you were testing a confirmatory hypothesis, you should choose this model rather than the maximal model. What we didn’t do in section F is to proceed with our backward selection procedure. This is now your task. Fit a model with by-subject random intercepts and slopes, but without their correlation, and with by-movie random intercepts.</li>
 </ol>
+<pre class="r"><code># Constrained model with by-subjects random intercepts and slopes, without their
+# correlation, and with by-movie random intercepts
+con_mod2 &lt;- lmer(formula = Tomatometer ~ State +         # These are the fixed effects
+                (State||ID) + (1|Movie),      # These are the random effects
+                data = tom,                 # Specify the data used
+                REML = FALSE,
+                control = lmerControl(optimizer = &quot;bobyqa&quot;)) # use a different optimizer
+                                                             # to avoid non convergence</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Now perform the procedure of Section D. to evaluate which of the two models to keep. <em>Note</em>: You will have to set the <code>df</code> argument in the <code>qchisq()</code> function to <code>df = 1</code> because these two models only differ in one degree of freedom.</li>
+</ol>
+<pre class="r"><code># alpha is still the same
+alpha &lt;- .2 # set up the alpha value
+st1 &lt;- qchisq(1 - alpha, df = 1) # derive the critical value above which the difference
+                                 # is significant. This time we have only one degree of
+                                 # freedom because the more complex model only has one
+                                 # parameter more than the the simpler model
+
+# get the difference in deviance between the two models
+d_diff &lt;- deviance(con_mod2) - deviance(con_mod)
+
+# Test whether this difference is large enough to be considered significant
+d_diff &gt; st1</code></pre>
+<pre><code>[1] TRUE</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>What is your conclusion which model to keep and work with?</li>
+</ol>
+<pre class="r"><code># con_mod, with correlations constrained to zero would be selected as the maximal model
+# does not perform siginificantly better, and the less complex models perform significantly
+# worse. As this model did not converge and the maximal model did, it may in this case still
+# make sense to go with the maximal model.</code></pre>
 </div>
 <div id="generalized-linear-mixed-effects-models" class="section level4">
 <h4>Generalized Linear Mixed Effects Models</h4>
 <ol style="list-style-type: decimal">
-<li><p>Now we will look at generalized linear mixed effects model. Load the <code>cancer_remission.csv</code> data into R and save it as <code>cr</code>.</p></li>
-<li><p>Take a look at the data. It is a subset of simulated data from <a href="https://stats.idre.ucla.edu/">UCLA Institute for Digital Research and Education Search this website</a>.</p></li>
-<li><p>Predict cancer remission (<code>remission</code>) by the cancer stage (<code>CancerStage</code>), the length of the patients stay (<code>LengthofStay</code>), the doctors experience (<code>Experience</code>), and by specifying by doctor (<code>DID</code>) random intercepts. Use the <code>glmer</code> function with <code>family = binomial</code> to do this. Also, use the “bobyqa” optimizer as in some examples before.</p></li>
-<li><p>Did the model converge?</p></li>
-<li><p>Inspect the model output.</p></li>
-<li><p>Extract the <span class="math inline">\(R^2\)</span> value for this model, once using the <code>r2()</code> and once using the <code>cod()</code> function. Are the results the same? Find out what the differences are by checking the help pages.</p></li>
+<li>Now we will look at generalized linear mixed effects model. Load the <code>cancer_remission.csv</code> data into R and save it as <code>cr</code>.</li>
 </ol>
+<pre class="r"><code>cr &lt;- read_csv(file = &quot;1_Data/cancer_remission.csv&quot;)</code></pre>
+<pre><code>Parsed with column specification:
+cols(
+  remission = col_double(),
+  CancerStage = col_character(),
+  LengthofStay = col_double(),
+  Experience = col_double(),
+  DID = col_double()
+)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Take a look at the data. It is a subset of simulated data from <a href="https://stats.idre.ucla.edu/">UCLA Institute for Digital Research and Education Search this website</a>.</li>
+</ol>
+<pre class="r"><code>cr
+summary(cr)
+View(cr)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Predict cancer remission (<code>remission</code>) by the cancer stage (<code>CancerStage</code>), the length of the patients stay (<code>LengthofStay</code>), the doctors experience (<code>Experience</code>), and by specifying by doctor (<code>DID</code>) random intercepts. Use the <code>glmer</code> function with <code>family = binomial</code> to do this. Also, use the “bobyqa” optimizer as in some examples before.</li>
+</ol>
+<pre class="r"><code>cr_mod &lt;- glmer(formula = XXX ~ XXX + XXX + XXX +
+                (1 | XXX),
+                data = XXX,
+                family = binomial, # with this you tell glmer to run a logistic regression
+                control = glmerControl(optimizer = &quot;bobyqa&quot;))</code></pre>
+<pre class="r"><code>cr_mod &lt;- glmer(formula = remission ~ CancerStage + LengthofStay + Experience +
+                (1 | DID),
+                data = cr,
+                family = binomial, # with this you tell glmer to run a logistic regression
+                control = glmerControl(optimizer = &quot;bobyqa&quot;))</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Did the model converge?</li>
+</ol>
+<pre class="r"><code>converge_ok(cr_mod)</code></pre>
+<pre><code>2.42537482394112e-06 
+                TRUE </code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Inspect the model output.</li>
+</ol>
+<pre class="r"><code>summary(cr_mod)</code></pre>
+<pre><code>Generalized linear mixed model fit by maximum likelihood (Laplace
+  Approximation) [glmerMod]
+ Family: binomial  ( logit )
+Formula: remission ~ CancerStage + LengthofStay + Experience + (1 | DID)
+   Data: cr
+Control: glmerControl(optimizer = &quot;bobyqa&quot;)
+
+     AIC      BIC   logLik deviance df.resid 
+    7436     7485    -3711     7422     8518 
+
+Scaled residuals: 
+   Min     1Q Median     3Q    Max 
+-3.589 -0.447 -0.203  0.406  6.963 
+
+Random effects:
+ Groups Name        Variance Std.Dev.
+ DID    (Intercept) 3.87     1.97    
+Number of obs: 8525, groups:  DID, 407
+
+Fixed effects:
+               Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept)     -2.3738     0.5094   -4.66  3.2e-06 ***
+CancerStageII   -0.4126     0.0737   -5.60  2.2e-08 ***
+CancerStageIII  -0.9991     0.0958  -10.43  &lt; 2e-16 ***
+CancerStageIV   -2.3143     0.1550  -14.93  &lt; 2e-16 ***
+LengthofStay    -0.1207     0.0328   -3.68  0.00023 ***
+Experience       0.1196     0.0265    4.50  6.7e-06 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Correlation of Fixed Effects:
+            (Intr) CncSII CnSIII CncSIV LngthS
+CancerStgII  0.015                            
+CancrStgIII  0.059  0.493                     
+CancerStgIV  0.070  0.334  0.318              
+LengthofSty -0.303 -0.265 -0.337 -0.290       
+Experience  -0.923 -0.004 -0.008 -0.013 -0.011</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>Extract the <span class="math inline">\(R^2\)</span> value for this model, once using the <code>r2()</code> and once using the <code>cod()</code> function. Are the results the same? Find out what the differences are by checking the help pages.</li>
+</ol>
+<pre class="r"><code>r2(cr_mod)</code></pre>
+<pre><code>
+R-Squared for (Generalized) Linear (Mixed) Model
+
+Family : binomial (logit)
+Formula: ~1 | DID remission ~ CancerStage + LengthofStay + Experience NA
+
+   Marginal R2: 0.097
+Conditional R2: 0.585</code></pre>
+<pre class="r"><code>cod(cr_mod)</code></pre>
+<pre><code>
+R-Squared for (Generalized) Linear (Mixed) Model
+
+Tjur&#39;s D: 0.409</code></pre>
 <p><strong>Note</strong>: Running and interpreting generalized linear mixed effects models can be quite challenging and we don’t have the time here to cover them in more detail. You can check out this <a href="https://stats.idre.ucla.edu/other/mult-pkg/introduction-to-generalized-linear-mixed-models/">tutorial</a> or the references listed under resources if you want to learn more about this.</p>
 </div>
 </div>
