@@ -35,8 +35,8 @@ knitr::opts_chunk$set(comment = NA,
                       fig.width = 6, 
                       fig.height = 6,
                       fig.align = 'center',
-                      echo = FALSE, 
-                      eval = FALSE, 
+                      echo = TRUE, 
+                      eval = TRUE, 
                       warning = FALSE)
 
 options(digits = 3)
@@ -723,7 +723,7 @@ XXX$XXX
 
 ```{r}
 # Print observed frequencies in the gender_molecule_test object
-gender_arm_test$observed
+gender_molecule_test$observed
 ```
 
 6. Using the `XXX$XXX` notation, print the *expected* frequencies in your `gender_molecule_test` object. What do these values mean?
@@ -735,7 +735,7 @@ XXX$XXX
 
 ```{r}
 # Print expected frequencies in the gender_molecule_test object
-gender_arm_test$expected
+gender_molecule_test$expected
 ```
 
 7. Using the `tidy()` function (from the `broom` package), create a 'tidy' version of your `gender_molecule_test` object called `gender_molecule_tidy`

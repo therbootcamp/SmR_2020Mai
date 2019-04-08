@@ -97,6 +97,9 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
@@ -104,14 +107,74 @@ button.code-folding-btn:focus {
 <div class="container-fluid main-container">
 
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
 });
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
 </script>
 
 <!-- code folding -->
-
 
 
 
@@ -126,7 +189,8 @@ $(document).ready(function () {
 <col width='10%'>
 <col width='10%'>
 <tr style="border:none">
-<!-- <td style='display:block;width:100%;text-align:left;vertical-align:bottom;padding:0;margin:0;border:none' nowrap> --> <font style='font-style:normal'>Statistics with R</font><br> <a href='https://therbootcamp.github.io/SwR_2019Apr/'> <i class='fas fa-clock' style='font-size:.9em;' ></i> </a> <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;'></i> </a> <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a> <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a> <a href='https://therbootcamp.github.io'> <font style='font-style:normal'>Basel R Bootcamp</font> </a>
+<!-- <td style='display:block;width:100%;text-align:left;vertical-align:bottom;padding:0;margin:0;border:none' nowrap> -->
+<font style='font-style:normal'>Statistics with R</font><br> <a href='https://therbootcamp.github.io/SwR_2019Apr/'> <i class='fas fa-clock' style='font-size:.9em;' ></i> </a> <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;'></i> </a> <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a> <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a> <a href='https://therbootcamp.github.io'> <font style='font-style:normal'>Basel R Bootcamp</font> </a>
 </td>
 <td style="width:100%;vertical-align:bottom;text-align:right;padding:0;margin:0;border:none">
 <img src='https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png' style='height:15px;width:80px'/>
@@ -158,9 +222,15 @@ $(document).ready(function () {
 <div id="a---setup" class="section level3">
 <h3>A - Setup</h3>
 <ol style="list-style-type: decimal">
-<li><p>Open your <code>BaselRBootcamp</code> R project. It should already have the folders <code>1_Data</code> and <code>2_Code</code>. Make sure that the data files listed in the <code>Datasets</code> section above are in your <code>1_Data</code> folder</p></li>
-<li><p>Open a new R script. At the top of the script, using comments, write your name and the date. Save it as a new file called <code>LinearModels_II_practical.R</code> in the <code>2_Code</code> folder.</p></li>
-<li><p>Using <code>library()</code> load the packages below (if you don’t have them, you’ll need to install them first).</p></li>
+<li>Open your <code>BaselRBootcamp</code> R project. It should already have the folders <code>1_Data</code> and <code>2_Code</code>. Make sure that the data files listed in the <code>Datasets</code> section above are in your <code>1_Data</code> folder</li>
+</ol>
+<pre class="r"><code># Done!</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Open a new R script. At the top of the script, using comments, write your name and the date. Save it as a new file called <code>LinearModels_II_practical.R</code> in the <code>2_Code</code> folder.</li>
+</ol>
+<pre class="r"><code># Done!</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Using <code>library()</code> load the packages below (if you don’t have them, you’ll need to install them first).</li>
 </ol>
 <pre class="r"><code># Load packages necessary for this script
 library(tidyverse)
@@ -172,201 +242,187 @@ library(rsq)</code></pre>
 <pre class="r"><code># Load trial_ACTG175.csv from the 1_Data folder as a new object called trial
 
 XX &lt;- read_csv(file = &quot;XX/XX&quot;)</code></pre>
+<pre class="r"><code># Load trial_act.csv from the 1_Data folder
+
+trial &lt;- read_csv(file = &quot;1_Data/trial_ACTG175.csv&quot;)</code></pre>
+<pre><code>Parsed with column specification:
+cols(
+  patient_id = col_double(),
+  molecule = col_character(),
+  days = col_double(),
+  age = col_double(),
+  weight_kg = col_double(),
+  drug_history = col_character(),
+  race = col_character(),
+  gender = col_character(),
+  symptomatic = col_character(),
+  cd4_baseline = col_double(),
+  cd4_96_weeks = col_double(),
+  cd8_baseline = col_double(),
+  cd8_20_weeks = col_double()
+)</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>Take a look at the first few rows of the dataset(s) by printing it/them to the console, it should look like the table below:</li>
 </ol>
 <table>
 <thead>
 <tr class="header">
-<th align="right">pidnum</th>
+<th align="right">patient_id</th>
+<th align="left">molecule</th>
+<th align="right">days</th>
 <th align="right">age</th>
-<th align="right">wtkg</th>
-<th align="left">hemo</th>
-<th align="left">homo</th>
-<th align="left">drugs</th>
-<th align="right">karnof</th>
-<th align="left">oprior</th>
-<th align="left">z30</th>
-<th align="left">zprior</th>
-<th align="right">preanti</th>
+<th align="right">weight_kg</th>
+<th align="left">drug_history</th>
 <th align="left">race</th>
 <th align="left">gender</th>
-<th align="left">str2</th>
-<th align="left">strat</th>
-<th align="left">symptom</th>
-<th align="left">treat</th>
-<th align="left">offtrt</th>
-<th align="right">cd40</th>
-<th align="right">cd420</th>
-<th align="right">cd496</th>
-<th align="left">r</th>
-<th align="right">cd80</th>
-<th align="right">cd820</th>
-<th align="right">cens</th>
-<th align="right">days</th>
-<th align="left">arms</th>
+<th align="left">symptomatic</th>
+<th align="right">cd4_baseline</th>
+<th align="right">cd4_96_weeks</th>
+<th align="right">cd8_baseline</th>
+<th align="right">cd8_20_weeks</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td align="right">10056</td>
+<td align="left">Zidovudine and Zalcitabine</td>
+<td align="right">948</td>
 <td align="right">48</td>
 <td align="right">89.8</td>
 <td align="left">No</td>
-<td align="left">No</td>
-<td align="left">No</td>
-<td align="right">100</td>
-<td align="left">No</td>
-<td align="left">No</td>
-<td align="left">Yes</td>
-<td align="right">0</td>
 <td align="left">White</td>
 <td align="left">Female</td>
-<td align="left">Naive</td>
-<td align="left">None</td>
 <td align="left">Asymptomatic</td>
-<td align="left">Other</td>
-<td align="left">No</td>
 <td align="right">422</td>
-<td align="right">477</td>
 <td align="right">660</td>
-<td align="left">Observed</td>
 <td align="right">566</td>
 <td align="right">324</td>
-<td align="right">0</td>
-<td align="right">948</td>
-<td align="left">zidovudine and zalcitabine</td>
 </tr>
 <tr class="even">
 <td align="right">10059</td>
+<td align="left">Didanosine</td>
+<td align="right">1002</td>
 <td align="right">61</td>
 <td align="right">49.4</td>
 <td align="left">No</td>
-<td align="left">No</td>
-<td align="left">No</td>
-<td align="right">90</td>
-<td align="left">No</td>
-<td align="left">Yes</td>
-<td align="left">Yes</td>
-<td align="right">895</td>
 <td align="left">White</td>
 <td align="left">Female</td>
-<td align="left">Experienced</td>
-<td align="left">More than 52 Weeks</td>
 <td align="left">Asymptomatic</td>
-<td align="left">Other</td>
-<td align="left">No</td>
 <td align="right">162</td>
-<td align="right">218</td>
 <td align="right">NA</td>
-<td align="left">Missing</td>
 <td align="right">392</td>
 <td align="right">564</td>
-<td align="right">1</td>
-<td align="right">1002</td>
-<td align="left">didanosine</td>
 </tr>
 <tr class="odd">
 <td align="right">10089</td>
+<td align="left">Didanosine</td>
+<td align="right">961</td>
 <td align="right">45</td>
 <td align="right">88.5</td>
-<td align="left">No</td>
 <td align="left">Yes</td>
-<td align="left">Yes</td>
-<td align="right">90</td>
-<td align="left">No</td>
-<td align="left">Yes</td>
-<td align="left">Yes</td>
-<td align="right">707</td>
 <td align="left">White</td>
 <td align="left">Male</td>
-<td align="left">Experienced</td>
-<td align="left">More than 52 Weeks</td>
 <td align="left">Asymptomatic</td>
-<td align="left">Other</td>
-<td align="left">Yes</td>
 <td align="right">326</td>
-<td align="right">274</td>
 <td align="right">122</td>
-<td align="left">Observed</td>
 <td align="right">2063</td>
 <td align="right">1893</td>
-<td align="right">0</td>
-<td align="right">961</td>
-<td align="left">didanosine</td>
 </tr>
 <tr class="even">
 <td align="right">10093</td>
+<td align="left">Didanosine</td>
+<td align="right">1166</td>
 <td align="right">47</td>
 <td align="right">85.3</td>
 <td align="left">No</td>
-<td align="left">Yes</td>
-<td align="left">No</td>
-<td align="right">100</td>
-<td align="left">No</td>
-<td align="left">Yes</td>
-<td align="left">Yes</td>
-<td align="right">1399</td>
 <td align="left">White</td>
 <td align="left">Male</td>
-<td align="left">Experienced</td>
-<td align="left">More than 52 Weeks</td>
 <td align="left">Asymptomatic</td>
-<td align="left">Other</td>
-<td align="left">No</td>
 <td align="right">287</td>
-<td align="right">394</td>
 <td align="right">NA</td>
-<td align="left">Missing</td>
 <td align="right">1590</td>
 <td align="right">966</td>
-<td align="right">0</td>
-<td align="right">1166</td>
-<td align="left">didanosine</td>
 </tr>
 <tr class="odd">
 <td align="right">10124</td>
+<td align="left">Zidovudine</td>
+<td align="right">1090</td>
 <td align="right">43</td>
 <td align="right">66.7</td>
 <td align="left">No</td>
-<td align="left">Yes</td>
-<td align="left">No</td>
-<td align="right">100</td>
-<td align="left">No</td>
-<td align="left">Yes</td>
-<td align="left">Yes</td>
-<td align="right">1352</td>
 <td align="left">White</td>
 <td align="left">Male</td>
-<td align="left">Experienced</td>
-<td align="left">More than 52 Weeks</td>
 <td align="left">Asymptomatic</td>
-<td align="left">Zidovudine only</td>
-<td align="left">No</td>
 <td align="right">504</td>
-<td align="right">353</td>
 <td align="right">660</td>
-<td align="left">Observed</td>
 <td align="right">870</td>
 <td align="right">782</td>
-<td align="right">0</td>
-<td align="right">1090</td>
-<td align="left">zidovudine</td>
 </tr>
 </tbody>
 </table>
 <pre class="r"><code># Print trial object
 XXX</code></pre>
+<pre class="r"><code>trial</code></pre>
+<pre><code># A tibble: 2,139 x 13
+   patient_id molecule  days   age weight_kg drug_history race  gender
+        &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt; 
+ 1      10056 Zidovud…   948    48      89.8 No           White Female
+ 2      10059 Didanos…  1002    61      49.4 No           White Female
+ 3      10089 Didanos…   961    45      88.5 Yes          White Male  
+ 4      10093 Didanos…  1166    47      85.3 No           White Male  
+ 5      10124 Zidovud…  1090    43      66.7 No           White Male  
+ 6      10140 zidovud…  1181    46      88.9 Yes          White Male  
+ 7      10165 Zidovud…   794    31      73.0 No           White Male  
+ 8      10190 Zidovud…   957    41      66.2 Yes          White Male  
+ 9      10198 Didanos…   198    40      82.6 No           White Male  
+10      10229 Zidovud…   188    35      78.0 No           White Male  
+# … with 2,129 more rows, and 5 more variables: symptomatic &lt;chr&gt;,
+#   cd4_baseline &lt;dbl&gt;, cd4_96_weeks &lt;dbl&gt;, cd8_baseline &lt;dbl&gt;,
+#   cd8_20_weeks &lt;dbl&gt;</code></pre>
 <ol start="7" style="list-style-type: decimal">
 <li>Use the <code>summary()</code> function to print more details on the columns of the datasets.</li>
 </ol>
 <pre class="r"><code># Show summary information from trial
 summary(XXX)</code></pre>
+<pre class="r"><code>summary(trial)</code></pre>
+<pre><code>   patient_id       molecule              days           age      
+ Min.   : 10056   Length:2139        Min.   :  14   Min.   :12.0  
+ 1st Qu.: 81446   Class :character   1st Qu.: 727   1st Qu.:29.0  
+ Median :190566   Mode  :character   Median : 997   Median :34.0  
+ Mean   :248778                      Mean   : 879   Mean   :35.2  
+ 3rd Qu.:280277                      3rd Qu.:1091   3rd Qu.:40.0  
+ Max.   :990077                      Max.   :1231   Max.   :70.0  
+                                                                  
+   weight_kg     drug_history           race              gender         
+ Min.   : 31.0   Length:2139        Length:2139        Length:2139       
+ 1st Qu.: 66.7   Class :character   Class :character   Class :character  
+ Median : 74.4   Mode  :character   Mode  :character   Mode  :character  
+ Mean   : 75.1                                                           
+ 3rd Qu.: 82.6                                                           
+ Max.   :159.9                                                           
+                                                                         
+ symptomatic         cd4_baseline   cd4_96_weeks   cd8_baseline 
+ Length:2139        Min.   :   0   Min.   :   0   Min.   :  40  
+ Class :character   1st Qu.: 264   1st Qu.: 209   1st Qu.: 654  
+ Mode  :character   Median : 340   Median : 321   Median : 893  
+                    Mean   : 351   Mean   : 329   Mean   : 987  
+                    3rd Qu.: 423   3rd Qu.: 440   3rd Qu.:1207  
+                    Max.   :1199   Max.   :1190   Max.   :5011  
+                                   NA&#39;s   :797                  
+  cd8_20_weeks 
+ Min.   : 124  
+ 1st Qu.: 632  
+ Median : 865  
+ Mean   : 935  
+ 3rd Qu.:1146  
+ Max.   :6035  
+               </code></pre>
 <ol start="8" style="list-style-type: decimal">
 <li>Use the <code>View()</code> function to view the entire dataframe(s) in window(s)</li>
 </ol>
 <pre class="r"><code># View trial dataset in new window
 View(XXX)</code></pre>
+<pre class="r"><code>View(trial)</code></pre>
 </div>
 <div id="b---correlation" class="section level3">
 <h3>B - Correlation</h3>
@@ -389,31 +445,81 @@ View(XXX)</code></pre>
 
 XXX &lt;- cor.test(formula = ~ XXX + XXX,
                 data = XXX)</code></pre>
+<pre class="r"><code># Correlation between patient&#39;s age at baseline and CD4 T cell count at baseline
+
+age_cd4_baseline_test &lt;- cor.test(formula = ~ age + cd4_baseline,
+                          data = trial)</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li><p>Print the <code>age_cd4_baseline_test</code> object to see summary outputs.</p></li>
-<li><p>Apply the <code>names()</code> function to your <code>age_cd4_baseline_test</code> object to see all of its named elements</p></li>
+<li>Print the <code>age_cd4_baseline_test</code> object to see summary outputs.</li>
+</ol>
+<pre class="r"><code>age_cd4_baseline_test</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  age and cd4_baseline
+t = -2, df = 2000, p-value = 0.06
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.08254  0.00208
+sample estimates:
+    cor 
+-0.0403 </code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Apply the <code>names()</code> function to your <code>age_cd4_baseline_test</code> object to see all of its named elements</li>
 </ol>
 <pre class="r"><code># See all named elements of age_cd4_baseline_test
 names(XXX)</code></pre>
+<pre class="r"><code># See all named elements of age_cd4_baseline_test
+names(age_cd4_baseline_test)</code></pre>
+<pre><code>[1] &quot;statistic&quot;   &quot;parameter&quot;   &quot;p.value&quot;     &quot;estimate&quot;    &quot;null.value&quot; 
+[6] &quot;alternative&quot; &quot;method&quot;      &quot;data.name&quot;   &quot;conf.int&quot;   </code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>Using the <code>XXX$XXX</code> notation, print only the correlation estimate (<code>estimate</code>) in your <code>age_cd4_baseline_test</code> object. What does this value tell you?</li>
 </ol>
 <pre class="r"><code># Print correlation coefficient estimate in the age_cd4_baseline_test object
 XXX$XXX</code></pre>
+<pre class="r"><code># Print correlation coefficient estimate
+age_cd4_baseline_test$estimate</code></pre>
+<pre><code>    cor 
+-0.0403 </code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li>Again using the <code>XXX$XXX</code> notation, print only the p value (<code>p.value</code>) in your <code>age_cd4_baseline_test</code> object. What does this value tell you?</li>
 </ol>
 <pre class="r"><code># Print the p value of the correlation coefficient in the age_cd4_baseline_test object
 XXX$XXX</code></pre>
+<pre class="r"><code># Print the p value in the age_cd4_baseline_test object
+age_cd4_baseline_test$conf.int</code></pre>
+<pre><code>[1] -0.08254  0.00208
+attr(,&quot;conf.level&quot;)
+[1] 0.95</code></pre>
 <ol start="7" style="list-style-type: decimal">
 <li>Again using the <code>XXX$XXX</code> notation, print only the confidence interval (<code>conf.int</code>) in your <code>age_cd4_baseline_test</code> object. What does this value tell you?</li>
 </ol>
 <pre class="r"><code># Print the confidence interval of the correlation coefficient in the age_cd4_baseline_test object
 XXX$XXX</code></pre>
+<pre class="r"><code># Print the confidence interval in the age_cd4_baseline_test object
+age_cd4_baseline_test$conf.int</code></pre>
+<pre><code>[1] -0.08254  0.00208
+attr(,&quot;conf.level&quot;)
+[1] 0.95</code></pre>
 <ol start="8" style="list-style-type: decimal">
-<li><p>Using the <code>tidy()</code> function (from the <code>broom</code> package), create a ‘tidy’ version of your <code>age_cd4_baseline_test</code> object called <code>age_cd4_baseline_tidy</code></p></li>
-<li><p>Now, print your <code>age_cd4_baseline_tidy</code> object, how do the results look?</p></li>
+<li>Using the <code>tidy()</code> function (from the <code>broom</code> package), create a ‘tidy’ version of your <code>age_cd4_baseline_test</code> object called <code>age_cd4_baseline_tidy</code></li>
 </ol>
+<pre class="r"><code># Create a &#39;tidy&#39; version of my age_cd4_baseline_test object
+
+age_cd4_baseline_tidy &lt;- tidy(xxx)</code></pre>
+<pre class="r"><code># Create a &#39;tidy&#39; version of my age_cd4_baseline_test object
+
+age_cd4_baseline_tidy &lt;- tidy(age_cd4_baseline_test)</code></pre>
+<ol start="9" style="list-style-type: decimal">
+<li>Now, print your <code>age_cd4_baseline_tidy</code> object, how do the results look?</li>
+</ol>
+<pre class="r"><code>age_cd4_baseline_tidy</code></pre>
+<pre><code># A tibble: 1 x 8
+  estimate statistic p.value parameter conf.low conf.high method
+     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt; 
+1  -0.0403     -1.86  0.0624      2137  -0.0825   0.00208 Pears…
+# … with 1 more variable: alternative &lt;chr&gt;</code></pre>
 <div id="correlation-as-linear-model" class="section level5">
 <h5>Correlation as Linear Model</h5>
 <ol start="10" style="list-style-type: decimal">
@@ -425,6 +531,17 @@ age_cd4_baseline_glm &lt;- glm(formula = XXX ~ XXX,
 
 # Print &#39;tidy&#39; results
 tidy(XXX)</code></pre>
+<pre class="r"><code># GLM predicting a patient&#39;s CD4 T cell count at baseline form their age at baseline 
+age_cd4_baseline_glm &lt;- glm(formula = cd4_baseline ~ age,
+                    data = trial)
+
+# Print &#39;tidy&#39; results
+tidy(age_cd4_baseline_glm)</code></pre>
+<pre><code># A tibble: 2 x 5
+  term        estimate std.error statistic   p.value
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)  370.       10.7       34.6  8.09e-209
+2 age           -0.549     0.294     -1.86 6.24e-  2</code></pre>
 </div>
 </div>
 <div id="c---t-test" class="section level3">
@@ -450,36 +567,80 @@ tidy(XXX)</code></pre>
 
 XXX &lt;- t.test(formula = XXX ~ XXX,
               data = XXX)</code></pre>
+<pre class="r"><code># T-test comparing CD4 T cell counts at baseline bewteen symptomatic and non-symptomatic patients
+
+symptomatic_cd4_baseline_test &lt;- t.test(formula = cd4_baseline ~ symptomatic,
+                           data = trial)</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li><p>Print the <code>symptomatic_cd4_baseline_test</code> object to see summary outputs.</p></li>
-<li><p>Apply the <code>names()</code> function to your <code>symptomatic_cd4_baseline_test</code> object to see all of its named elements</p></li>
+<li>Print the <code>symptomatic_cd4_baseline_test</code> object to see summary outputs.</li>
+</ol>
+<pre class="r"><code>age_cd4_baseline_test</code></pre>
+<pre><code>
+    Pearson&#39;s product-moment correlation
+
+data:  age and cd4_baseline
+t = -2, df = 2000, p-value = 0.06
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.08254  0.00208
+sample estimates:
+    cor 
+-0.0403 </code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Apply the <code>names()</code> function to your <code>symptomatic_cd4_baseline_test</code> object to see all of its named elements</li>
 </ol>
 <pre class="r"><code># See all named elements of symptom_cd4_baseline_test
 names(XXX)</code></pre>
+<pre class="r"><code># See all named elements of symptomatic_cd4_baseline_test
+names(symptomatic_cd4_baseline_test)</code></pre>
+<pre><code>[1] &quot;statistic&quot;   &quot;parameter&quot;   &quot;p.value&quot;     &quot;conf.int&quot;    &quot;estimate&quot;   
+[6] &quot;null.value&quot;  &quot;alternative&quot; &quot;method&quot;      &quot;data.name&quot;  </code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>Using the <code>XXX$XXX</code> notation, print only the correlation estimate (<code>estimate</code>) in your <code>symptomatic_cd4_baseline_test</code> object. What does the result tell you?</li>
 </ol>
 <pre class="r"><code># Print parameter estimates in the symptomatic_cd4_baseline_test object
 XXX$XXX</code></pre>
+<pre class="r"><code># Print parameter estimates in the symptomatic_cd4_baseline_test object
+symptomatic_cd4_baseline_test$estimate</code></pre>
+<pre><code>mean in group Asymptomatic  mean in group Symptomatic 
+                       358                        317 </code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li>Again using the <code>XXX$XXX</code> notation, print only the p value (<code>p.value</code>) in your <code>symptomatic_cd4_baseline_test</code> object. What does this value tell you?</li>
 </ol>
 <pre class="r"><code># Print the p value of the symptomatic_cd4_baseline_test object
 XXX$XXX</code></pre>
+<pre class="r"><code># Print the p value in the symptomatic_cd4_baseline_test object
+symptomatic_cd4_baseline_test$p.value</code></pre>
+<pre><code>[1] 1.66e-10</code></pre>
 <ol start="7" style="list-style-type: decimal">
 <li>Again using the <code>XXX$XXX</code> notation, print only the confidence interval (<code>conf.int</code>) in your <code>symptomatic_cd4_baseline_test</code> object. What does this value tell you?</li>
 </ol>
 <pre class="r"><code># Print the confidence interval in the symptomatic_cd4_baseline_test object
 XXX$XXX</code></pre>
+<pre class="r"><code># Print the confidence interval in the symptomatic_cd4_baseline_test object
+symptomatic_cd4_baseline_test$conf.int</code></pre>
+<pre><code>[1] 28.7 53.5
+attr(,&quot;conf.level&quot;)
+[1] 0.95</code></pre>
 <ol start="8" style="list-style-type: decimal">
 <li>Using the <code>tidy()</code> function (from the <code>broom</code> package), create a ‘tidy’ version of your <code>symptomatic_cd4_baseline_test</code> object called <code>symptomatic_cd4_baseline_tidy</code></li>
 </ol>
 <pre class="r"><code># Create a &#39;tidy&#39; version of my symptomatic_cd4_baseline_test object
 
 symptomatic_cd4_baseline_tidy &lt;- tidy(xxx)</code></pre>
+<pre class="r"><code># Create a &#39;tidy&#39; version of my symptomatic_cd4_baseline_test object
+
+symptomatic_cd4_baseline_tidy &lt;- tidy(symptomatic_cd4_baseline_test)</code></pre>
 <ol start="9" style="list-style-type: decimal">
 <li>Now, print your <code>symptomatic_cd4_baseline_tidy</code> object, how do the results look?</li>
 </ol>
+<pre class="r"><code>symptomatic_cd4_baseline_tidy</code></pre>
+<pre><code># A tibble: 1 x 10
+  estimate estimate1 estimate2 statistic  p.value parameter conf.low
+     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+1     41.1      358.      317.      6.51 1.66e-10      573.     28.7
+# … with 3 more variables: conf.high &lt;dbl&gt;, method &lt;chr&gt;,
+#   alternative &lt;chr&gt;</code></pre>
 <div id="t-test-as-linear-model" class="section level5">
 <h5>T-test as Linear Model</h5>
 <ol start="10" style="list-style-type: decimal">
@@ -491,6 +652,17 @@ symptomatic_cd4_baseline_glm &lt;- glm(formula = XXX ~ XXX,
 
 # Print &#39;tidy&#39; results
 tidy(XXX)</code></pre>
+<pre class="r"><code># GLM predicting a patient&#39;s CD4 T cell count at baseline form their age at baseline 
+symptomatic_cd4_baseline_glm &lt;- glm(formula = cd4_baseline ~ symptomatic,
+                        data = trial)
+
+# Print &#39;tidy&#39; results
+tidy(symptomatic_cd4_baseline_glm)</code></pre>
+<pre><code># A tibble: 2 x 5
+  term                   estimate std.error statistic       p.value
+  &lt;chr&gt;                     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;
+1 (Intercept)               358.       2.80    128.   0            
+2 symptomaticSymptomatic    -41.1      6.72     -6.11 0.00000000119</code></pre>
 </div>
 </div>
 <div id="d---anova" class="section level3">
@@ -516,26 +688,64 @@ tidy(XXX)</code></pre>
 
 XXX &lt;- aov(formula = XXX ~ XXX,
               data = XXX)</code></pre>
+<pre class="r"><code># ANOVA comparing number of days until a negative event between treatment molecule
+
+days_molecule_aov &lt;- aov(formula = days ~ molecule,
+                      data = trial)</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li><p>Print the <code>days_molecule_aov</code> object to see summary outputs.</p></li>
-<li><p>Apply the <code>names()</code> function to your <code>days_molecule_aov</code> object to see all of its named elements</p></li>
+<li>Print the <code>days_molecule_aov</code> object to see summary outputs.</li>
+</ol>
+<pre class="r"><code>days_molecule_aov</code></pre>
+<pre><code>Call:
+   aov(formula = days ~ molecule, data = trial)
+
+Terms:
+                molecule Residuals
+Sum of Squares  4.43e+06  1.78e+08
+Deg. of Freedom        3      2135
+
+Residual standard error: 289
+Estimated effects may be unbalanced</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Apply the <code>names()</code> function to your <code>days_molecule_aov</code> object to see all of its named elements</li>
 </ol>
 <pre class="r"><code># See all named elements of days_molecule_aov
 names(XXX)</code></pre>
+<pre class="r"><code># See all named elements of symptom_cd4_baseline_test
+names(days_molecule_aov)</code></pre>
+<pre><code> [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         
+ [5] &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;  
+ [9] &quot;contrasts&quot;     &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;        
+[13] &quot;model&quot;        </code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li>Using the <code>XXX$XXX</code> notation, print the coefficients in your <code>days_molecule_aov</code> object. What do these values mean?</li>
 </ol>
 <pre class="r"><code># Print coefficients in the days_molecule_aov object
 XXX$XXX</code></pre>
+<pre class="r"><code># Print coefficients in the days_molecule_aov object
+days_molecule_aov$coefficients</code></pre>
+<pre><code>                       (Intercept)                 moleculeZidovudine 
+                             893.5                              -92.2 
+ moleculezidovudine and Didanosine moleculeZidovudine and Zalcitabine 
+                              22.8                               12.3 </code></pre>
 <ol start="7" style="list-style-type: decimal">
 <li>Using the <code>tidy()</code> function (from the <code>broom</code> package), create a ‘tidy’ version of your <code>days_molecule_aov</code> object called <code>days_molecule_tidy</code></li>
 </ol>
 <pre class="r"><code># Create a &#39;tidy&#39; version of my symptom_cd4_baseline_test days_molecule_aov
 
 days_molecule_tidy &lt;- tidy(xxx)</code></pre>
+<pre class="r"><code># Create a &#39;tidy&#39; version of my days_molecule_aov object
+
+days_molecule_tidy &lt;- tidy(days_molecule_aov)</code></pre>
 <ol start="9" style="list-style-type: decimal">
 <li>Now, print your <code>days_molecule_tidy</code> object, how do the results look?</li>
 </ol>
+<pre class="r"><code>days_molecule_tidy</code></pre>
+<pre><code># A tibble: 2 x 6
+  term         df      sumsq   meansq statistic   p.value
+  &lt;chr&gt;     &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+1 molecule      3   4433564. 1477855.      17.7  2.37e-11
+2 Residuals  2135 178203547.   83468.      NA   NA       </code></pre>
 <div id="post-hoc-tests" class="section level5">
 <h5>Post-hoc tests</h5>
 <ol start="10" style="list-style-type: decimal">
@@ -545,6 +755,10 @@ days_molecule_tidy &lt;- tidy(xxx)</code></pre>
 #  molecule (molecule) on days until a major negative event (days)
 
 XXX &lt;- TukeyHSD(XXX)</code></pre>
+<pre class="r"><code># Conduct pair-wise tests comparing every pair of treatment
+#  molecule (molecule) on days until a major negative event (days)
+
+days_molecule_aov_post &lt;- TukeyHSD(days_molecule_aov)</code></pre>
 <ol start="11" style="list-style-type: decimal">
 <li><p>Print your <code>days_molecule_aov_post</code> object, what do you see?</p></li>
 <li><p>Print ‘tidy’ results from your <code>days_molecule_aov_post</code> object using the <code>tidy()</code> function</p></li>
@@ -569,6 +783,33 @@ XXX
 
 # Print &#39;tidy&#39; results
 tidy(XXX)</code></pre>
+<pre class="r"><code># GLM predicting number of days until a major negative event (days) as a function of treatment arm (molecule)
+days_molecule_glm &lt;- glm(formula = days ~ molecule,
+                     data = trial)
+
+# Print object
+days_molecule_glm</code></pre>
+<pre><code>
+Call:  glm(formula = days ~ molecule, data = trial)
+
+Coefficients:
+                       (Intercept)                  moleculeZidovudine  
+                             893.5                               -92.2  
+ moleculezidovudine and Didanosine  moleculeZidovudine and Zalcitabine  
+                              22.8                                12.3  
+
+Degrees of Freedom: 2138 Total (i.e. Null);  2135 Residual
+Null Deviance:      1.83e+08 
+Residual Deviance: 1.78e+08     AIC: 30300</code></pre>
+<pre class="r"><code># Print &#39;tidy&#39; results
+tidy(days_molecule_glm)</code></pre>
+<pre><code># A tibble: 4 x 5
+  term                              estimate std.error statistic    p.value
+  &lt;chr&gt;                                &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+1 (Intercept)                          893.       12.2    73.2      0.     
+2 moleculeZidovudine                   -92.2      17.5    -5.28     1.45e-7
+3 moleculezidovudine and Didanosine     22.8      17.6     1.30     1.95e-1
+4 moleculeZidovudine and Zalcitabi…     12.3      17.6     0.699    4.85e-1</code></pre>
 </div>
 </div>
 <div id="f---regression" class="section level3">
@@ -580,14 +821,35 @@ tidy(XXX)</code></pre>
 
 days_glm &lt;- glm(formula = XXX ~ XXX + XXX + XXX ...,
                 data = XXX)</code></pre>
+<pre class="r"><code># Predict days based on many variables
+
+days_glm &lt;- glm(formula = days ~ molecule + gender + age + weight_kg + drug_history + race + cd4_baseline + cd8_baseline,
+                data = trial)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Using <code>tidy()</code> look at the summary results. Which variables seem to be able to predict the number of days until a major negative event?</li>
 </ol>
 <pre class="r"><code>tidy(XXX)</code></pre>
+<pre class="r"><code>tidy(days_glm)</code></pre>
+<pre><code># A tibble: 11 x 5
+   term                               estimate std.error statistic  p.value
+   &lt;chr&gt;                                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+ 1 (Intercept)                         6.84e+2   46.1       14.9   1.51e-47
+ 2 moleculeZidovudine                 -9.50e+1   17.1       -5.55  3.23e- 8
+ 3 moleculezidovudine and Didanosine   2.25e+1   17.2        1.31  1.91e- 1
+ 4 moleculeZidovudine and Zalcitabine  9.59e+0   17.2        0.558 5.77e- 1
+ 5 genderMale                          9.36e+0   17.6        0.531 5.96e- 1
+ 6 age                                 1.16e+0    0.715      1.62  1.06e- 1
+ 7 weight_kg                           6.92e-2    0.481      0.144 8.85e- 1
+ 8 drug_historyYes                    -1.88e+1   18.4       -1.02  3.06e- 1
+ 9 raceWhite                           2.56e+1   14.2        1.80  7.14e- 2
+10 cd4_baseline                        5.15e-1    0.0530     9.72  6.97e-22
+11 cd8_baseline                       -3.96e-2    0.0131    -3.01  2.62e- 3</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li>Using <code>rsq()</code> calculate the r-squared value of your model. Was it high or low? Recall that r-squared can range anywhere from 0 (meaning the model explains <em>none</em> of the variance in <code>days</code>), all the way up to 1 (meaning the model expllains <em>all</em> of the variance in <code>days</code>).</li>
 </ol>
 <pre class="r"><code>rsq(XXX)</code></pre>
+<pre class="r"><code>rsq(days_glm)</code></pre>
+<pre><code>[1] 0.0695</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li>Using the code below, visualise the residuals from the model. What does this mean?</li>
 </ol>
@@ -677,9 +939,21 @@ ggplot(data = molecule_gender, mapping = aes(x = molecule, y = male_p)) +
 
 XXX &lt;- chisq.test(x = factor(trial$XXX),
                   y = factor(trial$XXX))</code></pre>
+<pre class="r"><code># Chi-square test comparing the frequencies of each gender for each molecule
+
+gender_molecule_test &lt;- chisq.test(x = factor(trial$gender),
+                              y = factor(trial$molecule))</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li><p>Print the <code>gender_molecule_test</code> object to see summary outputs.</p></li>
-<li><p>Apply the <code>names()</code> function to your <code>gender_molecule_test</code> object to see all of its named elements</p></li>
+<li>Print the <code>gender_molecule_test</code> object to see summary outputs.</li>
+</ol>
+<pre class="r"><code>gender_molecule_test</code></pre>
+<pre><code>
+    Pearson&#39;s Chi-squared test
+
+data:  factor(trial$gender) and factor(trial$molecule)
+X-squared = 1, df = 3, p-value = 0.7</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Apply the <code>names()</code> function to your <code>gender_molecule_test</code> object to see all of its named elements</li>
 </ol>
 <pre class="r"><code># See all named elements of gender_molecule_test
 names(XXX)</code></pre>
@@ -690,20 +964,48 @@ names(gender_molecule_test)</code></pre>
 </ol>
 <pre class="r"><code># Print observed frequencies in the gender_molecule_test object
 XXX$XXX</code></pre>
+<pre class="r"><code># Print observed frequencies in the gender_molecule_test object
+gender_molecule_test$observed</code></pre>
+<pre><code>                    factor(trial$molecule)
+factor(trial$gender) Didanosine Zidovudine zidovudine and Didanosine
+              Female         91        100                        88
+              Male          470        432                       434
+                    factor(trial$molecule)
+factor(trial$gender) Zidovudine and Zalcitabine
+              Female                         89
+              Male                          435</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li>Using the <code>XXX$XXX</code> notation, print the <em>expected</em> frequencies in your <code>gender_molecule_test</code> object. What do these values mean?</li>
 </ol>
 <pre class="r"><code># Print expected frequencies in the gender_molecule_test object
 XXX$XXX</code></pre>
+<pre class="r"><code># Print expected frequencies in the gender_molecule_test object
+gender_molecule_test$expected</code></pre>
+<pre><code>                    factor(trial$molecule)
+factor(trial$gender) Didanosine Zidovudine zidovudine and Didanosine
+              Female       96.5       91.5                      89.8
+              Male        464.5      440.5                     432.2
+                    factor(trial$molecule)
+factor(trial$gender) Zidovudine and Zalcitabine
+              Female                       90.2
+              Male                        433.8</code></pre>
 <ol start="7" style="list-style-type: decimal">
 <li>Using the <code>tidy()</code> function (from the <code>broom</code> package), create a ‘tidy’ version of your <code>gender_molecule_test</code> object called <code>gender_molecule_tidy</code></li>
 </ol>
 <pre class="r"><code># Create a &#39;tidy&#39; version of my gender_molecule_test called gender_molecule_tidy
 
 gender_molecule_tidy &lt;- tidy(xxx)</code></pre>
+<pre class="r"><code># Create a &#39;tidy&#39; version of my gender_arm_test object
+
+gender_molecule_tidy &lt;- tidy(gender_molecule_test)</code></pre>
 <ol start="9" style="list-style-type: decimal">
 <li>Now, print your <code>gender_molecule_tidy</code> object, how do the results look?</li>
 </ol>
+<pre class="r"><code>gender_molecule_tidy</code></pre>
+<pre><code># A tibble: 1 x 4
+  statistic p.value parameter method                    
+      &lt;dbl&gt;   &lt;dbl&gt;     &lt;int&gt; &lt;chr&gt;                     
+1      1.39   0.708         3 Pearson&#39;s Chi-squared test</code></pre>
 <div id="chi-square-as-linear-model" class="section level5">
 <h5>Chi-square as Linear Model</h5>
 <ol start="10" style="list-style-type: decimal">
@@ -733,6 +1035,31 @@ molecule_gender_glm &lt;- glm(formula = XXX ~ XXX * XXX, # Model counts by the i
 # Print summary results as an anova table
 anova(molecule_gender_glm, 
       test = &#39;Rao&#39;)   # Show a &#39;Rao&quot; score test</code></pre>
+<pre class="r"><code># Create linear model predicting counts as a function of the 
+#  interaction between molecule and gender
+
+molecule_gender_glm &lt;- glm(formula = counts ~ molecule * gender, 
+                           family = &quot;poisson&quot;, 
+                           data = molecule_gender_counts)
+
+# Print summary results as an anova table
+anova(molecule_gender_glm, 
+      test = &#39;Rao&#39;)   # Show a &#39;Rao&quot; score test</code></pre>
+<pre><code>Analysis of Deviance Table
+
+Model: poisson, link: log
+
+Response: counts
+
+Terms added sequentially (first to last)
+
+                Df Deviance Resid. Df Resid. Dev Rao Pr(&gt;Chi)    
+NULL                                7       1004                 
+molecule         3        2         4       1003   2     0.61    
+gender           1     1001         3          1 920   &lt;2e-16 ***
+molecule:gender  3        1         0          0   1     0.71    
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 </div>
 </div>
 </div>
@@ -919,10 +1246,10 @@ tidy(my_aov)  # Show tidy results
 <p>The data were originally obtained from the <code>speff2trial</code> package.</p>
 <div id="variable-description" class="section level4">
 <h4>Variable description</h4>
-<table style="width:75%;">
+<table>
 <colgroup>
-<col width="20%" />
-<col width="54%" />
+<col width="26%" />
+<col width="73%" />
 </colgroup>
 <thead>
 <tr class="header">
