@@ -35,8 +35,8 @@ knitr::opts_chunk$set(comment = NA,
                       fig.width = 6, 
                       fig.height = 6,
                       fig.align = 'center',
-                      echo = FALSE, 
-                      eval = FALSE, 
+                      echo = TRUE, 
+                      eval = TRUE, 
                       warning = FALSE)
 
 options(digits = 3)
@@ -153,7 +153,7 @@ View(XXX)
 View(XXX)
 ```
 
-```{r}
+```{r eval = FALSE}
 View(tom)
 View(schools)
 ```
@@ -828,7 +828,7 @@ cr <- read_csv(file = "1_Data/cancer_remission.csv")
 
 2. Take a look at the data. It is a subset of simulated data from [UCLA Institute for Digital Research and Education Search this website](https://stats.idre.ucla.edu/).
 
-```{r}
+```{r eval = FALSE}
 cr
 summary(cr)
 View(cr)
@@ -836,7 +836,7 @@ View(cr)
 
 3. Predict cancer remission (`remission`) by the cancer stage (`CancerStage`), the length of the patients stay (`LengthofStay`), the doctors experience (`Experience`), and by specifying by doctor (`DID`) random intercepts. Use the `glmer` function with `family = binomial` to do this. Also, use the "bobyqa" optimizer as in some examples before.
 
-```{r}
+```{r eval = FALSE, echo=TRUE}
 cr_mod <- glmer(formula = XXX ~ XXX + XXX + XXX +
                 (1 | XXX),
                 data = XXX,
