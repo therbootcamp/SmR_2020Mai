@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="" xml:lang="">
   <head>
-    <title>Intro to Statistics</title>
-    <meta charset="utf-8">
-    <meta name="author" content="Statistics with R   Basel R Bootcamp" />
+    <title>Einführung Statistik</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Statistik mit R   The R Bootcamp" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="baselrbootcamp.css" type="text/css" />
   </head>
@@ -11,9 +11,9 @@
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Intro to Statistics
-### Statistics with R<br> <a href='https://therbootcamp.github.io'> Basel R Bootcamp </a> <br> <a href='https://therbootcamp.github.io/SwR_2019Apr/'> <i class='fas fa-clock' style='font-size:.9em;'></i> </a>  <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;' ></i> </a>  <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a>  <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a>
-### April 2019
+# Einführung Statistik
+### Statistik mit R<br> <a href='https://therbootcamp.github.io'> The R Bootcamp </a> <br> <a href='https://therbootcamp.github.io/SmR_2020Mar/'> <i class='fas fa-clock' style='font-size:.9em;'></i> </a>  <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;' ></i> </a>  <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a>  <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a>
+### März 2020
 
 ---
 
@@ -34,7 +34,7 @@ layout: true
     &lt;/a&gt;
     &lt;a href="https://therbootcamp.github.io/"&gt;
       &lt;font color="#7E7E7E"&gt;
-       Statistics with R | April 2019
+       Statistil mit R | März 2020
       &lt;/font&gt;
     &lt;/a&gt;
     &lt;/span&gt;
@@ -47,693 +47,96 @@ layout: true
 
 
 
-# Our goal in the next hour
+# Was ist Statistik?
 
-.pull-left55[
-
-In this hour, we will try to cover some of the &lt;high&gt;basic principles of statistical inference&lt;/high&gt;.
-
-1. *Variability*
-2. *Sample statistics*
-3. *Sampling (samples vs. populations)*
-4. *Distributions*
-5. *Likelihood*
-6. *Null Hypothesis testing*
-7. *Test statistic*
-8. *P-values*
-
-This is a lot to cover, and it may not be clear from the beginning. To help us, &lt;high&gt;we'll think about it in terms of beer&lt;/high&gt;.
-
-]
-
-
-.pull-right35[
-
-&lt;p align="center"&gt;
-  &lt;img src="image/stats.jpg" width=300px&gt;
-  &lt;br&gt;
-  &lt;font style="font-size:10px"&gt;
-    from &lt;a href="https://cdn.lynda.com/course/"&gt;cdn.lynda.com&lt;/a&gt;
-  &lt;/font&gt;
-  &lt;br&gt;&lt;br&gt;
-  &lt;img src="image/beer.jpg" width=300px&gt;
-  &lt;br&gt;
-  &lt;font style="font-size:10px"&gt;
-    from &lt;a href="https://marketingweek.imgix.net"&gt; marketingweek.imgix.net&lt;/a&gt;
-  &lt;/font&gt;
-  
-&lt;/p&gt;
-
-]
-
-
-
-
----
-
-.pull-left45[
-
-# Example
-
-Basel has many nice "Buvette's" that serve drinks in warm months. 
-
-The Oetlinger Buvette, one of our favorites, offers 33cl beers (or so they say...).
-
-&gt; I am convinced that the Oetlinger Buvette 'underpouring' its beers and they are not truly 33cl.
-
-#### How can I find out?
-
-How can I formulate my belief into an &lt;high&gt;formal hypothesis?&lt;/high&gt;
-
-How can I collect &lt;high&gt;data to test the hypothesis?&lt;/center&gt;&lt;/high&gt;
-
-What do you think?
-
-]
-
-
-.pull-right45[
-
-&lt;br&gt;&lt;br&gt;
-
-&lt;p align="center"&gt;
-  &lt;img src="image/basel1.jpg" width=350px&gt;
-  &lt;br&gt;
-  &lt;font style="font-size:10px"&gt;
-    from &lt;a href="https://www.basel.com/"&gt;basel.com&lt;/a&gt;
-  &lt;/font&gt;
-  &lt;br&gt;&lt;br&gt;
-  &lt;img src="image/basel2.jpg" width=350px&gt;
-  &lt;br&gt;
-  &lt;font style="font-size:10px"&gt;
-    from &lt;a href="https://files.newsnetz.ch"&gt; newsnetz.ch&lt;/a&gt;
-  &lt;/font&gt;
-  
-&lt;/p&gt;
-
-]
-
----
-
-.pull-left5[
-
-
-
-
-# Beer hypothesis
-
-The mean amount poured in 33cl beers by the Oetlinger Buvette is less than 33cl:
-
-
-`$$\Large H1: \mu &lt; 33$$`
-
-### Beer Data
-
-I ordered 10 beers, and measured the exact amount in each cup, here are the results:
-
-
-
-
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-4-1.png" width="80%" style="display: block; margin: auto;" /&gt;
-
-]
-
-
-.pull-right45[
-
-&lt;br&gt;&lt;br&gt;
-
-&lt;p align="center"&gt;
-  &lt;img src="image/basel1.jpg" width=350px&gt;
-  &lt;br&gt;
-  &lt;font style="font-size:10px"&gt;
-    from &lt;a href="https://www.basel.com/"&gt;basel.com&lt;/a&gt;
-  &lt;/font&gt;
-  &lt;br&gt;&lt;br&gt;
-  &lt;img src="image/basel2.jpg" width=350px&gt;
-  &lt;br&gt;
-  &lt;font style="font-size:10px"&gt;
-    from &lt;a href="https://files.newsnetz.ch"&gt; newsnetz.ch&lt;/a&gt;
-  &lt;/font&gt;
-  
-&lt;/p&gt;
-
-]
-
-
-
-
----
-
-
-# 1. Variability
-
-.pull-left45[
-
-All interesting data processes have &lt;high&gt;variability&lt;/high&gt;
-
-- Stock prices change over time, 
-- Individual patients respond to drugs differently
-
-Statistical inference is all about &lt;high&gt;accounting for variability&lt;/high&gt;
-
-If there was no variability, there would be no need to do statistics.
-
-*If every single patient responded the exact same way to a drug, you could do a clinical trial with (any) one patient.*
-
-
-]
-
-
-.pull-right45[
-
-&lt;p align="center"&gt;
-  &lt;img src="image/variability_stock_drug.png" &gt;
-&lt;/p&gt;
-
-]
-
-
----
-
-# 1. Variability
 
 .pull-left45[
 
 
-There are two types of variability: &lt;high&gt;systematic and unsystematic variability&lt;/high&gt;.
+&lt;i&gt;"Lehre von den Daten über den Staat“&lt;/i&gt;&lt;br&gt;&lt;font style="font-size:10px"&gt;&lt;a href="https://de.wikipedia.org/wiki/Statistik"&gt;Gottfried Achenwall, 1749&lt;/a&gt;&lt;/font&gt;
 
-Statistical inference typically seeks to &lt;high&gt;separate total variability into systematic and unsystematic portions&lt;/high&gt;.
+&lt;i&gt;"...eine umfangreiche Beschreibung der gesellschaftlichen, politischen und wirtschaftlichen Eigenschaften eines Staates"&lt;/i&gt;&lt;br&gt;&lt;font style="font-size:10px"&gt;&lt;a href="https://de.wikipedia.org/wiki/Statistik"&gt;Ernst Landberg über den Statistikbegriff von Achenwall&lt;/a&gt;&lt;/font&gt;
 
-&lt;br&gt;
+Von &lt;i&gt;statisticum&lt;/i&gt;, lat., den Staat betreffend.&lt;br&gt;&lt;font style="font-size:10px"&gt;&lt;a href="https://de.wikipedia.org/wiki/Statistik"&gt;Wikipedia&lt;/a&gt;&lt;/font&gt;
 
-|Variability Type|Definition|
-|:-----|:-----|
-|Systematic| Variation that &lt;high&gt;can&lt;/high&gt; be explained by known variables|
-|Unsystematic |Variation that &lt;high&gt;cannot&lt;/high&gt; be explained by known variables|
+
+
+
+
+
 
 ]
-
 
 .pull-right45[
 
-
-
-
-
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;" /&gt;
-
-
-
-]
-
-
----
-
-
-# 1. Variability
-
-.pull-left45[
-
-
-There are two types of variability: &lt;high&gt;systematic and unsystematic variability&lt;/high&gt;.
-
-Statistical inference typically seeks to &lt;high&gt;separate total variability into systematic and unsystematic portions&lt;/high&gt;.
-
-&lt;br&gt;
-
-|Variability Type|Definition|
-|:-----|:-----|
-|Systematic| Variation that &lt;high&gt;can&lt;/high&gt; be explained by known variables|
-|Unsystematic |Variation that &lt;high&gt;cannot&lt;/high&gt; be explained by known variables|
-
-]
-
-
-.pull-right45[
-
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-7-1.png" width="100%" style="display: block; margin: auto;" /&gt;
-
-]
-
----
-
-.pull-left45[
-
-# 2. Sample Statistics
-
-Once we collect data, we always look for ways to &lt;high&gt;summarise&lt;/high&gt; the data into &lt;high&gt;sample statistics&lt;/high&gt;
-
-Sample statistics give us &lt;high&gt;estimates&lt;/high&gt; of key model parameters (more on this later) and usually (but not always) fall into one of two types:
-
-&lt;br&gt;
-
-|Type|Examples |
-|:----|:------|
-|Central Tendency| Mean, mode, median|
-|Variability|Standard deviation, variance, range|
-
-
-
-
-]
-
-
-.pull-right45[
-
-&lt;br&gt;&lt;br&gt;
-
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-8-1.png" width="100%" style="display: block; margin: auto auto auto 0;" /&gt;
-
-
-`$$Mean = \frac{28+31+28+...}{10} = 29.9$$`
-
-`$$Stand. \; Dev. = \sqrt{\frac{(28-29.9)^2+(31-29.9)^2+...}{10-1}} = 3.90$$`
-
-
-]
-
-
-
----
-
-.pull-left45[
-
-# 3. Sampling Procedures
-
-In statistics, we always distinguish between a &lt;high&gt;sample&lt;/high&gt; and a &lt;/high&gt;population&lt;/high&gt;
-
-Populations are what we are really interested in
-- How will *all cancer patients* be affected by Drug X?
-- How will *future stocks* change?
-- Or is the pouring amount different from 33cl?
-
-To learn about the population, we must use &lt;high&gt;sampling procedures&lt;/high&gt; to obtain a &lt;high&gt;sample&lt;/high&gt; of cases.
-
-Then, inferential statistics allows us to &lt;high&gt;inferences&lt;/high&gt; to populations.
-
-
-]
-
-
-.pull-right45[
-
-&lt;br&gt;&lt;br&gt;&lt;br&gt;
-
-&lt;img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/sampling_procedure.png?token=AIFo1AUl-Ddz-zYZgoGbzwJoW8SO3LhUks5criQVwA%3D%3D" style="display: block; margin: auto;" /&gt;
-
-]
-
----
-
-.pull-left45[
-
-# 4. Distributions
-
-(Parametric) statistics is built on &lt;high&gt;calculating the likelihood of data&lt;/high&gt; given a probability distribution.
-
-A probability distribution is a &lt;high&gt;mathematical formula&lt;/high&gt; that precisely defines &lt;high&gt;how likely&lt;/high&gt; every possible value in a dataset is. [List of distributions](https://en.wikipedia.org/wiki/List_of_probability_distributions).
-
-#### 3 key aspects of a distribution
-
-1. &lt;high&gt;Probability Density Function (PDF)&lt;/high&gt; - Formula defining the distribution (R knows these)
-
-2. &lt;high&gt;Support&lt;/high&gt; - What values can x take on?
-
-3. &lt;high&gt;Parameters&lt;/high&gt; - Values that allow you to change the shape of the distribution? (e.g.; mean and variability?)
-
-
-
-]
-
-
-.pull-right45[
-
-&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
-
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-10-1.png" width="100%" style="display: block; margin: auto;" /&gt;
-
-
-]
-
-
----
-
-# Normal Distribution
-
-.pull-left45[
-
-
-A *bell-shaped curve* aka Gaussian distribution, which is the &lt;high&gt;most important distribution in all of statistics&lt;/high&gt;.
-
-&lt;br&gt;
-
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-11-1.png" width="100%" style="display: block; margin: auto;" /&gt;
-
-]
-
-
-.pull-right45[
-
-&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
-  &lt;col width="30%"&gt;
-  &lt;col width="70%"&gt;
-&lt;tr&gt;
-  &lt;td bgcolor="white" style="padding-bottom:42px"&gt;
-    &lt;b&gt;Aspect&lt;/b&gt;
-  &lt;/td&gt;
-  &lt;td bgcolor="white" style="padding-bottom:42px"&gt;
-    &lt;b&gt;Formula&lt;/b&gt;
-  &lt;/td&gt;  
-&lt;/tr&gt;
-&lt;tr&gt;
-  &lt;td bgcolor="white"" style="padding-bottom:42px;padding-top:42px"&gt;
-    &lt;i&gt;PDF&lt;/i&gt;
-  &lt;/td&gt;
-  &lt;td bgcolor="white"&gt;
-    &lt;img src="image/norm_pdf.png" height=75px&gt;
-  &lt;/td&gt;  
-&lt;/tr&gt;
-&lt;tr&gt;
-  &lt;td bgcolor="white"" style="padding-bottom:42px;padding-top:42px"&gt;
-    &lt;i&gt;Support&lt;/i&gt;
-  &lt;/td&gt;
-  &lt;td bgcolor="white"&gt;
-    &lt;img src="image/norm_sup.png" height=42px&gt;
-  &lt;/td&gt;  
-&lt;/tr&gt;
-&lt;tr&gt;
-  &lt;td bgcolor="white"" style="padding-bottom:42px;padding-top:42px"&gt;
-    &lt;i&gt;Parameters&lt;/i&gt;
-  &lt;/td&gt;
-  &lt;td bgcolor="white"&gt;
-    &lt;img src="image/mu.png" height=27px&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; (Center; mean)&lt;br&gt;&lt;br&gt;
-    &lt;img src="image/sigma.png" height=22px&gt;  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; (Variability; stand. dev.)&lt;br&gt;
-  &lt;/td&gt;  
-&lt;/tr&gt;
-&lt;/table&gt;
-
-
-]
-
----
-
-# Uniform Distribution
-
-.pull-left45[
-
-A 'Flat distribution', used &lt;high&gt;when everything is equally likely&lt;/high&gt;, within a range.
-
-&lt;br&gt;
-
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-12-1.png" width="100%" style="display: block; margin: auto;" /&gt;
-
-]
-
-
-.pull-right45[
-
-&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
-  &lt;col width="30%"&gt;
-  &lt;col width="70%"&gt;
-&lt;tr&gt;
-  &lt;td bgcolor="white" style="padding-bottom:42px"&gt;
-    &lt;b&gt;Aspect&lt;/b&gt;
-  &lt;/td&gt;
-  &lt;td bgcolor="white" style="padding-bottom:42px"&gt;
-    &lt;b&gt;Formula&lt;/b&gt;
-  &lt;/td&gt;  
-&lt;/tr&gt;
-&lt;tr&gt;
-  &lt;td bgcolor="white"" style="padding-bottom:42px;padding-top:42px"&gt;
-    &lt;i&gt;PDF&lt;/i&gt;
-  &lt;/td&gt;
-  &lt;td bgcolor="white"&gt;
-    &lt;img src="image/uniform_pdf.png" height=78px&gt;
-  &lt;/td&gt;  
-&lt;/tr&gt;
-&lt;tr&gt;
-  &lt;td bgcolor="white"" style="padding-bottom:42px;padding-top:42px"&gt;
-    &lt;i&gt;Support&lt;/i&gt;
-  &lt;/td&gt;
-  &lt;td bgcolor="white"&gt;
-    &lt;img src="image/uniform_sup.png" height=42px&gt;
-  &lt;/td&gt;  
-&lt;/tr&gt;
-&lt;tr&gt;
-  &lt;td bgcolor="white"" style="padding-bottom:42px;padding-top:42px"&gt;
-    &lt;i&gt;Parameters&lt;/i&gt;
-  &lt;/td&gt;
-  &lt;td bgcolor="white"&gt;
-    &lt;img src="image/a.png" height=20px&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; (Minimum)&lt;br&gt;&lt;br&gt;
-    &lt;img src="image/b.png" height=30px&gt;  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; (Maximum)&lt;br&gt;
-  &lt;/td&gt;  
-&lt;/tr&gt;
-&lt;/table&gt;
-
-]
-
----
-
-# Binomial Distribution
-
-.pull-left5[
-
-A discrete "Counting" distribution answering: If I flip a coin N times, with p(Head) = p, how many times will I get heads?
-
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-13-1.png" width="100%" style="display: block; margin: auto;" /&gt;
-
-]
-
-
-.pull-right45[
-
-&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
-  &lt;col width="30%"&gt;
-  &lt;col width="70%"&gt;
-&lt;tr&gt;
-  &lt;td bgcolor="white" style="padding-bottom:42px"&gt;
-    &lt;b&gt;Aspect&lt;/b&gt;
-  &lt;/td&gt;
-  &lt;td bgcolor="white" style="padding-bottom:42px"&gt;
-    &lt;b&gt;Formula&lt;/b&gt;
-  &lt;/td&gt;  
-&lt;/tr&gt;
-&lt;tr&gt;
-  &lt;td bgcolor="white" style="padding-bottom:42px;padding-top:42px"&gt;
-    &lt;i&gt;PDF&lt;/i&gt;
-  &lt;/td&gt;
-  &lt;td bgcolor="white"&gt;
-    &lt;img src="image/binomial_pdf.png" height=75px&gt;
-  &lt;/td&gt;  
-&lt;/tr&gt;
-&lt;tr&gt;
-  &lt;td bgcolor="white" style="padding-bottom:42px;padding-top:42px"&gt;
-    &lt;i&gt;Support&lt;/i&gt;
-  &lt;/td&gt;
-  &lt;td bgcolor="white"&gt;
-    &lt;img src="image/binomial_sup.png" height=42px&gt;
-  &lt;/td&gt;  
-&lt;/tr&gt;
-&lt;tr&gt;
-  &lt;td bgcolor="white" style="padding-bottom:42px;padding-top:42px"&gt;
-    &lt;i&gt;Parameters&lt;/i&gt;
-  &lt;/td&gt;
-  &lt;td bgcolor="white"&gt;
-    &lt;img src="image/p.png" height=25px&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; (p(success))&lt;br&gt;&lt;br&gt;
-    &lt;img src="image/n.png" height=22px&gt;  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; (No. trials)&lt;br&gt;
-  &lt;/td&gt;  
-&lt;/tr&gt;
-&lt;/table&gt;
-
-]
-
-
-
-
----
-
-.pull-left45[
-
-# 5: Likelihood
-
-Why do we need distributions? To calculate &lt;high&gt;likelihoods&lt;/high&gt; of data.
-
-&gt; How likely is it that I would get this trial result if the drug is *really* better than a placebo?
-
-Knowing this likelihood allows us to &lt;high&gt;fit parameters&lt;/high&gt;, &lt;high&gt;test&lt;/high&gt; models, and make &lt;high&gt;predictions&lt;/high&gt; about future data
-
-
-&gt; Given that out of 50 trial patients, the average recovery time was 2.3 days, what is the most likely distribution of recovery times for future patients?
-
-]
-
-
-.pull-right45[
-
-&lt;br&gt;&lt;br&gt;
 
 &lt;p align = "center"&gt;
-  &lt;img src="image/Xofluza.jpg" width = 350px&gt;&lt;br&gt;
-  &lt;font style="font-size:10px"&gt;
-    An ad for xofluza, from &lt;a href="https://www.xofluza.com"&gt; xofluza.com&lt;/a&gt;
-  &lt;/font&gt;
+  &lt;img src="image/achenwall.png" height = 400px&gt;&lt;br&gt;
+  Gottfried Achenwall, 1719 - 1772&lt;br&gt;
+  &lt;font style="font-size:10px"&gt;from &lt;a href="https://www.pinterest.de/biografiaspuntoinfo/"&gt;pinterest.de&lt;/a&gt;&lt;/font&gt;
 &lt;/p&gt;
 
 
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-14-1.png" width="75%" style="display: block; margin: auto;" /&gt;
-
-
-
-
-
-
 ]
 
 ---
 
-.pull-left45[
-
-# 5: Likelihood
-
-Using the binomial distributions on the right, answer the following questions:
-
-### Q1
-
-If there is a 50% chance of a clinical trial being successful, then out of 10 drugs, &lt;high&gt;how likely is it that exactly 5 will be successful&lt;/high&gt;?
-
-
-### Q2
-
-If there is a 10% chance that a customer will default on his/her loan, then out of 10 customers, &lt;high&gt;how likely is it that none (0) will default&lt;/high&gt;?
-
-]
-
-
-.pull-right5[
-
-&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
-
-&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-16-1.png" width="100%" style="display: block; margin: auto;" /&gt;
-
-
-]
-
-
-
-
----
+# Äste der Statistik
 
 .pull-left45[
 
+### Deskriptive Statistik
 
-# 6: Null hypothesis testing
 
-
-Null hypothesis testing is a statistical framework where one hypothesis (H&lt;sub&gt;0&lt;/sub&gt;) is tested to defend the other, alternative hypothesis (H&lt;sub&gt;1&lt;/sub&gt;).
-
-This evaluation is performed by calculating the likelihood of obtaining the data &lt;high&gt;assuming&lt;/high&gt; that the null hypothesis true.
-
-&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
-  &lt;col width="16%"&gt;
-  &lt;col width="44%"&gt;
-  &lt;col width="40%"&gt;
-&lt;tr&gt;
-  &lt;td bgcolor="white"&gt;
-    &lt;b&gt;Hypothesis&lt;/b&gt;
-  &lt;/td&gt;
-  &lt;td bgcolor="white"&gt;
-    &lt;b&gt;Description&lt;/b&gt;
-  &lt;/td&gt;  
-  &lt;td bgcolor="white"&gt;
-    &lt;b&gt;Example&lt;/b&gt;
-  &lt;/td&gt;  
-&lt;/tr&gt;
-&lt;tr&gt;
-  &lt;td bgcolor="white"&gt;
-    Null (H&lt;sub&gt;0&lt;/sub&gt;)
-  &lt;/td&gt;
-  &lt;td bgcolor="white"&gt;
-    A proposed effect &lt;high&gt;does not exist&lt;/high&gt; and variation &lt;high&gt;is not systematic&lt;/high&gt;.
-  &lt;/td&gt;  
-  &lt;td bgcolor="white"&gt;
-    Drug and placebo have the same effect.
-  &lt;/td&gt;  
-&lt;/tr&gt;
-&lt;tr&gt;
-  &lt;td bgcolor="white"&gt;
-    Alternative (H&lt;sub&gt;1&lt;/sub&gt;)
-  &lt;/td&gt;
-  &lt;td bgcolor="white"&gt;
-    A proposed effect &lt;high&gt;does exist&lt;/high&gt; and variation &lt;high&gt;is systematic&lt;/high&gt;
-  &lt;/td&gt;  
-  &lt;td bgcolor="white"&gt;
-    Drug and placebo do *not* have the same effect
-  &lt;/td&gt;  
-&lt;/tr&gt;
-&lt;/table&gt;
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;&lt;high&gt;Zusammenfassung&lt;/high&gt; zentraler Eigenschaften der Daten durch etablierte Masse&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;&lt;high&gt;Eigenschaften&lt;/high&gt; und &lt;high&gt;Masse&lt;/high&gt;&lt;/span&gt;&lt;/li&gt;
+  &lt;ul class=level&gt;
+    &lt;li&gt;&lt;span&gt;&lt;b&gt;Häufigkeiten&lt;/b&gt;&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;&lt;b&gt;Zentralität&lt;/b&gt;: Mittelwert, Median, Modalwert&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;&lt;b&gt;Streuung&lt;/b&gt;: Varianz, Interquartilabstand, Spannweite&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;&lt;b&gt;Zusammenhänge&lt;/b&gt;: Diverse Korrelationsmasse&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;li class="m3"&gt;&lt;span&gt;&lt;high&gt;Visualisierungen&lt;/high&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 ]
 
 
 .pull-right45[
 
-&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+### Inferenzstatistik
 
-
-&lt;img src="Intro2Stats_files/figure-html/fig.cap-1.png" style="display: block; margin: auto;" /&gt;
-
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;&lt;high&gt;Entscheidungen&lt;/high&gt; über deskriptive Statistiken&lt;/span&gt;&lt;/li&gt;
+  &lt;ul class=level&gt;
+    &lt;li&gt;&lt;span&gt;Unterscheiden sich ein deskriptives Masse von einem &lt;high&gt;angenommenen Wert&lt;/high&gt;, e.g., zum Beispiel 0.&lt;/b&gt;&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;Unterscheiden sich &lt;high&gt;deskriptive Masse untereinander&lt;/high&gt;&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;&lt;high&gt;Schätzungen&lt;/high&gt; über deskriptive Statistiken&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 ]
-
 
 ---
 
 
+# Deskriptive Statistik
+
 .pull-left45[
 
-# 7: Test statistics
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;&lt;high&gt;Zusammenfassung&lt;/high&gt; zentraler Eigenschaften der Daten durch etablierte Masse&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;&lt;high&gt;Eigenschaften&lt;/high&gt; und &lt;high&gt;Masse&lt;/high&gt;&lt;/span&gt;&lt;/li&gt;
+  &lt;ul class=level&gt;
+    &lt;li&gt;&lt;span&gt;&lt;b&gt;Häufigkeiten&lt;/b&gt;&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;&lt;b&gt;Zentralität&lt;/b&gt;: Mittelwert, Median, Modalwert&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;&lt;b&gt;Streuung&lt;/b&gt;: Varianz, Interquartilabstand, Spannweite&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;&lt;b&gt;Zusammenhänge&lt;/b&gt;: Diverse Korrelationsmasse&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;li class="m3"&gt;&lt;span&gt;&lt;high&gt;Visualisierungen&lt;/high&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-Sample statistics (like means and standard deviations) are converted into &lt;high&gt;test statistics&lt;/high&gt;.
-
-Test statistics are unit-free numbers that help you quantify how likely data is given a null hypothesis. The &lt;high&gt;more extreme&lt;/high&gt; (i.e.; highly positive or highly negative) your test statistic is, the &lt;high&gt;more evidence against&lt;/high&gt; the null hypothesis.
-
-&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
-  &lt;col width="40%"&gt;
-  &lt;col width="60%"&gt;
-&lt;tr&gt;
-  &lt;td bgcolor="white"&gt;
-    &lt;b&gt;Test&lt;/b&gt;
-  &lt;/td&gt;
-  &lt;td bgcolor="white"&gt;
-    &lt;b&gt;Test statistic&lt;/b&gt;
-  &lt;/td&gt;  
-&lt;/tr&gt;
-&lt;tr&gt;
-  &lt;td bgcolor="white"&gt;
-    t-test
-  &lt;/td&gt;
-  &lt;td bgcolor="white"&gt;
-    t-statistic
-  &lt;/td&gt;  
-&lt;/tr&gt;
-&lt;tr&gt;
-  &lt;td bgcolor="white"&gt;
-    Correlation test
-  &lt;/td&gt;
-  &lt;td bgcolor="white"&gt;
-    Correlation coefficient
-  &lt;/td&gt;  
-&lt;/tr&gt;
-&lt;tr&gt;
-  &lt;td bgcolor="white"&gt;
-    Binomial
-  &lt;/td&gt;
-  &lt;td bgcolor="white"&gt;
-    Number of successes
-  &lt;/td&gt;  
-&lt;/tr&gt;
-&lt;/table&gt;
 
 
 ]
@@ -741,191 +144,761 @@ Test statistics are unit-free numbers that help you quantify how likely data is 
 
 .pull-right45[
 
-&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
 
-&lt;p align = "center"&gt;
-  &lt;img src="image/beer_null.png"&gt;
-&lt;/p&gt;
-
-]
-
----
-.pull-left55[
-
-# 8: P-value
-
-*p*-values are used to quantify the likelihood of data given the &lt;high&gt;probability distribution&lt;/high&gt; under the &lt;high&gt;null hypothesis (H0)&lt;/high&gt;.
-
-If a p-value is *small* (i.e.; p &lt; .05), this means that the likelihood of obtaining that data given the null hypothesis is *small*, suggesting that the null hypothesis is *wrong*.
-
-#### Formally
-
-A p-value is the probability of obtaining a test statistic as extreme or more extreme than what you got assuming a null hypothesis is true
-
-#### Decision rule
-
-&lt;font style="font-size:32px"&gt;&lt;high&gt;p &lt; .05 &amp;rarr; Reject H&lt;sub&gt;0&lt;/0&gt;&lt;/high&gt;&lt;/font&gt;
-
-*The data are too unlikely to occcur if H0 was really true (therefore I conclude H0 must not be true)*
-
-]
-
-
-.pull-right4[
-
-&lt;br&gt;&lt;br&gt;
-
-&lt;p align = "center"&gt;
-  &lt;img src="image/pvalue_level.png" height=500px&gt;
-&lt;/p&gt;
-
-]
-
----
-
-
-.pull-left45[
-
-# What about Oetlinger?
-
-&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
-  &lt;col width="30%"&gt;
-  &lt;col width="70%"&gt;
-&lt;tr&gt;
-  &lt;td bgcolor="white"&gt;
-    &lt;b&gt;Step&lt;/b&gt;
-  &lt;/td&gt;
-  &lt;td bgcolor="white"&gt;
-    &lt;b&gt;Result&lt;/b&gt;
-  &lt;/td&gt;  
-&lt;/tr&gt;
-&lt;tr&gt;
-  &lt;td bgcolor="white"&gt;
-    H&lt;sub&gt;0&lt;/sub&gt;
-  &lt;/td&gt;
-  &lt;td bgcolor="white"&gt;
-    The mean amount of beer poured by Oetlinger is 33ml.
-  &lt;/td&gt;  
-&lt;/tr&gt;
-&lt;tr&gt;
-  &lt;td bgcolor="white"&gt;
-    Sample statistics
-  &lt;/td&gt;
-  &lt;td bgcolor="white"&gt;
-    Mean = 33&lt;br&gt;Std. Deviation = 3.90.
-  &lt;/td&gt;  
-&lt;/tr&gt;
-&lt;tr&gt;
-  &lt;td bgcolor="white"&gt;
-    Test and &lt;i&gt;p&lt;/i&gt;-value
-  &lt;/td&gt;
-  &lt;td bgcolor="white"&gt;
-    We calculated, based on the sample statistics, a test statistic of &lt;high&gt;&lt;i&gt;t&lt;/i&gt;=-2.51&lt;/high&gt; and a &lt;high&gt;p-value&lt;/high&gt; of &lt;high&gt;&lt;i&gt;p&lt;/&gt;=0.0273&lt;/high&gt;
-  &lt;/td&gt;  
-&lt;/tr&gt;
-&lt;/table&gt;
-
-&lt;high&gt;Conclusion&lt;/high&gt; - Using a p &lt; 0.05 threshold, we conclude that the null hypothesis is likely wrong and that...the Oetlinger buvette is pouring less than 33cl!
-
-*Note: These data are completely made up :) We're sure the Oetlinger Buvette is not ripping us off*
-
-]
-
-
-.pull-right5[
-
-&lt;br&gt;
-
-&lt;p align = "center"&gt;
-  &lt;img src="image/beer_null_p.png"&gt;
-&lt;/p&gt;
-
-]
-
-
----
-
-
-.pull-left45[
-
-# What about Oetlinger?
-
-&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%&gt;
-  &lt;col width="30%"&gt;
-  &lt;col width="70%"&gt;
-&lt;tr&gt;
-  &lt;td bgcolor="white"&gt;
-    &lt;b&gt;Step&lt;/b&gt;
-  &lt;/td&gt;
-  &lt;td bgcolor="white"&gt;
-    &lt;b&gt;Result&lt;/b&gt;
-  &lt;/td&gt;  
-&lt;/tr&gt;
-&lt;tr&gt;
-  &lt;td bgcolor="white"&gt;
-    H&lt;sub&gt;0&lt;/sub&gt;
-  &lt;/td&gt;
-  &lt;td bgcolor="white"&gt;
-    The mean amount of beer poured by Oetlinger is 33ml.
-  &lt;/td&gt;  
-&lt;/tr&gt;
-&lt;tr&gt;
-  &lt;td bgcolor="white"&gt;
-    Sample statistics
-  &lt;/td&gt;
-  &lt;td bgcolor="white"&gt;
-    Mean = 29.9 &lt;br&gt;Std. Deviation = 3.90.
-  &lt;/td&gt;  
-&lt;/tr&gt;
-&lt;tr&gt;
-  &lt;td bgcolor="white"&gt;
-    Test and &lt;i&gt;p&lt;/i&gt;-value
-  &lt;/td&gt;
-  &lt;td bgcolor="white"&gt;
-    We calculated, based on the sample statistics, a test statistic of &lt;high&gt;&lt;i&gt;t&lt;/i&gt;=-2.51&lt;/high&gt; and a &lt;high&gt;p-value&lt;/high&gt; of &lt;high&gt;&lt;i&gt;p&lt;/&gt;=0.0273&lt;/high&gt;
-  &lt;/td&gt;  
-&lt;/tr&gt;
-&lt;/table&gt;
-
-
-&lt;high&gt;Conclusion&lt;/high&gt; - Using a p &lt; 0.05 threshold, we conclude that the null hypothesis is likely wrong and that...the Oetlinger buvette is pouring less than 33cl!
-
-*Note: These data are completely made up :) We're sure the Oetlinger Buvette is not ripping us off*
-
-]
-
-
-.pull-right5[
-
-&lt;br&gt;
-
-### T-test in R
 
 
 ```r
-# Define beer sample
-beer &lt;- c(28, 31, 28, 37, 30, 
-          33, 25, 33, 24, 30)
-
-# Conduct one-sample t-test
-t.test(x = beer,   # Sample values
-       mu = 33)    # Null Hypothesis
+immatrikulation %&gt;% filter(Jahr == 2019)
 ```
 
+
 ```
-## 
-## 	One Sample t-test
-## 
-## data:  beer
-## t = -2.5, df = 9, p-value = 0.03
-## alternative hypothesis: true mean is not equal to 33
-## 95 percent confidence interval:
-##  27.11 32.69
-## sample estimates:
-## mean of x 
-##      29.9
+## # A tibble: 26 x 3
+##    Kanton          Jahr Immatrikulation…
+##    &lt;chr&gt;          &lt;dbl&gt;            &lt;dbl&gt;
+##  1 Aargau          2019              216
+##  2 Appenzell Aus…  2019                6
+##  3 Appenzell Inn…  2019                6
+##  4 Basel-Landsch…  2019              466
+##  5 Basel-Stadt     2019              360
+##  6 Bern            2019               73
+##  7 Freiburg        2019               12
+##  8 Genf            2019                2
+##  9 Glarus          2019                6
+## 10 Graubünden      2019               24
+## # … with 16 more rows
 ```
 
+]
+
+---
+
+# Deskriptive Statistik
+
+.pull-left45[
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;&lt;high&gt;Zusammenfassung&lt;/high&gt; zentraler Eigenschaften der Daten durch etablierte Masse&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;&lt;high&gt;Eigenschaften&lt;/high&gt; und &lt;high&gt;Masse&lt;/high&gt;&lt;/span&gt;&lt;/li&gt;
+  &lt;ul class=level&gt;
+    &lt;li&gt;&lt;span&gt;&lt;b&gt;Häufigkeiten&lt;/b&gt;&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;&lt;b&gt;Zentralität&lt;/b&gt;: Mittelwert, Median, Modalwert&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;&lt;b&gt;Streuung&lt;/b&gt;: Varianz, Interquartilabstand, Spannweite&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;&lt;b&gt;Zusammenhänge&lt;/b&gt;: Diverse Korrelationsmasse&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;li class="m3"&gt;&lt;span&gt;&lt;high&gt;Visualisierungen&lt;/high&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+
+]
+
+
+.pull-right45[
+
+
+
+
+```r
+immatrikulation %&gt;% filter(Jahr == 2019) %&gt;%
+  summarize(
+    Total = sum(Immatrikulationen),
+    Mittel = median(Immatrikulationen),
+    Streuung = sd(Immatrikulationen)
+    )
+```
+
+
+```
+## # A tibble: 1 x 3
+##   Total Mittel Streuung
+##   &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
+## 1  1651   14.5     114.
+```
+
+]
+
+
+
+---
+
+
+.pull-left45[
+
+# Deskriptive Statistik
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;&lt;high&gt;Zusammenfassung&lt;/high&gt; zentraler Eigenschaften der Daten durch etablierte Masse&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;&lt;high&gt;Eigenschaften&lt;/high&gt; und &lt;high&gt;Masse&lt;/high&gt;&lt;/span&gt;&lt;/li&gt;
+  &lt;ul class=level&gt;
+    &lt;li&gt;&lt;span&gt;&lt;b&gt;Häufigkeiten&lt;/b&gt;&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;&lt;b&gt;Zentralität&lt;/b&gt;: Mittelwert, Median, Modalwert&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;&lt;b&gt;Streuung&lt;/b&gt;: Varianz, Interquartilabstand, Spannweite&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;&lt;b&gt;Zusammenhänge&lt;/b&gt;: Diverse Korrelationsmasse&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;li class="m3"&gt;&lt;span&gt;&lt;high&gt;Visualisierungen&lt;/high&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+]
+
+
+.pull-right45[
+
+&lt;br&gt;
+
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-8-1.png" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+
+
+---
+
+
+.pull-left45[
+
+# Inferenz-Statistik
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;&lt;high&gt;Entscheidungen und Urteile&lt;/high&gt; über Deskriptive Entscheidungen&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;Beispiele&lt;/span&gt;&lt;/li&gt;
+  &lt;ul class=level&gt;
+    &lt;li&gt;&lt;span&gt;&lt;high&gt;Unterscheidet&lt;/high&gt; sich ein deskriptives Mass &lt;high&gt;von angenommenen Werten&lt;/high&gt;, e.g., zum Beispiel 0.&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;&lt;high&gt;Unterscheiden&lt;/high&gt; sich deskriptive Masse &lt;high&gt;untereinander&lt;/high&gt;&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/ul&gt;
+
+
+]
+
+
+.pull-right45[
+
+&lt;br&gt;
+
+&lt;img src="Intro2Stats_files/figure-html/unnamed-chunk-9-1.png" style="display: block; margin: auto;" /&gt;
+
+]
+
+
+---
+
+# Inferenz-Statistik
+
+.pull-left45[
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;&lt;high&gt;Entscheidungen und Urteile&lt;/high&gt; über Deskriptive Entscheidungen&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;Beispiele&lt;/span&gt;&lt;/li&gt;
+  &lt;ul class=level&gt;
+    &lt;li&gt;&lt;span&gt;&lt;high&gt;Unterscheidet&lt;/high&gt; sich ein deskriptives Mass &lt;high&gt;von angenommenen Werten&lt;/high&gt;, e.g., zum Beispiel 0.&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;&lt;high&gt;Unterscheiden&lt;/high&gt; sich deskriptive Masse &lt;high&gt;untereinander&lt;/high&gt;&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/ul&gt;
+
+
+]
+
+
+.pull-right45[
+
+
+
+
+```r
+immatrikulation
+```
+
+
+```
+## # A tibble: 26 x 3
+##    Kanton                 `2009` `2019`
+##    &lt;chr&gt;                   &lt;dbl&gt;  &lt;dbl&gt;
+##  1 Aargau                    173    216
+##  2 Appenzell Ausserrhoden     14      6
+##  3 Appenzell Innerrhoden      14      6
+##  4 Basel-Landschaft          418    466
+##  5 Basel-Stadt               345    360
+##  6 Bern                       91     73
+##  7 Freiburg                   14     12
+##  8 Genf                        6      2
+##  9 Glarus                      0      6
+## 10 Graubünden                 29     24
+## # … with 16 more rows
+```
+
+]
+
+
+
+---
+
+# Ist der Unterschied...
+
+&lt;br&gt;
+
+.pull-left5[
+
+&lt;p align="center"&gt;
+
+  &lt;font style="font-family:'Yanone Kaffeesatz';font-size:40px"&gt;Systematisch&lt;/font&gt;&lt;br&gt;
+
+  &lt;img src="image/gears.jpeg" width=420px height=300px style="border-radius:10%"&gt;
+
+&lt;/p&gt;
+
+
+
+]
+
+.pull-right5[
+
+&lt;p align="center"&gt;
+
+  &lt;font style="font-family:'Yanone Kaffeesatz';font-size:40px"&gt;Zufällig&lt;/font&gt;&lt;br&gt;
+
+  &lt;img src="image/chance.jpeg" width=420px height=300px style="border-radius:10%"&gt;
+
+&lt;/p&gt;
+
+
+]
+
+
+---
+
+.pull-left2[
+
+# Kann das sein?
+
+]
+
+.pull-right7[
+
+&lt;br&gt;
+
+&lt;p align = "center"&gt;
+  &lt;img src="image/chocolate.png" height=500px&gt;&lt;br&gt;
+  &lt;font style="font-size:10px"&gt;from &lt;a href="https://blog.dectech.co.uk/2016/04/06/why-is-correlation-not-causation-part-i/"&gt;dectech.co.uk&lt;/a&gt;&lt;/font&gt;
+&lt;/p&gt;
+
+]
+
+---
+
+.pull-left2[
+
+# Kann das sein?
+
+]
+
+.pull-right7[
+
+&lt;br&gt;
+
+&lt;p align = "center"&gt;
+  &lt;img src="image/drownings.png" height = 500px&gt;&lt;br&gt;
+  &lt;font style="font-size:10px"&gt;from &lt;a href="https://www.tylervigen.com/spurious-correlations"&gt;tylervigen.com&lt;/a&gt;&lt;/font&gt;
+&lt;/p&gt;
+
+]
+
+
+---
+
+.pull-left35[
+
+# Das Modell der Inferenz-Statistik
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Die Inferenz-Statistik geht i.A. davon aus, dass den Beobachtungen (Stichprobe) eine &lt;high&gt;wahre, unbeobachtete Welt&lt;/high&gt; (Population) zugrunde liegt. &lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;Ziel der Inferenz-Statistik ist es von der Stichprobe &lt;high&gt;auf die Population zu schliessen&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m3"&gt;&lt;span&gt;Grundlage der Inferenz sind &lt;high&gt;Annahmen&lt;/high&gt; darüber wie die Population &lt;high&gt;die Stichprobe generiert&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+]
+
+.pull-right5[
+
+&lt;br&gt;
+
+&lt;p align = "left" &gt;
+  &lt;img src="image/model.png" height="520"&gt;
+&lt;/p&gt;
+
+]
+
+
+---
+
+.pull-left35[
+
+# Nullhypothese H0
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Jede statistische Inferenz begint mit &lt;high&gt;Annahmen über die Population&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;In der klassischen Inferenz-Statistik ist &lt;high&gt;die wichtigste Annahme&lt;/high&gt; die Nullhypothese H0.&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m3"&gt;&lt;span&gt;Die Nullhypothese H0 dient...&lt;/span&gt;&lt;/li&gt;
+  &lt;ul class=level&gt;
+    &lt;li&gt;&lt;span&gt;Als Grundlage für die &lt;high&gt;Konstruktion des Tests&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;Als &lt;high&gt;Vergleichsmasstab&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/ul&gt;
+
+
+]
+
+.pull-right5[
+
+&lt;p align = "left" &gt;
+  &lt;img src="image/mechanism1.png" style='margin-top:20px'&gt;
+&lt;/p&gt;
+
+]
+
+---
+
+.pull-left35[
+
+# Nullhypothese H0
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;&lt;high&gt;Wahrscheinlichkeiten &lt;mono&gt;&lt;b&gt;p&lt;/b&gt;&lt;/mono&gt;&lt;/high&gt; unterliegen den beobachteten Häufigkeiten.&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p align = "center" &gt;
+  &lt;img src="image/ps.png" height=320px&gt;
+&lt;/p&gt;
+
+]
+
+.pull-right5[
+
+&lt;p align = "left" &gt;
+  &lt;img src="image/mechanism1.png" style='margin-top:20px'&gt;
+&lt;/p&gt;
+
+]
+
+
+---
+
+.pull-left35[
+
+# Datenmodell
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Beschreibt wie gegeben die H0 die &lt;high&gt;Stichproben verteilt sein sollten&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;Bedient sich i.d.R. bekannter &lt;high&gt;Wahrscheinlichkeitsverteilungen&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;br&gt;
+
+`$$Pr(Daten|H0) = Verteilung$$`
+
+
+]
+
+.pull-right5[
+
+&lt;p align = "left" &gt;
+  &lt;img src="image/mechanism2.png" style='margin-top:20px'&gt;
+&lt;/p&gt;
+
+]
+
+---
+
+.pull-left35[
+
+# Datenmodell
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Weist jedem &lt;high&gt;Häufigkeitsmuster&lt;/high&gt; eine &lt;high&gt;Wahrscheinlichkeit&lt;/high&gt; zu gebeben &lt;mono&gt;&lt;b&gt;p&lt;/b&gt;&lt;/mono&gt;.&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p align = "center" &gt;
+  &lt;img src="image/ps.png" height=320px&gt;
+&lt;/p&gt;
+]
+
+.pull-right5[
+
+&lt;p align = "left" &gt;
+  &lt;img src="image/mechanism2.png" style='margin-top:20px'&gt;
+&lt;/p&gt;
+
+]
+
+
+
+---
+
+.pull-left35[
+
+# Daten unter H0
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Mithilfe des Datenmodells können &lt;high&gt;Stichproben unter der H0 simuliert werden&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+]
+
+.pull-right5[
+
+&lt;p align = "left" &gt;
+  &lt;img src="image/mechanism3.png" style='margin-top:20px'&gt;
+&lt;/p&gt;
+
+]
+
+---
+
+.pull-left35[
+
+# Teststatistik
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Teststatistiken sind auf bestimmte Inferenztests &lt;high&gt;zugeschnittene deskriptive Statistiken&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;Beinhaltet i.d.R.:&lt;/span&gt;&lt;/li&gt;
+  &lt;ul class="level"&gt;
+    &lt;li&gt;&lt;span&gt;&lt;high&gt;Schätzung&lt;/high&gt; der Elemente in der H0.&lt;/li&gt;&lt;/span&gt;
+    &lt;li&gt;&lt;span&gt;&lt;high&gt;Zusammenfassung&lt;/high&gt; des relevanten Effekts/Zusammenhangs.&lt;/li&gt;&lt;/span&gt;
+  &lt;/ul&gt;
+&lt;/ul&gt;
+
+]
+
+.pull-right5[
+
+&lt;p align = "left" &gt;
+  &lt;img src="image/mechanism4.png" style='margin-top:20px'&gt;
+&lt;/p&gt;
+
+]
+
+
+---
+
+.pull-left35[
+
+# Teststatistik
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Die &lt;mono&gt;&lt;b&gt;p&lt;/b&gt;&lt;/mono&gt; werden geschätzt als &lt;mono&gt;&lt;b&gt;p&amp;#x0302;&lt;/b&gt;&lt;/mono&gt;, die &lt;high&gt;relative Häufigkeit der Kantone&lt;/high&gt; über die Jahre hinweg.&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+&lt;p align = "center" &gt;
+  &lt;img src="image/ps2.png" height=320px&gt;
+&lt;/p&gt;
+
+
+]
+
+.pull-right5[
+
+&lt;p align = "left" &gt;
+  &lt;img src="image/mechanism4.png" style='margin-top:20px'&gt;
+&lt;/p&gt;
+
+]
+
+---
+
+.pull-left35[
+
+# Teststatistik
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Die X&lt;sup&gt;2&lt;/sup&gt; Teststatistik summiert die &lt;high&gt;normalisierten, quadfratischen Abweichungen&lt;/high&gt; vom der auf Basis von &lt;mono&gt;&lt;b&gt;p&lt;/b&gt;&lt;/mono&gt; erwarteten Häufigkeiten.&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;br&gt;
+
+&lt;p align = "center" &gt;
+  &lt;img src="image/teststat.png"&gt;
+&lt;/p&gt;
+
+
+]
+
+.pull-right5[
+
+&lt;p align = "left" &gt;
+  &lt;img src="image/mechanism4.png" style='margin-top:20px'&gt;
+&lt;/p&gt;
+
+]
+
+
+
+---
+
+.pull-left35[
+
+# Stichprobenverteilung
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Die Stichprobenverteilung ist die Verteilung von &lt;high&gt;deskriptiven Statistiken&lt;/high&gt;,  die aus theoretischen (oder simulierten) &lt;high&gt;Stichproben aus der Population&lt;/high&gt; berechnet werden.&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;Meist geht es um die &lt;high&gt;Verteilung der Teststatistik&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+]
+
+.pull-right5[
+
+&lt;p align = "left" &gt;
+  &lt;img src="image/mechanism5.png" style='margin-top:20px'&gt;
+&lt;/p&gt;
+
+]
+
+---
+
+.pull-left35[
+
+# &lt;i&gt;p&lt;/i&gt;-Wert
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;&lt;high&gt;Vergleich der beobachteten Werte mit der Stichprobenverteilung&lt;/high&gt; unter H0 verrät wie konsistent die gemachten Beobachtungen mit der H0 sind.&lt;/span&gt;&lt;/li&gt;
+    &lt;li class="m2"&gt;&lt;span&gt;Möglichkeiten&lt;/span&gt;&lt;/li&gt;
+    &lt;ul class="level"&gt;
+    &lt;li&gt;&lt;span&gt;&lt;b&gt;Likelihood&lt;/b&gt;&lt;/li&gt;&lt;/span&gt;
+    &lt;li&gt;&lt;span&gt;&lt;high&gt;Extremität&lt;/high&gt;&lt;/li&gt;&lt;/span&gt;
+    &lt;/ul&gt; 
+&lt;/ul&gt;
+]
+
+.pull-right5[
+
+&lt;p align = "left" &gt;
+  &lt;img src="image/mechanism6.png" style='margin-top:20px'&gt;
+&lt;/p&gt;
+
+]
+
+
+---
+
+.pull-left35[
+
+# &lt;i&gt;p&lt;/i&gt;-Wert
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;&lt;i&gt;p&lt;/i&gt;-Wert ist die Wahrscheinlichkeit &lt;high&gt;unter H0 solche oder extremere Beobachtungen zu machen&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;Extremer kann in &lt;high&gt;eine oder beide Richtungen&lt;/high&gt; bestimmt werden.&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+]
+
+.pull-right5[
+
+&lt;p align = "left" &gt;
+  &lt;img src="image/mechanism7.png" style='margin-top:20px'&gt;
+&lt;/p&gt;
+
+]
+
+---
+
+.pull-left35[
+
+# Testverteilung
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Meist ist die Form der &lt;high&gt;Stichprobenverteilung bereits bekannt&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;Für Fälle wie diesen ist dies die &lt;high&gt;&amp;Chi;&lt;sup&gt;2&lt;/sup&gt; Verteilung&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
+]
+
+.pull-right5[
+
+&lt;p align = "left" &gt;
+  &lt;img src="image/mechanism8.png" style='margin-top:20px'&gt;
+&lt;/p&gt;
+
+]
+
+---
+
+.pull-left35[
+
+# Freiheitsgrade
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Testverteilungen haben Parameter, die &lt;high&gt;aktuelle Situation angepasst werden&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;Parameter.&lt;/span&gt;&lt;/li&gt;
+  &lt;ul class="level"&gt;
+  &lt;li&gt;&lt;span&gt;&lt;high&gt;Freiheitsgrade&lt;/high&gt;&lt;/li&gt;&lt;/span&gt;
+  &lt;li&gt;&lt;span&gt;Nicht-Zentralität&lt;/li&gt;&lt;/span&gt;
+  &lt;li&gt;&lt;span&gt;etc.&lt;/li&gt;&lt;/span&gt;
+  &lt;/ul&gt;
+&lt;/ul&gt;
+
+
+]
+
+.pull-right5[
+
+&lt;p align = "left" &gt;
+  &lt;img src="image/mechanism9.png" style='margin-top:20px'&gt;
+&lt;/p&gt;
+
+]
+
+
+---
+
+.pull-left35[
+
+# Freiheitsgrade
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Freiheitsgrade (degrees of freedom) drücken die &lt;high&gt;Anzahl der "freien" Beobachtungen&lt;/high&gt; aus.&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;br&gt;
+
+&lt;p align = "center" &gt;
+  &lt;img src="image/df.png"&gt;
+&lt;/p&gt;
+
+]
+
+.pull-right5[
+
+&lt;p align = "left" &gt;
+  &lt;img src="image/mechanism9.png" style='margin-top:20px'&gt;
+&lt;/p&gt;
+
+]
+
+---
+
+.pull-left35[
+
+# Freiheitsgrade
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Freiheitsgrade (degrees of freedom) drücken die &lt;high&gt;Anzahl der "freien" Beobachtungen&lt;/high&gt; aus.&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p align = "center" style="margin-top:20px"&gt;
+  &lt;img src="image/ps2.png" height=320px&gt;
+&lt;/p&gt;
+
+]
+
+.pull-right5[
+
+&lt;p align = "left" &gt;
+  &lt;img src="image/mechanism9.png" style='margin-top:20px'&gt;
+&lt;/p&gt;
+
+]
+
+---
+
+# Die Normalverteilung
+
+.pull-left35[
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Traditionell das &lt;high&gt;Arbeitstier&lt;/high&gt; der Inferenzstatistik.&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;Beschrieben durch&lt;/span&gt;&lt;/li&gt;
+  &lt;ul class=level&gt;
+    &lt;li&gt;&lt;span&gt;Mittelwert &amp;mu;&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;Standardabweichung &amp;sigma;&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;li class="m3"&gt;Folgt aus dem &lt;high&gt;zentralen Grenzwertsatz&lt;/high&gt;&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;br&gt;
+
+`$$\large p(x|\mu, \sigma) = \frac{1}{\sigma \sqrt 2\pi}e^{-(x-\mu)/2\sigma^2}$$`
+
+]
+
+.pull-right5[
+
+&lt;p align = "left" &gt;
+  &lt;img src="image/normal.png" height=430px&gt;
+&lt;/p&gt;
+
+]
+
+
+---
+
+.pull-left35[
+
+# Zentraler Grenzwertsatz 
+&lt;p style="margin-top:-30px"&gt;&lt;font style="font-size:16px"&gt;oder warum die Welt normal ist&lt;/font&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;&lt;high&gt;Mittelwerte&lt;/high&gt; egal welcher Verteilung &lt;high&gt;konvergieren gegen eine Normalverteilung&lt;/high&gt; mit steigendem &lt;mono&gt;N&lt;/mono&gt;.&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;Eigenschaften&lt;/span&gt;&lt;/li&gt;
+  &lt;ul class=level&gt;
+    &lt;li&gt;&lt;span&gt;&lt;high&gt;Mittelwert&lt;/high&gt; der Mittelwerte konvergiert gegen &amp;mu;&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;&lt;high&gt;Standardabweichung&lt;/high&gt; der Mittelwerte konvergiert gegen &amp;sigma;/&amp;#8730;n&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/ul&gt;
+
+
+$$ \large \bar{X} \xrightarrow{d} \mathcal{N}(\mu, \frac{\sigma}{\sqrt{n}}) $$
+
+]
+
+.pull-right5[
+
+&lt;br&gt;
+
+&lt;p align ="left"&gt;
+  &lt;img src="image/clt_bimod.png"&gt;
+  &lt;br&gt;&lt;br&gt;
+  &lt;img src="image/clt_bimods.gif"&gt;
+&lt;/p&gt;
+
+]
+
+---
+
+.pull-left35[
+
+# Zentraler Grenzwertsatz 
+&lt;p style="margin-top:-30px"&gt;&lt;font style="font-size:16px"&gt;oder warum die Welt normal ist&lt;/font&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;&lt;high&gt;Mittelwerte&lt;/high&gt; egal welcher Verteilung &lt;high&gt;konvergieren gegen eine Normalverteilung&lt;/high&gt; mit steigendem &lt;mono&gt;N&lt;/mono&gt;.&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;Eigenschaften&lt;/span&gt;&lt;/li&gt;
+  &lt;ul class=level&gt;
+    &lt;li&gt;&lt;span&gt;&lt;high&gt;Mittelwert&lt;/high&gt; der Mittelwerte konvergiert gegen &amp;mu;&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;&lt;high&gt;Standardabweichung&lt;/high&gt; der Mittelwerte konvergiert gegen &amp;sigma;/&amp;#8730;n&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/ul&gt;
+
+
+$$ \large \bar{X} \xrightarrow{d} \mathcal{N}(\mu, \frac{\sigma}{\sqrt{n}}) $$
+
+]
+
+.pull-right5[
+
+&lt;br&gt;
+
+&lt;p align ="left"&gt;
+  &lt;img src="image/clt_expos.png"&gt;
+  &lt;br&gt;&lt;br&gt;
+  &lt;img src="image/clt_expos.gif"&gt;
+&lt;/p&gt;
 
 ]
 
@@ -934,10 +907,9 @@ t.test(x = beer,   # Sample values
 ---
 class: middle, center
 
-# Questions?
-
-&lt;h1&gt;&lt;a href="https://therbootcamp.github.io/SwR_2019Apr/index.html"&gt;Schedule&lt;/a&gt;&lt;/h1&gt;
+&lt;h1&gt;&lt;a href="https://therbootcamp.github.io/SmR_2020Mar/index.html"&gt;Schedule&lt;/a&gt;&lt;/h1&gt;
     </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
@@ -948,16 +920,74 @@ class: middle, center
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
 });
-(function() {
-  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
   if (!r) return;
   s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
   d.head.appendChild(s);
-})();</script>
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
 
 <script>
 (function() {
-  var i, text, code, codes = document.getElementsByTagName('code');
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
   for (i = 0; i < codes.length;) {
     code = codes[i];
     if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
@@ -971,14 +1001,15 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     }
     i++;
   }
-})();
+};
+slideshow._releaseMath(document);
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
 (function () {
   var script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
   if (location.protocol !== 'file:' && /^https?:/.test(script.src))
     script.src  = script.src.replace(/^https?:/, '');
   document.getElementsByTagName('head')[0].appendChild(script);

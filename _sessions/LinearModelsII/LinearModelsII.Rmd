@@ -73,7 +73,9 @@ require(tidyverse)
 
 knitr::opts_chunk$set(dpi = 300, echo = TRUE, warning = FALSE, fig.align = 'center', warning = FALSE)
 
-source("https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_materials/code/baselrbootcamp_palettes.R")
+# get color palette functions
+source("../../_materials/palette/therbootcamp_palettes.R")
+colors = baselrbootcamp_colors
 
 library(broom)
 

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="" xml:lang="">
   <head>
     <title>Linear Models II</title>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <meta name="author" content="Statistics with R   Basel R Bootcamp" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="baselrbootcamp.css" type="text/css" />
@@ -347,7 +347,7 @@ inc_ht
 ## 	Pearson's product-moment correlation
 ## 
 ## data:  age and income
-## t = 180, df = 8500, p-value &lt;2e-16
+## t = 183, df = 8508, p-value &lt;2e-16
 ## alternative hypothesis: true correlation is not equal to 0
 ## 95 percent confidence interval:
 ##  0.8882 0.8968
@@ -581,7 +581,7 @@ inc_ht
 ## 	Welch Two Sample t-test
 ## 
 ## data:  income by sex
-## t = 4, df = 8500, p-value = 6e-05
+## t = 4, df = 8508, p-value = 6e-05
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
 ##  120.6 352.2
@@ -625,11 +625,11 @@ names(inc_ht)
 ```
 
 ```
-## [1] "statistic"   "parameter"  
-## [3] "p.value"     "conf.int"   
-## [5] "estimate"    "null.value" 
-## [7] "alternative" "method"     
-## [9] "data.name"
+##  [1] "statistic"   "parameter"  
+##  [3] "p.value"     "conf.int"   
+##  [5] "estimate"    "null.value" 
+##  [7] "stderr"      "alternative"
+##  [9] "method"      "data.name"
 ```
 
 ```r
@@ -958,7 +958,7 @@ income_htest
 ## 	Pearson's product-moment correlation
 ## 
 ## data:  height and income
-## t = -2.5, df = 8500, p-value = 0.01
+## t = -2.5, df = 8508, p-value = 0.01
 ## alternative hypothesis: true correlation is not equal to 0
 ## 95 percent confidence interval:
 ##  -0.048577 -0.006115
@@ -1047,7 +1047,7 @@ height_sex_ttest
 ## 	Welch Two Sample t-test
 ## 
 ## data:  height by sex
-## t = -67, df = 9900, p-value &lt;2e-16
+## t = -67, df = 9909, p-value &lt;2e-16
 ## alternative hypothesis: true difference in means is not equal to 0
 ## 95 percent confidence interval:
 ##  -14.41 -13.59
@@ -1239,12 +1239,12 @@ rnorm(n = 23, mean = 0, sd = 1)
 ```
 
 ```
-##  [1] -0.27253 -0.36898  0.35302  0.87006
-##  [5] -0.09277  0.45343 -0.21054 -1.96924
-##  [9] -0.61462 -0.33692  2.13845  0.32882
-## [13] -1.05609  0.10568  0.26327  0.31299
-## [17]  0.43195 -0.50643 -1.21301  0.36599
-## [21]  0.11673 -1.35680 -2.07270
+##  [1]  0.77480  0.80389 -1.49876  0.58586
+##  [5] -0.84066 -0.77398 -1.20855  0.01882
+##  [9] -1.36733 -1.99011 -2.15620  0.06718
+## [13]  0.86025 -0.78329 -0.55618  0.70695
+## [17]  0.19157  1.63968 -0.17554 -0.36247
+## [21]  2.16158 -0.13007 -1.31297
 ```
 
 
@@ -1384,8 +1384,8 @@ rt(n = 20, df = 99)
 ```
 
 ```
-##  [1] -0.61673  0.08941  0.49011  1.33736
-##  [5] -0.61308  0.74276  0.77337 -1.15292
+##  [1]  0.65879  0.43351  1.48854 -0.09571
+##  [5]  0.75701 -0.02457  0.77337 -1.15292
 ##  [9]  0.67891  0.98415 -1.16118  1.24822
 ## [13]  0.98867 -1.09769 -0.46602 -0.52857
 ## [17] -0.96983  1.32325  0.34523  1.03262
@@ -1400,6 +1400,7 @@ class: middle, center
 
 &lt;h1&gt;&lt;a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsII/LinearModelsII_practical.html"&gt;Practical&lt;/a&gt;&lt;/h1&gt;
     </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
@@ -1410,26 +1411,96 @@ class: middle, center
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
 });
-(function() {
-  var d = document, s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
   if (!r) return;
   s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
   d.head.appendChild(s);
-})();</script>
+})(document);
 
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  tex2jax: {
-    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
   }
-});
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
 </script>
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
 (function () {
   var script = document.createElement('script');
   script.type = 'text/javascript';
-  script.src  = 'https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
   if (location.protocol !== 'file:' && /^https?:/.test(script.src))
     script.src  = script.src.replace(/^https?:/, '');
   document.getElementsByTagName('head')[0].appendChild(script);
