@@ -1,11 +1,11 @@
 ---
-title: "Linear Models"
-author: "Statistics with R<br>
+title: "Lineare Modelle"
+author: "Statistik mit R<br>
   <a href='https://therbootcamp.github.io'>
-    Basel R Bootcamp
+    The R Bootcamp
   </a>
   <br>
-  <a href='https://therbootcamp.github.io/SwR_2019Apr/'>
+  <a href='https://therbootcamp.github.io/SmR_2020Mar/'>
     <i class='fas fa-clock' style='font-size:.9em;'></i>
   </a>&#8239; 
   <a href='https://therbootcamp.github.io'>
@@ -17,7 +17,7 @@ author: "Statistics with R<br>
   <a href='https://www.linkedin.com/company/basel-r-bootcamp/'>
     <i class='fab fa-linkedin' style='font-size: .9em;'></i>
   </a>"
-date: "April 2019"
+date: "März 2020"
 output:
   xaringan::moon_reader:
     css: ["default", "baselrbootcamp.css"]
@@ -45,7 +45,7 @@ layout: true
     </a>
     <a href="https://therbootcamp.github.io/">
       <font color="#7E7E7E">
-       Statistics with R | April 2019
+       Statistik mit R | März 2020
       </font>
     </a>
     </span>
@@ -60,11 +60,6 @@ layout: true
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
-# see: https://github.com/yihui/xaringan
-# install.packages("xaringan")
-# see: 
-# https://github.com/yihui/xaringan/wiki
-# https://github.com/gnab/remark/wiki/Markdown
 options(width = 110)
 options(digits = 4)
 
@@ -78,7 +73,8 @@ print2 <- function(x, nlines=10,...) {
 baselers <- readr::read_csv("1_Data/baselers.csv")
 
 # get color palette functions
-source("https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_materials/code/baselrbootcamp_palettes.R")
+source("../../_materials/palette/therbootcamp_palettes.R")
+colors = baselrbootcamp_colors
 
 knitr::opts_chunk$set(dpi = 300, echo = FALSE, warning = FALSE, fig.align = 'center')
 ```
@@ -103,7 +99,20 @@ Why are linear models so great?
 
 .pull-right45[
 
-$$\Large income = 885 + age \times 149.3$$
+
+cartoon
+
+]
+
+---
+
+# Zusammenhänge
+
+
+simple zusammenhänge
+
+Korrelationscoeffizient
+
 
 ```{r, echo = FALSE, fig.width = 3.5, fig.height = 3}
 
@@ -119,47 +128,9 @@ simple_scatter
 ```
 
 
-]
-
 ---
 
-# What is a linear model?
-
-.pull-left5[
-
-A linear model is <high>just addition and multiplication</high> and can be written in the following forms: 
-
-<br>
-
-<center><u>Version 1</u><center>
-
-$$\huge y = \beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2} +  ... + \beta_{n}x_{n} + \epsilon$$
-
-<br>
-
-<center><u>Version 2</u><center>
-
-
-$$\huge y = \beta_{0} + \sum_{i=1}^{n}\beta_{i}x_{i}+ \epsilon$$
-
-
-]
-
-
-.pull-right4[
-
-<p align = "center">
-  <img src="image/math.jpg"><br>
-  <font style="font-size:10px">
-    from <a href="https://66.media.tumblr.com/6e401f0cffebf9c7440894d4fa6c48b2/tumblr_o0af44kS071u7w7kwo1_1280.jpg"> media.tumblr.com</a>
-  </font>
-</p>
-
-]
-
----
-
-# Simple Linear Regression
+# Einfache Lineare Regression
 
 .pull-left45[
 
@@ -233,6 +204,28 @@ $$\Large income = 885 + 149.3 \times age  + \epsilon$$
 $$\Large \beta_{0} = 885, \beta_{age} = 149.3$$
 
 ]
+
+
+---
+
+# Lösungen für b0 und für b1
+
+
+---
+
+# Least squares
+
+Residuale
+
+
+---
+
+# Least squares
+
+---
+
+# R-squared
+
 
 ---
 
@@ -323,6 +316,41 @@ $$\large \beta_{0} = 1628, \beta_{age} = 147, \beta_{weight}=-4.1$$
 
 
 ]
+
+
+---
+
+# Lösungen für b0 und für b1 ...bn
+
+
+---
+
+# Datenmodell -> Normalverteilung
+
+
+---
+
+# Teststatistik und verteilung
+
+
+---
+
+# Lineare modelle mit R
+
+
+---
+
+# Formulas
+
+
+---
+
+# Output
+
+
+---
+
+# Helper functions
 
 
 
@@ -1101,6 +1129,48 @@ tidy(income_glm)
 ```
 
 ]
+
+
+
+
+---
+
+# What is a linear model?
+
+.pull-left5[
+
+A linear model is <high>just addition and multiplication</high> and can be written in the following forms: 
+
+<br>
+
+<center><u>Version 1</u><center>
+
+$$\huge y = \beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2} +  ... + \beta_{n}x_{n} + \epsilon$$
+
+<br>
+
+<center><u>Version 2</u><center>
+
+
+$$\huge y = \beta_{0} + \sum_{i=1}^{n}\beta_{i}x_{i}+ \epsilon$$
+
+
+]
+
+
+.pull-right4[
+
+<p align = "center">
+  <img src="image/math.jpg"><br>
+  <font style="font-size:10px">
+    from <a href="https://66.media.tumblr.com/6e401f0cffebf9c7440894d4fa6c48b2/tumblr_o0af44kS071u7w7kwo1_1280.jpg"> media.tumblr.com</a>
+  </font>
+</p>
+
+]
+
+
+
 ---
 
 class: middle, center
