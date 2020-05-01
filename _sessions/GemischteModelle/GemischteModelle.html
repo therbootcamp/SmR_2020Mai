@@ -3,7 +3,7 @@
   <head>
     <title>Gemischte Modelle</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Statistik mit R   Basel R Bootcamp" />
+    <meta name="author" content="Statistik mit R   The R Bootcamp" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="baselrbootcamp.css" type="text/css" />
   </head>
@@ -12,7 +12,7 @@
 class: center, middle, inverse, title-slide
 
 # Gemischte Modelle
-### Statistik mit R<br> <a href='https://therbootcamp.github.io'> Basel R Bootcamp </a> <br> <a href='https://therbootcamp.github.io/SmR_2020Mai/'> <i class='fas fa-clock' style='font-size:.9em;'></i> </a>  <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;' ></i> </a>  <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a>  <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a>
+### Statistik mit R<br> <a href='https://therbootcamp.github.io'> The R Bootcamp </a> <br> <a href='https://therbootcamp.github.io/SmR_2020Mai/'> <i class='fas fa-clock' style='font-size:.9em;'></i> </a>  <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;' ></i> </a>  <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a>  <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a>
 ### Mai 2020
 
 ---
@@ -46,7 +46,7 @@ layout: true
 
 
 
-# Datenerhebung Beispiel
+# Ein Beispiel zur Datenerhebung
 
 &lt;br&gt;
 
@@ -69,14 +69,15 @@ layout: true
 ---
 
 
-# [IID](https://en.wikipedia.org/wiki/Independent_and_identically_distributed_random_variables) Annahme
+# [IID](https://de.wikipedia.org/wiki/Unabh%C3%A4ngig_und_identisch_verteilte_Zufallsvariablen) Annahme
 
 .pull-left45[
 Bisherige Regressionsmodelle machen die Annahme, dass die Datenpunkte unabhängig und gleichverteilt sind (independent and identically distributed, &lt;high&gt;iid&lt;/high&gt;).
 
-
-* &lt;high&gt;Unabhängig&lt;/high&gt;: Das Auftreten eines Wertes hat keinen Einfluss auf das Auftreten anderer Werte.
-* &lt;high&gt;Gleichverteilt&lt;/high&gt;: Alle Datenpunkte stammen aus derselben Wahrscheinlichkeitsverteilung.
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;&lt;high&gt;Unabhängig&lt;/high&gt;: Das Auftreten eines Wertes hat keinen Einfluss auf das Auftreten anderer Werte.&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;&lt;high&gt;Gleichverteilt&lt;/high&gt;: Alle Datenpunkte stammen aus derselben Wahrscheinlichkeitsverteilung.&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 Bisherige Modelle sind gegenüber der Verletzung der Unabhängigkeitsannahme &lt;high&gt;nicht robust&lt;/high&gt;.
 
@@ -99,12 +100,14 @@ Bisherige Modelle sind gegenüber der Verletzung der Unabhängigkeitsannahme &lt
 
 &lt;br&gt;
 
-- Leistung von Schülern in der PISA Studie(&lt;high&gt;Schüler &gt; Klassen &gt; Schulen &gt; Ländern&lt;/high&gt;).
-- Multizentrische klinische Studie (&lt;high&gt;Patienten &gt; Ärzte &gt; Zentrum&lt;/high&gt;)
-- Vergleich unterschiedlicher Designs oder Geschmäcker eines Produkts mit &lt;high&gt;mehreren Einschätzungen pro Person&lt;/high&gt;
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Leistung von Schülern in der PISA Studie(&lt;high&gt;Schüler &gt; Klassen &gt; Schulen &gt; Ländern&lt;/high&gt;).&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;Multizentrische klinische Studie (&lt;high&gt;Patienten &gt; Ärzte &gt; Zentrum&lt;/high&gt;).&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m3"&gt;&lt;span&gt;Vergleich unterschiedlicher Designs oder Geschmäcker eines Produkts mit &lt;high&gt;mehreren Einschätzungen pro Person&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 
-**Wichtig**: *Verletzungen der IID-Annahme können zu irreführenden Resultaten führen, z.B. dem Überschätzen von Effekten.* 
+**Wichtig**: *Verletzungen der IID-Annahme können zu irreführenden Resultaten führen, z.B. dem Unterschätzen des Standardfehlers.* 
 
 
 ]
@@ -209,30 +212,39 @@ Gemischte Modelle (mixed effects models) bieten eine bessere Möglichkeit Daten 
 
 Gemischte Modelle kombinieren zwei Arten von Effekten, die unterschiedliche Zwecke erfüllen: 
 
-&lt;high&gt;Feste Effekte (fixed effects)&lt;/high&gt;
 
-* Die Globaleffekte, welche wir quantifizieren möchten.
-
-&lt;high&gt;Zufällige Effekte (random effects)&lt;/high&gt;
-
-* xxx für die Abhängigkeiten in den Daten.
-* Diejenigen Effekte, über welche wir generalisieren möchten. 
-
-
-
-```r
-LMM &lt;- lmer(formula = y ~ FE1 + FE2 + # Fixed
-              (FE1|RE) + (FE2|RE), # zufällig
-            data = DATEN)
-```
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;&lt;high&gt;Feste Effekte (fixed effects)&lt;/high&gt;
+  &lt;br&gt;&lt;br&gt;
+  &lt;ul class="level"&gt;
+    &lt;li&gt;&lt;span&gt;Die Globaleffekte, welche wir quantifizieren möchten.&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;&lt;high&gt;Zufällige Effekte (random effects)&lt;/high&gt;
+  &lt;br&gt;&lt;br&gt;
+  &lt;ul class="level"&gt;
+    &lt;li&gt;&lt;span&gt;Berücksichtigung der Abhängigkeiten in den Daten.&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;Diejenigen Effekte, über welche wir generalisieren möchten.&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 ]
 
 .pull-right45[
 
-&lt;br&gt;
+
+```r
+                      # feste Effekte
+LMM &lt;- lmer(formula = y ~ FE1 + FE2 + 
+                      # zufällige Effekte
+                      (FE1|RE) + (FE2|RE), 
+            data = DATEN)
+```
 
 &lt;p align="center"&gt;
 &lt;img src="GemischteModelle_files/figure-html/unnamed-chunk-7-1.png" width="100%" /&gt;
@@ -277,13 +289,14 @@ mod &lt;- lm(formula = Merkmahl ~ Dosis,
 
 .pull-left45[
 
-In dieser Einführung arbeiten wir mit den folgenden Beispieldaten:
-Wir sind Wissenschaftler und möchtet den Einfluss von Alkoholkonsum auf Filmrezensionen auf [Rotten Tomatoes](https://www.rottentomatoes.com/) untersuchen.
+Wir möchten den Einfluss von Alkoholkonsum auf Filmrezensionen auf [Rotten Tomatoes](https://www.rottentomatoes.com/) untersuchen.
 
-Dazu rekrutieren wir zwei Versuchspersonen, die zwei Filme beurteilen, und zwar einmal im nüchternen Zustand (`sober`) und einmal nachdem sie 4 Biere getrunken haben (`drunk`; mehr als 4 Biere würde als Binge Drinking zählen, wofür wir kein OK von der Ethikkommission erhalten würden).
+Wir rekrutieren zwei Versuchspersonen, die je zwei Filme beurteilen, und zwar einmal im nüchternen Zustand und einmal nachdem sie 4 kleine Biere getrunken haben (mehr als 4 Biere würde als Binge Drinking zählen, wofür wir kein OK von der Ethikkommission erhalten würden).
 
-* Wiederholte Messung (*within subjects design*)
-* Dieselben Filme an beiden Zeitpunkten für beide VPs.
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Wiederholte Messung (&lt;i&gt;within subjects design&lt;/i&gt;).&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;Dieselben Filme an beiden Zeitpunkten für beide VPs.&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 
 ]
@@ -313,17 +326,17 @@ Dazu rekrutieren wir zwei Versuchspersonen, die zwei Filme beurteilen, und zwar 
 # Zufällige Effekte
 
 .pull-left45[
-Mit zufälligen Effekten &lt;high&gt;kontrollieren wir für die "zufällige" Variation&lt;/high&gt; in den Daten, welche von Quellen stammen, die Abhängigkeiten in den Daten verursachen. Häufig sind wir nicht an den konkreten Werten der zufälligen Effekte interessiert.
+Kontrollieren für Quellen, die Abhängigkeiten in den Daten verursachen können, unter der Annahme, dass aus diesen Quellen zufällig gezogen wird. Dabei sind wir nicht direkt an den konkreten Werten der zufälligen Effekte interessiert.
 
 
 Zufällige Effekte:
 
-* sind häufig der Teil, über welchen wir generalisieren möchten.
-* sind immer kategoriale Variablen (&lt;high&gt;factors&lt;/high&gt;)
-* repräsentieren zufällige Ziehungen aus der Population.
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Sind häufig der Teil, über welchen wir generalisieren möchten.&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;Sind immer kategoriale Variablen (&lt;high&gt;factors&lt;/high&gt;).&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m3"&gt;&lt;span&gt;Repräsentieren zufällige Ziehungen aus der Population.&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-&gt;Durch das Spezifizieren zufälliger Effekte in unserem Modell sind wir in der Lage, die Eigenheiten unserer Stichprobe auszublenden und eine allgemeinere Schätzung der festen Effekte zu erhalten.
-&lt;font style="font-size:10px"&gt;&lt;a href="http://davidkellen.org/wp-content/uploads/2017/04/introduction-mixed-models.pdf"&gt;Singmann &amp; Kellen, 2017
 
 
 ]
@@ -338,21 +351,53 @@ Zufällige Effekte:
 
 ---
 
+# Zufällige Effekte
+
+.pull-left45[
+Kontrollieren für Quellen, die Abhängigkeiten in den Daten verursachen können, unter der Annahme, dass aus diesen Quellen zufällig gezogen wird. Dabei sind wir nicht direkt an den konkreten Werten der zufälligen Effekte interessiert.
+
+
+&gt;&lt;i&gt;Durch das Spezifizieren zufälliger Effekte in unserem Modell sind wir in der Lage, die Eigenheiten unserer Stichprobe auszublenden und eine allgemeinere Schätzung der festen Effekte zu erhalten.&lt;/i&gt;
+&lt;font style="font-size:10px"&gt;&lt;a href="http://davidkellen.org/wp-content/uploads/2017/04/introduction-mixed-models.pdf"&gt;Singmann &amp; Kellen, 2017
+
+
+]
+
+.pull-right45[
+
+
+&lt;img src="image/MEM_example.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+]
+
+---
+
 # Zufällige Effekte - Intercepts und Slopes
 
 .pull-left45[
 
 Wir unterscheiden zwischen zwei Arten zufälliger Effekte:
 
-&lt;high&gt;Random Intercepts&lt;/high&gt;&lt;br&gt;
-* Geschätzte durchschnittliche Abweichung jedes Faktorlevels des zufälligen Effekts vom Intercept des festen Effekts.
-    
-    
-&lt;high&gt;Random Slopes&lt;/high&gt;&lt;br&gt;
-* Geschätzte Abweichung jedes Faktorlevels des zufälligen Effektes vom Slope des festen Effekts.
 
-**Hinweis:**
-Bei der Schätzung von random Intercepts wird nur &lt;high&gt;ein zusätzlicher Parameter&lt;/high&gt; geschätzt: Die &lt;high&gt;Varianz&lt;/high&gt; der Normalverteilung, aus welcher die random Intercepts stammen.
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;&lt;high&gt;Random Intercepts&lt;/high&gt;
+  &lt;br&gt;&lt;br&gt;
+  &lt;ul class="level"&gt;
+    &lt;li&gt;&lt;span&gt;Geschätzte durchschnittliche Abweichung jedes Faktorlevels des zufälligen Effekts vom Intercept des festen Effekts.&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ul&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;&lt;high&gt;Random Slopes&lt;/high&gt;
+  &lt;br&gt;&lt;br&gt;
+  &lt;ul class="level"&gt;
+    &lt;li&gt;&lt;span&gt;Geschätzte Abweichung jedes Faktorlevels des zufälligen Effektes vom Slope des festen Effekts.&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+
 ]
 
 .pull-right45[
@@ -374,7 +419,7 @@ Bei der Schätzung von random Intercepts wird nur &lt;high&gt;ein zusätzlicher 
 
 &lt;img src="image/subj_RI_plot.png" width="100%" style="display: block; margin: auto;" /&gt;
 &lt;p align = "center"&gt;
-&lt;figcaption align = "center" style="display: block; margin: auto;"&gt;By-Subject Random Intercepts&lt;/figcaption&gt;
+&lt;figcaption align = "center" style="display: block; margin: auto;"&gt;Random Intercepts über Probanden&lt;/figcaption&gt;
 &lt;/p&gt;
 
 
@@ -385,7 +430,7 @@ Bei der Schätzung von random Intercepts wird nur &lt;high&gt;ein zusätzlicher 
 
 &lt;img src="image/mov_RI_plot.png" width="100%" style="display: block; margin: auto;" /&gt;
 &lt;p align = "center"&gt;
-&lt;figcaption align = "center" style="display: block; margin: auto;"&gt;By-Movie Random Intercepts&lt;/figcaption&gt;
+&lt;figcaption align = "center" style="display: block; margin: auto;"&gt;Random Intercepts über Filme&lt;/figcaption&gt;
 &lt;/p&gt;
 
 ]
@@ -400,7 +445,7 @@ Bei der Schätzung von random Intercepts wird nur &lt;high&gt;ein zusätzlicher 
 
 &lt;img src="image/subj_RI_RS_plot.png" width="100%" style="display: block; margin: auto;" /&gt;
 &lt;p align = "center"&gt;
-&lt;figcaption align = "center" style="display: block; margin: auto;"&gt;By-Subject Random Intercepts and Slopes&lt;/figcaption&gt;
+&lt;figcaption align = "center" style="display: block; margin: auto;"&gt;Random Intercepts und Slopes über Probanden&lt;/figcaption&gt;
 &lt;/p&gt;
 
 
@@ -411,7 +456,7 @@ Bei der Schätzung von random Intercepts wird nur &lt;high&gt;ein zusätzlicher 
 
 &lt;img src="image/mov_RI_RS_plot.png" width="100%" style="display: block; margin: auto;" /&gt;
 &lt;p align = "center"&gt;
-&lt;figcaption align = "center" style="display: block; margin: auto;"&gt;By-Movie Random Intercepts and Slopes&lt;/figcaption&gt;
+&lt;figcaption align = "center" style="display: block; margin: auto;"&gt;Random Intercepts und Slopes über Filme&lt;/figcaption&gt;
 &lt;/p&gt;
 
 
@@ -433,6 +478,55 @@ Bei der Schätzung von random Intercepts wird nur &lt;high&gt;ein zusätzlicher 
 
 ---
 
+# Regressionsgleichung des gemischten Modells
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&lt;img src="image/form1.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Regressionsgleichung des gemischten Modells
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&lt;img src="image/form2.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Regressionsgleichung des gemischten Modells
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&lt;img src="image/form3.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Regressionsgleichung des gemischten Modells
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&lt;img src="image/form4.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Regressionsgleichung des gemischten Modells
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&lt;img src="image/form5.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Regressionsgleichung des gemischten Modells
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&lt;img src="image/form6.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
+# Regressionsgleichung des gemischten Modells
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&lt;img src="image/form7.png" width="100%" style="display: block; margin: auto;" /&gt;
+
+---
+
 # Gekreuzte vs. Hierarchische Zufällige Effekte
 &lt;br&gt;
 .pull-left35[
@@ -443,7 +537,7 @@ Bei der Schätzung von random Intercepts wird nur &lt;high&gt;ein zusätzlicher 
 
 &lt;br&gt;&lt;br&gt;
 
-**Gekreuzte zufällige Effekte:** Alle Modellstrukuten mit multiplen zufälligen Effekten, welche nicht geschachtelt sind.
+**Gekreuzte zufällige Effekte:** Alle Modellstrukuren mit multiplen zufälligen Effekten, welche nicht geschachtelt sind.
 
 ]
 
@@ -467,11 +561,11 @@ Bei der Schätzung von random Intercepts wird nur &lt;high&gt;ein zusätzlicher 
 
 .pull-left45[
 
-Es ist wichtig, die korrekte Struktur der zufälligen Effekte festzulegen. Wird dies nicht beachtet, kann dies zu einer `\(\alpha\)`-Fehler-Inflation oder einer niedrigen Power führen.
+Es ist wichtig, die korrekte Struktur der zufälligen Effekte festzulegen. Ansonsten kann es zu einer `\(\alpha\)`-Fehler-Inflation oder einer Power-Deflation kommen.
 
 Es wurde argumentiert, dass man die &lt;high&gt;maximale Struktur der zufälligen Effekte spezifizieren sollte, die durch das Design gerechtfertigt ist (*maximal model*; [Barr et al., 2014](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3881361/pdf/nihms533954.pdf)).
 
-Jedoch kann die Spezifikation der maximalen Struktur der zufälligen Effekte zu konservativ sein, wenn diese nicht in den Daten vorhanden. Wir werden daher einen Kompromiss verwenden und ein &lt;high&gt;Rückwärtsauswahlverfahren&lt;/high&gt; durchführen (siehe [Matuschek, Kliegl, Vasishth, Baayen, &amp; Bates, 2017](https://www.sciencedirect.com/science/article/pii/S0749596X17300013)).
+Dies kann jedoch zu konservativ sein, wenn die maximale Struktur nicht in den Daten vorhanden ist. Ein Kompromiss findet sich in der Durchführung eines &lt;high&gt;Rückwärtsauswahlverfahrens&lt;/high&gt; (siehe [Matuschek, Kliegl, Vasishth, Baayen, &amp; Bates, 2017](https://www.sciencedirect.com/science/article/pii/S0749596X17300013)).
 
 ]
 
@@ -556,7 +650,8 @@ Zufällige Effekte werden mit einem neuen Element in den Formeln spezifiziert:
 .pull-left45[
 
 &lt;br&gt;
-Wir wollen das &lt;high&gt;Tomatometer&lt;/high&gt; Rating vorhersagen, mit &lt;high&gt;Status&lt;/high&gt; als festen Effekt und mit random intercepts und random slopes über Rater (&lt;high&gt;ID&lt;/high&gt;), sowie random intercepts und random slopes über Item (&lt;high&gt;Movie&lt;/high&gt;). 
+
+Wir wollen das &lt;high&gt;tomatometer&lt;/high&gt; Rating vorhersagen, mit &lt;high&gt;zustand&lt;/high&gt; als festen Effekt und mit random intercepts und random slopes über Rater (&lt;high&gt;id&lt;/high&gt;), sowie random intercepts und random slopes über Item (&lt;high&gt;film&lt;/high&gt;). 
 
 
 &lt;p align = "center"&gt;
@@ -579,16 +674,16 @@ Wir wollen das &lt;high&gt;Tomatometer&lt;/high&gt; Rating vorhersagen, mit &lt;
 # Gemischtes Modell mit lme4::lmer()
 
 # Feste Effekte
-LMM_out &lt;- XXX(formula = XXX ~ XXX +
-# Random intercepts und slopes über ID
+LMM &lt;- XXX(formula = XXX ~ XXX +
+# Random intercepts und slopes über id
                   (XXX) +
-# Random intercepts und slopes über Movie
+# Random intercepts und slopes über film
                   (XXX),
 # Daten
                 data = tomato)
 
 # Output
-summary(LMM_out)
+summary(LMM)
 ```
 
 ]
@@ -602,7 +697,7 @@ summary(LMM_out)
 
 &lt;br&gt;
 
-Wir wollen das &lt;high&gt;Tomatometer&lt;/high&gt; Rating vorhersagen, mit &lt;high&gt;Status&lt;/high&gt; als festen Effekt und mit random intercepts und random slopes über Rater (&lt;high&gt;ID&lt;/high&gt;), sowie random intercepts und random slopes über Item (&lt;high&gt;Movie&lt;/high&gt;). 
+Wir wollen das &lt;high&gt;tomatometer&lt;/high&gt; Rating vorhersagen, mit &lt;high&gt;zustand&lt;/high&gt; als festen Effekt und mit random intercepts und random slopes über Rater (&lt;high&gt;id&lt;/high&gt;), sowie random intercepts und random slopes über Item (&lt;high&gt;film&lt;/high&gt;). 
 
 &lt;p align = "center"&gt;
 &lt;img src="image/interstellar.png" height=200px&gt;&lt;br&gt;
@@ -622,16 +717,16 @@ Wir wollen das &lt;high&gt;Tomatometer&lt;/high&gt; Rating vorhersagen, mit &lt;
 # Gemischtes Modell mit lme4::lmer()
 
 # Feste Effekte
-LMM_out &lt;- lmer(formula = Tomatometer ~ State +
-# Random intercepts und slopes über ID
-                  (State|ID) +
-# Random intercepts und slopes über Movie
-                  (State|Movie),
+LMM &lt;- lmer(formula = tomatometer ~ zustand +
+# Random intercepts und slopes über id
+                  (zustand|id) +
+# Random intercepts und slopes über film
+                  (zustand|film),
 # Daten
                 data = tomato)
 
 # Output
-summary(LMM_out)
+summary(LMM)
 ```
 
 
@@ -650,7 +745,7 @@ summary(LMM_out)
 
 class: middle, center
 
-&lt;h1&gt;&lt;a href="https://therbootcamp.github.io/SmR_2020Mai/_sessions/MixedModels/MixedModels_practical.html"&gt;Practical&lt;/a&gt;&lt;/h1&gt;
+&lt;h1&gt;&lt;a href="https://therbootcamp.github.io/SmR_2020Mai/_sessions/GemischteModele/GemischteModelle_practical.html"&gt;Practical&lt;/a&gt;&lt;/h1&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

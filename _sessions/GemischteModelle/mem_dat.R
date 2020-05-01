@@ -1,56 +1,56 @@
 library(tidyverse)
 library(lme4)
 
-movie <- rep(c("M1", "M2"), 4)
-state <- rep(c("sober", "sober", "drunk", "drunk"), 2)
+film <- rep(c("F1", "F2"), 4)
+zustand <- rep(c("nuechtern", "nuechtern", "betrunken", "betrunken"), 2)
 tomatometer <- c(40, 70, 68, 82, 5, 52, 35, 75)
-subject <- rep(c("S1", "S2"), each = 4)
+proband <- rep(c("P1", "P2"), each = 4)
 grand_mean <- mean(tomatometer)
 
-df <- tibble(movie, state, tomatometer, subject, grand_mean)
+df <- tibble(film, zustand, tomatometer, proband, grand_mean)
 
 
 # fixed effects model prediction
 df <- df %>%
-  group_by(state) %>%
+  group_by(zustand) %>%
   summarise(FE = mean(tomatometer)) %>%
-  right_join(df, by = c("state"))
+  right_join(df, by = c("zustand"))
 
 # subjects random intercepts only prediction
 df <- df %>%
-  group_by(subject) %>%
+  group_by(proband) %>%
   summarise(subj_mean_diff = (mean(tomatometer) - grand_mean[1])) %>%
-  right_join(df, by = c("subject")) %>%
+  right_join(df, by = c("proband")) %>%
   mutate(subj_RI = FE + subj_mean_diff)
 
 
 # item random intercepts only prediction
 df <- df %>%
-  group_by(movie) %>%
+  group_by(film) %>%
   summarise(mov_mean_diff = (mean(tomatometer) - grand_mean[1])) %>%
-  right_join(df, by = c("movie")) %>%
+  right_join(df, by = c("film")) %>%
   mutate(mov_RI = FE + mov_mean_diff)
 
 
 # subjects random intercepts and random slopes
 df <- df %>%
-  group_by(subject, state) %>%
+  group_by(proband, zustand) %>%
   summarise(subj_RI_RS = mean(tomatometer)) %>%
-  right_join(df, by = c("subject", "state"))
+  right_join(df, by = c("proband", "zustand"))
 
 # movie random intercepts and random slopes
 df <- df %>%
-  group_by(movie, state) %>%
+  group_by(film, zustand) %>%
   summarise(mov_RI_RS = mean(tomatometer)) %>%
-  right_join(df, by = c("movie", "state"))
+  right_join(df, by = c("film", "zustand"))
 
 # crossed random intercepts and slopes  
   
 df <- df %>%
-  group_by(subject, movie, state) %>%
+  group_by(proband, film, zustand) %>%
   summarise(cr_RI_RS = mean(tomatometer)) %>%
   ungroup() %>%
-  right_join(df, by = c("subject", "movie", "state")) %>%
+  right_join(df, by = c("proband", "film", "zustand")) %>%
   select(-mov_mean_diff, -subj_mean_diff) %>%
   mutate(x_cat = c(1,2, 4, 5, 8, 9, 11, 12))
 
@@ -64,10 +64,10 @@ dat_plot <- ggplot(df, aes(x_cat, tomatometer)) +
   geom_hline(yintercept = grand_mean[1], lty = 2, alpha = .35, size = 1.25) +
   geom_point(size = g_size, col = "#606061")  +
   annotate(geom = "text", x = c(1,2, 4, 5, 8, 9, 11, 12), y = -5,
-           label = rep(c("M1", "M2"), 4), size = 6) +
+           label = rep(c("F1", "F2"), 4), size = 6) +
   annotate(geom = "text", x = c(1.5, 4.5, 8.5, 11.5),
-           y = -12, label = rep(c("Sober", "Drunk"), 2), size = 6) +
-  annotate(geom = "text", x = c(3, 10), y = -20, label = c("Subject 1", "Subject 2"),
+           y = -12, label = rep(c("Nüchtern", "Betrunken"), 2), size = 6) +
+  annotate(geom = "text", x = c(3, 10), y = -20, label = c("Proband 1", "Proband 2"),
            size = 7, fontface = 2) +
   geom_segment(x = c(1,2, 4, 5, 8, 9, 11, 12), y = rep(0),
                xend = c(1,2, 4, 5, 8, 9, 11, 12), yend = rep(-1),
@@ -90,44 +90,44 @@ dat_plot <- ggplot(df, aes(x_cat, tomatometer)) +
   )
 
 dat_plot
-ggsave("_sessions/MixedModels/image/dat_plot.png", width = 8,
+ggsave("_sessions/GemischteModelle/image/dat_plot.png", width = 8,
        height = 5, device = "png", dpi = 600)
 
 # Fixed Effects plot -----------------------------
 dat_plot + geom_point(aes(y = FE), shape = 17, col = "#EA4B68",
                       size = g_size)
-ggsave("_sessions/MixedModels/image/FE_plot.png", width = 8,
+ggsave("_sessions/GemischteModelle/image/FE_plot.png", width = 8,
        height = 5, device = "png", dpi = 600)
 
 # Subjects Random Intercepts only plot -----------
 dat_plot + geom_point(aes(y = subj_RI), shape = 17, col = "#EA4B68",
                       size = g_size)
-ggsave("_sessions/MixedModels/image/subj_RI_plot.png", width = 8,
+ggsave("_sessions/GemischteModelle/image/subj_RI_plot.png", width = 8,
        height = 5, device = "png", dpi = 600)
 
 # Movie Random Intercepts only plot -----------
 dat_plot + geom_point(aes(y = mov_RI), shape = 17, col = "#EA4B68",
                       size = g_size)
-ggsave("_sessions/MixedModels/image/mov_RI_plot.png", width = 8,
+ggsave("_sessions/GemischteModelle/image/mov_RI_plot.png", width = 8,
        height = 5, device = "png", dpi = 600)
 
 
 # Subject Random Intercepts and Slopes plot -----------
 dat_plot + geom_point(aes(y = subj_RI_RS), shape = 17, col = "#EA4B68",
                       size = g_size)
-ggsave("_sessions/MixedModels/image/subj_RI_RS_plot.png", width = 8,
+ggsave("_sessions/GemischteModelle/image/subj_RI_RS_plot.png", width = 8,
        height = 5, device = "png", dpi = 600)
 
 # Movie Random Intercepts and Slopes plot -----------
 dat_plot + geom_point(aes(y = mov_RI_RS), shape = 17, col = "#EA4B68",
                       size = g_size)
-ggsave("_sessions/MixedModels/image/mov_RI_RS_plot.png", width = 8,
+ggsave("_sessions/GemischteModelle/image/mov_RI_RS_plot.png", width = 8,
        height = 5, device = "png", dpi = 600)
 
 # Crossed Random Intercepts and Slopes plot -----------
 dat_plot + geom_point(aes(y = cr_RI_RS), shape = 17, col = "#EA4B68",
                       size = g_size)
-ggsave("_sessions/MixedModels/image/cr_RI_RS_plot.png", width = 8,
+ggsave("_sessions/GemischteModelle/image/cr_RI_RS_plot.png", width = 8,
        height = 5, device = "png", dpi = 600)
 
 

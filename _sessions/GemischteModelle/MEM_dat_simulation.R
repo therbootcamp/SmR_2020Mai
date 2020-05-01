@@ -60,14 +60,15 @@ simdat$Tomatometer <- as.vector(response[,1])
 
 # write_csv(simdat, "_sessions/MixedModels/Tomatometer_dat.csv")
 # saveRDS(simdat, "_sessions/MixedModels/Tomatometer_dat.RDS")
-simdat <- readRDS("_sessions/MixedModels/Tomatometer_dat.RDS")
-model1<-lmer(Tomatometer ~ State + (State|ID) + (State|Movie), data=simdat)
+simdat <- read_csv("_sessions/GemischteModelle/1_Data/tomatometer.csv") %>%
+  mutate(zustand = factor(zustand, levels = c("nuechtern", "betrunken"), labels = c("Nüchtern", "Betrunken")))
+model1<-lmer(tomatometer ~ zustand + (zustand|id) + (zustand|film), data=simdat)
 summary(model1)
 
 m_line <- fixef(model1)
 
 # visualize model fit
-fittednorms<-ranef(model1)$ID[,1:2]
+fittednorms<-ranef(model1)$id[,1:2]
 fittednorms[,1]<-fittednorms[,1]+getME(model1,"beta")[1]
 fittednorms[,2]<-fittednorms[,2]+getME(model1,"beta")[2]
 colnames(fittednorms)<-c("intercept","slope")
@@ -75,7 +76,7 @@ colnames(fittednorms)<-c("intercept","slope")
 set.seed(25)
 rand10<-sample(1:N.ind, 15, replace = FALSE)
 
-plot1<-ggplot(simdat,aes(State, Tomatometer))+
+plot1<-ggplot(simdat,aes(zustand, tomatometer))+
   geom_point(colour= "#606061", alpha = .15, size = 2.5)+
   # geom_segment(aes(x = 1, y = intercept,xend=2, yend=intercept+slope ),
   #              data=fittednorms,colour = "gray85", size = 1)+
@@ -85,6 +86,7 @@ plot1<-ggplot(simdat,aes(State, Tomatometer))+
   geom_segment(aes(x = 1, y = m_line[1], xend = 2, yend = sum(m_line)),
                data=fittednorms[rand10,],colour = "black", size = 2,
                alpha = 1)+
+  labs(x = "Zustand", y = "Tomatometer") +
   theme(axis.title.x=element_text(vjust=-1),axis.title.y=element_text(vjust=1)) +
   theme_bw() +
   ylim(0, 100) +
@@ -96,17 +98,17 @@ plot1<-ggplot(simdat,aes(State, Tomatometer))+
 
 plot1
 
-ggsave("_sessions/MixedModels/image/MEM_example.png", width = 8,
+ggsave("_sessions/GemischteModelle/image/MEM_example.png", width = 8,
        height = 5, device = "png", dpi = 600)
 
 
-model1<-lmer(Tomatometer ~ State + (1|ID) + (1|Movie), data=simdat)
+model1<-lmer(tomatometer ~ zustand + (1|id) + (1|film), data=simdat)
 summary(model1)
 
 m_line <- fixef(model1)
 
 # visualize model fit
-fittednorms<-ranef(model1)$ID
+fittednorms<-ranef(model1)$id
 fittednorms<-fittednorms+getME(model1,"beta")[1]
 fittednorms$slope<-getME(model1,"beta")[2]
 colnames(fittednorms)<-c("intercept","slope")
@@ -115,7 +117,7 @@ N.ind<-200
 set.seed(25)
 rand10<-sample(1:N.ind, 25, replace = FALSE)
 
-plot1<-ggplot(simdat,aes(State, Tomatometer))+
+plot1<-ggplot(simdat,aes(zustand, tomatometer))+
   geom_point(colour= "#606061", alpha = .15, size = 2.5)+
   # geom_segment(aes(x = 1, y = intercept,xend=2, yend=intercept+slope ),
   #              data=fittednorms,colour = "gray85", size = 1)+
@@ -125,6 +127,7 @@ plot1<-ggplot(simdat,aes(State, Tomatometer))+
   geom_segment(aes(x = 1, y = m_line[1], xend = 2, yend = sum(m_line)),
                data=fittednorms[rand10,],colour = "black", size = 2,
                alpha = 1)+
+  labs(x = "Zustand", y = "Tomatometer") +
   theme(axis.title.x=element_text(vjust=-1),axis.title.y=element_text(vjust=1)) +
   theme_bw() +
   ylim(0, 100) +
@@ -136,7 +139,7 @@ plot1<-ggplot(simdat,aes(State, Tomatometer))+
 
 plot1
 
-ggsave("_sessions/MixedModels/image/RI_example.png", width = 8,
+ggsave("_sessions/GemischteModelle/image/RI_example.png", width = 8,
        height = 5, device = "png", dpi = 600)
 
 
