@@ -303,7 +303,7 @@ subj_RI_RS_mod &lt;- lmer(formula = XXX ~ XXX + # Feste Effekte
                       REML = FALSE)</code></pre>
 <ol start="11" style="list-style-type: decimal">
 <li><p>Vergleiche die Outputs der drei bisherigen Modelle miteinander. Verwende dazu die <code>summary()</code> Funktion. Haben sich die Koeffizienten verändert? Was hat sich verändert?</p></li>
-<li><p>Jeder Film wurde in beiden Zuständen Bewertet. Wir haben also nicht nur Abhängigkeiten in den Daten der Rater, sondern auch der Filme. Um für diese Abhängigkeit zu kontrollieren, können wir unser Modell aus der Aufgabe B10 mit weiteren zufälligen Effekten ausbauen. Füge Random Intercepts über <code>film</code> und Random Slopes für <code>zustand</code> über <code>film</code> zum Modell hinzu. <strong>Hinweis</strong>: Das zusätzliche Argument spezifiert einen anderen Optimisierungsalgorithmus, mithilfe dessen das Modell konvergiert. Die details sollen uns für den Moment nicht kümmern; wir freuen uns einfach, dass das Modell konvergiert.</p></li>
+<li><p>Jeder Film wurde in beiden Zuständen Bewertet. Wir haben also nicht nur Abhängigkeiten in den Daten der Rater, sondern auch der Filme. Um für diese Abhängigkeit zu kontrollieren, können wir unser Modell aus der Aufgabe B10 mit weiteren zufälligen Effekten ausbauen. Füge Random Intercepts über <code>film</code> und Random Slopes für <code>zustand</code> über <code>film</code> zum Modell hinzu. <strong>Hinweis</strong>: Das zusätzliche Argument spezifiert einen anderen Optimierungsalgorithmus, mithilfe dessen das Modell konvergiert. Die details sollen uns für den Moment nicht kümmern; wir freuen uns einfach, dass das Modell konvergiert.</p></li>
 </ol>
 <pre class="r"><code># Gemischtes Modell mit random intercepts über ids und random slopes für zustand
 # über ids, sowie random intercepts über film und random slopes für zustand über 
@@ -312,7 +312,7 @@ max_mod &lt;- lmer(formula = XXX ~ XXX + # Feste Effekte
                (XXX|XXX) + (XXX|XXX), # Zufällige Effekte
                data = XXX,            # Daten
                REML = FALSE,
-               control = lmerControl(optimizer = &quot;bobyqa&quot;)) # Optimisierungsalgorithmus</code></pre>
+               control = lmerControl(optimizer = &quot;bobyqa&quot;)) # Optimierungsalgorithmus</code></pre>
 <ol start="13" style="list-style-type: decimal">
 <li><p>Mit der <code>check_convergence()</code> Funktion des <code>performance</code> Paket können wir überprüfen, ob ein Modell konvergiert ist. Wenn die Funktion <code>TRUE</code> zurückgibt, ist alles in Ordnung. Teste, ob <code>max_mod</code> konvergiert ist.</p></li>
 <li><p><code>max_mod</code> ist das <em>maximale, vom Design gerechtfertigten Modell</em>. Was heisst das? Weshalb macht es Sinn, dieses Modell zu spezifizieren?</p></li>
@@ -390,7 +390,7 @@ RI_mod &lt;- lmer(formula = XXX ~ XXX +  # Feste Effekte
               (1|XXX) + (1|XXX),      # Zufällige Effekte
               data = XXX,             # Daten
               REML = FALSE,
-              control = lmerControl(optimizer = &quot;bobyqa&quot;)) # Optimisierungsalgorithmus</code></pre>
+              control = lmerControl(optimizer = &quot;bobyqa&quot;)) # Optimierungsalgorithmus</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li><p>Überprüfe mit der <code>check_convergence()</code> Funktion ob <code>RI_mod</code> konvergiert ist.</p></li>
 <li><p>Führe mit der <code>anova()</code> Funktion einen LRT durch, indem du beide Modellouputs als Argumente spezifizierst. Ist der Unterschied signifikant? What heisst das?</p></li>
@@ -402,7 +402,7 @@ anova(XXX, XXX)</code></pre>
 <h4>Konfidenzintervall</h4>
 <p>Diese Methode ist berechnet keinen p-Wert, sondern die Konfidenzintervalle um die Parameter. Dann testen wir, ob 0 in Konfidenzintervallen enthalten ist. Falls nicht, betrachten wir die jeweiligen Zusammenhänge als signifikant.</p>
 <ol start="6" style="list-style-type: decimal">
-<li>Zur Berechnung von Konfidenzintervallen verwenden wir die <code>confint()</code> Funktion des <code>lme4</code> Pakets. Berechne damit die Konfidenzintervalle von <code>max_mod</code> und speichere den Output als <code>ci_mod</code>. <strong>Achtung</strong>: Das Berechnen der Konfidenzintervalle dauert eine Weile.</li>
+<li>Zur Berechnung von Konfidenzintervallen verwenden wir die <code>confint()</code> Funktion des <code>lme4</code> Pakets. Berechne damit die Konfidenzintervalle von <code>RI_mod</code> und speichere den Output als <code>ci_mod</code>. <strong>Achtung</strong>: Das Berechnen der Konfidenzintervalle dauert eine Weile.</li>
 </ol>
 <pre class="r"><code># Berechne Konfidenzintervalle für die festen Effekte
 ci_mod &lt;- confint(XXX)</code></pre>
@@ -413,14 +413,15 @@ ci_mod &lt;- confint(XXX)</code></pre>
 <div id="weitere-tests" class="section level4">
 <h4>Weitere Tests</h4>
 <ol start="8" style="list-style-type: decimal">
-<li>Weitere Möglichkeiten p-Werte zu erhalten sind das Anschauen der t-Werte (t &gt; 2 kann als Signifikanz interpretiert werden) oder einen <a href="https://en.wikipedia.org/wiki/Wald_test">Wald test</a> mit der <code>p_value()</code> Funktion des <code>parameters</code> Pakets. Berechne mit <code>p_value()</code> die p-Werte von <code>max_mod</code>.</li>
+<li>Weitere Möglichkeiten p-Werte zu erhalten sind das Anschauen der t-Werte (t &gt; 2 kann als Signifikanz interpretiert werden) oder einen <a href="https://en.wikipedia.org/wiki/Wald_test">Wald test</a> mit der <code>p_value()</code> Funktion des <code>parameters</code> Pakets. Berechne mit <code>p_value()</code> die p-Werte von <code>RI_mod</code>.</li>
 </ol>
 <pre class="r"><code># Berechne p-Werte für die festen Effekte
 p_value(XXX)</code></pre>
 <ol start="9" style="list-style-type: decimal">
-<li><p>Statt einem Wald test wird auch die <a href="https://www.jstatsoft.org/article/view/v059i09">Kenward-Roger Approximation</a> empfohlen. Um die p-Werte mit dieser Methode zu berechnen, können wir in der <code>p_value()</code> Funktion <code>method = &quot;kenward&quot;</code> setzen. Wiederhole die vorherige Aufgabe mit der Kenward-Roger Approximation.</p></li>
-<li><p>Vergleiche die p-Werte der letzten beiden Aufgaben. Hat sich etwas geändert?</p></li>
+<li>Statt einem Wald test wird auch die <a href="https://www.jstatsoft.org/article/view/v059i09">Kenward-Roger Approximation</a> empfohlen. Um die p-Werte mit dieser Methode zu berechnen, können wir in der <code>p_value()</code> Funktion <code>method = &quot;kenward&quot;</code> setzen. Da dies aber sehr lange dauern kann, musst du diese Aufgabe nicht ausführen.</li>
 </ol>
+<pre class="r"><code># Berechne p-Werte für die festen Effekte
+p_value(RI_mod, method = &quot;kenward&quot;)</code></pre>
 </div>
 </div>
 <div id="f---signifikanz-von-zufälligen-effekten-modellselektion" class="section level3">
@@ -458,7 +459,7 @@ con_mod &lt;- lmer(formula = XXX ~ XXX +   # Feste Effekte
                (XXX||XXX) + (XXX||XXX), # Zufällige Effekte
                data = XXX,              # Daten
                REML = FALSE,
-               control = lmerControl(optimizer = &quot;bobyqa&quot;)) # Optimisierungsalgorithmus</code></pre>
+               control = lmerControl(optimizer = &quot;bobyqa&quot;)) # Optimierungsalgorithmus</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li><p>Überprüfe mit <code>check_convergence()</code> ob das Modell konvergiert ist.</p></li>
 <li><p>Dieses Modell ist nicht konvergiert. Das kann passieren und es ist nicht immer einfach herauszufinden, weshalb ein Modell nicht konvergiert. Eine weiterführende Möglichkeit ist, Baysianische Methoden mit MCMC sampling zu verwenden (zum Beispiel mit dem <code>rstanarm</code> Paket), und zu schauen ob dieses Modell konvergiert. Wir beschränken uns hier aber auf frequentistische Analysen und werden hier daher nicht weiter forschen. In der Praxis kann es aber durchaus Sinn machen, weiter zu untersuchen, ob man das Modell mit einer anderen Methode zum konvergieren bringt. Um die Übung fortsetzen zu können, tun wir für den Moment so, als ob das Modell konvergiert wäre.</p></li>
@@ -489,7 +490,7 @@ kW &lt;- qchisq(1 - alpha, df = 2) # bestimme den kritischen Wert, ab dem ein Un
 </ol>
 <pre class="r"><code>?PBmodcomp</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Benutze nun die <code>PBmodcomp()</code> Funktion um p-Werte für das Modell zu erhalten. Du wirst dazu ein weniger komplexes Modell spezifizieren müssen, gegen welches getestet werden soll. Benutze dazu <code>IO_mod</code>. Da dieses Vorgehen ziemlich lange dauern kann, benutze hier nur 100 Simulationen.</li>
+<li>Benutze nun die <code>PBmodcomp()</code> Funktion um p-Werte für das Modell zu erhalten. Du wirst dazu ein weniger komplexes Modell spezifizieren müssen, gegen welches getestet werden soll. Benutze dazu <code>IO_mod</code>. Da dieses Vorgehen ziemlich lange dauern kann, benutze hier nur 50 Simulationen (setze diese Zahl höher, wenn du tatsächliche Analysen durchführst).</li>
 </ol>
 <pre class="r"><code># Führe parametrisches Bootstrapping durch
 pb_mod &lt;- PBmodcomp(largeModel = XXX, 
@@ -501,12 +502,10 @@ pb_mod &lt;- PBmodcomp(largeModel = XXX,
 </div>
 <div id="intra-klassen-korrelation-icc" class="section level4">
 <h4>Intra-Klassen Korrelation (ICC)</h4>
-<p>Die intra-Klassen Korrelation (ICC) ist “der Anteil der durch die in der Population vorhandenen Gruppenstruktur erklärten Varianz” (Hox, 2002, S. 15). Es wird berechnet, indem die Zwischengruppenvarianz durch die Summer der Innergruppen- und der Zwischengruppenvarianz (d.h., die totale Varianz) geteilt wird.</p>
+<p>Die intra-Klassen Korrelation (ICC) ist “der Anteil der durch die in der Population vorhandenen Gruppenstruktur erklärten Varianz” (Hox, 2002, S. 15). Es wird berechnet, indem die Zwischengruppenvarianz durch die Summe der Innergruppen- und der Zwischengruppenvarianz (d.h., die totale Varianz) geteilt wird.</p>
 <ol style="list-style-type: decimal">
-<li><p>Berechne die ICC des Maximalmodells mit der <code>icc()</code> Funktion aus dem <code>sjstats</code> Paket.</p></li>
-<li><p>Schaue dir das Ergebnis an. Hast du die Warnung bemerkt? Diese erschien, da die ICC nicht in derselben Weise interpretiert werden kann wie Random Slopes und Intercepts Modelle. Behebe die Warnung, indem du das Argument <code>adjusted = TRUE</code> in der <code>icc()</code> Funktion anfügst.</p></li>
-<li><p>Schaue dir die <code>icc()</code> Hilfe-Seite an, um zu verstehen, was das Anfügen des <code>adjusted = TRUE</code> Arguments bewirkt hat.</p></li>
-<li><p>Oft wir dei ICC baierend auf dem Reine Intercepts-Modell mit Random Intercepts berechnet. In Aufgabe C1 hast du dieses Modell bereits gerechnet und unter <code>IO_mod</code> abgespeichert. Berechne nun die ICC für dieses Modell. <strong>Tipp</strong>: Hier brauchst du das <code>adjusted</code> Argument nicht, da keine Random Slopes enthalten sind.</p></li>
+<li><p>Berechne die ICC des Maximalmodells mit der <code>icc()</code> Funktion aus dem <code>performance</code> Paket.</p></li>
+<li><p>Oft wird ein ICC basierend auf dem reinen Intercepts-Modell mit Random Intercepts berechnet. In Aufgabe C1 hast du dieses Modell bereits gerechnet und unter <code>IO_mod</code> abgespeichert. Berechne nun die ICC für dieses Modell.</p></li>
 <li><p>Jetzt mache dasselbe für das Modell <code>RI_mod</code>, welches vom Modell <code>IO_mod</code>, welches du gerade benutzt hast, nur dadurch abweicht, dass es feste Effekte enthält.</p></li>
 <li><p>Vergleiche die Ergebnisse der beiden letzten Aufgaben. Hat sich etwas verändert? Überlege dir, was diese Änderungen zu bedeuten haben.</p></li>
 </ol>
@@ -516,7 +515,7 @@ pb_mod &lt;- PBmodcomp(largeModel = XXX,
 <p>Bisher haben wir uns ausschliesslich mit gekreuzten zufälligen Effekten beschäftigt. Nun werden wir uns auch Daten mit <em>geschachtelten zufälligen Effekten</em> anschauen, wo jedes Level eines geschachtelten Faktors nur innerhalb eines einzigen Levels eines übergeordneten Faktors auftritt. Ein beliebtes Beispiel dafür ist der Fall von Klassen innerhalb von Schulen. Jede Klasse ist nur Teil einer einzigen Schule, deshalb sind hier die Klassen geschachtelt innerhalb der Schulen.</p>
 <p>Um herauszufinden, ob zufällige Effekte gekreuzt oder geschachtelt sind, musst du normalerweise etwas über das Studiendesign wissen, da die Struktur oft nicht einfach aus den Faktor-Levels ersichtlich ist. In unserem Beispiel der Klassen geschachtelt in Schulen wäre ein potentiell problemantischer Fall beispielsweise die Bezeichnung der Klassen durch Nummerierung <em>innerhalb</em> der Schulen statt über alle Schulen hinweg. Zum Beispiel enthielte Schule 1 Klassen 1 bis 10 und Schule 2 Klassen 1 bis 6. Natürlich ist dann Klasse 1 der Schule 1 nicht dieselbe wie Klasse 1 der Schule 2. Was jedoch für dich offensichtich erscheinen mag, ist nicht offensichtlich für R. R weiss nichts über die Konzepte von Schulen und Klassen, deshalb muss du ihm sagen, ob die Faktoren geschachtelt sind oder nicht, indem du die entsprechende Syntax in der Formel verwendest. Jetzt stelle dir den Fall vor, wo Klassen in Schulen geschachtelt sind, nun aber über alle Schulen hinweg nummeriert sind, also von 1 bis zur totalen Anzahl an Klassen im Datensatz. Somit hat jede Klasse eine eindeutige Bezeichnung. Ist dies der Fall, spielt es keine Rolle wie du die Struktur spezifizierst.</p>
 <ol style="list-style-type: decimal">
-<li>Wir werden nun mit dem <code>school</code> Datensatz arbeiten, welchen du bereits in Abschnitt A geladen hast. Erstelle unter Verwendung der <code>table()</code> Funktion eine Kreuztabelle von Schulen und Klassen.</li>
+<li>Für diese Aufgaben arbeitest du mit dem <code>school</code> Datensatz, welchen du bereits in Abschnitt A geladen hast. Erstelle unter Verwendung der <code>table()</code> Funktion eine Kreuztabelle von Schulen und Klassen.</li>
 </ol>
 <pre class="r"><code>table(XXX, XXX)</code></pre>
 <ol start="2" style="list-style-type: decimal">
@@ -532,7 +531,7 @@ pb_mod &lt;- PBmodcomp(largeModel = XXX,
 <div id="mehr-zur-auswahl-zufälliger-effekte" class="section level4">
 <h4>Mehr zur Auswahl zufälliger Effekte</h4>
 <ol style="list-style-type: decimal">
-<li><p>In Aufgabe D6 haben wir herausgefunden, dass das eingeschränkte Modell, in welchem die Korrelationen zwischen den zufälligen Effekten auf Null gesetzt werden, nicht signifikant schlechter war als das maximale Modell. Wenn du also eine konfirmatorische Hypothese testen würdest, solltest du dieses Modell anstelle des maximalen Modells annehmen. Wir haben in dieser Aufgabe die Rückwärtselimination aber nicht weitergeführt. Dies wollen wir hier nachholen. Rechne nun ein Modell mit Random Intercepts und Slopes über die Rater, jedoch ohne Korrelationen dazwischen, und mit Random Intercepts über die Filme.</p></li>
+<li><p>In Aufgabe D6 hast du herausgefunden, dass das eingeschränkte Modell, in welchem die Korrelationen zwischen den zufälligen Effekten auf Null gesetzt werden, nicht signifikant schlechter war als das maximale Modell. Wenn du also eine konfirmatorische Hypothese testen würdest, solltest du dieses Modell anstelle des maximalen Modells annehmen. Wir haben in dieser Aufgabe die Rückwärtselimination aber nicht weitergeführt. Dies wollen wir hier nachholen. Rechne nun ein Modell mit Random Intercepts und Slopes über die Rater, jedoch ohne Korrelationen dazwischen, und mit Random Intercepts über die Filme.</p></li>
 <li><p>Führe nun das Vorgehen aus Abschnitt D durch um herauszufinden welches der beiden Modelle beibehalten werden sollte. <strong>Hinweis</strong>: Das Argument <code>df</code> in der <code>qchisq()</code> Funktion wird auf <code>df = 1</code> gesetzt, da diese beiden Modelle sich um nur einen Freiheitsgrad unterscheiden.</p></li>
 <li><p>Zu welcher Schlussfolgerung bist du gelangt? Welches Modell sollten wir beibehalten?</p></li>
 </ol>
@@ -541,7 +540,7 @@ pb_mod &lt;- PBmodcomp(largeModel = XXX,
 <h4>Generalisierte lineare gemischte Modelle</h4>
 <ol style="list-style-type: decimal">
 <li><p>Nun werden wir uns generalisierte lineare gemischte Modelle anschauen. Lade dazu den Datensatz <code>cancer_remission.csv</code> und speichere ihn unter <code>cr</code>.</p></li>
-<li><p>Schaue dir die Daten an. Es handelt sich um einen Teil von simulierten Daten von <a href="https://stats.idre.ucla.edu/">UCLA Institute for Digital Research and Education Search this website</a>.</p></li>
+<li><p>Schaue dir die Daten an. Es handelt sich um einen Teil von simulierten Daten von <a href="https://stats.idre.ucla.edu/">UCLA Institute for Digital Research and Education Search</a>.</p></li>
 <li><p>Sage die Krebsremissionsrate (<code>remission</code>) durch das Krebsstadium (<code>CancerStage</code>), die Dauer des Patientenaufenthalts (<code>LengthofStay</code>), die Erfahrung des Arztes (<code>Experience</code>), und durch random intercepts über die Ärzte (<code>DID</code>) vorher. Benutze dazu die <code>glmer</code> Funktion mit <code>family = binomial</code>. Benutze auch hier, wie schon in früheren Aufgaben, den “bobyqa” Optimizer.</p></li>
 </ol>
 <pre class="r"><code>cr_mod &lt;- glmer(formula = XXX ~ XXX + XXX + XXX +
@@ -554,7 +553,7 @@ pb_mod &lt;- PBmodcomp(largeModel = XXX,
 <li><p>Schaue dir die Ergebnisse an.</p></li>
 <li><p>Extrahiere den <span class="math inline">\(R^2\)</span> Wert für dieses Modell mit der <code>r2()</code>.</p></li>
 </ol>
-<p><strong>Hinweis</strong>: Generalisierte lineare gemischte Modelle zu rechnen und zu interpretieren kann ziemlich anspruchsvoll sein und uns fehlt hier die Zeit, diese detaillierter zu behandeln. Falls du mehr darüber wissen möchtest, kannst du dir dieses Tutorial <a href="https://stats.idre.ucla.edu/other/mult-pkg/introduction-to-generalized-linear-mixed-models/">tutorial</a> oder die Referenzen unter Ressourcen genauer anschauen.</p>
+<p><strong>Hinweis</strong>: Generalisierte lineare gemischte Modelle zu rechnen und zu interpretieren kann ziemlich anspruchsvoll sein und uns fehlt hier die Zeit, diese detaillierter zu behandeln. Falls du mehr darüber wissen möchtest, kannst du dir dieses <a href="https://stats.idre.ucla.edu/other/mult-pkg/introduction-to-generalized-linear-mixed-models/">Tutorial</a> oder die Referenzen unter Ressourcen genauer anschauen.</p>
 </div>
 </div>
 </div>

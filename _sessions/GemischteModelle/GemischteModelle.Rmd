@@ -59,6 +59,7 @@ layout: true
 ```
 
 ```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 options(htmltools.dir.version = FALSE)
 # see: https://github.com/yihui/xaringan
 # install.packages("xaringan")
