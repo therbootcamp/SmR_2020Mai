@@ -17,7 +17,7 @@ author: "Statistik mit R<br>
   <a href='https://www.linkedin.com/company/basel-r-bootcamp/'>
     <i class='fab fa-linkedin' style='font-size: .9em;'></i>
   </a>"
-date: "März 2020"
+date: "Mai 2020"
 output:
   xaringan::moon_reader:
     css: ["default", "baselrbootcamp.css"]
@@ -45,7 +45,7 @@ layout: true
     </a>
     <a href="https://therbootcamp.github.io/">
       <font color="#7E7E7E">
-       Statistik mit R | März 2020
+       Statistik mit R | Mai 2020
       </font>
     </a>
     </span>
@@ -76,623 +76,992 @@ baselers <- readr::read_csv("1_Data/baselers.csv")
 source("../../_materials/palette/therbootcamp_palettes.R")
 colors = baselrbootcamp_colors
 
-knitr::opts_chunk$set(dpi = 300, echo = FALSE, warning = FALSE, fig.align = 'center')
+knitr::opts_chunk$set(dpi = 300, echo = FALSE, warning = FALSE, fig.align = 'center', message= FALSE)
 ```
 
 
-# Linear Models
+# Lineare Modelle
 
-.pull-left5[
+.pull-left4[
 
-Linear models are, by far, <high>the most important models in all of statistics</high>.
-
-Many statistical tests you may know of are special types of linear models.
-
-Why are linear models so great?
-
-- They are <high>easy to interpret</high>.
-- They can <high>approximate non-linear</high> data well.
-- They are <high>easy to calculate</high> and implement (just addition and multiplication!).
-- They <high>just work</high>!
+<ul>
+  <li class="m1"><span>Die <high>meisten inferenzstatitischen Tests</high> gehören zur Klasse der linearen Modelle.</span></li>
+  <li class="m2"><span>Beispiele</span></li>
+  <ul class="level">
+    <li><span><high>Regression</high></li></span>
+    <li><span><high>t-Test<high></li></span>
+    <li><span><high>Varianzanalyse (ANOVA)</high></li></span>
+    <li><span>Mediationsanalyse</li></span>
+    <li><span>Faktorenanalyse</li></span>
+    <li><span>Strukturgleichungsmodelle</li></span>
+  </ul>
+</ul>
 
 ]
 
-.pull-right45[
+.pull-righ5[
 
+<p align = "center">
+  <img src="image/linear.png" ><br>
+  <font style="font-size:10px">from <a href="https://lifehacker.com/four-common-statistical-misconceptions-you-should-avoid-906056582">lifehacker.com</a></font>
+</p>
 
-cartoon
 
 ]
 
 ---
 
-# Zusammenhänge
+# Korrelation
+
+.pull-left4[
+
+<ul>
+  <li class="m1"><span>Korrelationsmasse drücken aus, <high>wie stark Veränderungen</high> in einer Variable <high>mit Veränderungen</high> in einer anderen Variable <high>einhergehen</high>.</span></li>
+  <li class="m2"><span>Beispiele</span></li>
+  <ul class="level">
+    <li><span><high>Produkt-Moment Korrelation</high></span></li>
+    <li><span>Rangkorrelation</span></li>
+    <li><span>Phi-koeffizient</span></li>
+  </ul>
+</ul>
+
+<br>
+
+$$\large r_{xy} = \frac{\sum_i (x_i - \bar{x})(y_i - \bar{y})}{(n-1)s_xs_y}$$
 
 
-simple zusammenhänge
+]
 
-Korrelationscoeffizient
+
+
+.pull-right5[
+
+```{r, echo = FALSE, fig.width = 3.5, fig.height = 3}
+
+library(tidyverse) ; library(ggrepel)
+
+# Lade Tourismus Daten
+tour <- read_csv('1_Data/Tourismus.csv') 
+europa <- read_csv('1_Data/Europa.csv') 
+
+# Berechne Nächte per Region
+tour %>%
+  mutate(Nächte = Besucher * Dauer) %>%
+  left_join(europa) %>%
+  ggplot(aes(x = Äquivalenzeinkommen, 
+             y = Nächte,
+             label = Land)) +
+  scale_y_continuous(trans = 'log2') + 
+  geom_label_repel(size = 1.6, label.padding = 0.1) +
+  geom_point() +
+  theme_bw() 
+
+```
+
+]
+
+---
+
+# Korrelation
+
+.pull-left4[
+
+<ul>
+  <li class="m1"><span>Korrelationsmasse drücken aus, <high>wie stark Veränderungen</high> in einer Variable <high>mit Veränderungen</high> in einer anderen Variable <high>einhergehen</high>.</span></li>
+  <li class="m2"><span>Beispiele</span></li>
+  <ul class="level">
+    <li><span><high>Produkt-Moment Korrelation</high></span></li>
+    <li><span>Rangkorrelation</span></li>
+    <li><span>Phi-koeffizient</span></li>
+  </ul>
+</ul>
+
+<br>
+
+$$\large r_{xy} = \frac{\sum_i (x_i - \bar{x})(y_i - \bar{y})}{(n-1)s_xs_y}$$
+
+
+]
+
+
+
+.pull-right5[
+
+```{r, echo = FALSE, fig.width = 3.5, fig.height = 3}
+
+library(tidyverse) ; library(ggrepel)
+
+# Lade Tourismus Daten
+tour <- read_csv('1_Data/Tourismus.csv') 
+europa <- read_csv('1_Data/Europa.csv') 
+
+# Berechne Nächte per Region
+d = tour %>%
+  mutate(Nächte = Besucher * Dauer) %>%
+  left_join(europa)
+
+
+ggplot(d, 
+       aes(x = Äquivalenzeinkommen, 
+           y = Nächte,
+           label = Land)) +
+  scale_y_continuous(trans = 'log2') + 
+  geom_hline(yintercept=mean(d$Nächte),col='#EA4B68',size=1) +
+  geom_vline(xintercept=mean(d$Äquivalenzeinkommen, na.rm=T),col='#EA4B68',size=1) +
+  geom_point() +
+  annotate("text",x = mean(d$Äquivalenzeinkommen,na.rm=T)+900,y = 10,label=expression(bar(x)),size=5) +
+  annotate("text",y = mean(d$Nächte,na.rm=T)+600,x = 5000,label=expression(bar(y)),size=5) +
+  theme_bw()
+
+```
+
+]
+
+---
+
+# Lineare regression
+
+.pull-left4[
+
+
+<ul>
+  <li class="m1"><span>Die lineare regression ist eine <high>gerichtete Zusammenhangsanalyse</high>.</span></li>
+  <li class="m2"><span>Ein <high>Kriterium</high> soll durch einen (einfach) oder mehrere (multiple) <high>Prädiktoren</high> modelliert werden.</span></li>
+  <li class="m3"><span>Getestet wird ob und wie sehr der Prädiktor / die Prädiktoren <high>das Kriterium erklären</high>.</span></li>
+  </ul>
+</ul>
+
+]
+
+
+.pull-righ5[
+
+<p align = "center">
+  <img src="image/linear.png" ><br>
+  <font style="font-size:10px">from <a href="https://lifehacker.com/four-common-statistical-misconceptions-you-should-avoid-906056582">lifehacker.com</a></font>
+</p>
+
+
+]
+
+---
+
+# Einfache lineare regression
+
+.pull-left4[
+
+
+<ul>
+  <li class="m1"><span>Wie gut sagt <high>eine lineare Funktion des Prädiktors (x)</high> das Krierium (y) vorher?</span></li>
+  <li class="m2"><span>Parameter:</span></li>
+  <ul class="level">
+    <li><span>&beta;<sub>0</sub>: <high>Intercept</high> oder y-Achsenabschnitt</span></li>
+    <li><span>&beta;<sub>0</sub>: <high>Slope</high> oder Steigung</span></li>
+  </ul>
+</ul>
+
+<br>
+
+$$\Large \hat{y} = b_0 + b_1  * x$$
+
+]
+
+.pull-right5[
+
+```{r, echo = FALSE, fig.width = 3.5, fig.height = 3}
+
+library(tidyverse) ; library(ggrepel)
+
+# Lade Tourismus Daten
+tour <- read_csv('1_Data/Tourismus.csv') 
+europa <- read_csv('1_Data/Europa.csv') 
+
+# Berechne Nächte per Region
+d = tour %>%
+  mutate(Nächte = Besucher * Dauer) %>%
+  left_join(europa)
+
+m = coef(lm(log2(Nächte) ~ Äquivalenzeinkommen, data = d))
+
+ggplot(d, 
+       aes(x = Äquivalenzeinkommen, 
+           y = Nächte,
+           label = Land)) +
+  scale_y_continuous(trans = 'log2') + 
+  #geom_hline(yintercept=mean(d$Nächte),col='#EA4B68',size=1) +
+  #geom_vline(xintercept=mean(d$Äquivalenzeinkommen, na.rm=T),col='#EA4B68',size=1) +
+  geom_point() +
+  geom_abline(intercept = m[1], slope = m[2], col = '#EA4B68', size = 1.5) + 
+  #annotate("text",x = mean(d$Äquivalenzeinkommen,na.rm=T)+900,y = 10,label=expression(bar(x)),size=5) +
+  #annotate("text",y = mean(d$Nächte,na.rm=T)+600,x = 5000,label=expression(bar(y)),size=5) +
+  theme_bw()
+
+```
+
+]
+
+---
+
+# Einfache lineare regression
+
+.pull-left4[
+
+
+<ul>
+  <li class="m1"><span>Wie gut sagt <high>eine lineare Funktion des Prädiktors (x)</high> das Krierium (y) vorher?</span></li>
+  <li class="m2"><span>Parameter:</span></li>
+  <ul class="level">
+    <li><span>&beta;<sub>0</sub>: <high>Intercept</high> oder y-Achsenabschnitt</span></li>
+    <li><span>&beta;<sub>1</sub>: <high>Slope</high> oder Steigung</span></li>
+  </ul>
+</ul>
+
+<br>
+
+$$\Large \hat{Nächte} = b_0 + b_1  * Äquiv.eink.$$
+
+]
+
+.pull-right5[
+
+```{r, echo = FALSE, fig.width = 3.5, fig.height = 3}
+
+library(tidyverse) ; library(ggrepel)
+
+# Lade Tourismus Daten
+tour <- read_csv('1_Data/Tourismus.csv') 
+europa <- read_csv('1_Data/Europa.csv') 
+
+# Berechne Nächte per Region
+d = tour %>%
+  mutate(Nächte = Besucher * Dauer) %>%
+  left_join(europa)
+
+m = coef(lm(log2(Nächte) ~ Äquivalenzeinkommen, data = d))
+
+ggplot(d, 
+       aes(x = Äquivalenzeinkommen, 
+           y = Nächte,
+           label = Land)) +
+  scale_y_continuous(trans = 'log2') + 
+  #geom_hline(yintercept=mean(d$Nächte),col='#EA4B68',size=1) +
+  #geom_vline(xintercept=mean(d$Äquivalenzeinkommen, na.rm=T),col='#EA4B68',size=1) +
+  geom_point() +
+  geom_abline(intercept = m[1], slope = m[2], col = '#EA4B68', size = 1.5) + 
+  #annotate("text",x = mean(d$Äquivalenzeinkommen,na.rm=T)+900,y = 10,label=expression(bar(x)),size=5) +
+  #annotate("text",y = mean(d$Nächte,na.rm=T)+600,x = 5000,label=expression(bar(y)),size=5) +
+  theme_bw()
+
+```
+
+]
+
+
+---
+
+# Parameterschätzung
+
+.pull-left4[
+
+
+<ul>
+  <li class="m1"><span>Die <high>Parameter</high>, &beta;<sub>0</sub> und &beta;<sub>1</sub> müssen aus den Daten <high>geschätzt</high> werden.</span></li>
+  <li class="m2"><span>Die Schätzung basiert auf dem auf dem <high>Kleinsten-Quadrate Kriterium</high>.</span></li>
+  </ul>
+</ul>
+
+<br>
+
+$$\Large b_1 = r_{xy} \cdot \frac{s_y}{s_x}$$
+$$\Large b_0 = \bar{y} + b_1 \cdot \bar{x}$$
+
+]
+
+.pull-right5[
+
+```{r, echo = FALSE, fig.width = 3.5, fig.height = 3}
+
+library(tidyverse) ; library(ggrepel)
+
+# Lade Tourismus Daten
+tour <- read_csv('1_Data/Tourismus.csv') 
+europa <- read_csv('1_Data/Europa.csv') 
+
+# Berechne Nächte per Region
+d = tour %>%
+  mutate(Nächte = Besucher * Dauer) %>%
+  left_join(europa)
+
+m = coef(lm(log2(Nächte) ~ Äquivalenzeinkommen, data = d))
+
+ggplot(d, 
+       aes(x = Äquivalenzeinkommen, 
+           y = Nächte,
+           label = Land)) +
+  scale_y_continuous(trans = 'log2') + 
+  #geom_hline(yintercept=mean(d$Nächte),col='#EA4B68',size=1) +
+  #geom_vline(xintercept=mean(d$Äquivalenzeinkommen, na.rm=T),col='#EA4B68',size=1) +
+  geom_point() +
+  geom_abline(intercept = m[1], slope = m[2], col = '#EA4B68', size = 1.5) + 
+  #annotate("text",x = mean(d$Äquivalenzeinkommen,na.rm=T)+900,y = 10,label=expression(bar(x)),size=5) +
+  #annotate("text",y = mean(d$Nächte,na.rm=T)+600,x = 5000,label=expression(bar(y)),size=5) +
+  theme_bw()
+
+```
+
+]
+
+
+---
+
+# Residuen
+
+.pull-left4[
+
+
+<ul>
+  <li class="m1"><span>Die Residuen  &e; sind der <high>Fehler</high> den die Regreessionsfunktion in der <high>Vorhersage y&#x0302; des Kriteriums</high> macht.</span></li>
+  <li class="m2"><span>Mittels der Residuen kann die <high>Qualität der Vorhersage</high> evaluaiert werden.</span></li>
+  </ul>
+</ul>
+
+<br>
+
+$$\Large e = y - \hat{y}$$
+
+]
+
+.pull-right5[
+
+```{r, echo = FALSE, fig.width = 3.5, fig.height = 3}
+
+library(tidyverse) ; library(ggrepel)
+
+# Lade Tourismus Daten
+tour <- read_csv('1_Data/Tourismus.csv') 
+europa <- read_csv('1_Data/Europa.csv') 
+
+# Berechne Nächte per Region
+d = tour %>%
+  mutate(Nächte = Besucher * Dauer) %>%
+  left_join(europa) %>% 
+  filter(!is.na(Äquivalenzeinkommen))
+
+m = lm(log2(Nächte) ~ Äquivalenzeinkommen, data = d)
+
+ggplot(d, 
+       aes(x = Äquivalenzeinkommen, 
+           y = Nächte,
+           label = Land)) +
+  scale_y_continuous(trans = 'log2') + 
+  geom_segment(
+    aes(x = Äquivalenzeinkommen, xend = Äquivalenzeinkommen,
+        y = 2**predict(m), yend = Nächte), linetype=3) +
+  geom_point() +
+  geom_abline(intercept = coef(m)[1], slope = coef(m)[2], col = '#EA4B68', size = 1.5) + 
+  theme_bw()
+
+```
+
+]
+
+
+---
+
+# Kleinste-Quadrate Kriterium
+
+.pull-left4[
+
+
+<ul>
+  <li class="m1"><span>Die Qualität einer Regression wird über die <high>Summe der Quadrate der Residuen bestimmt</high>.</span></li>
+  <li class="m2"><span>Die Parameter <b>b</b>=[b<sub>0</sub>, b<sub>1</sub>] werden so gewählt, so dass die <high>Quadrate der Residuen minimal sind</high>.</span></li>
+  </ul>
+</ul>
+
+<br>
+
+$$\large \mathbf{b} = \underset{\mathbf{b}}{\operatorname{argmin}} \sum_i e_{\mathbf{b}}^2$$
+
+]
+
+.pull-right5[
+
+```{r, echo = FALSE, fig.width = 3.5, fig.height = 3}
+
+library(tidyverse) ; library(ggrepel)
+
+# Lade Tourismus Daten
+tour <- read_csv('1_Data/Tourismus.csv') 
+europa <- read_csv('1_Data/Europa.csv') 
+
+# Berechne Nächte per Region
+d = tour %>%
+  mutate(Nächte = Besucher * Dauer) %>%
+  left_join(europa) %>% 
+  filter(!is.na(Äquivalenzeinkommen))
+
+m = lm(log2(Nächte) ~ Äquivalenzeinkommen, data = d)
+
+ggplot(d, 
+       aes(x = Äquivalenzeinkommen, 
+           y = Nächte,
+           label = Land)) +
+  scale_y_continuous(trans = 'log2') + 
+  geom_segment(
+    aes(x = Äquivalenzeinkommen, xend = Äquivalenzeinkommen,
+        y = 2**predict(m), yend = Nächte), linetype=3) +
+  geom_point() +
+  geom_abline(intercept = coef(m)[1], slope = coef(m)[2], col = '#EA4B68', size = 1.5) + 
+  theme_bw()
+
+```
+
+]
+
+
+
+---
+
+# Kleinste-Quadrate Kriterium
+
+.pull-left4[
+
+<ul>
+  <li class="m1"><span>Die Qualität einer Regression wird über die <high>Summe der Quadrate der Residuen bestimmt</high>.</span></li>
+  <li class="m2"><span>Die Parameter <b>b</b>=[b<sub>0</sub>, b<sub>1</sub>] werden so gewählt, so dass die <high>Quadrate der Residuen minimal sind</high>.</span></li>
+  </ul>
+</ul>
+
+<br>
+
+$$\large \mathbf{b} = \underset{\mathbf{b}}{\operatorname{argmin}} \sum_i e_{\mathbf{b}}^2$$
+
+]
+
+.pull-right5[
+
+<img src="image/regression_fit.gif">
+
+]
+
+
+---
+
+# R-Quadrat
+
+.pull-left4[
+
+<ul>
+  <li class="m1"><span>Die Qualität einer Regression wird über die <high>Summe der Quadrate der Residuen bestimmt</high>.</span></li>
+  <li class="m2"><span>Der inverse Wert, d.h., eins minus die Summe der Residualquadrate, is als R-Quadrat definiert.</span></li>
+  </ul>
+</ul>
+
+<br>
+
+$$\large R^2 = 1 - \frac{\sum_i e^2}{\sum_i (y - \bar{y})^2}\\ \;\;\;\;\; \large =1 - \frac{\sum_i (y - \hat{y})^2}{\sum_i (y - \bar{y})^2}$$
+
+]
+
+.pull-right5[
+
+```{r, echo = FALSE, fig.width = 3.5, fig.height = 3}
+
+library(tidyverse) ; library(ggrepel)
+
+# Lade Tourismus Daten
+tour <- read_csv('1_Data/Tourismus.csv') 
+europa <- read_csv('1_Data/Europa.csv') 
+
+# Berechne Nächte per Region
+d = tour %>%
+  mutate(Nächte = Besucher * Dauer) %>%
+  left_join(europa) %>% 
+  filter(!is.na(Äquivalenzeinkommen))
+
+m = lm(log2(Nächte) ~ Äquivalenzeinkommen, data = d)
+
+ggplot(d, 
+       aes(x = Äquivalenzeinkommen, 
+           y = Nächte,
+           label = Land)) +
+  scale_y_continuous(trans = 'log2') + 
+  geom_segment(
+    aes(x = Äquivalenzeinkommen, xend = Äquivalenzeinkommen,
+        y = 2**predict(m), yend = Nächte), linetype=3) +
+  geom_point() +
+  geom_hline(yintercept = 2**mean(log2(d$Nächte)), size=1.5) +
+  geom_abline(intercept = coef(m)[1], slope = coef(m)[2], col = '#EA4B68', size = 1.5) + 
+  theme_bw()
+
+
+
+```
+
+]
+
+---
+
+# Multiple lineare regression
+
+.pull-left4[
+
+<ul>
+  <li class="m1"><span>Wie beschreiben <high>mehrere linear verknüpfte Prädiktoren (x) zusammen</high> das Krierium (y)?</span></li>
+  <li class="m2"><span>Parameter:</span></li>
+  <ul class="level">
+    <li><span>&beta;<sub>0</sub>: <high>Intercept</high> oder y-Achsenabschnitt</span></li>
+    <li><span>&beta;<sub>1</sub>: <high>Slope</high> für x<sub>1</sub></span></li>
+    <li><span>&beta;<sub>2</sub>: <high>Slope</high> für x<sub>2</sub></span></li>
+    <li><span>&beta;<sub>k</sub>: <high>Slope</high> für x<sub>k</sub></span></li>
+  </ul>
+</ul>
+
+<br>
+
+$$\Large \hat{y} = b_0 + b_1  \cdot x_1 + ... b_k \cdot b_k$$
+
+]
+
+.pull-right5[
+
+```{r, echo = FALSE, fig.width = 3.5, fig.height = 3}
+
+library(tidyverse) ; library(ggrepel)
+
+# Lade Tourismus Daten
+tour <- read_csv('1_Data/Tourismus.csv') 
+europa <- read_csv('1_Data/Europa.csv') 
+
+# Berechne Nächte per Region
+d = tour %>%
+  mutate(Nächte = Besucher * Dauer) %>%
+  left_join(europa) %>% 
+  filter(!is.na(Äquivalenzeinkommen))
+
+
+
+m = lm(Nächte_log2 ~ Äquivalenzeinkommen + Bevölkerung, data = d %>% mutate(Nächte_log2 = log2(Nächte)))
+
+res <- 1000
+
+#Setup Axis
+x <- seq(min(d$Äquivalenzeinkommen), max(d$Äquivalenzeinkommen), by = res)
+y <- seq(min(d$Bevölkerung), max(d$Bevölkerung), by = res)
+
+#Sample points
+surface <- expand.grid(Äquivalenzeinkommen = x,
+                       Bevölkerung = y, 
+                       KEEP.OUT.ATTRS = F)
+surface$Nächte_log2 <- predict.lm(m, newdata = surface)
+surface <- reshape2::acast(surface, Bevölkerung ~ Äquivalenzeinkommen, value.var = "Nächte_log2")
+
+require(plotly)
+plt = plot_ly(d %>% mutate(Nächte_log2 = log2(Nächte)), 
+        x = ~Äquivalenzeinkommen, 
+        y = ~Bevölkerung, 
+        z = ~Nächte_log2,
+        type = "scatter3d",
+        width = 500, height = 420)
+
+plt = add_trace(p = plt,
+          z = surface,
+          x = x,
+          y = y,
+          type = "surface",
+        showscale=FALSE) 
+plt %>%  layout(showlegend = FALSE)
+   
+
+```
+
+]
+
+
+---
+
+# Parameterschätzungen
+
+.pull-left4[
+
+
+<ul>
+  <li class="m1"><span>Die Schätzung basiert auf dem auf dem <high>Kleinsten-Quadrate Kriterium</high>.</span></li>
+  </ul>
+</ul>
+
+<br>
+
+$$\Large b_1 = \frac{r_{x_1y}-r_{x_2y}r_{x_2x_1}}{1-r_{x_2x_1}^2} \cdot \frac{s_y}{s_{x_1}}$$
+$$\Large b_2 = \frac{r_{x_2y}-r_{x_1y}r_{x_1x_2}}{1-r_{x_1x_2}^2} \cdot \frac{s_y}{s_{x_2}}$$
+
+$$\Large b_0 = \bar{y} + b_1 \cdot \bar{x_1} + b_2 \cdot \bar{x_2}$$
+
+]
+
+.pull-right5[
 
 
 ```{r, echo = FALSE, fig.width = 3.5, fig.height = 3}
 
-mod <- lm(income ~ age, data = baselers)
-my_coef <- coef(mod)
+library(tidyverse) ; library(ggrepel)
 
-simple_scatter <- ggplot(baselers %>% filter(age < 80) %>% slice(1:30), aes(age, income)) +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE, col = baselrbootcamp_cols("magenta")) +
-  theme_bw()
+# Lade Tourismus Daten
+tour <- read_csv('1_Data/Tourismus.csv') 
+europa <- read_csv('1_Data/Europa.csv') 
 
-simple_scatter
-```
-
-
----
-
-# Einfache Lineare Regression
-
-.pull-left45[
+# Berechne Nächte per Region
+d = tour %>%
+  mutate(Nächte = Besucher * Dauer) %>%
+  left_join(europa) %>% 
+  filter(!is.na(Äquivalenzeinkommen))
 
 
-<high>Definition</high>: Simple linear regression is a linear model with one predictor $x$, and where the error term $\epsilon$ is Normally distributed.
 
+m = lm(Nächte_log2 ~ Äquivalenzeinkommen + Bevölkerung, data = d %>% mutate(Nächte_log2 = log2(Nächte)))
 
-<br>
+res <- 1000
 
-$$\huge y=\beta_{0} + \beta_{1} x + \epsilon$$
+#Setup Axis
+x <- seq(min(d$Äquivalenzeinkommen), max(d$Äquivalenzeinkommen), by = res)
+y <- seq(min(d$Bevölkerung), max(d$Bevölkerung), by = res)
 
-<br>
+#Sample points
+surface <- expand.grid(Äquivalenzeinkommen = x,
+                       Bevölkerung = y, 
+                       KEEP.OUT.ATTRS = F)
+surface$Nächte_log2 <- predict.lm(m, newdata = surface)
+surface <- reshape2::acast(surface, Bevölkerung ~ Äquivalenzeinkommen, value.var = "Nächte_log2")
 
-<table style="cellspacing:0; cellpadding:0; border:none" width=100%>
-  <col width="30%">
-  <col width="30%">
-  <col width="40%">
-<tr>
-  <td bgcolor="white">
-    <b>Parameter</b>
-  </td>
-  <td bgcolor="white">
-    <b>Description</b>
-  </td> 
-  <td bgcolor="white">
-    <b>In words</b>
-  </td> 
-</tr>
-<tr>
-  <td bgcolor="white">
-    &#x3B2;<sub>0</sub>
-  </td>
-  <td bgcolor="white">
-    Intercept
-  </td> 
-  <td bgcolor="white">
-    When x = 0, what is the predicted value for y?
-  </td> 
-</tr>
-<tr>
-  <td bgcolor="white">
-    &#x3B2;<sub>1</sub>
-  </td>
-  <td bgcolor="white">
-    Coefficient for x
-  </td> 
-  <td bgcolor="white">
-    For every increase of 1 in x, how does y change?
-  </td> 
-</tr>
-</table>
+require(plotly)
+plt = plot_ly(d %>% mutate(Nächte_log2 = log2(Nächte)), 
+        x = ~Äquivalenzeinkommen, 
+        y = ~Bevölkerung, 
+        z = ~Nächte_log2,
+        type = "scatter3d",
+        width = 500, height = 420)
 
-
-]
-
-
-.pull-right45[
-
-
-```{r, echo = FALSE, fig.width = 3.5, fig.height = 2.5, out.width = "70%"}
-
-simple_scatter
-```
-
-<center><u>Formula</u></center>
-
-$$\Large income = 885 + 149.3 \times age  + \epsilon$$
-
-<center><u>Coefficients</u></center>
-
-$$\Large \beta_{0} = 885, \beta_{age} = 149.3$$
-
-]
-
-
----
-
-# Lösungen für b0 und für b1
-
-
----
-
-# Least squares
-
-Residuale
-
-
----
-
-# Least squares
-
----
-
-# R-squared
-
-
----
-
-# Multiple Linear Regression
-
-.pull-left5[
-
-<high>Definition</high>: Multiple linear regression is a linear model with many predictors $x_{1},  x_{2}, .... x_{n}$, and where the error term $\epsilon$ is Normally distributed.
-
-<br>
-
-$$\LARGE y=\beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2}+...+ \beta_{n} x_{n} + \epsilon$$
-<br>
-
-<table style="cellspacing:0; cellpadding:0; border:none" width=100%>
-  <col width="25%">
-  <col width="25%">
-  <col width="50%">
-<tr>
-  <td bgcolor="white">
-    <b>Parameter</b>
-  </td>
-  <td bgcolor="white">
-    <b>Description</b>
-  </td> 
-  <td bgcolor="white">
-    <b>In words</b>
-  </td> 
-</tr>
-<tr>
-  <td bgcolor="white">
-    &#x3B2;<sub>0</sub>
-  </td>
-  <td bgcolor="white">
-    Intercept
-  </td> 
-  <td bgcolor="white">
-    When all x values are 0, what is the predicted value for y?
-  </td> 
-</tr>
-<tr>
-  <td bgcolor="white">
-    &#x3B2;<sub>1</sub>, &#x3B2;<sub>2</sub>, ...
-  </td>
-  <td bgcolor="white">
-    Coefficient for x<sub>1</sub>, x<sub>2</sub>, ...
-  </td> 
-  <td bgcolor="white">
-     For every increase of 1 in coefficient for x<sub>1</sub>, x<sub>2</sub>, ... how does y change?
-  </td> 
-</tr>
-</table>
-
-
-]
-
-
-.pull-right45[
-
-
-```{r, echo = FALSE, fig.width = 5, fig.height = 2.25, out.width = "100%"}
-mod_2 <- glm(income ~ age + height, data = baselers %>% filter(age < 80) %>% slice(1:30))
-
-coef_2 <- coef(mod_2)
-
-p1 <- ggplot(baselers %>% filter(age < 80) %>% slice(1:30), aes(age, income)) +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE, col = baselrbootcamp_cols("magenta")) +
-  theme_bw()
-
-p2 <- ggplot(baselers %>% filter(age < 80) %>% slice(1:30), aes(height, income)) +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE, col = baselrbootcamp_cols("magenta")) +
-  theme_bw()
-
-ggpubr::ggarrange(p1, p2, ncol = 2, nrow = 1)
-
+plt = add_trace(p = plt,
+          z = surface,
+          x = x,
+          y = y,
+          type = "surface",
+        showscale=FALSE) 
+plt %>%  layout(showlegend = FALSE)
+   
 
 ```
 
-<br><center><u>Formula</u></center>
-
-$$\large income = 1628 + 147  \times age - 4.1 \times height + \epsilon$$
-
-<center><u>Coefficients</u></center>
-
-$$\large \beta_{0} = 1628, \beta_{age} = 147, \beta_{weight}=-4.1$$
-
 
 ]
 
 
 ---
 
-# Lösungen für b0 und für b1 ...bn
+# Datenmodell
+
+.pull-left4[
+
+<ul>
+  <li class="m1"><span>Gemäss dem Datenmodell der Regression folgen die Kriteriumswerte einer <high>Normalverteilung um den vorhergesagten Wert</high></span></li>
+  </ul>
+</ul>
+
+<br>
+
+$$\Large y \sim \mathcal{N}(\hat{y}, \sigma_e)$$
+<br>
+
+$$\large p(x|\mu, \sigma) = \frac{1}{\sigma \sqrt 2\pi}e^{-(x-\mu)/2\sigma^2}$$
+
+]
+
+.pull-right5[
+
+```{r, echo = FALSE, fig.width = 3.5, fig.height = 3}
+
+library(tidyverse) ; library(ggrepel)
+
+# Lade Tourismus Daten
+tour <- read_csv('1_Data/Tourismus.csv') 
+europa <- read_csv('1_Data/Europa.csv') 
+
+# Berechne Nächte per Region
+d = tour %>%
+  mutate(Nächte = Besucher * Dauer) %>%
+  left_join(europa) %>% 
+  filter(!is.na(Äquivalenzeinkommen)) %>% 
+  mutate(Nächte_log2 = log2(Nächte))
+
+m = lm(Nächte_log2~ Äquivalenzeinkommen, data = d)
+
+norm = dnorm(seq(4,14,.1),predict(m)[2], sd(resid(m))) * 10000
+norm = norm - min(norm)
+tbl1 = tibble(
+       x = c(d$Äquivalenzeinkommen[2], d$Äquivalenzeinkommen[2]+norm, d$Äquivalenzeinkommen[2], d$Äquivalenzeinkommen[2]), 
+       y = c(4, seq(4,14,.1), 14, 4))
+
+norm = dnorm(seq(4,14,.1),predict(m)[7], sd(resid(m))) * 10000
+norm = norm - min(norm)
+tbl2 = tibble(
+       x = c(d$Äquivalenzeinkommen[7], d$Äquivalenzeinkommen[7]+norm, d$Äquivalenzeinkommen[7], d$Äquivalenzeinkommen[7]), 
+       y = c(4, seq(4,14,.1), 14, 4))
+
+ggplot(d, 
+       aes(x = Äquivalenzeinkommen, 
+           y = Nächte_log2)) +
+  geom_segment(
+    aes(x = Äquivalenzeinkommen, xend = Äquivalenzeinkommen,
+        y = predict(m), yend = Nächte_log2), linetype=3) +
+  geom_polygon(data = tbl1, mapping = aes(x = x, y = y),size=1.3,fill=rgb(0,0,0,alpha=.3)) + 
+  geom_polygon(data = tbl2, mapping = aes(x = x, y = y),size=1.3,fill=rgb(0,0,0,alpha=.3)) + 
+  geom_point() +
+  geom_abline(intercept = coef(m)[1], slope = coef(m)[2], col = '#EA4B68', size = 1.5) + 
+  theme_bw() + 
+  labs(y = 'log2(Nächte)')
+
+```
+
+]
+
+---
+
+# Teststatistik
+
+.pull-left4[
+
+<ul>
+  <li class="m1"><span>The beta weights follow a <high>t-Verteilung</high>.</span></li>
+  <li class="m2"><span>Die Verteilung hängt von <high>Freiheitsgraden &nu;</high> ab.</span></li>
+  </ul>
+</ul>
+
+<br>
+
+$$\Large t_\nu=\frac{\beta_j}{\sigma_{\beta_j}}$$
+
+<br>
+
+$$\Large \nu = n - k - 1$$
+
+]
+
+.pull-right5[
+
+```{r, echo = FALSE, fig.width = 3.5, fig.height = 3}
+
+library(tidyverse) ; library(ggrepel)
+
+# Lade Tourismus Daten
+
+x = seq(-6,6,.01)
+par(mar=c(4,3,1,1))
+plot.new();plot.window(xlim=c(-6,6),ylim=c(0,.4))
+axis(1)
+legend('right',legend=c(expression(paste(nu," = Inf")),expression(paste(nu," = 10")),expression(paste(nu," = 2"))),horiz = F, lwd=3,col=colors[c('green','grey','magenta')],bty='n')
+lines(x, dt(x, df = Inf), lwd=3, col = colors['green'])
+lines(x, dt(x, df = 10), lwd=3, col = colors['grey'])
+lines(x, dt(x, df = 2), lwd=3, col = colors['magenta'])
+mtext(c('t-Verteilung','Dichte','t'),side=c(3,2,1),font=c(2,1,1),line=c(0,0,2.5))
+
+```
+
+]
+
+---
+
+# Standardfehler
+
+.pull-left4[
+
+<ul>
+  <li class="m1"><span>Der Standardfehler &sigma;<sub>&beta;</sub> bezieht die <high>Interkorrelation aller Prädiktoren</high> mit ein.</span></li>
+ </ul>
+</ul>
+
+<br>
+
+<p align="center">
+<img src="image/vif.png">
+</p>
+]
+
+.pull-right5[
+
+```{r, echo = FALSE, fig.width = 3.5, fig.height = 3}
+
+library(tidyverse) ; library(ggrepel)
+
+# Lade Tourismus Daten
+
+x = seq(-6,6,.01)
+par(mar=c(4,3,1,1))
+plot.new();plot.window(xlim=c(-6,6),ylim=c(0,.4))
+axis(1)
+legend('right',legend=c(expression(paste(nu," = Inf")),expression(paste(nu," = 10")),expression(paste(nu," = 2"))),horiz = F, lwd=3,col=colors[c('green','grey','magenta')],bty='n')
+lines(x, dt(x, df = Inf), lwd=3, col = colors['green'])
+lines(x, dt(x, df = 10), lwd=3, col = colors['grey'])
+lines(x, dt(x, df = 2), lwd=3, col = colors['magenta'])
+mtext(c('t-Verteilung','Dichte','t'),side=c(3,2,1),font=c(2,1,1),line=c(0,0,2.5))
+
+```
+
+]
+
+---
+
+# t-Test
+
+.pull-left4[
+
+<ul>
+  <li class="m1"><span>Der Test vergleicht den beobachteten t-Wert mit entweder...</span></li>
+  <ul>
+    <li><span>Einseitig: t<sub>&alpha;</sub></span></li>
+    <li><span>Zweiseitig: t<sub>&alpha;/2</sub></span></li>
+  </ul>
+ </ul>
+</ul>
+
+<br>
+
+$$\Large t_\nu=\frac{\beta_j}{\sigma_{\beta_j}}>t_{\nu,\alpha}$$
+<br>
+
+$$\Large t_\nu=\frac{\beta_j}{\sigma_{\beta_j}}>t_{\nu,\frac{\alpha}{2}}$$
+
+]
+
+.pull-right5[
+
+```{r, echo = FALSE, fig.width = 3.5, fig.height = 3}
+
+library(tidyverse) ; library(ggrepel)
+
+colTrans = function(col,perc) {
+  rgb(t(grDevices::col2rgb(col)), maxColorValue=255, alpha = perc*255)
+}
+
+par(mar=c(2,1,1,1),mfrow=c(2,1))
+plot.new();plot.window(xlim=c(-6,6),ylim=c(0,.4))
+axis(1,labels = F)
+rect(qt(.95,10),0,6,.15,col=colTrans(colors['magenta'],.2),border=NA)
+
+x = seq(qt(.95,10),6,.01)
+polygon(c(x[1],x,x[1]),c(0,dt(x, df = 10),0),col=colors['magenta'],border=NA)
+
+text(qt(.95,10)-.7,.025,labels=expression(alpha/2))
+text(4,.1,labels=c('Signifikant'),font=2,col='white',cex=1)
+
+x = seq(-6,6,.01)
+lines(x, dt(x, df = 10), lwd=3, col = colors['grey'])
+mtext(c('Einseitig','Dichte','t'),side=c(3,2,1),font=c(2,1,1),line=c(0,0,.5))
+
+
+plot.new();plot.window(xlim=c(-6,6),ylim=c(0,.4))
+axis(1,labels = F)
+rect(-6,0,qt(.025,10),.15,col=colTrans(colors['magenta'],.2),border=NA)
+rect(qt(.975,10),0,6,.15,col=colTrans(colors['magenta'],.2),border=NA)
+
+x = seq(qt(.975,10),6,.01)
+polygon(c(x[1],x,x[1]),c(0,dt(x, df = 10),0),col=colors['magenta'],border=NA)
+x = seq(-6,-qt(.975,10),.01)
+polygon(c(x[1],x,x[length(x)]),c(0,dt(x, df = 10),0),col=colors['magenta'],border=NA)
+
+text(qt(.975,10)-.7,.025,labels=expression(alpha/2))
+text(qt(.025,10)+.7,.025,labels=expression(alpha/2))
+
+text(-4.11,.1,labels=c('Signifikant'),font=2,col='white',cex=1)
+text(4.1,.1,labels=c('Signifikant'),font=2,col='white',cex=1)
+
+x = seq(-6,6,.01)
+lines(x, dt(x, df = 10), lwd=3, col = colors['grey'])
+mtext(c('Zweiseitig','Dichte','t'),side=c(3,2,1),font=c(2,1,1),line=c(0,0,.5))
+
+```
+
+]
 
 
 ---
 
-# Datenmodell -> Normalverteilung
+class: middle, center
 
-
----
-
-# Teststatistik und verteilung
-
-
----
-
-# Lineare modelle mit R
-
+<h1><a href="">Lineare modelle mit R</a></h1>
 
 ---
 
 # Formulas
 
+.pull-left4[
 
----
+<ul>
+  <li class="m1"><span>Modelle in R werden über <highm>formula</highm>s definiert.</span></li>
+</ul>
 
-# Output
-
-
----
-
-# Helper functions
-
-
-
----
-
-# Estimating coefficients
-
-.pull-left45[
-
-How do we estimate the 'right' coefficients in a linear model? <high>Which of the four would be a good fit?</high>
-
-```{r, fig.width = 2.5, fig.height = 2}
-data <- baselers %>% 
-  filter(age < 80) %>% 
-  slice(1:5) %>%
-  select(age, income) %>%
-  mutate(income = income / 1000) %>%
-  arrange(age)
-
-mod <- lm(income ~ age, data = data)
-my_coef <- coef(mod)
-
-a_slope <- -.1
-a_intercept <- 12
-
-b_slope <-  round(my_coef[2], 3)
-b_intercept <- round(my_coef[1], 3)
-
-c_slope <- .11
-c_intercept <- 2
-
-d_slope <- 0
-d_intercept <- 7
-
-
-data <- data %>%
-  mutate(a = a_intercept + a_slope * age,
-         b = b_intercept + b_slope * age,
-         c = c_intercept + c_slope * age,
-         d = d_intercept + d_slope * age,
-         a_se = (a - income) ^ 2,
-         b_se = (b - income) ^ 2,
-         c_se = (c - income) ^ 2,
-         d_se = (d - income) ^ 2)
-
-
-p <- ggplot(data, aes(age, income)) +
-  geom_point(size = 2) +
-  theme_bw()
-
-a <- p + geom_abline(slope = a_slope, intercept = a_intercept, col = baselrbootcamp_cols("grey"), size = 1.5, alpha = .8) + labs(title = "A", subtitle = paste0("B_0 = ", a_intercept, ", B_age = ", a_slope))
-
-b <- p + geom_abline(slope = b_slope, intercept = b_intercept, col = baselrbootcamp_cols("grey"), size = 1.5, alpha = .8) + labs(title = "B", subtitle = paste0("B_0 = ", b_intercept, ", B_age = ", b_slope))
-
-c <- p +  geom_abline(slope = c_slope, intercept = c_intercept, col = baselrbootcamp_cols("grey"), size = 1.5, alpha = .8)+ labs(title = "C", subtitle = paste0("B_0 = ", c_intercept, ", B_age = ", c_slope))
-
-d <- p +  geom_abline(slope = d_slope, intercept = d_intercept, col = baselrbootcamp_cols("grey"), size = 1.5, alpha = .8)+ labs(title = "D", subtitle = paste0("B_0 = ", d_intercept, ", B_age = ", d_slope))
-
-
-```
-
-
-```{r, fig.width = 3, fig.height = 2.5, out.width = "80%"}
-p+ labs(title = "?", subtitle = "B_0 = ?, B_age = ?")
-```
-
-$$\Large income = \beta_{0} + \beta_{1} \times age + \epsilon$$
-]
-
-.pull-right5[
-
-```{r, fig.width = 5, fig.height = 4.5, out.width = "95%"}
-
-ggpubr::ggarrange(a, b, c, d, ncol = 2, nrow = 2)
-
-```
-
-]
-
-
-
----
-
-# Estimating coefficients
-
-.pull-left45[
-
-How do we estimate the 'right' coefficients in a linear model? <high>Which of the four would be a good fit?</high>
-
-```{r, fig.width = 2.5, fig.height = 2}
-a <- a + annotate(geom = "segment", x = data$age, y = data$income, xend = data$age,  yend = data$a, col = baselrbootcamp_cols("magenta"))
-
-b <- b + annotate(geom = "segment", x = data$age, y = data$income, xend = data$age,  yend = data$b, col = baselrbootcamp_cols("magenta"))
-
-c <- c + annotate(geom = "segment", x = data$age, y = data$income, xend = data$age,  yend = data$c, col = baselrbootcamp_cols("magenta"))
-
-d <- d + annotate(geom = "segment", x = data$age, y = data$income, xend = data$age,  yend = data$d, col = baselrbootcamp_cols("magenta"))
-
-```
-
-```{r, fig.width = 3, fig.height = 2.5, out.width = "80%"}
-p+ geom_abline(slope = my_coef[2], intercept = my_coef[1], col = baselrbootcamp_cols("grey"), size = 1.5, alpha = .8) + 
-  labs(title = "B", subtitle = paste0("B_0 = ", b_intercept, ", B_age = ", b_slope)) +
-  annotate(geom = "segment", x = data$age, y = data$income, xend = data$age,  yend = data$b, col = baselrbootcamp_cols("magenta"))
-```
-
-$$\Large income = -0.254 + 0.167 \times age + \epsilon$$
-]
-
-.pull-right5[
-
-
-```{r, fig.width = 5, fig.height = 4.5, out.width = "95%"}
-
-ggpubr::ggarrange(a, b, c, d, ncol = 2, nrow = 2)
-
-```
-
-]
-
-
----
-
-
-
-.pull-left45[
-
-# Estimating coefficients
-
-How do we estimate the 'right' coefficients in a linear model?
-
-Find the values that minimise <high>Mean Squared Error</high> (MSE).
-
-MSE:  The average squared distance between the prediction and the data.
-
-<br>
-
-$$\Large MSE = \frac{1}{N}\sum_{i=1}^{n}(y_{i}-  Prediction_{i})^2$$
-<!-- $$\LARGE = \frac{1}{N}\sum_{i=1}^{n}(Y_{i}-  (\beta_{0} + \beta_{1}x_{1}))^2$$ -->
-
-
-]
-
-.pull-right5[
-
-<br>
-
-```{r, fig.width = 3.5, fig.height = 2.65, out.width = "67%"}
-p+ geom_abline(slope = my_coef[2], intercept = my_coef[1], col = baselrbootcamp_cols("grey"), size = 1.5, alpha = .8) + 
-  labs(title = "B", subtitle = paste0("B_0 = ", b_intercept, ", B_age = ", b_slope)) +
-  annotate(geom = "segment", x = data$age, y = data$income, xend = data$age,  yend = data$b, col = baselrbootcamp_cols("magenta"))
-```
-
-```{r, results = "as.is", eval = FALSE}
-data %>%
-  select(age, income, Prediction = b) %>%
-  mutate(SE = (income - Prediction) ^ 2) %>%
-  mutate(id = 1:5) %>% select(id, everything()) %>%
-  slice(1:5) %>%
-  knitr::kable()
-```
-
-| id| age| income| Prediction|     SE|
-|--:|---:|------:|----------:|------:|
-|  1|  24|    4.0|      3.730| 0.0729|
-|  2|  27|    4.2|      4.228| 0.0008|
-|  3|  31|    5.1|      4.892| 0.0433|
-|  4|  44|    6.3|      7.050| 0.5625|
-|  5|  65|   10.9|     10.536| 0.1325|
-|  |  |   |      <b>MSE</b>| <b>0.16</b>|
-
-
-]
-
----
-
-# R<sup>2</sup> (R-Squared)
-
-.pull-left45[
-
-R-Squared $R^{2}$ is the most common method of calculating the <high>overall performance</high> of a model.
-
-<br>
-
-$$\huge R^{2} = 1 - \frac{SS_{res}}{SS_{tot}}$$
-
+<font style="font-size:20px"><u>Syntax</u></p>
 
 <table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%>
-  <col width="15%">
-  <col width="85%">
+  <col width="40%">
+  <col width="60%">
 <tr>
   <td bgcolor="white">
-    <b>R<sup>2</sup></b>
+    <b>Funktion</b>
   </td>
   <td bgcolor="white">
-    <b>Interpretation</b>
+    <b>Beschreibung</b>
   </td> 
 </tr>
 <tr>
   <td bgcolor="white">
-    0
+  <mono>+</mono> / <mono>-</mono>
   </td>
   <td bgcolor="white">
-    Model explains no variance in y.
+  Ergänze / eliminiere Prädiktor.
   </td> 
 </tr>
 <tr>
   <td bgcolor="white">
-   .5
+  <mono>\*</mono> / <mono>:</mono> 
   </td>
   <td bgcolor="white">
-    Model explains half the variance in y.
+   Ergänze Interaktionen mit/ohne Haupteffekte.    
   </td> 
 </tr>
 <tr>
   <td bgcolor="white">
-   1
+  <mono>1</mono> / <mono>0</mono> 
   </td>
   <td bgcolor="white">
-    Model explains <i>all</i> half the variance in y.
+  Ergänze / eliminiere Intercept
+  </td> 
+</tr>
+<tr>
+  <td bgcolor="white">
+  <mono>.</mono> 
+  </td>
+  <td bgcolor="white">
+  Ergänze alle Prädiktoren.
   </td> 
 </tr>
 </table>
 
 ]
 
+<br>
+
 .pull-right5[
 
-<p align="center"> 
-  <img src="image/r2_vis.png">
-  <font style="font-size:10px"> from <a   href='https://en.wikipedia.org/wiki/Coefficient_of_determination'>Wikipedia</a></font>
-  </a>
+<p align="center">
+<img src="image/mod.png">
 </p>
 ]
 
----
-
-# R<sup>2</sup> (R-Squared)
-
-.pull-left45[
-
-R-Squared $R^{2}$ is the most common method of calculating the <high>overall performance</high> of a model.
-
-<br>
-
-$$\huge R^{2} = 1 - \frac{SS_{res}}{SS_{tot}}$$
-
-
-<table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%>
-  <col width="15%">
-  <col width="85%">
-<tr>
-  <td bgcolor="white">
-    <b>R<sup>2</sup></b>
-  </td>
-  <td bgcolor="white">
-    <b>Interpretation</b>
-  </td> 
-</tr>
-<tr>
-  <td bgcolor="white">
-    0
-  </td>
-  <td bgcolor="white">
-    Model explains no variance in y.
-  </td> 
-</tr>
-<tr>
-  <td bgcolor="white">
-   .5
-  </td>
-  <td bgcolor="white">
-    Model explains half the variance in y.
-  </td> 
-</tr>
-<tr>
-  <td bgcolor="white">
-   1
-  </td>
-  <td bgcolor="white">
-    Model explains <i>all</i> half the variance in y.
-  </td> 
-</tr>
-</table>
-
-]
-
-.pull-right5[
-
-<p align="center"><i>2 Models with different R2 values</i></p>
-
-```{r, fig.width = 5, fig.height = 3, out.width = "100%"}
-set.seed(100)
-data <- data %>%
-  mutate(height = income * 8 + rnorm(5, mean = 0, sd = 40))
-
-age_mod <- glm(income ~ age, data = data)
-height_mod <- glm(income ~ height, data = data)
-
-data <- data %>%
-  mutate(age_pred = fitted(age_mod),
-         height_pred = fitted(height_mod))
-
-r2_age <- rsq::rsq(lm(income ~ age, data = data))
-
-mse_age <- age_mod %>% resid() %>% `^`(2) %>% mean()
-  
-r2_height<- rsq::rsq(lm(income ~ height, data = data))
-
-mse_height <- glm(income ~ height, data = data) %>% resid() %>% `^`(2) %>% mean()
-
-
-a <- ggplot(data, aes(x = age, y = income)) +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE, col = baselrbootcamp_cols("grey")) +
-  labs(title = paste0("R2 = ", round(r2_age, 2), ", MSE = ", round(mse_age, 2))) +
-  annotate("segment", x = data$age, y = data$income, xend = data$age, yend = data$age_pred, col = baselrbootcamp_cols("magenta")) +
-  theme_bw()
-
-b <- ggplot(data, aes(x = height, y = income)) +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE,col = baselrbootcamp_cols("grey")) + 
-  labs(title = paste0("R2 = ", round(r2_height, 2), ", MSE = ", round(mse_height, 2))) +
-    annotate("segment", x = data$height, y = data$income, xend = data$height, yend = data$height_pred, col = baselrbootcamp_cols("magenta")) +
-  theme_bw()
-
-ggpubr::ggarrange(b, a, ncol = 2, nrow = 1)
-
-```
-
-]
-
----
-class: middle, center
-
-# How to fit and and dissect linear models in R
-
-## with `glm()`
 
 ---
 
-# Key Functions
+# <mono>lm()</mono>
 
 .pull-left35[
 
@@ -703,18 +1072,18 @@ class: middle, center
   <col width="60%">
 <tr>
   <td bgcolor="white">
-    <b>Function</b>
+    <b>Funktion</b>
   </td>
   <td bgcolor="white">
-    <b>Description</b>
+    <b>Beschreibung</b>
   </td> 
 </tr>
 <tr>
   <td bgcolor="white">
-    <mono>glm(formula, data)</mono>
+    <mono>lm(formula, data)</mono>
   </td>
   <td bgcolor="white">
-    Fit a linear model to data and calculate best coefficients
+    Fitte ein <high>lineares Modell</high>.
   </td> 
 </tr>
 </table>
@@ -726,34 +1095,34 @@ class: middle, center
   <col width="60%">
 <tr>
   <td bgcolor="white">
-    <b>Function</b>
+    <b>Funktion</b>
   </td>
   <td bgcolor="white">
-    <b>Description</b>
+    <b>Beschreibung</b>
   </td> 
 </tr>
 <tr>
   <td bgcolor="white">
-   <mono>coef(mod)</mono>
+  <mono>summary()</mono>
   </td>
   <td bgcolor="white">
-    Get coefficients from a model
+  Erhalte <high>Testergebnisse</high>.
   </td> 
 </tr>
 <tr>
   <td bgcolor="white">
-   <mono>fitted(mod)</mono>
+   <mono>coef(mod)</mono>   
   </td>
   <td bgcolor="white">
-    Get fitted results.
+   Erhalte <high>Koeffizienten</high>.    
   </td> 
 </tr>
 <tr>
   <td bgcolor="white">
-   <mono>resid(mod)</mono>
+   <mono>predict(mod)</mono>, <mono>resid(mod)</mono>
   </td>
   <td bgcolor="white">
-    Get residuals (errors)
+    Erhalte <high>gefittete Werte</high> / <high>Residuen</high>.
   </td> 
 </tr>
 </table>
@@ -762,32 +1131,31 @@ class: middle, center
 
 .pull-right6[
 
-```{r, echo = TRUE}
-# Create a model income_glm
+```{r}
+naechte = tour %>%
+  mutate(Nächte = Besucher * Dauer) %>%
+  left_join(europa) %>% 
+  filter(!is.na(Äquivalenzeinkommen)) %>% 
+  mutate(Nächte_log2 = log2(Nächte))
 
-# Y = income
-# X1 = age, X2 = children
-
-income_glm <- glm(formula = income ~ age + children,
-                  data = baselers)
 ```
 
-<br>
 
-| id| income| age| children|
-|--:|------:|---:|--------:|
-|  1|   6300|  44|        2|
-|  2|  10900|  65|        2|
+```{r, echo = TRUE}
+# Fitte Model
+naechte_lm <- lm(
+  formula = Nächte ~ Äquivalenzeinkommen + Bevölkerung,
+  data = naechte)
+```
 
 ]
 
 
 ---
 
-# Key Functions
+# <mono>lm()</mono>
 
 .pull-left35[
-
 
 <font style="font-size:20px"><u>Fitting</u></p>
 
@@ -796,18 +1164,18 @@ income_glm <- glm(formula = income ~ age + children,
   <col width="60%">
 <tr>
   <td bgcolor="white">
-    <b>Function</b>
+    <b>Funktion</b>
   </td>
   <td bgcolor="white">
-    <b>Description</b>
+    <b>Beschreibung</b>
   </td> 
 </tr>
 <tr>
   <td bgcolor="white">
-    <mono>glm(formula, data)</mono>
+    <mono>lm(formula, data)</mono>
   </td>
   <td bgcolor="white">
-    Fit a linear model to data and calculate best coefficients
+    Fitte ein <high>lineares Modell</high>.
   </td> 
 </tr>
 </table>
@@ -819,34 +1187,34 @@ income_glm <- glm(formula = income ~ age + children,
   <col width="60%">
 <tr>
   <td bgcolor="white">
-    <b>Function</b>
+    <b>Funktion</b>
   </td>
   <td bgcolor="white">
-    <b>Description</b>
+    <b>Beschreibung</b>
   </td> 
 </tr>
 <tr>
   <td bgcolor="white">
-   <mono>coef(mod)</mono>
+  <mono>summary()</mono>
   </td>
   <td bgcolor="white">
-    Get coefficients from a model
+  Erhalte <high>Testergebnisse</high>.
   </td> 
 </tr>
 <tr>
   <td bgcolor="white">
-   <mono>fitted(mod)</mono>
+   <mono>coef(mod)</mono>   
   </td>
   <td bgcolor="white">
-    Get fitted results.
+   Erhalte <high>Koeffizienten</high>.    
   </td> 
 </tr>
 <tr>
   <td bgcolor="white">
-   <mono>resid(mod)</mono>
+   <mono>predict(mod)</mono>, <mono>resid(mod)</mono>
   </td>
   <td bgcolor="white">
-    Get residuals (errors)
+    Erhalte <high>gefittete Werte</high> / <high>Residuen</high>.
   </td> 
 </tr>
 </table>
@@ -857,9 +1225,8 @@ income_glm <- glm(formula = income ~ age + children,
 
 
 ```{r, echo = TRUE}
-# Print income_glm
-
-income_glm
+# Printe naechte_lm
+naechte_lm
 ```
 
 ]
@@ -867,7 +1234,7 @@ income_glm
 
 ---
 
-# Key Functions
+# <mono>summary()</mono>
 
 .pull-left35[
 
@@ -878,18 +1245,18 @@ income_glm
   <col width="60%">
 <tr>
   <td bgcolor="white">
-    <b>Function</b>
+    <b>Funktion</b>
   </td>
   <td bgcolor="white">
-    <b>Description</b>
+    <b>Beschreibung</b>
   </td> 
 </tr>
 <tr>
   <td bgcolor="white">
-    <mono>glm(formula, data)</mono>
+    <mono>lm(formula, data)</mono>
   </td>
   <td bgcolor="white">
-    Fit a linear model to data and calculate best coefficients
+    Fitte ein <high>lineares Modell</high>.
   </td> 
 </tr>
 </table>
@@ -901,34 +1268,34 @@ income_glm
   <col width="60%">
 <tr>
   <td bgcolor="white">
-    <b>Function</b>
+    <b>Funktion</b>
   </td>
   <td bgcolor="white">
-    <b>Description</b>
+    <b>Beschreibung</b>
   </td> 
 </tr>
 <tr>
   <td bgcolor="white">
-   <mono>coef(mod)</mono>
+  <mono>summary()</mono>
   </td>
   <td bgcolor="white">
-    Get coefficients from a model
+  Erhalte <high>Testergebnisse</high>.
   </td> 
 </tr>
 <tr>
   <td bgcolor="white">
-   <mono>fitted(mod)</mono>
+   <mono>coef(mod)</mono>   
   </td>
   <td bgcolor="white">
-    Get fitted results.
+   Erhalte <high>Koeffizienten</high>.    
   </td> 
 </tr>
 <tr>
   <td bgcolor="white">
-   <mono>resid(mod)</mono>
+   <mono>predict(mod)</mono>, <mono>resid(mod)</mono>
   </td>
   <td bgcolor="white">
-    Get residuals (errors)
+    Erhalte <high>gefittete Werte</high> / <high>Residuen</high>.
   </td> 
 </tr>
 </table>
@@ -938,14 +1305,13 @@ income_glm
 .pull-right6[
 
 ```{r, echo = TRUE, eval = F}
-# Show summary info
-summary(income_glm)
+# Zeige Testergebnisse
+summary(naechte_lm)
 ```
 
-
 ```{r, echo = FALSE}
-# Show summary info
-print2(summary(income_glm),17)
+# Zeige Testergebnisse
+print2(summary(naechte_lm),15)
 ```
 
 ]
@@ -953,7 +1319,7 @@ print2(summary(income_glm),17)
 
 ---
 
-# Key Functions
+# <mono>predict()</mono>
 
 .pull-left35[
 
@@ -964,18 +1330,18 @@ print2(summary(income_glm),17)
   <col width="60%">
 <tr>
   <td bgcolor="white">
-    <b>Function</b>
+    <b>Funktion</b>
   </td>
   <td bgcolor="white">
-    <b>Description</b>
+    <b>Beschreibung</b>
   </td> 
 </tr>
 <tr>
   <td bgcolor="white">
-    <mono>glm(formula, data)</mono>
+    <mono>lm(formula, data)</mono>
   </td>
   <td bgcolor="white">
-    Fit a linear model to data and calculate best coefficients
+    Fitte ein <high>lineares Modell</high>.
   </td> 
 </tr>
 </table>
@@ -987,34 +1353,34 @@ print2(summary(income_glm),17)
   <col width="60%">
 <tr>
   <td bgcolor="white">
-    <b>Function</b>
+    <b>Funktion</b>
   </td>
   <td bgcolor="white">
-    <b>Description</b>
+    <b>Beschreibung</b>
   </td> 
 </tr>
 <tr>
   <td bgcolor="white">
-   <mono>coef(mod)</mono>
+  <mono>summary()</mono>
   </td>
   <td bgcolor="white">
-    Get coefficients from a model
+  Erhalte <high>Testergebnisse</high>.
   </td> 
 </tr>
 <tr>
   <td bgcolor="white">
-   <mono>fitted(mod)</mono>
+   <mono>coef(mod)</mono>   
   </td>
   <td bgcolor="white">
-    Get fitted results.
+   Erhalte <high>Koeffizienten</high>.    
   </td> 
 </tr>
 <tr>
   <td bgcolor="white">
-   <mono>resid(mod)</mono>
+   <mono>predict(mod)</mono>, <mono>resid(mod)</mono>
   </td>
   <td bgcolor="white">
-    Get residuals (errors)
+    Erhalte <high>gefittete Werte</high> / <high>Residuen</high>.
   </td> 
 </tr>
 </table>
@@ -1027,153 +1393,26 @@ print2(summary(income_glm),17)
 
 
 ```{r, echo = TRUE, eval = FALSE}
-# Get fitted values (only first 5)
-fitted(income_glm)
+# Zeige gefittete Werte (only first 5)
+predict(naechte_lm)
 
-# Get residuals (only first 10)
-resid(income_glm)
+# Zeige Residualwerte (only first 10)
+resid(naechte_lm)
 ```
 
 ```{r, eval = TRUE, echo  =FALSE}
 # Get fitted values (only first 5)
-fitted(income_glm)[1:5]
+fitted(naechte_lm)[1:5]
 
 # Get residuals (only first 10)
-resid(income_glm)[1:5]
-```
-
-<br>
-
-| id| income| age| children|<high>fitted</high>|<high>resid</high>|
-|--:|------:|---:|:--------|:----|:-----|
-|  1|   6300|  44|        2|7454|-1153.6|
-|  2|  10900|  65|        2|10588|312.2|
-
-]
-
-
-
----
-
-# Key Functions
-
-.pull-left35[
-
-<font style="font-size:20px"><u>Fitting</u></p>
-
-<table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%>
-  <col width="40%">
-  <col width="60%">
-<tr>
-  <td bgcolor="white">
-    <b>Function</b>
-  </td>
-  <td bgcolor="white">
-    <b>Description</b>
-  </td> 
-</tr>
-<tr>
-  <td bgcolor="white">
-    <mono>glm(formula, data)</mono>
-  </td>
-  <td bgcolor="white">
-    Fit a linear model to data and calculate best coefficients
-  </td> 
-</tr>
-</table>
-
-<font style="font-size:20px"><u>Evaluation</u></p>
-
-<table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px" width=100%>
-  <col width="40%">
-  <col width="60%">
-<tr>
-  <td bgcolor="white">
-    <b>Function</b>
-  </td>
-  <td bgcolor="white">
-    <b>Description</b>
-  </td> 
-</tr>
-<tr>
-  <td bgcolor="white">
-   <mono>rsq(mod)</mono>
-  </td>
-  <td bgcolor="white">
-    Get R<sup>2</sup> value from model.
-  </td> 
-</tr>
-<tr>
-  <td bgcolor="white">
-   <mono>tidy(mod)</mono>
-  </td>
-  <td bgcolor="white">
-    Get tidy results from a model.
-  </td> 
-</tr>
-</table>
-
-]
-
-.pull-right6[
-
-```{r, echo = TRUE}
-library(rsq)
-library(broom)
-
-# Show R-squared from model
-rsq(income_glm)
-
-# Show 'tidy' results from my model
-tidy(income_glm)
+resid(naechte_lm)[1:5]
 ```
 
 ]
-
-
-
-
----
-
-# What is a linear model?
-
-.pull-left5[
-
-A linear model is <high>just addition and multiplication</high> and can be written in the following forms: 
-
-<br>
-
-<center><u>Version 1</u><center>
-
-$$\huge y = \beta_{0} + \beta_{1}x_{1} + \beta_{2} x_{2} +  ... + \beta_{n}x_{n} + \epsilon$$
-
-<br>
-
-<center><u>Version 2</u><center>
-
-
-$$\huge y = \beta_{0} + \sum_{i=1}^{n}\beta_{i}x_{i}+ \epsilon$$
-
-
-]
-
-
-.pull-right4[
-
-<p align = "center">
-  <img src="image/math.jpg"><br>
-  <font style="font-size:10px">
-    from <a href="https://66.media.tumblr.com/6e401f0cffebf9c7440894d4fa6c48b2/tumblr_o0af44kS071u7w7kwo1_1280.jpg"> media.tumblr.com</a>
-  </font>
-</p>
-
-]
-
-
 
 ---
 
 class: middle, center
 
-<h1><a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsI/LinearModelsI_practical.html">Practical</a></h1>
+<h1><a href="https://therbootcamp.github.io/SmR_2020Apr/_sessions/LinearModelsI/LinearModelsI_practical.html">Practical</a></h1>
 

@@ -123,6 +123,65 @@ drug_placebo_gg <- ggplot(dat, aes(factor(drug), effect)) +
 ```
 
 
+
+
+# Generelle & Generalisierte lineare Modelle
+
+---
+
+
+# Kategoriale variablen
+
+
+
+---
+
+
+# Codierung
+
+
+---
+
+
+# t.test
+
+
+
+---
+
+
+# Anova
+
+
+---
+
+
+# Post hoc
+
+
+---
+
+
+# Generalisiertes modell
+
+
+
+---
+
+
+# Logistische regression
+
+
+---
+
+# in R
+
+---- 
+
+
+
+
+
 # Linear Model Applications
 
 .pull-left5[

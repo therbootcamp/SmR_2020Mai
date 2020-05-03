@@ -306,7 +306,71 @@ anim_save('_sessions/Intro2Stats/image/clt_expos.gif', anim, res = 300, width = 
 
 
 
+library(tidyverse) ; library(ggrepel)
 
+# Lade Tourismus Daten
+tour <- read_csv('1_Data/Tourismus.csv') 
+europa <- read_csv('1_Data/Europa.csv') 
+
+# Berechne Nächte per Region
+d = tour %>%
+  mutate(Nächte = Besucher * Dauer) %>%
+  left_join(europa) %>% filter(!is.na(Äquivalenzeinkommen))
+
+m = lm(log2(Nächte) ~ Äquivalenzeinkommen, data = d)
+exp(coef(m))
+coef(m)
+
+intercepts = seq(6.2,7.2, length = 40)
+slopes = seq(0, 0.0001, length = 40)
+#pars = expand.grid(intercepts, slopes)
+pars = cbind(intercepts, slopes)
+
+mse = c()
+for(i in 1:nrow(pars)){
+  m$coefficients[1] = pars[i,1]
+  m$coefficients[2] = pars[i,2]
+  mse[i] = sum((predict(m) - log2(d$Nächte))**2)
+  }
+pars = pars[order(mse, decreasing = T),]
+mse = mse[order(mse, decreasing = T)]
+
+sel = diff(pars[,1])>=0 | diff(pars[,2])>=0
+pars = pars[sel, ]
+mse = mse[sel]
+
+m = lm(log2(Nächte) ~ Äquivalenzeinkommen, data = d)
+
+tbls = list()
+for(i in 1:nrow(pars)){
+  m$coefficients[1] = pars[i,1]
+  m$coefficients[2] = pars[i,2]
+  tbl = tibble(yhat = predict(m), mod = i, intercept = pars[i,1], slope = pars[i,2], mse = mse[i])
+  tbl = bind_cols(d, tbl)
+  tbls[[i]] = tbl
+  }
+tbl = do.call(rbind, tbls)
+tbl_short = tbl[duplicated(tbl$intercept),]
+
+p  = ggplot(tbl, 
+       aes(x = Äquivalenzeinkommen, 
+           y = Nächte,
+           label = Land)) +
+  scale_y_continuous(trans = 'log2', limits = c(16,14000)) +
+  geom_segment(
+    aes(x = Äquivalenzeinkommen, xend = Äquivalenzeinkommen,
+        y = 2**yhat, yend = Nächte), linetype=3) +
+  geom_text(data = tbl_short, aes(x = 17000, y = 12000, label = paste0("∑e^2 = ", round(mse,1))), size=4) +
+  geom_point() + 
+  geom_abline(data = tbl_short, aes(intercept = intercept, slope = slope), col = '#EA4B68', size = 1.5) +
+  theme_bw()
+
+require(gganimate)
+anim = p + transition_states(mod,
+                             transition_length = 1,
+                             state_length = 0, wrap = FALSE) #& patchwork::plot_annotation()
+#anim
+anim_save('_sessions/LinearModelsI/image/regression_fit.gif', anim, res = 300, width = 3.6, height = 3.1, unit = 'in')
 
 
 

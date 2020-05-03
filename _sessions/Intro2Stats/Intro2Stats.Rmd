@@ -45,7 +45,7 @@ layout: true
     </a>
     <a href="https://therbootcamp.github.io/">
       <font color="#7E7E7E">
-       Statistil mit R | März 2020
+       Statistik mit R | März 2020
       </font>
     </a>
     </span>
@@ -132,7 +132,7 @@ Von <i>statisticum</i>, lat., den Staat betreffend.<br><font style="font-size:10
     <li><span><b>Streuung</b>: Varianz, Interquartilabstand, Spannweite</span></li>
     <li><span><b>Zusammenhänge</b>: Diverse Korrelationsmasse</span></li>
   </ul>
-  <li class="m3"><span><high>Visualisierungen</high></span></li>
+  <li class="m3"><span><high>Visualisierung</high></span></li>
 </ul>
 
 ]
@@ -162,14 +162,14 @@ Von <i>statisticum</i>, lat., den Staat betreffend.<br><font style="font-size:10
 
 <ul>
   <li class="m1"><span><high>Zusammenfassung</high> zentraler Eigenschaften der Daten durch etablierte Masse</span></li>
-  <li class="m2"><span><high>Eigenschaften</high> und <high>Masse</high></span></li>
+  <li class="m2"><span><high>Masse</high></span></li>
   <ul class=level>
     <li><span><b>Häufigkeiten</b></span></li>
     <li><span><b>Zentralität</b>: Mittelwert, Median, Modalwert</span></li>
     <li><span><b>Streuung</b>: Varianz, Interquartilabstand, Spannweite</span></li>
     <li><span><b>Zusammenhänge</b>: Diverse Korrelationsmasse</span></li>
   </ul>
-  <li class="m3"><span><high>Visualisierungen</high></span></li>
+  <li class="m3"><span><high>Visualisierung</high></span></li>
 </ul>
 
 
@@ -211,14 +211,14 @@ immatrikulation %>%
 
 <ul>
   <li class="m1"><span><high>Zusammenfassung</high> zentraler Eigenschaften der Daten durch etablierte Masse</span></li>
-  <li class="m2"><span><high>Eigenschaften</high> und <high>Masse</high></span></li>
+  <li class="m2"><span><high>Masse</high></span></li>
   <ul class=level>
     <li><span><b>Häufigkeiten</b></span></li>
     <li><span><b>Zentralität</b>: Mittelwert, Median, Modalwert</span></li>
     <li><span><b>Streuung</b>: Varianz, Interquartilabstand, Spannweite</span></li>
     <li><span><b>Zusammenhänge</b>: Diverse Korrelationsmasse</span></li>
   </ul>
-  <li class="m3"><span><high>Visualisierungen</high></span></li>
+  <li class="m3"><span><high>Visualisierung</high></span></li>
 </ul>
 
 
@@ -255,7 +255,7 @@ immatrikulation %>%
   select(Kanton, Jahr, Immatrikulationen)%>%
   summarize(
     Total = sum(Immatrikulationen),
-    Mittel = median(Immatrikulationen),
+    Median = median(Immatrikulationen),
     Streuung = sd(Immatrikulationen)
     )
 ```
@@ -273,14 +273,14 @@ immatrikulation %>%
 
 <ul>
   <li class="m1"><span><high>Zusammenfassung</high> zentraler Eigenschaften der Daten durch etablierte Masse</span></li>
-  <li class="m2"><span><high>Eigenschaften</high> und <high>Masse</high></span></li>
+  <li class="m2"><span><high>Masse</high></span></li>
   <ul class=level>
     <li><span><b>Häufigkeiten</b></span></li>
     <li><span><b>Zentralität</b>: Mittelwert, Median, Modalwert</span></li>
     <li><span><b>Streuung</b>: Varianz, Interquartilabstand, Spannweite</span></li>
     <li><span><b>Zusammenhänge</b>: Diverse Korrelationsmasse</span></li>
   </ul>
-  <li class="m3"><span><high>Visualisierungen</high></span></li>
+  <li class="m3"><span><high>Visualisierung</high></span></li>
 </ul>
 
 
@@ -332,7 +332,7 @@ i2019
   <li class="m1"><span><high>Entscheidungen und Urteile</high> über Deskriptive Entscheidungen</span></li>
   <li class="m2"><span>Beispiele</span></li>
   <ul class=level>
-    <li><span><high>Unterscheidet</high> sich ein deskriptives Mass <high>von angenommenen Werten</high>, e.g., zum Beispiel 0.</span></li>
+    <li><span><high>Unterscheidet</high> sich ein deskriptives Mass <high>von angenommenen Werten</high>, z.B., zum Beispiel 0.</span></li>
     <li><span><high>Unterscheiden</high> sich deskriptive Masse <high>untereinander</high></span></li>
   </ul>
 </ul>
@@ -383,7 +383,7 @@ i2019 / i2009
   <li class="m1"><span><high>Entscheidungen und Urteile</high> über Deskriptive Entscheidungen</span></li>
   <li class="m2"><span>Beispiele</span></li>
   <ul class=level>
-    <li><span><high>Unterscheidet</high> sich ein deskriptives Mass <high>von angenommenen Werten</high>, e.g., zum Beispiel 0.</span></li>
+    <li><span><high>Unterscheidet</high> sich ein deskriptives Mass <high>von angenommenen Werten</high>, z.B., zum Beispiel 0.</span></li>
     <li><span><high>Unterscheiden</high> sich deskriptive Masse <high>untereinander</high></span></li>
   </ul>
 </ul>
@@ -580,7 +580,7 @@ immatrikulation %>%
 # Datenmodell
 
 <ul>
-  <li class="m1"><span>Beschreibt wie gegeben die H0 die <high>Stichproben verteilt sein sollten</high>.</span></li>
+  <li class="m1"><span>Beschreibt wie, gegeben die H0, die <high>Stichproben verteilt sein sollten</high>.</span></li>
   <li class="m2"><span>Bedient sich i.d.R. bekannter <high>Wahrscheinlichkeitsverteilungen</high>.</span></li>
 </ul>
 
@@ -704,7 +704,7 @@ $$Pr(Daten|H0) = Verteilung$$
 # Teststatistik
 
 <ul>
-  <li class="m1"><span>Die X<sup>2</sup> Teststatistik summiert die <high>normalisierten, quadfratischen Abweichungen</high> vom der auf Basis von <mono><b>p</b></mono> erwarteten Häufigkeiten.</span></li>
+  <li class="m1"><span>Die X<sup>2</sup> Teststatistik summiert die <high>normalisierten, quadratischen Abweichungen</high> vom der auf Basis von <mono><b>p</b></mono> erwarteten Häufigkeiten.</span></li>
 </ul>
 
 <br>
@@ -823,7 +823,7 @@ $$Pr(Daten|H0) = Verteilung$$
 # Freiheitsgrade
 
 <ul>
-  <li class="m1"><span>Testverteilungen haben Parameter, die <high>aktuelle Situation angepasst werden</high>.</span></li>
+  <li class="m1"><span>Testverteilungen haben Parameter, die der <high>aktuellen Situation angepasst werden</high>.</span></li>
   <li class="m2"><span>Parameter.</span></li>
   <ul class="level">
   <li><span><high>Freiheitsgrade</high></li></span>
