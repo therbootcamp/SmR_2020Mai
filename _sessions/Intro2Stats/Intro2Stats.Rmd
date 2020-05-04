@@ -5,7 +5,7 @@ author: "Statistik mit R<br>
     The R Bootcamp
   </a>
   <br>
-  <a href='https://therbootcamp.github.io/SmR_2020Mar/'>
+  <a href='https://therbootcamp.github.io/SmR_2020Mai/'>
     <i class='fas fa-clock' style='font-size:.9em;'></i>
   </a>&#8239; 
   <a href='https://therbootcamp.github.io'>
@@ -17,7 +17,7 @@ author: "Statistik mit R<br>
   <a href='https://www.linkedin.com/company/basel-r-bootcamp/'>
     <i class='fab fa-linkedin' style='font-size: .9em;'></i>
   </a>"
-date: "März 2020"
+date: "Mai 2020"
 output:
   xaringan::moon_reader:
     css: ["default", "baselrbootcamp.css"]
@@ -45,7 +45,7 @@ layout: true
     </a>
     <a href="https://therbootcamp.github.io/">
       <font color="#7E7E7E">
-       Statistik mit R | März 2020
+       Statistik mit R | Mai 2020
       </font>
     </a>
     </span>
@@ -145,7 +145,7 @@ Von <i>statisticum</i>, lat., den Staat betreffend.<br><font style="font-size:10
 <ul>
   <li class="m1"><span><high>Entscheidungen</high> über deskriptive Statistiken</span></li>
   <ul class=level>
-    <li><span>Unterscheiden sich ein deskriptives Masse von einem <high>angenommenen Wert</high>, e.g., zum Beispiel 0.</b></span></li>
+    <li><span><high>Unterscheidet</high> sich ein deskriptives Mass <high>von angenommenen Werten</high>, z.B. 0.</span></li>
     <li><span>Unterscheiden sich <high>deskriptive Masse untereinander</high></span></li>
   </ul>
   <li class="m2"><span><high>Schätzungen</high> über deskriptive Statistiken</span></li>
@@ -332,7 +332,7 @@ i2019
   <li class="m1"><span><high>Entscheidungen und Urteile</high> über Deskriptive Entscheidungen</span></li>
   <li class="m2"><span>Beispiele</span></li>
   <ul class=level>
-    <li><span><high>Unterscheidet</high> sich ein deskriptives Mass <high>von angenommenen Werten</high>, z.B., zum Beispiel 0.</span></li>
+    <li><span><high>Unterscheidet</high> sich ein deskriptives Mass <high>von angenommenen Werten</high>, z.B. 0.</span></li>
     <li><span><high>Unterscheiden</high> sich deskriptive Masse <high>untereinander</high></span></li>
   </ul>
 </ul>
@@ -383,7 +383,7 @@ i2019 / i2009
   <li class="m1"><span><high>Entscheidungen und Urteile</high> über Deskriptive Entscheidungen</span></li>
   <li class="m2"><span>Beispiele</span></li>
   <ul class=level>
-    <li><span><high>Unterscheidet</high> sich ein deskriptives Mass <high>von angenommenen Werten</high>, z.B., zum Beispiel 0.</span></li>
+    <li><span><high>Unterscheidet</high> sich ein deskriptives Mass <high>von angenommenen Werten</high>, z.B. 0.</span></li>
     <li><span><high>Unterscheiden</high> sich deskriptive Masse <high>untereinander</high></span></li>
   </ul>
 </ul>
@@ -527,7 +527,7 @@ immatrikulation %>%
 # Nullhypothese H0
 
 <ul>
-  <li class="m1"><span>Jede statistische Inferenz begint mit <high>Annahmen über die Population</high>.</span></li>
+  <li class="m1"><span>Jede statistische Inferenz beginnt mit <high>Annahmen über die Population</high>.</span></li>
   <li class="m2"><span>In der klassischen Inferenz-Statistik ist <high>die wichtigste Annahme</high> die Nullhypothese H0.</span></li>
   <li class="m3"><span>Die Nullhypothese H0 dient...</span></li>
   <ul class=level>
@@ -704,7 +704,7 @@ $$Pr(Daten|H0) = Verteilung$$
 # Teststatistik
 
 <ul>
-  <li class="m1"><span>Die X<sup>2</sup> Teststatistik summiert die <high>normalisierten, quadratischen Abweichungen</high> vom der auf Basis von <mono><b>p</b></mono> erwarteten Häufigkeiten.</span></li>
+  <li class="m1"><span>Die X<sup>2</sup> Teststatistik summiert die <high>normalisierten, quadratischen Abweichungen</high> der auf Basis von <mono><b>p</b></mono> erwarteten Häufigkeiten.</span></li>
 </ul>
 
 <br>
@@ -996,6 +996,6 @@ $$ \large \bar{X} \xrightarrow{d} \mathcal{N}(\mu, \frac{\sigma}{\sqrt{n}}) $$
 ---
 class: middle, center
 
-<h1><a href="https://therbootcamp.github.io/SmR_2020Mar/index.html">Schedule</a></h1>
+<h1><a href="https://therbootcamp.github.io/SmR_2020Mai/index.html">Schedule</a></h1>
 
 

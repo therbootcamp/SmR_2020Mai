@@ -2,7 +2,7 @@
 title: "Lineare Modelle II"
 author: "Statistics with R<br>
   <a href='https://therbootcamp.github.io'>
-    Basel R Bootcamp
+    The R Bootcamp
   </a>
   <br>
   <a href='https://therbootcamp.github.io/SmR_2020Mai/'>
@@ -80,7 +80,7 @@ knitr::opts_chunk$set(dpi = 300, echo = FALSE, warning = FALSE, fig.align = 'cen
 
 ```
 
-# Allgemeines lineare Modell
+# Allgemeines lineares Modell
 
 .pull-left4[
 
@@ -103,7 +103,7 @@ knitr::opts_chunk$set(dpi = 300, echo = FALSE, warning = FALSE, fig.align = 'cen
 
 <p align="center">
 
-<img src="image/swiss_sm.jpg">
+<img src="image/swiss_sm.png">
 
 </p>
 ]
@@ -116,7 +116,7 @@ knitr::opts_chunk$set(dpi = 300, echo = FALSE, warning = FALSE, fig.align = 'cen
 
 <ul>
   <li class="m1"><span>Das allgemeine Lineare Modell kann auch mit <high>kategorialen Prädiktoren</high> umgehen.</span></li>
-  <li class="m2"><span>Neben <high>dedizierten Tests</high> (e.g., <mono>t.test()</mono>), können solche Prädiktoren ebenfalls in <mono>lm()</mono> aufgenommen werden.</span></li>
+  <li class="m2"><span>Neben <high>dedizierten Tests</high> (z.B., <mono>t.test()</mono>), können solche Prädiktoren ebenfalls in <mono>lm()</mono> aufgenommen werden.</span></li>
   <li class="m3"><span>Beispiele</span></li>
   <ul class="level">
     <li><span><high>Gruppenvergleiche</high></li></span>
@@ -221,7 +221,7 @@ lm(Nächte_log ~ Region,
   <li class="m2"><span>Zwei Kodierungsarten:</span></li>
   <ul>
     <li><span><high>Dummy coding</high> setzt Werte einer Kategorie auf 1, anonsten 0<br>&rarr; <high>intercept = 0-Kategorie</high></span></li><br>
-    <li><span><high>Effect coding</high> setzt Werte einer Kategorie auf 1, anonsten -1<br>&rarr; <high>Intercept  = &ymacr;</high></span></li>
+    <li><span><high>Effect coding</high> setzt Werte einer Kategorie auf 1, anonsten -1<br>&rarr; <high>Intercept  =  &#563;  </high></span></li>
   </ul>
 </ul>
 
@@ -247,7 +247,7 @@ lm(Nächte_log ~ Region,
   <li class="m2"><span>Zwei Kodierungsarten:</span></li>
   <ul>
     <li><span><high>Dummy coding</high> setzt Werte einer Kategorie auf 1, anonsten 0<br>&rarr; <high>intercept = 0-Kategorie</high></span></li><br>
-    <li><span><high>Effect coding</high> setzt Werte einer Kategorie auf 1, anonsten -1<br>&rarr; <high>Intercept  = &ymacr;</high></span></li>
+    <li><span><high>Effect coding</high> setzt Werte einer Kategorie auf 1, anonsten -1<br>&rarr; <high>Intercept  = &#563;</high></span></li>
   </ul>
 </ul>
 
@@ -275,7 +275,7 @@ lm(Nächte_log ~ Region,
   <li class="m2"><span>Zwei Kodierungsarten:</span></li>
   <ul>
     <li><span><high>Dummy coding</high> setzt Werte einer Kategorie auf 1, anonsten 0<br>&rarr; <high>intercept = 0-Kategorie</high></span></li><br>
-    <li><span><high>Effect coding</high> setzt Werte einer Kategorie auf 1, anonsten -1<br>&rarr; <high>Intercept  = &ymacr;</high></span></li>
+    <li><span><high>Effect coding</high> setzt Werte einer Kategorie auf 1, anonsten -1<br>&rarr; <high>Intercept  = &#563;</high></span></li>
   </ul>
 </ul>
 
@@ -301,7 +301,7 @@ lm(Nächte_log ~ Region,
   <li class="m2"><span>Zwei Kodierungsarten:</span></li>
   <ul>
     <li><span><high>Dummy coding</high> setzt Werte einer Kategorie auf 1, anonsten 0<br>&rarr; <high>intercept = 0-Kategorie</high></span></li><br>
-    <li><span><high>Effect coding</high> setzt Werte einer Kategorie auf 1, anonsten -1<br>&rarr; <high>Intercept  = &ymacr;</high></span></li>
+    <li><span><high>Effect coding</high> setzt Werte einer Kategorie auf 1, anonsten -1<br>&rarr; <high>Intercept  = &#563;</high></span></li>
   </ul>
 </ul>
 
@@ -319,7 +319,7 @@ lm(Nächte_log ~ Region,
 
 ---
 
-# t-Test three ways
+# t-Test - drei Arten
 
 .pull-left4[
 <ul>
@@ -359,7 +359,7 @@ lm_effect <- lm(
 
 ---
 
-# t-Test three ways
+# t-Test - drei Arten
 
 .pull-left4[
 <ul>
@@ -491,7 +491,7 @@ summary(mod)$coef
 
 .pull-left35[
 <ul>
-  <li class="m1"><span>Varianzanalyse (ANOVA) ist eine Verallgemeinerung des t-tests und kann ebenfalls als ein <high>Spezialfall der Regression</high> verstanden werden.</span></li>
+  <li class="m1"><span>Varianzanalyse (ANOVA) ist eine Verallgemeinerung des t-Tests und kann ebenfalls als ein <high>Spezialfall der Regression</high> verstanden werden.</span></li>
   <li class="m2"><span>Die Nullhypothese ist, dass alle Gruppen einen <high>identischen Mittelwert</high> besitzen.</span></li>
 </ul>
 ]
