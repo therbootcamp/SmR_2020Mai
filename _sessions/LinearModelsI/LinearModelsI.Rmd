@@ -5,7 +5,7 @@ author: "Statistik mit R<br>
     The R Bootcamp
   </a>
   <br>
-  <a href='https://therbootcamp.github.io/SmR_2020Mar/'>
+  <a href='https://therbootcamp.github.io/SmR_2020Mai/'>
     <i class='fas fa-clock' style='font-size:.9em;'></i>
   </a>&#8239; 
   <a href='https://therbootcamp.github.io'>
@@ -85,7 +85,7 @@ knitr::opts_chunk$set(dpi = 300, echo = FALSE, warning = FALSE, fig.align = 'cen
 .pull-left4[
 
 <ul>
-  <li class="m1"><span>Die <high>meisten inferenzstatitischen Tests</high> gehören zur Klasse der linearen Modelle.</span></li>
+  <li class="m1"><span>Die <high>meisten inferenzstatistischen Tests</high> gehören zur Klasse der linearen Modelle.</span></li>
   <li class="m2"><span>Beispiele</span></li>
   <ul class="level">
     <li><span><high>Regression</high></li></span>
@@ -219,13 +219,13 @@ ggplot(d,
 
 ---
 
-# Lineare regression
+# Lineare Regression
 
 .pull-left4[
 
 
 <ul>
-  <li class="m1"><span>Die lineare regression ist eine <high>gerichtete Zusammenhangsanalyse</high>.</span></li>
+  <li class="m1"><span>Die lineare Regression ist eine <high>gerichtete Zusammenhangsanalyse</high>.</span></li>
   <li class="m2"><span>Ein <high>Kriterium</high> soll durch einen (einfach) oder mehrere (multiple) <high>Prädiktoren</high> modelliert werden.</span></li>
   <li class="m3"><span>Getestet wird ob und wie sehr der Prädiktor / die Prädiktoren <high>das Kriterium erklären</high>.</span></li>
   </ul>
@@ -246,7 +246,7 @@ ggplot(d,
 
 ---
 
-# Einfache lineare regression
+# Einfache lineare Regression
 
 .pull-left4[
 
@@ -366,7 +366,7 @@ ggplot(d,
 
 <ul>
   <li class="m1"><span>Die <high>Parameter</high>, &beta;<sub>0</sub> und &beta;<sub>1</sub> müssen aus den Daten <high>geschätzt</high> werden.</span></li>
-  <li class="m2"><span>Die Schätzung basiert auf dem auf dem <high>Kleinsten-Quadrate Kriterium</high>.</span></li>
+  <li class="m2"><span>Die Schätzung basiert auf dem <high>Kleinsten-Quadrate Kriterium</high>.</span></li>
   </ul>
 </ul>
 
@@ -420,7 +420,7 @@ ggplot(d,
 
 
 <ul>
-  <li class="m1"><span>Die Residuen  &e; sind der <high>Fehler</high> den die Regreessionsfunktion in der <high>Vorhersage y&#x0302; des Kriteriums</high> macht.</span></li>
+  <li class="m1"><span>Die Residuen e sind der <high>Fehler</high> den die Regreessionsfunktion in der <high>Vorhersage y&#x0302; des Kriteriums</high> macht.</span></li>
   <li class="m2"><span>Mittels der Residuen kann die <high>Qualität der Vorhersage</high> evaluaiert werden.</span></li>
   </ul>
 </ul>
@@ -620,7 +620,7 @@ ggplot(d,
 
 <br>
 
-$$\Large \hat{y} = b_0 + b_1  \cdot x_1 + ... b_k \cdot b_k$$
+$$\Large \hat{y} = b_0 + b_1  \cdot x_1 + ... b_k \cdot x_k$$
 
 ]
 
@@ -687,7 +687,7 @@ plt %>%  layout(showlegend = FALSE)
 
 
 <ul>
-  <li class="m1"><span>Die Schätzung basiert auf dem auf dem <high>Kleinsten-Quadrate Kriterium</high>.</span></li>
+  <li class="m1"><span>Die Schätzung basiert auf dem <high>Kleinsten-Quadrate Kriterium</high>.</span></li>
   </ul>
 </ul>
 
@@ -832,7 +832,7 @@ ggplot(d,
 .pull-left4[
 
 <ul>
-  <li class="m1"><span>The beta weights follow a <high>t-Verteilung</high>.</span></li>
+  <li class="m1"><span>Die Betagewichte folgen einer <high>t-Verteilung</high>.</span></li>
   <li class="m2"><span>Die Verteilung hängt von <high>Freiheitsgraden &nu;</high> ab.</span></li>
   </ul>
 </ul>
@@ -951,7 +951,7 @@ rect(qt(.95,10),0,6,.15,col=colTrans(colors['magenta'],.2),border=NA)
 x = seq(qt(.95,10),6,.01)
 polygon(c(x[1],x,x[1]),c(0,dt(x, df = 10),0),col=colors['magenta'],border=NA)
 
-text(qt(.95,10)-.7,.025,labels=expression(alpha/2))
+text(qt(.95,10)-.7,.025,labels=expression(alpha))
 text(4,.1,labels=c('Signifikant'),font=2,col='white',cex=1)
 
 x = seq(-6,6,.01)
@@ -1023,7 +1023,7 @@ class: middle, center
 </tr>
 <tr>
   <td bgcolor="white">
-  <mono>\*</mono> / <mono>:</mono> 
+  <mono>*</mono> / <mono>:</mono> 
   </td>
   <td bgcolor="white">
    Ergänze Interaktionen mit/ohne Haupteffekte.    
@@ -1414,5 +1414,5 @@ resid(naechte_lm)[1:5]
 
 class: middle, center
 
-<h1><a href="https://therbootcamp.github.io/SmR_2020Apr/_sessions/LinearModelsI/LinearModelsI_practical.html">Practical</a></h1>
+<h1><a href="https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsI/LinearModelsI_practical.html">Practical</a></h1>
 
