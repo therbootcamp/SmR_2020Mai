@@ -65,6 +65,7 @@ options(digits = 4)
 
 # Load packages
 require(tidyverse)
+require(MASS)
 
 print2 <- function(x, nlines=10,...) {
    cat(head(capture.output(print(x,...)), nlines), sep="\n")}
@@ -80,21 +81,15 @@ knitr::opts_chunk$set(dpi = 300, echo = FALSE, warning = FALSE, fig.align = 'cen
 
 ```
 
+
+
 # Generalisiertes lineares Modell
 
 .pull-left4[
 
 <ul>
-  <li class="m1"><span>Das allgemeine lineare Modell ist das schweizer Taschenmesser der Statistik.</span></li>
-  <li class="m2"><span>Schliesst ein:</span></li>
-  <ul class="level">
-    <li><span><high>Regression</high></li></span>
-    <li><span><high>t-Test<high></li></span>
-    <li><span><high>Varianzanalyse (ANOVA)</high></li></span>
-    <li><span>Mediationsanalyse</li></span>
-    <li><span>Faktorenanalyse</li></span>
-    <li><span>Strukturgleichungsmodelle</li></span>
-  </ul>
+  <li class="m1"><span>Das generalisierte lineare Modell ist <high>das eigentliche schweizer Taschenmesser</high> der Statistik.</span></li>
+  <li class="m2"><span>Ermöglicht gegenüber dem allgemeinen Linearen Modell <high>verschiene Datenmodelle und Link-Funktionen</high></span></li>
 </ul>
 
 ]
@@ -110,27 +105,62 @@ knitr::opts_chunk$set(dpi = 300, echo = FALSE, warning = FALSE, fig.align = 'cen
 
 ---
 
-# Link funktionen
+.pull-left4[
+
+# Link-Funktionen
+
+<ul>
+  <li class="m1"><span>Link-Funktionen sind <high>Transformationen des Kriteriums</high>.</span></li>
+  <li class="m2"><span>Gehen i.d.R. Hand in Hand mit <high>alternativen Datenmodellen</high>.</span></li>
+</ul>
+
+<br>
+
+$$\Large \rho(\mu)=\textbf{X}\boldsymbol{\beta}$$
+]
+
+.pull-right5[
+
+<br><br>
+
+<p align="center"><u>Identität - Normal</u></p>
+
+$$\Large \rho(\mu)=\mu, \;\;\;\ y \sim \mathcal{N}(\mu,\,\sigma)$$
+<p align="center" style="padding-top:30px"><u>Logit - Binomial</u></p>
+
+$$\Large \rho(\mu)=log \Big(\frac{\mu}{1-\mu}\Big), \;\;\;\ y \sim B(\mu)$$
+<p align="center" style="padding-top:30px"><u>Log - Negative binomial</u></p>
+
+$$\Large \rho(\mu)=log (\mu), \;\;\;\ y \sim Pois(\mu) $$
+
+<p align="center" style="padding-top:30px"><u>Log - Poisson</u></p>
+
+$$\Large \rho(\mu)=log (\mu), \;\;\;\ y\sim NB(\mu)$$
+
+]
+
+
+---
+
+# Logistische Regression
 
 .pull-left4[
 
 <ul>
-  <li class="m1"><span>Das allgemeine Lineare Modell kann auch mit <high>kategorialen Prädiktoren</high> umgehen.</span></li>
-  <li class="m2"><span>Neben <high>dedizierten Tests</high> (e.g., <mono>t.test()</mono>), können solche Prädiktoren ebenfalls in <mono>lm()</mono> aufgenommen werden.</span></li>
-  <li class="m3"><span>Beispiele</span></li>
-  <ul class="level">
-    <li><span><high>Gruppenvergleiche</high></li></span>
-    <li><span><high>A/B Tests<high></li></span>
-  </ul>
+  <li class="m1"><span>Dient der Vorhersage von <high>dichotomen Variablen</high>, d.h., Ja/Nein, 1/0, etc.</span></li>
+  <li class="m2"><span>Basiert auf einem <high>logit-link mit Binomialem Datenmodell</high>.</span></li>
 </ul>
 
+<br>
+
+$$\Large p(y = 1) = \frac{1}{1 + e^{-b_0+b_1*x}}$$
 ]
+
 
 .pull-right5[
 
 ```{r, echo = F, fig.width = 3.5, fig.height = 3}
 
-library(tidyverse) ; library(ggrepel)
 
 # Lade Tourismus Daten
 tour <- read_csv('1_Data/Tourismus.csv') 
@@ -140,15 +170,21 @@ europa <- read_csv('1_Data/Europa.csv')
 tour = tour %>%
   mutate(Nächte = Besucher * Dauer) %>%
   left_join(europa) %>% 
-  mutate(Nächte_log = log2(Nächte),
-         Region = stringr::str_trunc(Region, 7, ellipsis = "."))
+  mutate(Europa = ifelse(Region == 'Europa', 1,0))
 
-tour %>%  filter(Region %in% c('Europa','Asien')) %>% 
-  ggplot(aes(x = Region, 
-             y = Nächte)) +
-  scale_y_continuous(trans = 'log2') + 
-  geom_boxplot() +
-  theme_minimal() 
+d = tour %>% mutate(Besucher = log(Besucher))
+
+m = glm(Europa ~ Besucher, data = d, family = 'binomial')
+logist = function(x) 1/(1 + exp(-(coef(m)[1] + coef(m)[2] * x)))
+ggplot(d, 
+       aes(x = Besucher, 
+           y = Europa)) +
+  geom_segment(
+    aes(x = Besucher, xend = Besucher,
+        y = fitted(m), yend = Europa), linetype=3,size=.3) +
+  geom_point() +
+  geom_line(data = tibble(d = seq(-3,13,.1), l = logist(seq(-3,13,.1))), aes(x =d, y = l), col = '#EA4B68', size = 1.5) + 
+  theme_bw() + ylim(c(0,1)) + xlim(c(-3,13)) + labs(x='log(Besucher)',y="Europa: 1 = Ja, 0 = Nein")
 
 ```
 
@@ -156,357 +192,179 @@ tour %>%  filter(Region %in% c('Europa','Asien')) %>%
 
 ---
 
-# Logistische Funktion
-
-.pull-left4[
-<ul>
-  <li class="m1"><span>Der t-Test <high>vergleicht zwei Gruppen</high> in einer kontinuierlichen Variable.</span></li>
-  <li class="m2"><span>Die Nullhypothese ist, dass die Gruppen einen <high>identischen Mittelwert</high> besitzen.</span></li>
-  <li class="m3"><span>Beispiele</span></li>
-  <ul class="level">
-    <li><span><high>Gruppenvergleiche</high></li></span>
-    <li><span><high>A/B Tests<high></li></span>
-  </ul>
-</ul>
-]
-
-
-.pull-right5[
-
-```{r, echo = T, fig.width = 3.5, fig.height = 3}
-
-t.test(tour$Nächte_log[tour$Region == 'Europa'],
-       tour$Nächte_log[tour$Region == 'Asien'])
-```
-
-
-]
-
----
-
-# Logistische Funktion
-
----
-
-# Likelihood
-
----
-
-# Interpretieren ...
-
-
----
-
-# Poisson 
-
-
-
-.pull-left4[
-<ul>
-  <li class="m1"><span>Der t-Test <high>vergleicht zwei Gruppen</high> in einer kontinuierlichen Variable.</span></li>
-  <li class="m2"><span>Die Nullhypothese ist, dass die Gruppen einen <high>identischen Mittelwert</high> besitzen.</span></li>
-  <li class="m3"><span>Beispiele</span></li>
-  <ul class="level">
-    <li><span><high>Gruppenvergleiche</high></li></span>
-    <li><span><high>A/B Tests<high></li></span>
-  </ul>
-</ul>
-]
-
-
-.pull-right5[
-
-```{r, echo = T, fig.width = 3.5, fig.height = 3}
-lm(Nächte_log ~ Region, 
-   data = tour %>% 
-     filter(Region %in% c('Europa', 'Asien')))
-```
-
-]
-
----
-
-# Kodierung
-
-
-
-
----
-
-# Kodierung
+# Maximum Likelihood
 
 .pull-left4[
 
 <ul>
-  <li class="m1"><span>Kategoriale Variablen werden.</span></li>
-  <li class="m2"><span>Schliesst ein:</span></li>
-  <ul class="level">
-    <li><span><high>Regression</high></li></span>
-    <li><span><high>t-Test<high></li></span>
-    <li><span><high>Varianzanalyse (ANOVA)</high></li></span>
-    <li><span>Mediationsanalyse</li></span>
-    <li><span>Faktorenanalyse</li></span>
-    <li><span>Strukturgleichungsmodelle</li></span>
-  </ul>
+  <li class="m1"><span>Maximum Likelihood ist neben Kleinste-Quadrate (OLS) die <high>wichtigste "Loss"-function der Statistik</high>.</span></li>
+  <li class="m2"><span><high>Koinzidiert mit OLS</high> für nicht-generalisierte Modelle.</span></li>
 </ul>
+
+<br>
+
+$$\large \mathbf{b} = \underset{\mathbf{b}}{\operatorname{argmax}} L\big(y_i|{\mathbf{b}}\big)$$
+
+<p align="center" style="padding-bottom:5px;margin-top:0px;padding-top:20px"><u>Binomialmodell</u></p>
+
+$$\large L(y_i|\mathbf{b})= {{N}\choose{k}}p_{y_i=1}^k(1-p_{y_i=1})^{1-k}$$
 
 ]
 
 .pull-right5[
 
-<p align="center">
-
-<img src="image/coding.png" height=420px>
-
-</p>
-]
-
----
-
-# Designmatrix
-
-.pull-left4[
-
-<ul>
-  <li class="m1"><span>Kategoriale Variablen werden.</span></li>
-  <li class="m2"><span>Schliesst ein:</span></li>
-  <ul class="level">
-    <li><span><high>Regression</high></li></span>
-    <li><span><high>t-Test<high></li></span>
-    <li><span><high>Varianzanalyse (ANOVA)</high></li></span>
-    <li><span>Mediationsanalyse</li></span>
-    <li><span>Faktorenanalyse</li></span>
-    <li><span>Strukturgleichungsmodelle</li></span>
-  </ul>
-</ul>
-
-]
-
-.pull-right5[
-
-<p align="center">
-
-<img src="image/design.png">
-
-</p>
-]
-
-
-
----
-
-# Designmatrix
-
-.pull-left4[
-
-<ul>
-  <li class="m1"><span>Kategoriale Variablen werden.</span></li>
-  <li class="m2"><span>Schliesst ein:</span></li>
-  <ul class="level">
-    <li><span><high>Regression</high></li></span>
-    <li><span><high>t-Test<high></li></span>
-    <li><span><high>Varianzanalyse (ANOVA)</high></li></span>
-    <li><span>Mediationsanalyse</li></span>
-    <li><span>Faktorenanalyse</li></span>
-    <li><span>Strukturgleichungsmodelle</li></span>
-  </ul>
-</ul>
-
-]
-
-.pull-right5[
-
-<p align="center">
-
-<img src="image/design2.png">
-
-</p>
-]
-
----
-
-# Designmatrix
-
-.pull-left4[
-
-<ul>
-  <li class="m1"><span>Kategoriale Variablen werden.</span></li>
-  <li class="m2"><span>Schliesst ein:</span></li>
-  <ul class="level">
-    <li><span><high>Regression</high></li></span>
-    <li><span><high>t-Test<high></li></span>
-    <li><span><high>Varianzanalyse (ANOVA)</high></li></span>
-    <li><span>Mediationsanalyse</li></span>
-    <li><span>Faktorenanalyse</li></span>
-    <li><span>Strukturgleichungsmodelle</li></span>
-  </ul>
-</ul>
-
-]
-
-.pull-right5[
-
-<p align="center">
-
-<img src="image/design3.png">
-
-</p>
-]
-
-
----
-
-# t-Test three ways
-
-.pull-left4[
-<ul>
-  <li class="m1"><span>Der t-Test <high>vergleicht zwei Gruppen</high> in einer kontinuierlichen Variable.</span></li>
-  <li class="m2"><span>Die Nullhypothese ist, dass die Gruppen einen <high>identischen Mittelwert</high> besitzen.</span></li>
-  <li class="m3"><span>Beispiele</span></li>
-  <ul class="level">
-    <li><span><high>Gruppenvergleiche</high></li></span>
-    <li><span><high>A/B Tests<high></li></span>
-  </ul>
-</ul>
-]
-
-
-.pull-right5[
-
-```{r, echo = T, fig.width = 3.5, fig.height = 3}
-# Regulärer t-test
-t_test <- 
-t.test(tour$Nächte_log[tour$Region == 'Europa'],
-       tour$Nächte_log[tour$Region == 'Asien'])
-
-# Regression mit dummy
-lm_dummy <- lm(Nächte_log ~ Region, 
-   data = tour %>% 
-     filter(Region %in% c('Europa', 'Asien')))
-
-# Regression mit effect
-lm_effect <- lm(Nächte_log ~ Region, 
-   data = tour %>% 
-     filter(Region %in% c('Europa', 'Asien')),
-   contrasts = list(Region = contr.sum))
-```
-
-]
-
-
----
-
-# t-Test three ways
-
-.pull-left4[
-<ul>
-  <li class="m1"><span>Der t-Test <high>vergleicht zwei Gruppen</high> in einer kontinuierlichen Variable.</span></li>
-  <li class="m2"><span>Die Nullhypothese ist, dass die Gruppen einen <high>identischen Mittelwert</high> besitzen.</span></li>
-  <li class="m3"><span>Beispiele</span></li>
-  <ul class="level">
-    <li><span><high>Gruppenvergleiche</high></li></span>
-    <li><span><high>A/B Tests<high></li></span>
-  </ul>
-</ul>
-]
-
-
-.pull-right5[
-
-```{r, echo = T, fig.width = 3.5, fig.height = 3}
-t_test[c('statistic','parameter','p.value')]        %>% unlist
-
-summary(lm_dummy)$coef
-
-summary(lm_effect)$coef
-```
-
-]
-
----
-
-# Multiple Kategorien
-
-.pull-left4[
-<ul>
-  <li class="m1"><span>Der t-Test <high>vergleicht zwei Gruppen</high> in einer kontinuierlichen Variable.</span></li>
-  <li class="m2"><span>Die Nullhypothese ist, dass die Gruppen einen <high>identischen Mittelwert</high> besitzen.</span></li>
-  <li class="m3"><span>Beispiele</span></li>
-  <ul class="level">
-    <li><span><high>Gruppenvergleiche</high></li></span>
-    <li><span><high>A/B Tests<high></li></span>
-  </ul>
-</ul>
-]
-
-.pull-right5[
 ```{r, echo = F, fig.width = 3.5, fig.height = 3}
 
-tour %>%
-  ggplot(aes(x = Region, 
-             y = Nächte)) +
-  scale_y_continuous(trans = 'log2') + 
-  geom_boxplot() +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+m = glm(Europa ~ Besucher, data = d, family = 'binomial')
+logist = function(x) 1/(1 + exp(-(coef(m)[1] + coef(m)[2] * x)))
+ggplot(d, 
+       aes(x = Besucher, 
+           y = Europa)) +
+  geom_segment(
+    aes(x = Besucher, xend = Besucher,
+        y = fitted(m), yend = Europa), linetype=3,size=.3) +
+  geom_point() +
+  geom_line(data = tibble(d = seq(-3,13,.1), l = logist(seq(-3,13,.1))), aes(x =d, y = l), col = '#EA4B68', size = 1.5) + 
+  theme_bw() + ylim(c(0,1)) + xlim(c(-3,13)) + labs(x='log(Besucher)',y="Europa: 1 = Ja, 0 = Nein")
 
 ```
-]
 
+]
 
 ---
 
-# Multiple Kategorien
+# `glm()`
 
 .pull-left4[
+
 <ul>
-  <li class="m1"><span>Der t-Test <high>vergleicht zwei Gruppen</high> in einer kontinuierlichen Variable.</span></li>
-  <li class="m2"><span>Die Nullhypothese ist, dass die Gruppen einen <high>identischen Mittelwert</high> besitzen.</span></li>
-  <li class="m3"><span>Beispiele</span></li>
-  <ul class="level">
-    <li><span><high>Gruppenvergleiche</high></li></span>
-    <li><span><high>A/B Tests<high></li></span>
-  </ul>
+  <li class="m1"><span><high>Generalisierte lineare Modelle</high> können mit <mono>glm()</mono> spezifiziert werden.</high>.</span></li>
+  <li class="m2"><span>Argument <mono>family</mono> bestimmt <high>Link und Datenmodell</high>.</span></li>
 </ul>
+
 ]
 
 .pull-right5[
 
 <p align="center">
-
-<img src="image/dummy2.png" height=420px>
-
+<img src="image/glm.png">
 </p>
-]
 
+]
 
 ---
 
-# `lm()`
+# `glm()`
 
 .pull-left35[
-<ul>
-  <li class="m1"><span>Der t-Test <high>vergleicht zwei Gruppen</high> in einer kontinuierlichen Variable.</span></li>
-  <li class="m2"><span>Die Nullhypothese ist, dass die Gruppen einen <high>identischen Mittelwert</high> besitzen.</span></li>
-  <li class="m3"><span>Beispiele</span></li>
-  <ul class="level">
-    <li><span><high>Gruppenvergleiche</high></li></span>
-    <li><span><high>A/B Tests<high></li></span>
-  </ul>
-</ul>
-]
 
+<ul>
+  <li class="m1"><span><high>Generalisierte lineare Modelle</high> können mit <mono>glm()</mono> spezifiziert werden.</high>.</span></li>
+  <li class="m2"><span>Argument <mono>family</mono> bestimmt <high>Link und Datenmodell</high>.</span></li>
+</ul>
+
+
+
+]
 
 .pull-right55[
 
-```{r}
+```{r, echo = T, fig.width = 3.5, fig.height = 3}
+# Logistische Regression
+mod <- glm(Europa ~ Besucher, 
+           data = tour, 
+           family = 'binomial')
+mod
+```
+
+]
+
+---
+
+.pull-left35[
+
+# `glm()`
+
+<ul>
+  <li class="m1"><span><high>Generalisierte lineare Modelle</high> können mit <mono>glm()</mono> spezifiziert werden.</high>.</span></li>
+  <li class="m2"><span>Argument <mono>family</mono> bestimmt <high>Link und Datenmodell</high>.</span></li>
+</ul>
+
+<br>
+
+$$\large e^{b_{x}} = OR_{x}$$
+
+<br>
+
+$$\large OR_x = \frac{\frac{p_{x+1}}{1-p_{x+1}}}{\frac{p_x}{1-p_x}}$$
+
+]
+
+.pull-right55[
+
+```{r, echo =F}
 options(width=55)
 ```
 
 ```{r, echo = T, fig.width = 3.5, fig.height = 3}
-# Regression mit allen Regionen
-lm(Nächte_log ~ Region, 
-   data = tour)
+# Logistische Regression
+summary(mod)
+
+```
+
+]
+
+---
+
+# Poisson-Regression
+
+.pull-left4[
+
+<ul>
+  <li class="m1"><span>Dient der Vorhersage von <high>Häufigkeiten</high>.</span></li>
+  <li class="m2"><span>Basiert auf einem <high>log-link mit Poisson Datenmodell</high>.</span></li>
+</ul>
+
+<br>
+
+$$\Large \hat{y} = e^{-b_0+b_1*x}$$
+
+<p align="center" style="padding-bottom:5px;margin-top:0px;padding-top:30px"><u>Poisson-Modell</u></p>
+
+$$\Large L(y_i|b) = \prod_i \frac{\hat{y_i}^{y_i}}{y_{i}!}e^{-\hat{y}}$$
+]
+
+
+.pull-right5[
+
+```{r, echo = F, fig.width = 3.5, fig.height = 3}
+
+
+# Lade Tourismus Daten
+tour <- read_csv('1_Data/Tourismus.csv') 
+europa <- read_csv('1_Data/Europa.csv') 
+
+# Berechne Nächte per Region
+tour = tour %>%
+  mutate(Nächte = Besucher * Dauer) %>%
+  left_join(europa) %>% 
+  filter(!is.na(Äquivalenzeinkommen)) %>% 
+  mutate(Europa = ifelse(Region == 'Europa', 1,0))
+
+d = tour %>% mutate(Besucher = log(Besucher))
+
+m = glm(Nächte ~ Äquivalenzeinkommen, data = d, family = 'poisson')
+poiss = function(x) exp(coef(m)[1] + coef(m)[2] * x)
+ggplot(d, 
+       aes(x = Äquivalenzeinkommen, 
+           y = Nächte)) +
+  geom_segment(
+    aes(x = Äquivalenzeinkommen, xend = Äquivalenzeinkommen,
+        y = fitted(m), yend = Nächte), linetype=3,size=.3) +
+  geom_point() +
+  geom_line(data = tibble(d = seq(0,30000,100), l = poiss(seq(0,30000,100))), aes(x =d, y = l), col = '#EA4B68', size = 1.5) + 
+  theme_bw() + labs(x='Äquivalenzeinkommen',y="Nächte")
+
 ```
 
 ]
@@ -514,107 +372,198 @@ lm(Nächte_log ~ Region,
 
 ---
 
-# `lm()`
+# `glm()`
 
 .pull-left35[
-<ul>
-  <li class="m1"><span>Der t-Test <high>vergleicht zwei Gruppen</high> in einer kontinuierlichen Variable.</span></li>
-  <li class="m2"><span>Die Nullhypothese ist, dass die Gruppen einen <high>identischen Mittelwert</high> besitzen.</span></li>
-  <li class="m3"><span>Beispiele</span></li>
-  <ul class="level">
-    <li><span><high>Gruppenvergleiche</high></li></span>
-    <li><span><high>A/B Tests<high></li></span>
-  </ul>
-</ul>
-]
 
+<ul>
+  <li class="m1"><span><high>Generalisierte lineare Modelle</high> können mit <mono>glm()</mono> spezifiziert werden.</high>.</span></li>
+  <li class="m2"><span>Argument <mono>family</mono> bestimmt <high>Link und Datenmodell</high>.</span></li>
+</ul>
+
+]
 
 .pull-right55[
 
 ```{r, echo = T, fig.width = 3.5, fig.height = 3}
-# Regression mit allen Regionen
-mod <- lm(Nächte_log ~ Region, 
-   data = tour)
-
-# Regressionstests
-summary(mod)$coef
+# Poisson Regression
+mod <- glm(Nächte ~ Äquivalenzeinkommen, 
+           data = tour, 
+           family = 'poisson')
+mod
 ```
 
 ]
 
 ---
 
-# `anova()`
-
 .pull-left35[
+
+# `glm()`
+
 <ul>
-  <li class="m1"><span>Der t-Test <high>vergleicht zwei Gruppen</high> in einer kontinuierlichen Variable.</span></li>
-  <li class="m2"><span>Die Nullhypothese ist, dass die Gruppen einen <high>identischen Mittelwert</high> besitzen.</span></li>
-  <li class="m3"><span>Beispiele</span></li>
-  <ul class="level">
-    <li><span><high>Gruppenvergleiche</high></li></span>
-    <li><span><high>A/B Tests<high></li></span>
-  </ul>
+  <li class="m1"><span><high>Generalisierte lineare Modelle</high> können mit <mono>glm()</mono> spezifiziert werden.</high>.</span></li>
+  <li class="m2"><span>Argument <mono>family</mono> bestimmt <high>Link und Datenmodell</high>.</span></li>
 </ul>
+
 ]
 
+.pull-right55[
+
+```{r, echo =F}
+options(width=55)
+```
+
+```{r, echo = T, fig.width = 3.5, fig.height = 3}
+# Poisson Regression
+summary(mod)
+
+```
+
+]
+
+
+---
+
+# `glm.nb()`
+
+.pull-left35[
+
+<ul>
+  <li class="m1"><span><high>Negativ-Binomialmodelle</high> sind eine alternative für Häufigkeitsdaten.</span></li>
+  <li class="m2"><span>Entsprechen einer <high>Generalisierung des Poisson-Modells</high>.</span></li>
+</ul>
+
+]
 
 .pull-right55[
 
 ```{r, echo = T, fig.width = 3.5, fig.height = 3}
-# Regression mit allen Regionen
-mod <- lm(Nächte_log ~ Region, 
-   data = tour)
+# Negativ-binomial Regression
+mod <- glm.nb(Nächte ~ Äquivalenzeinkommen, 
+              data = tour)
+mod
+```
 
-# ANOVA tests
-anova(mod)
+]
+
+---
+
+.pull-left35[
+
+# `glm.nb()`
+
+<ul>
+  <li class="m1"><span><high>Negativ-Binomialmodellen</high> sind eine alternative für Häufigkeitsdaten.</span></li>
+  <li class="m2"><span>Entsprechen einer <high>Generalisierung des Poisson-Modells</high>.</span></li>
+</ul>
+
+]
+
+.pull-right55[
+
+```{r, echo = T, fig.width = 3.5, fig.height = 3}
+# Negativ-binomial Regression
+mod <- glm.nb(Nächte ~ Äquivalenzeinkommen, 
+              data = tour)
+summary(mod)
 ```
 
 ]
 
 
+---
+
+# `AIC`
+
+.pull-left4[
+
+
+<ul>
+  <li class="m1"><span>Generalisierte lineare Modelle können mit dem <high>Aikaike Informationskriterium (AIC)</high> verglichen werden.</high>.</span></li>
+  <li class="m2"><span>Es drückt den <high>Fit relativ zur Anzahl Parameter</high> <i>k</i> aus</high>.</span></li>
+</ul>
+
+$$AIC = -2logL + 2k$$
+
+]
+
+
+.pull-right5[
+
+```{r, echo = T, fig.width = 3.5, fig.height = 3}
+# Negativ-binomial Regression
+pois <- glm(Nächte ~ Äquivalenzeinkommen, 
+            data = tour, family = 'poisson')
+
+# Negativ-binomial Regression
+nb <- glm.nb(Nächte ~ Äquivalenzeinkommen, 
+             data = tour)
+
+# Vergleich
+pois$aic
+nb$aic
+
+```
+
+]
 
 ---
 
-# Post hoc 
+# `AIC`
+
+.pull-left4[
+
+<ul>
+  <li class="m1"><span>Generalisierte lineare Modelle können mit dem <high>Aikaike Informationskriterium (AIC)</high> verglichen werden.</high>.</span></li>
+  <li class="m2"><span>Es drückt den <high>Fit relativ zur Anzahl Parameter</high> <i>k</i> aus</high>.</span></li>
+</ul>
+
+]
 
 
+.pull-right5[
 
----
+<p align="center"><font style="size:14px;font-weight:900;color:#EA4B68">Poisson</font> vs. <font style="size:14px;font-weight:900;color:#6ABA9A">Negative-binomial</font></p>
 
-# Interaktionen
-
-
----
-
-# Standardisierung
+```{r, echo = F, fig.width = 3.5, fig.height = 2.7}
 
 
+# Lade Tourismus Daten
+tour <- read_csv('1_Data/Tourismus.csv') 
+europa <- read_csv('1_Data/Europa.csv') 
 
----
+# Berechne Nächte per Region
+tour = tour %>%
+  mutate(Nächte = Besucher * Dauer) %>%
+  left_join(europa) %>% 
+  filter(!is.na(Äquivalenzeinkommen)) %>% 
+  mutate(Europa = ifelse(Region == 'Europa', 1,0))
 
+d = tour %>% mutate(Besucher = log(Besucher))
 
-# Post hoc
+m1 = glm(Nächte ~ Äquivalenzeinkommen, data = d, family = 'poisson')
+m2 = glm.nb(Nächte ~ Äquivalenzeinkommen, data = d)
+poiss1 = function(x) exp(coef(m1)[1] + coef(m1)[2] * x)
+poiss2 = function(x) exp(coef(m2)[1] + coef(m2)[2] * x)
+ggplot(d, 
+       aes(x = Äquivalenzeinkommen, 
+           y = Nächte)) +
+  geom_point() +
+  geom_line(data = tibble(d = seq(0,30000,100), l = poiss1(seq(0,30000,100))), aes(x =d, y = l), col = '#EA4B68', size = 1.5) + 
+  geom_line(data = tibble(d = seq(0,30000,100), l = poiss2(seq(0,30000,100))), aes(x =d, y = l), col = '#6ABA9A', size = 1.5) + 
+  theme_bw() + labs(x='Äquivalenzeinkommen',y="Nächte")
 
+```
 
----
-
-
-# Generalisiertes modell
-
-
-
----
-
-
-
+]
 
 
 ---
 
 class: middle, center
 
-<h1><a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsII/LinearModelsII_practical.html">Practical</a></h1>
+<h1><a href="https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsIII/LinearModelsIII_practical.html">Practical</a></h1>
 
 
 

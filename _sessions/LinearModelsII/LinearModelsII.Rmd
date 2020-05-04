@@ -523,6 +523,9 @@ anova(mod)
 </ul>
 ]
 
+<br>
+
+$$q = \frac{y}{}$$
 
 .pull-right55[
 
