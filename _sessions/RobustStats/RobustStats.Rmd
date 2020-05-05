@@ -911,16 +911,15 @@ summary(m)
 
 ---
 
-# Bootstrapping
+# Bootstraptests
 
 .pull-left45[
 
-Bootstrapping refers to statistical tests based on <high>sampling with replacement from the observed data</high>. 
-
-The core idea is that the distribution of the sample statistic in question, e.g., the mean of a difference or a regression weight, can be <high>simulated directly from the data without making distributional assumptions</high>. 
-
-The term bootstrapping stems from the saying <high>pull oneself up by one's bootstraps</high>, which is sometimes attributed to Baron Münchhausen's story of pulling himself and his horse out of the swamp by his pigtail.  
-
+<ul>
+  <li class="m1"><span>Bootstrap tests basieren auf wiederholten <high>Zufallsziehungen der Daten</high> (mit Zurücklegen).</span></li>
+  <br>
+  <li class="m2"><span>Für jedes Bootstrap sample wird die relevante Statistik berechnet, wodurch eine <high>verteilungsunabhängige, simulierte Stichprobenverteilung</high> entsteht.</span></li>
+</ul>
 ]
 
 .pull-right45[
@@ -937,15 +936,13 @@ The term bootstrapping stems from the saying <high>pull oneself up by one's boot
 
 .pull-left4[
 
-# Bootstrapping
+# Bootstraptests
 
-Bootstrapping can be used to obtain sampling distributions for any statistic. 
+<b>Schritt 1</b><br>Ziehe $R$ <high>Bootstrap-Stichproben</high> $B_i$ von Grösse $n$ Beobachtungen (= eine Zeile im Datensatz). 
 
-<b>Step 1</b><br>Take $R$ <high>bootstrap samples</high> $B_i$ of $n$ observations, typically one row in our data. 
+<b>Schritt 2</b><br><high>Berechne Statistik</high> $f(B_i)$, z.B., einen Gruppenunterschied oder ein Regressionsgewicht, für jede der $R$ Bootstrap-Stichproben. 
 
-<b>Step 2</b><br><high>Calculate statistic</high> $f(B_i)$, e.g., the difference in means or regression coefficients, from each of the $R$ bootstrap samples. 
-
-<b>Step 3</b><br><high>Evaluate the simulated statistics</high>, e.g., via a confidence intervals.
+<b>Schritt 3</b><br><high>Evaluiere die Simulierte Statistik</high>, z.B., mit einem Konfidenzinterval.
 
 <p align="center"><img src="image/bootCI.png" height=50px style="padding-top:10px"></p>
 
@@ -969,15 +966,13 @@ Bootstrapping can be used to obtain sampling distributions for any statistic.
 
 .pull-left4[
 
-# Bootstrapping
+# Bootstraptests
 
-Bootstrapping can be used to obtain sampling distributions for any statistic. 
+<b>Schritt 1</b><br>Ziehe $R$ <high>Bootstrap-Stichproben</high> $B_i$ von Grösse $n$ Beobachtungen (= eine Zeile im Datensatz). 
 
-<b>Step 1</b><br>Take $R$ <high>bootstrap samples</high> $B_i$ of $n$ observations, typically one row in our data. 
+<b>Schritt 2</b><br><high>Berechne Statistik</high> $f(B_i)$, z.B., einen Gruppenunterschied oder ein Regressionsgewicht, für jede der $R$ Bootstrap-Stichproben. 
 
-<b>Step 2</b><br><high>Calculate statistic</high> $f(B_i)$, e.g., the difference in means or regression coefficients, from each of the $R$ bootstrap samples. 
-
-<b>Step 3</b><br><high>Evaluate the simulated statistics</high>, e.g., via a confidence intervals.
+<b>Schritt 3</b><br><high>Evaluiere die Simulierte Statistik</high>, z.B., mit einem Konfidenzinterval.
 
 <p align="center"><img src="image/bootCI.png" height=50px style="padding-top:10px"></p>
 
@@ -1031,15 +1026,13 @@ B <- boot(stress_df,
 
 .pull-left4[
 
-# Bootstrapping
+# Bootstraptests
 
-Bootstrapping can be used to obtain sampling distributions for any statistic. 
+<b>Schritt 1</b><br>Ziehe $R$ <high>Bootstrap-Stichproben</high> $B_i$ von Grösse $n$ Beobachtungen (= eine Zeile im Datensatz). 
 
-<b>Step 1</b><br>Take $R$ <high>bootstrap samples</high> $B_i$ of $n$ observations, typically one row in our data. 
+<b>Schritt 2</b><br><high>Berechne Statistik</high> $f(B_i)$, z.B., einen Gruppenunterschied oder ein Regressionsgewicht, für jede der $R$ Bootstrap-Stichproben. 
 
-<b>Step 2</b><br><high>Calculate statistic</high> $f(B_i)$, e.g., the difference in means or regression coefficients, from each of the $R$ bootstrap samples. 
-
-<b>Step 3</b><br><high>Evaluate the simulated statistics</high>, e.g., via a confidence intervals.
+<b>Schritt 3</b><br><high>Evaluiere die Simulierte Statistik</high>, z.B., mit einem Konfidenzinterval.
 
 <p align="center"><img src="image/bootCI.png" height=50px style="padding-top:10px"></p>
 
@@ -1053,7 +1046,7 @@ Bootstrapping can be used to obtain sampling distributions for any statistic.
 
 <br><br><br><br>
 
-```{r, message=F, warning=F}
+```{r, echo=T, message=F, warning=F}
 # Bootstrap CI for stress
 boot.ci(B, index = 2)
 ```
@@ -1064,9 +1057,7 @@ boot.ci(B, index = 2)
 
 .pull-left4[
 
-# Bootstrapping
-
-Bootstrapping can be used to obtain sampling distributions for any statistic. 
+# Bootstraptests
 
 <b>Step 1</b><br>Take $R$ <high>bootstrap samples</high> $B_i$ of $n$ observations, typically one row in our data. 
 
@@ -1083,7 +1074,7 @@ Bootstrapping can be used to obtain sampling distributions for any statistic.
 
 <br><br><br><br>
 
-```{r, message=F, warning=F}
+```{r, echo = T, message=F, warning=F}
 # Bootstrap CI for stress2
 boot.ci(B, index = 3)
 ```

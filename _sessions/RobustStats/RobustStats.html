@@ -307,8 +307,8 @@ Auf Deutsch...
 ## Model 1: error_rate ~ stress
 ## Model 2: error_rate ~ stress + stress2
 ##   Res.Df   RSS Df Sum of Sq   F Pr(&gt;F)    
-## 1    298 275.8                            
-## 2    297  99.1  1       177 529 &lt;2e-16 ***
+## 1    298 227.5                            
+## 2    297  77.3  1       150 578 &lt;2e-16 ***
 ## ---
 ## Signif. codes:  
 ##   0 '***' 0.001 '**' 0.01 '*' 0.05 '.'
@@ -861,16 +861,15 @@ summary(m)
 
 ---
 
-# Bootstrapping
+# Bootstraptests
 
 .pull-left45[
 
-Bootstrapping refers to statistical tests based on &lt;high&gt;sampling with replacement from the observed data&lt;/high&gt;. 
-
-The core idea is that the distribution of the sample statistic in question, e.g., the mean of a difference or a regression weight, can be &lt;high&gt;simulated directly from the data without making distributional assumptions&lt;/high&gt;. 
-
-The term bootstrapping stems from the saying &lt;high&gt;pull oneself up by one's bootstraps&lt;/high&gt;, which is sometimes attributed to Baron Münchhausen's story of pulling himself and his horse out of the swamp by his pigtail.  
-
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Bootstrap tests basieren auf wiederholten &lt;high&gt;Zufallsziehungen der Daten&lt;/high&gt; (mit Zurücklegen).&lt;/span&gt;&lt;/li&gt;
+  &lt;br&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;Für jedes Bootstrap sample wird die relevante Statistik berechnet, wodurch eine &lt;high&gt;verteilungsunabhängige, simulierte Stichprobenverteilung&lt;/high&gt; entsteht.&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
 ]
 
 .pull-right45[
@@ -887,15 +886,13 @@ The term bootstrapping stems from the saying &lt;high&gt;pull oneself up by one'
 
 .pull-left4[
 
-# Bootstrapping
+# Bootstraptests
 
-Bootstrapping can be used to obtain sampling distributions for any statistic. 
+&lt;b&gt;Schritt 1&lt;/b&gt;&lt;br&gt;Ziehe `\(R\)` &lt;high&gt;Bootstrap-Stichproben&lt;/high&gt; `\(B_i\)` von Grösse `\(n\)` Beobachtungen (= eine Zeile im Datensatz). 
 
-&lt;b&gt;Step 1&lt;/b&gt;&lt;br&gt;Take `\(R\)` &lt;high&gt;bootstrap samples&lt;/high&gt; `\(B_i\)` of `\(n\)` observations, typically one row in our data. 
+&lt;b&gt;Schritt 2&lt;/b&gt;&lt;br&gt;&lt;high&gt;Berechne Statistik&lt;/high&gt; `\(f(B_i)\)`, z.B., einen Gruppenunterschied oder ein Regressionsgewicht, für jede der `\(R\)` Bootstrap-Stichproben. 
 
-&lt;b&gt;Step 2&lt;/b&gt;&lt;br&gt;&lt;high&gt;Calculate statistic&lt;/high&gt; `\(f(B_i)\)`, e.g., the difference in means or regression coefficients, from each of the `\(R\)` bootstrap samples. 
-
-&lt;b&gt;Step 3&lt;/b&gt;&lt;br&gt;&lt;high&gt;Evaluate the simulated statistics&lt;/high&gt;, e.g., via a confidence intervals.
+&lt;b&gt;Schritt 3&lt;/b&gt;&lt;br&gt;&lt;high&gt;Evaluiere die Simulierte Statistik&lt;/high&gt;, z.B., mit einem Konfidenzinterval.
 
 &lt;p align="center"&gt;&lt;img src="image/bootCI.png" height=50px style="padding-top:10px"&gt;&lt;/p&gt;
 
@@ -921,13 +918,11 @@ Bootstrapping can be used to obtain sampling distributions for any statistic.
 
 # Bootstrapping
 
-Bootstrapping can be used to obtain sampling distributions for any statistic. 
+&lt;b&gt;Schritt 1&lt;/b&gt;&lt;br&gt;Ziehe `\(R\)` &lt;high&gt;Bootstrap-Stichproben&lt;/high&gt; `\(B_i\)` von Grösse `\(n\)` Beobachtungen (= eine Zeile im Datensatz). 
 
-&lt;b&gt;Step 1&lt;/b&gt;&lt;br&gt;Take `\(R\)` &lt;high&gt;bootstrap samples&lt;/high&gt; `\(B_i\)` of `\(n\)` observations, typically one row in our data. 
+&lt;b&gt;Schritt 2&lt;/b&gt;&lt;br&gt;&lt;high&gt;Berechne Statistik&lt;/high&gt; `\(f(B_i)\)`, z.B., einen Gruppenunterschied oder ein Regressionsgewicht, für jede der `\(R\)` Bootstrap-Stichproben. 
 
-&lt;b&gt;Step 2&lt;/b&gt;&lt;br&gt;&lt;high&gt;Calculate statistic&lt;/high&gt; `\(f(B_i)\)`, e.g., the difference in means or regression coefficients, from each of the `\(R\)` bootstrap samples. 
-
-&lt;b&gt;Step 3&lt;/b&gt;&lt;br&gt;&lt;high&gt;Evaluate the simulated statistics&lt;/high&gt;, e.g., via a confidence intervals.
+&lt;b&gt;Schritt 3&lt;/b&gt;&lt;br&gt;&lt;high&gt;Evaluiere die Simulierte Statistik&lt;/high&gt;, z.B., mit einem Konfidenzinterval.
 
 &lt;p align="center"&gt;&lt;img src="image/bootCI.png" height=50px style="padding-top:10px"&gt;&lt;/p&gt;
 
@@ -971,13 +966,11 @@ B &lt;- boot(stress_df,
 
 # Bootstrapping
 
-Bootstrapping can be used to obtain sampling distributions for any statistic. 
+&lt;b&gt;Schritt 1&lt;/b&gt;&lt;br&gt;Ziehe `\(R\)` &lt;high&gt;Bootstrap-Stichproben&lt;/high&gt; `\(B_i\)` von Grösse `\(n\)` Beobachtungen (= eine Zeile im Datensatz). 
 
-&lt;b&gt;Step 1&lt;/b&gt;&lt;br&gt;Take `\(R\)` &lt;high&gt;bootstrap samples&lt;/high&gt; `\(B_i\)` of `\(n\)` observations, typically one row in our data. 
+&lt;b&gt;Schritt 2&lt;/b&gt;&lt;br&gt;&lt;high&gt;Berechne Statistik&lt;/high&gt; `\(f(B_i)\)`, z.B., einen Gruppenunterschied oder ein Regressionsgewicht, für jede der `\(R\)` Bootstrap-Stichproben. 
 
-&lt;b&gt;Step 2&lt;/b&gt;&lt;br&gt;&lt;high&gt;Calculate statistic&lt;/high&gt; `\(f(B_i)\)`, e.g., the difference in means or regression coefficients, from each of the `\(R\)` bootstrap samples. 
-
-&lt;b&gt;Step 3&lt;/b&gt;&lt;br&gt;&lt;high&gt;Evaluate the simulated statistics&lt;/high&gt;, e.g., via a confidence intervals.
+&lt;b&gt;Schritt 3&lt;/b&gt;&lt;br&gt;&lt;high&gt;Evaluiere die Simulierte Statistik&lt;/high&gt;, z.B., mit einem Konfidenzinterval.
 
 &lt;p align="center"&gt;&lt;img src="image/bootCI.png" height=50px style="padding-top:10px"&gt;&lt;/p&gt;
 
@@ -991,6 +984,11 @@ Bootstrapping can be used to obtain sampling distributions for any statistic.
 
 &lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
 
+
+```r
+# Bootstrap CI for stress
+boot.ci(B, index = 2)
+```
 
 ```
 ## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
@@ -1033,6 +1031,11 @@ Bootstrapping can be used to obtain sampling distributions for any statistic.
 
 &lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
 
+
+```r
+# Bootstrap CI for stress2
+boot.ci(B, index = 3)
+```
 
 ```
 ## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
