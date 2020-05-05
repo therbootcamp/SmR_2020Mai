@@ -1036,3 +1036,11 @@ The data were originally obtained from the `speff2trial` package.
 - [Discovering Statistics with R](https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469) by Field et al is an excellent resource
 - [YaRrr! The Pirate's Guide to R](https://bookdown.org/ndphillips/YaRrr/) has good chapters on statistics with R.
 
+
+https://stats.idre.ucla.edu/stata/seminars/regression-models-with-count-data/
+
+https://stats.idre.ucla.edu/r/dae/zinb/
+https://stats.idre.ucla.edu/r/dae/negative-binomial-regression/
+https://towardsdatascience.com/negative-binomial-regression-f99031bb25b4
+http://faculty.econ.ucdavis.edu/faculty/cameron/racd2/
+
