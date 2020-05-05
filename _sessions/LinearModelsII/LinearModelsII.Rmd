@@ -1,6 +1,6 @@
 ---
 title: "Lineare Modelle II"
-author: "Statistics with R<br>
+author: "Statistik mit R<br>
   <a href='https://therbootcamp.github.io'>
     The R Bootcamp
   </a>

@@ -36,39 +36,46 @@ output:
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
-# see: https://github.com/yihui/xaringan
-# install.packages("xaringan")
-# see: 
-# https://github.com/yihui/xaringan/wiki
-# https://github.com/gnab/remark/wiki/Markdown
 options(width = 110)
 options(digits = 4)
 
 # Load packages
-library(tidyverse)
+require(tidyverse)
 
+print2 <- function(x, nlines=10,...) {
+   cat(head(capture.output(print(x,...)), nlines), sep="\n")}
 
 # Load data
 baselers <- readr::read_csv("1_Data/baselers.csv")
 
+# get color palette functions
+source("../../_materials/palette/therbootcamp_palettes.R")
+colors = baselrbootcamp_colors
+
+knitr::opts_chunk$set(dpi = 300, echo = FALSE, warning = FALSE, fig.align = 'center', message= FALSE)
+
 ```
 
 
-# Robust statistics
+# Robuste Statistik
 
 .pull-left45[
 
-### Parametric assumptions
+### Parametrische Annahmen
 
-Parametric statistics models and the associated tests come with <high>many assumptions</high>.
+<ul>
+  <li class="m1"><span>Parametrische Modelle / Tests kommen mit <high>starken Annahmen</high>.</span></li>
+  <li class="m2"><span>Für <high>Effizienz und Verzerrungsfreiheit</high> sollten diese Annahmen erfüllt sein.</span></li>
+</ul>
 
-For the models and tests to be <high>consistent</high> and <high>efficient</high> those assumptions should hold.  
+<br>
 
-### Non-parametric statistics
+### Nicht-parametrische Statistik
 
-Non-parametric statistics model the data as coming from <high>no specific probability distribution</high>. 
-
-Involves <high>ranking</high>, <high>combinatorics</high>, and/or <high>bootstrap samples</high>
+<ul>
+  <li class="m3"><span>Nicht-parametrische Modelle kommen <high>ohne Annahmen über die Verteilung</high> in der Population aus..</span></li>
+  <li class="m4"><span>Involviert <high>Rangbildung</high>, <high>Kombinatorik</high> und <high>Bootstrap</high>.</span></li>
+</ul>
 
 ]
 
@@ -84,23 +91,26 @@ Involves <high>ranking</high>, <high>combinatorics</high>, and/or <high>bootstra
 
 ---
 
-# Regression assumptions
+# Annahmen der Regression
 
 .pull-left45[
 
-In *plain* English...
+Auf Deutsch...
 
-<high>Are the data appropriate?</high>
-
-- Quantitative or dichotomous (A1)
-- Nonzero variance (A2)
-- Not too highly correlated (A3)
-
-<high>Is the model appropriate?</high> 
-
-- Linear relationship (A4, A5, A7)
-- Constant error variance (A6)
-- Normally distributed errors (A8)
+<ul>
+  <li class="m1"><span>Passen die Daten?</span></li>
+  <ul>
+    <li><span>Quantitativ oder dichotom (A1)</span></li>
+    <li><span>Varianz grösser Null (A2)</span></li>
+    <li><span>Interkorrelation moderat (A3)</span></li>
+  </ul>
+  <li class="m2"><span>Passt das Modell?</span></li>
+  <ul>
+    <li><span>Linearer Zusammenhang (A4, A5, A7)</span></li>
+    <li><span>Konstante Fehlervarianz (A6)</span></li>
+    <li><span>Normalverteilte Fehler (A8)</span></li>
+  </ul>  
+</ul>
 
 ]
 
@@ -116,20 +126,21 @@ In *plain* English...
 
 ---
 
-# Are the data appropriate?
+# Passen die Daten?
 
 .pull-left45[
 
-The most serious data problem are predictor correlations. If k-1 predictors can explain predictor k...
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;...perfectly then the regression model cannot
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;be calculated (<high>singularity</high>).
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ...with high accuracy then the estimates
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;become very vague (<high>multicollinearity</high>).
-
-<br>
-The <high>variance inflation factor</high> (VIF) indicates the amount of variance of each predictor explained by the other predictors. The literature recommends retaining predictors with <high>VIF < 10</high> [(Stine, 1995)](https://therbootcamp.github.io/SwR_2019Apr/_sessions/RobustStats/literature/Stine1995.pdf)
+<ul>
+  <li class="m1"><span>Ein typisches Daten-Problem sind <high>zu hohe Prädiktorkorrelationen</high>.</span></li>
+  <br>
+  <ul>
+    <li><span><high>Singularität</high> - Mindestens ein Prädiktor kann <high>vollständig</high> durch andere erklärt werden.</span></li>
+    <br>
+    <li><span><high>Multikollinearität</high> - Mindestens ein Prädiktor kann <high> fast vollständig</high> durch andere erklärt werden.</span></li>
+  </ul>
+  <br>
+  <li class="m2"><span>Der <high>Variance Inflation Factor</high> (VIF) schätzt das Ausmass an Multikollinearität. Literatur empfiehlt VIF<10 <a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/RobustStats/literature/Stine1995.pdf">(Stine, 1995)</a>.</span></li>
+</ul>
 
 ]
 
@@ -142,13 +153,15 @@ The <high>variance inflation factor</high> (VIF) indicates the amount of varianc
 ]
 ---
 
-# Is the model appropriate?
+# Passt das Modell?
 
 .pull-left45[
 
-The appropriateness of the model is best inspected (and demonstrated) using <high>graphical illustrations.</high> 
-
-Additionally, several <high>statistics can be computed to support the assessment.</high> 
+<ul>
+  <li class="m1"><span>Die Passung des Modells wird bestenfalls über <high>graphische Illustrationen</high> bestimmt.</span></li>
+  <br>
+  <li class="m2"><span><high>Statistische Kennwerte</high> können zusätzliche Informationen liefern.</span></li>
+</ul>
 
 
 <table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px">
@@ -156,10 +169,10 @@ Additionally, several <high>statistics can be computed to support the assessment
   <col width="50%">
 <tr>
   <td bgcolor="white">
-    <b>Assumption</b>
+    <b>Annahme</b>
   </td>
   <td bgcolor="white">
-    <b>Statistics</b>
+    <b>Statistik</b>
   </td>  
 </tr>
 <tr>
@@ -172,7 +185,7 @@ Additionally, several <high>statistics can be computed to support the assessment
 </tr>
 <tr>
   <td bgcolor="white">
-    Homoscedasticity
+    Homoskedaszitität
   </td>
   <td bgcolor="white">
     <mono>bartlett.test</mono>
@@ -180,7 +193,7 @@ Additionally, several <high>statistics can be computed to support the assessment
 </tr>
 <tr>
   <td bgcolor="white">
-    Normality
+    Normalität
   </td>
   <td bgcolor="white">
     <mono>skewness</mono>, <mono>kurtosis</mono>, <mono>shapiro.test</mono>
@@ -188,7 +201,7 @@ Additionally, several <high>statistics can be computed to support the assessment
 </tr>
 <tr>
   <td bgcolor="white">
-    Outliers
+    Ausreisser
   </td>
   <td bgcolor="white">
     <mono>cooks.distance</mono>, <mono>mahalanobis</mono>, etc.
@@ -202,7 +215,7 @@ Additionally, several <high>statistics can be computed to support the assessment
 .pull-right45[
 
 <p align = "center">
-<font style="font-size=10px"><i>Simple regression</i></font><br>
+<font style="font-size=10px"><i>Einfache Regression</i></font><br>
 <img src="image/assumptions.png" height=420px style="padding-top:10px">
 </p>
 
@@ -210,13 +223,15 @@ Additionally, several <high>statistics can be computed to support the assessment
 
 ---
 
-# Is the model appropriate?
+# Passt das Modell?
 
 .pull-left45[
 
-The appropriateness of the model is best inspected (and demonstrated) using <high>graphical illustrations.</high> 
-
-Additionally, several <high>statistics can be computed to support the assessment.</high> 
+<ul>
+  <li class="m1"><span>Die Passung des Modells wird bestenfalls über <high>graphische Illustrationen</high> bestimmt.</span></li>
+  <br>
+  <li class="m2"><span><high>Statistische Kennwerte</high> können zusätzliche Informationen liefern.</span></li>
+</ul>
 
 
 <table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px">
@@ -224,10 +239,10 @@ Additionally, several <high>statistics can be computed to support the assessment
   <col width="50%">
 <tr>
   <td bgcolor="white">
-    <b>Assumption</b>
+    <b>Annahme</b>
   </td>
   <td bgcolor="white">
-    <b>Statistics</b>
+    <b>Statistik</b>
   </td>  
 </tr>
 <tr>
@@ -240,7 +255,7 @@ Additionally, several <high>statistics can be computed to support the assessment
 </tr>
 <tr>
   <td bgcolor="white">
-    Homoscedasticity
+    Homoskedaszitität
   </td>
   <td bgcolor="white">
     <mono>bartlett.test</mono>
@@ -248,7 +263,7 @@ Additionally, several <high>statistics can be computed to support the assessment
 </tr>
 <tr>
   <td bgcolor="white">
-    Normality
+    Normalität
   </td>
   <td bgcolor="white">
     <mono>skewness</mono>, <mono>kurtosis</mono>, <mono>shapiro.test</mono>
@@ -256,7 +271,7 @@ Additionally, several <high>statistics can be computed to support the assessment
 </tr>
 <tr>
   <td bgcolor="white">
-    Outliers
+    Ausreisser
   </td>
   <td bgcolor="white">
     <mono>cooks.distance</mono>, <mono>mahalanobis</mono>, etc.
@@ -271,7 +286,7 @@ Additionally, several <high>statistics can be computed to support the assessment
 .pull-right45[
 
 <p align = "center">
-<font style="font-size=10px"><i>Residual analysis</i></font><br>
+<font style="font-size=10px"><i>Residualanalyse</i></font><br>
 <img src="image/assumptions_res.png" height=420px style="padding-top:10px">
 </p>
 
@@ -281,17 +296,17 @@ Additionally, several <high>statistics can be computed to support the assessment
 
 .pull-left45[
 
-# Missing predictors
+# Fehlende Prädiktoren
 
 <br2>
 
-Most serious are <high>violations of the linearity assumption</high>.  
-
-Typically they arise from <high>missing predictors</high>, such as higher order trends or important temporal variables.    
-
-Whether additional predictors improve the fit to the data can be tested by comparing the model with and without the addition predictor using a <high>ANOVA deviance test</high>: 
-
-`anova(model_1, model_2)`.
+<ul>
+  <li class="m1"><span><high>Verletzungen der Linearitätsannahme</high> sind am gravierendsten.</span></li>
+  <br>
+  <li class="m2"><span><high>Fehlende Prädiktoren</high> oft verantwortlich.</span></li>
+  <br>
+  <li class="m3"><span>Ob <high>zusätzliche Prädiktoren</high> die Passung verbessern kann getestet werden: <mono>anova(model_1, model_2)</mono>.</span></li>
+</ul>
 
 ]
 
@@ -310,9 +325,11 @@ Whether additional predictors improve the fit to the data can be tested by compa
 
 .pull-left5[
 
-# Missing predictors
+# Fehlende Prädiktoren
 
-Testing the merit of including a <high>quadratic trend of Stress</high>. 
+<ul>
+  <li class="m1"><span><high>Test auf quadratischen Trend</high> in Szenario C.</span></li>
+</ul>
 
 ```{r, echo = F}
 n = 300
@@ -351,31 +368,30 @@ anova(model_1, model_2)
 
 ]
 
-
-
 ---
 
-# Non-parametric statistics
+# Nicht-parametrische Statistik
 
 .pull-left45[
 
-When assumptions don't hold, researchers can make use of a wide array of <high>more robust</high>, non-parametric methods. 
-
+<ul>
+  <li class="m1"><span>Wenn Annahmen nicht zutreffen, kann auf nicht-parametrische Methoden zurückgegriffen werden, die höhrere <high>Robustheit</high> aufweisen</span></li>
+</ul>
 
 <table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px">
   <col width="50%">
   <col width="50%">
 <tr>
   <td bgcolor="white">
-    <b>Approach</b>
+    <b>Ansatz</b>
   </td>
   <td bgcolor="white">
-    <b>Methods</b>
+    <b>Methode</b>
   </td>  
 </tr>
 <tr>
   <td bgcolor="white">
-    Rank combinatorics
+    Rang-Kombinatorik
   </td>
   <td bgcolor="white">
    <mono>wilcox.test</mono>, <mono>friedman.test</mono>
@@ -383,7 +399,7 @@ When assumptions don't hold, researchers can make use of a wide array of <high>m
 </tr>
 <tr>
   <td bgcolor="white">
-    Freq. combinatorics
+    Häufigkeit-Kombinatorik
   </td>
   <td bgcolor="white">
    <mono>sign.test</mono>, <mono>chisq.test</mono>
@@ -391,7 +407,7 @@ When assumptions don't hold, researchers can make use of a wide array of <high>m
 </tr>
 <tr>
   <td bgcolor="white">
-    M-estimation
+    M-Schätzung
   </td>
   <td bgcolor="white">
     <mono>rq</mono> (quantile regr.), <mono>rfit</mono> (rank regr.)
@@ -423,11 +439,12 @@ When assumptions don't hold, researchers can make use of a wide array of <high>m
 
 .pull-left45[
 
-# Wilcoxon test
+# Rangsummentest
 
-One classic relying on the combinatorics of ranks is the Wilcoxon or Mann-Whitney U test. 
-
-The Wilcoxon test evaluates the assumption that the <high>ranks sums of jointly ranked groups are identical</high>. The formula shows the normal approximation for large N. 
+<ul>
+  <li class="m1"><span>Gruppenvergleiche können mit dem <high>Rangsummentest</high> von Wilcoxon bzw. Mann-Whitney durchgeführt werden</span></li>
+  <li class="m2"><span>Der Rangsummentest tested, ob die <high>Summen gmeinsam gebildeter Ränge</high> in den Gruppen idenetisch sind.</span></li>
+</ul>
 
 <p align = "center">
 <img src="image/wilcox_form.png" height=250px style="padding-top:10px">
@@ -435,8 +452,6 @@ The Wilcoxon test evaluates the assumption that the <high>ranks sums of jointly 
 
 
 ]
-
-
 
 .pull-right45[
 
@@ -454,13 +469,15 @@ The Wilcoxon test evaluates the assumption that the <high>ranks sums of jointly 
 
 # Wilcoxon test
 
-One classic relying on the combinatorics of ranks is the Wilcoxon or Mann-Whitney U test. 
-
-The Wilcoxon test evaluates the assumption that the <high>ranks sums of jointly ranked groups are identical</high>. The formula shows the normal approximation for large N. 
+<ul>
+  <li class="m1"><span>Gruppenvergleiche können mit dem <high>Rangsummentest</high> von Wilcoxon bzw. Mann-Whitney durchgeführt werden</span></li>
+  <li class="m2"><span>Der Rangsummentest tested, ob die <high>Summen gmeinsam gebildeter Ränge</high> in den Gruppen idenetisch sind.</span></li>
+</ul>
 
 <p align = "center">
 <img src="image/wilcox_form.png" height=250px style="padding-top:10px">
 </p>
+
 
 
 ]
@@ -471,7 +488,7 @@ The Wilcoxon test evaluates the assumption that the <high>ranks sums of jointly 
 
 <br><br><br><br>
 
-```{r, eval = F}
+```{r, eval = F, echo = TRUE}
 # data
 group_1 <- c(18, 24, 29, 12, 11, 31)
 group_2 <- c(27, 16, 23, 8, 15, 21)
@@ -481,7 +498,7 @@ wilcox.test(group_1, group_2)
 
 ```
 
-```{r, echo  =F}
+```{r, echo  = F}
 # data
 group_1 <- c(18, 24, 29, 12, 11, 31)
 group_2 <- c(27, 16, 23, 8, 15, 21)
@@ -500,11 +517,13 @@ wilcox.test(group_1, group_2)
 
 .pull-left45[
 
-# Sign test 
+# Vorzeichentest
 
-A very simple test relying on the combinatorics of frequencies is the <high>sign test</high>. 
+<ul>
+  <li class="m1"><span>Einfacher Test für abhängige Daten basierend auf der <high>Kombinatorik von Häufigkeiten</high>.</span></li>
+  <li class="m2"><span>Der Rangsummentest tested, ob die <high>Vorzeichen von Differenzen (+,-)</high> gleich wahrscheinlich sind.</span></li>
+</ul>
 
-The sign test evaluates the assumption that the <high>signs of differences (+, -) are equally likely</high>, i.e., $p_+ = p_- = .5$. 
 
 <p align = "center">
 <img src="image/signtest_form.png" style="padding-top:10px">
@@ -527,15 +546,18 @@ The sign test evaluates the assumption that the <high>signs of differences (+, -
 
 .pull-left45[
 
-# Sign test 
+# Vorzeichentest
 
-A very simple test relying on the combinatorics of frequencies is the <high>sign test</high>. 
+<ul>
+  <li class="m1"><span>Einfacher Test für abhängige Daten basierend auf der <high>Kombinatorik von Häufigkeiten</high>.</span></li>
+  <li class="m2"><span>Der Rangsummentest tested, ob die <high>Vorzeichen von Differenzen (+,-)</high> gleich wahrscheinlich sind.</span></li>
+</ul>
 
-The sign test evaluates the assumption that the <high>signs of differences (+, -) are equally likely</high>, i.e., $p_+ = p_- = .5$. 
 
 <p align = "center">
 <img src="image/signtest_form.png" style="padding-top:10px">
 </p>
+
 
 ]
 
@@ -543,18 +565,36 @@ The sign test evaluates the assumption that the <high>signs of differences (+, -
 
 <br><br><br><br>
 
-```{r}
+```{r, eval = F, echo = T}
 # data
 time_1 <- c(18, 24, 29, 12, 11, 31)
 time_2 <- c(27, 16, 23, 8, 15, 21)
 
 # sign test
 N <- length(time_1)
-n_plus <- sum(sign(time_1 - time_2) == 1)
-ps <- dbinom(x = n_plus : N, 
-             size = N, 
-             prob = .5) # H0 assumption 
-sum(ps)
+n_plus <- sum(time_1 - time_2 > 1)
+dbinom(x = n_plus : N, 
+       size = N, 
+       prob = .5) %>% # H0
+  sum()
+```
+
+```{r, echo  =F}
+options(width=40)
+
+time_1 <- c(18, 24, 29, 12, 11, 31)
+time_2 <- c(27, 16, 23, 8, 15, 21)
+
+N <- length(time_1)
+n_plus <- sum(time_1 - time_2 > 1)
+
+# Vorzeichentest per Binomialverteilung
+dbinom(x = n_plus : N, 
+       size = N, 
+       prob = .5) %>% 
+  sum()
+
+
 ```
 ]
 
@@ -562,11 +602,11 @@ sum(ps)
 
 .pull-left55[
 
-# Robust regressions
+# Robuste Regression
 
-Various options exist to improve the robustness of regression-based models.
-
-They all <high>minimize a specific function $\rho$ of the residuals</high>:
+<ul>
+  <li class="m1"><span>Die Robustheit von Regression kann verbessert durch alternative Fehlerfunktionen &rho;(e); verbessert werden.</span></li>
+</ul>
 
 <p align = "center">
   <img src="image/Mest.png" height=70px style="padding-top:15px">
@@ -580,16 +620,16 @@ They all <high>minimize a specific function $\rho$ of the residuals</high>:
   <col width="30%">
 <tr>
   <td bgcolor="white">
-    <b>Function</b>
+    <b>Funktion</b>
   </td>
   <td bgcolor="white">
-    <b>Package</b>
+    <b>Paket</b>
   </td>  
   <td bgcolor="white">
-    <b>Function</b>
+    <b>Fehlerfunktion</b>
   </td>
   <td bgcolor="white">
-    <b>Description</b>
+    <b>Beschreibung</b>
   </td>
 </tr>
 <tr>
@@ -603,7 +643,7 @@ They all <high>minimize a specific function $\rho$ of the residuals</high>:
     <img src="image/robust_lm.png" height=23px>
   </td>
   <td bgcolor="white">
-    Ordinary least square
+    Kleinste-Quadrate
   </td>
 </tr>
 <tr>
@@ -617,7 +657,7 @@ They all <high>minimize a specific function $\rho$ of the residuals</high>:
     <img src="image/robust_quantile.png" height=20px>
   </td>
   <td bgcolor="white">
-    Quantile regression
+    Quantil-Regression
   </td>
 </tr>
 <tr>
@@ -631,7 +671,7 @@ They all <high>minimize a specific function $\rho$ of the residuals</high>:
     <img src="image/robust_rank.png" height=40px>
   </td>
   <td bgcolor="white">
-    Rank-based regression
+    Rangbasierte Regression
   </td>
 </tr>
 </table>
@@ -650,11 +690,11 @@ They all <high>minimize a specific function $\rho$ of the residuals</high>:
 
 .pull-left55[
 
-# Robust regressions
+# Robuste Regression
 
-Various options exist to improve the robustness of regression-based models.
-
-They all <high>minimize a specific function $\rho$ of the residuals</high>:
+<ul>
+  <li class="m1"><span>Die Robustheit von Regression kann verbessert durch alternative Fehlerfunktionen &rho;(e) verbessert werden.</span></li>
+</ul>
 
 <p align = "center">
   <img src="image/Mest.png" height=70px style="padding-top:15px">
@@ -668,16 +708,16 @@ They all <high>minimize a specific function $\rho$ of the residuals</high>:
   <col width="30%">
 <tr>
   <td bgcolor="white">
-    <b>Function</b>
+    <b>Funktion</b>
   </td>
   <td bgcolor="white">
-    <b>Package</b>
+    <b>Paket</b>
   </td>  
   <td bgcolor="white">
-    <b>Function</b>
+    <b>Fehlerfunktion</b>
   </td>
   <td bgcolor="white">
-    <b>Description</b>
+    <b>Beschreibung</b>
   </td>
 </tr>
 <tr>
@@ -691,7 +731,7 @@ They all <high>minimize a specific function $\rho$ of the residuals</high>:
     <img src="image/robust_lm.png" height=23px>
   </td>
   <td bgcolor="white">
-    Ordinary least square
+    Kleinste-Quadrate
   </td>
 </tr>
 <tr>
@@ -705,7 +745,7 @@ They all <high>minimize a specific function $\rho$ of the residuals</high>:
     <img src="image/robust_quantile.png" height=20px>
   </td>
   <td bgcolor="white">
-    Quantile regression
+    Quantil-Regression
   </td>
 </tr>
 <tr>
@@ -719,7 +759,7 @@ They all <high>minimize a specific function $\rho$ of the residuals</high>:
     <img src="image/robust_rank.png" height=40px>
   </td>
   <td bgcolor="white">
-    Rank-based regression
+    Rangbasierte Regression
   </td>
 </tr>
 </table>
@@ -746,7 +786,7 @@ outlier_df = tibble(y = y_c, x = x_c)
 options(width=35)
 ```
 
-```{r, message=F, warning=F}
+```{r, echo =T, message=F, warning=F}
 # Quantile regression
 library(quantreg)
 m <- rq(formula = y ~ x, 
@@ -762,11 +802,11 @@ summary(m)
 
 .pull-left55[
 
-# Robust regressions
+# Robuste Regression
 
-Various options exist to improve the robustness of regression-based models.
-
-They all <high>minimize a specific function $\rho$ of the residuals</high>:
+<ul>
+  <li class="m1"><span>Die Robustheit von Regression kann verbessert durch alternative Fehlerfunktionen &rho;(e) verbessert werden.</span></li>
+</ul>
 
 <p align = "center">
   <img src="image/Mest.png" height=70px style="padding-top:15px">
@@ -780,16 +820,16 @@ They all <high>minimize a specific function $\rho$ of the residuals</high>:
   <col width="30%">
 <tr>
   <td bgcolor="white">
-    <b>Function</b>
+    <b>Funktion</b>
   </td>
   <td bgcolor="white">
-    <b>Package</b>
+    <b>Paket</b>
   </td>  
   <td bgcolor="white">
-    <b>Function</b>
+    <b>Fehlerfunktion</b>
   </td>
   <td bgcolor="white">
-    <b>Description</b>
+    <b>Beschreibung</b>
   </td>
 </tr>
 <tr>
@@ -803,7 +843,7 @@ They all <high>minimize a specific function $\rho$ of the residuals</high>:
     <img src="image/robust_lm.png" height=23px>
   </td>
   <td bgcolor="white">
-    Ordinary least square
+    Kleinste-Quadrate
   </td>
 </tr>
 <tr>
@@ -817,7 +857,7 @@ They all <high>minimize a specific function $\rho$ of the residuals</high>:
     <img src="image/robust_quantile.png" height=20px>
   </td>
   <td bgcolor="white">
-    Quantile regression
+    Quantil-Regression
   </td>
 </tr>
 <tr>
@@ -831,7 +871,7 @@ They all <high>minimize a specific function $\rho$ of the residuals</high>:
     <img src="image/robust_rank.png" height=40px>
   </td>
   <td bgcolor="white">
-    Rank-based regression
+    Rangbasierte Regression
   </td>
 </tr>
 </table>
@@ -839,7 +879,7 @@ They all <high>minimize a specific function $\rho$ of the residuals</high>:
 
 .pull-right4[
 
-<br><br><br><br>
+<br><br>
 
 ```{r, echo = F}
 
@@ -858,7 +898,7 @@ outlier_df = tibble(y = y_c, x = x_c)
 options(width=35)
 ```
 
-```{r, message=F, warning=F}
+```{r,echo=T, message=F, warning=F}
 # Rank-based regression
 library(Rfit)
 m <- rfit(formula = y ~ x, 
@@ -966,7 +1006,7 @@ options(width=43)
 ```
 
 
-```{r, message=F, warning=F}
+```{r, echo = T, message=F, warning=F}
 # Bootstrap
 library(boot)
 
