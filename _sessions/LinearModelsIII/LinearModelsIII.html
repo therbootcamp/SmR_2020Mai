@@ -3,7 +3,7 @@
   <head>
     <title>Lineare Modelle III</title>
     <meta charset="utf-8" />
-    <meta name="author" content="Statistics with R   Basel R Bootcamp" />
+    <meta name="author" content="Statistik mit R   The R Bootcamp" />
     <link href="libs/remark-css/default.css" rel="stylesheet" />
     <link rel="stylesheet" href="baselrbootcamp.css" type="text/css" />
   </head>
@@ -12,7 +12,7 @@
 class: center, middle, inverse, title-slide
 
 # Lineare Modelle III
-### Statistics with R<br> <a href='https://therbootcamp.github.io'> Basel R Bootcamp </a> <br> <a href='https://therbootcamp.github.io/SmR_2020Mai/'> <i class='fas fa-clock' style='font-size:.9em;'></i> </a>  <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;' ></i> </a>  <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a>  <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a>
+### Statistik mit R<br> <a href='https://therbootcamp.github.io'> The R Bootcamp </a> <br> <a href='https://therbootcamp.github.io/SmR_2020Mai/'> <i class='fas fa-clock' style='font-size:.9em;'></i> </a>  <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;' ></i> </a>  <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a>  <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a>
 ### Mai 2020
 
 ---
@@ -54,7 +54,7 @@ layout: true
 
 &lt;ul&gt;
   &lt;li class="m1"&gt;&lt;span&gt;Das generalisierte lineare Modell ist &lt;high&gt;das eigentliche schweizer Taschenmesser&lt;/high&gt; der Statistik.&lt;/span&gt;&lt;/li&gt;
-  &lt;li class="m2"&gt;&lt;span&gt;Ermöglicht gegenüber dem allgemeinen Linearen Modell &lt;high&gt;verschiene Datenmodelle und Link-Funktionen&lt;/high&gt;&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;Ermöglicht gegenüber dem allgemeinen Linearen Modell &lt;high&gt;verschiedene Datenmodelle und Link-Funktionen&lt;/high&gt;&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 ]
@@ -96,11 +96,11 @@ layout: true
 `$$\Large \rho(\mu)=log \Big(\frac{\mu}{1-\mu}\Big), \;\;\;\ y \sim B(\mu)$$`
 &lt;p align="center" style="padding-top:30px"&gt;&lt;u&gt;Log - Negative binomial&lt;/u&gt;&lt;/p&gt;
 
-$$\Large \rho(\mu)=log (\mu), \;\;\;\ y \sim Pois(\mu) $$
+$$\Large \rho(\mu)=log (\mu), \;\;\;\ y \sim NB(\mu) $$
 
 &lt;p align="center" style="padding-top:30px"&gt;&lt;u&gt;Log - Poisson&lt;/u&gt;&lt;/p&gt;
 
-`$$\Large \rho(\mu)=log (\mu), \;\;\;\ y\sim NB(\mu)$$`
+`$$\Large \rho(\mu)=log (\mu), \;\;\;\ y\sim Pois(\mu)$$`
 
 ]
 
@@ -162,7 +162,7 @@ $$\Large \rho(\mu)=log (\mu), \;\;\;\ y \sim Pois(\mu) $$
 .pull-left4[
 
 &lt;ul&gt;
-  &lt;li class="m1"&gt;&lt;span&gt;&lt;high&gt;Generalisierte lineare Modelle&lt;/high&gt; können mit &lt;mono&gt;glm()&lt;/mono&gt; spezifiziert werden.&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;&lt;high&gt;Generalisierte lineare Modelle&lt;/high&gt; können mit &lt;mono&gt;glm()&lt;/mono&gt; spezifiziert werden.&lt;/high&gt;&lt;/span&gt;&lt;/li&gt;
   &lt;li class="m2"&gt;&lt;span&gt;Argument &lt;mono&gt;family&lt;/mono&gt; bestimmt &lt;high&gt;Link und Datenmodell&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -183,7 +183,7 @@ $$\Large \rho(\mu)=log (\mu), \;\;\;\ y \sim Pois(\mu) $$
 .pull-left35[
 
 &lt;ul&gt;
-  &lt;li class="m1"&gt;&lt;span&gt;&lt;high&gt;Generalisierte lineare Modelle&lt;/high&gt; können mit &lt;mono&gt;glm()&lt;/mono&gt; spezifiziert werden.&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;&lt;high&gt;Generalisierte lineare Modelle&lt;/high&gt; können mit &lt;mono&gt;glm()&lt;/mono&gt; spezifiziert werden.&lt;/high&gt;&lt;/span&gt;&lt;/li&gt;
   &lt;li class="m2"&gt;&lt;span&gt;Argument &lt;mono&gt;family&lt;/mono&gt; bestimmt &lt;high&gt;Link und Datenmodell&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -224,7 +224,7 @@ mod
 # `glm()`
 
 &lt;ul&gt;
-  &lt;li class="m1"&gt;&lt;span&gt;&lt;high&gt;Generalisierte lineare Modelle&lt;/high&gt; können mit &lt;mono&gt;glm()&lt;/mono&gt; spezifiziert werden.&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;&lt;high&gt;Generalisierte lineare Modelle&lt;/high&gt; können mit &lt;mono&gt;glm()&lt;/mono&gt; spezifiziert werden.&lt;/high&gt;&lt;/span&gt;&lt;/li&gt;
   &lt;li class="m2"&gt;&lt;span&gt;Argument &lt;mono&gt;family&lt;/mono&gt; bestimmt &lt;high&gt;Link und Datenmodell&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -308,7 +308,7 @@ summary(mod)
 .pull-left35[
 
 &lt;ul&gt;
-  &lt;li class="m1"&gt;&lt;span&gt;&lt;high&gt;Generalisierte lineare Modelle&lt;/high&gt; können mit &lt;mono&gt;glm()&lt;/mono&gt; spezifiziert werden.&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;&lt;high&gt;Generalisierte lineare Modelle&lt;/high&gt; können mit &lt;mono&gt;glm()&lt;/mono&gt; spezifiziert werden.&lt;/high&gt;&lt;/span&gt;&lt;/li&gt;
   &lt;li class="m2"&gt;&lt;span&gt;Argument &lt;mono&gt;family&lt;/mono&gt; bestimmt &lt;high&gt;Link und Datenmodell&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -348,7 +348,7 @@ mod
 # `glm()`
 
 &lt;ul&gt;
-  &lt;li class="m1"&gt;&lt;span&gt;&lt;high&gt;Generalisierte lineare Modelle&lt;/high&gt; können mit &lt;mono&gt;glm()&lt;/mono&gt; spezifiziert werden.&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;&lt;high&gt;Generalisierte lineare Modelle&lt;/high&gt; können mit &lt;mono&gt;glm()&lt;/mono&gt; spezifiziert werden.&lt;/high&gt;&lt;/span&gt;&lt;/li&gt;
   &lt;li class="m2"&gt;&lt;span&gt;Argument &lt;mono&gt;family&lt;/mono&gt; bestimmt &lt;high&gt;Link und Datenmodell&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -506,7 +506,7 @@ summary(mod)
 
 
 &lt;ul&gt;
-  &lt;li class="m1"&gt;&lt;span&gt;Generalisierte lineare Modelle können mit dem &lt;high&gt;Aikaike Informationskriterium (AIC)&lt;/high&gt; verglichen werden.&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Generalisierte lineare Modelle können mit dem &lt;high&gt;Akaike Informationskriterium (AIC)&lt;/high&gt; verglichen werden.&lt;/high&gt;&lt;/span&gt;&lt;/li&gt;
   &lt;li class="m2"&gt;&lt;span&gt;Es drückt den &lt;high&gt;Fit relativ zur Anzahl Parameter&lt;/high&gt; &lt;i&gt;k&lt;/i&gt; aus&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -552,7 +552,7 @@ nb$aic
 .pull-left4[
 
 &lt;ul&gt;
-  &lt;li class="m1"&gt;&lt;span&gt;Generalisierte lineare Modelle können mit dem &lt;high&gt;Aikaike Informationskriterium (AIC)&lt;/high&gt; verglichen werden.&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Generalisierte lineare Modelle können mit dem &lt;high&gt;Akaike Informationskriterium (AIC)&lt;/high&gt; verglichen werden.&lt;/high&gt;&lt;/span&gt;&lt;/li&gt;
   &lt;li class="m2"&gt;&lt;span&gt;Es drückt den &lt;high&gt;Fit relativ zur Anzahl Parameter&lt;/high&gt; &lt;i&gt;k&lt;/i&gt; aus&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -621,6 +621,32 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
 // adds .remark-code-has-line-highlighted class to <pre> parent elements
 // of code chunks containing highlighted lines with class .remark-code-line-highlighted
 (function(d) {
@@ -638,17 +664,6 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   }
   preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
 })(document);</script>
-
-<script>
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
-</script>
 
 <script>
 slideshow._releaseMath = function(el) {

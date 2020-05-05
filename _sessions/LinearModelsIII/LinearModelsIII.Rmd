@@ -1,8 +1,8 @@
 ---
 title: "Lineare Modelle III"
-author: "Statistics with R<br>
+author: "Statistik mit R<br>
   <a href='https://therbootcamp.github.io'>
-    Basel R Bootcamp
+    The R Bootcamp
   </a>
   <br>
   <a href='https://therbootcamp.github.io/SmR_2020Mai/'>
@@ -89,7 +89,7 @@ knitr::opts_chunk$set(dpi = 300, echo = FALSE, warning = FALSE, fig.align = 'cen
 
 <ul>
   <li class="m1"><span>Das generalisierte lineare Modell ist <high>das eigentliche schweizer Taschenmesser</high> der Statistik.</span></li>
-  <li class="m2"><span>Ermöglicht gegenüber dem allgemeinen Linearen Modell <high>verschiene Datenmodelle und Link-Funktionen</high></span></li>
+  <li class="m2"><span>Ermöglicht gegenüber dem allgemeinen Linearen Modell <high>verschiedene Datenmodelle und Link-Funktionen</high></span></li>
 </ul>
 
 ]
@@ -131,11 +131,11 @@ $$\Large \rho(\mu)=\mu, \;\;\;\ y \sim \mathcal{N}(\mu,\,\sigma)$$
 $$\Large \rho(\mu)=log \Big(\frac{\mu}{1-\mu}\Big), \;\;\;\ y \sim B(\mu)$$
 <p align="center" style="padding-top:30px"><u>Log - Negative binomial</u></p>
 
-$$\Large \rho(\mu)=log (\mu), \;\;\;\ y \sim Pois(\mu) $$
+$$\Large \rho(\mu)=log (\mu), \;\;\;\ y \sim NB(\mu) $$
 
 <p align="center" style="padding-top:30px"><u>Log - Poisson</u></p>
 
-$$\Large \rho(\mu)=log (\mu), \;\;\;\ y\sim NB(\mu)$$
+$$\Large \rho(\mu)=log (\mu), \;\;\;\ y\sim Pois(\mu)$$
 
 ]
 
@@ -238,7 +238,7 @@ ggplot(d,
 .pull-left4[
 
 <ul>
-  <li class="m1"><span><high>Generalisierte lineare Modelle</high> können mit <mono>glm()</mono> spezifiziert werden.</high>.</span></li>
+  <li class="m1"><span><high>Generalisierte lineare Modelle</high> können mit <mono>glm()</mono> spezifiziert werden.</high></span></li>
   <li class="m2"><span>Argument <mono>family</mono> bestimmt <high>Link und Datenmodell</high>.</span></li>
 </ul>
 
@@ -259,7 +259,7 @@ ggplot(d,
 .pull-left35[
 
 <ul>
-  <li class="m1"><span><high>Generalisierte lineare Modelle</high> können mit <mono>glm()</mono> spezifiziert werden.</high>.</span></li>
+  <li class="m1"><span><high>Generalisierte lineare Modelle</high> können mit <mono>glm()</mono> spezifiziert werden.</high></span></li>
   <li class="m2"><span>Argument <mono>family</mono> bestimmt <high>Link und Datenmodell</high>.</span></li>
 </ul>
 
@@ -286,7 +286,7 @@ mod
 # `glm()`
 
 <ul>
-  <li class="m1"><span><high>Generalisierte lineare Modelle</high> können mit <mono>glm()</mono> spezifiziert werden.</high>.</span></li>
+  <li class="m1"><span><high>Generalisierte lineare Modelle</high> können mit <mono>glm()</mono> spezifiziert werden.</high></span></li>
   <li class="m2"><span>Argument <mono>family</mono> bestimmt <high>Link und Datenmodell</high>.</span></li>
 </ul>
 
@@ -377,7 +377,7 @@ ggplot(d,
 .pull-left35[
 
 <ul>
-  <li class="m1"><span><high>Generalisierte lineare Modelle</high> können mit <mono>glm()</mono> spezifiziert werden.</high>.</span></li>
+  <li class="m1"><span><high>Generalisierte lineare Modelle</high> können mit <mono>glm()</mono> spezifiziert werden.</high></span></li>
   <li class="m2"><span>Argument <mono>family</mono> bestimmt <high>Link und Datenmodell</high>.</span></li>
 </ul>
 
@@ -402,7 +402,7 @@ mod
 # `glm()`
 
 <ul>
-  <li class="m1"><span><high>Generalisierte lineare Modelle</high> können mit <mono>glm()</mono> spezifiziert werden.</high>.</span></li>
+  <li class="m1"><span><high>Generalisierte lineare Modelle</high> können mit <mono>glm()</mono> spezifiziert werden.</high></span></li>
   <li class="m2"><span>Argument <mono>family</mono> bestimmt <high>Link und Datenmodell</high>.</span></li>
 </ul>
 
@@ -480,7 +480,7 @@ summary(mod)
 
 
 <ul>
-  <li class="m1"><span>Generalisierte lineare Modelle können mit dem <high>Aikaike Informationskriterium (AIC)</high> verglichen werden.</high>.</span></li>
+  <li class="m1"><span>Generalisierte lineare Modelle können mit dem <high>Akaike Informationskriterium (AIC)</high> verglichen werden.</high></span></li>
   <li class="m2"><span>Es drückt den <high>Fit relativ zur Anzahl Parameter</high> <i>k</i> aus</high>.</span></li>
 </ul>
 
@@ -515,7 +515,7 @@ nb$aic
 .pull-left4[
 
 <ul>
-  <li class="m1"><span>Generalisierte lineare Modelle können mit dem <high>Aikaike Informationskriterium (AIC)</high> verglichen werden.</high>.</span></li>
+  <li class="m1"><span>Generalisierte lineare Modelle können mit dem <high>Akaike Informationskriterium (AIC)</high> verglichen werden.</high></span></li>
   <li class="m2"><span>Es drückt den <high>Fit relativ zur Anzahl Parameter</high> <i>k</i> aus</high>.</span></li>
 </ul>
 
