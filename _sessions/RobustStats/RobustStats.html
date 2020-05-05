@@ -307,8 +307,8 @@ Auf Deutsch...
 ## Model 1: error_rate ~ stress
 ## Model 2: error_rate ~ stress + stress2
 ##   Res.Df   RSS Df Sum of Sq   F Pr(&gt;F)    
-## 1    298 227.5                            
-## 2    297  77.3  1       150 578 &lt;2e-16 ***
+## 1    298 268.1                            
+## 2    297  97.9  1       170 516 &lt;2e-16 ***
 ## ---
 ## Signif. codes:  
 ##   0 '***' 0.001 '**' 0.01 '*' 0.05 '.'
@@ -916,7 +916,7 @@ summary(m)
 
 .pull-left4[
 
-# Bootstrapping
+# Bootstraptests
 
 &lt;b&gt;Schritt 1&lt;/b&gt;&lt;br&gt;Ziehe `\(R\)` &lt;high&gt;Bootstrap-Stichproben&lt;/high&gt; `\(B_i\)` von Grösse `\(n\)` Beobachtungen (= eine Zeile im Datensatz). 
 
@@ -964,7 +964,7 @@ B &lt;- boot(stress_df,
 
 .pull-left4[
 
-# Bootstrapping
+# Bootstraptests
 
 &lt;b&gt;Schritt 1&lt;/b&gt;&lt;br&gt;Ziehe `\(R\)` &lt;high&gt;Bootstrap-Stichproben&lt;/high&gt; `\(B_i\)` von Grösse `\(n\)` Beobachtungen (= eine Zeile im Datensatz). 
 
@@ -1012,9 +1012,7 @@ boot.ci(B, index = 2)
 
 .pull-left4[
 
-# Bootstrapping
-
-Bootstrapping can be used to obtain sampling distributions for any statistic. 
+# Bootstraptests
 
 &lt;b&gt;Step 1&lt;/b&gt;&lt;br&gt;Take `\(R\)` &lt;high&gt;bootstrap samples&lt;/high&gt; `\(B_i\)` of `\(n\)` observations, typically one row in our data. 
 
