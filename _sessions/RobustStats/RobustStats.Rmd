@@ -73,7 +73,7 @@ knitr::opts_chunk$set(dpi = 300, echo = FALSE, warning = FALSE, fig.align = 'cen
 ### Nicht-parametrische Statistik
 
 <ul>
-  <li class="m3"><span>Nicht-parametrische Modelle kommen <high>ohne Annahmen über die Verteilung</high> in der Population aus..</span></li>
+  <li class="m3"><span>Nicht-parametrische Modelle kommen <high>ohne Annahmen über die Verteilung</high> in der Population aus.</span></li>
   <li class="m4"><span>Involviert <high>Rangbildung</high>, <high>Kombinatorik</high> und <high>Bootstrap</high>.</span></li>
 </ul>
 
@@ -177,7 +177,7 @@ Auf Deutsch...
 </tr>
 <tr>
   <td bgcolor="white">
-    Linearity
+    Linearität
   </td>
   <td bgcolor="white">
    <mono>lm</mono>, <mono>glm</mono> (curve fitting)
@@ -443,7 +443,7 @@ anova(model_1, model_2)
 
 <ul>
   <li class="m1"><span>Gruppenvergleiche können mit dem <high>Rangsummentest</high> von Wilcoxon bzw. Mann-Whitney durchgeführt werden</span></li>
-  <li class="m2"><span>Der Rangsummentest tested, ob die <high>Summen gmeinsam gebildeter Ränge</high> in den Gruppen idenetisch sind.</span></li>
+  <li class="m2"><span>Der Rangsummentest tested, ob die <high>Summen gmeinsam gebildeter Ränge</high> in den Gruppen identisch sind.</span></li>
 </ul>
 
 <p align = "center">
@@ -471,7 +471,7 @@ anova(model_1, model_2)
 
 <ul>
   <li class="m1"><span>Gruppenvergleiche können mit dem <high>Rangsummentest</high> von Wilcoxon bzw. Mann-Whitney durchgeführt werden</span></li>
-  <li class="m2"><span>Der Rangsummentest tested, ob die <high>Summen gmeinsam gebildeter Ränge</high> in den Gruppen idenetisch sind.</span></li>
+  <li class="m2"><span>Der Rangsummentest tested, ob die <high>Summen gmeinsam gebildeter Ränge</high> in den Gruppen identisch sind.</span></li>
 </ul>
 
 <p align = "center">
@@ -605,7 +605,7 @@ dbinom(x = n_plus : N,
 # Robuste Regression
 
 <ul>
-  <li class="m1"><span>Die Robustheit von Regression kann verbessert durch alternative Fehlerfunktionen &rho;(e); verbessert werden.</span></li>
+  <li class="m1"><span>Die Robustheit von Regression kann verbessert durch alternative Fehlerfunktionen &rho;(e) verbessert werden.</span></li>
 </ul>
 
 <p align = "center">
@@ -1059,11 +1059,11 @@ boot.ci(B, index = 2)
 
 # Bootstraptests
 
-<b>Step 1</b><br>Take $R$ <high>bootstrap samples</high> $B_i$ of $n$ observations, typically one row in our data. 
+<b>Schritt 1</b><br>Ziehe $R$ <high>Bootstrap-Stichproben</high> $B_i$ von Grösse $n$ Beobachtungen (= eine Zeile im Datensatz). 
 
-<b>Step 2</b><br><high>Calculate statistic</high> $f(B_i)$, e.g., the difference in means or regression coefficients, from each of the $R$ bootstrap samples. 
+<b>Schritt 2</b><br><high>Berechne Statistik</high> $f(B_i)$, z.B., einen Gruppenunterschied oder ein Regressionsgewicht, für jede der $R$ Bootstrap-Stichproben. 
 
-<b>Step 3</b><br><high>Evaluate the simulated statistics</high>, e.g., via a confidence intervals.
+<b>Schritt 3</b><br><high>Evaluiere die Simulierte Statistik</high>, z.B., mit einem Konfidenzinterval.
 
 <p align="center"><img src="image/bootCI.png" height=50px style="padding-top:10px"></p>
 
