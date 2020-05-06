@@ -1,11 +1,11 @@
 ---
-title: "New Statistics"
-author: "Statistics with R<br>
+title: "Neue Statistik"
+author: "Statistik mit R<br>
   <a href='https://therbootcamp.github.io'>
-    Basel R Bootcamp
+    The R Bootcamp
   </a>
   <br>
-  <a href='https://therbootcamp.github.io/SwR_2019Apr/'>
+  <a href='https://therbootcamp.github.io/SmR_2020Mai/'>
     <i class='fas fa-clock' style='font-size:.9em;'></i>
   </a>&#8239; 
   <a href='https://therbootcamp.github.io'>
@@ -17,7 +17,7 @@ author: "Statistics with R<br>
   <a href='https://www.linkedin.com/company/basel-r-bootcamp/'>
     <i class='fab fa-linkedin' style='font-size: .9em;'></i>
   </a>"
-date: "April 2019"
+date: "Mai 2020"
 output:
   xaringan::moon_reader:
     css: ["default", "baselrbootcamp.css"]
@@ -29,30 +29,6 @@ output:
       ratio: '16:9'
 ---
 
-layout: true
-
-<div class="my-footer">
-  <span style="text-align:center">
-    <span> 
-      <img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png" height=14 style="vertical-align: middle"/>
-    </span>
-    <a href="https://therbootcamp.github.io/">
-      <span style="padding-left:82px"> 
-        <font color="#7E7E7E">
-          www.therbootcamp.com
-        </font>
-      </span>
-    </a>
-    <a href="https://therbootcamp.github.io/">
-      <font color="#7E7E7E">
-       Statistics with R | April 2019
-      </font>
-    </a>
-    </span>
-  </div> 
-
----
-
 ```{r, eval = TRUE, echo = FALSE, warning=F,message=F}
 # Code to knit slides
 
@@ -60,56 +36,56 @@ layout: true
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
-# see: https://github.com/yihui/xaringan
-# install.packages("xaringan")
-# see: 
-# https://github.com/yihui/xaringan/wiki
-# https://github.com/gnab/remark/wiki/Markdown
 options(width = 110)
 options(digits = 4)
 
 # Load packages
 require(tidyverse)
-require(pwr)
 require(boot)
+
+print2 <- function(x, nlines=10,...) {
+   cat(head(capture.output(print(x,...)), nlines), sep="\n")}
 
 # Load data
 baselers <- readr::read_csv("1_Data/baselers.csv")
 
-# functions
-print2 <- function(x, nlines=10,...)
-    cat(head(capture.output(print(x,...)), nlines), sep="\n")
+# get color palette functions
+source("../../_materials/palette/therbootcamp_palettes.R")
+colors = baselrbootcamp_colors
+
+knitr::opts_chunk$set(dpi = 300, echo = FALSE, warning = FALSE, fig.align = 'center', message= FALSE)
 
 ```
 
-.pull-left45[
+.pull-left4[
 
-# New Statistics
+# Neue = Alte Statistik
 
-<font style="font-size:20px">New Statistics = Old Statistics</font><br><br>
+<ul>
+  <li class="m1"><span><high>Bessere Studien</high></span></li>
+  <ul class="level">
+    <li><span>Informative designs</span></li>
+    <li><span>Planung der Stichprobengrösse</span></li>
+    <li><span>Registrierung</span></li>
+    <li><span>Kein p-hacking</span></li>
+    <li><span>Vollständiges berichten</span></li>
+    <li><span>Replikation</span></li>
+  </ul>
+  <br>
+  <li class="m2"><span><high>Bessere Statistik</high></span></li>
+  <ul class="level">
+    <li><span>Unsicherheit berichten</span></li>
+    <li><span><i>p</i> Herabsetzen</span></li>
+    <li><span>Bayesianische Statistik</span></li>
+  </ul>
+</ul>
 
-<font style="font-size:28px"><high>Better studies</high></font><br><br>
-
-<font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;Informative designs</font><br>
-<font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;Sample size planning</font><br>
-<font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;Registrations</font><br>
-<font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;No <i>p</i>-hacking</font><br>
-<font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;Full reporting</font><br>
-<font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;Replication</font><br>
-
-<br><font style="font-size:28px"><high>Better statistics</high></font><br><br>
-
-<font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;Reporting uncertainty</font><br>
-<font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;Lowering <i>p</i></font><br>
-<font style="font-size:20px">&nbsp;&nbsp;&nbsp;&nbsp;Bayesian statistics</font><br>
-
-</font>
 
 ]
 
-.pull-right45[
+.pull-right5[
 
-<br><br>
+<br><br><br>
 <p align = "center">
 <img src="image/blastfromthepast.jpg" height=500px style="border-radius:50px"><br>
 <font style="font-size:10px">from <a href="https://www.amazon.com/Blast-Past-Brendan-Fraser/dp/0780626494">amazon.com</a></font>
@@ -123,14 +99,14 @@ print2 <- function(x, nlines=10,...)
 
 .pull-left4[
 
-There are various <high>replication crises rumbling</high> in diverse academic fields.
+<ul>
+  <li class="m1"><span>Eine Replikationskrise gehz um in <high>diversen akademischen Feldern</high></span></li>
+  <li class="m2"><span>In einer grossen Studie in der Psychologie konnten <high>nur 36% der Ergebnisse repliziert</high> werden.</span></li>
+  <li class="m3"><span>Die niedrige Replikationsrate ist das Ergebnis von <high>Questionable Research Practices</high>.</span></li>
+</ul>
 
-Large-scale replication attempt in [Psychology]() found that <high>only 36% were replicable</high>.
-
-The low replicability is the result of <high>Questionable Research Practices</high>. 
-
-<br><br><br><br>
-Similar assessments in [**Medicine**](https://therbootcamp.github.io/SwR_2019Apr/_sessions/NewStats/literature/Ioannidis2005.pdf), [**Economics**](https://therbootcamp.github.io/SwR_2019Apr/_sessions/NewStats/literature/Camerer2016.pdf), [**Marketing**](https://therbootcamp.github.io/SwR_2019Apr/_sessions/NewStats/literature/Hunter2001.pdf), [**Social sciences**](https://therbootcamp.github.io/SwR_2019Apr/_sessions/NewStats/literature/Camerer2018.pdf). 
+<br><br>
+Siehe vergleichbare Studien in [**Medicine**](https://therbootcamp.github.io/SwR_2019Apr/_sessions/NewStats/literature/Ioannidis2005.pdf), [**Economics**](https://therbootcamp.github.io/SwR_2019Apr/_sessions/NewStats/literature/Camerer2016.pdf), [**Marketing**](https://therbootcamp.github.io/SwR_2019Apr/_sessions/NewStats/literature/Hunter2001.pdf), [**Social sciences**](https://therbootcamp.github.io/SwR_2019Apr/_sessions/NewStats/literature/Camerer2018.pdf). 
 
 ]
 
@@ -147,33 +123,21 @@ Similar assessments in [**Medicine**](https://therbootcamp.github.io/SwR_2019Apr
 
 ---
 
-# Hallmarks of good studies
+# Zeichen guter Studien
 
+.pull-left4[
+<ul>
+  <li class="m1"><span>Informative Designs<br><font style="font-size:16px">Designe den bestmöglichen Test der Hypothese.</font></span></li>
+  <li class="m2"><span><high>Stichprobenplanung</high><br><font style="font-size:16px">Wähle angemessenes <i>N</i> für klare Entscheidungen.</font></span></li>
+  <li class="m3"><span>Registrierungen<br><font style="font-size:16px">Registriere deine Hypothesen vor der Datenerhebung.</font></span></li>
+  <li class="m4"><span><high>Kein <i>p</i>-hacking</high><br><font style="font-size:16px">Teste geplante Analysen oder berichte sie als explorativ.</font></span></li>
+  <li class="m5"><span>Vollständige Berichterstattung<br><font style="font-size:16px">Berichte alle durchgeführten Analysen.</font></span></li>
+  <li class="m6"><span>Replikation<br><font style="font-size:16px">Wiederhole deine Studie.</font></span></li>
+</ul>
 
-.pull-left45[
-<br2>
-<font style="font-size:20px"> 1 Informative designs </font><br>
-<font style="font-size:16px"><i> Conduct the best possible test of your hypothesis? </i></font><br><br2>
-
-<font style="font-size:20px"> 2 <high>Sample size planning</high> </font><br>
-<font style="font-size:16px"><i> Determine N for clear-cut conclusions? </i></font><br><br2>
-
-<font style="font-size:20px"> 3 Registrations </font><br>
-<font style="font-size:16px"><i> Register your hypotheses before data collection. </i></font><br><br2>
-
-<font style="font-size:20px"> 4 <high>No p-hacking</high> </font><br>
-<font style="font-size:16px"><i> Conduct only planned tests or report as exploratory. </i></font><br><br2>
-
-<font style="font-size:20px"> 5 Full reporting </font><br>
-<font style="font-size:16px"><i> Report everything you did. </i></font><br><br2>
-
-<font style="font-size:20px"> 6 Replication </font><br>
-<font style="font-size:16px"><i> Replicate your findings. </i></font><br><br>
-
-</font>
 ]
 
-.pull-right45[
+.pull-right5[
 
 <p align = "center">
 <img src="image/filedrawer_bw.png"><br>
@@ -184,14 +148,15 @@ Similar assessments in [**Medicine**](https://therbootcamp.github.io/SwR_2019Apr
 
 ---
 
-# Sample size planning
+# Stichprobenplanung
 
-.pull-left45[
+.pull-left4[
 
-Sample size should be planned such that there is <high>sufficient power to detect an effect</high>, if it is present.
 
-Increasing sample size means <high>narrower sampling distributions</high> and <high>smaller decision errors</high>.  
-
+<ul>
+  <li class="m1"><span>Die Grösse der Stichprobe sollte die nötige <high>Trennschärfe für das Detektieren eines Effekts ermöglichen</high></high></span></li>
+  <li class="m2"><span>Grössere Stichproben &rarr; <high>schmalere Stichprobenverteilungen</high> &rarr; höhere Trennschärfe.</span></li>
+</ul>
 
 <p align = "center">
 <img src="image/error_table.png" width=285px><br>
@@ -212,11 +177,12 @@ Increasing sample size means <high>narrower sampling distributions</high> and <h
 
 # Sample size planning
 
-.pull-left45[
+.pull-left4[
 
-Sample size should be planned such that there is <high>sufficient power to detect an effect</high>, if it is present.
-
-Increasing sample size means <high>narrower sampling distributions</high> and <high>smaller decision errors</high>.  
+<ul>
+  <li class="m1"><span>Die Grösse der Stichprobe sollte die nötige <high>Trennschärfe für das Detektieren eines Effekts ermöglichen</high></high></span></li>
+  <li class="m2"><span>Grössere Stichproben &rarr; <high>schmalere Stichprobenverteilungen</high> &rarr; höhere Trennschärfe.</span></li>
+</ul>
 
 <p align = "center">
 <img src="image/error_table.png" width=285px><br>
@@ -236,11 +202,12 @@ Increasing sample size means <high>narrower sampling distributions</high> and <h
 
 # Sample size planning in R
 
-.pull-left45[
+.pull-left4[
 
-Sample size should be planned such that there is <high>sufficient power to detect an effect</high>, if it is present.
-
-Increasing sample size means <high>narrower sampling distributions</high> and <high>smaller decision errors</high>.  
+<ul>
+  <li class="m1"><span>Die Grösse der Stichprobe sollte die nötige <high>Trennschärfe für das Detektieren eines Effekts ermöglichen</high></high></span></li>
+  <li class="m2"><span>Grössere Stichproben &rarr; <high>schmalere Stichprobenverteilungen</high> &rarr; höhere Trennschärfe.</span></li>
+</ul>
 
 <p align = "center">
 <img src="image/error_table.png" width=285px><br>
@@ -250,14 +217,14 @@ Increasing sample size means <high>narrower sampling distributions</high> and <h
 
 .pull-right5[
 
-```{r}
-# Load pwr package for pwr.t.test
+```{r, echo = TRUE}
+# Lade pwr Paket
 library(pwr)
 
-# N for large effect in t-test
+# N für einen grossen Effekt im t-test
 pwr.t.test(sig.level = .05, 
            power = .95, 
-           d = .8) # large effect
+           d = .8) # grosser Effekt
 ```
 
 ]
@@ -265,11 +232,12 @@ pwr.t.test(sig.level = .05,
 
 # Sample size planning in R
 
-.pull-left45[
+.pull-left4[
 
-Sample size should be planned such that there is <high>sufficient power to detect an effect</high>, if it is present.
-
-Increasing sample size means <high>narrower sampling distributions</high> and <high>smaller decision errors</high>.  
+<ul>
+  <li class="m1"><span>Die Grösse der Stichprobe sollte die nötige <high>Trennschärfe für das Detektieren eines Effekts</high> ermöglichen.</span></li>
+  <li class="m2"><span>Grössere Stichproben &rarr; <high>schmalere Stichprobenverteilungen</high> &rarr; höhere Trennschärfe.</span></li>
+</ul>
 
 <p align = "center">
 <img src="image/error_table.png" width=285px><br>
@@ -279,15 +247,14 @@ Increasing sample size means <high>narrower sampling distributions</high> and <h
 
 .pull-right5[
 
-```{r}
-# Load pwr package for pwr.t.test
+```{r, echo = TRUE}
+# Lade pwr Paket
 library(pwr)
 
-# N for small effect in t-test
+# N für einen grossen Effekt im t-test
 pwr.t.test(sig.level = .05, 
            power = .95, 
-           d = .2) # small effect
-
+           d = .8) # grosser Effekt
 ```
 
 ]
@@ -323,14 +290,11 @@ Ronald Coase
 
 # <i>p</i>-hacking
 
-> <high>p-hacking is the misuse of data analysis</high> to find patterns in data that can be presented as statistically significant when in fact there is no real underlying effect. 
-
-> Wikipedia
-
-<br>
-<high>Optional Stopping</high> - Stopping data collection once significance is reached.
-
-<high>HARKing</high> - Hypothesizing After the Data are Known. Committed when presenting any non-planned analyses, including the introduction of covariates.  
+<ul>
+  <li class="m1"><span><i>p</i>-hacking bezeichnet des Missbrauch von Datenanalyse, um <high>Effekte zu zeigen wo es eigentlich keine gibt</high>.</span></li><br>
+  <li class="m2"><span><high>Optionales Stoppen</high><br><br>Stoppen der Datenanalyse sobald Signifikanz erreicht wurde.</span></li><br>
+  <li class="m3"><span><high>HARKing</high><br><br>Hypothesizing After the Data are Known. Geschieht wenn nicht-geplante Analysen als geplant dargestellt werden..</span></li>
+</ul>
 
 ]
 
@@ -360,11 +324,11 @@ Ronald Coase
   
   <font style="font-size:28px"><i>Do</i></font><br><br2>
   
-  Everything.<br><bt>
+  Alles<br><bt>
 
   <br><br><br><br><font style="font-size:28px"><i>Don't</i></font><br><br2>
   
-  Present your result as confirmatory.<br><br>
+  Die Ergebnisse als konfirmatorisch präsentieren.<br><br>
   
   </font>
 
@@ -379,20 +343,20 @@ Ronald Coase
 
   <img src="image/confirmation.png" width = 440px>
 
-  <h style="font-size:60px;position:absolute;bottom:390px;left:675px;color:white">Confirmation</h><br>
+  <h style="font-size:60px;position:absolute;bottom:390px;left:675px;color:white">Konfirmation</h><br>
   <font style="font-size:10px">Villemard vision for 2000, from <a href="https://www.sadanduseless.com/world-in-2000/">sadanduseless.com</a></font>
   <br><br>
 
   <font style="font-size:28px"><i>Do</i></font><br><br2>
   
-  Make predictions.<br>
-  Predetermine sample size.<br>
-  Predetermine analysis plan.<br>
-  Register.<br>
+  Stelle Vorhersagen auf.<br>
+  Plane die Stichprobengrösse.<br>
+  Lege den Analyseplan fest.<br>
+  Registriere.<br>
 
   <br><font style="font-size:28px"><i>Don't</i></font><br><br2>
   
-  Engage in non-planned analyses.<br><br>
+  Führe nicht-geplante Analysen durch.<br><br>
   
   </font>
 
