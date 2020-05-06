@@ -39,7 +39,7 @@ class: center, middle, inverse, title-slide
 ### Nicht-parametrische Statistik
 
 &lt;ul&gt;
-  &lt;li class="m3"&gt;&lt;span&gt;Nicht-parametrische Modelle kommen &lt;high&gt;ohne Annahmen über die Verteilung&lt;/high&gt; in der Population aus..&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m3"&gt;&lt;span&gt;Nicht-parametrische Modelle kommen &lt;high&gt;ohne Annahmen über die Verteilung&lt;/high&gt; in der Population aus.&lt;/span&gt;&lt;/li&gt;
   &lt;li class="m4"&gt;&lt;span&gt;Involviert &lt;high&gt;Rangbildung&lt;/high&gt;, &lt;high&gt;Kombinatorik&lt;/high&gt; und &lt;high&gt;Bootstrap&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -143,7 +143,7 @@ Auf Deutsch...
 &lt;/tr&gt;
 &lt;tr&gt;
   &lt;td bgcolor="white"&gt;
-    Linearity
+    Linearität
   &lt;/td&gt;
   &lt;td bgcolor="white"&gt;
    &lt;mono&gt;lm&lt;/mono&gt;, &lt;mono&gt;glm&lt;/mono&gt; (curve fitting)
@@ -307,8 +307,8 @@ Auf Deutsch...
 ## Model 1: error_rate ~ stress
 ## Model 2: error_rate ~ stress + stress2
 ##   Res.Df   RSS Df Sum of Sq   F Pr(&gt;F)    
-## 1    298 268.1                            
-## 2    297  97.9  1       170 516 &lt;2e-16 ***
+## 1    298 258.1                            
+## 2    297  95.9  1       162 502 &lt;2e-16 ***
 ## ---
 ## Signif. codes:  
 ##   0 '***' 0.001 '**' 0.01 '*' 0.05 '.'
@@ -403,7 +403,7 @@ Auf Deutsch...
 
 &lt;ul&gt;
   &lt;li class="m1"&gt;&lt;span&gt;Gruppenvergleiche können mit dem &lt;high&gt;Rangsummentest&lt;/high&gt; von Wilcoxon bzw. Mann-Whitney durchgeführt werden&lt;/span&gt;&lt;/li&gt;
-  &lt;li class="m2"&gt;&lt;span&gt;Der Rangsummentest tested, ob die &lt;high&gt;Summen gmeinsam gebildeter Ränge&lt;/high&gt; in den Gruppen idenetisch sind.&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;Der Rangsummentest tested, ob die &lt;high&gt;Summen gmeinsam gebildeter Ränge&lt;/high&gt; in den Gruppen identisch sind.&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p align = "center"&gt;
@@ -431,7 +431,7 @@ Auf Deutsch...
 
 &lt;ul&gt;
   &lt;li class="m1"&gt;&lt;span&gt;Gruppenvergleiche können mit dem &lt;high&gt;Rangsummentest&lt;/high&gt; von Wilcoxon bzw. Mann-Whitney durchgeführt werden&lt;/span&gt;&lt;/li&gt;
-  &lt;li class="m2"&gt;&lt;span&gt;Der Rangsummentest tested, ob die &lt;high&gt;Summen gmeinsam gebildeter Ränge&lt;/high&gt; in den Gruppen idenetisch sind.&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;Der Rangsummentest tested, ob die &lt;high&gt;Summen gmeinsam gebildeter Ränge&lt;/high&gt; in den Gruppen identisch sind.&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p align = "center"&gt;
@@ -461,7 +461,7 @@ wilcox.test(group_1, group_2)
 
 ```
 ## 
-## 	Wilcoxon rank sum test
+## 	Wilcoxon rank sum exact test
 ## 
 ## data:  group_1 and group_2
 ## W = 22, p-value = 0.6
@@ -551,7 +551,7 @@ dbinom(x = n_plus : N,
 # Robuste Regression
 
 &lt;ul&gt;
-  &lt;li class="m1"&gt;&lt;span&gt;Die Robustheit von Regression kann verbessert durch alternative Fehlerfunktionen &amp;rho;(e); verbessert werden.&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Die Robustheit von Regression kann verbessert durch alternative Fehlerfunktionen &amp;rho;(e) verbessert werden.&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p align = "center"&gt;
@@ -845,7 +845,7 @@ summary(m)
 ## Coefficients:
 ##             Estimate Std. Error
 ## (Intercept)   0.0328     0.0551
-## x             0.3047     0.0417
+## x             0.3048     0.0417
 ##             t.value p.value    
 ## (Intercept)    0.60    0.55    
 ## x              7.31 2.2e-12 ***
@@ -853,7 +853,9 @@ summary(m)
 ## Signif. codes:  
 ##   0 '***' 0.001 '**' 0.01 '*'
 ##   0.05 '.' 0.1 ' ' 1
-## Overall Wald Test: 53.41 p-value: 0
+## 
+## Multiple R-squared (Robust): 0.05718 
+## Reduction in Dispersion Test: 19.29 p-value: 2e-05
 ```
 
 ]
@@ -1014,11 +1016,11 @@ boot.ci(B, index = 2)
 
 # Bootstraptests
 
-&lt;b&gt;Step 1&lt;/b&gt;&lt;br&gt;Take `\(R\)` &lt;high&gt;bootstrap samples&lt;/high&gt; `\(B_i\)` of `\(n\)` observations, typically one row in our data. 
+&lt;b&gt;Schritt 1&lt;/b&gt;&lt;br&gt;Ziehe `\(R\)` &lt;high&gt;Bootstrap-Stichproben&lt;/high&gt; `\(B_i\)` von Grösse `\(n\)` Beobachtungen (= eine Zeile im Datensatz). 
 
-&lt;b&gt;Step 2&lt;/b&gt;&lt;br&gt;&lt;high&gt;Calculate statistic&lt;/high&gt; `\(f(B_i)\)`, e.g., the difference in means or regression coefficients, from each of the `\(R\)` bootstrap samples. 
+&lt;b&gt;Schritt 2&lt;/b&gt;&lt;br&gt;&lt;high&gt;Berechne Statistik&lt;/high&gt; `\(f(B_i)\)`, z.B., einen Gruppenunterschied oder ein Regressionsgewicht, für jede der `\(R\)` Bootstrap-Stichproben. 
 
-&lt;b&gt;Step 3&lt;/b&gt;&lt;br&gt;&lt;high&gt;Evaluate the simulated statistics&lt;/high&gt;, e.g., via a confidence intervals.
+&lt;b&gt;Schritt 3&lt;/b&gt;&lt;br&gt;&lt;high&gt;Evaluiere die Simulierte Statistik&lt;/high&gt;, z.B., mit einem Konfidenzinterval.
 
 &lt;p align="center"&gt;&lt;img src="image/bootCI.png" height=50px style="padding-top:10px"&gt;&lt;/p&gt;
 
@@ -1106,6 +1108,32 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
 // adds .remark-code-has-line-highlighted class to <pre> parent elements
 // of code chunks containing highlighted lines with class .remark-code-line-highlighted
 (function(d) {
@@ -1123,17 +1151,6 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   }
   preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
 })(document);</script>
-
-<script>
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
-</script>
 
 <script>
 slideshow._releaseMath = function(el) {
