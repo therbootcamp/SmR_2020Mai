@@ -525,7 +525,8 @@ anova(mod)
 
 <br>
 
-$$q = \frac{y}{}$$
+$$q = \frac{\bar{y}_{max}-\bar{y}_{min}}{SE}$$
+]
 
 .pull-right55[
 
