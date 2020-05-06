@@ -60,7 +60,7 @@ class: center, middle, inverse, title-slide
 
 ---
 
-# Replication crises
+# Replikationskrise
 
 .pull-left4[
 
@@ -140,7 +140,7 @@ Siehe vergleichbare Studien in [**Medicine**](https://therbootcamp.github.io/SwR
 
 ---
 
-# Sample size planning
+# Stichprobenplanung
 
 .pull-left4[
 
@@ -165,12 +165,12 @@ Siehe vergleichbare Studien in [**Medicine**](https://therbootcamp.github.io/SwR
 
 ---
 
-# Sample size planning in R
+# Stichprobenplanung in R
 
 .pull-left4[
 
 &lt;ul&gt;
-  &lt;li class="m1"&gt;&lt;span&gt;Die Grösse der Stichprobe sollte die nötige &lt;high&gt;Trennschärfe für das Detektieren eines Effekts ermöglichen&lt;/high&gt;&lt;/high&gt;&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Die Grösse der Stichprobe sollte die nötige &lt;high&gt;Trennschärfe für das Detektieren eines Effekts&lt;/high&gt; ermöglichen&lt;/span&gt;&lt;/li&gt;
   &lt;li class="m2"&gt;&lt;span&gt;Grössere Stichproben &amp;rarr; &lt;high&gt;schmalere Stichprobenverteilungen&lt;/high&gt; &amp;rarr; höhere Trennschärfe.&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -190,15 +190,15 @@ library(pwr)
 # N für einen grossen Effekt im t-test
 pwr.t.test(sig.level = .05, 
            power = .95, 
-           d = .8) # grosser Effekt
+           d = .2) # grosser Effekt
 ```
 
 ```
 ## 
 ##      Two-sample t test power calculation 
 ## 
-##               n = 41.59
-##               d = 0.8
+##               n = 650.7
+##               d = 0.2
 ##       sig.level = 0.05
 ##           power = 0.95
 ##     alternative = two.sided
@@ -209,7 +209,7 @@ pwr.t.test(sig.level = .05,
 ]
 ---
 
-# Sample size planning in R
+# Stichprobenplanung in R
 
 .pull-left4[
 
@@ -286,7 +286,7 @@ Ronald Coase
 &lt;ul&gt;
   &lt;li class="m1"&gt;&lt;span&gt;&lt;i&gt;p&lt;/i&gt;-hacking bezeichnet des Missbrauch von Datenanalyse, um &lt;high&gt;Effekte zu zeigen wo es eigentlich keine gibt&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;&lt;br&gt;
   &lt;li class="m2"&gt;&lt;span&gt;&lt;high&gt;Optionales Stoppen&lt;/high&gt;&lt;br&gt;&lt;br&gt;Stoppen der Datenanalyse sobald Signifikanz erreicht wurde.&lt;/span&gt;&lt;/li&gt;&lt;br&gt;
-  &lt;li class="m3"&gt;&lt;span&gt;&lt;high&gt;HARKing&lt;/high&gt;&lt;br&gt;&lt;br&gt;Hypothesizing After the Data are Known. Geschieht wenn nicht-geplante Analysen als geplant dargestellt werden..&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m3"&gt;&lt;span&gt;&lt;high&gt;HARKing&lt;/high&gt;&lt;br&gt;&lt;br&gt;Hypothesizing After the Data are Known. Geschieht wenn nicht-geplante Analysen als geplant dargestellt werden.&lt;/span&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 ]
@@ -317,11 +317,11 @@ Ronald Coase
   
   &lt;font style="font-size:28px"&gt;&lt;i&gt;Do&lt;/i&gt;&lt;/font&gt;&lt;br&gt;&lt;br2&gt;
   
-  Everything.&lt;br&gt;&lt;bt&gt;
+  Alles&lt;br&gt;&lt;bt&gt;
 
   &lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;font style="font-size:28px"&gt;&lt;i&gt;Don't&lt;/i&gt;&lt;/font&gt;&lt;br&gt;&lt;br2&gt;
   
-  Present your result as confirmatory.&lt;br&gt;&lt;br&gt;
+  Die Ergebnisse als konfirmatorisch präsentieren.&lt;br&gt;&lt;br&gt;
   
   &lt;/font&gt;
 
@@ -336,20 +336,20 @@ Ronald Coase
 
   &lt;img src="image/confirmation.png" width = 440px&gt;
 
-  &lt;h style="font-size:60px;position:absolute;bottom:390px;left:675px;color:white"&gt;Confirmation&lt;/h&gt;&lt;br&gt;
+  &lt;h style="font-size:60px;position:absolute;bottom:390px;left:675px;color:white"&gt;Konfirmation&lt;/h&gt;&lt;br&gt;
   &lt;font style="font-size:10px"&gt;Villemard vision for 2000, from &lt;a href="https://www.sadanduseless.com/world-in-2000/"&gt;sadanduseless.com&lt;/a&gt;&lt;/font&gt;
   &lt;br&gt;&lt;br&gt;
 
   &lt;font style="font-size:28px"&gt;&lt;i&gt;Do&lt;/i&gt;&lt;/font&gt;&lt;br&gt;&lt;br2&gt;
   
-  Make predictions.&lt;br&gt;
-  Predetermine sample size.&lt;br&gt;
-  Predetermine analysis plan.&lt;br&gt;
-  Register.&lt;br&gt;
+  Stelle Vorhersagen auf.&lt;br&gt;
+  Plane die Stichprobengrösse.&lt;br&gt;
+  Lege den Analyseplan fest.&lt;br&gt;
+  Registriere.&lt;br&gt;
 
   &lt;br&gt;&lt;font style="font-size:28px"&gt;&lt;i&gt;Don't&lt;/i&gt;&lt;/font&gt;&lt;br&gt;&lt;br2&gt;
   
-  Engage in non-planned analyses.&lt;br&gt;&lt;br&gt;
+  Führe nicht-geplante Analysen durch.&lt;br&gt;&lt;br&gt;
   
   &lt;/font&gt;
 
@@ -363,26 +363,22 @@ Ronald Coase
 
 .pull-left45[
 
-# New Statistics
+# Bessere Statistik
 
-&lt;high&gt;Problems with &lt;i&gt;p&lt;/i&gt;-values&lt;/high&gt;
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Probleme mit &lt;i&gt;p&lt;/i&gt;-Werten.&lt;/span&gt;&lt;/li&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;span&gt;&lt;high&gt;Schwer zu interpretieren&lt;/high&gt; als Mass für Evidenz.&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;Dienen einer &lt;high&gt;arbiträren Binarisierung&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;&lt;br&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;"Neue" Statistik.&lt;/span&gt;&lt;/li&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;span&gt;Fokus auf &lt;high&gt;Schätzung&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;Kommunikation der &lt;high&gt;Unsicherheit&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt; Binarisierung&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/ul&gt;
 
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;They are &lt;high&gt;difficult to interpret&lt;/high&gt; as measures 
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;of evidence.
-
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;They are used for &lt;high&gt;arbitrary binarization&lt;/high&gt; via 
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;comparison to `\(\alpha\)`.
- 
-
-&lt;high&gt;New statistics&lt;/high&gt;
-
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Focus on &lt;high&gt;estimation&lt;/high&gt;: *How large is the* 
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;*difference?* rather than *Is it different from 0?*. 
-
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Communication of &lt;high&gt;uncertainty&lt;/high&gt;: *How accurate* 
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;*is my estimate?* rather than *Is it significant?*.
-
-&lt;br&gt;
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
 
 `$$Confidence\,Interval\,(CI) = \bar{x} \pm t_{1-\alpha} \sigma_{\bar{x}}$$`
 
@@ -401,11 +397,13 @@ Ronald Coase
 
 .pull-left45[
 
-# Confidence interval
+# Konfidenzinterval
 
-Confidence intervals essentially are &lt;high&gt;rearranged significance tests&lt;/high&gt;.
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Konfidenzintervalle sind &lt;high&gt;rearrangierte Signfikanztests&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;table style="cellspacing:0; cellpadding:0; border:none"&gt;
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px"&gt;
   &lt;col width="30%"&gt;
   &lt;col width="70%"&gt;
 &lt;tr&gt;
@@ -458,13 +456,15 @@ Confidence intervals essentially are &lt;high&gt;rearranged significance tests&l
 
 ---
 
-# Confidence interval
+# Konfidenzinterval
 
 .pull-left45[
 
-Confidence intervals essentially are &lt;high&gt;rearranged significance tests&lt;/high&gt;.
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Konfidenzintervalle sind &lt;high&gt;rearrangierte Signfikanztests&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;table style="cellspacing:0; cellpadding:0; border:none"&gt;
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px"&gt;
   &lt;col width="30%"&gt;
   &lt;col width="70%"&gt;
 &lt;tr&gt;
@@ -509,10 +509,20 @@ Confidence intervals essentially are &lt;high&gt;rearranged significance tests&l
 
 
 
+```r
+# Simulierte Daten
+t_1 &lt;- rnorm(100, 3, 1) 
+t_2 &lt;- rnorm(100, 4, 1) 
 
+# Standard Konfidenzinterval
+N     &lt;- length(t_1)
+Delta &lt;- mean(t_1 - t_2)
+SE    &lt;- sd(t_1 - t_2) / sqrt(N)
+Delta + SE * qt(.95, N - 1) * c(-1, 1)
+```
 
 ```
-## [1] -1.1993 -0.7027
+## [1] -1.4422 -0.9629
 ```
 
 ]
@@ -520,13 +530,15 @@ Confidence intervals essentially are &lt;high&gt;rearranged significance tests&l
 
 ---
 
-# Confidence interval
+# Konfidenzinterval
 
 .pull-left45[
 
-Confidence intervals essentially are &lt;high&gt;rearranged significance tests&lt;/high&gt;.
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Konfidenzintervalle sind &lt;high&gt;rearrangierte Signfikanztests&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;table style="cellspacing:0; cellpadding:0; border:none"&gt;
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px"&gt;
   &lt;col width="30%"&gt;
   &lt;col width="70%"&gt;
 &lt;tr&gt;
@@ -571,6 +583,14 @@ Confidence intervals essentially are &lt;high&gt;rearranged significance tests&l
 
 
 
+```r
+# Bootstrap-Konfidenzinterval
+bf &lt;- function(x,ind) {
+  sum(x[ind])/length(x[ind])
+  }
+boot_res &lt;- boot(t_1 - t_2, bf, 1000)
+boot.ci(boot_res)
+```
 
 
 ```
@@ -582,7 +602,132 @@ Confidence intervals essentially are &lt;high&gt;rearranged significance tests&l
 ## 
 ## Intervals : 
 ## Level      Normal              Basic         
-## 95%   (-1.2420, -0.6696 )   (-1.2342, -0.6673 )
+## 95%   (-1.475, -0.912 )   (-1.471, -0.905 )
+```
+
+]
+
+---
+
+# Effektstärke
+
+.pull-left45[
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Wichtiger als die Signifikanz, ist ob ein &lt;high&gt;Effekt von bedeutsamer Grösse&lt;/high&gt; ist.&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;Je nach Situation, werden &lt;high&gt;verschiedene Effektstärkemasse&lt;/high&gt; herangezogen.&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;br&gt;
+
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px"&gt;
+  &lt;col width="50%"&gt;
+  &lt;col width="50%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Situation&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Mass&lt;/b&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    Mittelwertsvergleiche
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Cohen's &lt;i&gt;d&lt;/i&gt;&lt;br&gt;Hedge's &lt;i&gt;g&lt;/i&gt;&lt;br&gt;&amp;eta;&lt;sup&gt;2&lt;/sup&gt;&lt;br&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    Korrelation, Regression 
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+   &lt;i&gt;r&lt;/i&gt;&lt;br&gt;R&lt;sup&gt;2&lt;/sup&gt;&lt;br&gt;f&lt;sup&gt;2&lt;/sup&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;/table&gt;
+
+]
+
+.pull-right5[
+
+&lt;br&gt;
+&lt;p align = "center"&gt;
+&lt;img src="image/effectsize.png" height=400px&gt;&lt;br&gt;
+&lt;/p&gt;
+
+]
+
+---
+
+# Effektstärke
+
+.pull-left45[
+
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Wichtiger als die Signifikanz, ist ob ein &lt;high&gt;Effekt von bedeutsamer Grösse&lt;/high&gt; ist.&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;Je nach Situation, werden &lt;high&gt;verschiedene Effektstärkemasse&lt;/high&gt; herangezogen.&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;br&gt;
+
+&lt;table style="cellspacing:0; cellpadding:0; border:none; padding-top:10px"&gt;
+  &lt;col width="50%"&gt;
+  &lt;col width="50%"&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Situation&lt;/b&gt;
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    &lt;b&gt;Mass&lt;/b&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    Mittelwertsvergleiche
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+    Cohen's &lt;i&gt;d&lt;/i&gt;&lt;br&gt;Hedge's &lt;i&gt;g&lt;/i&gt;&lt;br&gt;&amp;eta;&lt;sup&gt;2&lt;/sup&gt;&lt;br&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;td bgcolor="white"&gt;
+    Korrelation, Regression 
+  &lt;/td&gt;
+  &lt;td bgcolor="white"&gt;
+   &lt;i&gt;r&lt;/i&gt;&lt;br&gt;R&lt;sup&gt;2&lt;/sup&gt;&lt;br&gt;f&lt;sup&gt;2&lt;/sup&gt;
+  &lt;/td&gt;  
+&lt;/tr&gt;
+&lt;/table&gt;
+
+]
+
+.pull-right5[
+
+
+
+```r
+# Bootstrap-Konfidenzinterval für Cohen's d
+bf &lt;- function(x,ind) {
+  mean(x[ind])/sd(x[ind])
+  }
+boot_res &lt;- boot(t_1 - t_2, bf, 1000)
+boot.ci(boot_res)
+```
+
+
+```
+## BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+## Based on 1000 bootstrap replicates
+## 
+## CALL : 
+## boot.ci(boot.out = boot_res)
+## 
+## Intervals : 
+## Level      Normal              Basic         
+## 95%   (-1.0474, -0.5869 )   (-1.0428, -0.5825 )
 ```
 
 ]
@@ -593,11 +738,13 @@ Confidence intervals essentially are &lt;high&gt;rearranged significance tests&l
 
 .pull-left45[
 
-# Bayesian statistics
+# Bayesianische Statistik
 
-Bayesian statistics extends classic (Frequentist) statistics by a &lt;high&gt;prior&lt;/high&gt; distribution, specifying the prior &lt;high&gt;probability of the hypotheses&lt;/high&gt; before seeing the data.
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Ergänzt klassische (frequentistische) Statistik um eine Verteilung der &lt;high&gt;Grundwahrscheinlichkeit der Hypothesen (Prior)&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;Erlaubt die Berechnung eines &lt;high&gt;wahren &lt;i&gt;p&lt;/i&gt;-Werts&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
-The prior permits calculation of a &lt;high&gt;true &lt;i&gt;p&lt;/i&gt;-value&lt;/high&gt;, the &lt;high&gt;posterior probability&lt;/high&gt;.
 
 &lt;p align = "center" style="padding-top:20px"&gt;
 &lt;img src="image/bayes_form.png"&gt;&lt;br&gt;
@@ -619,21 +766,21 @@ The prior permits calculation of a &lt;high&gt;true &lt;i&gt;p&lt;/i&gt;-value&l
 
 .pull-left45[
 
-# Bayesian statistics
+# Bayesianische Statistik
 
-For two reasons Bayesian statistics has long been rejected...
-
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 1 &lt;high&gt;Computational needs&lt;/high&gt; to calculate `\(p(D)\)`&lt;br&gt;&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 2 &lt;high&gt;Subjectivity&lt;/high&gt; in choosing the prior
-
-&lt;br&gt;
-However,...
-
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 1 Computers have become &lt;high&gt;fast enough&lt;/high&gt;&lt;br&gt;&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 2 Statistical inference is &lt;high&gt;necessarily&lt;/high&gt;&lt;br&gt; 
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; &lt;high&gt;subjective&lt;/high&gt;&lt;br&gt;&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 3 The influence of priors can be limited&lt;br&gt;
-&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; through &lt;high&gt;ignorance priors&lt;high&gt;
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Bayesianische Statistik war &lt;high&gt;lange unpopular&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;span&gt;Es ist &lt;high&gt;komputational anspruchsvoll&lt;/high&gt; &lt;mono&gt;p(D)&lt;/mono&gt; zu berechnen.&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;Das Festlegen der Prior ist &lt;high&gt;notwendigerweise subjektiv&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+  &lt;li class="m2"&gt;&lt;span&gt;Allerdings hat sich dies geändert.&lt;/span&gt;&lt;/li&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;span&gt;Schnellere Computer/Algorithmen erlauben eine Effiziente Schätzung von &lt;mono&gt;p(D)&lt;/mono&gt;.&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;Einsicht, dass Statistik &lt;high&gt;notwendiger subjektiv&lt;/high&gt; ist.&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;span&gt;Fokus auf &lt;high&gt;ignorante Priors&lt;/high&gt;.&lt;/span&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/ul&gt;
 
 ]
 
@@ -653,8 +800,12 @@ However,...
 
 .pull-left45[
 
-The &lt;a href="https://cran.r-project.org/package=rstanarm/"&gt;&lt;mono&gt;&lt;b&gt;rstanarm&lt;/b&gt;&lt;/mono&gt;&lt;/a&gt; and
-&lt;a href="https://cran.r-project.org/package=BayesFactor/"&gt;&lt;mono&gt;&lt;b&gt;BayesFactor&lt;/b&gt;&lt;/mono&gt;&lt;/a&gt; packages make Bayesian stats very easy to use. 
+&lt;ul&gt;
+  &lt;li class="m1"&gt;&lt;span&gt;Die Pakete &lt;a href="https://cran.r-project.org/package=rstanarm/"&gt;&lt;mono&gt;&lt;b&gt;rstanarm&lt;/b&gt;&lt;/mono&gt;&lt;/a&gt; and
+&lt;a href="https://cran.r-project.org/package=BayesFactor/"&gt;&lt;mono&gt;&lt;b&gt;BayesFactor&lt;/b&gt;&lt;/mono&gt;&lt;/a&gt; machen Bayesianische Analysen einfach.&lt;/span&gt;&lt;/li&gt;
+&lt;ul&gt;
+
+&lt;br&gt;
 
 &lt;table style="cellspacing:0; cellpadding:0; border:none; padding-bottom:30px"&gt;
   &lt;col width="25%"&gt;
@@ -723,12 +874,12 @@ The &lt;a href="https://cran.r-project.org/package=rstanarm/"&gt;&lt;mono&gt;&lt
 ##  predictors:   2
 ## ------
 ##             Median MAD_SD
-## (Intercept) 9278.3 2161.6
-## height       -10.8   12.6
+## (Intercept) 9271.2 2271.4
+## height       -10.6   13.1
 ## 
 ## Auxiliary parameter(s):
 ##       Median MAD_SD
-## sigma 2639.8  106.0
+## sigma 2638.9  106.7
 ## 
 ## ------
 ## * For help interpreting the printed output see ?print.stanreg
@@ -822,7 +973,7 @@ The &lt;a href="https://cran.r-project.org/package=rstanarm/"&gt;&lt;mono&gt;&lt
 
 class: middle, center
 
-&lt;h1&gt;&lt;a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/NewStats/NewStats_practical.html"&gt;Practical&lt;/a&gt;&lt;/h1&gt;
+&lt;h1&gt;&lt;a href="https://therbootcamp.github.io/SmR_2020Mai/_sessions/NewStats/NewStats_practical.html"&gt;Practical&lt;/a&gt;&lt;/h1&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

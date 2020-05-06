@@ -1,12 +1,11 @@
 ---
-title: "Look ahead"
-author: "
-  Statistics with R<br>
+title: "Neue Statistik"
+author: "Statistik mit R<br>
   <a href='https://therbootcamp.github.io'>
-    Basel R Bootcamp
+    The R Bootcamp
   </a>
   <br>
-  <a href='https://therbootcamp.github.io/R4DS_2019Feb/'>
+  <a href='https://therbootcamp.github.io/SmR_2020Mai/'>
     <i class='fas fa-clock' style='font-size:.9em;'></i>
   </a>&#8239; 
   <a href='https://therbootcamp.github.io'>
@@ -18,7 +17,7 @@ author: "
   <a href='https://www.linkedin.com/company/basel-r-bootcamp/'>
     <i class='fab fa-linkedin' style='font-size: .9em;'></i>
   </a>"
-date: "April 2019"
+date: "Mai 2020"
 output:
   xaringan::moon_reader:
     css: ["default", "baselrbootcamp.css"]
@@ -28,48 +27,40 @@ output:
       highlightLines: true
       countIncrementalSlides: false
       ratio: '16:9'
-      
 ---
 
-layout: true
+```{r, eval = TRUE, echo = FALSE, warning=F,message=F}
+# Code to knit slides
 
-<div class="my-footer">
-  <span style="text-align:center">
-    <span> 
-      <img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png" height=14 style="vertical-align: middle"/>
-    </span>
-    <a href="https://therbootcamp.github.io/">
-      <span style="padding-left:82px"> 
-        <font color="#7E7E7E">
-          www.therbootcamp.com
-        </font>
-      </span>
-    </a>
-    <a href="https://therbootcamp.github.io/">
-      <font color="#7E7E7E">
-       Statistics with R | April 2019
-      </font>
-    </a>
-    </span>
-  </div> 
-  
----
+```
 
 ```{r setup, include=FALSE}
 options(htmltools.dir.version = FALSE)
-# see: https://github.com/yihui/xaringan
-# install.packages("xaringan")
-# see: 
-# https://github.com/yihui/xaringan/wiki
-# https://github.com/gnab/remark/wiki/Markdown
-options(width=110)
+options(width = 110)
 options(digits = 4)
+
+# Load packages
+require(tidyverse)
+require(boot)
+
+print2 <- function(x, nlines=10,...) {
+   cat(head(capture.output(print(x,...)), nlines), sep="\n")}
+
+# Load data
+baselers <- readr::read_csv("1_Data/baselers.csv")
+
+# get color palette functions
+source("../../_materials/palette/therbootcamp_palettes.R")
+colors = baselrbootcamp_colors
+
+knitr::opts_chunk$set(dpi = 300, echo = FALSE, warning = FALSE, fig.align = 'center', message= FALSE)
+
 ```
 
 
 .pull-left45[
 <br><br><br><br><br>
-#  Hello Statistician!
+#  Hallo Statistiker!
 
 In 2 days, 8 sessions, and 16 hours you have come a long way.
 
@@ -77,7 +68,7 @@ In 2 days, 8 sessions, and 16 hours you have come a long way.
 
 .pull-right4[
 
-<img src="https://therbootcamp.github.io/SwR_2019Apr/_sessions/Welcome/image/schedule.png" height="580" align="center">
+<img src="https://therbootcamp.github.io/SwR_2020Apr/_sessions/Welcome/image/schedule.png" height="580" align="center">
 ]
 
 ---

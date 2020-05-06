@@ -50,6 +50,45 @@ text(139, .005, label = expression(1-beta), cex=4, col = Pink)
 
 dev.off()
 
+
+
+png('_sessions/NewStats/image/effectsize.png',width=600, height=500)
+
+par(mar=c(3,0,0,0))
+
+plot.new();plot.window(xlim=c(0,200),ylim=c(-.00005,.0198))
+
+mtext('x',side=1,line=2,cex=4)
+axis(1,labels=FALSE,lwd=8,line=-.5)
+
+xs = seq(0,200,.01)
+lines(c(80,80),c(0,max(dnorm(xs, m1, s1))),col=Gray,lwd=6,lend=1)
+lines(c(120,120),c(0,max(dnorm(xs, m1, s1))),col=Pink,lwd=6,lend=1)
+lines(c(120,150),rep(max(dnorm(xs, m1, s1))/2,2),col=Pink,lwd=6,lend=1)
+text(132,.009,labels=expression(sigma),cex=6)
+
+lines(xs, dnorm(xs, m2, s2), lwd = 12, col = Pink)
+
+
+xs = seq(0,200,.01)
+lines(xs, dnorm(xs, m1, s1), lwd = 12, col = Gray)
+
+lines(c(80,120),c(.018,.018),lwd=8,lend=1)
+text(100,.0195,labels=expression(Delta),cex=6)
+
+dev.off()
+
+
+
+
+
+
+
+
+
+
+
+
 m1 = 80
 m2 = 120
 s1 = 12
