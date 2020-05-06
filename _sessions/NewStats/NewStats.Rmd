@@ -29,6 +29,31 @@ output:
       ratio: '16:9'
 ---
 
+layout: true
+
+<div class="my-footer">
+  <span style="text-align:center">
+    <span> 
+      <img src="https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png" height=14 style="vertical-align: middle"/>
+    </span>
+    <a href="https://therbootcamp.github.io/">
+      <span style="padding-left:82px"> 
+        <font color="#7E7E7E">
+          www.therbootcamp.com
+        </font>
+      </span>
+    </a>
+    <a href="https://therbootcamp.github.io/">
+      <font color="#7E7E7E">
+       Statistik mit R | Mai 2020
+      </font>
+    </a>
+    </span>
+  </div> 
+
+---
+
+
 ```{r, eval = TRUE, echo = FALSE, warning=F,message=F}
 # Code to knit slides
 
@@ -100,7 +125,7 @@ knitr::opts_chunk$set(dpi = 300, echo = FALSE, warning = FALSE, fig.align = 'cen
 .pull-left4[
 
 <ul>
-  <li class="m1"><span>Eine Replikationskrise gehz um in <high>diversen akademischen Feldern</high></span></li>
+  <li class="m1"><span>Eine Replikationskrise geht um in <high>diversen akademischen Feldern</high></span></li>
   <li class="m2"><span>In einer grossen Studie in der Psychologie konnten <high>nur 36% der Ergebnisse repliziert</high> werden.</span></li>
   <li class="m3"><span>Die niedrige Replikationsrate ist das Ergebnis von <high>Questionable Research Practices</high>.</span></li>
 </ul>
@@ -205,7 +230,7 @@ Siehe vergleichbare Studien in [**Medicine**](https://therbootcamp.github.io/SwR
 .pull-left4[
 
 <ul>
-  <li class="m1"><span>Die Grösse der Stichprobe sollte die nötige <high>Trennschärfe für das Detektieren eines Effekts</high> ermöglichen</span></li>
+  <li class="m1"><span>Die Grösse der Stichprobe sollte die nötige <high>Trennschärfe für das Detektieren eines Effekts ermöglichen</high>.</span></li>
   <li class="m2"><span>Grössere Stichproben &rarr; <high>schmalere Stichprobenverteilungen</high> &rarr; höhere Trennschärfe.</span></li>
 </ul>
 
@@ -235,7 +260,7 @@ pwr.t.test(sig.level = .05,
 .pull-left4[
 
 <ul>
-  <li class="m1"><span>Die Grösse der Stichprobe sollte die nötige <high>Trennschärfe für das Detektieren eines Effekts</high> ermöglichen.</span></li>
+  <li class="m1"><span>Die Grösse der Stichprobe sollte die nötige <high>Trennschärfe für das Detektieren eines Effekts ermöglichen</high>.</span></li>
   <li class="m2"><span>Grössere Stichproben &rarr; <high>schmalere Stichprobenverteilungen</high> &rarr; höhere Trennschärfe.</span></li>
 </ul>
 
@@ -381,7 +406,7 @@ Ronald Coase
   <li class="m2"><span>"Neue" Statistik.</span></li>
   <ul>
     <li><span>Fokus auf <high>Schätzung</high>.</span></li>
-    <li><span>Kommunikation der <high>Unsicherheit</high>.</span></li> Binarisierung</high>.</span></li>
+    <li><span>Kommunikation der <high>Unsicherheit</high>.</span></li>
   </ul>
 </ul>
 
@@ -772,7 +797,7 @@ print2(boot.ci(boot_res), n = 10)
   <li class="m2"><span>Allerdings hat sich dies geändert.</span></li>
   <ul>
     <li><span>Schnellere Computer/Algorithmen erlauben eine Effiziente Schätzung von <mono>p(D)</mono>.</span></li>
-    <li><span>Einsicht, dass Statistik <high>notwendiger subjektiv</high> ist.</span></li>
+    <li><span>Einsicht, dass Statistik <high>subjektiv</high> ist.</span></li>
     <li><span>Fokus auf <high>ignorante Priors</high>.</span></li>
   </ul>
 </ul>
@@ -885,8 +910,12 @@ print2(stan_res, 21)
 
 .pull-left45[
 
-The <a href="https://cran.r-project.org/package=rstanarm/"><mono><b>rstanarm</b></mono></a> and
-<a href="https://cran.r-project.org/package=BayesFactor/"><mono><b>BayesFactor</b></mono></a> packages make Bayesian stats very easy to use. 
+<ul>
+  <li class="m1"><span>Die Pakete <a href="https://cran.r-project.org/package=rstanarm/"><mono><b>rstanarm</b></mono></a> and
+<a href="https://cran.r-project.org/package=BayesFactor/"><mono><b>BayesFactor</b></mono></a> machen Bayesianische Analysen einfach.</span></li>
+<ul>
+
+<br>
 
 <table style="cellspacing:0; cellpadding:0; border:none; padding-bottom:30px">
   <col width="25%">
@@ -939,11 +968,11 @@ The <a href="https://cran.r-project.org/package=rstanarm/"><mono><b>rstanarm</b>
 </table>
 
 ```{r, eval = F}
-# Baysian stats with BayesFactor
-library(BayesFactor)
+# Baysian stats with rstanarm
+library(rstanarm)
 
-lmBF(formula = income ~ height,
-     data = baselers)
+stan_glm(formula = income ~ height,
+         data = baselers)
 ```
 
 ]
