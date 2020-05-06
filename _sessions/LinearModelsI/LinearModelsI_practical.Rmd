@@ -1,10 +1,10 @@
 ---
-title: "Linear Models I"
+title: "Lineare Modelle I"
 author: "<table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'><col width='10%'><col width='10%'>
   <tr style='border:none'>
     <td style='display:block;width:100%;text-align:left;vertical-align:bottom;padding:0;margin:0;border:none' nowrap>
       <font style='font-style:normal'>Statistics with R</font><br>
-      <a href='https://therbootcamp.github.io/SwR_2019Apr/'>
+      <a href='https://therbootcamp.github.io/SmR_2020Mai/'>
         <i class='fas fa-clock' style='font-size:.9em;' ></i>
       </a>
       <a href='https://therbootcamp.github.io'>
@@ -17,7 +17,7 @@ author: "<table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0
         <i class='fab fa-linkedin' style='font-size: .9em;'></i>
       </a>
       <a href='https://therbootcamp.github.io'>
-        <font style='font-style:normal'>Basel R Bootcamp</font>
+        <font style='font-style:normal'>The R Bootcamp</font>
       </a>
     </td>
     <td style='width:100%;vertical-align:bottom;text-align:right;padding:0;margin:0;border:none'>
@@ -45,884 +45,323 @@ options(digits = 3)
 library(tidyverse)
 
 # Load packages
-college <- read_csv("1_Data/college.csv")
-hitters <- read_csv("1_Data/hitters.csv")
-mcdonalds <- read_csv("1_Data/mcdonalds.csv")
+college <- read_csv("1_Data/wein.csv")
 
 ```
 
 <p align="center" width="100%">
-  <img src="image/baseball.png" alt="Trulli" style="width:100%">
+  <img src="image/vinho.png" alt="Trulli" style="width:100%">
   <br>
-  <font style="font-size:10px">from <a href="">www.popsci.com</a></font>
+  <font style="font-size:10px">from <a href="https://www.gourmet-blog.de/vinho-verde-wein-mit-gu-siegel/">gourmet-blog.de</a></font>
 </p>
 
 
 # {.tabset}
 
-## Overview
+## Überblick
 
-In this practical you'll practice constructing and understanding regression models.
+Am Ende des Practicals wirst du wissen...
 
-By the end of this practical you will know how to:
+1. Wie du einfache und multiple Regression in R implementierst. 
+2. Wie die die Ergebnisse einer interpretation interpretierst.
 
-1. Create simple and multiple linear regression models with `glm()`
-2. Explore the outputs of your models, including coefficients, confidence intervals, and p-values.
-3. Explore the residuals and fitted values of a linear model.
-4. Use your model to make predictions for new data
-
-## Tasks
+## Aufgaben
 
 ### A - Setup
 
-1. Open your `BaselRBootcamp` R project. It should already have the folders `1_Data` and `2_Code`. Make sure that the data files listed in the `Datasets` section above are in your `1_Data` folder
+1. Öffne dein `TheRBootcamp` R project. Es sollte die Ordner `1_Data` und `2_Code` enthalten. Stelle sicher, dass du alle Datensätze, welche im `Datensätze` Tab aufgelisted sind, in deinem `1_Data` Ordner hast. 
 
-```{r}
-# Done!
-```
-
-2. Open a new R script. At the top of the script, using comments, write your name and the date. Save it as a new file called `LinearModels_I_practical.R` in the `2_Code` folder.  
-
-```{r}
-# Done!
-```
-
-3. Using `library()` load each of the packages below (if you don't have them, you'll need to install them)
-
-```{r, echo = TRUE, eval = TRUE, message = FALSE, warning = FALSE}
-# Load packages necessary for this script
-library(tidyverse)
-library(broom)
-library(rsq)
-```
-
-4. Using the following template, load the `hitters.csv` data into R and store it as a new object called `hitters` (Hint: Don't type the path directly! Use the "tab" completion!).
-
-```{r, echo = TRUE, eval = FALSE}
-# Load XXX.csv from the 1_Data folder
-
-XX <- read_csv(file = "XX/XX")
-```
-
-```{r}
-hitters <- read_csv("1_Data/hitters.csv")
-```
-
-5. Take a look at the first few rows of the dataset(s) by printing it/them to the console, it should look like the table below:
-
-```{r, eval = TRUE, echo = FALSE}
-knitr::kable(hitters %>% slice(1:5))
-```
-
-
-```{r, echo = TRUE, eval = FALSE}
-# Print hitters object
-XXX
-```
-
-
-```{r}
-hitters
-```
-
-7. Use the `View()` function to view the entire dataframe(s) in new window(s).
-
-```{r, echo = TRUE, eval = FALSE}
-View(XXX)
-```
-
-### B - Simple regression
-
-##### Hits and Salary
-
-In this section, we will answer the question: "Is there a relationship between the number of Hits a player had in 1986 (`Hits`) and his salary in 1987 (`Salary`)"?
-
-1. Using the code below, create a scatterplot showing the relationship between Hits and Salary. Based on this plot, do you expect there to be a relationship between these variables?
-
-```{r, echo = TRUE, eval = FALSE}
-ggplot(hitters, aes(x = Hits, y = Salary)) +
-  geom_point(col = "skyblue") +
-  labs(title = "Baseball player Hits vs Salary",
-       subtitle = "My first plot in the 'Statistics with R' bootcamp!",
-       caption = "I love R!!!!")
-```
-
-2. Using the guide below, conduct a regression analysis predicting a player's `Salary` as a function of his `Hits` value. Save the result to an object called `hits_glm`.
+2. Öffne ein neues R Skript. Schreibe deinen Namen, das Datum und "Lineare Modelle Practical" als Kommentare an den Anfang des Skripts.
 
 ```{r, eval = FALSE, echo = TRUE}
-hits_glm <- glm(formula = XXX ~ XXX,
-                data = XXX)
+## NAME
+## DATUM
+## Lineare Modelle Practical
+```
+
+3. Speichere das neue Skript unter dem Namen `lineare_modelle_practical.R` im `2_Code` Ordner.
+
+4. Lade die Pakete `tidyverse`.
+
+```{r}
+library(tidyverse)
+```
+
+5. Verwende die `read_csv()` Funktion um `wein.csv` einzulesen.
+
+```{r, echo = T, eval = T, message = F}
+# Lese Daten ein
+wein <- read_csv(file = "1_Data/wein.csv")
+```
+
+3. Printe den Datensatz. 
+
+4. Verwende `names(XX)`, `summary(XX)`, und `View()` um einen weiteren Überblick über die Daten zu bekommen.
+
+5. Wiederum, führe den Code unten aus um sicherzustellen, dass alle `character` Variablen als Faktoren vorliegen, was den statistischen Modellen hilft kategoriale Variablen richtig zu interpretieren. 
+
+```{r, echo = TRUE}
+# Konvertiere alle character zu factor
+wein <- wein %>% mutate_if(is.character, factor)
+```
+
+### B - Einfache Regression
+
+1. In diesem ersten Abschnitt geht es darum den Effekt von `Restzucker` (Prädiktor) auf die wahrgenommene `Qualität` (Kriterium) des Weines zu prüfen. Verwende das template unten, um ein enstprechendes lineares Modell zu testen und in das Objekt `wein_lm` zu speichern. 
+
+```{r, eval = FALSE, echo = TRUE}
+# Einfache Regression
+wein_lm <- lm(formula = XX ~ XX,
+              data = XX)
 ```
 
 ```{r}
-hits_glm <- glm(formula = Salary ~ Hits,
-                data = hitters)
+wein_lm <- lm(formula = Qualität ~ Restzucker,
+              data = wein)
 ```
 
+2. Printe das Fit-Objekt `wein_lm`. Welche Information wird dir angezeigt? Was sagen dir die Werte? 
 
-3. Look at the class of your `hits_glm` object using the `class()` function. What class is the object?
+```{r}
+wein_lm
+```
+
+3. Der Default-Output von `lm`-Objeketen ist nicht sehr informatin. Er zeigt nur den Code und die Schätzungen für die beiden Parameter: den Intercept und das Gewicht für `Restzucker`. Verwende `summary()` um einen informativeren Output zu erhalten.  
 
 ```{r, echo = TRUE, eval = FALSE}
-# Print the class of the hits_glm object
-
-class(XXX)
+# Zeige Ergebnisse
+summary(XX)
 ```
 
 ```{r}
-class(hits_glm)
+summary(wein_lm)
 ```
 
-4. Print your `hits_glm` object to see summary information. What is the value of the coefficient for Hits and what does it mean? Is it consistent with what you expected from the plot?
+4. Summary zeigt einem ausfürhliche Ergebnisse in fünf Sektionen: 
 
-```{r}
-hits_glm
-```
+- Call: Der Modellcode.
+- Resdiuals: Verschiedene Statistiken der Verteilung der Residuen.
+- Coefficients: Die Schätzere und Tests für die Modellparameter.
+- Signif. codes: Übliche Kodierung für Signifikanzlevels.
+- Schluss: Statistiken über dem Gesamtfit des Modells. 
 
-5. Use the `summary()` function to print additional summary information from your `hits_glm` object.
+Welche Sektion zeigt an, welchen Einfluss `Restzucker` auf die Qualität des Weines hat? 
+
+5. In der Tat, die Sektion `Coefficients` zeigt an, welche Werte für die Parameter geschätzt wurden und ob sie signifikant (gegeben H0) sind, und ist daher meist von zentralem Interesse. Welcher Paramterwert bzw. welches Gewicht (`Estimate`) wurde für `Restzucker` ermittel? Was bedeutet dieser Wert?
+
+6. Exakt, ein Anstieg von `1` (g/ml) geht mit einer Veränderung `-.0067` in der Qualität einher. Also je süsser deer Wein, desto niedriger die eingeschätzte Qualität. Aber ist dieser Effekt signifikant? Was zeigt der p-Wert für `Restzucker` an?
+
+7. Der Effekt von `Restzucker` ist signifikant von Null verschieden. Versuche nachzuverfolgen wie R zu diesem Wert kommt. Erinnere dich, der p-Wert folgt aus der Teststatistik, in diesem Fall <i>t</i>. Was ist der t-Wert für `Restzucker`?
+
+8. Der t-Wert ist `-2.982`. D.h., das beobachtete Ergebnis hat in der <i>t</i>-Verteilung mit 6,495 Freiheitsgraden (siehe Schlussabschnitt des Outputs) eine eben solche Ausprägung. Der p-Wert ist nun die Fläche unterhalb der Verteilung in die Richtung extremerer Werte. Die Funktion `pt()` gibt bestimmte t-Werte die Fläche für niedrigere Werte raus. Probiert einmal was ihr erhaltet, wenn ihr den ermittelten t-Wert (`q` für Quantil) und die Freiheitsgrade (`df`) in die Funktion eingebt. Wie könnte der Zusammenhang zum p-Wert im Ergebnis aussehen?
 
 ```{r, echo = TRUE, eval = FALSE}
-# Show summary information from hits_glm
-summary(XXX)
+# Berechne Fläche unter t-Wert
+pt(q = XX, df = XX)
 ```
 
 ```{r}
-summary(hits_glm)
+# Berechne Fläche unter t-Wert
+pt(q = -2.982, df = 6495)
 ```
 
-6. Using the `tidy()` function (from the broom package), create a new object called `hits_tidy` which contains all 'tidy' results from your `hits_glm` object.
+9. Genau der emittelte Wert ist genau die Hälfte des p-Werts. Das hat damit zu tun, dass R-automatisch zweiseitig testet, d.h., Abweichungen in die positive und negative Richtung gleichermassen berücksichtigt. Hätte man eine klar gerichtete Hypothese, könnte man also den p-Wert im Ergenis halbieren.   
 
-```{r, echo = TRUE, eval = FALSE}
-# Save 'tidy' results from hits_glm as hits_tidy
-hits_tidy <- tidy(XXX)
-```
+10. Es gibt noch weitere Werte, die du miteinander verknüpfen kannst. Der t-Wert ergibt sich nämlich unmittelbar aus dem Gewicht (`Estimate`) und dem Standardfehler (`Std.Error`). Kannst du den Zusammenang erkennen?
 
-```{r}
-hits_tidy <- tidy(hits_glm)
-```
+11. Der t-Wert ist nichts anderes als das Gewicht geteilt durch den Standardfehler. Betrachte nun die andere, erste Zeile des `Coefficients` Outputs. Wie interpretierst du ihn? Die Zeile gibt die Ergebnisse für den Intercept an, d.h., den Wert des Kriterium, wenn der Prädiktor Null ist. Nicht leicht zu interpretieren, oder? Es gibt keinen Wein mit `Restzucker` gleich Null. Später mehr dazu. 
 
-6. Print your `hits_tidy` object, which statistical outputs do you see?
+12. Lenke nun deine Aufmerksamkeit auf den Schlussteil. Hier siehst du weitere Zusammenfassung über das Modell. Von besonderem Interesse ist das `Multiple R-squared`, da es angibt wie viel Varianz das Modell insgesamt am Kriterium erklären kann. Was meinst du, ist der Wert gross oder klein?
 
-```{r}
-hits_tidy
-```
-
-7. What is the p-value associated with your `Hits` coefficient? How do you interpret this? Do you think that, in the general population of players, that there is a non-zero relationship between hits and salary?
-
-```{r}
-# The p-value is 0.0382 which is 'significant' at the 0.05 level.
-#  We do expect there to be a positive relationship between hits and salary in all players
-```
-
-8. Using the `confint()` function, print 95% confidence interval(s) for the regression coefficient(s) in your `hits_glm` object. What do they mean?
-
-```{r, echo = TRUE, eval = FALSE}
-# Print confidence interval(s) of coefficient(s) in hits_glm
-confint(XXX)
-```
-
-```{r}
-confint(hits_glm)
-
-# The confidence interval ranges from 0.26 to 6.13
-```
-
-9. Using the `fitted()` function, save the fitted values of your `glm` object as `Hits_fit`. Then print the results to see how they look. 
-
-```{r, echo = TRUE, eval = FALSE}
-# Save fitted values from Hits_glm as Hits_fit
-Hits_fit <- fitted(XXX)
-
-# Print results
-Hits_fit
-```
-
-```{r}
-Hits_fit <- fitted(hits_glm)
-
-Hits_fit
-```
-
-10. Using `min()`, `max()`, `mean()`, `median()`, and `sd()`, calculate summary statistics for the fits. Do the values look like they make sense?
-
-```{r, echo = TRUE, eval = FALSE}
-# Print summary statistics from Hits_fit
-
-min(XXX)
-max(XXX)
-mean(XXX)
-median(XXX)
-sd(XXX)
-```
-
-```{r}
-min(Hits_fit)
-max(Hits_fit)
-mean(Hits_fit)
-median(Hits_fit)
-sd(Hits_fit)
-```
-
-11. Using the code below, plot the relationship between the model fitted values and the true values
-
-```{r, echo = TRUE, eval = FALSE}
-# Create dataframe containing true salaries and model fits
-
-data <- tibble(truth = hitters$Salary,
-               fitted  = Hits_fit)
-
-# Create scatterplot
-ggplot(data = data, aes(x = truth, y = fitted)) +  
-  geom_point() +
-  geom_abline(slope = 1, intercept = 0) +
-  labs(title = "Relationship between model fits and true Salaries",
-       subtitle = "Formula = Salary ~ Hits",
-       caption = "I still love R!!!") +
-  geom_segment(aes(x = truth, y = truth, xend = truth, yend = fitted), 
-               col = "red") +
-  xlim(c(-300, 3000)) +
-  ylim(c(-300, 3000))
-```
-
-12. Using the `rsq()` function, print the r-squared value from your `hits_glm` object. What does this tell you? How much of the variance in Salary can your model account for? Is this high or low?
-
-```{r, echo = TRUE, eval = FALSE}
-# Print r-squared value from hits_glm object
-rsq(XXX)
-```
-
-```{r}
-rsq(hits_glm)
-```
-
-##### Home Runs (HmRun) and Salary
-
-In this section, we will answer the question: "Is there a relationship between the number of home runs a player scores in 1986 his salary in 1987?
-
-1. Using the code below, create a scatterplot showing the relationship between HmRun and Salary. Based on this plot, what do you expect the relationship to be between HmRun and Salary?
-
-```{r, echo = TRUE, eval = FALSE}
-ggplot(hitters, aes(x = HmRun, y = Salary)) +
-  geom_point(col = "tomato2") +
-  labs(x = "Home Runs",
-       y = "Salary",
-       title = "Predicting Salary from Home Runs",
-       caption = "Did you know that SPSS stands for 'Shitty Piece of Shitty Shit'?")
-```
-
-2. Conduct a regression analysis predicting a player's `Salary` as a function of its `HmRun` value. Save the result to an object called `HmRun_glm`.
-
-```{r, echo = TRUE, eval = FALSE}
-# Create HmRun_glm, a glm model predicting Salary as a function of HmRun
-HmRun_glm <- glm(formula = XXX ~ XXX,
-                 data = XXX)
-```
-
-```{r}
-HmRun_glm <- glm(formula = Salary ~ HmRun,
-                 data = hitters)
-```
-
-3. Look at the class of your `HmRun_glm` object using the `class()` function. What class is the object? Is it 'glm'?
-
-```{r, echo = TRUE, eval = FALSE}
-# Print the class of the HmRun_glm object
-
-class(XXX)
-```
-
-```{r}
-class(HmRun_glm)
-```
-
-4. Print your `HmRun_glm` object to see summary information. What is the value of the beta weight for HmRun and what does it mean? Is it consistent with what you saw in the plot?
-
-```{r}
-HmRun_glm
-```
-
-5. Use the `summary()` function to print additional summary information from your `HmRun_glm` object.
-
-```{r, echo = TRUE, eval = FALSE}
-# Print summary information from HmRun_glm
-summary(XXX)
-```
-
-```{r}
-summary(HmRun_glm)
-```
-
-6. Using the `tidy()` function (from the broom package), create a new object called `HmRun_tidy` which contains all 'tidy' results from your `HmRun_glm` object.
-
-```{r, echo = TRUE, eval = FALSE}
-# Save 'tidy' results from HmRun_glm as HmRun_tidy
-HmRun_tidy <- tidy(XXX)
-```
-
-```{r}
-HmRun_tidy <- tidy(HmRun_glm)
-```
-
-7. Print your `HmRun_tidy` object, which statistical outputs do you see?
-
-```{r}
-HmRun_tidy
-```
-
-8. What is the p-value associated with your `HmRun` coefficient? How do you interpret this? Do you think that, in the general population of players, that there is a non-zero relationship between HmRun and Salary?
-
-9. Using the `confint()` function, print a 95% confidence interval for the regression coefficients in your `HmRun_glm` object. What does this mean?
-
-```{r, echo = TRUE, eval = FALSE}
-# Print confidence inverval(s) from HmRun_glm
-confint(XXX)
-```
-
-```{r}
-confint(HmRun_glm)
-```
-
-10. Using the `fitted()` function, save the fitted values of your `glm` object as `HmRun_fit`. Then print the results to see how they look.
-
-```{r, echo = TRUE, eval = FALSE}
-# Save fitted values from HmRun_glm as HmRun_fit
-HmRun_fit <- fitted(XXX)
-
-# Print results
-HmRun_fit
-```
-
-```{r}
-HmRun_fit <- fitted(HmRun_glm)
-
-HmRun_fit
-```
-
-11. Using `min()`, `max()`, `mean()`, `median()`, and `sd()`, calculate summary statistics for the fits. Do the values look like they make sense?
-
-```{r, echo = TRUE, eval = FALSE}
-# Print summary statitics from HmRun_fit
-
-min(XXX)
-max(XXX)
-mean(XXX)
-median(XXX)
-sd(XXX)
-```
-
-```{r}
-min(HmRun_fit)
-max(HmRun_fit)
-mean(HmRun_fit)
-median(HmRun_fit)
-sd(HmRun_fit)
-```
-
-12. Using the code below, plot the relationship between the model fitted values and the true values
-
-```{r, echo = TRUE, eval = FALSE}
-# Create a dataframe containing true and fitted values
-data <- tibble(truth = hitters$Salary,
-               fitted  = HmRun_fit)
-
-# Create scatterplot
-ggplot(data = data, aes(x = truth, y = fitted)) +  
-  geom_point() +
-  geom_abline(slope = 1, intercept = 0) +
-  labs(title = "Relationship between model fits and true salaries",
-       subtitle = "Formula = Salary ~ HmRun",
-       x = "True Salaries",
-       y = "Model Predicted Salaries",
-       caption = "Have I mentioned how great R is??") +
-  geom_segment(aes(x = truth, y = truth, xend = truth, yend = fitted), 
-               col = "red") +
-  xlim(c(-300, 3000)) +
-  ylim(c(-300, 3000))
-```
-
-13. Using the `rsq()` function, print the r-squared value from your `HmRun_glm` object. What does this tell you?
-
-```{r, echo = TRUE, eval = FALSE}
-# Print r-squared value from HmRun_glm
-rsq(XXX)
-```
-
-```{r}
-rsq(HmRun_glm)
-```
+13. Der Wert ist in der Tat relativ klein. Nur .1% der Varianz kann aufgeklärt werden, was wirklich nicht viel ist. Zeit weitere Prädiktoren hinzunehmen. 
 
 ### C - Multiple Regression
 
-1. Create an object called `all_glm` which predicts salary based on *all* variables in the `hitters` dataframe. To do this, use the `formula = Salary ~ .` notation. Assign the result to an object called `all_glm`.Use the following guide to help you:
+1. Teste nun den Effekt mehreren Prädiktoren auf die wahrgenommene `Qualität` (Kriterium) des Weines. Inkludiere neben `Restzucker` `pH-Wert`, `Alcohol`, und `Sulphate`. Verwende das template unten, um ein enstprechendes lineares Modell zu testen und in das Objekt `wein_lm` zu speichern. 
 
 ```{r, eval = FALSE, echo = TRUE}
-# Create all_glm, a glm object modelling Salary based on ALL variables in hitters
-all_glm <- glm(formula = XXX ~ .,
-              data = XXX)
+# Multiple Regression
+wein_lm <- lm(formula = XX ~ XX + XX + XX + XX,
+              data = XX)
 ```
 
 ```{r}
-all_glm <- glm(formula = Salary ~ .,
-                 data = hitters)
+wein_lm <- lm(formula = Qualität ~ Restzucker + pH_Wert + Alkohol + Sulphate,
+              data = wein)
 ```
 
-2. Using the `tidy()` function (from the broom package), create a new object called `all_tidy` which contains all 'tidy' results from your `all_glm` object.
+2. Printe wiederum das Modell. Wie interpretierst du die Grössen der Regressionsgewichte Kannst du aus ihnen ablesen, welchr Prädiktor die meiste Bedeutung hat?
 
 ```{r}
-# Save 'tidy' version of all_glm as all_tidy
-all_tidy <- tidy(all_glm)
+wein_lm
 ```
 
-3. Print your `all_tidy` object.
-
-```{r}
-all_tidy
-```
-
-4. How do you interpret the results? Which variables appear to be related to salary? 
-
-5. Using the `confint()` function, print a 95% confidence interval for the regression coefficients in your `all_glm` object. What does this mean?
-
-```{r}
-# Print confidence interval(s) of coefficients from all_glm
-confint(XXX)
-```
-
-```{r}
-confint(all_glm)
-```
-
-9. Using the `fitted()` function, save the fitted values of your `glm` object as `All_fit`. Then print the results to see how they look.
-
-```{r, echo = TRUE, eval = FALSE}
-# Save fitted values from All_glm as All_fit
-All_fit <- fitted(XXX)
-
-# Print results
-All_fit
-```
-
-```{r}
-All_fit <- fitted(all_glm)
-
-All_fit
-```
-
-10. Using `min()`, `max()`, `mean()`, `median()`, and `sd()`, calculate summary statistics for the fits. Do the values look like they make sense?
-
-
-```{r, echo = TRUE, eval = FALSE}
-# Print summary statistics from All_fit
-
-min(XXX)
-max(XXX)
-mean(XXX)
-median(XXX)
-sd(XXX)
-```
-
-```{r}
-min(All_fit)
-max(All_fit)
-mean(All_fit)
-median(All_fit)
-sd(All_fit)
-```
-
-11. Using the code below, plot the relationship between the model fitted values and the true values
-
-```{r, echo = TRUE, eval = FALSE}
-# Create dataframe containing true and fitted values
-data <- tibble(truth = hitters$Salary,
-               fitted  = All_fit)
-
-# Create a scatterplot
-ggplot(data = data, aes(x = truth, y = fitted)) +  
-  geom_point() +
-  geom_abline(slope = 1, intercept = 0) +
-  labs(title = "Relationship between model fits and true Salaries",
-       subtitle = "Formula = Salary ~ .",
-       x = "True Salaries",
-       y = "Model Predicted Salaries") +
-  geom_segment(aes(x = truth, y = truth, xend = truth, yend = fitted), 
-               col = "red") +
-  xlim(c(-300, 3000)) +
-  ylim(c(-300, 3000))
-```
-
-12. Using the `rsq()` function, print the r-squared value from your `all_glm` object. What does this tell you?
-
-```{r, echo = TRUE, eval = FALSE}
-# Print r-squared value from all_glm
-rsq(XXX)
-```
-
-```{r}
-rsq(HmRun_glm)
-```
-
-### D - Exploring model residuals
-
-1. Using the `residuals()` function, save the residuals of your regression analysis to a vector called `all_resid`
-
-```{r, echo = TRUE, eval = FALSE}
-all_resid <- residuals(XXX)
-```
-
-```{r}
-all_resid <- residuals(all_glm)
-```
-
-2. Using the `min()`, `max()`, `mean()`, `median()` and `sd()` functions, calculate the summary statistics of the residuals `all_resid`. Do the values look like they make sense?
-
-3. Using the following code, create a histogram of the residuals from your `all_glm` object
-
-```{r, echo = TRUE, eval = FALSE}
-# Create a dataframe containing absolute errors
-data <- tibble(resid = all_resid)
-
-ggplot(data, aes(x = resid)) + 
-  geom_histogram(col = "white") +
-  geom_vline(xintercept = 0, col = "red") +
-  labs(title = "Residuals of salary regression model",
-       x = "Model residual (Predicted - Truth)")
-```
-
-4. Using the `abs()` function, create a new vector called `all_abs_resid` which contains the *absolute* residuals. Use the following guide
-
-```{r, echo = TRUE, eval = FALSE}
-all_abs_resid <- abs(residuals(XXX))
-```
-
-```{r}
-all_abs_resid <- abs(residuals(all_glm))
-```
-
-5. Using `min()`, `max()`, `mean()`, `median()`, and `sd()`, calculate summary statistics for the absolute residuals `all_abs_resid`. Do the values look like they make sense?
-
-```{r}
-min(all_abs_resid)
-max(all_abs_resid)
-mean(all_abs_resid)
-median(all_abs_resid)
-sd(all_abs_resid)
-```
-
-5. Using the following code, Create a histogram of the absolute residuals `all_abs_resid`. How do you interpret this plot?
-
-```{r, echo = TRUE, eval = FALSE}
-# Create a dataframe containing absolute errors
-data <- tibble(abs_resid = all_abs_resid)
-
-ggplot(data, aes(x = abs_resid)) + 
-  geom_histogram(col = "white") +
-  geom_vline(xintercept = 0, col = "red") +
-  labs(title = "Absolute Residuals of Salary GLM",
-       x = "Absolute Model Residuals (smaller is better)")
-```
-
-### E - Adjusting your model with formulas
-
-##### Excluding variables with -
-
-1. Using the guides below, create a regression object `my_glm` predicting Salary based on all variables *except* for `AtBat` and `Hits`
+3. Rohe Regressionsgewichte lassen nicht darauf schliessen, welche Bedeutung ein Prädiktor hat, da die Skalierung der Prädiktoren unmittelbar mit einfliesst. Wäre z.B. Alkohol in Promille angegeben, dann wäre das Gewicht 10x grösser. Dies kannst du leicht mit dem Template unten testen. Füge die vier Prädiktoren ein sodass Alkohol in innerhalb der `I()` steht und führe das Modell aus. Speichere es aber nicht.
 
 ```{r, eval = FALSE, echo = TRUE}
-my_glm <- glm(formula = XXX ~ . - XXX - XXX,
-              data = XXX)
+# Multiple Regression
+lm(formula = XX ~ XX + XX + I(XX / 10) + XX,
+   data = XX)
 ```
 
 ```{r}
-my_glm <- glm(formula = Salary ~ . - AtBat - Hits,
-              data = hitters)
+lm(formula = Qualität ~ Restzucker + pH_Wert + I(Alkohol/10) + Sulphate,
+   data = wein)
 ```
 
-2. Using the `tidy()` function, print tidy results from your `my_glm` object, do you see that the variables you excluded are indeed not in the model?
+4. Also Rohe Regressionsgewichte müssen immer relativ zur Skalierung interpretriert werden. Nichtsdestotrotz ist bereits etwas bemerkenswertes an den Gewichten ablesbar. Schau dir das Regressionsgewicht für `Restzucker` an. War das nicht mal negativ? Führt mehr Zucker plöltzlich zu höherer wahrgenommener Qualität?
+
+5. So einfach ist das leider nicht. In der multiplen Regression hängt alles mit allem zusammen. D.h., das Gewicht von `Restzucker` hängt von den anderen Gewichten mit ab und ist konditional zu interpretieren. Wiederum nicht leicht!
+
+6. Schaue dir nun die `summary()` an. Welche Effekte gehen in welche Richtung, welche Effekte sind signifikant?  
 
 ```{r}
-tidy(my_glm)
+summary(wein_lm)
 ```
 
+7. Alkohol, Sulphate, und Restzucker hängen alle drei signifikant positiv mit der Qaulität zusammen, der pH-Wert dagegen negativ, jedoch nicht signifikant. Auf Basis der Summary, kannst du jetzt ausmachen, welcher Prädiktor die grösste Bedeutung hat? Welcher Wert würdest du zu Rate ziehen?
 
-##### Including interactions with *
+8. Am besten zieht man in der Tat den t-Wert heran. Je grösser dieser ist, desto grösser ist das Signal für den assoziierten Prädiktor. Richte nun deine Aufmerksamkeit auf den Schlussteil. Wie grosse ist `R-squared`? 
 
-
-3. Using the guides below, create a regression object `my_glm` predicting Salary based the *interaction* between `AtBat` and `Hits`
+9. Das `R-squared` hat sich deutlich erhöht. Nun werden knapp 22% der Varianz des Kriteriums erklärt. Auch dies ist etwas, dass wir unmittelbar mit den Funktionen nachvollziehen können. Speichert mit dem template zunächst das Kriterium, die Residuen und die gefitteten Werte. Für letztere beiden gibt es, wie ihr seht, nützliche Funktionen.
 
 ```{r, eval = FALSE, echo = TRUE}
-my_glm <- glm(formula = XXX ~  XXX * XXX,
-              data = XXX)
+# Residuen & gefittete Werte
+kriterium <- wein$XX
+residuen <- residuals(XX)
+gefitted <- fitted(XX)
 ```
-
-```{r}
-my_glm <- glm(formula = Salary ~ AtBat * Hits,
-              data = hitters)
-```
-
-4. Using the `tidy()` function, print tidy results from your `my_glm` object, what outputs do you see? Do you see a significant interaction?
-
-```{r}
-tidy(my_glm)
-```
-
-### F - Predicting values for new data
-
-1. The `hitters_new.csv` file contains values from 10 new players, load this data as a new dataframe called `hitters_new`
-
-```{r, echo = TRUE, eval = FALSE}
-hitters_new <- read_csv("XXX/XXX")
-```
-
-```{r}
-hitters_new <- read_csv("1_Data/hitters_new.csv")
-```
-
-2. Print the `hitters_new` dataframe to see how it looks.
-
-3. Using the following code, print only the values of Salary and hits
-
-```{r, echo = TRUE, eval = FALSE}
-hitters_new %>%
-  select(Salary, Hits)
-```
-
-3. You should have already created your `hits_glm` object in an earlier question. Print your `hits_glm` object again to see what the model coefficients are.
-
-4. Based on the coefficients you've observed, what should the predicted value of the first player in `hitters_new` be? Answer this by calculating the value 'by hand' (Hint: Salary = Intercept + Coefficient * Hits)
-
-5. Using your `hits_glm` object, predict the salaries of these new players using the `predict()` function. Save the results to an object called `hitters_new_pred`:
-
-```{r, echo = TRUE, eval = FALSE}
-hitters_new_pred <- predict(object = XXX,    # glm object
-                            newdata = XXX)   # New dataframe
-```
-
-```{r}
-predict(object = hits_glm, 
-        newdata = hitters_new)
-```
-
-6. Print your `hitters_new_pred` object, what are these values?
-
-```{r}
-hitters_new_pred
-```
-
-7. Does the first value match the value you calculated 'by hand'? Aren't you glad that R can do this for you and you don't have to constantly calculate values manually?
-
-### X - Challenges
-
-1. A colleague of yours wants to know which variable is better at predicting a player's salary, RBI (Number of runs batted) or Walks (Number of walks). Conduct the appropriate analysis to answer the question by completing the following steps:
-    - Visualise the relationships in two separate scatterplots
-    - Conduct the two separate appropriate analyse(s) using `glm()`
-    - Print the test statistic for each coefficient
-    - Calculate the mean absolute residuals for each model.
-
-2. What happens if you run a linear model with two independent variables that are very highly correlated? To answer this, first run the code below to add a new variable to `hitters` called `Buns` which is almost an exact copy of `Runs` (but with a little bit of random error).
-
-```{r, echo = TRUE, eval = FALSE}
-# Add a column called Buns which is highly correlated with Runs
-
-hitters_sim <- hitters_sim %>%
-  mutate(Buns = Runs + rnorm(n = nrow(hitters), mean = 0, sd = 1))
-
-# Visualise the relationship between Runs and Buns
-
-ggplot(data = hitters_sim, aes(x = Runs, y = Buns)) +
-  geom_point()
-```
-
-Once you have run this code, create and analyse the following three separate linear models.
-
-```{r, echo = TRUE, eval = FALSE}
-# Runs only model
-runs_glm <- glm(formula = Salary ~ Runs,
-                data = hitters)
-
-# Buns only model
-
-buns_glm <- glm(formula = Salary ~ Buns,
-                data = hitters)
-
-# Runs and Buns model
-runs_and_buns_glm <- glm(formula = Salary ~ Runs + Buns,
-                         data = hitters)
-```
-
-Compare the outputs of these three models. What do you find? What does this tell you about using highly correlated variables in linear models?
-
-3. Look at the coefficients in your `all_glm` model, you'll notice that there is one called `NewLeagueN`, even though there is no such variable in your `hitters` dataframe (though there is one called `NewLeague`). Using the `table()` function, look at all possible values of `hitters$NewLeague`. What do you see? Based on this, what do you think the `NewLeagueN` variable means? Why is it called `NewLeagueN`?
-
-## Examples
 
 ```{r, eval = FALSE, echo = TRUE}
-# Regression models in R
+# Residuen & gefittete Werte
+kriterium <- wein$Qualität
+residuen <- residuals(wein_lm)
+gefitted <- fitted(wein_lm)
+```
 
-library(tidyverse)  # For mpg data and tidy data functions
-library(broom)      # For tidy()
+10. Jetzt teilt ihr einmal die Varianz der gefitteten Werte (`var(gefitted)`) durch die Varianz des Kriteriums (`var(kriterium)`). 
 
-# Q: Does displacement predict gas mileage?
+11. Er voila, ihr habt `R-squared` gefunden. Ihr könnte jetzt auch einmal die Varianz der Residuen und die der gefitteten Werte addieren und mit der Varianz des Kriteriums vergleichen. 
 
-## Visualise the data
+### D - Multiple Regression: Alle Prädiktoren
 
-ggplot(data = mpg, aes(x = displ, y = hwy)) + 
-  geom_point() +
-  labs(title = "Predicting hwy from displ")
+1. Teste nun den Effekt aller Prädiktoren (bis auf `Farbe`) auf die wahrgenommene `Qualität` (Kriterium) des Weines. Um alle Prädiktoren zu inkludieren kann man einfach `.` verwenden, und um einen auszuschliessen `-`- Verwende das template unten, um ein enstprechendes lineares Modell zu testen und in das Objekt `wein_lm` zu speichern. 
 
-# Model
+```{r, eval = FALSE, echo = TRUE}
+# Multiple Regression aller Prädiktoren ausser Farbe
+wein_lm <- lm(formula = XX ~ . - XX,
+              data = XX)
+```
 
+```{r}
+# Multiple Regression aller Prädiktoren ausser Farbe
+wein_lm <- lm(formula = Qualität ~ . - Farbe,
+              data = wein)
+```
+
+2. Evaluiert die Summary des Modells. 
+
+- Sind die Vorzeichen der Gewichte gleichgeblieben?
+- Welche Prädiktoren sind signifikant?
+- Welche Prädiktoren haben den grössten Einfluss?
+- Um wie viel ist R-squared gestiegen?
+
+### E - Multiple Regression: Alle Prädiktoren
+
+1. Gehe zurück zum ersten Modell mit `Restzucker` als einzigen Prädiktor. Inkludiere nacheinander jeweils einen anderen Prädiktore und studiere, wie sich das Gewicht und die Signifikanz von Restzucker verändert. 
+
+```{r, eval = FALSE, echo = TRUE}
+# Multiple Regression aller Prädiktoren ausser Farbe
+wein_lm <- lm(formula = XX ~ Restzucker + XX,
+              data = XX)
+```
+
+```{r}
+# Multiple Regression aller Prädiktoren ausser Farbe
+lm(formula = Qualität ~ Restzucker + Alkohol,
+   data = wein)
+```
+
+2. Der Schlüssel zur letzten Aufgabe steckt in `cor(wein %>% select(-Farbe))['Restzucker',]` und in `cor(wein %>% select(-Farbe))['Qualität',]`, d.h., den bivariaten Korrelationen zwischen Restzucker und den jeweils anderen Prädiktoren und Qualität und den jeweils anderen Prädiktoren. Beides fliesst in die Berechnung des Gewichts für `Restzucker` mit ein. Siehe Folien. 
+
+## Beispiele
+
+```{r, eval = FALSE, echo = TRUE}
+# Regression mit R
+
+library(tidyverse)
+
+# Model:
+# Sagt der Hubraum (displ) die pro gallone 
+# fahrbaren Meilen voraus?
 hwy_mod <- glm(formula = hwy ~ displ,
                data = mpg)
 
-# Summary information =================================
-
+# Ergebnisse 
 summary(hwy_mod)
+coef(hwy_mod)
 
-# Call:
-# glm(formula = hwy ~ displ, data = mpg)
-# 
-# Deviance Residuals: 
-#     Min       1Q   Median       3Q      Max  
-# -7.1039  -2.1646  -0.2242   2.0589  15.0105  
-# 
-# Coefficients:
-#             Estimate Std. Error t value Pr(>|t|)    
-# (Intercept)  35.6977     0.7204   49.55   <2e-16 ***
-# displ        -3.5306     0.1945  -18.15   <2e-16 ***
-# ---
-# Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-# 
-# (Dispersion parameter for gaussian family taken to be 14.71478)
-# 
-#     Null deviance: 8261.7  on 233  degrees of freedom
-# Residual deviance: 3413.8  on 232  degrees of freedom
-# AIC: 1297.2
-# 
-# Number of Fisher Scoring iterations: 2
-
-# Tidy results ==========================================
-
-tidy(hwy_mod)
-
-#   term        estimate std.error statistic   p.value
-#   <chr>          <dbl>     <dbl>     <dbl>     <dbl>
-# 1 (Intercept)    35.7      0.720      49.6 2.12e-125
-# 2 displ          -3.53     0.195     -18.2 2.04e- 46
-
-#  (coefficient is negative and p-value is very small!)
-
-# Confidence intervals ==================================
-
-confint(hwy_mod)
-
-#                 2.5 %    97.5 %
-# (Intercept) 34.285756 37.109546
-# displ       -3.911829 -3.149349
-
-
-# Fitted values =========================================
-
+# Gefittete Werte
 hwy_fit <- fitted(hwy_mod)
-
 hwy_fit
 
-#       1        2        3        4        5 
-# 29.34259 29.34259 28.63647 28.63647 25.81200 
-
-#  First 5 fitted values look reasonable
-
-# Residuals =========================================
-
+# Residuums 
 hwy_resid <- residuals(hwy_mod)
-
 hwy_resid
 
-#          1          2          3          4          5 
-# -0.3425912 -0.3425912  2.3635266  1.3635266  0.1879976 
 
-#  First 5 residuals don't look so off
+# R-squared value 
 
-# True vs. Fitted values =================================
+hwy_mod$r.squared
 
-data <- tibble(truth = mpg$hwy,
-               fitted  = hwy_fit)
-
-ggplot(data = data, aes(x = truth, y = fitted)) +  
-  geom_point() +
-  geom_abline(slope = 1, intercept = 0) +
-  labs(title = "Relationship between model fits and true values",
-       subtitle = "Formula = hwy ~ dipsl") +
-  geom_segment(aes(x = truth, y = truth, xend = truth, yend = fitted), 
-               col = "red", alpha = .4) 
-
-
-# R-squared value =========================================
-
-rsq(hwy_mod)
-
-# [1] 0.5867867
-
-# R-square is 0.586..., meaning that around 59% of the variance in
-#  hwy can be accounted for by displ
 ```
 
 
 ## Datasets
 
-|File | Rows | Columns |
+|Datei | Zeile | Spalte |
 |:----|:-----|:------|
-|[hitters.csv](https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/hitters.csv?token=AIFo1DAkrffPG4jQkX3MRidCUqDYbHggks5cqJBjwA%3D%3D) | 50 | 20 |
+|[wein.csv](https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/hitters.csv?token=AIFo1DAkrffPG4jQkX3MRidCUqDYbHggks5cqJBjwA%3D%3D) | 50 | 20 |
 
-The `hitters.csv` file contains Major League Baseball Data from the 1986 and 1987 seasons. The data originally come from the `ISLR` package.
+Der `wein.csv` Datensatz enthält aus den Jahren 2004 bis 2007 des Comissão De Viticultura Da Região Dos Vinhos Verdes, der Offiziellen Zertifizierungsagentur des Vinho Verde in Portugal. 
 
 #### Variable description
 
-| Name | Description |
+| Name | Beschreibung |
 |:-------------|:-------------------------------------|
-| AtBat | Number of times at bat in 1986 |
-| Hits | Number of hits in 1986|
-|HmRun| Number of home runs in 1986|
-|Runs| Number of runs in 1986|
-|RBI| Number of runs batted in in 1986|
-|Walks| Number of walks in 1986|
-|Years| Number of years in the major leagues|
-|CAtBat| Number of times at bat during his career|
-|CHits| Number of hits during his career|
-|CHmRun| Number of home runs during his career|
-|CRuns| Number of runs during his career|
-|CRBI| Number of runs batted in during his career|
-|CWalks| Number of walks during his career|
-|League| A factor with levels A and N indicating player's league at the end of 1986|
-|Division| A factor with levels E and W indicating player's division at the end of 1986|
-|PutOuts| Number of put outs in 1986|
-|Assists| Number of assists in 1986|
-|Errors| Number of errors in 1986|
-|Salary| 1987 annual salary on opening day in thousands of dollars|
-|NewLeague| A factor with levels A and N indicating player's league at the beginning of 1987|
+|Qualität | Qualitätsurteil über den Weins von 1-9 |
+|Farbe| Rotr oder weisser Wien |
+|Gelöste_Säure| Konzentration der im Wein gelösten Säuren |
+|Freie_Säure| Konzenetration der verflüchtigbaren Säuren |
+|Citronensäure| Citronensäurekonzentration im Wein |
+|Restzucker| Zuckerkonzentration im Wein|
+|Chloride| Chloridkonzentration im Wein|
+|Freie_Schwefeldioxide| Konzenetration der verflüchtigbaren Schwefeldioxide |
+|Gesamt_Schwefeldioxide| Konzenetration der Schwefeldioxide insgesamt |
+|Dichte|Dichte des Weins|
+|pH_Wert|pH-Wert des Weins. Je kleiner, desto sauerer. |
+|Sulphate| Sulphatkontration im Wein |
+|Alkohol| Alkoholkonzentration im Wein in %|
 
-## Functions
+## Funktionen
 
-### Packages
+### Pakete
 
 |Package| Installation|
 |:------|:------|
 |`tidyverse`|`install.packages("tidyverse")`|
-| `broom` | `install.packages("broom")` |
-| `rsq` | `install.packages("rsq")` |
 
-### Functions
+### Funktionen
 
 | Function| Package | Description |
 |:---|:------|:---------------------------------------------|
-|     `glm`|`stats`| Fit a generalized linear model  | 
-|     `tidy`|`broom`| Show most important outputs from a statistical object | 
-|     `confint`|`stats`| Show confidence intervals of coefficients from a statistical object| 
-|     `fitted`|`stats`| Show fitted values from a statistical object| 
-|     `rsq`|`rsq`| Print r-squared value from a statistical object| 
-|     `residuals`|`stats`| Show residuals (fitted minus true) values from a statistical object| 
+|   `glm`|`stats`| Fit a generalized linear model  | 
+|   `fitted`|`stats`| Show fitted values from a statistical object| 
+|   `residuals`|`stats`| Show residuals (fitted minus true) values from a statistical object| 
 
-## Resources
+## Resourcen
 
 ### Books
 
-- [Discovering Statistics with R](https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469) by Field et al is an excellent resource
-- [YaRrr! The Pirate's Guide to R](https://bookdown.org/ndphillips/YaRrr/) has good chapters on statistics with R.
+- [Discovering Statistics with R](https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469) von Andy Field is excellent
+- [YaRrr! The Pirate's Guide to R](https://bookdown.org/ndphillips/YaRrr/) hat hilfreiche und unterhaltsame Kapitel zu Statistik mit R.
