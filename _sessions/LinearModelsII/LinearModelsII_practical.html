@@ -11,7 +11,7 @@
 
 
 
-<title>Linear Models II</title>
+<title>Lineare Modelle II</title>
 
 <script src="LinearModelsII_practical_files/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -70,9 +70,7 @@ h6 {
 
 <link rel="stylesheet" href="practical.css" type="text/css" />
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -103,8 +101,6 @@ summary {
 </style>
 
 
-
-<div class="container-fluid main-container">
 
 <!-- tabsets -->
 
@@ -179,1145 +175,291 @@ $(document).ready(function () {
 
 
 
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
 
 <div class="fluid-row" id="header">
 
 
 
-<h1 class="title toc-ignore">Linear Models II</h1>
-<h4 class="author"><em><table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'>
+<h1 class="title toc-ignore">Lineare Modelle II</h1>
+<h4 class="author"><table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'>
 <col width='10%'>
 <col width='10%'>
 <tr style="border:none">
-<!-- <td style='display:block;width:100%;text-align:left;vertical-align:bottom;padding:0;margin:0;border:none' nowrap> -->
-<font style='font-style:normal'>Statistics with R</font><br> <a href='https://therbootcamp.github.io/SwR_2019Apr/'> <i class='fas fa-clock' style='font-size:.9em;' ></i> </a> <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;'></i> </a> <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a> <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a> <a href='https://therbootcamp.github.io'> <font style='font-style:normal'>Basel R Bootcamp</font> </a>
+<td style="display:block;width:100%;text-align:left;vertical-align:bottom;padding:0;margin:0;border:none" nowrap>
+<font style='font-style:normal'>Statistics with R</font><br> <a href='https://therbootcamp.github.io/SmR_2020Mai/'> <i class='fas fa-clock' style='font-size:.9em;' ></i> </a> <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;'></i> </a> <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a> <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a> <a href='https://therbootcamp.github.io'> <font style='font-style:normal'>The R Bootcamp</font> </a>
 </td>
 <td style="width:100%;vertical-align:bottom;text-align:right;padding:0;margin:0;border:none">
 <img src='https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png' style='height:15px;width:80px'/>
 </td>
 </tr>
-</table></em></h4>
+</table></h4>
 
 </div>
 
 
 <p align="center" width="100%">
-<img src="image/cinicaltrial_wide.png" alt="Trulli" style="width:100%"> <br> <font style="font-size:10px">from <a href="https://www.finance-monthly.com/2017/08/gail-adinamis-and-the-leading-global-provider-of-ambulant-healthcare-services-for-clinical-trials/">FinanceMonthly.com</a></font>
+<img src="image/vinho2.png" alt="Trulli" style="width:100%"> <br> <font style="font-size:10px">from <a href="https://www.delinat.com/weinlese-blog/wie-lange-ist-ein-wein-haltbar/">delinat.com</a></font>
 </p>
 <div id="section" class="section level1 tabset">
 <h1></h1>
-<div id="overview" class="section level2">
-<h2>Overview</h2>
-<p>In this practical you’ll practice specific hypothesis testing extensions of the linear model</p>
-<p>By the end of this practical you will know how to:</p>
+<div id="uberblick" class="section level2">
+<h2>Überblick</h2>
+<p>Am Ende des Practicals wirst du wissen…</p>
 <ol style="list-style-type: decimal">
-<li>Conduct a t-test (one sample, two sample, and paired)</li>
-<li>Conduct a correlation test and compare to glm</li>
-<li>Conduct an ANOVA and compare to glm</li>
-<li>Select and run the appopriate test for the appropriate research question.</li>
+<li>Wie du einfache und multiple Regression in R implementierst.</li>
+<li>Wie die die Ergebnisse einer interpretation interpretierst.</li>
 </ol>
 </div>
-<div id="tasks" class="section level2">
-<h2>Tasks</h2>
+<div id="aufgaben" class="section level2">
+<h2>Aufgaben</h2>
 <div id="a---setup" class="section level3">
 <h3>A - Setup</h3>
 <ol style="list-style-type: decimal">
-<li>Open your <code>BaselRBootcamp</code> R project. It should already have the folders <code>1_Data</code> and <code>2_Code</code>. Make sure that the data files listed in the <code>Datasets</code> section above are in your <code>1_Data</code> folder</li>
+<li><p>Öffne dein <code>TheRBootcamp</code> R project. Es sollte die Ordner <code>1_Data</code> und <code>2_Code</code> enthalten. Stelle sicher, dass du alle Datensätze, welche im <code>Datensätze</code> Tab aufgelisted sind, in deinem <code>1_Data</code> Ordner hast.</p></li>
+<li><p>Öffne ein neues R Skript. Schreibe deinen Namen, das Datum und “Lineare Modelle II Practical” als Kommentare an den Anfang des Skripts.</p></li>
 </ol>
-<pre class="r"><code># Done!</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Open a new R script. At the top of the script, using comments, write your name and the date. Save it as a new file called <code>LinearModels_II_practical.R</code> in the <code>2_Code</code> folder.</li>
-</ol>
-<pre class="r"><code># Done!</code></pre>
+<pre class="r"><code>## NAME
+## DATUM
+## Lineare Modelle II Practical</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li>Using <code>library()</code> load the packages below (if you don’t have them, you’ll need to install them first).</li>
+<li><p>Speichere das neue Skript unter dem Namen <code>lineare_modelle_II_practical.R</code> im <code>2_Code</code> Ordner.</p></li>
+<li><p>Lade die Pakete <code>tidyverse</code>.</p></li>
+<li><p>Verwende die <code>read_csv()</code> Funktion um <code>wein.csv</code> einzulesen.</p></li>
 </ol>
-<pre class="r"><code># Load packages necessary for this script
+<pre class="r"><code># Lese Daten ein
+wein &lt;- read_csv(file = &quot;1_Data/wein.csv&quot;)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Printe den Datensatz.</p></li>
+<li><p>Verwende <code>names(XX)</code>, <code>summary(XX)</code>, und <code>View()</code> um einen weiteren Überblick über die Daten zu bekommen.</p></li>
+<li><p>Wiederum, führe den Code unten aus um sicherzustellen, dass alle <code>character</code> Variablen als Faktoren vorliegen, was den statistischen Modellen hilft kategoriale Variablen richtig zu interpretieren.</p></li>
+</ol>
+<pre class="r"><code># Konvertiere alle character zu factor
+wein &lt;- wein %&gt;% mutate_if(is.character, factor)</code></pre>
+</div>
+<div id="b---gruppenvergleiche-t.test-versus-regression" class="section level3">
+<h3>B - Gruppenvergleiche: t.test versus Regression</h3>
+<ol style="list-style-type: decimal">
+<li>In diesem Abschnitt geht es darum des Effekt der <code>Farbe</code> (Prädiktor) des Weins, rot oder weiss, auf die <code>Qualität</code> des Weines zu prüfen. Verwende hierzu zunächst das code unten um zwei Vektoren zu erstellen, die jeweils die Qualitätswerte für weisse und rote Weine beinhalten.</li>
+</ol>
+<pre class="r"><code># Qualitätsvektoren nach Farbe
+weiss &lt;- wein %&gt;% filter(Farbe == &#39;weiss&#39;) %&gt;% pull(Qualität)
+rot &lt;- wein %&gt;% filter(Farbe == &#39;rot&#39;) %&gt;% pull(Qualität)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Verwende nun das <code>t.test()</code> template unten um die beiden Vektoren mit einem t-Test miteinander zu vergleichen. Du brauchst das Ergebnis nicht zu speichern.</li>
+</ol>
+<pre class="r"><code># t-test
+t.test(x = XX, y = XX)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Was verrät dir der Output des t-Tests über den Unterschied weisser und roter Weine in der wahrgenommenen Qualität? Die Antwort findest du in der zweiten Zeile (beginnend mit <code>t=..</code>) zusammen mit der letzten Zeile.</p></li>
+<li><p>Ja, weisse Weine wurden <code>0.241886</code> (Differenz der beiden Mittelwerte) Punkte als Qualitativ wertiger wahrgenommen und dieser Unterschied ist signifikant. Versuche nun das selbe Ergebnis mit einer Regression zu erzielen.</p></li>
+</ol>
+<pre class="r"><code># Regression
+wein_lm &lt;- lm(formula = XX ~ XX, 
+              data = XX)</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li><p>Printe zunächst einmal das Objekt und betrachte die Regressionsgewichte. Kommen dir eine oder sogar beide der Zahlen bekannt vor?</p></li>
+<li><p>Genau, das Regressionsgewicht für <code>Farbe</code> spiegelt exakt den Unterschied der beiden Mittelwerte wieder. Was repräsentiert dann der Intercept? Den Wert derjenigen Kategorie, der R den Wert 0 zugewiesen hat. Dies ist bei ursprünglich <code>character</code> Variablen i.d.R. diejenige Kategorie die alphabetisch früher kommt, d.h., <code>'rot' &lt; 'weiss'</code>.</p></li>
+<li><p>Lasse dir jetzt die <code>summary()</code> für das Modell ausgeben und vergleiche Freiheitsgrade, t- und p-Wert mit denen aus dem t-Test.</p></li>
+<li><p>Die Werte im t-Test stimmen trotz der gleichen Schätzwerte für die Gewichte nicht ganz überein. Dies liegt daran, dass die <code>t.test()</code> Funktion per Default eine Variante rechnet die erlaubt, dass die Varianzen in den beiden Gruppen (rot und weiss) unterschiedlich sind, die Regression dagegen, geht stets davon aus, dass diese gleich sind, was wir im Detail in der Session zu robuste Statistiken besprechen werden. Rechne den t-Test noch einmal, diesmal mit dem zusätzlichen Argument <code>var.equal = TRUE</code>.</p></li>
+</ol>
+<pre class="r"><code># t-test
+t.test(x = XX, y = XX, var.equal = )</code></pre>
+<ol start="9" style="list-style-type: decimal">
+<li>Ordnung ist eingekehrt. Alle Werte im t-test und der Regression sollten jetzt identisch sein, was daran liegt, dass die beiden Modelle nun exakt identisch sind.</li>
+</ol>
+</div>
+<div id="c---gruppenvergleiche-kodierung" class="section level3">
+<h3>C - Gruppenvergleiche: Kodierung</h3>
+<ol style="list-style-type: decimal">
+<li>Per Default verwendet R die sogenannte Dummy-Kodierung, in der eine Ausprägung den Wert 0 erhält und eine andere den Wert 1. Eine alternative Kodierung existiert in der Effektkodierung, die stattdessen die Werte -1 und 1 vergibt. Um die Konsequenzen dieser beiden Kodierungen direkt zu vergleichen, erstelle zunächst für jede Kodierung eine neue Variable im Datensatz unter Verwendung des Codes unten.</li>
+</ol>
+<pre class="r"><code># Kodierungen der Farbe
+wein &lt;- wein %&gt;% mutate(Farbe_dummy = ifelse(Farbe == &#39;rot&#39;, 0, 1),
+                        Farbe_effekt = ifelse(Farbe == &#39;rot&#39;, -1, 1))</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Rechne nun zwei Regression, jeweils eine mit einer der beiden Farbkodierungen als Prädiktor und speichere sie ab als <code>wein_dummy</code> und <code>wein_effekt</code>.</li>
+</ol>
+<pre class="r"><code># Regression dummy
+wein_dummy &lt;- lm(formula = XX ~ XX, 
+                 data = XX)
+
+# Regression effekt
+wein_effekt &lt;- lm(formula = XX ~ XX, 
+                  data = XX)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Printe nun die beiden Objekte und vergleiche die Gewichte. Diejenigen der Dummy-Kodierung sollten dir bekannt vorkommen. Wie verhalten sich die Gewichte der Effektkodierung dagegen? Erkennst du den Zusammenhang?</p></li>
+<li><p>Der Effekt der Farbe unter der Effektkodierung entspricht genau der Hälfte des Effekts unter der Dummykodierung und um dies auszugleichen hat sich der Intercept auch um genau den selben Wert verändert, nur in die andere Richtung. Verifiziert die Gewichte mit den einfachen Rechnungen im Code unten.</p></li>
+</ol>
+<pre class="r"><code># Dummy-Kodierung
+mean(rot) # intercept
+mean(weiss) - mean(rot) # gewicht farbe
+
+# EffekKodierung
+(mean(rot) + mean(weiss))/2 # intercept
+mean(weiss) - (mean(rot) + mean(weiss))/2 # gewicht farbe</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li><p>Vergleiche nun die <code>summary()</code> der beiden Modelle. Was unterscheidet sich, und was nicht?</p></li>
+<li><p>Die Kodierung hat ausgenommen die Skalierung des Regressionsgewichts und des zugehörigen Standardfehlers für Farbe keinen Einfluss. t-Wert und signifikanz sind identisch. Einzig der Intercept ändert sich wesentlich, da er unter der Effektkodierung tatsächlich weiter von Null entfernt ist.</p></li>
+</ol>
+</div>
+<div id="c---interaktionen" class="section level3">
+<h3>C - Interaktionen</h3>
+<ol style="list-style-type: decimal">
+<li>Der erste Abschnitt hat gezeigt, dass weisser Wein gegenüber Rotem bevorzugt wurde. Könnte dies daran liegen, dass nicht für andere Variablen kontrolliert wurde? Oder könnte es sein, dass dieser Unterschied nur unter bestimmten Bedingungen gilt, d.h., dass es Moderatoren für den Effekt der Farbe gibt? Rechne eine Regression die zusätzlich <code>Alkohol</code> mit aufnimmt und verknüpfe die Prädiktoren mit <code>*</code> sodass auch die Interaktion berücksichtigt wird.</li>
+</ol>
+<pre class="r"><code># Regression mit Interaktion
+wein_lm &lt;- lm(formula = XX ~ XX * XX, 
+              data = XX)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Printe das Objekt und betrachte die Gewichte. Wie interpretierst du die einzelnen Werte?</p></li>
+<li><p>Folgendermassen lassen sich die Gewichte inetrpretieren: Unter Berücksichtigung von Alkohol und der Interaktion, werden weisse Weine um <code>.7</code> besser bewertet. Unter Berücksichtigung der Farbe (d.h. für Farbe == ‘rot’) und der Interaktion, hat führt ein Anstieg von einem Volumenprozent zu einer Verbesserung der wahrgenommenen Qualität von <code>.36</code>. Unter Berücksichtigung von Farbe und Alkohol, führt die Interaktion, also das Produkt der beiden Prädiktoren zu einer Veränderung von <code>-.05</code>. Dies ist so zu interpretieren, dass der Effekt von Alkohol unter Weissweinen um genau diese Grösse kleiner ist. Dies bedeutet im Umkerhschluss dass der Effekt von Farbe unter hoch-alkoholischen Weinen kleiner ausfällt. Verwendet den Code unten um diese Ergebnisse zu visualisieren. Gelb bedeutet Weisswein, lila Rotwein.</p></li>
+<li><p>Lasse dir nun die <code>summary()</code> und inspiziere die t-Werte und Signifikanzen. Welche Prädiktoren sind signifikant?</p></li>
+<li>Alle drei Prädiktoren sind signifikant. t-Wert und Signifikanz sind am extremsten für <code>Alkohol</code>, jedoch ist das Gewicht für <code>Alkohol</code> nur halb so gross. Wie ist dies zu erklären?<br />
+</li>
+<li><p>Genau die Gewichte hängen auch von der Skalierung der Prädiktoren ab. Rechne nun die Regression noch einmal, aber diesmal mit skalierten Prädiktoren. Siehe Code unten.</p></li>
+</ol>
+<pre class="r"><code># Skalierungsfunktion
+skaliere = function(x) (x - mean(x))/sd(x)
+
+# Regression mit skalierten Prädiktoren
+wein_lm &lt;- lm(formula = XX ~ XX * XX, 
+              data = XX %&gt;% mutate_if(is.numeric, skaliere))</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li><p>Printe zunächst einmal das Objekt und betrachtet die Gewichte. Alle Werte haben sich substantiell verändert. Insbesondere hat nun Alkohol das zweifach höhre Gewicht. Wie sind diese neuen Gewichte zu interpretieren, wenn du bedenkst, dass nach der Skalierung alle Variablen eine Standardabweichung = 1 haben?</p></li>
+<li><p>Nach Skalierung sind die Gewichte als Veränderungen in Standardabweichungen zu interpretieren. Z.B., eine Veränderung von einer Standardabweichungen in <code>Alkohol</code> führt demnach zu einer Veränderung von <code>.4928</code> Standardabweichungen in der Qualität. Am meisten hat sich der Intercept verändert. Wie interpretiert ihr diesen unter der Skalierung?</p></li>
+<li><p>Der Intercept ist der geschätzte Mittelwert des Kriteriums für den Fall in dem alle Prädiktoren Null sind. Ohne Skalierung ist dieser Fall schwer zu interpretieren, da Null nicht vorkommen muss in den Prädiktoren. Unter der Skalierung ändert sich dies aber, denn nun haben alle Prädiktoren, mit Ausnahme des Faktors <code>Farbe</code> einen Mittelwert von Null. Das heisst der Intercept spiegelt die Qualität für ein mittleres Level von Alkohol, rote Weine und keine Interaktion in Standardabweichungen wieder. Dies kannst du wiederum in per Visualisierung nachvollziehen. Benutze den Code unten und suche den Punkt auf der lila Linie für Alkohol = 0.</p></li>
+<li><p>Schaue dir nun die <code>summary()</code> an. Was hat sich verändert bzgl. t-Werten, Signifikanzen, und Standardfehlern, und R-squared?</p></li>
+<li><p>Ein grosser und in diesem Fall der Einzige Einfluss besteht auf die Variable <code>Farbe</code>, welche als einzige nicht mit standardisiert wurde. Vor der standardisierung von <code>Alcohol</code> war Farbe beinahe perfekt mit der Interaktion korreliert, was zu einem extrem aufgeblasenen Standardfehler geführt hat. Die Standardisierung hat diese Korrelation jedoch stark reduziert, so dass der Standardfehler auf das Niveau der anderen Prädiktoren gefallen ist. In der Konklusion lohnt es sich beinahe immer die die Prädiktoren (oder auch das Kriterium) zu standardisieren, wenn ein Vergleich der Gewichte und Signifikanzen von Interesse ist.</p></li>
+</ol>
+</div>
+</div>
+<div id="beispiele" class="section level2">
+<h2>Beispiele</h2>
+<pre class="r"><code># Regression mit R
+
 library(tidyverse)
-library(broom)
-library(rsq)</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>Using the following template, load the <code>trial_ACTG175.csv</code> data into R and store it as a new object called <code>trial</code> (Hint: Don’t type the path directly! Use the “tab” completion!).</li>
-</ol>
-<pre class="r"><code># Load trial_ACTG175.csv from the 1_Data folder as a new object called trial
 
-XX &lt;- read_csv(file = &quot;XX/XX&quot;)</code></pre>
-<pre class="r"><code># Load trial_act.csv from the 1_Data folder
+# Model:
+# Sagt der Hubraum (displ) die pro gallone 
+# fahrbaren Meilen voraus?
+hwy_mod &lt;- glm(formula = hwy ~ displ,
+               data = mpg)
 
-trial &lt;- read_csv(file = &quot;1_Data/trial_ACTG175.csv&quot;)</code></pre>
-<pre><code>Parsed with column specification:
-cols(
-  patient_id = col_double(),
-  molecule = col_character(),
-  days = col_double(),
-  age = col_double(),
-  weight_kg = col_double(),
-  drug_history = col_character(),
-  race = col_character(),
-  gender = col_character(),
-  symptomatic = col_character(),
-  cd4_baseline = col_double(),
-  cd4_96_weeks = col_double(),
-  cd8_baseline = col_double(),
-  cd8_20_weeks = col_double()
-)</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li>Take a look at the first few rows of the dataset(s) by printing it/them to the console, it should look like the table below:</li>
-</ol>
-<table>
-<thead>
-<tr class="header">
-<th align="right">patient_id</th>
-<th align="left">molecule</th>
-<th align="right">days</th>
-<th align="right">age</th>
-<th align="right">weight_kg</th>
-<th align="left">drug_history</th>
-<th align="left">race</th>
-<th align="left">gender</th>
-<th align="left">symptomatic</th>
-<th align="right">cd4_baseline</th>
-<th align="right">cd4_96_weeks</th>
-<th align="right">cd8_baseline</th>
-<th align="right">cd8_20_weeks</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">10056</td>
-<td align="left">Zidovudine and Zalcitabine</td>
-<td align="right">948</td>
-<td align="right">48</td>
-<td align="right">89.8</td>
-<td align="left">No</td>
-<td align="left">White</td>
-<td align="left">Female</td>
-<td align="left">Asymptomatic</td>
-<td align="right">422</td>
-<td align="right">660</td>
-<td align="right">566</td>
-<td align="right">324</td>
-</tr>
-<tr class="even">
-<td align="right">10059</td>
-<td align="left">Didanosine</td>
-<td align="right">1002</td>
-<td align="right">61</td>
-<td align="right">49.4</td>
-<td align="left">No</td>
-<td align="left">White</td>
-<td align="left">Female</td>
-<td align="left">Asymptomatic</td>
-<td align="right">162</td>
-<td align="right">NA</td>
-<td align="right">392</td>
-<td align="right">564</td>
-</tr>
-<tr class="odd">
-<td align="right">10089</td>
-<td align="left">Didanosine</td>
-<td align="right">961</td>
-<td align="right">45</td>
-<td align="right">88.5</td>
-<td align="left">Yes</td>
-<td align="left">White</td>
-<td align="left">Male</td>
-<td align="left">Asymptomatic</td>
-<td align="right">326</td>
-<td align="right">122</td>
-<td align="right">2063</td>
-<td align="right">1893</td>
-</tr>
-<tr class="even">
-<td align="right">10093</td>
-<td align="left">Didanosine</td>
-<td align="right">1166</td>
-<td align="right">47</td>
-<td align="right">85.3</td>
-<td align="left">No</td>
-<td align="left">White</td>
-<td align="left">Male</td>
-<td align="left">Asymptomatic</td>
-<td align="right">287</td>
-<td align="right">NA</td>
-<td align="right">1590</td>
-<td align="right">966</td>
-</tr>
-<tr class="odd">
-<td align="right">10124</td>
-<td align="left">Zidovudine</td>
-<td align="right">1090</td>
-<td align="right">43</td>
-<td align="right">66.7</td>
-<td align="left">No</td>
-<td align="left">White</td>
-<td align="left">Male</td>
-<td align="left">Asymptomatic</td>
-<td align="right">504</td>
-<td align="right">660</td>
-<td align="right">870</td>
-<td align="right">782</td>
-</tr>
-</tbody>
-</table>
-<pre class="r"><code># Print trial object
-XXX</code></pre>
-<pre class="r"><code>trial</code></pre>
-<pre><code># A tibble: 2,139 x 13
-   patient_id molecule  days   age weight_kg drug_history race  gender
-        &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt; &lt;chr&gt; 
- 1      10056 Zidovud…   948    48      89.8 No           White Female
- 2      10059 Didanos…  1002    61      49.4 No           White Female
- 3      10089 Didanos…   961    45      88.5 Yes          White Male  
- 4      10093 Didanos…  1166    47      85.3 No           White Male  
- 5      10124 Zidovud…  1090    43      66.7 No           White Male  
- 6      10140 zidovud…  1181    46      88.9 Yes          White Male  
- 7      10165 Zidovud…   794    31      73.0 No           White Male  
- 8      10190 Zidovud…   957    41      66.2 Yes          White Male  
- 9      10198 Didanos…   198    40      82.6 No           White Male  
-10      10229 Zidovud…   188    35      78.0 No           White Male  
-# … with 2,129 more rows, and 5 more variables: symptomatic &lt;chr&gt;,
-#   cd4_baseline &lt;dbl&gt;, cd4_96_weeks &lt;dbl&gt;, cd8_baseline &lt;dbl&gt;,
-#   cd8_20_weeks &lt;dbl&gt;</code></pre>
-<ol start="7" style="list-style-type: decimal">
-<li>Use the <code>summary()</code> function to print more details on the columns of the datasets.</li>
-</ol>
-<pre class="r"><code># Show summary information from trial
-summary(XXX)</code></pre>
-<pre class="r"><code>summary(trial)</code></pre>
-<pre><code>   patient_id       molecule              days           age      
- Min.   : 10056   Length:2139        Min.   :  14   Min.   :12.0  
- 1st Qu.: 81446   Class :character   1st Qu.: 727   1st Qu.:29.0  
- Median :190566   Mode  :character   Median : 997   Median :34.0  
- Mean   :248778                      Mean   : 879   Mean   :35.2  
- 3rd Qu.:280277                      3rd Qu.:1091   3rd Qu.:40.0  
- Max.   :990077                      Max.   :1231   Max.   :70.0  
-                                                                  
-   weight_kg     drug_history           race              gender         
- Min.   : 31.0   Length:2139        Length:2139        Length:2139       
- 1st Qu.: 66.7   Class :character   Class :character   Class :character  
- Median : 74.4   Mode  :character   Mode  :character   Mode  :character  
- Mean   : 75.1                                                           
- 3rd Qu.: 82.6                                                           
- Max.   :159.9                                                           
-                                                                         
- symptomatic         cd4_baseline   cd4_96_weeks   cd8_baseline 
- Length:2139        Min.   :   0   Min.   :   0   Min.   :  40  
- Class :character   1st Qu.: 264   1st Qu.: 209   1st Qu.: 654  
- Mode  :character   Median : 340   Median : 321   Median : 893  
-                    Mean   : 351   Mean   : 329   Mean   : 987  
-                    3rd Qu.: 423   3rd Qu.: 440   3rd Qu.:1207  
-                    Max.   :1199   Max.   :1190   Max.   :5011  
-                                   NA&#39;s   :797                  
-  cd8_20_weeks 
- Min.   : 124  
- 1st Qu.: 632  
- Median : 865  
- Mean   : 935  
- 3rd Qu.:1146  
- Max.   :6035  
-               </code></pre>
-<ol start="8" style="list-style-type: decimal">
-<li>Use the <code>View()</code> function to view the entire dataframe(s) in window(s)</li>
-</ol>
-<pre class="r"><code># View trial dataset in new window
-View(XXX)</code></pre>
-<pre class="r"><code>View(trial)</code></pre>
-</div>
-<div id="b---correlation" class="section level3">
-<h3>B - Correlation</h3>
-<blockquote>
-<p>Research Question: Is there a correlation between a patient’s age and their CD4 T cell count at baseline?</p>
-</blockquote>
-<ol style="list-style-type: decimal">
-<li>Using the code below, create a plot showing the relationship between age and CD4 T cell count at baseline. Based on this plot, do you expect to find a relationship between the two variables? (Hint: See all of the possible named colors in R by running <code>colors()</code>. Then change the color of your histogram to your favorite one!)</li>
-</ol>
-<pre class="r"><code>ggplot(data = trial, mapping = aes(x = age, y = cd4_baseline)) + 
-      geom_point(alpha = .2, col = &quot;darkblue&quot;) +
-  labs(title = &quot;ACTG175 Trial&quot;,
-       subtitle = &quot;Baseline age and CD4 T cell count at baseline &quot;,
-       x = &quot;Age (age)&quot;,
-       y = &quot;CD4 T cell count at baseline (cd4_baseline)&quot;)</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Using the <code>cor.test()</code> function, create an object called <code>age_cd4_baseline_test</code> which conducts a correlation test between a patient’s age at baseline (<code>age</code>) and their CD4 T cell count at baseline (<code>cd4_baseline</code>)</li>
-</ol>
-<pre class="r"><code># Correlation between patient&#39;s age at baseline and CD4 T cell count at baseline
+# Ergebnisse 
+summary(hwy_mod)
+coef(hwy_mod)
 
-XXX &lt;- cor.test(formula = ~ XXX + XXX,
-                data = XXX)</code></pre>
-<pre class="r"><code># Correlation between patient&#39;s age at baseline and CD4 T cell count at baseline
+# Gefittete Werte
+hwy_fit &lt;- fitted(hwy_mod)
+hwy_fit
 
-age_cd4_baseline_test &lt;- cor.test(formula = ~ age + cd4_baseline,
-                          data = trial)</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Print the <code>age_cd4_baseline_test</code> object to see summary outputs.</li>
-</ol>
-<pre class="r"><code>age_cd4_baseline_test</code></pre>
-<pre><code>
-    Pearson&#39;s product-moment correlation
+# Residuums 
+hwy_resid &lt;- residuals(hwy_mod)
+hwy_resid
 
-data:  age and cd4_baseline
-t = -2, df = 2000, p-value = 0.06
-alternative hypothesis: true correlation is not equal to 0
-95 percent confidence interval:
- -0.08254  0.00208
-sample estimates:
-    cor 
--0.0403 </code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>Apply the <code>names()</code> function to your <code>age_cd4_baseline_test</code> object to see all of its named elements</li>
-</ol>
-<pre class="r"><code># See all named elements of age_cd4_baseline_test
-names(XXX)</code></pre>
-<pre class="r"><code># See all named elements of age_cd4_baseline_test
-names(age_cd4_baseline_test)</code></pre>
-<pre><code>[1] &quot;statistic&quot;   &quot;parameter&quot;   &quot;p.value&quot;     &quot;estimate&quot;    &quot;null.value&quot; 
-[6] &quot;alternative&quot; &quot;method&quot;      &quot;data.name&quot;   &quot;conf.int&quot;   </code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li>Using the <code>XXX$XXX</code> notation, print only the correlation estimate (<code>estimate</code>) in your <code>age_cd4_baseline_test</code> object. What does this value tell you?</li>
-</ol>
-<pre class="r"><code># Print correlation coefficient estimate in the age_cd4_baseline_test object
-XXX$XXX</code></pre>
-<pre class="r"><code># Print correlation coefficient estimate
-age_cd4_baseline_test$estimate</code></pre>
-<pre><code>    cor 
--0.0403 </code></pre>
-<ol start="6" style="list-style-type: decimal">
-<li>Again using the <code>XXX$XXX</code> notation, print only the p value (<code>p.value</code>) in your <code>age_cd4_baseline_test</code> object. What does this value tell you?</li>
-</ol>
-<pre class="r"><code># Print the p value of the correlation coefficient in the age_cd4_baseline_test object
-XXX$XXX</code></pre>
-<pre class="r"><code># Print the p value in the age_cd4_baseline_test object
-age_cd4_baseline_test$conf.int</code></pre>
-<pre><code>[1] -0.08254  0.00208
-attr(,&quot;conf.level&quot;)
-[1] 0.95</code></pre>
-<ol start="7" style="list-style-type: decimal">
-<li>Again using the <code>XXX$XXX</code> notation, print only the confidence interval (<code>conf.int</code>) in your <code>age_cd4_baseline_test</code> object. What does this value tell you?</li>
-</ol>
-<pre class="r"><code># Print the confidence interval of the correlation coefficient in the age_cd4_baseline_test object
-XXX$XXX</code></pre>
-<pre class="r"><code># Print the confidence interval in the age_cd4_baseline_test object
-age_cd4_baseline_test$conf.int</code></pre>
-<pre><code>[1] -0.08254  0.00208
-attr(,&quot;conf.level&quot;)
-[1] 0.95</code></pre>
-<ol start="8" style="list-style-type: decimal">
-<li>Using the <code>tidy()</code> function (from the <code>broom</code> package), create a ‘tidy’ version of your <code>age_cd4_baseline_test</code> object called <code>age_cd4_baseline_tidy</code></li>
-</ol>
-<pre class="r"><code># Create a &#39;tidy&#39; version of my age_cd4_baseline_test object
 
-age_cd4_baseline_tidy &lt;- tidy(xxx)</code></pre>
-<pre class="r"><code># Create a &#39;tidy&#39; version of my age_cd4_baseline_test object
+# R-squared value 
 
-age_cd4_baseline_tidy &lt;- tidy(age_cd4_baseline_test)</code></pre>
-<ol start="9" style="list-style-type: decimal">
-<li>Now, print your <code>age_cd4_baseline_tidy</code> object, how do the results look?</li>
-</ol>
-<pre class="r"><code>age_cd4_baseline_tidy</code></pre>
-<pre><code># A tibble: 1 x 8
-  estimate statistic p.value parameter conf.low conf.high method
-     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt; 
-1  -0.0403     -1.86  0.0624      2137  -0.0825   0.00208 Pears…
-# … with 1 more variable: alternative &lt;chr&gt;</code></pre>
-<div id="correlation-as-linear-model" class="section level5">
-<h5>Correlation as Linear Model</h5>
-<ol start="10" style="list-style-type: decimal">
-<li>Conduct the same analysis you did before, but this time use the <code>glm()</code> function. Use the code skeleton below to help you. Do you get the same results as you did using <code>cor.test()</code>?</li>
-</ol>
-<pre class="r"><code># GLM predicting a patient&#39;s CD4 T cell count at baseline form their age at baseline 
-age_cd4_baseline_glm &lt;- glm(formula = XXX ~ XXX,
-                            data = XXX)
-
-# Print &#39;tidy&#39; results
-tidy(XXX)</code></pre>
-<pre class="r"><code># GLM predicting a patient&#39;s CD4 T cell count at baseline form their age at baseline 
-age_cd4_baseline_glm &lt;- glm(formula = cd4_baseline ~ age,
-                    data = trial)
-
-# Print &#39;tidy&#39; results
-tidy(age_cd4_baseline_glm)</code></pre>
-<pre><code># A tibble: 2 x 5
-  term        estimate std.error statistic   p.value
-  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1 (Intercept)  370.       10.7       34.6  8.09e-209
-2 age           -0.549     0.294     -1.86 6.24e-  2</code></pre>
-</div>
-</div>
-<div id="c---t-test" class="section level3">
-<h3>C - T-test</h3>
-<blockquote>
-<p>Research Question: Do patients with a history of intravenous drug use have higher CD4 T cell counts at baseline compared to patients without a history of intravenous drug use?</p>
-</blockquote>
-<ol style="list-style-type: decimal">
-<li>Using the code below, create a plot showing the distribution of CD4 T cell counts at baseline (<code>cd4_baseline</code>) depending on whether or not patients were symptomatic. Based on this plot, do you expect to find that symptomatic patients generally have higher (or lower) CD4 T cell counts?</li>
-</ol>
-<pre class="r"><code>ggplot(data = trial, mapping = aes(x = symptomatic, y = cd4_baseline, col = symptomatic)) + 
-  stat_summary(geom = &quot;bar&quot;, fun.y = &quot;mean&quot;, fill = &quot;white&quot;, col = &quot;black&quot;) +
-  geom_jitter(width = .1, alpha = .1) +
-  labs(title = &quot;ACTG175 Trial&quot;,
-       subtitle = &quot;Baseline CD4 T cell count and symptoms&quot;,
-       x = &quot;Are patients symptomatic? (symptomatic)&quot;,
-       y = &quot;CD4 T cell count at baseline (cd4_baseline)&quot;) +
-  guides(col = FALSE)</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Using the <code>t.test()</code> function, create an object called <code>symptomatic_cd4_baseline_test</code> which conducts a two-sample t-test comparing patients’ CD4 T cell count at baseline (<code>cd4_baseline</code>) between patients that are symptomatic and those that are not (<code>symptomatic</code>)</li>
-</ol>
-<pre class="r"><code># T-test comparing CD4 T cell counts at baseline bewteen symptomatic and non-symptomatic patients
-
-XXX &lt;- t.test(formula = XXX ~ XXX,
-              data = XXX)</code></pre>
-<pre class="r"><code># T-test comparing CD4 T cell counts at baseline bewteen symptomatic and non-symptomatic patients
-
-symptomatic_cd4_baseline_test &lt;- t.test(formula = cd4_baseline ~ symptomatic,
-                           data = trial)</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Print the <code>symptomatic_cd4_baseline_test</code> object to see summary outputs.</li>
-</ol>
-<pre class="r"><code>age_cd4_baseline_test</code></pre>
-<pre><code>
-    Pearson&#39;s product-moment correlation
-
-data:  age and cd4_baseline
-t = -2, df = 2000, p-value = 0.06
-alternative hypothesis: true correlation is not equal to 0
-95 percent confidence interval:
- -0.08254  0.00208
-sample estimates:
-    cor 
--0.0403 </code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>Apply the <code>names()</code> function to your <code>symptomatic_cd4_baseline_test</code> object to see all of its named elements</li>
-</ol>
-<pre class="r"><code># See all named elements of symptom_cd4_baseline_test
-names(XXX)</code></pre>
-<pre class="r"><code># See all named elements of symptomatic_cd4_baseline_test
-names(symptomatic_cd4_baseline_test)</code></pre>
-<pre><code>[1] &quot;statistic&quot;   &quot;parameter&quot;   &quot;p.value&quot;     &quot;conf.int&quot;    &quot;estimate&quot;   
-[6] &quot;null.value&quot;  &quot;alternative&quot; &quot;method&quot;      &quot;data.name&quot;  </code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li>Using the <code>XXX$XXX</code> notation, print only the correlation estimate (<code>estimate</code>) in your <code>symptomatic_cd4_baseline_test</code> object. What does the result tell you?</li>
-</ol>
-<pre class="r"><code># Print parameter estimates in the symptomatic_cd4_baseline_test object
-XXX$XXX</code></pre>
-<pre class="r"><code># Print parameter estimates in the symptomatic_cd4_baseline_test object
-symptomatic_cd4_baseline_test$estimate</code></pre>
-<pre><code>mean in group Asymptomatic  mean in group Symptomatic 
-                       358                        317 </code></pre>
-<ol start="6" style="list-style-type: decimal">
-<li>Again using the <code>XXX$XXX</code> notation, print only the p value (<code>p.value</code>) in your <code>symptomatic_cd4_baseline_test</code> object. What does this value tell you?</li>
-</ol>
-<pre class="r"><code># Print the p value of the symptomatic_cd4_baseline_test object
-XXX$XXX</code></pre>
-<pre class="r"><code># Print the p value in the symptomatic_cd4_baseline_test object
-symptomatic_cd4_baseline_test$p.value</code></pre>
-<pre><code>[1] 1.66e-10</code></pre>
-<ol start="7" style="list-style-type: decimal">
-<li>Again using the <code>XXX$XXX</code> notation, print only the confidence interval (<code>conf.int</code>) in your <code>symptomatic_cd4_baseline_test</code> object. What does this value tell you?</li>
-</ol>
-<pre class="r"><code># Print the confidence interval in the symptomatic_cd4_baseline_test object
-XXX$XXX</code></pre>
-<pre class="r"><code># Print the confidence interval in the symptomatic_cd4_baseline_test object
-symptomatic_cd4_baseline_test$conf.int</code></pre>
-<pre><code>[1] 28.7 53.5
-attr(,&quot;conf.level&quot;)
-[1] 0.95</code></pre>
-<ol start="8" style="list-style-type: decimal">
-<li>Using the <code>tidy()</code> function (from the <code>broom</code> package), create a ‘tidy’ version of your <code>symptomatic_cd4_baseline_test</code> object called <code>symptomatic_cd4_baseline_tidy</code></li>
-</ol>
-<pre class="r"><code># Create a &#39;tidy&#39; version of my symptomatic_cd4_baseline_test object
-
-symptomatic_cd4_baseline_tidy &lt;- tidy(xxx)</code></pre>
-<pre class="r"><code># Create a &#39;tidy&#39; version of my symptomatic_cd4_baseline_test object
-
-symptomatic_cd4_baseline_tidy &lt;- tidy(symptomatic_cd4_baseline_test)</code></pre>
-<ol start="9" style="list-style-type: decimal">
-<li>Now, print your <code>symptomatic_cd4_baseline_tidy</code> object, how do the results look?</li>
-</ol>
-<pre class="r"><code>symptomatic_cd4_baseline_tidy</code></pre>
-<pre><code># A tibble: 1 x 10
-  estimate estimate1 estimate2 statistic  p.value parameter conf.low
-     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
-1     41.1      358.      317.      6.51 1.66e-10      573.     28.7
-# … with 3 more variables: conf.high &lt;dbl&gt;, method &lt;chr&gt;,
-#   alternative &lt;chr&gt;</code></pre>
-<div id="t-test-as-linear-model" class="section level5">
-<h5>T-test as Linear Model</h5>
-<ol start="10" style="list-style-type: decimal">
-<li>Conduct the same analysis you did before, but this time use the <code>glm()</code> function. Use the code skeleton below to help you. Do you get the same results as you did using <code>t.test()</code>? Which outputs are the same and which are different?</li>
-</ol>
-<pre class="r"><code># GLM predicting a patient&#39;s CD4 T cell count at baseline form their age at baseline 
-symptomatic_cd4_baseline_glm &lt;- glm(formula = XXX ~ XXX,
-                                    data = XXX)
-
-# Print &#39;tidy&#39; results
-tidy(XXX)</code></pre>
-<pre class="r"><code># GLM predicting a patient&#39;s CD4 T cell count at baseline form their age at baseline 
-symptomatic_cd4_baseline_glm &lt;- glm(formula = cd4_baseline ~ symptomatic,
-                        data = trial)
-
-# Print &#39;tidy&#39; results
-tidy(symptomatic_cd4_baseline_glm)</code></pre>
-<pre><code># A tibble: 2 x 5
-  term                   estimate std.error statistic       p.value
-  &lt;chr&gt;                     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;         &lt;dbl&gt;
-1 (Intercept)               358.       2.80    128.   0            
-2 symptomaticSymptomatic    -41.1      6.72     -6.11 0.00000000119</code></pre>
-</div>
-</div>
-<div id="d---anova" class="section level3">
-<h3>D - ANOVA</h3>
-<blockquote>
-<p>Research Question: Was there a difference between the treatment molecule in the number of days until the first occurrence of one of the following major negative events: (i) a decline in CD4 T cell count of at least 50 (ii) an event indicating progression to AIDS, or (iii) death?</p>
-</blockquote>
-<ol style="list-style-type: decimal">
-<li>Using the code below, create a plot showing the distribution of the number of days until a major negative event (<code>days</code>) for each treatment molecule <code>molecule</code> Based on this plot, do you expect to find that there were differences in treatment molecules?</li>
-</ol>
-<pre class="r"><code>ggplot(data = trial, mapping = aes(x = molecule, y = days, col = molecule)) + 
-  stat_summary(geom = &quot;bar&quot;, fun.y = &quot;mean&quot;, fill = &quot;white&quot;, col = &quot;black&quot;) +
-  geom_jitter(width = .2, alpha = .2) +
-  labs(title = &quot;ACTG175 Trial&quot;,
-       subtitle = &quot;Did the molecule affect days until negative events?&quot;,
-       x = &quot;Treatment Arm (molecule)&quot;,
-       y = &quot;Number of days until a major negative event (days)&quot;) +
-  guides(col = FALSE)</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Using the <code>aov()</code> function, create an object called <code>days_molecule_aov</code> which conducts an ANOVA comparing the number of days until a negative event (<code>days</code>) between treatment molecule (<code>molecule</code>).</li>
-</ol>
-<pre class="r"><code># ANOVA comparing number of days until a negative event between treatment molecule
-
-XXX &lt;- aov(formula = XXX ~ XXX,
-              data = XXX)</code></pre>
-<pre class="r"><code># ANOVA comparing number of days until a negative event between treatment molecule
-
-days_molecule_aov &lt;- aov(formula = days ~ molecule,
-                      data = trial)</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Print the <code>days_molecule_aov</code> object to see summary outputs.</li>
-</ol>
-<pre class="r"><code>days_molecule_aov</code></pre>
-<pre><code>Call:
-   aov(formula = days ~ molecule, data = trial)
-
-Terms:
-                molecule Residuals
-Sum of Squares  4.43e+06  1.78e+08
-Deg. of Freedom        3      2135
-
-Residual standard error: 289
-Estimated effects may be unbalanced</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>Apply the <code>names()</code> function to your <code>days_molecule_aov</code> object to see all of its named elements</li>
-</ol>
-<pre class="r"><code># See all named elements of days_molecule_aov
-names(XXX)</code></pre>
-<pre class="r"><code># See all named elements of symptom_cd4_baseline_test
-names(days_molecule_aov)</code></pre>
-<pre><code> [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;         
- [5] &quot;fitted.values&quot; &quot;assign&quot;        &quot;qr&quot;            &quot;df.residual&quot;  
- [9] &quot;contrasts&quot;     &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;        
-[13] &quot;model&quot;        </code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li>Using the <code>XXX$XXX</code> notation, print the coefficients in your <code>days_molecule_aov</code> object. What do these values mean?</li>
-</ol>
-<pre class="r"><code># Print coefficients in the days_molecule_aov object
-XXX$XXX</code></pre>
-<pre class="r"><code># Print coefficients in the days_molecule_aov object
-days_molecule_aov$coefficients</code></pre>
-<pre><code>                       (Intercept)                 moleculeZidovudine 
-                             893.5                              -92.2 
- moleculezidovudine and Didanosine moleculeZidovudine and Zalcitabine 
-                              22.8                               12.3 </code></pre>
-<ol start="7" style="list-style-type: decimal">
-<li>Using the <code>tidy()</code> function (from the <code>broom</code> package), create a ‘tidy’ version of your <code>days_molecule_aov</code> object called <code>days_molecule_tidy</code></li>
-</ol>
-<pre class="r"><code># Create a &#39;tidy&#39; version of my symptom_cd4_baseline_test days_molecule_aov
-
-days_molecule_tidy &lt;- tidy(xxx)</code></pre>
-<pre class="r"><code># Create a &#39;tidy&#39; version of my days_molecule_aov object
-
-days_molecule_tidy &lt;- tidy(days_molecule_aov)</code></pre>
-<ol start="9" style="list-style-type: decimal">
-<li>Now, print your <code>days_molecule_tidy</code> object, how do the results look?</li>
-</ol>
-<pre class="r"><code>days_molecule_tidy</code></pre>
-<pre><code># A tibble: 2 x 6
-  term         df      sumsq   meansq statistic   p.value
-  &lt;chr&gt;     &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-1 molecule      3   4433564. 1477855.      17.7  2.37e-11
-2 Residuals  2135 178203547.   83468.      NA   NA       </code></pre>
-<div id="post-hoc-tests" class="section level5">
-<h5>Post-hoc tests</h5>
-<ol start="10" style="list-style-type: decimal">
-<li>In order to compare pair-wise differences between groups after conducting an ANOVA, you need to conduct post-hoc tests. Using the <code>TukeyHSD()</code> function, conduct pair-wise tests to see which pairs of treatment molecule differ in <code>days</code>. Save the result to an object called <code>days_molecule_aov_post</code> `</li>
-</ol>
-<pre class="r"><code># Conduct pair-wise tests comparing every pair of treatment
-#  molecule (molecule) on days until a major negative event (days)
-
-XXX &lt;- TukeyHSD(XXX)</code></pre>
-<pre class="r"><code># Conduct pair-wise tests comparing every pair of treatment
-#  molecule (molecule) on days until a major negative event (days)
-
-days_molecule_aov_post &lt;- TukeyHSD(days_molecule_aov)</code></pre>
-<ol start="11" style="list-style-type: decimal">
-<li><p>Print your <code>days_molecule_aov_post</code> object, what do you see?</p></li>
-<li><p>Print ‘tidy’ results from your <code>days_molecule_aov_post</code> object using the <code>tidy()</code> function</p></li>
-</ol>
-<pre class="r"><code># Print &#39;tidy&#39; version of days_molecule_aov_post
-tidy(XXX)</code></pre>
-<ol start="13" style="list-style-type: decimal">
-<li>Based on what you’ve seen, what are your conclusions? Which treatment molecule seem to differ?</li>
-</ol>
-</div>
-<div id="anova-as-linear-model" class="section level5">
-<h5>ANOVA as Linear Model</h5>
-<ol start="10" style="list-style-type: decimal">
-<li>Conduct the same analysis you did before, but this time use the <code>glm()</code> function. Use the code skeleton below to help you. Do you get the same results as you did using <code>aov()</code>? Which outputs are the same and which are different?</li>
-</ol>
-<pre class="r"><code># GLM predicting number of days until a major negative event (days) as a function of treatment arm (molecule)
-XXX &lt;- glm(formula = XXX ~ XXX,
-           data = XXX)
-
-# Print object
-XXX
-
-# Print &#39;tidy&#39; results
-tidy(XXX)</code></pre>
-<pre class="r"><code># GLM predicting number of days until a major negative event (days) as a function of treatment arm (molecule)
-days_molecule_glm &lt;- glm(formula = days ~ molecule,
-                     data = trial)
-
-# Print object
-days_molecule_glm</code></pre>
-<pre><code>
-Call:  glm(formula = days ~ molecule, data = trial)
-
-Coefficients:
-                       (Intercept)                  moleculeZidovudine  
-                             893.5                               -92.2  
- moleculezidovudine and Didanosine  moleculeZidovudine and Zalcitabine  
-                              22.8                                12.3  
-
-Degrees of Freedom: 2138 Total (i.e. Null);  2135 Residual
-Null Deviance:      1.83e+08 
-Residual Deviance: 1.78e+08     AIC: 30300</code></pre>
-<pre class="r"><code># Print &#39;tidy&#39; results
-tidy(days_molecule_glm)</code></pre>
-<pre><code># A tibble: 4 x 5
-  term                              estimate std.error statistic    p.value
-  &lt;chr&gt;                                &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
-1 (Intercept)                          893.       12.2    73.2      0.     
-2 moleculeZidovudine                   -92.2      17.5    -5.28     1.45e-7
-3 moleculezidovudine and Didanosine     22.8      17.6     1.30     1.95e-1
-4 moleculeZidovudine and Zalcitabi…     12.3      17.6     0.699    4.85e-1</code></pre>
-</div>
-</div>
-<div id="f---regression" class="section level3">
-<h3>F - Regression</h3>
-<ol style="list-style-type: decimal">
-<li>It’s time to conduct a regression analysis predicting day the number of days until a major negative event <code>days</code> based on several variables. Perform a regression analysis predicting days until a major negative event <code>days</code> based on the following variables: <code>molecule</code>, <code>gender</code>, <code>age</code>, <code>weight_kg</code>, <code>drug_history</code>, <code>race</code>, <code>cd4_baseline</code>, and <code>cd8_baseline</code>. Use the code chunk below to help you</li>
-</ol>
-<pre class="r"><code># Predict days based on many variables
-
-days_glm &lt;- glm(formula = XXX ~ XXX + XXX + XXX ...,
-                data = XXX)</code></pre>
-<pre class="r"><code># Predict days based on many variables
-
-days_glm &lt;- glm(formula = days ~ molecule + gender + age + weight_kg + drug_history + race + cd4_baseline + cd8_baseline,
-                data = trial)</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Using <code>tidy()</code> look at the summary results. Which variables seem to be able to predict the number of days until a major negative event?</li>
-</ol>
-<pre class="r"><code>tidy(XXX)</code></pre>
-<pre class="r"><code>tidy(days_glm)</code></pre>
-<pre><code># A tibble: 11 x 5
-   term                               estimate std.error statistic  p.value
-   &lt;chr&gt;                                 &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
- 1 (Intercept)                         6.84e+2   46.1       14.9   1.51e-47
- 2 moleculeZidovudine                 -9.50e+1   17.1       -5.55  3.23e- 8
- 3 moleculezidovudine and Didanosine   2.25e+1   17.2        1.31  1.91e- 1
- 4 moleculeZidovudine and Zalcitabine  9.59e+0   17.2        0.558 5.77e- 1
- 5 genderMale                          9.36e+0   17.6        0.531 5.96e- 1
- 6 age                                 1.16e+0    0.715      1.62  1.06e- 1
- 7 weight_kg                           6.92e-2    0.481      0.144 8.85e- 1
- 8 drug_historyYes                    -1.88e+1   18.4       -1.02  3.06e- 1
- 9 raceWhite                           2.56e+1   14.2        1.80  7.14e- 2
-10 cd4_baseline                        5.15e-1    0.0530     9.72  6.97e-22
-11 cd8_baseline                       -3.96e-2    0.0131    -3.01  2.62e- 3</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Using <code>rsq()</code> calculate the r-squared value of your model. Was it high or low? Recall that r-squared can range anywhere from 0 (meaning the model explains <em>none</em> of the variance in <code>days</code>), all the way up to 1 (meaning the model expllains <em>all</em> of the variance in <code>days</code>).</li>
-</ol>
-<pre class="r"><code>rsq(XXX)</code></pre>
-<pre class="r"><code>rsq(days_glm)</code></pre>
-<pre><code>[1] 0.0695</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>Using the code below, visualise the residuals from the model. What does this mean?</li>
-</ol>
-<pre class="r"><code># Save residuals as days_glm_resid
-days_glm_resid &lt;- resid(days_glm)
-
-# Plot histogram
-ggplot(data = tibble(days_glm_resid), aes(x = days_glm_resid)) +
-  geom_histogram(col = &quot;white&quot;, fill = &quot;skyblue&quot;) +
-  geom_vline(xintercept = 0) +
-  labs(title = &quot;Residuals of regression model predicting days&quot;,
-       x = &quot;Absolute residuals abs(Fit - Truth)&quot;,
-       y = &#39;Frequency&#39;)</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li>Using the code below, calculate the mean residuals from the model. What do these mean?</li>
-</ol>
-<pre class="r"><code># Calculate the mean residuals of the model
-mean(resid(XXX))</code></pre>
-<ol start="6" style="list-style-type: decimal">
-<li>Using the code below, visualise the <em>absolute</em> residuals from the model. What does this mean?</li>
-</ol>
-<pre class="r"><code># Save residuals as days_glm_resid
-days_glm_absresid &lt;- abs(resid(days_glm))
-
-# Plot histogram
-ggplot(data = tibble(days_glm_absresid), aes(x = days_glm_absresid)) +
-  geom_histogram(col = &quot;white&quot;, fill = &quot;skyblue&quot;) +
-  geom_vline(xintercept = 0) +
-  labs(title = &quot;Absolute residuals of regression model predicting days&quot;,
-       x = &quot;Absolute residuals abs(Fit - Truth)&quot;,
-       y = &#39;Frequency&#39;)</code></pre>
-<ol start="7" style="list-style-type: decimal">
-<li>Using the code below, calculate the mean absolute residuals from the model. What do these mean?</li>
-</ol>
-<pre class="r"><code># Calculate the mean absolute residuals of the model
-mean(abs(resid(XXX)))</code></pre>
-</div>
-<div id="x---advanced-choose-your-own-test" class="section level3">
-<h3>X - Advanced: Choose your own test!</h3>
-<p>For the remaining tasks, you choose the test! For each task, do the following:</p>
-<ul>
-<li>Visualize the data (use the code given in the sections above for help!)</li>
-<li>Conduct the appropriate test using an applied hypothesis test function (i.e.; correlation test, t-test, ANOVA or chi-square test).</li>
-<li>Explore the results (e.g.; estimate, confidence interval, p-value).</li>
-<li>Conduct the same test using the generalized linear model function <code>glm()</code></li>
-<li>Explore the results and confirm you get the same result from your applied function!</li>
-</ul>
-<ol style="list-style-type: decimal">
-<li><p>Do people with a history of intravenous drug use (<code>drug_history</code>) tend to have major negative events (<code>days</code>) faster than those without a history of intravenous drug use?</p></li>
-<li><p>Do men and women (<code>gender</code>) have different CD8 T cell counts at baseline (<code>cd8_baseline</code>)?</p></li>
-<li><p>Is there a relationship between patient’s CD4 T cell counts at baseline (<code>cd4_baseline</code>) and at 96 weeks (<code>cd4_96_weeks</code>)?</p></li>
-<li><p>Did older patients have higher CD4 T cell counts at baseline (<code>cd4_baseline</code>) compared to younger patients?</p></li>
-<li><p>Was there an effect of treatment arm (<code>molecule</code>) on the <em>change</em> of CD4 T cell counts between baseline (<code>cd4_baseline</code>) and 96 weeks (`cd4_96_weeks)? Hint: to do this, you first need to create a column that shows the change in CD4 T cell counts. The code below should help you with this:</p></li>
-</ol>
-<pre class="r"><code>trial &lt;- trial %&gt;%
-  mutate(cd4_96_weeks_change = cd4_96_weeks - cd4_baseline)   # Add cd4_96_weeks_change to trial, indicating change from
-                                        # in cd4 T cell count from baseline to 96 weeks.</code></pre>
-</div>
-<div id="y---advanced-chi-square-test" class="section level3">
-<h3>Y - Advanced: Chi-square test</h3>
-<blockquote>
-<p>Research Question: Was there an unequal distribution of gender in the treatment molecule?</p>
-</blockquote>
-<ol style="list-style-type: decimal">
-<li>Using the code below, create a plot showing the percentage of patients who were male (<code>gender == &quot;Male&quot;)</code> for each treatment arm <code>molecule</code>. Based on this plot, do you expect to find that there were differences in treatment molecule?</li>
-</ol>
-<pre class="r"><code># Calculate percentage of Male in each treatment arm
-
-molecule_gender &lt;- trial %&gt;%
-  group_by(molecule) %&gt;%
-  summarise(male_p = mean(gender == &quot;Male&quot;))
-
-ggplot(data = molecule_gender, mapping = aes(x = molecule, y = male_p)) + 
-  geom_bar(stat = &quot;identity&quot;) +
-  ylim(c(0, 1)) +
-  labs(title = &quot;ACTG175 AIDS trial&quot;,
-       subtitle = &quot;Percent of males in each treatment arm&quot;,
-       x = &quot;Treatment Arm (molecule)&quot;,
-       y = &quot;Percent Male (gender)&quot;)</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Using the <code>chisq.test()</code> function, create an object called <code>gender_molecule_test</code> which conducts a chi-square test comparing the frequencies of each gender (<code>gender</code>) for each level of molecule (<code>molecule</code>).</li>
-</ol>
-<ul>
-<li>Note: The <code>chisq.test()</code> function (unfortunately) does not support formulas, so we have to enter the data in as two separate (factor) vectors:</li>
-</ul>
-<pre class="r"><code># Chi-square test comparing the frequencies of each gender for each molecule
-
-XXX &lt;- chisq.test(x = factor(trial$XXX),
-                  y = factor(trial$XXX))</code></pre>
-<pre class="r"><code># Chi-square test comparing the frequencies of each gender for each molecule
-
-gender_molecule_test &lt;- chisq.test(x = factor(trial$gender),
-                              y = factor(trial$molecule))</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Print the <code>gender_molecule_test</code> object to see summary outputs.</li>
-</ol>
-<pre class="r"><code>gender_molecule_test</code></pre>
-<pre><code>
-    Pearson&#39;s Chi-squared test
-
-data:  factor(trial$gender) and factor(trial$molecule)
-X-squared = 1, df = 3, p-value = 0.7</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>Apply the <code>names()</code> function to your <code>gender_molecule_test</code> object to see all of its named elements</li>
-</ol>
-<pre class="r"><code># See all named elements of gender_molecule_test
-names(XXX)</code></pre>
-<pre class="r"><code># See all named elements of gender_molecule_test
-names(gender_molecule_test)</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li>Using the <code>XXX$XXX</code> notation, print the <em>observed</em> frequencies in your <code>gender_molecule_test</code> object. What do these values mean?</li>
-</ol>
-<pre class="r"><code># Print observed frequencies in the gender_molecule_test object
-XXX$XXX</code></pre>
-<pre class="r"><code># Print observed frequencies in the gender_molecule_test object
-gender_molecule_test$observed</code></pre>
-<pre><code>                    factor(trial$molecule)
-factor(trial$gender) Didanosine Zidovudine zidovudine and Didanosine
-              Female         91        100                        88
-              Male          470        432                       434
-                    factor(trial$molecule)
-factor(trial$gender) Zidovudine and Zalcitabine
-              Female                         89
-              Male                          435</code></pre>
-<ol start="6" style="list-style-type: decimal">
-<li>Using the <code>XXX$XXX</code> notation, print the <em>expected</em> frequencies in your <code>gender_molecule_test</code> object. What do these values mean?</li>
-</ol>
-<pre class="r"><code># Print expected frequencies in the gender_molecule_test object
-XXX$XXX</code></pre>
-<pre class="r"><code># Print expected frequencies in the gender_molecule_test object
-gender_molecule_test$expected</code></pre>
-<pre><code>                    factor(trial$molecule)
-factor(trial$gender) Didanosine Zidovudine zidovudine and Didanosine
-              Female       96.5       91.5                      89.8
-              Male        464.5      440.5                     432.2
-                    factor(trial$molecule)
-factor(trial$gender) Zidovudine and Zalcitabine
-              Female                       90.2
-              Male                        433.8</code></pre>
-<ol start="7" style="list-style-type: decimal">
-<li>Using the <code>tidy()</code> function (from the <code>broom</code> package), create a ‘tidy’ version of your <code>gender_molecule_test</code> object called <code>gender_molecule_tidy</code></li>
-</ol>
-<pre class="r"><code># Create a &#39;tidy&#39; version of my gender_molecule_test called gender_molecule_tidy
-
-gender_molecule_tidy &lt;- tidy(xxx)</code></pre>
-<pre class="r"><code># Create a &#39;tidy&#39; version of my gender_arm_test object
-
-gender_molecule_tidy &lt;- tidy(gender_molecule_test)</code></pre>
-<ol start="9" style="list-style-type: decimal">
-<li>Now, print your <code>gender_molecule_tidy</code> object, how do the results look?</li>
-</ol>
-<pre class="r"><code>gender_molecule_tidy</code></pre>
-<pre><code># A tibble: 1 x 4
-  statistic p.value parameter method                    
-      &lt;dbl&gt;   &lt;dbl&gt;     &lt;int&gt; &lt;chr&gt;                     
-1      1.39   0.708         3 Pearson&#39;s Chi-squared test</code></pre>
-<div id="chi-square-as-linear-model" class="section level5">
-<h5>Chi-square as Linear Model</h5>
-<ol start="10" style="list-style-type: decimal">
-<li>In the next section we’ll compare the <code>chisq.test()</code> result to one using <code>glm()</code>. However, before we do, we need to restructure the data a bit. Run the following code to create a dataframe containing the counts for each combination of molecule and gender:</li>
-</ol>
-<pre class="r"><code># Create a dataframe showing counts for each combination of
-#  molecule and gender
-
-molecule_gender_counts &lt;- trial %&gt;%
-                      group_by(molecule, gender) %&gt;%
-                      summarise(counts = n())</code></pre>
-<ol start="11" style="list-style-type: decimal">
-<li><p>Print your <code>molecule_gender_counts</code> object to see how it looks. What do the results mean?</p></li>
-<li><p>Conduct the same analysis you did before, but this time use the <code>glm()</code> function. Use the code skeleton below to help you. Do you get the same results as you did using <code>chisq.test()</code>? Which outputs are the same and which are different?</p></li>
-</ol>
-<ul>
-<li>Be sure to model <code>counts</code> based on the <em>interaction</em> between <code>molecule</code> and <code>gender</code> using <code>formula = counts ~ molecule * gender</code>.</li>
-<li>We’ll summarise the results of the model using the <code>anova()</code> function with the argument <code>test = &quot;Rao&quot;</code> to specify that we are conducting a score test (see <a href="https://en.wikipedia.org/wiki/Score_test" class="uri">https://en.wikipedia.org/wiki/Score_test</a> for details)</li>
-</ul>
-<pre class="r"><code># Create linear model predicting counts as a function of the 
-#  interaction between molecule and gender
-
-molecule_gender_glm &lt;- glm(formula = XXX ~ XXX * XXX, # Model counts by the interaction of molecule and gender
-                       family = &quot;poisson&quot;,        # Use poisson model family to specify we are modelling counts
-                       data = XXX)
-
-# Print summary results as an anova table
-anova(molecule_gender_glm, 
-      test = &#39;Rao&#39;)   # Show a &#39;Rao&quot; score test</code></pre>
-<pre class="r"><code># Create linear model predicting counts as a function of the 
-#  interaction between molecule and gender
-
-molecule_gender_glm &lt;- glm(formula = counts ~ molecule * gender, 
-                           family = &quot;poisson&quot;, 
-                           data = molecule_gender_counts)
-
-# Print summary results as an anova table
-anova(molecule_gender_glm, 
-      test = &#39;Rao&#39;)   # Show a &#39;Rao&quot; score test</code></pre>
-<pre><code>Analysis of Deviance Table
-
-Model: poisson, link: log
-
-Response: counts
-
-Terms added sequentially (first to last)
-
-                Df Deviance Resid. Df Resid. Dev Rao Pr(&gt;Chi)    
-NULL                                7       1004                 
-molecule         3        2         4       1003   2     0.61    
-gender           1     1001         3          1 920   &lt;2e-16 ***
-molecule:gender  3        1         0          0   1     0.71    
----
-Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
-</div>
-</div>
-</div>
-<div id="examples" class="section level2">
-<h2>Examples</h2>
-<pre class="r"><code>library(tidyverse)
-library(broom)
-
-# We&#39;ll use the mpg dataset
-mpg
-
-# Correlation test -------------------------------------------------------------------
-
-# Q: Is there a relationship between a car&#39;s city and highway miles per gallon? ======
-
-my_test &lt;- cor.test(formula = ~ cty + hwy,     # DV ~ IV
-                     data = mpg)
-
-my_test # Print result
-
-#   Pearson&#39;s product-moment correlation
-# 
-# data:  cty and hwy
-# t = 49.585, df = 232, p-value &lt; 2.2e-16
-# alternative hypothesis: true correlation is not equal to 0
-# 95 percent confidence interval:
-#  0.9433129 0.9657663
-# sample estimates:
-#       cor 
-# 0.9559159 
-
-names(my_test)  # Print all named elements
-
-# [1] &quot;statistic&quot;   &quot;parameter&quot;   &quot;p.value&quot;     &quot;estimate&quot;    &quot;null.value&quot;  &quot;alternative&quot; &quot;method&quot;     
-# [8] &quot;data.name&quot;   &quot;conf.int&quot; 
-
-my_test$estimate
-
-#       cor 
-# 0.9559159 
-
-my_test$p.value
-
-# [1] 1.868307e-125
-
-tidy(my_test)
-
-# # A tibble: 1 x 8
-#   estimate statistic   p.value parameter conf.low conf.high method                           alternative
-#      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;int&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;                            &lt;chr&gt;      
-# 1    0.956      49.6 1.87e-125       232    0.943     0.966 Pearson&#39;s product-moment correl… two.sided  
-
-
-# 2-sample t-test -------------------------------------------------------------------
-
-# Q: Has there been a change in highway gas mileage from 1999 to 2008?
-
-my_ttest &lt;- t.test(formula = hwy ~ factor(year),     # DV ~ IV
-                   alternative = &quot;two.sided&quot;,  # Two-sided test
-                   data = mpg)         # The data
-                   
-
-my_ttest  # Print result
-
-#   Welch Two Sample t-test
-# 
-# data:  hwy by factor(year)
-# t = -0.032864, df = 231.64, p-value = 0.9738
-# alternative hypothesis: true difference in means is not equal to 0
-# 95 percent confidence interval:
-#  -1.562854  1.511572
-# sample estimates:
-# mean in group 1999 mean in group 2008 
-#           23.42735           23.45299 
-
-names(my_ttest)   # Show all named elements
-
-# [1] &quot;statistic&quot;   &quot;parameter&quot;   &quot;p.value&quot;     &quot;conf.int&quot;    &quot;estimate&quot;    &quot;null.value&quot;  &quot;alternative&quot;
-# [8] &quot;method&quot;      &quot;data.name&quot;  
-
-my_ttest$estimate  # Show estimates
-
-# mean in group 1999 mean in group 2008 
-#           23.42735           23.45299 
-
-my_ttest$conf.int  # Show confidence interval of difference
-
-# [1] -1.562854  1.511572
-# attr(,&quot;conf.level&quot;)
-# [1] 0.95
-
-my_ttest$p.value  # Show p-value
-
-# [1] 0.9738111
-
-tidy(my_ttest)  # Show tidy results
-
-# # A tibble: 1 x 10
-#   estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high method         alternative
-#      &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;          &lt;chr&gt;      
-# 1  -0.0256      23.4      23.5   -0.0329   0.974      232.    -1.56      1.51 Welch Two Sam… two.sided  
-
-
-
-# ANOVA  -------------------------------------------------------------------
-
-# Q: Is there a difference in highway miles per gallon between car manufacturers?
-
-my_aov &lt;- aov(formula = hwy ~ manufacturer,     # DV ~ IV
-              data = mpg)                       # The data
-                   
-
-my_aov  # Print result
-
-# Call:
-#    aov(formula = hwy ~ manufacturer, data = mpg)
-# 
-# Terms:
-#                 manufacturer Residuals
-# Sum of Squares      4459.858  3801.805
-# Deg. of Freedom           14       219
-# 
-# Residual standard error: 4.166514
-# Estimated effects may be unbalanced
-
-summary(my_aov)   # Summary results
-
-# Analysis of Variance Table
-# 
-# Response: hwy
-#               Df Sum Sq Mean Sq F value    Pr(&gt;F)    
-# manufacturer  14 4459.9  318.56  18.351 &lt; 2.2e-16 ***
-# Residuals    219 3801.8   17.36                      
-# ---
-# Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-
-names(my_aov)   # Show all named elements
-
-#  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;       &quot;rank&quot;          &quot;fitted.values&quot; &quot;assign&quot;       
-#  [7] &quot;qr&quot;            &quot;df.residual&quot;   &quot;contrasts&quot;     &quot;xlevels&quot;       &quot;call&quot;          &quot;terms&quot;        
-# [13] &quot;model&quot;
-
-my_ttest$coefficients  # Show coefficients
-
- #         (Intercept)  manufacturerchevrolet      manufacturerdodge       manufacturerford 
- #         26.44444444            -4.54970760            -8.49849850            -7.08444444 
- #   manufacturerhonda    manufacturerhyundai       manufacturerjeep manufacturerland rover 
- #          6.11111111             0.41269841            -8.81944444            -9.94444444 
- # manufacturerlincoln    manufacturermercury     manufacturernissan    manufacturerpontiac 
- #         -9.44444444            -8.44444444            -1.82905983            -0.04444444 
- #  manufacturersubaru     manufacturertoyota manufacturervolkswagen 
- #         -0.87301587            -1.53267974             2.77777778 
-
-
-tidy(my_aov)  # Show tidy results
-
-#   term            df sumsq meansq statistic   p.value
-#   &lt;chr&gt;        &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
-# 1 manufacturer    14 4460.  319.       18.4  9.22e-30
-# 2 Residuals      219 3802.   17.4      NA   NA   </code></pre>
+hwy_mod$r.squared</code></pre>
 </div>
 <div id="datasets" class="section level2">
 <h2>Datasets</h2>
 <table>
 <thead>
 <tr class="header">
-<th align="left">File</th>
-<th align="left">Rows</th>
-<th align="left">Columns</th>
+<th align="left">Datei</th>
+<th align="left">Zeile</th>
+<th align="left">Spalte</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><a href="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/trial_ACTG175.csv?token=AIFo1HP25ZzPdraeqxgLB9CrcSTQDN3Pks5cqOGGwA%3D%3D">trial_ACTG175.csv</a></td>
-<td align="left">2139</td>
-<td align="left">27</td>
+<td align="left"><a href="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/hitters.csv?token=AIFo1DAkrffPG4jQkX3MRidCUqDYbHggks5cqJBjwA%3D%3D">wein.csv</a></td>
+<td align="left">50</td>
+<td align="left">20</td>
 </tr>
 </tbody>
 </table>
-<p><img src="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/hammer_actg175_ss.jpg?token=AIFo1AUoJyymRihyXhI2vWK4Ace3H2hoks5csFmDwA%3D%3D" width="80%" style="display: block; margin: auto;" /></p>
-<p>The <code>trial_ACTG175.csv</code> data from the ACTG 175 clinical trial. ACTG 175 was a randomized clinical trial to compare monotherapy with zidovudine or didanosine with combination therapy with zidovudine and didanosine or zidovudine and zalcitabine in adults infected with the human immunodeficiency virus type I whose CD4 T cell counts were between 200 and 500 per cubic millimeter.</p>
-<p>The trial is documented in Hammer SM, et al. (1996), “A trial comparing nucleoside monotherapy with combination therapy in HIV-infected adults with CD4 cell counts from 200 to 500 per cubic millimeter.”, New England Journal of Medicine, 335:1081–1090. The full publication can be found at <a href="https://www.nejm.org/doi/full/10.1056/NEJM199610103351501" class="uri">https://www.nejm.org/doi/full/10.1056/NEJM199610103351501</a></p>
-<p>The data were originally obtained from the <code>speff2trial</code> package.</p>
+<p>Der <code>wein.csv</code> Datensatz enthält aus den Jahren 2004 bis 2007 des Comissão De Viticultura Da Região Dos Vinhos Verdes, der Offiziellen Zertifizierungsagentur des Vinho Verde in Portugal.</p>
 <div id="variable-description" class="section level4">
 <h4>Variable description</h4>
 <table>
-<colgroup>
-<col width="26%" />
-<col width="73%" />
-</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Name</th>
-<th align="left">Description</th>
+<th align="left">Beschreibung</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">patient_id</td>
-<td align="left">patient’s ID number</td>
+<td align="left">Qualität</td>
+<td align="left">Qualitätsurteil über den Weins von 1-9</td>
 </tr>
 <tr class="even">
-<td align="left">molecule</td>
-<td align="left">treatment arm (0=zidovudine, 1=zidovudine and didanosine, 2=zidovudine and zalcitabine, 3=didanosine).</td>
+<td align="left">Farbe</td>
+<td align="left">Rotr oder weisser Wien</td>
 </tr>
 <tr class="odd">
-<td align="left">days</td>
-<td align="left">number of days until the first occurrence of: (i) a decline in CD4 T cell count of at least 50 (ii) an event indicating progression to AIDS, or (iii) death.</td>
+<td align="left">Gelöste_Säure</td>
+<td align="left">Konzentration der im Wein gelösten Säuren</td>
 </tr>
 <tr class="even">
-<td align="left">age</td>
-<td align="left">age in years at baseline</td>
+<td align="left">Freie_Säure</td>
+<td align="left">Konzenetration der verflüchtigbaren Säuren</td>
 </tr>
 <tr class="odd">
-<td align="left">weight_kg</td>
-<td align="left">weight in kg at baseline</td>
+<td align="left">Citronensäure</td>
+<td align="left">Citronensäurekonzentration im Wein</td>
 </tr>
 <tr class="even">
-<td align="left">drug_history</td>
-<td align="left">history of intravenous drug use (0=no, 1=yes)</td>
+<td align="left">Restzucker</td>
+<td align="left">Zuckerkonzentration im Wein</td>
 </tr>
 <tr class="odd">
-<td align="left">race</td>
-<td align="left">race (0=white, 1=non-white)</td>
+<td align="left">Chloride</td>
+<td align="left">Chloridkonzentration im Wein</td>
 </tr>
 <tr class="even">
-<td align="left">gender</td>
-<td align="left">gender (0=female, 1=male)</td>
+<td align="left">Freie_Schwefeldioxide</td>
+<td align="left">Konzenetration der verflüchtigbaren Schwefeldioxide</td>
 </tr>
 <tr class="odd">
-<td align="left">symptomatic</td>
-<td align="left">symptomatic indicator (0=asymptomatic, 1=symptomatic)</td>
+<td align="left">Gesamt_Schwefeldioxide</td>
+<td align="left">Konzenetration der Schwefeldioxide insgesamt</td>
 </tr>
 <tr class="even">
-<td align="left">cd4_baseline</td>
-<td align="left">CD4 T cell count at baseline</td>
+<td align="left">Dichte</td>
+<td align="left">Dichte des Weins</td>
 </tr>
 <tr class="odd">
-<td align="left">cd4_96_weeks</td>
-<td align="left">CD4 T cell count at 96±5 weeks (=NA if missing)</td>
+<td align="left">pH_Wert</td>
+<td align="left">pH-Wert des Weins. Je kleiner, desto sauerer.</td>
 </tr>
 <tr class="even">
-<td align="left">cd8_baseline</td>
-<td align="left">CD8 T cell count at baseline</td>
+<td align="left">Sulphate</td>
+<td align="left">Sulphatkontration im Wein</td>
 </tr>
 <tr class="odd">
-<td align="left">cd8_20_weeks</td>
-<td align="left">CD8 T cell count at 20±5 weeks</td>
+<td align="left">Alkohol</td>
+<td align="left">Alkoholkonzentration im Wein in %</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<div id="functions" class="section level2">
-<h2>Functions</h2>
-<div id="packages" class="section level3">
-<h3>Packages</h3>
+<div id="funktionen" class="section level2">
+<h2>Funktionen</h2>
+<div id="pakete" class="section level3">
+<h3>Pakete</h3>
 <table>
 <thead>
 <tr class="header">
@@ -1330,20 +472,17 @@ tidy(my_aov)  # Show tidy results
 <td align="left"><code>tidyverse</code></td>
 <td align="left"><code>install.packages(&quot;tidyverse&quot;)</code></td>
 </tr>
-<tr class="even">
-<td align="left"><code>broom</code></td>
-<td align="left"><code>install.packages(&quot;broom&quot;)</code></td>
-</tr>
-<tr class="odd">
-<td align="left"><code>rsq</code></td>
-<td align="left"><code>install.packages(&quot;rsq&quot;)</code></td>
-</tr>
 </tbody>
 </table>
 </div>
-<div id="functions-1" class="section level3">
-<h3>Functions</h3>
+<div id="funktionen-1" class="section level3">
+<h3>Funktionen</h3>
 <table>
+<colgroup>
+<col width="7%" />
+<col width="12%" />
+<col width="80%" />
+</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Function</th>
@@ -1353,52 +492,31 @@ tidy(my_aov)  # Show tidy results
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><code>cor.test()</code></td>
+<td align="left"><code>glm</code></td>
 <td align="left"><code>stats</code></td>
-<td align="left">Correlation test</td>
+<td align="left">Fit a generalized linear model</td>
 </tr>
 <tr class="even">
-<td align="left"><code>t.test()</code></td>
+<td align="left"><code>fitted</code></td>
 <td align="left"><code>stats</code></td>
-<td align="left">Student’s T-test</td>
+<td align="left">Show fitted values from a statistical object</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>aov()</code></td>
+<td align="left"><code>residuals</code></td>
 <td align="left"><code>stats</code></td>
-<td align="left">Analysis of Variance</td>
-</tr>
-<tr class="even">
-<td align="left"><code>chisq.test()</code></td>
-<td align="left"><code>stats</code></td>
-<td align="left">Chi-square test</td>
-</tr>
-<tr class="odd">
-<td align="left"><code>glm()</code></td>
-<td align="left"><code>stats</code></td>
-<td align="left">Generalized linear model</td>
-</tr>
-<tr class="even">
-<td align="left"><code>tidy()</code></td>
-<td align="left"><code>broom</code></td>
-<td align="left">Create ‘tidy’ results from statistical objects</td>
-</tr>
-<tr class="odd">
-<td align="left"><code>rsq()</code></td>
-<td align="left"><code>rsq</code></td>
-<td align="left">Obtain and print R-squared values from a regression object</td>
+<td align="left">Show residuals (fitted minus true) values from a statistical object</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<div id="resources" class="section level2">
-<h2>Resources</h2>
-<div id="vignettes" class="section level3">
-<h3>Vignettes</h3>
+<div id="resourcen" class="section level2">
+<h2>Resourcen</h2>
+<div id="books" class="section level3">
+<h3>Books</h3>
 <ul>
-<li>Many of these examples come from Jonas Kristoffer Lindelov’s great blog post <a href="https://lindeloev.github.io/tests-as-linear/#1_the_simplicity_underlying_common_tests">Common statistical tests are linear models, or: how to teach stats</a></li>
-<li><a href="https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469">Discovering Statistics with R</a> by Field et al is an excellent resource</li>
-<li><a href="https://bookdown.org/ndphillips/YaRrr/">YaRrr! The Pirate’s Guide to R</a> has good chapters on statistics with R.</li>
+<li><a href="https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469">Discovering Statistics with R</a> von Andy Field is excellent</li>
+<li><a href="https://bookdown.org/ndphillips/YaRrr/">YaRrr! The Pirate’s Guide to R</a> hat hilfreiche und unterhaltsame Kapitel zu Statistik mit R.</li>
 </ul>
 </div>
 </div>
