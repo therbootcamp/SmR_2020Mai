@@ -348,12 +348,12 @@ wein_lm &lt;- lm(formula = XX ~ Restzucker + XX,
 library(tidyverse)
 
 # Model:
-# Sagt der Hubraum (displ) die pro gallone 
+# Sagt der Hubraum (displ) die pro gallone
 # fahrbaren Meilen voraus?
 hwy_mod &lt;- lm(formula = hwy ~ displ,
                data = mpg)
 
-# Ergebnisse 
+# Ergebnisse
 summary(hwy_mod)
 coef(hwy_mod)
 
@@ -361,11 +361,11 @@ coef(hwy_mod)
 hwy_fit &lt;- fitted(hwy_mod)
 hwy_fit
 
-# Residuums 
+# Residuums
 hwy_resid &lt;- residuals(hwy_mod)
 hwy_resid</code></pre>
 </div>
-<div id="datensätze" class="section level2">
+<div id="datensatze" class="section level2">
 <h2>Datensätze</h2>
 <table>
 <thead>
@@ -377,15 +377,15 @@ hwy_resid</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><a href="https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/hitters.csv?token=AIFo1DAkrffPG4jQkX3MRidCUqDYbHggks5cqJBjwA%3D%3D">wein.csv</a></td>
-<td align="left">50</td>
-<td align="left">20</td>
+<td align="left"><a href="https://raw.githubusercontent.com/therbootcamp/SmR_2020Mai/master/1_Data/wein.csv">wein.csv</a></td>
+<td align="left">6497</td>
+<td align="left">13</td>
 </tr>
 </tbody>
 </table>
+<div id="wein.csv" class="section level4">
+<h4>wein.csv</h4>
 <p>Der <code>wein.csv</code> Datensatz enthält aus den Jahren 2004 bis 2007 des Comissão De Viticultura Da Região Dos Vinhos Verdes, der Offiziellen Zertifizierungsagentur des Vinho Verde in Portugal.</p>
-<div id="variablenbeschreibung" class="section level4">
-<h4>Variablenbeschreibung</h4>
 <table>
 <thead>
 <tr class="header">

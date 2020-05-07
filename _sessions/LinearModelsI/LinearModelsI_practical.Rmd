@@ -31,12 +31,12 @@ output:
 ---
 
 ```{r setup, echo = FALSE, message = FALSE, warning = FALSE}
-knitr::opts_chunk$set(comment = NA, 
-                      fig.width = 6, 
+knitr::opts_chunk$set(comment = NA,
+                      fig.width = 6,
                       fig.height = 6,
                       fig.align = 'center',
-                      echo = FALSE, 
-                      eval = FALSE, 
+                      echo = FALSE,
+                      eval = FALSE,
                       warning = FALSE)
 
 options(digits = 3)
@@ -62,14 +62,14 @@ wein <- read_csv("1_Data/wein.csv")
 
 Am Ende des Practicals wirst du wissen...
 
-1. Wie du einfache und multiple Regressionen in R implementierst. 
+1. Wie du einfache und multiple Regressionen in R implementierst.
 2. Wie du die Ergebnisse einer Regression interpretierst.
 
 ## Aufgaben
 
 ### A - Setup
 
-1. Öffne dein `TheRBootcamp` R project. Es sollte die Ordner `1_Data` und `2_Code` enthalten. Stelle sicher, dass du alle Datensätze, welche im `Datensätze` Tab aufgelistet sind, in deinem `1_Data` Ordner hast. 
+1. Öffne dein `TheRBootcamp` R project. Es sollte die Ordner `1_Data` und `2_Code` enthalten. Stelle sicher, dass du alle Datensätze, welche im `Datensätze` Tab aufgelistet sind, in deinem `1_Data` Ordner hast.
 
 2. Öffne ein neues R Skript. Schreibe deinen Namen, das Datum und "Lineare Modelle Practical" als Kommentare an den Anfang des Skripts.
 
@@ -94,11 +94,11 @@ library(tidyverse)
 wein <- read_csv(file = "1_Data/wein.csv")
 ```
 
-3. Printe den Datensatz. 
+3. Printe den Datensatz.
 
 4. Verwende `names(XX)`, `summary(XX)`, und `View()` um einen weiteren Überblick über die Daten zu bekommen.
 
-5. Führe den Code unten aus um sicherzustellen, dass alle `character` Variablen als Faktoren vorliegen. Das hilft den statistischen Modellen kategoriale Variablen richtig zu interpretieren. 
+5. Führe den Code unten aus um sicherzustellen, dass alle `character` Variablen als Faktoren vorliegen. Das hilft den statistischen Modellen kategoriale Variablen richtig zu interpretieren.
 
 ```{r, echo = TRUE}
 # Konvertiere alle character zu factor
@@ -107,7 +107,7 @@ wein <- wein %>% mutate_if(is.character, factor)
 
 ### B - Einfache Regression
 
-1. In diesem ersten Abschnitt geht es darum den Effekt von `Restzucker` (Prädiktor) auf die wahrgenommene `Qualität` (Kriterium) des Weines zu prüfen. Verwende das template unten, um ein entsprechendes lineares Modell zu testen und in das Objekt `wein_lm` zu speichern. 
+1. In diesem ersten Abschnitt geht es darum den Effekt von `Restzucker` (Prädiktor) auf die wahrgenommene `Qualität` (Kriterium) des Weines zu prüfen. Verwende das template unten, um ein entsprechendes lineares Modell zu testen und in das Objekt `wein_lm` zu speichern.
 
 ```{r, eval = FALSE, echo = TRUE}
 # Einfache Regression
@@ -120,7 +120,7 @@ wein_lm <- lm(formula = Qualität ~ Restzucker,
               data = wein)
 ```
 
-2. Printe das Fit-Objekt `wein_lm`. Welche Information wird dir angezeigt? Was sagen dir die Werte? 
+2. Printe das Fit-Objekt `wein_lm`. Welche Information wird dir angezeigt? Was sagen dir die Werte?
 
 ```{r}
 wein_lm
@@ -137,15 +137,15 @@ summary(XX)
 summary(wein_lm)
 ```
 
-4. Summary zeigt einem ausführliche Ergebnisse in fünf Sektionen: 
+4. Summary zeigt einem ausführliche Ergebnisse in fünf Sektionen:
 
 - Call: Der Modellcode.
 - Residuals: Verschiedene Statistiken der Verteilung der Residuen.
 - Coefficients: Die Schätzer und Tests für die Modellparameter.
 - Signif. codes: Übliche Kodierung für Signifikanzlevels.
-- Schluss: Statistiken über dem Gesamtfit des Modells. 
+- Schluss: Statistiken über dem Gesamtfit des Modells.
 
-Welche Sektion zeigt an, welchen Einfluss `Restzucker` auf die Qualität des Weines hat? 
+Welche Sektion zeigt an, welchen Einfluss `Restzucker` auf die Qualität des Weines hat?
 
 5. In der Tat, die Sektion `Coefficients` zeigt an, welche Werte für die Parameter geschätzt wurden und ob sie signifikant (gegeben H0) sind, und ist daher meist von zentralem Interesse. Welcher Paramterwert bzw. welches Gewicht (`Estimate`) wurde für `Restzucker` ermittelt? Was bedeutet dieser Wert?
 
@@ -169,15 +169,15 @@ pt(q = -2.982, df = 6495)
 
 10. Es gibt noch weitere Werte, die du miteinander verknüpfen kannst. Der t-Wert ergibt sich nämlich unmittelbar aus dem Gewicht (`Estimate`) und dem Standardfehler (`Std.Error`). Kannst du den Zusammenhang erkennen?
 
-11. Der t-Wert ist nichts anderes als das Gewicht geteilt durch den Standardfehler. Betrachte nun die andere, erste Zeile des `Coefficients` Outputs. Wie interpretierst du ihn? Die Zeile gibt die Ergebnisse für den Intercept an, d.h., den Wert des Kriterium, wenn der Prädiktor Null ist. Nicht leicht zu interpretieren, oder? Es gibt keinen Wein mit `Restzucker` gleich Null. Später mehr dazu. 
+11. Der t-Wert ist nichts anderes als das Gewicht geteilt durch den Standardfehler. Betrachte nun die andere, erste Zeile des `Coefficients` Outputs. Wie interpretierst du ihn? Die Zeile gibt die Ergebnisse für den Intercept an, d.h., den Wert des Kriterium, wenn der Prädiktor Null ist. Nicht leicht zu interpretieren, oder? Es gibt keinen Wein mit `Restzucker` gleich Null. Später mehr dazu.
 
 12. Lenke nun deine Aufmerksamkeit auf den Schlussteil. Hier siehst du eine weitere Zusammenfassung über das Modell. Von besonderem Interesse ist das `Multiple R-squared`, da es angibt wie viel Varianz das Modell insgesamt am Kriterium erklären kann. Was meinst du, ist der Wert gross oder klein?
 
-13. Der Wert ist in der Tat relativ klein. Nur .1% der Varianz kann aufgeklärt werden, was wirklich nicht viel ist. Zeit weitere Prädiktoren hinzuzunehmen. 
+13. Der Wert ist in der Tat relativ klein. Nur .1% der Varianz kann aufgeklärt werden, was wirklich nicht viel ist. Zeit weitere Prädiktoren hinzuzunehmen.
 
 ### C - Multiple Regression
 
-1. Teste nun den Effekt mehrerer Prädiktoren auf die wahrgenommene `Qualität` (Kriterium) des Weines. Inkludiere neben `Restzucker` `pH-Wert`, `Alcohol`, und `Sulphate`. Verwende das template unten, um ein entsprechendes lineares Modell zu testen und in das Objekt `wein_lm` zu speichern. 
+1. Teste nun den Effekt mehrerer Prädiktoren auf die wahrgenommene `Qualität` (Kriterium) des Weines. Inkludiere neben `Restzucker` `pH-Wert`, `Alcohol`, und `Sulphate`. Verwende das template unten, um ein entsprechendes lineares Modell zu testen und in das Objekt `wein_lm` zu speichern.
 
 ```{r, eval = FALSE, echo = TRUE}
 # Multiple Regression
@@ -221,7 +221,7 @@ summary(wein_lm)
 
 7. Alkohol, Sulphate, und Restzucker hängen alle drei signifikant positiv mit der Qualität zusammen, der pH-Wert dagegen negativ, jedoch nicht signifikant. Auf Basis der Summary, kannst du jetzt ausmachen, welcher Prädiktor die grösste Bedeutung hat? Welcher Wert würdest du zu Rate ziehen?
 
-8. Am besten zieht man in der Tat den t-Wert heran. Je grösser dieser ist, desto grösser ist das Signal für den assoziierten Prädiktor. Richte nun deine Aufmerksamkeit auf den Schlussteil. Wie gross ist `R-squared`? 
+8. Am besten zieht man in der Tat den t-Wert heran. Je grösser dieser ist, desto grösser ist das Signal für den assoziierten Prädiktor. Richte nun deine Aufmerksamkeit auf den Schlussteil. Wie gross ist `R-squared`?
 
 9. Das `R-squared` hat sich deutlich erhöht. Nun werden knapp 22% der Varianz des Kriteriums erklärt. Auch dies ist etwas, dass wir unmittelbar mit den Funktionen nachvollziehen können. Speichert mit dem template zunächst das Kriterium, die Residuen und die gefitteten Werte. Für letztere beiden gibt es, wie ihr seht, nützliche Funktionen.
 
@@ -239,13 +239,13 @@ residuen <- residuals(wein_lm)
 gefitted <- fitted(wein_lm)
 ```
 
-10. Jetzt teilt ihr einmal die Varianz der gefitteten Werte (`var(gefitted)`) durch die Varianz des Kriteriums (`var(kriterium)`). 
+10. Jetzt teilt ihr einmal die Varianz der gefitteten Werte (`var(gefitted)`) durch die Varianz des Kriteriums (`var(kriterium)`).
 
-11. Et voilà, ihr habt `R-squared` gefunden. Ihr könnt jetzt auch einmal die Varianz der Residuen und die der gefitteten Werte addieren und mit der Varianz des Kriteriums vergleichen. 
+11. Et voilà, ihr habt `R-squared` gefunden. Ihr könnt jetzt auch einmal die Varianz der Residuen und die der gefitteten Werte addieren und mit der Varianz des Kriteriums vergleichen.
 
 ### D - Multiple Regression: Alle Prädiktoren
 
-1. Teste nun den Effekt aller Prädiktoren (bis auf `Farbe`) auf die wahrgenommene `Qualität` (Kriterium) des Weines. Um alle Prädiktoren zu inkludieren kann man einfach `.` verwenden, und um einen auszuschliessen `-`- Verwende das template unten, um ein entsprechendes lineares Modell zu testen und in das Objekt `wein_lm` zu speichern. 
+1. Teste nun den Effekt aller Prädiktoren (bis auf `Farbe`) auf die wahrgenommene `Qualität` (Kriterium) des Weines. Um alle Prädiktoren zu inkludieren kann man einfach `.` verwenden, und um einen auszuschliessen `-`- Verwende das template unten, um ein entsprechendes lineares Modell zu testen und in das Objekt `wein_lm` zu speichern.
 
 ```{r, eval = FALSE, echo = TRUE}
 # Multiple Regression aller Prädiktoren ausser Farbe
@@ -259,7 +259,7 @@ wein_lm <- lm(formula = Qualität ~ . - Farbe,
               data = wein)
 ```
 
-2. Evaluiert die Summary des Modells. 
+2. Evaluiert die Summary des Modells.
 
 - Sind die Vorzeichen der Gewichte gleichgeblieben?
 - Welche Prädiktoren sind signifikant?
@@ -268,7 +268,7 @@ wein_lm <- lm(formula = Qualität ~ . - Farbe,
 
 ### E - Multiple Regression: Alle Prädiktoren
 
-1. Gehe zurück zum ersten Modell mit `Restzucker` als einzigen Prädiktor. Inkludiere nacheinander jeweils einen anderen Prädiktor und studiere, wie sich das Gewicht und die Signifikanz von Restzucker verändert. 
+1. Gehe zurück zum ersten Modell mit `Restzucker` als einzigen Prädiktor. Inkludiere nacheinander jeweils einen anderen Prädiktor und studiere, wie sich das Gewicht und die Signifikanz von Restzucker verändert.
 
 ```{r, eval = FALSE, echo = TRUE}
 # Multiple Regression aller Prädiktoren ausser Farbe
@@ -282,7 +282,7 @@ lm(formula = Qualität ~ Restzucker + Alkohol,
    data = wein)
 ```
 
-2. Der Schlüssel zur letzten Aufgabe steckt in `cor(wein %>% select(-Farbe))['Restzucker',]` und in `cor(wein %>% select(-Farbe))['Qualität',]`, d.h., den bivariaten Korrelationen zwischen Restzucker und den jeweils anderen Prädiktoren und Qualität und den jeweils anderen Prädiktoren. Beides fliesst in die Berechnung des Gewichts für `Restzucker` mit ein. Siehe Folien. 
+2. Der Schlüssel zur letzten Aufgabe steckt in `cor(wein %>% select(-Farbe))['Restzucker',]` und in `cor(wein %>% select(-Farbe))['Qualität',]`, d.h., den bivariaten Korrelationen zwischen Restzucker und den jeweils anderen Prädiktoren und Qualität und den jeweils anderen Prädiktoren. Beides fliesst in die Berechnung des Gewichts für `Restzucker` mit ein. Siehe Folien.
 
 ## Beispiele
 
@@ -292,12 +292,12 @@ lm(formula = Qualität ~ Restzucker + Alkohol,
 library(tidyverse)
 
 # Model:
-# Sagt der Hubraum (displ) die pro gallone 
+# Sagt der Hubraum (displ) die pro gallone
 # fahrbaren Meilen voraus?
 hwy_mod <- lm(formula = hwy ~ displ,
                data = mpg)
 
-# Ergebnisse 
+# Ergebnisse
 summary(hwy_mod)
 coef(hwy_mod)
 
@@ -305,7 +305,7 @@ coef(hwy_mod)
 hwy_fit <- fitted(hwy_mod)
 hwy_fit
 
-# Residuums 
+# Residuums
 hwy_resid <- residuals(hwy_mod)
 hwy_resid
 
@@ -317,11 +317,11 @@ hwy_resid
 
 |Datei | Zeile | Spalte |
 |:----|:-----|:------|
-|[wein.csv](https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/hitters.csv?token=AIFo1DAkrffPG4jQkX3MRidCUqDYbHggks5cqJBjwA%3D%3D) | 50 | 20 |
+|[wein.csv](https://raw.githubusercontent.com/therbootcamp/SmR_2020Mai/master/1_Data/wein.csv) | 6497 | 13 |
 
-Der `wein.csv` Datensatz enthält aus den Jahren 2004 bis 2007 des Comissão De Viticultura Da Região Dos Vinhos Verdes, der Offiziellen Zertifizierungsagentur des Vinho Verde in Portugal. 
+#### wein.csv
 
-#### Variablenbeschreibung
+Der `wein.csv` Datensatz enthält aus den Jahren 2004 bis 2007 des Comissão De Viticultura Da Região Dos Vinhos Verdes, der Offiziellen Zertifizierungsagentur des Vinho Verde in Portugal.
 
 | Name | Beschreibung |
 |:-------------|:-------------------------------------|
@@ -351,9 +351,9 @@ Der `wein.csv` Datensatz enthält aus den Jahren 2004 bis 2007 des Comissão De 
 
 | Function| Package | Description |
 |:---|:------|:---------------------------------------------|
-|   `lm`|`stats`| Fitte ein lineares Modell  | 
-|   `fitted`|`stats`| Extrahiere vorhergesagte Werte| 
-|   `residuals`|`stats`| Extrahiere Residuen | 
+|   `lm`|`stats`| Fitte ein lineares Modell  |
+|   `fitted`|`stats`| Extrahiere vorhergesagte Werte|
+|   `residuals`|`stats`| Extrahiere Residuen |
 
 ## Resourcen
 
