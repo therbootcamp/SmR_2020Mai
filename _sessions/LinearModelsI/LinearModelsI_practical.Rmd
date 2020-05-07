@@ -3,7 +3,7 @@ title: "Lineare Modelle I"
 author: "<table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'><col width='10%'><col width='10%'>
   <tr style='border:none'>
     <td style='display:block;width:100%;text-align:left;vertical-align:bottom;padding:0;margin:0;border:none' nowrap>
-      <font style='font-style:normal'>Statistics with R</font><br>
+      <font style='font-style:normal'>Statistik mit R</font><br>
       <a href='https://therbootcamp.github.io/SmR_2020Mai/'>
         <i class='fas fa-clock' style='font-size:.9em;' ></i>
       </a>
@@ -45,7 +45,7 @@ options(digits = 3)
 library(tidyverse)
 
 # Load packages
-college <- read_csv("1_Data/wein.csv")
+wein <- read_csv("1_Data/wein.csv")
 
 ```
 
@@ -62,14 +62,14 @@ college <- read_csv("1_Data/wein.csv")
 
 Am Ende des Practicals wirst du wissen...
 
-1. Wie du einfache und multiple Regression in R implementierst. 
+1. Wie du einfache und multiple Regressionen in R implementierst. 
 2. Wie du die Ergebnisse einer Regression interpretierst.
 
 ## Aufgaben
 
 ### A - Setup
 
-1. Öffne dein `TheRBootcamp` R project. Es sollte die Ordner `1_Data` und `2_Code` enthalten. Stelle sicher, dass du alle Datensätze, welche im `Datensätze` Tab aufgelisted sind, in deinem `1_Data` Ordner hast. 
+1. Öffne dein `TheRBootcamp` R project. Es sollte die Ordner `1_Data` und `2_Code` enthalten. Stelle sicher, dass du alle Datensätze, welche im `Datensätze` Tab aufgelistet sind, in deinem `1_Data` Ordner hast. 
 
 2. Öffne ein neues R Skript. Schreibe deinen Namen, das Datum und "Lineare Modelle Practical" als Kommentare an den Anfang des Skripts.
 
@@ -81,7 +81,7 @@ Am Ende des Practicals wirst du wissen...
 
 3. Speichere das neue Skript unter dem Namen `lineare_modelle_practical.R` im `2_Code` Ordner.
 
-4. Lade die Pakete `tidyverse`.
+4. Lade das Paket `tidyverse`.
 
 ```{r}
 library(tidyverse)
@@ -98,7 +98,7 @@ wein <- read_csv(file = "1_Data/wein.csv")
 
 4. Verwende `names(XX)`, `summary(XX)`, und `View()` um einen weiteren Überblick über die Daten zu bekommen.
 
-5. Führe den Code unten aus um sicherzustellen, dass alle `character` Variablen als Faktoren vorliegen, was den statistischen Modellen hilft kategoriale Variablen richtig zu interpretieren. 
+5. Führe den Code unten aus um sicherzustellen, dass alle `character` Variablen als Faktoren vorliegen. Das hilft den statistischen Modellen kategoriale Variablen richtig zu interpretieren. 
 
 ```{r, echo = TRUE}
 # Konvertiere alle character zu factor
@@ -107,7 +107,7 @@ wein <- wein %>% mutate_if(is.character, factor)
 
 ### B - Einfache Regression
 
-1. In diesem ersten Abschnitt geht es darum den Effekt von `Restzucker` (Prädiktor) auf die wahrgenommene `Qualität` (Kriterium) des Weines zu prüfen. Verwende das template unten, um ein enstprechendes lineares Modell zu testen und in das Objekt `wein_lm` zu speichern. 
+1. In diesem ersten Abschnitt geht es darum den Effekt von `Restzucker` (Prädiktor) auf die wahrgenommene `Qualität` (Kriterium) des Weines zu prüfen. Verwende das template unten, um ein entsprechendes lineares Modell zu testen und in das Objekt `wein_lm` zu speichern. 
 
 ```{r, eval = FALSE, echo = TRUE}
 # Einfache Regression
@@ -126,7 +126,7 @@ wein_lm <- lm(formula = Qualität ~ Restzucker,
 wein_lm
 ```
 
-3. Der Default-Output von `lm`-Objeketen ist nicht sehr informatin. Er zeigt nur den Code und die Schätzungen für die beiden Parameter: den Intercept und das Gewicht für `Restzucker`. Verwende `summary()` um einen informativeren Output zu erhalten.  
+3. Der Default-Output von `lm`-Objekten ist nicht sehr informativ. Er zeigt nur den Code und die Schätzungen für die beiden Parameter: den Intercept und das Gewicht für `Restzucker`. Verwende `summary()` um einen informativeren Output zu erhalten.  
 
 ```{r, echo = TRUE, eval = FALSE}
 # Zeige Ergebnisse
@@ -137,23 +137,23 @@ summary(XX)
 summary(wein_lm)
 ```
 
-4. Summary zeigt einem ausfürhliche Ergebnisse in fünf Sektionen: 
+4. Summary zeigt einem ausführliche Ergebnisse in fünf Sektionen: 
 
 - Call: Der Modellcode.
-- Resdiuals: Verschiedene Statistiken der Verteilung der Residuen.
-- Coefficients: Die Schätzere und Tests für die Modellparameter.
+- Residuals: Verschiedene Statistiken der Verteilung der Residuen.
+- Coefficients: Die Schätzer und Tests für die Modellparameter.
 - Signif. codes: Übliche Kodierung für Signifikanzlevels.
 - Schluss: Statistiken über dem Gesamtfit des Modells. 
 
 Welche Sektion zeigt an, welchen Einfluss `Restzucker` auf die Qualität des Weines hat? 
 
-5. In der Tat, die Sektion `Coefficients` zeigt an, welche Werte für die Parameter geschätzt wurden und ob sie signifikant (gegeben H0) sind, und ist daher meist von zentralem Interesse. Welcher Paramterwert bzw. welches Gewicht (`Estimate`) wurde für `Restzucker` ermittel? Was bedeutet dieser Wert?
+5. In der Tat, die Sektion `Coefficients` zeigt an, welche Werte für die Parameter geschätzt wurden und ob sie signifikant (gegeben H0) sind, und ist daher meist von zentralem Interesse. Welcher Paramterwert bzw. welches Gewicht (`Estimate`) wurde für `Restzucker` ermittelt? Was bedeutet dieser Wert?
 
-6. Exakt, ein Anstieg von `1` (g/ml) geht mit einer Veränderung `-.0067` in der Qualität einher. Also je süsser deer Wein, desto niedriger die eingeschätzte Qualität. Aber ist dieser Effekt signifikant? Was zeigt der p-Wert für `Restzucker` an?
+6. Exakt, ein Anstieg von `1` (g/ml) geht mit einer Veränderung von `-.0067` in der Qualität einher. Also je süsser der Wein, desto niedriger die eingeschätzte Qualität. Aber ist dieser Effekt signifikant? Was zeigt der p-Wert für `Restzucker` an?
 
 7. Der Effekt von `Restzucker` ist signifikant von Null verschieden. Versuche nachzuverfolgen wie R zu diesem Wert kommt. Erinnere dich, der p-Wert folgt aus der Teststatistik, in diesem Fall <i>t</i>. Was ist der t-Wert für `Restzucker`?
 
-8. Der t-Wert ist `-2.982`. D.h., das beobachtete Ergebnis hat in der <i>t</i>-Verteilung mit 6,495 Freiheitsgraden (siehe Schlussabschnitt des Outputs) eine eben solche Ausprägung. Der p-Wert ist nun die Fläche unterhalb der Verteilung in die Richtung extremerer Werte. Die Funktion `pt()` gibt bestimmte t-Werte die Fläche für niedrigere Werte raus. Probiert einmal was ihr erhaltet, wenn ihr den ermittelten t-Wert (`q` für Quantil) und die Freiheitsgrade (`df`) in die Funktion eingebt. Wie könnte der Zusammenhang zum p-Wert im Ergebnis aussehen?
+8. Der t-Wert ist `-2.982`. D.h., das beobachtete Ergebnis hat in der <i>t</i>-Verteilung mit 6,495 Freiheitsgraden (siehe Schlussabschnitt des Outputs) eine eben solche Ausprägung. Der p-Wert ist nun die Fläche unterhalb der Verteilung in die Richtung extremerer Werte. Die Funktion `pt()` gibt für bestimmte t-Werte die Fläche für niedrigere Werte raus. Probiert einmal was ihr erhaltet, wenn ihr den ermittelten t-Wert (`q` für Quantil) und die Freiheitsgrade (`df`) in die Funktion eingebt. Wie könnte der Zusammenhang zum p-Wert im Ergebnis aussehen?
 
 ```{r, echo = TRUE, eval = FALSE}
 # Berechne Fläche unter t-Wert
@@ -165,19 +165,19 @@ pt(q = XX, df = XX)
 pt(q = -2.982, df = 6495)
 ```
 
-9. Genau der emittelte Wert ist genau die Hälfte des p-Werts. Das hat damit zu tun, dass R-automatisch zweiseitig testet, d.h., Abweichungen in die positive und negative Richtung gleichermassen berücksichtigt. Hätte man eine klar gerichtete Hypothese, könnte man also den p-Wert im Ergenis halbieren.   
+9. Genau der ermittelte Wert ist genau die Hälfte des p-Werts. Das hat damit zu tun, dass R-automatisch zweiseitig testet, d.h., Abweichungen in die positive und negative Richtung gleichermassen berücksichtigt. Hätte man eine klar gerichtete Hypothese, könnte man also den p-Wert im Ergebnis halbieren.   
 
-10. Es gibt noch weitere Werte, die du miteinander verknüpfen kannst. Der t-Wert ergibt sich nämlich unmittelbar aus dem Gewicht (`Estimate`) und dem Standardfehler (`Std.Error`). Kannst du den Zusammenang erkennen?
+10. Es gibt noch weitere Werte, die du miteinander verknüpfen kannst. Der t-Wert ergibt sich nämlich unmittelbar aus dem Gewicht (`Estimate`) und dem Standardfehler (`Std.Error`). Kannst du den Zusammenhang erkennen?
 
 11. Der t-Wert ist nichts anderes als das Gewicht geteilt durch den Standardfehler. Betrachte nun die andere, erste Zeile des `Coefficients` Outputs. Wie interpretierst du ihn? Die Zeile gibt die Ergebnisse für den Intercept an, d.h., den Wert des Kriterium, wenn der Prädiktor Null ist. Nicht leicht zu interpretieren, oder? Es gibt keinen Wein mit `Restzucker` gleich Null. Später mehr dazu. 
 
-12. Lenke nun deine Aufmerksamkeit auf den Schlussteil. Hier siehst du weitere Zusammenfassung über das Modell. Von besonderem Interesse ist das `Multiple R-squared`, da es angibt wie viel Varianz das Modell insgesamt am Kriterium erklären kann. Was meinst du, ist der Wert gross oder klein?
+12. Lenke nun deine Aufmerksamkeit auf den Schlussteil. Hier siehst du eine weitere Zusammenfassung über das Modell. Von besonderem Interesse ist das `Multiple R-squared`, da es angibt wie viel Varianz das Modell insgesamt am Kriterium erklären kann. Was meinst du, ist der Wert gross oder klein?
 
-13. Der Wert ist in der Tat relativ klein. Nur .1% der Varianz kann aufgeklärt werden, was wirklich nicht viel ist. Zeit weitere Prädiktoren hinzunehmen. 
+13. Der Wert ist in der Tat relativ klein. Nur .1% der Varianz kann aufgeklärt werden, was wirklich nicht viel ist. Zeit weitere Prädiktoren hinzuzunehmen. 
 
 ### C - Multiple Regression
 
-1. Teste nun den Effekt mehreren Prädiktoren auf die wahrgenommene `Qualität` (Kriterium) des Weines. Inkludiere neben `Restzucker` `pH-Wert`, `Alcohol`, und `Sulphate`. Verwende das template unten, um ein enstprechendes lineares Modell zu testen und in das Objekt `wein_lm` zu speichern. 
+1. Teste nun den Effekt mehrerer Prädiktoren auf die wahrgenommene `Qualität` (Kriterium) des Weines. Inkludiere neben `Restzucker` `pH-Wert`, `Alcohol`, und `Sulphate`. Verwende das template unten, um ein entsprechendes lineares Modell zu testen und in das Objekt `wein_lm` zu speichern. 
 
 ```{r, eval = FALSE, echo = TRUE}
 # Multiple Regression
@@ -190,7 +190,7 @@ wein_lm <- lm(formula = Qualität ~ Restzucker + pH_Wert + Alkohol + Sulphate,
               data = wein)
 ```
 
-2. Printe wiederum das Modell. Wie interpretierst du die Grössen der Regressionsgewichte Kannst du aus ihnen ablesen, welchr Prädiktor die meiste Bedeutung hat?
+2. Printe wiederum das Modell. Wie interpretierst du die Grössen der Regressionsgewichte Kannst du aus ihnen ablesen, welcher Prädiktor die meiste Bedeutung hat?
 
 ```{r}
 wein_lm
@@ -209,7 +209,7 @@ lm(formula = Qualität ~ Restzucker + pH_Wert + I(Alkohol/10) + Sulphate,
    data = wein)
 ```
 
-4. Also Rohe Regressionsgewichte müssen immer relativ zur Skalierung interpretriert werden. Nichtsdestotrotz ist bereits etwas bemerkenswertes an den Gewichten ablesbar. Schau dir das Regressionsgewicht für `Restzucker` an. War das nicht mal negativ? Führt mehr Zucker plöltzlich zu höherer wahrgenommener Qualität?
+4. Also, hohe Regressionsgewichte müssen immer relativ zur Skalierung interpretiert werden. Nichtsdestotrotz ist bereits etwas bemerkenswertes an den Gewichten ablesbar. Schau dir das Regressionsgewicht für `Restzucker` an. War das nicht mal negativ? Führt mehr Zucker plötzlich zu höherer wahrgenommener Qualität?
 
 5. So einfach ist das leider nicht. In der multiplen Regression hängt alles mit allem zusammen. D.h., das Gewicht von `Restzucker` hängt von den anderen Gewichten mit ab und ist konditional zu interpretieren. Wiederum nicht leicht!
 
@@ -219,9 +219,9 @@ lm(formula = Qualität ~ Restzucker + pH_Wert + I(Alkohol/10) + Sulphate,
 summary(wein_lm)
 ```
 
-7. Alkohol, Sulphate, und Restzucker hängen alle drei signifikant positiv mit der Qaulität zusammen, der pH-Wert dagegen negativ, jedoch nicht signifikant. Auf Basis der Summary, kannst du jetzt ausmachen, welcher Prädiktor die grösste Bedeutung hat? Welcher Wert würdest du zu Rate ziehen?
+7. Alkohol, Sulphate, und Restzucker hängen alle drei signifikant positiv mit der Qualität zusammen, der pH-Wert dagegen negativ, jedoch nicht signifikant. Auf Basis der Summary, kannst du jetzt ausmachen, welcher Prädiktor die grösste Bedeutung hat? Welcher Wert würdest du zu Rate ziehen?
 
-8. Am besten zieht man in der Tat den t-Wert heran. Je grösser dieser ist, desto grösser ist das Signal für den assoziierten Prädiktor. Richte nun deine Aufmerksamkeit auf den Schlussteil. Wie grosse ist `R-squared`? 
+8. Am besten zieht man in der Tat den t-Wert heran. Je grösser dieser ist, desto grösser ist das Signal für den assoziierten Prädiktor. Richte nun deine Aufmerksamkeit auf den Schlussteil. Wie gross ist `R-squared`? 
 
 9. Das `R-squared` hat sich deutlich erhöht. Nun werden knapp 22% der Varianz des Kriteriums erklärt. Auch dies ist etwas, dass wir unmittelbar mit den Funktionen nachvollziehen können. Speichert mit dem template zunächst das Kriterium, die Residuen und die gefitteten Werte. Für letztere beiden gibt es, wie ihr seht, nützliche Funktionen.
 
@@ -241,11 +241,11 @@ gefitted <- fitted(wein_lm)
 
 10. Jetzt teilt ihr einmal die Varianz der gefitteten Werte (`var(gefitted)`) durch die Varianz des Kriteriums (`var(kriterium)`). 
 
-11. Er voila, ihr habt `R-squared` gefunden. Ihr könnte jetzt auch einmal die Varianz der Residuen und die der gefitteten Werte addieren und mit der Varianz des Kriteriums vergleichen. 
+11. Et voilà, ihr habt `R-squared` gefunden. Ihr könnt jetzt auch einmal die Varianz der Residuen und die der gefitteten Werte addieren und mit der Varianz des Kriteriums vergleichen. 
 
 ### D - Multiple Regression: Alle Prädiktoren
 
-1. Teste nun den Effekt aller Prädiktoren (bis auf `Farbe`) auf die wahrgenommene `Qualität` (Kriterium) des Weines. Um alle Prädiktoren zu inkludieren kann man einfach `.` verwenden, und um einen auszuschliessen `-`- Verwende das template unten, um ein enstprechendes lineares Modell zu testen und in das Objekt `wein_lm` zu speichern. 
+1. Teste nun den Effekt aller Prädiktoren (bis auf `Farbe`) auf die wahrgenommene `Qualität` (Kriterium) des Weines. Um alle Prädiktoren zu inkludieren kann man einfach `.` verwenden, und um einen auszuschliessen `-`- Verwende das template unten, um ein entsprechendes lineares Modell zu testen und in das Objekt `wein_lm` zu speichern. 
 
 ```{r, eval = FALSE, echo = TRUE}
 # Multiple Regression aller Prädiktoren ausser Farbe
@@ -268,7 +268,7 @@ wein_lm <- lm(formula = Qualität ~ . - Farbe,
 
 ### E - Multiple Regression: Alle Prädiktoren
 
-1. Gehe zurück zum ersten Modell mit `Restzucker` als einzigen Prädiktor. Inkludiere nacheinander jeweils einen anderen Prädiktore und studiere, wie sich das Gewicht und die Signifikanz von Restzucker verändert. 
+1. Gehe zurück zum ersten Modell mit `Restzucker` als einzigen Prädiktor. Inkludiere nacheinander jeweils einen anderen Prädiktor und studiere, wie sich das Gewicht und die Signifikanz von Restzucker verändert. 
 
 ```{r, eval = FALSE, echo = TRUE}
 # Multiple Regression aller Prädiktoren ausser Farbe
@@ -294,7 +294,7 @@ library(tidyverse)
 # Model:
 # Sagt der Hubraum (displ) die pro gallone 
 # fahrbaren Meilen voraus?
-hwy_mod <- glm(formula = hwy ~ displ,
+hwy_mod <- lm(formula = hwy ~ displ,
                data = mpg)
 
 # Ergebnisse 
@@ -310,14 +310,10 @@ hwy_resid <- residuals(hwy_mod)
 hwy_resid
 
 
-# R-squared value 
-
-hwy_mod$r.squared
-
 ```
 
 
-## Datasets
+## Datensätze
 
 |Datei | Zeile | Spalte |
 |:----|:-----|:------|
@@ -325,12 +321,12 @@ hwy_mod$r.squared
 
 Der `wein.csv` Datensatz enthält aus den Jahren 2004 bis 2007 des Comissão De Viticultura Da Região Dos Vinhos Verdes, der Offiziellen Zertifizierungsagentur des Vinho Verde in Portugal. 
 
-#### Variable description
+#### Variablenbeschreibung
 
 | Name | Beschreibung |
 |:-------------|:-------------------------------------|
 |Qualität | Qualitätsurteil über den Weins von 1-9 |
-|Farbe| Rotr oder weisser Wien |
+|Farbe| Roter oder weisser Wein |
 |Gelöste_Säure| Konzentration der im Wein gelösten Säuren |
 |Freie_Säure| Konzenetration der verflüchtigbaren Säuren |
 |Citronensäure| Citronensäurekonzentration im Wein |
@@ -355,13 +351,13 @@ Der `wein.csv` Datensatz enthält aus den Jahren 2004 bis 2007 des Comissão De 
 
 | Function| Package | Description |
 |:---|:------|:---------------------------------------------|
-|   `glm`|`stats`| Fit a generalized linear model  | 
-|   `fitted`|`stats`| Show fitted values from a statistical object| 
-|   `residuals`|`stats`| Show residuals (fitted minus true) values from a statistical object| 
+|   `lm`|`stats`| Fitte ein lineares Modell  | 
+|   `fitted`|`stats`| Extrahiere vorhergesagte Werte| 
+|   `residuals`|`stats`| Extrahiere Residuen | 
 
 ## Resourcen
 
 ### Books
 
-- [Discovering Statistics with R](https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469) von Andy Field is excellent
+- [Discovering Statistics with R](https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469) von Andy Field ist sehr gut
 - [YaRrr! The Pirate's Guide to R](https://bookdown.org/ndphillips/YaRrr/) hat hilfreiche und unterhaltsame Kapitel zu Statistik mit R.
