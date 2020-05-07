@@ -216,7 +216,7 @@ $(document).ready(function () {
 <p>Am Ende des Practicals wirst du wissen…</p>
 <ol style="list-style-type: decimal">
 <li>Wie du einfache und multiple Regression in R implementierst.</li>
-<li>Wie die die Ergebnisse einer interpretation interpretierst.</li>
+<li>Wie du die Ergebnisse einer Regression interpretierst.</li>
 </ol>
 </div>
 <div id="aufgaben" class="section level2">
@@ -240,7 +240,7 @@ wein &lt;- read_csv(file = &quot;1_Data/wein.csv&quot;)</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li><p>Printe den Datensatz.</p></li>
 <li><p>Verwende <code>names(XX)</code>, <code>summary(XX)</code>, und <code>View()</code> um einen weiteren Überblick über die Daten zu bekommen.</p></li>
-<li><p>Wiederum, führe den Code unten aus um sicherzustellen, dass alle <code>character</code> Variablen als Faktoren vorliegen, was den statistischen Modellen hilft kategoriale Variablen richtig zu interpretieren.</p></li>
+<li><p>Führe den Code unten aus um sicherzustellen, dass alle <code>character</code> Variablen als Faktoren vorliegen, was den statistischen Modellen hilft kategoriale Variablen richtig zu interpretieren.</p></li>
 </ol>
 <pre class="r"><code># Konvertiere alle character zu factor
 wein &lt;- wein %&gt;% mutate_if(is.character, factor)</code></pre>

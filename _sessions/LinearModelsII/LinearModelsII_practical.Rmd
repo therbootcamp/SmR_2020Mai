@@ -62,8 +62,8 @@ college <- read_csv("1_Data/wein.csv")
 
 Am Ende des Practicals wirst du wissen...
 
-1. Wie du einfache und multiple Regression in R implementierst. 
-2. Wie die die Ergebnisse einer interpretation interpretierst.
+1. Wie du kategorische Variablen als Prädiktoren in einer Regression verwendest und interpretierst. 
+2. Wie du Interaktionen integrierst und warum es wichtig sein kann die Variablen zu standardisieren.
 
 ## Aufgaben
 
@@ -108,7 +108,7 @@ wein <- wein %>% mutate_if(is.character, factor)
 
 ### B - Gruppenvergleiche: t.test versus Regression
 
-1. In diesem Abschnitt geht es darum des Effekt der `Farbe` (Prädiktor) des Weins, rot oder weiss, auf die `Qualität` des Weines zu prüfen. Verwende hierzu zunächst das code unten um zwei Vektoren zu erstellen, die jeweils die Qualitätswerte für weisse und rote Weine beinhalten. 
+1. In diesem Abschnitt geht es darum des Effekt der `Farbe` (Prädiktor) des Weins, rot oder weiss, auf die `Qualität` des Weines zu prüfen. Verwende hierzu zunächst den code unten um zwei Vektoren zu erstellen, die jeweils die Qualitätswerte für weisse und rote Weine beinhalten. 
 
 ```{r, echo = TRUE}
 # Qualitätsvektoren nach Farbe

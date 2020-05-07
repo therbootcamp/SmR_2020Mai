@@ -63,7 +63,7 @@ college <- read_csv("1_Data/wein.csv")
 Am Ende des Practicals wirst du wissen...
 
 1. Wie du einfache und multiple Regression in R implementierst. 
-2. Wie die die Ergebnisse einer interpretation interpretierst.
+2. Wie du die Ergebnisse einer Regression interpretierst.
 
 ## Aufgaben
 

@@ -1,10 +1,10 @@
 ---
-title: "Linear Models II"
+title: "Lineare Modelle III"
 author: "<table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'><col width='10%'><col width='10%'>
   <tr style='border:none'>
-    <!-- <td style='display:block;width:100%;text-align:left;vertical-align:bottom;padding:0;margin:0;border:none' nowrap> -->
+    <td style='display:block;width:100%;text-align:left;vertical-align:bottom;padding:0;margin:0;border:none' nowrap>
       <font style='font-style:normal'>Statistics with R</font><br>
-      <a href='https://therbootcamp.github.io/SwR_2019Apr/'>
+      <a href='https://therbootcamp.github.io/SmR_2020Mai/'>
         <i class='fas fa-clock' style='font-size:.9em;' ></i>
       </a>
       <a href='https://therbootcamp.github.io'>
@@ -17,7 +17,7 @@ author: "<table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0
         <i class='fab fa-linkedin' style='font-size: .9em;'></i>
       </a>
       <a href='https://therbootcamp.github.io'>
-        <font style='font-style:normal'>Basel R Bootcamp</font>
+        <font style='font-style:normal'>The R Bootcamp</font>
       </a>
     </td>
     <td style='width:100%;vertical-align:bottom;text-align:right;padding:0;margin:0;border:none'>
@@ -35,1012 +35,371 @@ knitr::opts_chunk$set(comment = NA,
                       fig.width = 6, 
                       fig.height = 6,
                       fig.align = 'center',
-                      echo = TRUE, 
-                      eval = TRUE, 
+                      echo = FALSE, 
+                      eval = FALSE, 
                       warning = FALSE)
 
 options(digits = 3)
 
 # Load packages
 library(tidyverse)
-library(broom)
-library(rsq)
 
-trial <- read_csv(file = "1_Data/trial_ACTG175.csv")
+# Load packages
+#wein <- read_csv("_sessions/LinearModelsIII/1_Data/wein.csv")
+#bigmart <- read_csv("_sessions/LinearModelsIII/1_Data/wein.csv")
 
 ```
 
 <p align="center" width="100%">
-  <img src="image/cinicaltrial_wide.png" alt="Trulli" style="width:100%">
+  <img src="image/bigmart.png" alt="Trulli" style="width:100%">
   <br>
-  <font style="font-size:10px">from <a href="https://www.finance-monthly.com/2017/08/gail-adinamis-and-the-leading-global-provider-of-ambulant-healthcare-services-for-clinical-trials/">FinanceMonthly.com</a></font>
+  <font style="font-size:10px">from <a href="http://seeksaurav.blogspot.com/2013/01/week-8.html">seeksaurav.blogspot.com</a></font>
 </p>
 
 
 # {.tabset}
 
+## Überblick
 
-## Overview
+Am Ende des Practicals wirst du wissen...
 
-In this practical you'll practice specific hypothesis testing extensions of the linear model
+1. Wie du eine logistische Regression zur Analyse von binären Kriterien implementierst und interpretierst. 
+2. Wie du eine Poisson Regression zur Analyse von Häufigkeiten implementierst und interpretierst.
 
-By the end of this practical you will know how to:
-
-1. Conduct a t-test (one sample, two sample, and paired)
-2. Conduct a correlation test and compare to glm
-3. Conduct an ANOVA and compare to glm
-4. Select and run the appopriate test for the appropriate research question.
-
-## Tasks
+## Aufgaben
 
 ### A - Setup
 
-1. Open your `BaselRBootcamp` R project. It should already have the folders `1_Data` and `2_Code`. Make sure that the data files listed in the `Datasets` section above are in your `1_Data` folder
+1. Öffne dein `TheRBootcamp` R project. Es sollte die Ordner `1_Data` und `2_Code` enthalten. Stelle sicher, dass du alle Datensätze, welche im `Datensätze` Tab aufgelisted sind, in deinem `1_Data` Ordner hast. 
 
-```{r}
-# Done!
+2. Öffne ein neues R Skript. Schreibe deinen Namen, das Datum und "Lineare Modelle III Practical" als Kommentare an den Anfang des Skripts.
+
+```{r, eval = FALSE, echo = TRUE}
+## NAME
+## DATUM
+## Lineare Modelle III Practical
 ```
 
-2. Open a new R script. At the top of the script, using comments, write your name and the date. Save it as a new file called `LinearModels_II_practical.R` in the `2_Code` folder.  
+3. Speichere das neue Skript unter dem Namen `lineare_modelle_III_practical.R` im `2_Code` Ordner.
+
+4. Lade die Pakete `tidyverse`.
 
 ```{r}
-# Done!
-```
-
-3. Using `library()` load the packages below (if you don't have them, you'll need to install them first).
-
-```{r, echo = TRUE, eval = TRUE, message = FALSE}
-# Load packages necessary for this script
 library(tidyverse)
-library(broom)
-library(rsq)
 ```
 
-4. Using the following template, load the `trial_ACTG175.csv` data into R and store it as a new object called `trial` (Hint: Don't type the path directly! Use the "tab" completion!).
+5. Verwende die `read_csv()` Funktion um `wein.csv` und `bigmart.csv` einzulesen.
 
-```{r, eval = FALSE, echo = TRUE}
-# Load trial_ACTG175.csv from the 1_Data folder as a new object called trial
-
-XX <- read_csv(file = "XX/XX")
-```
-
-```{r}
-# Load trial_act.csv from the 1_Data folder
-
-trial <- read_csv(file = "1_Data/trial_ACTG175.csv")
-```
-
-5. Take a look at the first few rows of the dataset(s) by printing it/them to the console, it should look like the table below:
-
-```{r, eval = TRUE, echo = FALSE}
-knitr::kable(trial %>% slice(1:5))
-```
-
-```{r, eval = FALSE, echo = TRUE}
-# Print trial object
-XXX
-```
-
-```{r}
-trial
-```
-
-7. Use the `summary()` function to print more details on the columns of the datasets.
-
-```{r, eval = FALSE, echo = TRUE}
-# Show summary information from trial
-summary(XXX)
-```
-
-```{r}
-summary(trial)
-```
-
-8. Use the `View()` function to view the entire dataframe(s) in window(s)
-
-```{r, eval = FALSE, echo = TRUE}
-# View trial dataset in new window
-View(XXX)
-```
-
-```{r, eval = FALSE}
-View(trial)
-```
-
-### B - Correlation
-
-> Research Question:
-> Is there a correlation between a patient's age and their CD4 T cell count at baseline?
-
-1. Using the code below, create a plot showing the relationship between age and CD4 T cell count at baseline. Based on this plot, do you expect to find a relationship between the two variables? (Hint: See all of the possible named colors in R by running `colors()`. Then change the color of your histogram to your favorite one!)
-
-```{r, eval = FALSE, echo = TRUE}
-ggplot(data = trial, mapping = aes(x = age, y = cd4_baseline)) + 
-      geom_point(alpha = .2, col = "darkblue") +
-  labs(title = "ACTG175 Trial",
-       subtitle = "Baseline age and CD4 T cell count at baseline ",
-       x = "Age (age)",
-       y = "CD4 T cell count at baseline (cd4_baseline)")
-```
-
-2. Using the `cor.test()` function, create an object called `age_cd4_baseline_test` which conducts a correlation test between a patient's age at baseline (`age`) and their CD4 T cell count at baseline (`cd4_baseline`)
-
-```{r, eval = FALSE, echo = TRUE}
-# Correlation between patient's age at baseline and CD4 T cell count at baseline
-
-XXX <- cor.test(formula = ~ XXX + XXX,
-                data = XXX)
-```
-
-```{r}
-# Correlation between patient's age at baseline and CD4 T cell count at baseline
-
-age_cd4_baseline_test <- cor.test(formula = ~ age + cd4_baseline,
-                          data = trial)
-```
-
-3. Print the `age_cd4_baseline_test` object to see summary outputs.
-
-```{r}
-age_cd4_baseline_test
-```
-
-4. Apply the `names()` function to your `age_cd4_baseline_test` object to see all of its named elements
-
-```{r, eval = FALSE, echo = TRUE}
-# See all named elements of age_cd4_baseline_test
-names(XXX)
-```
-
-```{r}
-# See all named elements of age_cd4_baseline_test
-names(age_cd4_baseline_test)
-```
-
-5. Using the `XXX$XXX` notation, print only the correlation estimate (`estimate`) in your `age_cd4_baseline_test` object. What does this value tell you?
-
-```{r, eval = FALSE, echo = TRUE}
-# Print correlation coefficient estimate in the age_cd4_baseline_test object
-XXX$XXX
-```
-
-```{r}
-# Print correlation coefficient estimate
-age_cd4_baseline_test$estimate
-```
-
-6. Again using the `XXX$XXX` notation, print only the p value (`p.value`) in your `age_cd4_baseline_test` object. What does this value tell you?
-
-```{r, eval = FALSE, echo = TRUE}
-# Print the p value of the correlation coefficient in the age_cd4_baseline_test object
-XXX$XXX
-```
-
-```{r}
-# Print the p value in the age_cd4_baseline_test object
-age_cd4_baseline_test$conf.int
-```
-
-7. Again using the `XXX$XXX` notation, print only the confidence interval (`conf.int`) in your `age_cd4_baseline_test` object. What does this value tell you?
-
-```{r, eval = FALSE, echo = TRUE}
-# Print the confidence interval of the correlation coefficient in the age_cd4_baseline_test object
-XXX$XXX
-```
-
-```{r}
-# Print the confidence interval in the age_cd4_baseline_test object
-age_cd4_baseline_test$conf.int
-```
-
-8. Using the `tidy()` function (from the `broom` package), create a 'tidy' version of your `age_cd4_baseline_test` object called `age_cd4_baseline_tidy`
-
-```{r, eval = FALSE}
-# Create a 'tidy' version of my age_cd4_baseline_test object
-
-age_cd4_baseline_tidy <- tidy(xxx)
-```
-
-```{r}
-# Create a 'tidy' version of my age_cd4_baseline_test object
-
-age_cd4_baseline_tidy <- tidy(age_cd4_baseline_test)
-```
-
-9. Now, print your `age_cd4_baseline_tidy` object, how do the results look?
-
-```{r}
-age_cd4_baseline_tidy
-```
-
-##### Correlation as Linear Model
-
-10. Conduct the same analysis you did before, but this time use the `glm()` function. Use the code skeleton below to help you. Do you get the same results as you did using `cor.test()`?
-
-```{r, eval = FALSE, echo = TRUE}
-# GLM predicting a patient's CD4 T cell count at baseline form their age at baseline 
-age_cd4_baseline_glm <- glm(formula = XXX ~ XXX,
-                            data = XXX)
-
-# Print 'tidy' results
-tidy(XXX)
-```
-
-```{r}
-# GLM predicting a patient's CD4 T cell count at baseline form their age at baseline 
-age_cd4_baseline_glm <- glm(formula = cd4_baseline ~ age,
-                    data = trial)
-
-# Print 'tidy' results
-tidy(age_cd4_baseline_glm)
-```
-
-### C - T-test
-
-> Research Question:
-> Do patients with a history of intravenous drug use have higher CD4 T cell counts at baseline compared to patients without a history of intravenous drug use?
-
-1. Using the code below, create a plot showing the distribution of CD4 T cell counts at baseline (`cd4_baseline`) depending on whether or not patients were symptomatic. Based on this plot, do you expect to find that symptomatic patients generally have higher (or lower) CD4 T cell counts?
-
-```{r, eval= FALSE, echo = TRUE}
-ggplot(data = trial, mapping = aes(x = symptomatic, y = cd4_baseline, col = symptomatic)) + 
-  stat_summary(geom = "bar", fun.y = "mean", fill = "white", col = "black") +
-  geom_jitter(width = .1, alpha = .1) +
-  labs(title = "ACTG175 Trial",
-       subtitle = "Baseline CD4 T cell count and symptoms",
-       x = "Are patients symptomatic? (symptomatic)",
-       y = "CD4 T cell count at baseline (cd4_baseline)") +
-  guides(col = FALSE)
-```
-
-2. Using the `t.test()` function, create an object called `symptomatic_cd4_baseline_test` which conducts a two-sample t-test comparing patients' CD4 T cell count at baseline (`cd4_baseline`) between patients that are symptomatic and those that are not (`symptomatic`)
-
-```{r, eval = FALSE, echo = TRUE}
-# T-test comparing CD4 T cell counts at baseline bewteen symptomatic and non-symptomatic patients
-
-XXX <- t.test(formula = XXX ~ XXX,
-              data = XXX)
-```
-
-```{r}
-# T-test comparing CD4 T cell counts at baseline bewteen symptomatic and non-symptomatic patients
-
-symptomatic_cd4_baseline_test <- t.test(formula = cd4_baseline ~ symptomatic,
-                           data = trial)
-```
-
-3. Print the `symptomatic_cd4_baseline_test` object to see summary outputs.
-
-```{r}
-age_cd4_baseline_test
-```
-
-4. Apply the `names()` function to your `symptomatic_cd4_baseline_test` object to see all of its named elements
-
-```{r, eval = FALSE, echo = TRUE}
-# See all named elements of symptom_cd4_baseline_test
-names(XXX)
-```
-
-```{r}
-# See all named elements of symptomatic_cd4_baseline_test
-names(symptomatic_cd4_baseline_test)
-```
-
-5. Using the `XXX$XXX` notation, print only the correlation estimate (`estimate`) in your `symptomatic_cd4_baseline_test` object. What does the result tell you?
-
-```{r, eval = FALSE, echo = TRUE}
-# Print parameter estimates in the symptomatic_cd4_baseline_test object
-XXX$XXX
-```
-
-```{r}
-# Print parameter estimates in the symptomatic_cd4_baseline_test object
-symptomatic_cd4_baseline_test$estimate
-```
-
-6. Again using the `XXX$XXX` notation, print only the p value (`p.value`) in your `symptomatic_cd4_baseline_test` object. What does this value tell you?
-
-```{r, eval = FALSE, echo = TRUE}
-# Print the p value of the symptomatic_cd4_baseline_test object
-XXX$XXX
-```
-
-```{r}
-# Print the p value in the symptomatic_cd4_baseline_test object
-symptomatic_cd4_baseline_test$p.value
-```
-
-7. Again using the `XXX$XXX` notation, print only the confidence interval (`conf.int`) in your `symptomatic_cd4_baseline_test` object. What does this value tell you?
-
-```{r, eval = FALSE, echo = TRUE}
-# Print the confidence interval in the symptomatic_cd4_baseline_test object
-XXX$XXX
-```
-
-```{r}
-# Print the confidence interval in the symptomatic_cd4_baseline_test object
-symptomatic_cd4_baseline_test$conf.int
-```
-
-8. Using the `tidy()` function (from the `broom` package), create a 'tidy' version of your `symptomatic_cd4_baseline_test` object called `symptomatic_cd4_baseline_tidy`
-
-```{r, eval = FALSE, echo = TRUE}
-# Create a 'tidy' version of my symptomatic_cd4_baseline_test object
-
-symptomatic_cd4_baseline_tidy <- tidy(xxx)
-```
-
-```{r}
-# Create a 'tidy' version of my symptomatic_cd4_baseline_test object
-
-symptomatic_cd4_baseline_tidy <- tidy(symptomatic_cd4_baseline_test)
-```
-
-9. Now, print your `symptomatic_cd4_baseline_tidy` object, how do the results look?
-
-```{r}
-symptomatic_cd4_baseline_tidy
-```
-
-##### T-test as Linear Model
-
-10. Conduct the same analysis you did before, but this time use the `glm()` function. Use the code skeleton below to help you. Do you get the same results as you did using `t.test()`? Which outputs are the same and which are different?
-
-```{r, eval = FALSE, echo = TRUE}
-# GLM predicting a patient's CD4 T cell count at baseline form their age at baseline 
-symptomatic_cd4_baseline_glm <- glm(formula = XXX ~ XXX,
-                                    data = XXX)
-
-# Print 'tidy' results
-tidy(XXX)
-```
-
-```{r}
-# GLM predicting a patient's CD4 T cell count at baseline form their age at baseline 
-symptomatic_cd4_baseline_glm <- glm(formula = cd4_baseline ~ symptomatic,
-                        data = trial)
-
-# Print 'tidy' results
-tidy(symptomatic_cd4_baseline_glm)
-```
-
-### D - ANOVA
-
-> Research Question:
-> Was there a difference between the treatment molecule in the number of days until the first occurrence of one of the following major negative events: (i) a decline in CD4 T cell count of at least 50 (ii) an event indicating progression to AIDS, or (iii) death?
-
-1. Using the code below, create a plot showing the distribution of the number of days until a major negative event (`days`) for each treatment molecule `molecule` Based on this plot, do you expect to find that there were differences in treatment molecules?
-
-```{r, eval= FALSE, echo = TRUE}
-ggplot(data = trial, mapping = aes(x = molecule, y = days, col = molecule)) + 
-  stat_summary(geom = "bar", fun.y = "mean", fill = "white", col = "black") +
-  geom_jitter(width = .2, alpha = .2) +
-  labs(title = "ACTG175 Trial",
-       subtitle = "Did the molecule affect days until negative events?",
-       x = "Treatment Arm (molecule)",
-       y = "Number of days until a major negative event (days)") +
-  guides(col = FALSE)
-```
-
-2. Using the `aov()` function, create an object called `days_molecule_aov` which conducts an ANOVA comparing the number of days until a negative event (`days`) between treatment molecule (`molecule`).
-
-```{r, eval = FALSE, echo = TRUE}
-# ANOVA comparing number of days until a negative event between treatment molecule
-
-XXX <- aov(formula = XXX ~ XXX,
-              data = XXX)
-```
-
-```{r}
-# ANOVA comparing number of days until a negative event between treatment molecule
-
-days_molecule_aov <- aov(formula = days ~ molecule,
-                      data = trial)
-```
-
-3. Print the `days_molecule_aov` object to see summary outputs.
-
-```{r}
-days_molecule_aov
-```
-
-4. Apply the `names()` function to your `days_molecule_aov` object to see all of its named elements
-
-```{r, eval = FALSE, echo = TRUE}
-# See all named elements of days_molecule_aov
-names(XXX)
-```
-
-```{r}
-# See all named elements of symptom_cd4_baseline_test
-names(days_molecule_aov)
-```
-
-5. Using the `XXX$XXX` notation, print the coefficients in your `days_molecule_aov` object. What do these values mean?
-
-```{r, eval = FALSE, echo = TRUE}
-# Print coefficients in the days_molecule_aov object
-XXX$XXX
-```
-
-```{r}
-# Print coefficients in the days_molecule_aov object
-days_molecule_aov$coefficients
-```
-
-7. Using the `tidy()` function (from the `broom` package), create a 'tidy' version of your `days_molecule_aov` object called `days_molecule_tidy`
-
-```{r, eval = FALSE, echo = TRUE}
-# Create a 'tidy' version of my symptom_cd4_baseline_test days_molecule_aov
-
-days_molecule_tidy <- tidy(xxx)
-```
-
-```{r}
-# Create a 'tidy' version of my days_molecule_aov object
-
-days_molecule_tidy <- tidy(days_molecule_aov)
-```
-
-9. Now, print your `days_molecule_tidy` object, how do the results look?
-
-```{r}
-days_molecule_tidy
-```
-
-##### Post-hoc tests
-
-10. In order to compare pair-wise differences between groups after conducting an ANOVA, you need to conduct post-hoc tests. Using the `TukeyHSD()` function, conduct pair-wise tests to see which pairs of treatment molecule differ in `days`. Save the result to an object called `days_molecule_aov_post`
-`
-```{r, eval = FALSE, echo = TRUE}
-# Conduct pair-wise tests comparing every pair of treatment
-#  molecule (molecule) on days until a major negative event (days)
-
-XXX <- TukeyHSD(XXX)
-```
-
-```{r}
-# Conduct pair-wise tests comparing every pair of treatment
-#  molecule (molecule) on days until a major negative event (days)
-
-days_molecule_aov_post <- TukeyHSD(days_molecule_aov)
-```
-
-11. Print your `days_molecule_aov_post` object, what do you see?
-
-12. Print 'tidy' results from your `days_molecule_aov_post` object using the `tidy()` function
-
-```{r, eval = FALSE, echo = TRUE}
-# Print 'tidy' version of days_molecule_aov_post
-tidy(XXX)
-```
-
-13. Based on what you've seen, what are your conclusions? Which treatment molecule seem to differ?
-
-##### ANOVA as Linear Model
-
-10. Conduct the same analysis you did before, but this time use the `glm()` function. Use the code skeleton below to help you. Do you get the same results as you did using `aov()`? Which outputs are the same and which are different?
-
-```{r, eval = FALSE, echo = TRUE}
-# GLM predicting number of days until a major negative event (days) as a function of treatment arm (molecule)
-XXX <- glm(formula = XXX ~ XXX,
-           data = XXX)
-
-# Print object
-XXX
-
-# Print 'tidy' results
-tidy(XXX)
-```
-
-```{r}
-# GLM predicting number of days until a major negative event (days) as a function of treatment arm (molecule)
-days_molecule_glm <- glm(formula = days ~ molecule,
-                     data = trial)
-
-# Print object
-days_molecule_glm
-
-# Print 'tidy' results
-tidy(days_molecule_glm)
-```
-
-### F - Regression
-
-1. It's time to conduct a regression analysis predicting day the number of days until a major negative event `days` based on several variables. Perform a regression analysis predicting days until a major negative event `days` based on the following variables: `molecule`, `gender`, `age`, `weight_kg`, `drug_history`, `race`, `cd4_baseline`, and `cd8_baseline`. Use the code chunk below to help you
-
-```{r, eval = FALSE, echo = TRUE}
-# Predict days based on many variables
-
-days_glm <- glm(formula = XXX ~ XXX + XXX + XXX ...,
-                data = XXX)
-```
-
-```{r}
-# Predict days based on many variables
-
-days_glm <- glm(formula = days ~ molecule + gender + age + weight_kg + drug_history + race + cd4_baseline + cd8_baseline,
-                data = trial)
-```
-
-2. Using `tidy()` look at the summary results. Which variables seem to be able to predict the number of days until a major negative event?
-
-```{r, eval = FALSE, echo = TRUE}
-tidy(XXX)
-```
-
-
-```{r}
-tidy(days_glm)
-```
-
-3. Using `rsq()` calculate the r-squared value of your model. Was it high or low? Recall that r-squared can range anywhere from 0 (meaning the model explains *none* of the variance in `days`), all the way up to 1 (meaning the model expllains *all* of the variance in `days`). 
-
-```{r, eval = FALSE, echo = TRUE}
-rsq(XXX)
+```{r, echo = T, eval = T, message = F}
+# Lese Daten ein
+wein <- read_csv(file = "1_Data/wein.csv")
+bigmart <- read_csv(file = "1_Data/bigmart.csv")
 ```
 
-```{r}
-rsq(days_glm)
-```
-
-4. Using the code below, visualise the residuals from the model. What does this mean?
-
-```{r, eval = FALSE, echo = TRUE}
-# Save residuals as days_glm_resid
-days_glm_resid <- resid(days_glm)
-
-# Plot histogram
-ggplot(data = tibble(days_glm_resid), aes(x = days_glm_resid)) +
-  geom_histogram(col = "white", fill = "skyblue") +
-  geom_vline(xintercept = 0) +
-  labs(title = "Residuals of regression model predicting days",
-       x = "Absolute residuals abs(Fit - Truth)",
-       y = 'Frequency')
-```
-
-5. Using the code below, calculate the mean residuals from the model. What do these mean?
-
-```{r, eval = FALSE, echo = TRUE}
-# Calculate the mean residuals of the model
-mean(resid(XXX))
-```
-
-6. Using the code below, visualise the *absolute* residuals from the model. What does this mean?
-
-```{r, eval = FALSE, echo = TRUE}
-# Save residuals as days_glm_resid
-days_glm_absresid <- abs(resid(days_glm))
-
-# Plot histogram
-ggplot(data = tibble(days_glm_absresid), aes(x = days_glm_absresid)) +
-  geom_histogram(col = "white", fill = "skyblue") +
-  geom_vline(xintercept = 0) +
-  labs(title = "Absolute residuals of regression model predicting days",
-       x = "Absolute residuals abs(Fit - Truth)",
-       y = 'Frequency')
-```
-
-7. Using the code below, calculate the mean absolute residuals from the model. What do these mean?
-
-```{r, eval = FALSE, echo = TRUE}
-# Calculate the mean absolute residuals of the model
-mean(abs(resid(XXX)))
-```
-
-### X - Advanced: Choose your own test!
-
-For the remaining tasks, you choose the test!  For each task, do the following:
-
-- Visualize the data (use the code given in the sections above for help!)
-- Conduct the appropriate test using an applied hypothesis test function (i.e.; correlation test, t-test, ANOVA or chi-square test).
-- Explore the results (e.g.; estimate, confidence interval, p-value).
-- Conduct the same test using the generalized linear model function `glm()`
-- Explore the results and confirm you get the same result from your applied function!
-
-1. Do people with a history of intravenous drug use (`drug_history`) tend to have major negative events (`days`) faster than those without a history of intravenous drug use?
-
-2. Do men and women (`gender`) have different CD8 T cell counts at baseline (`cd8_baseline`)?
-
-3. Is there a relationship between patient's CD4 T cell counts at baseline (`cd4_baseline`) and at 96 weeks (`cd4_96_weeks`)?
-
-4. Did older patients have higher CD4 T cell counts at baseline (`cd4_baseline`) compared to younger patients?
-
-5. Was there an effect of treatment arm (`molecule`) on the *change* of CD4 T cell counts between baseline (`cd4_baseline`) and 96 weeks (`cd4_96_weeks)? Hint: to do this, you first need to create a column that shows the change in CD4 T cell counts. The code below should help you with this:
-
-```{r, echo = TRUE, eval = FALSE}
-trial <- trial %>%
-  mutate(cd4_96_weeks_change = cd4_96_weeks - cd4_baseline)   # Add cd4_96_weeks_change to trial, indicating change from
-                                        # in cd4 T cell count from baseline to 96 weeks.
-```
-
-### Y - Advanced: Chi-square test
-
-> Research Question:
-> Was there an unequal distribution of gender in the treatment molecule?
-
-1. Using the code below, create a plot showing the percentage of patients who were male (`gender == "Male")` for each treatment arm `molecule`. Based on this plot, do you expect to find that there were differences in treatment molecule?
-
-```{r, eval= FALSE, echo = TRUE}
-# Calculate percentage of Male in each treatment arm
-
-molecule_gender <- trial %>%
-  group_by(molecule) %>%
-  summarise(male_p = mean(gender == "Male"))
-
-ggplot(data = molecule_gender, mapping = aes(x = molecule, y = male_p)) + 
-  geom_bar(stat = "identity") +
-  ylim(c(0, 1)) +
-  labs(title = "ACTG175 AIDS trial",
-       subtitle = "Percent of males in each treatment arm",
-       x = "Treatment Arm (molecule)",
-       y = "Percent Male (gender)")
-```
-
-2. Using the `chisq.test()` function, create an object called `gender_molecule_test` which conducts a chi-square test comparing the frequencies of each gender (`gender`) for each level of molecule (`molecule`).
-
-- Note: The `chisq.test()` function (unfortunately) does not support formulas, so we have to enter the data in as two separate (factor) vectors:
-
-```{r, eval = FALSE, echo = TRUE}
-# Chi-square test comparing the frequencies of each gender for each molecule
-
-XXX <- chisq.test(x = factor(trial$XXX),
-                  y = factor(trial$XXX))
-```
-
-```{r}
-# Chi-square test comparing the frequencies of each gender for each molecule
-
-gender_molecule_test <- chisq.test(x = factor(trial$gender),
-                              y = factor(trial$molecule))
-```
-
-3. Print the `gender_molecule_test` object to see summary outputs.
-
-```{r}
-gender_molecule_test
-```
-
-4. Apply the `names()` function to your `gender_molecule_test` object to see all of its named elements
-
-```{r, eval = FALSE, echo = TRUE}
-# See all named elements of gender_molecule_test
-names(XXX)
-```
-
-```{r, eval = FALSE, echo = TRUE}
-# See all named elements of gender_molecule_test
-names(gender_molecule_test)
-```
-
-5. Using the `XXX$XXX` notation, print the *observed* frequencies in your `gender_molecule_test` object. What do these values mean?
-
-```{r, eval = FALSE, echo = TRUE}
-# Print observed frequencies in the gender_molecule_test object
-XXX$XXX
-```
-
-```{r}
-# Print observed frequencies in the gender_molecule_test object
-gender_molecule_test$observed
-```
-
-6. Using the `XXX$XXX` notation, print the *expected* frequencies in your `gender_molecule_test` object. What do these values mean?
-
-```{r, eval = FALSE, echo = TRUE}
-# Print expected frequencies in the gender_molecule_test object
-XXX$XXX
-```
-
-```{r}
-# Print expected frequencies in the gender_molecule_test object
-gender_molecule_test$expected
-```
-
-7. Using the `tidy()` function (from the `broom` package), create a 'tidy' version of your `gender_molecule_test` object called `gender_molecule_tidy`
-
-```{r, eval = FALSE, echo = TRUE}
-# Create a 'tidy' version of my gender_molecule_test called gender_molecule_tidy
-
-gender_molecule_tidy <- tidy(xxx)
-```
-
-```{r}
-# Create a 'tidy' version of my gender_arm_test object
-
-gender_molecule_tidy <- tidy(gender_molecule_test)
-```
-
-9. Now, print your `gender_molecule_tidy` object, how do the results look?
-
-```{r}
-gender_molecule_tidy
-```
+3. Printe die Datensätze. 
 
-##### Chi-square as Linear Model
+4. Verwende `names(XX)`, `summary(XX)`, und `View()` um einen weiteren Überblick über die Daten zu bekommen.
 
-10. In the next section we'll compare the `chisq.test()` result to one using `glm()`. However, before we do, we need to restructure the data a bit. Run the following code to create a dataframe containing the counts for each combination of molecule and gender:
+5. Wiederum, führe den Code unten aus um sicherzustellen, dass alle `character` Variablen als Faktoren vorliegen, was den statistischen Modellen hilft kategoriale Variablen richtig zu interpretieren. 
 
 ```{r, echo = TRUE}
-# Create a dataframe showing counts for each combination of
-#  molecule and gender
-
-molecule_gender_counts <- trial %>%
-                      group_by(molecule, gender) %>%
-                      summarise(counts = n())
+# Konvertiere alle character zu factor
+wein <- wein %>% mutate_if(is.character, factor)
+bigmart <- bigmart %>% mutate_if(is.character, factor)
 ```
 
-11. Print your `molecule_gender_counts` object to see how it looks. What do the results mean?
 
-12. Conduct the same analysis you did before, but this time use the `glm()` function. Use the code skeleton below to help you. Do you get the same results as you did using `chisq.test()`? Which outputs are the same and which are different?
+### B - Logistische Regression: Wein redux
 
-- Be sure to model `counts` based on the *interaction* between `molecule` and `gender` using `formula = counts ~ molecule * gender`. 
-- We'll summarise the results of the model using the `anova()` function with the argument `test = "Rao"` to specify that we are conducting a score test (see https://en.wikipedia.org/wiki/Score_test for details)
+1. In diesem Abschnitt geht es darum die Analysen der vergangenen Abschnitte umzudrehen und zu untersuchen wie verschiedene Prädiktoren das Kriterium `Farbe` (Kriterium) vorhersagen. In anderen Worten, in welchen Geschtspunkten unterscheiden weisse von roten Weine voneinander. Verwende template um in einer Regression `Farbe` durch `Alkohol`, `Dichte`, und `Sulphate` vorherzusagen. Achtung: Es tritt ein Fehler auf. Siehe nächste Aufgabe.
 
 ```{r, eval = FALSE, echo = TRUE}
-# Create linear model predicting counts as a function of the 
-#  interaction between molecule and gender
-
-molecule_gender_glm <- glm(formula = XXX ~ XXX * XXX, # Model counts by the interaction of molecule and gender
-                       family = "poisson",        # Use poisson model family to specify we are modelling counts
-                       data = XXX)
-
-# Print summary results as an anova table
-anova(molecule_gender_glm, 
-      test = 'Rao')   # Show a 'Rao" score test
+# Regression
+wein_lm <- lm(formula = XX ~ XX + XX + XX, 
+              data = wein)
 ```
 
+2. Farbe ist natürlich eine kategoriale Variable. Wir können also nicht das standard lineare Modell verwenden, sondern müssen auf das generalisierte lineare Modell zurückgreifen. Verwende das Template unten um eine Regression mit `'binomial'` Link und Modell zu fitten, aka eine logistsiche Regression. Nenne das entstehende Objekt `wein_glm`.
+
+```{r, eval = FALSE, echo = TRUE}
+# Logistische Regression
+wein_glm <- glm(formula = XX ~ XX + XX + XX, 
+                data = XX,
+                family = 'XX')
+```
 
 ```{r}
-# Create linear model predicting counts as a function of the 
-#  interaction between molecule and gender
-
-molecule_gender_glm <- glm(formula = counts ~ molecule * gender, 
-                           family = "poisson", 
-                           data = molecule_gender_counts)
-
-# Print summary results as an anova table
-anova(molecule_gender_glm, 
-      test = 'Rao')   # Show a 'Rao" score test
+# Logistische Regression
+wein_glm <- glm(formula = Farbe ~ Alkohol + Dichte + Sulphate, 
+               data = wein,
+               family = 'binomial')
 ```
 
+3. Printe `wein_glm`. Was verrät dir der Output? 
+
+4. Zu allerst ist dir vielleicht aufgefallen, dass einige der Gewichte sehr gross sind. Vor allem der Intercept ist erstaunlich hoch, wenn man bedenkt dass Farbe eigentlich nur Werte zwischen 0 und 1 annehmen kann. Dies hat natürlich mit dem Link-Funktion zu tun. Das bedeutet, im generalisierten linearen Modell muss nun auch noch die Link-Funktion mitberücksichtigt werden.
+
+5. Weiterhin ist die sicher aufgefallen, dass am Schluss des Outputs Ergebnisse angezeigt werden, die bei einem einfachen linearen Modell fehlen. Diese Werte haben etwas damit zu, dass nun mit Maximum Likelihood gefitted wird. Später mehr dazu. 
+
+6. Lasse dir nun die `summary()` anzeigen. Der Output ist sehr ähnlich aufgebaut zum dem von `lm()`. Lenke deine Aufmerksamkeit zunächst auf den Teil zu `Coefficients`. Welche Prädiktoren sind signifikant?
+
+7. Genau alle 
 
 
-## Examples
+
+
+3. Was verrät dir der Output des t-Tests über den Unterschied weisser und roter Weine in der wahrgenommenen Qualität? Die Antwort findest du in der zweiten Zeile (beginnend mit `t=..`) zusammen mit der letzten Zeile.  
+
+4. Ja, weisse Weine wurden `0.241886` (Differenz der beiden Mittelwerte) Punkte als Qualitativ wertiger wahrgenommen und dieser Unterschied ist signifikant. Versuche nun das selbe Ergebnis mit einer Regression zu erzielen. 
 
 ```{r, eval = FALSE, echo = TRUE}
+# Regression
+wein_lm <- lm(formula = XX ~ XX, 
+              data = XX)
+```
+
+```{r}
+# Regression
+wein_lm <- lm(formula = Qualität ~ Farbe, 
+              data = wein)
+```
+
+5. Printe zunächst einmal das Objekt und betrachte die Regressionsgewichte. Kommen dir eine oder sogar beide der Zahlen bekannt vor?
+
+6. Genau, das Regressionsgewicht für `Farbe` spiegelt exakt den Unterschied der beiden Mittelwerte wieder. Was repräsentiert dann der Intercept? Den Wert derjenigen Kategorie, der R den Wert 0 zugewiesen hat. Dies ist bei ursprünglich `character` Variablen i.d.R. diejenige Kategorie die alphabetisch früher kommt, d.h., `'rot' < 'weiss'`.   
+
+7. Lasse dir jetzt die `summary()` für das Modell ausgeben und vergleiche Freiheitsgrade, t- und p-Wert mit denen aus dem t-Test. 
+
+```{r}
+# summary
+summary(wein_lm)
+```
+
+8. Die Werte im t-Test stimmen trotz der gleichen Schätzwerte für die Gewichte nicht ganz überein. Dies liegt daran, dass die `t.test()` Funktion per Default eine Variante rechnet die erlaubt, dass die Varianzen in den beiden Gruppen (rot und weiss) unterschiedlich sind, die Regression dagegen, geht stets davon aus, dass diese gleich sind, was wir im Detail in der Session zu robuste Statistiken besprechen werden. Rechne den t-Test noch einmal, diesmal mit dem zusätzlichen Argument `var.equal = TRUE`.   
+
+```{r, eval = FALSE, echo = TRUE}
+# t-test
+t.test(x = XX, y = XX, var.equal = )
+```
+
+```{r}
+# t-test
+t.test(x = weiss, y = rot, var.equal = TRUE)
+```
+
+9. Ordnung ist eingekehrt. Alle Werte im t-test und der Regression sollten jetzt identisch sein, was daran liegt, dass die beiden Modelle nun exakt identisch sind. 
+
+### B - Poisson Regression: Bigmart
+
+1. Per Default verwendet R die sogenannte Dummy-Kodierung, in der eine Ausprägung den Wert 0 erhält und eine andere den Wert 1. Eine alternative Kodierung existiert in der Effektkodierung, die stattdessen die Werte -1 und 1 vergibt. Um die Konsequenzen dieser beiden Kodierungen direkt zu vergleichen, erstelle zunächst für jede Kodierung eine neue Variable im Datensatz unter Verwendung des Codes unten. 
+
+```{r, echo = TRUE}
+# Kodierungen der Farbe
+wein <- wein %>% mutate(Farbe_dummy = ifelse(Farbe == 'rot', 0, 1),
+                        Farbe_effekt = ifelse(Farbe == 'rot', -1, 1))
+```
+
+2. Rechne nun zwei Regression, jeweils eine mit einer der beiden Farbkodierungen als Prädiktor und speichere sie ab als `wein_dummy` und `wein_effekt`.   
+
+```{r, eval = FALSE, echo = TRUE}
+# Regression dummy
+wein_dummy <- lm(formula = XX ~ XX, 
+                 data = XX)
+
+# Regression effekt
+wein_effekt <- lm(formula = XX ~ XX, 
+                  data = XX)
+```
+
+```{r}
+# Regression dummy
+wein_dummy <- lm(formula = Qualität ~ Farbe_dummy, 
+                 data = wein)
+
+# Regression effekt
+wein_effekt <- lm(formula = Qualität ~ Farbe_effekt, 
+                  data = wein)
+```
+
+3. Printe nun die beiden Objekte und vergleiche die Gewichte. Diejenigen der Dummy-Kodierung sollten dir bekannt vorkommen. Wie verhalten sich die Gewichte der Effektkodierung dagegen? Erkennst du den Zusammenhang?
+
+4. Der Effekt der Farbe unter der Effektkodierung entspricht genau der Hälfte des Effekts unter der Dummykodierung und um dies auszugleichen hat sich der Intercept auch um genau den selben Wert verändert, nur in die andere Richtung. Verifiziert die Gewichte mit den einfachen Rechnungen im Code unten. 
+
+```{r, echo = TRUE}
+# Dummy-Kodierung
+mean(rot) # intercept
+mean(weiss) - mean(rot) # gewicht farbe
+
+# EffekKodierung
+(mean(rot) + mean(weiss))/2 # intercept
+mean(weiss) - (mean(rot) + mean(weiss))/2 # gewicht farbe
+```
+
+5. Vergleiche nun die `summary()` der beiden Modelle. Was unterscheidet sich, und was nicht?
+
+```{r}
+# Regression dummy
+summary(wein_dummy)
+
+# Regression effekt
+summary(wein_effekt)
+```
+
+6. Die Kodierung hat ausgenommen die Skalierung des Regressionsgewichts und des zugehörigen Standardfehlers für Farbe keinen Einfluss. t-Wert und signifikanz sind identisch. Einzig der Intercept ändert sich wesentlich, da er unter der Effektkodierung tatsächlich weiter von Null entfernt ist.
+
+### C - Interaktionen
+
+1. Der erste Abschnitt hat gezeigt, dass weisser Wein gegenüber Rotem bevorzugt wurde. Könnte dies daran liegen, dass nicht für andere Variablen kontrolliert wurde? Oder könnte es sein, dass dieser Unterschied nur unter bestimmten Bedingungen gilt, d.h., dass es Moderatoren für den Effekt der Farbe gibt? Rechne eine Regression die zusätzlich `Alkohol` mit aufnimmt und verknüpfe die Prädiktoren mit `*` sodass auch die Interaktion berücksichtigt wird.   
+
+```{r, eval = FALSE, echo = TRUE}
+# Regression mit Interaktion
+wein_lm <- lm(formula = XX ~ XX * XX, 
+              data = XX)
+```
+
+```{r}
+# Regression mit Interaktion
+wein_lm <- lm(formula = Qualität ~ Farbe * Alkohol, 
+              data = wein)
+```
+
+2. Printe das Objekt und betrachte die Gewichte. Wie interpretierst du die einzelnen Werte?
+
+3. Folgendermassen lassen sich die Gewichte inetrpretieren: Unter Berücksichtigung von Alkohol und der Interaktion, werden weisse Weine um `.7` besser bewertet. Unter Berücksichtigung der Farbe (d.h. für Farbe == 'rot') und der Interaktion, hat führt ein Anstieg von einem Volumenprozent zu einer Verbesserung der wahrgenommenen Qualität von `.36`. Unter Berücksichtigung von Farbe und Alkohol, führt die Interaktion, also das Produkt der beiden Prädiktoren zu einer Veränderung von `-.05`. Dies ist so zu interpretieren, dass der Effekt von Alkohol unter Weissweinen um genau diese Grösse kleiner ist. Dies bedeutet im Umkerhschluss dass der Effekt von Farbe unter hoch-alkoholischen Weinen kleiner ausfällt. Verwendet den Code unten um diese Ergebnisse zu visualisieren. Gelb bedeutet Weisswein, lila Rotwein.
+
+```{r}
+# Visualisierung
+ggplot(data = wein, 
+       aes(x = Alkohol, y = Qualität, col = Farbe, alpha = .01)) + 
+  scale_color_manual(values = viridis::cividis(2)) + xlim(c(7, 14)) + 
+  geom_jitter(width=2,height=1.5,size=.1) + theme_minimal() + theme(legend.position = 'none') +
+  geom_smooth(data = wein %>% filter(Farbe == 'weiss'), method = 'lm') + 
+  geom_smooth(data = wein %>% filter(Farbe == 'rot'), method = 'lm')
+
+```
+
+4. Lasse dir nun die `summary()` und inspiziere die t-Werte und Signifikanzen. Welche Prädiktoren sind signifikant?
+
+5. Alle drei Prädiktoren sind signifikant. t-Wert und Signifikanz sind am extremsten für `Alkohol`, jedoch ist das Gewicht für `Alkohol` nur halb so gross. Wie ist dies zu erklären?  
+6. Genau die Gewichte hängen auch von der Skalierung der Prädiktoren ab. Rechne nun die Regression noch einmal, aber diesmal mit skalierten Prädiktoren. Siehe Code unten.
+
+```{r, eval = FALSE, echo = TRUE}
+# Skalierungsfunktion
+skaliere = function(x) (x - mean(x))/sd(x)
+
+# Regression mit skalierten Prädiktoren
+wein_lm <- lm(formula = XX ~ XX * XX, 
+              data = XX %>% mutate_if(is.numeric, skaliere))
+```
+
+```{r}
+# Regression mit skalierten Prädiktoren
+wein_lm <- lm(formula = Qualität ~ Farbe * Alkohol, 
+              data = wein %>% mutate_if(is.numeric, skaliere))
+```
+
+7. Printe zunächst einmal das Objekt und betrachtet die Gewichte. Alle Werte haben sich substantiell verändert. Insbesondere hat nun Alkohol das zweifach höhre Gewicht. Wie sind diese neuen Gewichte zu interpretieren, wenn du bedenkst, dass nach der Skalierung alle Variablen eine Standardabweichung = 1 haben? 
+
+8. Nach Skalierung sind die Gewichte als Veränderungen in Standardabweichungen zu interpretieren. Z.B., eine Veränderung von einer Standardabweichungen in `Alkohol` führt demnach zu einer Veränderung von `.4928` Standardabweichungen in der Qualität. Am meisten hat sich der Intercept verändert. Wie interpretiert ihr diesen unter der Skalierung?     
+
+9. Der Intercept ist der geschätzte Mittelwert des Kriteriums für den Fall in dem alle Prädiktoren Null sind. Ohne Skalierung ist dieser Fall schwer zu interpretieren, da Null nicht vorkommen muss in den Prädiktoren. Unter der Skalierung ändert sich dies aber, denn nun haben alle Prädiktoren, mit Ausnahme des Faktors `Farbe` einen Mittelwert von Null. Das heisst der Intercept spiegelt die Qualität für ein mittleres Level von Alkohol, rote Weine und keine Interaktion in Standardabweichungen wieder. Dies kannst du wiederum in per Visualisierung nachvollziehen. Benutze den Code unten und suche den Punkt auf der lila Linie für Alkohol = 0.    
+
+```{r}
+# Visualisierung
+ggplot(data = wein %>% mutate_if(is.numeric, skaliere), 
+       aes(x = Alkohol, y = Qualität, col = Farbe, alpha = .01)) + 
+  scale_color_manual(values = viridis::cividis(2))  + 
+  geom_jitter(width=2,height=1.5,size=.1) + theme_minimal() + theme(legend.position = 'none') +
+  geom_smooth(data = wein %>% mutate_if(is.numeric, skaliere) %>% filter(Farbe == 'weiss'), method = 'lm') + 
+  geom_smooth(data = wein %>% mutate_if(is.numeric, skaliere) %>% filter(Farbe == 'rot'), method = 'lm')
+
+```
+
+10. Schaue dir nun die `summary()` an. Was hat sich verändert bzgl. t-Werten, Signifikanzen, und Standardfehlern, und R-squared? 
+
+11. Ein grosser und in diesem Fall der Einzige Einfluss besteht auf die Variable `Farbe`, welche als einzige nicht mit standardisiert wurde. Vor der standardisierung von `Alcohol` war Farbe beinahe perfekt mit der Interaktion korreliert, was zu einem extrem aufgeblasenen Standardfehler geführt hat. Die Standardisierung hat diese Korrelation jedoch stark reduziert, so dass der Standardfehler auf das Niveau der anderen Prädiktoren gefallen ist. In der Konklusion lohnt es sich beinahe immer die die Prädiktoren (oder auch das Kriterium) zu standardisieren, wenn ein Vergleich der Gewichte und Signifikanzen von Interesse ist. 
+
+
+## Beispiele
+
+```{r, eval = FALSE, echo = TRUE}
+# Regression mit R
+
 library(tidyverse)
-library(broom)
 
-# We'll use the mpg dataset
-mpg
+# Model:
+# Sagt der Hubraum (displ) die pro gallone 
+# fahrbaren Meilen voraus?
+hwy_mod <- glm(formula = hwy ~ displ,
+               data = mpg)
 
-# Correlation test -------------------------------------------------------------------
+# Ergebnisse 
+summary(hwy_mod)
+coef(hwy_mod)
 
-# Q: Is there a relationship between a car's city and highway miles per gallon? ======
+# Gefittete Werte
+hwy_fit <- fitted(hwy_mod)
+hwy_fit
 
-my_test <- cor.test(formula = ~ cty + hwy,     # DV ~ IV
-                     data = mpg)
-
-my_test # Print result
-
-# 	Pearson's product-moment correlation
-# 
-# data:  cty and hwy
-# t = 49.585, df = 232, p-value < 2.2e-16
-# alternative hypothesis: true correlation is not equal to 0
-# 95 percent confidence interval:
-#  0.9433129 0.9657663
-# sample estimates:
-#       cor 
-# 0.9559159 
-
-names(my_test)  # Print all named elements
-
-# [1] "statistic"   "parameter"   "p.value"     "estimate"    "null.value"  "alternative" "method"     
-# [8] "data.name"   "conf.int" 
-
-my_test$estimate
-
-#       cor 
-# 0.9559159 
-
-my_test$p.value
-
-# [1] 1.868307e-125
-
-tidy(my_test)
-
-# # A tibble: 1 x 8
-#   estimate statistic   p.value parameter conf.low conf.high method                           alternative
-#      <dbl>     <dbl>     <dbl>     <int>    <dbl>     <dbl> <chr>                            <chr>      
-# 1    0.956      49.6 1.87e-125       232    0.943     0.966 Pearson's product-moment correl… two.sided  
+# Residuums 
+hwy_resid <- residuals(hwy_mod)
+hwy_resid
 
 
-# 2-sample t-test -------------------------------------------------------------------
+# R-squared value 
 
-# Q: Has there been a change in highway gas mileage from 1999 to 2008?
-
-my_ttest <- t.test(formula = hwy ~ factor(year),     # DV ~ IV
-                   alternative = "two.sided",  # Two-sided test
-                   data = mpg)         # The data
-                   
-
-my_ttest  # Print result
-
-# 	Welch Two Sample t-test
-# 
-# data:  hwy by factor(year)
-# t = -0.032864, df = 231.64, p-value = 0.9738
-# alternative hypothesis: true difference in means is not equal to 0
-# 95 percent confidence interval:
-#  -1.562854  1.511572
-# sample estimates:
-# mean in group 1999 mean in group 2008 
-#           23.42735           23.45299 
-
-names(my_ttest)   # Show all named elements
-
-# [1] "statistic"   "parameter"   "p.value"     "conf.int"    "estimate"    "null.value"  "alternative"
-# [8] "method"      "data.name"  
-
-my_ttest$estimate  # Show estimates
-
-# mean in group 1999 mean in group 2008 
-#           23.42735           23.45299 
-
-my_ttest$conf.int  # Show confidence interval of difference
-
-# [1] -1.562854  1.511572
-# attr(,"conf.level")
-# [1] 0.95
-
-my_ttest$p.value  # Show p-value
-
-# [1] 0.9738111
-
-tidy(my_ttest)  # Show tidy results
-
-# # A tibble: 1 x 10
-#   estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high method         alternative
-#      <dbl>     <dbl>     <dbl>     <dbl>   <dbl>     <dbl>    <dbl>     <dbl> <chr>          <chr>      
-# 1  -0.0256      23.4      23.5   -0.0329   0.974      232.    -1.56      1.51 Welch Two Sam… two.sided  
-
-
-
-# ANOVA  -------------------------------------------------------------------
-
-# Q: Is there a difference in highway miles per gallon between car manufacturers?
-
-my_aov <- aov(formula = hwy ~ manufacturer,     # DV ~ IV
-              data = mpg)                       # The data
-                   
-
-my_aov  # Print result
-
-# Call:
-#    aov(formula = hwy ~ manufacturer, data = mpg)
-# 
-# Terms:
-#                 manufacturer Residuals
-# Sum of Squares      4459.858  3801.805
-# Deg. of Freedom           14       219
-# 
-# Residual standard error: 4.166514
-# Estimated effects may be unbalanced
-
-summary(my_aov)   # Summary results
-
-# Analysis of Variance Table
-# 
-# Response: hwy
-#               Df Sum Sq Mean Sq F value    Pr(>F)    
-# manufacturer  14 4459.9  318.56  18.351 < 2.2e-16 ***
-# Residuals    219 3801.8   17.36                      
-# ---
-# Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-
-names(my_aov)   # Show all named elements
-
-#  [1] "coefficients"  "residuals"     "effects"       "rank"          "fitted.values" "assign"       
-#  [7] "qr"            "df.residual"   "contrasts"     "xlevels"       "call"          "terms"        
-# [13] "model"
-
-my_ttest$coefficients  # Show coefficients
-
- #         (Intercept)  manufacturerchevrolet      manufacturerdodge       manufacturerford 
- #         26.44444444            -4.54970760            -8.49849850            -7.08444444 
- #   manufacturerhonda    manufacturerhyundai       manufacturerjeep manufacturerland rover 
- #          6.11111111             0.41269841            -8.81944444            -9.94444444 
- # manufacturerlincoln    manufacturermercury     manufacturernissan    manufacturerpontiac 
- #         -9.44444444            -8.44444444            -1.82905983            -0.04444444 
- #  manufacturersubaru     manufacturertoyota manufacturervolkswagen 
- #         -0.87301587            -1.53267974             2.77777778 
-
-
-tidy(my_aov)  # Show tidy results
-
-#   term            df sumsq meansq statistic   p.value
-#   <chr>        <dbl> <dbl>  <dbl>     <dbl>     <dbl>
-# 1 manufacturer    14 4460.  319.       18.4  9.22e-30
-# 2 Residuals      219 3802.   17.4      NA   NA   
+hwy_mod$r.squared
 
 ```
 
 
 ## Datasets
 
-|File | Rows | Columns |
+|Datei | Zeile | Spalte |
 |:----|:-----|:------|
-|[trial_ACTG175.csv](https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/trial_ACTG175.csv?token=AIFo1HP25ZzPdraeqxgLB9CrcSTQDN3Pks5cqOGGwA%3D%3D) | 2139 | 27 |
+|[wein.csv](https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/hitters.csv?token=AIFo1DAkrffPG4jQkX3MRidCUqDYbHggks5cqJBjwA%3D%3D) | 50 | 20 |
 
-```{r, echo = FALSE, out.width = "80%", eval = TRUE}
-knitr::include_graphics("https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/src/img/hammer_actg175_ss.jpg?token=AIFo1AUoJyymRihyXhI2vWK4Ace3H2hoks5csFmDwA%3D%3D")
-```
-
-
-The `trial_ACTG175.csv` data from the ACTG 175 clinical trial. ACTG 175 was a randomized clinical trial to compare monotherapy with zidovudine or didanosine with combination therapy with zidovudine and didanosine or zidovudine and zalcitabine in adults infected with the human immunodeficiency virus type I whose CD4 T cell counts were between 200 and 500 per cubic millimeter.
-
-The trial is documented in Hammer SM, et al. (1996), "A trial comparing nucleoside monotherapy with combination therapy in HIV-infected adults with CD4 cell counts from 200 to 500 per cubic millimeter.", New England Journal of Medicine, 335:1081–1090. The full publication can be found at https://www.nejm.org/doi/full/10.1056/NEJM199610103351501
-
-The data were originally obtained from the `speff2trial` package.
+Der `wein.csv` Datensatz enthält aus den Jahren 2004 bis 2007 des Comissão De Viticultura Da Região Dos Vinhos Verdes, der Offiziellen Zertifizierungsagentur des Vinho Verde in Portugal. 
 
 #### Variable description
 
-| Name | Description |
+| Name | Beschreibung |
 |:-------------|:-------------------------------------|
-| patient_id | patient's ID number |
-|molecule| treatment arm (0=zidovudine, 1=zidovudine and didanosine, 2=zidovudine and zalcitabine, 3=didanosine).|
-|days| number of days until the first occurrence of: (i) a decline in CD4 T cell count of at least 50 (ii) an event indicating progression to AIDS, or (iii) death.|
-| age | age in years at baseline|
-|weight_kg| weight in kg at baseline|
-|drug_history| history of intravenous drug use (0=no, 1=yes)|
-|race| race (0=white, 1=non-white)|
-|gender| gender (0=female, 1=male)|
-|symptomatic| symptomatic indicator (0=asymptomatic, 1=symptomatic)|
-|cd4_baseline| CD4 T cell count at baseline|
-|cd4_96_weeks| CD4 T cell count at 96±5 weeks (=NA if missing)|
-|cd8_baseline| CD8 T cell count at baseline|
-|cd8_20_weeks| CD8 T cell count at 20±5 weeks|
+|Qualität | Qualitätsurteil über den Weins von 1-9 |
+|Farbe| Rotr oder weisser Wien |
+|Gelöste_Säure| Konzentration der im Wein gelösten Säuren |
+|Freie_Säure| Konzenetration der verflüchtigbaren Säuren |
+|Citronensäure| Citronensäurekonzentration im Wein |
+|Restzucker| Zuckerkonzentration im Wein|
+|Chloride| Chloridkonzentration im Wein|
+|Freie_Schwefeldioxide| Konzenetration der verflüchtigbaren Schwefeldioxide |
+|Gesamt_Schwefeldioxide| Konzenetration der Schwefeldioxide insgesamt |
+|Dichte|Dichte des Weins|
+|pH_Wert|pH-Wert des Weins. Je kleiner, desto sauerer. |
+|Sulphate| Sulphatkontration im Wein |
+|Alkohol| Alkoholkonzentration im Wein in %|
 
-## Functions
+## Funktionen
 
-### Packages
+### Pakete
 
 |Package| Installation|
 |:------|:------|
 |`tidyverse`|`install.packages("tidyverse")`|
-| `broom` | `install.packages("broom")` |
-| `rsq` | `install.packages("rsq")` |
 
-### Functions
+### Funktionen
 
 | Function| Package | Description |
 |:---|:------|:---------------------------------------------|
-|     `cor.test()`|`stats`| Correlation test | 
-|     `t.test()`|`stats`| Student's T-test | 
-|     `aov()`|`stats`| Analysis of Variance| 
-|     `chisq.test()`|`stats`| Chi-square test| 
-|     `glm()`|`stats`| Generalized linear model| 
-|     `tidy()`|`broom`| Create 'tidy' results from statistical objects| 
-|     `rsq()`|`rsq`| Obtain and print R-squared values from a regression object| 
+|   `glm`|`stats`| Fit a generalized linear model  | 
+|   `fitted`|`stats`| Show fitted values from a statistical object| 
+|   `residuals`|`stats`| Show residuals (fitted minus true) values from a statistical object| 
 
+## Resourcen
 
-## Resources
+### Books
 
-### Vignettes
+https://cran.r-project.org/web/packages/pscl/vignettes/countreg.pdf
 
-- Many of these examples come from Jonas Kristoffer Lindelov's great blog post [Common statistical tests are linear models, or: how to teach stats](https://lindeloev.github.io/tests-as-linear/#1_the_simplicity_underlying_common_tests)
-- [Discovering Statistics with R](https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469) by Field et al is an excellent resource
-- [YaRrr! The Pirate's Guide to R](https://bookdown.org/ndphillips/YaRrr/) has good chapters on statistics with R.
-
-
-https://stats.idre.ucla.edu/stata/seminars/regression-models-with-count-data/
-
-https://stats.idre.ucla.edu/r/dae/zinb/
-https://stats.idre.ucla.edu/r/dae/negative-binomial-regression/
-https://towardsdatascience.com/negative-binomial-regression-f99031bb25b4
-http://faculty.econ.ucdavis.edu/faculty/cameron/racd2/
-
+- [Discovering Statistics with R](https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469) von Andy Field is excellent
+- [YaRrr! The Pirate's Guide to R](https://bookdown.org/ndphillips/YaRrr/) hat hilfreiche und unterhaltsame Kapitel zu Statistik mit R.
