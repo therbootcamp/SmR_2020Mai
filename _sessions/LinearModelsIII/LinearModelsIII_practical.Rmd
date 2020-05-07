@@ -46,7 +46,7 @@ library(tidyverse)
 
 # Load packages
 #wein <- read_csv("_sessions/LinearModelsIII/1_Data/wein.csv")
-#bigmart <- read_csv("_sessions/LinearModelsIII/1_Data/wein.csv")
+#bigmart <- read_csv("_sessions/LinearModelsIII/1_Data/bigmart.csv")
 
 ```
 
@@ -232,133 +232,66 @@ exp(abs(-1.1629))
 
 ### C - Poisson Regression: Bigmart
 
-1. Nun 
+1. Nun zum `bigmart` Datensatz. In diesem Abschnitt geht es `Verkäufe` (Kriterium) auf Basis des maximalen Preis (`Max_Preis`) und der `Visibilität` vorherzusagen. Da es sich beim Kriterium um Häufigkeiten dreht empfiehlt sich eine Regression mit `family = 'poisson'`. Verwende das Template um eine solche zu fitten. 
+
+```{r, eval = FALSE, echo = TRUE}
+# Poisson Regression
+bigmart_glm <- glm(formula = XX ~ XX + XX, 
+                   data = XX,
+                   family = 'XX')
+```
+
+```{r}
+# Poisson Regression
+bigmart_glm <- glm(formula = Verkäufe ~ Max_Preis + Visibilität, 
+                   data = bigmart,
+                   family = 'poisson')
+```
+
+2. Printe zunächst das Modell. Wie interpretierst du den Output?
+
+3. Der Output ist genauso aufgebaut wie bei der logistischen Regression. Entgegen was man intuitiv meinen könnte zeigt sich das Preis einen positiven Einfluss auf die Verkäufe hat und Visibilität einen negativen. Die Gewichte der Poisson-Regression sind ebenfalls per `exp()`-Funktion zu transformieren, um sie richtig interpretieren zu können. In diesem Fall ist es aber nicht einfach die Gewichte separat von einander zu betrachten. Siehe die Beispiele unten. 
 
 ```{r, echo = TRUE}
-# Kodierungen der Farbe
-wein <- wein %>% mutate(Farbe_dummy = ifelse(Farbe == 'rot', 0, 1),
-                        Farbe_effekt = ifelse(Farbe == 'rot', -1, 1))
+# Interpretation der Gewichte
+exp(6.71409) # Erwartete Häufigkeit wenn Max_Preis = 0 & Visibilität = 0
+exp(6.71409 + 0.00715) # Erwartete Häufigkeit wenn Max_Preis = 1 & Visibilität = 0
+exp(6.71409 - 2.11849) # Erwartete Häufigkeit wenn Max_Preis = 0 & Visibilität = 1
+exp(6.71409 + 0.00715 - 2.11849) # Erwartete Häufigkeit wenn Max_Preis = 0 & Visibilität = 1
 ```
 
-2. Rechne nun zwei Regression, jeweils eine mit einer der beiden Farbkodierungen als Prädiktor und speichere sie ab als `wein_dummy` und `wein_effekt`.   
+4. Evaluiere nun die `summary()`. Was beobachtest du?
+
+5. Alle Effkte sind trotz des teilweise kleinen Einflusses (im Fall von `Max_Preis`), was sicherlich der grossen Stichprobe zu schulden ist. Nichtsdestotrotz, zeigt die `Residual deviance` und der ein klar niedrigeren Wert als die `Null deviance`. Was sagt dir dies? 
+
+
+### D - Negative binomial Regression: Bigmart
+
+1. Heutzutage wird dem Poisson Modell oftmals das Negative Binomial Modell vorgezogen, welches eine Verallgemeinerung ersteren darstellt. Verwende die `glm.nb()` aus dem `MASS` Paket um eine solche Regression mit denselben Variablen wie zuletzt zu rechnen. Verwende das Template unten.
 
 ```{r, eval = FALSE, echo = TRUE}
-# Regression dummy
-wein_dummy <- lm(formula = XX ~ XX, 
-                 data = XX)
+# Lade MASS
+library(MASS)
 
-# Regression effekt
-wein_effekt <- lm(formula = XX ~ XX, 
-                  data = XX)
+# Negative Binomial Regression
+bigmart_glm.nb <- glm.nb(formula = XX ~ XX + XX, 
+                         data = XX)
 ```
 
 ```{r}
-# Regression dummy
-wein_dummy <- lm(formula = Qualität ~ Farbe_dummy, 
-                 data = wein)
+# Lade MASS
+library(MASS)
 
-# Regression effekt
-wein_effekt <- lm(formula = Qualität ~ Farbe_effekt, 
-                  data = wein)
+# Poisson Regression
+bigmart_glm.nb <- glm.nb(formula = Verkäufe ~ Max_Preis + Visibilität, 
+                      data = bigmart)
 ```
 
-3. Printe nun die beiden Objekte und vergleiche die Gewichte. Diejenigen der Dummy-Kodierung sollten dir bekannt vorkommen. Wie verhalten sich die Gewichte der Effektkodierung dagegen? Erkennst du den Zusammenhang?
+2. Printe das Objekt und vergleiche die Regressionsgewichte mit denen der Poisson Regression. Hat sich was verändrt?
 
-4. Der Effekt der Farbe unter der Effektkodierung entspricht genau der Hälfte des Effekts unter der Dummykodierung und um dies auszugleichen hat sich der Intercept auch um genau den selben Wert verändert, nur in die andere Richtung. Verifiziert die Gewichte mit den einfachen Rechnungen im Code unten. 
+3. Nein, die Regressionsgewichte sind sehr stabil geblieben. Print die `summary()`. Was beobachtest du?
 
-```{r, echo = TRUE}
-# Dummy-Kodierung
-mean(rot) # intercept
-mean(weiss) - mean(rot) # gewicht farbe
-
-# EffekKodierung
-(mean(rot) + mean(weiss))/2 # intercept
-mean(weiss) - (mean(rot) + mean(weiss))/2 # gewicht farbe
-```
-
-5. Vergleiche nun die `summary()` der beiden Modelle. Was unterscheidet sich, und was nicht?
-
-```{r}
-# Regression dummy
-summary(wein_dummy)
-
-# Regression effekt
-summary(wein_effekt)
-```
-
-6. Die Kodierung hat ausgenommen die Skalierung des Regressionsgewichts und des zugehörigen Standardfehlers für Farbe keinen Einfluss. t-Wert und signifikanz sind identisch. Einzig der Intercept ändert sich wesentlich, da er unter der Effektkodierung tatsächlich weiter von Null entfernt ist.
-
-### C - Interaktionen
-
-1. Der erste Abschnitt hat gezeigt, dass weisser Wein gegenüber Rotem bevorzugt wurde. Könnte dies daran liegen, dass nicht für andere Variablen kontrolliert wurde? Oder könnte es sein, dass dieser Unterschied nur unter bestimmten Bedingungen gilt, d.h., dass es Moderatoren für den Effekt der Farbe gibt? Rechne eine Regression die zusätzlich `Alkohol` mit aufnimmt und verknüpfe die Prädiktoren mit `*` sodass auch die Interaktion berücksichtigt wird.   
-
-```{r, eval = FALSE, echo = TRUE}
-# Regression mit Interaktion
-wein_lm <- lm(formula = XX ~ XX * XX, 
-              data = XX)
-```
-
-```{r}
-# Regression mit Interaktion
-wein_lm <- lm(formula = Qualität ~ Farbe * Alkohol, 
-              data = wein)
-```
-
-2. Printe das Objekt und betrachte die Gewichte. Wie interpretierst du die einzelnen Werte?
-
-3. Folgendermassen lassen sich die Gewichte inetrpretieren: Unter Berücksichtigung von Alkohol und der Interaktion, werden weisse Weine um `.7` besser bewertet. Unter Berücksichtigung der Farbe (d.h. für Farbe == 'rot') und der Interaktion, hat führt ein Anstieg von einem Volumenprozent zu einer Verbesserung der wahrgenommenen Qualität von `.36`. Unter Berücksichtigung von Farbe und Alkohol, führt die Interaktion, also das Produkt der beiden Prädiktoren zu einer Veränderung von `-.05`. Dies ist so zu interpretieren, dass der Effekt von Alkohol unter Weissweinen um genau diese Grösse kleiner ist. Dies bedeutet im Umkerhschluss dass der Effekt von Farbe unter hoch-alkoholischen Weinen kleiner ausfällt. Verwendet den Code unten um diese Ergebnisse zu visualisieren. Gelb bedeutet Weisswein, lila Rotwein.
-
-```{r}
-# Visualisierung
-ggplot(data = wein, 
-       aes(x = Alkohol, y = Qualität, col = Farbe, alpha = .01)) + 
-  scale_color_manual(values = viridis::cividis(2)) + xlim(c(7, 14)) + 
-  geom_jitter(width=2,height=1.5,size=.1) + theme_minimal() + theme(legend.position = 'none') +
-  geom_smooth(data = wein %>% filter(Farbe == 'weiss'), method = 'lm') + 
-  geom_smooth(data = wein %>% filter(Farbe == 'rot'), method = 'lm')
-
-```
-
-4. Lasse dir nun die `summary()` und inspiziere die t-Werte und Signifikanzen. Welche Prädiktoren sind signifikant?
-
-5. Alle drei Prädiktoren sind signifikant. t-Wert und Signifikanz sind am extremsten für `Alkohol`, jedoch ist das Gewicht für `Alkohol` nur halb so gross. Wie ist dies zu erklären?  
-6. Genau die Gewichte hängen auch von der Skalierung der Prädiktoren ab. Rechne nun die Regression noch einmal, aber diesmal mit skalierten Prädiktoren. Siehe Code unten.
-
-```{r, eval = FALSE, echo = TRUE}
-# Skalierungsfunktion
-skaliere = function(x) (x - mean(x))/sd(x)
-
-# Regression mit skalierten Prädiktoren
-wein_lm <- lm(formula = XX ~ XX * XX, 
-              data = XX %>% mutate_if(is.numeric, skaliere))
-```
-
-```{r}
-# Regression mit skalierten Prädiktoren
-wein_lm <- lm(formula = Qualität ~ Farbe * Alkohol, 
-              data = wein %>% mutate_if(is.numeric, skaliere))
-```
-
-7. Printe zunächst einmal das Objekt und betrachtet die Gewichte. Alle Werte haben sich substantiell verändert. Insbesondere hat nun Alkohol das zweifach höhre Gewicht. Wie sind diese neuen Gewichte zu interpretieren, wenn du bedenkst, dass nach der Skalierung alle Variablen eine Standardabweichung = 1 haben? 
-
-8. Nach Skalierung sind die Gewichte als Veränderungen in Standardabweichungen zu interpretieren. Z.B., eine Veränderung von einer Standardabweichungen in `Alkohol` führt demnach zu einer Veränderung von `.4928` Standardabweichungen in der Qualität. Am meisten hat sich der Intercept verändert. Wie interpretiert ihr diesen unter der Skalierung?     
-
-9. Der Intercept ist der geschätzte Mittelwert des Kriteriums für den Fall in dem alle Prädiktoren Null sind. Ohne Skalierung ist dieser Fall schwer zu interpretieren, da Null nicht vorkommen muss in den Prädiktoren. Unter der Skalierung ändert sich dies aber, denn nun haben alle Prädiktoren, mit Ausnahme des Faktors `Farbe` einen Mittelwert von Null. Das heisst der Intercept spiegelt die Qualität für ein mittleres Level von Alkohol, rote Weine und keine Interaktion in Standardabweichungen wieder. Dies kannst du wiederum in per Visualisierung nachvollziehen. Benutze den Code unten und suche den Punkt auf der lila Linie für Alkohol = 0.    
-
-```{r}
-# Visualisierung
-ggplot(data = wein %>% mutate_if(is.numeric, skaliere), 
-       aes(x = Alkohol, y = Qualität, col = Farbe, alpha = .01)) + 
-  scale_color_manual(values = viridis::cividis(2))  + 
-  geom_jitter(width=2,height=1.5,size=.1) + theme_minimal() + theme(legend.position = 'none') +
-  geom_smooth(data = wein %>% mutate_if(is.numeric, skaliere) %>% filter(Farbe == 'weiss'), method = 'lm') + 
-  geom_smooth(data = wein %>% mutate_if(is.numeric, skaliere) %>% filter(Farbe == 'rot'), method = 'lm')
-
-```
-
-10. Schaue dir nun die `summary()` an. Was hat sich verändert bzgl. t-Werten, Signifikanzen, und Standardfehlern, und R-squared? 
-
-11. Ein grosser und in diesem Fall der Einzige Einfluss besteht auf die Variable `Farbe`, welche als einzige nicht mit standardisiert wurde. Vor der standardisierung von `Alcohol` war Farbe beinahe perfekt mit der Interaktion korreliert, was zu einem extrem aufgeblasenen Standardfehler geführt hat. Die Standardisierung hat diese Korrelation jedoch stark reduziert, so dass der Standardfehler auf das Niveau der anderen Prädiktoren gefallen ist. In der Konklusion lohnt es sich beinahe immer die die Prädiktoren (oder auch das Kriterium) zu standardisieren, wenn ein Vergleich der Gewichte und Signifikanzen von Interesse ist. 
+4. Alle Effekt sind immer noch signifikant. Was sich jedoch geändert hat sind die Deviances, was mit einem komplexen zweistufigen Fitting-Prozess zu tun hat. Vergleichbar sind aber immmer noch AIC und der Wert der ganz am Ende angegeben wird, welcher die volle Deviance für das Modell ist. Du wirst festellen, dass beide Werte deutlich besser ausfallen, als bei der Poisson Regression, was naheleget, dass das Negative-Binomial Modell tatsächlich geeigneter ist, die Daten zu beschreiben. 
 
 
 ## Beispiele
@@ -371,7 +304,7 @@ library(tidyverse)
 # Model:
 # Sagt der Hubraum (displ) die pro gallone 
 # fahrbaren Meilen voraus?
-hwy_mod <- glm(formula = hwy ~ displ,
+hwy_mod <- lm(formula = hwy ~ displ,
                data = mpg)
 
 # Ergebnisse 
@@ -420,13 +353,19 @@ Der `wein.csv` Datensatz enthält aus den Jahren 2004 bis 2007 des Comissão De 
 |Sulphate| Sulphatkontration im Wein |
 |Alkohol| Alkoholkonzentration im Wein in %|
 
-|Verkäufe||
-|Gewicht||
-|Fettgehalt||
-|Visibilität||
-|Typ||
-|Max_Preis||
-|Ladengrösse||
+#### bigmart.csv
+
+Der `bigmart.csv` Datensatz enthält Verkaufszahlen einer nationalen Supermarktkette in Nepal aus dem Jahre 2013 für 1559 Produkte und 10 verschiedene Sumpermarktfilialen. 
+
+| Name | Beschreibung |
+|:-------------|:-------------------------------------|
+|Verkäufe|Verkaufszahlen|
+|Gewicht|Gewicht des Produkts|
+|Fettgehalt|Normal oder niedrig (low-fat)|
+|Visibilität| Verkaufsfläche für das Produkt  |
+|Typ| Art des Produkts |
+|Max_Preis| Maximaler Preis |
+|Ladengrösse| Ladengrösse |
 
 
 ## Funktionen
@@ -436,20 +375,24 @@ Der `wein.csv` Datensatz enthält aus den Jahren 2004 bis 2007 des Comissão De 
 |Package| Installation|
 |:------|:------|
 |`tidyverse`|`install.packages("tidyverse")`|
+|`mosaic`|`install.packages("mosaic")`|
+|`MASS`|`install.packages("MASS")`|
 
 ### Funktionen
 
 | Function| Package | Description |
 |:---|:------|:---------------------------------------------|
-|   `glm`|`stats`| Fit a generalized linear model  | 
+|   `lm`, s`glm`|`stats`| Fit a (generalized) linear model  | 
 |   `fitted`|`stats`| Show fitted values from a statistical object| 
 |   `residuals`|`stats`| Show residuals (fitted minus true) values from a statistical object| 
+|   `gml.nb`|`MASS`| Fit a (generalized) linear model with negative binomial links| 
+
 
 ## Resourcen
 
 ### Books
 
-https://cran.r-project.org/web/packages/pscl/vignettes/countreg.pdf
+- Hilfreiche [Vignette](https://cran.r-project.org/web/packages/pscl/vignettes/countreg.pdf) über Regressionen für Häufigkeiten mit R.s
 
 - [Discovering Statistics with R](https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469) von Andy Field is excellent
 - [YaRrr! The Pirate's Guide to R](https://bookdown.org/ndphillips/YaRrr/) hat hilfreiche und unterhaltsame Kapitel zu Statistik mit R.

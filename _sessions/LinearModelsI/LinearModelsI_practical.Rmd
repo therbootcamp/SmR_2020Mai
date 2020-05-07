@@ -294,7 +294,7 @@ library(tidyverse)
 # Model:
 # Sagt der Hubraum (displ) die pro gallone 
 # fahrbaren Meilen voraus?
-hwy_mod <- glm(formula = hwy ~ displ,
+hwy_mod <- lm(formula = hwy ~ displ,
                data = mpg)
 
 # Ergebnisse 

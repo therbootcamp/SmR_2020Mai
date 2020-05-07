@@ -310,7 +310,7 @@ library(tidyverse)
 # Model:
 # Sagt der Hubraum (displ) die pro gallone 
 # fahrbaren Meilen voraus?
-hwy_mod <- glm(formula = hwy ~ displ,
+hwy_mod <- lm(formula = hwy ~ displ,
                data = mpg)
 
 # Ergebnisse 
@@ -338,6 +338,7 @@ hwy_mod$r.squared
 |Datei | Zeile | Spalte |
 |:----|:-----|:------|
 |[wein.csv](https://raw.githubusercontent.com/therbootcamp/SmR_2020Mai/master/1_Data/wein.csv) | 6497 | 13 |
+|[wein.csv](https://raw.githubusercontent.com/therbootcamp/SmR_2020Mai/master/1_Data/bigmart.csv) | 8523 | 7 |
 
 #### wein.csv
 
@@ -359,6 +360,20 @@ Der `wein.csv` Datensatz enthält aus den Jahren 2004 bis 2007 des Comissão De 
 |Sulphate| Sulphatkontration im Wein |
 |Alkohol| Alkoholkonzentration im Wein in %|
 
+#### wein.csv
+
+Der `wein.csv` Datensatz enthält aus den Jahren 2004 bis 2007 des Comissão De Viticultura Da Região Dos Vinhos Verdes, der Offiziellen Zertifizierungsagentur des Vinho Verde in Portugal. 
+
+| Name | Beschreibung |
+|:-------------|:-------------------------------------|
+|Verkäufe||
+|Gewicht||
+|Fettgehalt||
+|Visibilität||
+|Typ||
+|Max_Preis||
+|Ladengrösse||
+
 ## Funktionen
 
 ### Pakete
@@ -366,6 +381,8 @@ Der `wein.csv` Datensatz enthält aus den Jahren 2004 bis 2007 des Comissão De 
 |Package| Installation|
 |:------|:------|
 |`tidyverse`|`install.packages("tidyverse")`|
+|`mosaic`|`install.packages("mosaic")`|
+|`MASS`|`install.packages("MASS")`|
 
 ### Funktionen
 
