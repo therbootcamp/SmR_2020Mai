@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -84,7 +84,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -146,6 +145,7 @@ summary {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -157,18 +157,6 @@ summary {
   display: none;
 }
 </style>
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
 
 <!-- code folding -->
 
@@ -195,7 +183,7 @@ $(document).ready(function () {
 <col width='10%'>
 <tr style="border:none">
 <td style="display:block;width:100%;text-align:left;vertical-align:bottom;padding:0;margin:0;border:none" nowrap>
-<font style='font-style:normal'>Statistics with R</font><br> <a href='https://therbootcamp.github.io/SmR_2020Mai/'> <i class='fas fa-clock' style='font-size:.9em;' ></i> </a> <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;'></i> </a> <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a> <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a> <a href='https://therbootcamp.github.io'> <font style='font-style:normal'>The R Bootcamp</font> </a>
+<font style='font-style:normal'>Statistik mit R</font><br> <a href='https://therbootcamp.github.io/SmR_2020Mai/'> <i class='fas fa-clock' style='font-size:.9em;' ></i> </a> <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;'></i> </a> <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a> <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a> <a href='https://therbootcamp.github.io'> <font style='font-style:normal'>The R Bootcamp</font> </a>
 </td>
 <td style="width:100%;vertical-align:bottom;text-align:right;padding:0;margin:0;border:none">
 <img src='https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png' style='height:15px;width:80px'/>
@@ -211,11 +199,11 @@ $(document).ready(function () {
 </p>
 <div id="section" class="section level1 tabset">
 <h1></h1>
-<div id="uberblick" class="section level2">
+<div id="überblick" class="section level2">
 <h2>Überblick</h2>
 <p>Am Ende des Practicals wirst du wissen…</p>
 <ol style="list-style-type: decimal">
-<li>Wie du einfache und multiple Regression in R implementierst.</li>
+<li>Wie du einfache und multiple Regressionen in R implementierst.</li>
 <li>Wie du die Ergebnisse einer Regression interpretierst.</li>
 </ol>
 </div>
@@ -224,7 +212,7 @@ $(document).ready(function () {
 <div id="a---setup" class="section level3">
 <h3>A - Setup</h3>
 <ol style="list-style-type: decimal">
-<li><p>Öffne dein <code>TheRBootcamp</code> R project. Es sollte die Ordner <code>1_Data</code> und <code>2_Code</code> enthalten. Stelle sicher, dass du alle Datensätze, welche im <code>Datensätze</code> Tab aufgelisted sind, in deinem <code>1_Data</code> Ordner hast.</p></li>
+<li><p>Öffne dein <code>TheRBootcamp</code> R project. Es sollte die Ordner <code>1_Data</code> und <code>2_Code</code> enthalten. Stelle sicher, dass du alle Datensätze, welche im <code>Datensätze</code> Tab aufgelistet sind, in deinem <code>1_Data</code> Ordner hast.</p></li>
 <li><p>Öffne ein neues R Skript. Schreibe deinen Namen, das Datum und “Lineare Modelle Practical” als Kommentare an den Anfang des Skripts.</p></li>
 </ol>
 <pre class="r"><code>## NAME
@@ -232,7 +220,7 @@ $(document).ready(function () {
 ## Lineare Modelle Practical</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li><p>Speichere das neue Skript unter dem Namen <code>lineare_modelle_practical.R</code> im <code>2_Code</code> Ordner.</p></li>
-<li><p>Lade die Pakete <code>tidyverse</code>.</p></li>
+<li><p>Lade das Paket <code>tidyverse</code>.</p></li>
 <li><p>Verwende die <code>read_csv()</code> Funktion um <code>wein.csv</code> einzulesen.</p></li>
 </ol>
 <pre class="r"><code># Lese Daten ein
@@ -240,7 +228,7 @@ wein &lt;- read_csv(file = &quot;1_Data/wein.csv&quot;)</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li><p>Printe den Datensatz.</p></li>
 <li><p>Verwende <code>names(XX)</code>, <code>summary(XX)</code>, und <code>View()</code> um einen weiteren Überblick über die Daten zu bekommen.</p></li>
-<li><p>Führe den Code unten aus um sicherzustellen, dass alle <code>character</code> Variablen als Faktoren vorliegen, was den statistischen Modellen hilft kategoriale Variablen richtig zu interpretieren.</p></li>
+<li><p>Führe den Code unten aus um sicherzustellen, dass alle <code>character</code> Variablen als Faktoren vorliegen. Das hilft den statistischen Modellen kategoriale Variablen richtig zu interpretieren.</p></li>
 </ol>
 <pre class="r"><code># Konvertiere alle character zu factor
 wein &lt;- wein %&gt;% mutate_if(is.character, factor)</code></pre>
@@ -248,65 +236,65 @@ wein &lt;- wein %&gt;% mutate_if(is.character, factor)</code></pre>
 <div id="b---einfache-regression" class="section level3">
 <h3>B - Einfache Regression</h3>
 <ol style="list-style-type: decimal">
-<li>In diesem ersten Abschnitt geht es darum den Effekt von <code>Restzucker</code> (Prädiktor) auf die wahrgenommene <code>Qualität</code> (Kriterium) des Weines zu prüfen. Verwende das template unten, um ein enstprechendes lineares Modell zu testen und in das Objekt <code>wein_lm</code> zu speichern.</li>
+<li>In diesem ersten Abschnitt geht es darum den Effekt von <code>Restzucker</code> (Prädiktor) auf die wahrgenommene <code>Qualität</code> (Kriterium) des Weines zu prüfen. Verwende das template unten, um ein entsprechendes lineares Modell zu testen und in das Objekt <code>wein_lm</code> zu speichern.</li>
 </ol>
 <pre class="r"><code># Einfache Regression
 wein_lm &lt;- lm(formula = XX ~ XX,
               data = XX)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li><p>Printe das Fit-Objekt <code>wein_lm</code>. Welche Information wird dir angezeigt? Was sagen dir die Werte?</p></li>
-<li><p>Der Default-Output von <code>lm</code>-Objeketen ist nicht sehr informatin. Er zeigt nur den Code und die Schätzungen für die beiden Parameter: den Intercept und das Gewicht für <code>Restzucker</code>. Verwende <code>summary()</code> um einen informativeren Output zu erhalten.</p></li>
+<li><p>Der Default-Output von <code>lm</code>-Objekten ist nicht sehr informativ. Er zeigt nur den Code und die Schätzungen für die beiden Parameter: den Intercept und das Gewicht für <code>Restzucker</code>. Verwende <code>summary()</code> um einen informativeren Output zu erhalten.</p></li>
 </ol>
 <pre class="r"><code># Zeige Ergebnisse
 summary(XX)</code></pre>
 <ol start="4" style="list-style-type: decimal">
-<li>Summary zeigt einem ausfürhliche Ergebnisse in fünf Sektionen:</li>
+<li>Summary zeigt einem ausführliche Ergebnisse in fünf Sektionen:</li>
 </ol>
 <ul>
 <li>Call: Der Modellcode.</li>
-<li>Resdiuals: Verschiedene Statistiken der Verteilung der Residuen.</li>
-<li>Coefficients: Die Schätzere und Tests für die Modellparameter.</li>
+<li>Residuals: Verschiedene Statistiken der Verteilung der Residuen.</li>
+<li>Coefficients: Die Schätzer und Tests für die Modellparameter.</li>
 <li>Signif. codes: Übliche Kodierung für Signifikanzlevels.</li>
 <li>Schluss: Statistiken über dem Gesamtfit des Modells.</li>
 </ul>
 <p>Welche Sektion zeigt an, welchen Einfluss <code>Restzucker</code> auf die Qualität des Weines hat?</p>
 <ol start="5" style="list-style-type: decimal">
-<li><p>In der Tat, die Sektion <code>Coefficients</code> zeigt an, welche Werte für die Parameter geschätzt wurden und ob sie signifikant (gegeben H0) sind, und ist daher meist von zentralem Interesse. Welcher Paramterwert bzw. welches Gewicht (<code>Estimate</code>) wurde für <code>Restzucker</code> ermittel? Was bedeutet dieser Wert?</p></li>
-<li><p>Exakt, ein Anstieg von <code>1</code> (g/ml) geht mit einer Veränderung <code>-.0067</code> in der Qualität einher. Also je süsser deer Wein, desto niedriger die eingeschätzte Qualität. Aber ist dieser Effekt signifikant? Was zeigt der p-Wert für <code>Restzucker</code> an?</p></li>
+<li><p>In der Tat, die Sektion <code>Coefficients</code> zeigt an, welche Werte für die Parameter geschätzt wurden und ob sie signifikant (gegeben H0) sind, und ist daher meist von zentralem Interesse. Welcher Paramterwert bzw. welches Gewicht (<code>Estimate</code>) wurde für <code>Restzucker</code> ermittelt? Was bedeutet dieser Wert?</p></li>
+<li><p>Exakt, ein Anstieg von <code>1</code> (g/ml) geht mit einer Veränderung von <code>-.0067</code> in der Qualität einher. Also je süsser der Wein, desto niedriger die eingeschätzte Qualität. Aber ist dieser Effekt signifikant? Was zeigt der p-Wert für <code>Restzucker</code> an?</p></li>
 <li><p>Der Effekt von <code>Restzucker</code> ist signifikant von Null verschieden. Versuche nachzuverfolgen wie R zu diesem Wert kommt. Erinnere dich, der p-Wert folgt aus der Teststatistik, in diesem Fall <i>t</i>. Was ist der t-Wert für <code>Restzucker</code>?</p></li>
-<li><p>Der t-Wert ist <code>-2.982</code>. D.h., das beobachtete Ergebnis hat in der <i>t</i>-Verteilung mit 6,495 Freiheitsgraden (siehe Schlussabschnitt des Outputs) eine eben solche Ausprägung. Der p-Wert ist nun die Fläche unterhalb der Verteilung in die Richtung extremerer Werte. Die Funktion <code>pt()</code> gibt bestimmte t-Werte die Fläche für niedrigere Werte raus. Probiert einmal was ihr erhaltet, wenn ihr den ermittelten t-Wert (<code>q</code> für Quantil) und die Freiheitsgrade (<code>df</code>) in die Funktion eingebt. Wie könnte der Zusammenhang zum p-Wert im Ergebnis aussehen?</p></li>
+<li><p>Der t-Wert ist <code>-2.982</code>. D.h., das beobachtete Ergebnis hat in der <i>t</i>-Verteilung mit 6,495 Freiheitsgraden (siehe Schlussabschnitt des Outputs) eine eben solche Ausprägung. Der p-Wert ist nun die Fläche unterhalb der Verteilung in die Richtung extremerer Werte. Die Funktion <code>pt()</code> gibt für bestimmte t-Werte die Fläche für niedrigere Werte raus. Probiert einmal was ihr erhaltet, wenn ihr den ermittelten t-Wert (<code>q</code> für Quantil) und die Freiheitsgrade (<code>df</code>) in die Funktion eingebt. Wie könnte der Zusammenhang zum p-Wert im Ergebnis aussehen?</p></li>
 </ol>
 <pre class="r"><code># Berechne Fläche unter t-Wert
 pt(q = XX, df = XX)</code></pre>
 <ol start="9" style="list-style-type: decimal">
-<li><p>Genau der emittelte Wert ist genau die Hälfte des p-Werts. Das hat damit zu tun, dass R-automatisch zweiseitig testet, d.h., Abweichungen in die positive und negative Richtung gleichermassen berücksichtigt. Hätte man eine klar gerichtete Hypothese, könnte man also den p-Wert im Ergenis halbieren.</p></li>
-<li><p>Es gibt noch weitere Werte, die du miteinander verknüpfen kannst. Der t-Wert ergibt sich nämlich unmittelbar aus dem Gewicht (<code>Estimate</code>) und dem Standardfehler (<code>Std.Error</code>). Kannst du den Zusammenang erkennen?</p></li>
+<li><p>Genau der ermittelte Wert ist genau die Hälfte des p-Werts. Das hat damit zu tun, dass R-automatisch zweiseitig testet, d.h., Abweichungen in die positive und negative Richtung gleichermassen berücksichtigt. Hätte man eine klar gerichtete Hypothese, könnte man also den p-Wert im Ergebnis halbieren.</p></li>
+<li><p>Es gibt noch weitere Werte, die du miteinander verknüpfen kannst. Der t-Wert ergibt sich nämlich unmittelbar aus dem Gewicht (<code>Estimate</code>) und dem Standardfehler (<code>Std.Error</code>). Kannst du den Zusammenhang erkennen?</p></li>
 <li><p>Der t-Wert ist nichts anderes als das Gewicht geteilt durch den Standardfehler. Betrachte nun die andere, erste Zeile des <code>Coefficients</code> Outputs. Wie interpretierst du ihn? Die Zeile gibt die Ergebnisse für den Intercept an, d.h., den Wert des Kriterium, wenn der Prädiktor Null ist. Nicht leicht zu interpretieren, oder? Es gibt keinen Wein mit <code>Restzucker</code> gleich Null. Später mehr dazu.</p></li>
-<li><p>Lenke nun deine Aufmerksamkeit auf den Schlussteil. Hier siehst du weitere Zusammenfassung über das Modell. Von besonderem Interesse ist das <code>Multiple R-squared</code>, da es angibt wie viel Varianz das Modell insgesamt am Kriterium erklären kann. Was meinst du, ist der Wert gross oder klein?</p></li>
-<li><p>Der Wert ist in der Tat relativ klein. Nur .1% der Varianz kann aufgeklärt werden, was wirklich nicht viel ist. Zeit weitere Prädiktoren hinzunehmen.</p></li>
+<li><p>Lenke nun deine Aufmerksamkeit auf den Schlussteil. Hier siehst du eine weitere Zusammenfassung über das Modell. Von besonderem Interesse ist das <code>Multiple R-squared</code>, da es angibt wie viel Varianz das Modell insgesamt am Kriterium erklären kann. Was meinst du, ist der Wert gross oder klein?</p></li>
+<li><p>Der Wert ist in der Tat relativ klein. Nur .1% der Varianz kann aufgeklärt werden, was wirklich nicht viel ist. Zeit weitere Prädiktoren hinzuzunehmen.</p></li>
 </ol>
 </div>
 <div id="c---multiple-regression" class="section level3">
 <h3>C - Multiple Regression</h3>
 <ol style="list-style-type: decimal">
-<li>Teste nun den Effekt mehreren Prädiktoren auf die wahrgenommene <code>Qualität</code> (Kriterium) des Weines. Inkludiere neben <code>Restzucker</code> <code>pH-Wert</code>, <code>Alcohol</code>, und <code>Sulphate</code>. Verwende das template unten, um ein enstprechendes lineares Modell zu testen und in das Objekt <code>wein_lm</code> zu speichern.</li>
+<li>Teste nun den Effekt mehrerer Prädiktoren auf die wahrgenommene <code>Qualität</code> (Kriterium) des Weines. Inkludiere neben <code>Restzucker</code> <code>pH-Wert</code>, <code>Alcohol</code>, und <code>Sulphate</code>. Verwende das template unten, um ein entsprechendes lineares Modell zu testen und in das Objekt <code>wein_lm</code> zu speichern.</li>
 </ol>
 <pre class="r"><code># Multiple Regression
 wein_lm &lt;- lm(formula = XX ~ XX + XX + XX + XX,
               data = XX)</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li><p>Printe wiederum das Modell. Wie interpretierst du die Grössen der Regressionsgewichte Kannst du aus ihnen ablesen, welchr Prädiktor die meiste Bedeutung hat?</p></li>
+<li><p>Printe wiederum das Modell. Wie interpretierst du die Grössen der Regressionsgewichte Kannst du aus ihnen ablesen, welcher Prädiktor die meiste Bedeutung hat?</p></li>
 <li><p>Rohe Regressionsgewichte lassen nicht darauf schliessen, welche Bedeutung ein Prädiktor hat, da die Skalierung der Prädiktoren unmittelbar mit einfliesst. Wäre z.B. Alkohol in Promille angegeben, dann wäre das Gewicht 10x grösser. Dies kannst du leicht mit dem Template unten testen. Füge die vier Prädiktoren ein sodass Alkohol in innerhalb der <code>I()</code> steht und führe das Modell aus. Speichere es aber nicht.</p></li>
 </ol>
 <pre class="r"><code># Multiple Regression
 lm(formula = XX ~ XX + XX + I(XX / 10) + XX,
    data = XX)</code></pre>
 <ol start="4" style="list-style-type: decimal">
-<li><p>Also Rohe Regressionsgewichte müssen immer relativ zur Skalierung interpretriert werden. Nichtsdestotrotz ist bereits etwas bemerkenswertes an den Gewichten ablesbar. Schau dir das Regressionsgewicht für <code>Restzucker</code> an. War das nicht mal negativ? Führt mehr Zucker plöltzlich zu höherer wahrgenommener Qualität?</p></li>
+<li><p>Also, hohe Regressionsgewichte müssen immer relativ zur Skalierung interpretiert werden. Nichtsdestotrotz ist bereits etwas bemerkenswertes an den Gewichten ablesbar. Schau dir das Regressionsgewicht für <code>Restzucker</code> an. War das nicht mal negativ? Führt mehr Zucker plötzlich zu höherer wahrgenommener Qualität?</p></li>
 <li><p>So einfach ist das leider nicht. In der multiplen Regression hängt alles mit allem zusammen. D.h., das Gewicht von <code>Restzucker</code> hängt von den anderen Gewichten mit ab und ist konditional zu interpretieren. Wiederum nicht leicht!</p></li>
 <li><p>Schaue dir nun die <code>summary()</code> an. Welche Effekte gehen in welche Richtung, welche Effekte sind signifikant?</p></li>
-<li><p>Alkohol, Sulphate, und Restzucker hängen alle drei signifikant positiv mit der Qaulität zusammen, der pH-Wert dagegen negativ, jedoch nicht signifikant. Auf Basis der Summary, kannst du jetzt ausmachen, welcher Prädiktor die grösste Bedeutung hat? Welcher Wert würdest du zu Rate ziehen?</p></li>
-<li><p>Am besten zieht man in der Tat den t-Wert heran. Je grösser dieser ist, desto grösser ist das Signal für den assoziierten Prädiktor. Richte nun deine Aufmerksamkeit auf den Schlussteil. Wie grosse ist <code>R-squared</code>?</p></li>
+<li><p>Alkohol, Sulphate, und Restzucker hängen alle drei signifikant positiv mit der Qualität zusammen, der pH-Wert dagegen negativ, jedoch nicht signifikant. Auf Basis der Summary, kannst du jetzt ausmachen, welcher Prädiktor die grösste Bedeutung hat? Welcher Wert würdest du zu Rate ziehen?</p></li>
+<li><p>Am besten zieht man in der Tat den t-Wert heran. Je grösser dieser ist, desto grösser ist das Signal für den assoziierten Prädiktor. Richte nun deine Aufmerksamkeit auf den Schlussteil. Wie gross ist <code>R-squared</code>?</p></li>
 <li><p>Das <code>R-squared</code> hat sich deutlich erhöht. Nun werden knapp 22% der Varianz des Kriteriums erklärt. Auch dies ist etwas, dass wir unmittelbar mit den Funktionen nachvollziehen können. Speichert mit dem template zunächst das Kriterium, die Residuen und die gefitteten Werte. Für letztere beiden gibt es, wie ihr seht, nützliche Funktionen.</p></li>
 </ol>
 <pre class="r"><code># Residuen &amp; gefittete Werte
@@ -319,13 +307,13 @@ residuen &lt;- residuals(wein_lm)
 gefitted &lt;- fitted(wein_lm)</code></pre>
 <ol start="10" style="list-style-type: decimal">
 <li><p>Jetzt teilt ihr einmal die Varianz der gefitteten Werte (<code>var(gefitted)</code>) durch die Varianz des Kriteriums (<code>var(kriterium)</code>).</p></li>
-<li><p>Er voila, ihr habt <code>R-squared</code> gefunden. Ihr könnte jetzt auch einmal die Varianz der Residuen und die der gefitteten Werte addieren und mit der Varianz des Kriteriums vergleichen.</p></li>
+<li><p>Et voilà, ihr habt <code>R-squared</code> gefunden. Ihr könnt jetzt auch einmal die Varianz der Residuen und die der gefitteten Werte addieren und mit der Varianz des Kriteriums vergleichen.</p></li>
 </ol>
 </div>
-<div id="d---multiple-regression-alle-pradiktoren" class="section level3">
+<div id="d---multiple-regression-alle-prädiktoren" class="section level3">
 <h3>D - Multiple Regression: Alle Prädiktoren</h3>
 <ol style="list-style-type: decimal">
-<li>Teste nun den Effekt aller Prädiktoren (bis auf <code>Farbe</code>) auf die wahrgenommene <code>Qualität</code> (Kriterium) des Weines. Um alle Prädiktoren zu inkludieren kann man einfach <code>.</code> verwenden, und um einen auszuschliessen <code>-</code>- Verwende das template unten, um ein enstprechendes lineares Modell zu testen und in das Objekt <code>wein_lm</code> zu speichern.</li>
+<li>Teste nun den Effekt aller Prädiktoren (bis auf <code>Farbe</code>) auf die wahrgenommene <code>Qualität</code> (Kriterium) des Weines. Um alle Prädiktoren zu inkludieren kann man einfach <code>.</code> verwenden, und um einen auszuschliessen <code>-</code>- Verwende das template unten, um ein entsprechendes lineares Modell zu testen und in das Objekt <code>wein_lm</code> zu speichern.</li>
 </ol>
 <pre class="r"><code># Multiple Regression aller Prädiktoren ausser Farbe
 wein_lm &lt;- lm(formula = XX ~ . - XX,
@@ -340,10 +328,10 @@ wein_lm &lt;- lm(formula = XX ~ . - XX,
 <li>Um wie viel ist R-squared gestiegen?</li>
 </ul>
 </div>
-<div id="e---multiple-regression-alle-pradiktoren" class="section level3">
+<div id="e---multiple-regression-alle-prädiktoren" class="section level3">
 <h3>E - Multiple Regression: Alle Prädiktoren</h3>
 <ol style="list-style-type: decimal">
-<li>Gehe zurück zum ersten Modell mit <code>Restzucker</code> als einzigen Prädiktor. Inkludiere nacheinander jeweils einen anderen Prädiktore und studiere, wie sich das Gewicht und die Signifikanz von Restzucker verändert.</li>
+<li>Gehe zurück zum ersten Modell mit <code>Restzucker</code> als einzigen Prädiktor. Inkludiere nacheinander jeweils einen anderen Prädiktor und studiere, wie sich das Gewicht und die Signifikanz von Restzucker verändert.</li>
 </ol>
 <pre class="r"><code># Multiple Regression aller Prädiktoren ausser Farbe
 wein_lm &lt;- lm(formula = XX ~ Restzucker + XX,
@@ -360,12 +348,12 @@ wein_lm &lt;- lm(formula = XX ~ Restzucker + XX,
 library(tidyverse)
 
 # Model:
-# Sagt der Hubraum (displ) die pro gallone 
+# Sagt der Hubraum (displ) die pro gallone
 # fahrbaren Meilen voraus?
-hwy_mod &lt;- glm(formula = hwy ~ displ,
+hwy_mod &lt;- lm(formula = hwy ~ displ,
                data = mpg)
 
-# Ergebnisse 
+# Ergebnisse
 summary(hwy_mod)
 coef(hwy_mod)
 
@@ -373,16 +361,11 @@ coef(hwy_mod)
 hwy_fit &lt;- fitted(hwy_mod)
 hwy_fit
 
-# Residuums 
+# Residuums
 hwy_resid &lt;- residuals(hwy_mod)
-hwy_resid
-
-
-# R-squared value 
-
-hwy_mod$r.squared</code></pre>
+hwy_resid</code></pre>
 </div>
-<div id="datensatze" class="section level2">
+<div id="datensätze" class="section level2">
 <h2>Datensätze</h2>
 <table>
 <thead>
@@ -417,7 +400,7 @@ hwy_mod$r.squared</code></pre>
 </tr>
 <tr class="even">
 <td align="left">Farbe</td>
-<td align="left">Rotr oder weisser Wien</td>
+<td align="left">Roter oder weisser Wein</td>
 </tr>
 <tr class="odd">
 <td align="left">Gelöste_Säure</td>
@@ -489,11 +472,6 @@ hwy_mod$r.squared</code></pre>
 <div id="funktionen-1" class="section level3">
 <h3>Funktionen</h3>
 <table>
-<colgroup>
-<col width="7%" />
-<col width="12%" />
-<col width="80%" />
-</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Function</th>
@@ -503,19 +481,19 @@ hwy_mod$r.squared</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><code>glm</code></td>
+<td align="left"><code>lm</code></td>
 <td align="left"><code>stats</code></td>
-<td align="left">Fit a generalized linear model</td>
+<td align="left">Fitte ein lineares Modell</td>
 </tr>
 <tr class="even">
 <td align="left"><code>fitted</code></td>
 <td align="left"><code>stats</code></td>
-<td align="left">Show fitted values from a statistical object</td>
+<td align="left">Extrahiere vorhergesagte Werte</td>
 </tr>
 <tr class="odd">
 <td align="left"><code>residuals</code></td>
 <td align="left"><code>stats</code></td>
-<td align="left">Show residuals (fitted minus true) values from a statistical object</td>
+<td align="left">Extrahiere Residuen</td>
 </tr>
 </tbody>
 </table>
@@ -526,7 +504,7 @@ hwy_mod$r.squared</code></pre>
 <div id="books" class="section level3">
 <h3>Books</h3>
 <ul>
-<li><a href="https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469">Discovering Statistics with R</a> von Andy Field is excellent</li>
+<li><a href="https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469">Discovering Statistics with R</a> von Andy Field ist sehr gut</li>
 <li><a href="https://bookdown.org/ndphillips/YaRrr/">YaRrr! The Pirate’s Guide to R</a> hat hilfreiche und unterhaltsame Kapitel zu Statistik mit R.</li>
 </ul>
 </div>
@@ -550,6 +528,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
