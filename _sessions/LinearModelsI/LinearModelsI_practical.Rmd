@@ -317,15 +317,15 @@ hwy_mod$r.squared
 ```
 
 
-## Datasets
+## Datensätze
 
 |Datei | Zeile | Spalte |
 |:----|:-----|:------|
-|[wein.csv](https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/hitters.csv?token=AIFo1DAkrffPG4jQkX3MRidCUqDYbHggks5cqJBjwA%3D%3D) | 50 | 20 |
+|[wein.csv](https://raw.githubusercontent.com/therbootcamp/SmR_2020Mai/master/1_Data/wein.csv) | 6497 | 13 |
+
+#### wein.csv
 
 Der `wein.csv` Datensatz enthält aus den Jahren 2004 bis 2007 des Comissão De Viticultura Da Região Dos Vinhos Verdes, der Offiziellen Zertifizierungsagentur des Vinho Verde in Portugal. 
-
-#### Variable description
 
 | Name | Beschreibung |
 |:-------------|:-------------------------------------|

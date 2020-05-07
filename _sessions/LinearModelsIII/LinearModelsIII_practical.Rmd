@@ -141,57 +141,98 @@ wein_glm <- glm(formula = Farbe ~ Alkohol + Dichte + Sulphate,
 
 5. Weiterhin ist die sicher aufgefallen, dass am Schluss des Outputs Ergebnisse angezeigt werden, die bei einem einfachen linearen Modell fehlen. Diese Werte haben etwas damit zu, dass nun mit Maximum Likelihood gefitted wird. Später mehr dazu. 
 
-6. Lasse dir nun die `summary()` anzeigen. Der Output ist sehr ähnlich aufgebaut zum dem von `lm()`. Lenke deine Aufmerksamkeit zunächst auf den Teil zu `Coefficients`. Welche Prädiktoren sind signifikant?
+6. Lasse dir nun die `summary()` anzeigen. Der Output ist sehr ähnlich aufgebaut wie der von `lm()`. Lenke deine Aufmerksamkeit zunächst auf den Teil zu `Coefficients`. Welche Prädiktoren sind signifikant?
 
-7. Genau alle 
+7. Alle Prädiktoren tragen signifikant zur Vorhersage der `Farbe` bei. Beachte, dass hier z-Werte anstatt t-Werte angegeben sind, was darauf zurückzuführen ist, dass hier ein anderes Datenmodell verwendet wird. Schaue dir nun den Schlussteil des Outputs an. Analog zur standard Regression stehen hier Informationen über den Gesamtfit des Modells. Zunächst einmal wird die `Null deviance` angegeben. Dies ist die Performanz des sogenannten Null-Modells, welches nur einen Intercept verwendet. Dieses Modell sagt für jeden Wein schlicht die relative Häufigkeit der häufigeren Kategorie voraus. D.h., im Datensatz ist der Anteil weisser `r mean(wein$Farbe == 'weiss')`. Entsprechend sagt ein solches Modell für jeden Wein voraus, dass eine Wahrscheinlichkeit von `r mean(wein$Farbe == 'weiss')`, dass der Wein weiss ist. Der folgende Code zeigt, wie du damit auf die `Null deviance` kommst. 
 
+```{r, echo = TRUE}
+# Wahrscheinlichkeit weiss für Null-Modell
+wsk_weiss <- mean(wein$Farbe == 'weiss')
 
+# Log likelihood Null-Modell
+log_likelihood <- sum(log(wsk_weiss) * sum(wein$Farbe == 'weiss')) +
+                  sum(log(1-wsk_weiss) * sum(wein$Farbe == 'rot'))
 
+# Deviance Null-Modell
+-2 * log_likelihood
+```
 
-3. Was verrät dir der Output des t-Tests über den Unterschied weisser und roter Weine in der wahrgenommenen Qualität? Die Antwort findest du in der zweiten Zeile (beginnend mit `t=..`) zusammen mit der letzten Zeile.  
+8. Analog kannst du die Performanzwert für das `wein_glm` Modell bestimmen, nur musst du hier die eigentlichen vom Modell vorhergesagten Werte verwenden, die du mit `fitted()` extrahieren kannst.
 
-4. Ja, weisse Weine wurden `0.241886` (Differenz der beiden Mittelwerte) Punkte als Qualitativ wertiger wahrgenommen und dieser Unterschied ist signifikant. Versuche nun das selbe Ergebnis mit einer Regression zu erzielen. 
+```{r, echo = TRUE}
+# Wahrscheinlichkeit weiss für wein_glm
+wsk_weiss <- fitted(wein_glm)
 
+# Log likelihood wein_glm
+log_likelihood <- sum(log(wsk_weiss[wein$Farbe == 'weiss'])) + 
+                  sum(log(1-wsk_weiss[wein$Farbe == 'rot']))
+
+# Deviance wein_glm
+-2 * log_likelihood
+```
+
+9. Die Deviance werte bzw. die log-Likelihoods lassen sich nur schwer absolut beurteilen. Das bedeutet auch, dass nicht ohne weiteres klar ist, ob `wein_glm` tatsächlich gut die `Farbe` erklärt. Bei standard Regression ist das leichter, da `R-squared` notwendigerweise zwischen `0` und `1` liegt. Um die Intepretation zu erleichtert, bietet R daher noch das Aikaike Informationskriterium (`AIC`), welches die Deviance in Vergleich zur Anzahl der Parameter setzt, d.h., `AIC <- Deviance + 2*k`, wobei `k` die Anzahl der Parameter (Regressionsgewichte ist). Wenn das `AIC` niedriger ist als die Null-Deviance, dann kann man klar davon ausgehen, dass das Modell (`wein_glm`) besser ist. Hier ist dies der Fall, was nicht überraschend ist, da die Prädiktoren jeweils sehr starke Effekte aufweisen.       
+
+10. Dass starke Effekte vorliegen, lässt sich über sogenannte Odds Ratios (OR) darstellen. ORs sind eine übliche Effektstärke in der logistischen Regression, die sich leicht aus Regressionsgewichten ableiten lässt und zwar gilt `OR = exp(b)`, wobei `b` das Regressionsgewicht ist. Berechne die ORs für die drei im Modell enthaltenen Prädiktoren. Es ist i.d.R. einfacher mit positiven Gewichten zu arbeiten, solange man die Richtung in Erinnerung behält. 
+ 
+```{r, echo = TRUE, eval  =FALSE}
+# Odds ratios
+exp(abs(XX))
+exp(abs(XX))
+exp(abs(XX))
+```
+
+```{r}
+# Odds ratios
+exp(abs(-0.95293))
+exp(abs(-642.70591))
+exp(abs(-7.81487))
+```
+
+11. Die ORs zeigen, dass die odds (`p / (1-p)`) dafür, dass ein Wein rot ist, um das `2.59` fache steigen, wenn man Alkohol um 1 Volumenprozent zunimmt, um das `1.33e+279` (fast unzählbar) fache, wenn Dichte um einen Wert von 1 steigt, und um das `2477` fache, wenn die Sulphatkonzentration um 1 steigt. Ziemlich extreme Werte oder? Könnte vielleicht wiederum mit der Skalierung zu tun haben. Rechne die logistische Regression erneut, diesmal mit skalierten Variablen.   
+ 
 ```{r, eval = FALSE, echo = TRUE}
-# Regression
-wein_lm <- lm(formula = XX ~ XX, 
-              data = XX)
+# Skalierungsfunktion
+skaliere = function(x) (x - mean(x))/sd(x)
+
+# Logistische Regression mit Skalierung
+wein_glm <- glm(formula = XX ~ XX + XX + XX, 
+                data = XX %>% mutate_if(is.numeric, skaliere),
+                family = 'XX')
 ```
 
 ```{r}
-# Regression
-wein_lm <- lm(formula = Qualität ~ Farbe, 
-              data = wein)
+# Skalierungsfunktion
+skaliere = function(x) (x - mean(x))/sd(x)
+
+# Logistische Regression
+wein_glm <- glm(formula = Farbe ~ Alkohol + Dichte + Sulphate, 
+                data = wein %>% mutate_if(is.numeric, skaliere),
+               family = 'binomial')
 ```
+ 
+12. Nun berechne die ORs noch einmal mit den neuen Gewichten. Sind sie immer noch so extrem?
 
-5. Printe zunächst einmal das Objekt und betrachte die Regressionsgewichte. Kommen dir eine oder sogar beide der Zahlen bekannt vor?
-
-6. Genau, das Regressionsgewicht für `Farbe` spiegelt exakt den Unterschied der beiden Mittelwerte wieder. Was repräsentiert dann der Intercept? Den Wert derjenigen Kategorie, der R den Wert 0 zugewiesen hat. Dies ist bei ursprünglich `character` Variablen i.d.R. diejenige Kategorie die alphabetisch früher kommt, d.h., `'rot' < 'weiss'`.   
-
-7. Lasse dir jetzt die `summary()` für das Modell ausgeben und vergleiche Freiheitsgrade, t- und p-Wert mit denen aus dem t-Test. 
-
-```{r}
-# summary
-summary(wein_lm)
-```
-
-8. Die Werte im t-Test stimmen trotz der gleichen Schätzwerte für die Gewichte nicht ganz überein. Dies liegt daran, dass die `t.test()` Funktion per Default eine Variante rechnet die erlaubt, dass die Varianzen in den beiden Gruppen (rot und weiss) unterschiedlich sind, die Regression dagegen, geht stets davon aus, dass diese gleich sind, was wir im Detail in der Session zu robuste Statistiken besprechen werden. Rechne den t-Test noch einmal, diesmal mit dem zusätzlichen Argument `var.equal = TRUE`.   
-
-```{r, eval = FALSE, echo = TRUE}
-# t-test
-t.test(x = XX, y = XX, var.equal = )
+```{r, echo = TRUE, eval  =FALSE}
+# Odds ratios
+exp(abs(XX))
+exp(abs(XX))
+exp(abs(XX))
 ```
 
 ```{r}
-# t-test
-t.test(x = weiss, y = rot, var.equal = TRUE)
+# Odds ratios
+exp(abs(-1.1366))
+exp(abs(-1.9273))
+exp(abs(-1.1629))
 ```
 
-9. Ordnung ist eingekehrt. Alle Werte im t-test und der Regression sollten jetzt identisch sein, was daran liegt, dass die beiden Modelle nun exakt identisch sind. 
+13. Die ORs sollten sich etwas beruhigt haben. Der Grund für die extreme OR für `Dichte` war, dass die Werte in `Dichte` nur zwischen `0.987` und `1.039`, was bedeutet, dass eine Veränderung von 1 eine Veränderung weit über den eigentlichen Wertebereich der Variablen hinausgeht. Wiederum, wenn es um den Vergleich der Gewichte geht und diese leicht interpretierbar werden sollen, erwäge zu standardisieren. 
 
-### B - Poisson Regression: Bigmart
 
-1. Per Default verwendet R die sogenannte Dummy-Kodierung, in der eine Ausprägung den Wert 0 erhält und eine andere den Wert 1. Eine alternative Kodierung existiert in der Effektkodierung, die stattdessen die Werte -1 und 1 vergibt. Um die Konsequenzen dieser beiden Kodierungen direkt zu vergleichen, erstelle zunächst für jede Kodierung eine neue Variable im Datensatz unter Verwendung des Codes unten. 
+### C - Poisson Regression: Bigmart
+
+1. Nun 
 
 ```{r, echo = TRUE}
 # Kodierungen der Farbe
@@ -353,15 +394,15 @@ hwy_mod$r.squared
 ```
 
 
-## Datasets
+## Datensätze
 
 |Datei | Zeile | Spalte |
 |:----|:-----|:------|
-|[wein.csv](https://raw.githubusercontent.com/therbootcamp/SwR_2019Apr/master/1_Data/hitters.csv?token=AIFo1DAkrffPG4jQkX3MRidCUqDYbHggks5cqJBjwA%3D%3D) | 50 | 20 |
+|[wein.csv](https://raw.githubusercontent.com/therbootcamp/SmR_2020Mai/master/1_Data/wein.csv) | 6497 | 13 |
+
+#### wein.csv
 
 Der `wein.csv` Datensatz enthält aus den Jahren 2004 bis 2007 des Comissão De Viticultura Da Região Dos Vinhos Verdes, der Offiziellen Zertifizierungsagentur des Vinho Verde in Portugal. 
-
-#### Variable description
 
 | Name | Beschreibung |
 |:-------------|:-------------------------------------|
@@ -378,6 +419,15 @@ Der `wein.csv` Datensatz enthält aus den Jahren 2004 bis 2007 des Comissão De 
 |pH_Wert|pH-Wert des Weins. Je kleiner, desto sauerer. |
 |Sulphate| Sulphatkontration im Wein |
 |Alkohol| Alkoholkonzentration im Wein in %|
+
+|Verkäufe||
+|Gewicht||
+|Fettgehalt||
+|Visibilität||
+|Typ||
+|Max_Preis||
+|Ladengrösse||
+
 
 ## Funktionen
 
