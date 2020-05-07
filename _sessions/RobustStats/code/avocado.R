@@ -174,6 +174,63 @@ dim(avocado_w)
 dim(avocado_cali)
 dim(avocado_ny)
 
+require(tidyverse)
+avo = read_csv('_sessions/RobustStats/1_Data/avocado_en.csv')
+avo_c = read_csv('_sessions/RobustStats/1_Data/avocado_en_cali.csv')
+
+avo = avo %>% rename(
+  Verkaufsvolumen = volume,
+  Verkaufsvolumen_index = volume_index,
+  Preis = price_per_avocado,
+  Typ = type,
+  Temparatur = temperature,
+  Temperatur_USA = temperature_usa,
+  Luftfeuchtigkeit = humidity ,
+  Luftfeuchtigkeit_USA = humidity_usa,
+  Niederschlag = precipitation,
+  Niederschlag_USA = precipitation_usa,
+  Jahr = year,
+  Jahreszeit = season,
+  Datum = date,
+  Region = region,
+  Längengrad = longitude,
+  Breitengrad = latitude
+  )
+
+avo_c = avo_c %>% rename(
+  Verkaufsvolumen = volume,
+  Verkaufsvolumen_index = volume_index,
+  Preis = price_per_avocado,
+  Typ = type,
+  Temparatur = temperature,
+  Temperatur_USA = temperature_usa,
+  Luftfeuchtigkeit = humidity ,
+  Luftfeuchtigkeit_USA = humidity_usa,
+  Niederschlag = precipitation,
+  Niederschlag_USA = precipitation_usa,
+  Jahr = year,
+  Jahreszeit = season,
+  Datum = date,
+  Region = region,
+  Längengrad = longitude,
+  Breitengrad = latitude
+  )
+
+write_csv(avo, '_sessions/RobustStats/1_Data/avocado.csv')
+write_csv(avo_c, '_sessions/RobustStats/1_Data/avocado_cali.csv')
+write_csv(avocado_ny, '_sessions/RobustStats/1_Data/avocado_ny.csv')
+
+cat(paste0(names(avo),' = ,'),sep='\n')
+
+
+
+
+
+
+
+
+
+
 plot(avocado_cali$temperature, avocado_cali$volume)
 
 

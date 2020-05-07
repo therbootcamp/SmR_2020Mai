@@ -1,11 +1,11 @@
 ---
-title: "Statistics with R"
+title: "Statistik mit R"
 subtitle: ""
 author: "
       <a href='https://therbootcamp.github.io'>
         <i class='fas fa-home' style='font-size:1em;'></i>
       </a>
-      <a href='https://therbootcamp.github.io/SwR_2019Apr/'>
+      <a href='https://therbootcamp.github.io/SwR_2020Mai/'>
         <i class='fas fa-clock' style='font-size:1em;' ></i>
       </a>
       <a href='mailto:therbootcamp@gmail.com'>
@@ -15,10 +15,10 @@ author: "
         <i class='fab fa-linkedin' style='font-size: 1em;'></i>
       </a>
       <a href='https://therbootcamp.github.io'>
-        <font style='font-style:normal;font-size:20px;padding-left:5px'>Basel R Bootcamp</font>
+        <font style='font-style:normal;font-size:20px;padding-left:5px'>The R Bootcamp</font>
       </a>
       <br>
-      <img src='https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png' style= 'height:16.7px;vertical-align:baseline'/><font style='font-style:normal;font-size:20px;padding-left:9.3px'>April 2019</font>
+      <img src='https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png' style= 'height:16.7px;vertical-align:baseline'/><font style='font-style:normal;font-size:20px;padding-left:9.3px'>Mai 2020</font>
       "
 output:
   html_document:
@@ -28,23 +28,22 @@ output:
 
 <br>
 
+### Downloads
 
-### Links
+##### [**Projekt**](https://www.dropbox.com/s/hpvzp68n5s29h0b/TheRBootcamp.zip?dl=1)
 
-##### [Wifi](https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/wifi_instruct.png) 
-##### [Data sets ](https://therbootcamp.github.io/SwR_2019Apr/1_Data/BaselRBootcamp.zip)
-#####  [PDFs](https://therbootcamp.github.io/SwR_2019Apr/_sessions/_pdf/StatisticsWithR_slide_pdfs.zip) <!---<font style="font-size:12px">(made available later)</font>--->
+##### [**Cheatsheets**](https://www.dropbox.com/s/26kjubck26lbwnw/cheatsheets.pdf?dl=1)
 
 <br>
 
 ### Materials
-|  | Day 1<br>Basics| Day 2<br> Advanced| 
+|  | Tag 1| Tag 2| 
 |:--|:-------------|:-------------|
-|0| Welcome!<br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/Welcome/Welcome.html) | Recap<br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/Recap/Recap.html) |
-|1| Intro to Stats<br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/Intro2Stats/Intro2Stats.html#1)| Mixed Models<br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/MixedModels/MixedModels.html), [practical](https://therbootcamp.github.io/SwR_2019Apr/_sessions/MixedModels/MixedModels_practical.html) |
-|2| R for Stats<br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/RforStats/RforStats.html)  | Robust statistics<br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/RobustStats/RobustStats.html), [practical](https://therbootcamp.github.io/SwR_2019Apr/_sessions/RobustStats/RobustStats_practical.html) |
-|3| Linear Models I<br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsI/LinearModelsI.html), [practical](https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsI/LinearModelsI_practical.html)| New statistics <br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/NewStats/NewStats.html), [practical](https://therbootcamp.github.io/SwR_2019Apr/_sessions/NewStats/NewStats_practical.html)|
-|4| Linear Models II<br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsII/LinearModelsII.html), [practical](https://therbootcamp.github.io/SwR_2019Apr/_sessions/LinearModelsII/LinearModelsII_practical.html)  | Look ahead <br>[slides](https://therbootcamp.github.io/SwR_2019Apr/_sessions/NextSteps/NextSteps.html) |
+|0| Willkommen!<br>[slides](https://therbootcamp.github.io/SmR_2020Mai/_sessions/Welcome/Welcome.html) | Wiederholung |
+|1| Einführung in Statistik<br>[slides](https://therbootcamp.github.io/SmR_2020Mai/_sessions/Intro2Stats/Intro2Stats.html#1)| Gemischte Modelle|
+|2| Linear Models I<br>[slides](https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsI/LinearModelsI.html), [practical](https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsI/LinearModelsI_practical.html)| Robuste Statistik |
+|3| Linear Models II<br>[slides](https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsII/LinearModelsII.html), [practical](https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsII/LinearModelsII_practical.html)  | Neue Statistik |
+|3| Linear Models III<br>[slides](https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsIII/LinearModelsIII.html), [practical](https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsIII/LinearModelsIII_practical.html)  | Ausblick |
 <br>
 
 
@@ -66,5 +65,5 @@ output:
 
 
 <p align="left"><br>
-    <img border="0" alt="Apr2019Schedule" src="https://therbootcamp.github.io/SmR_2020Apr/_sessions/Welcome/image/schedule.png" style="width:410px">
+    <img border="0" alt="Apr2019Schedule" src="https://therbootcamp.github.io/SmR_2020Mai/_sessions/Welcome/image/schedule.png" style="width:410px">
 </p>

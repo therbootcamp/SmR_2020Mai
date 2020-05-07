@@ -1,4 +1,4 @@
-Verkaufsvolumen,Verkaufsvolumen_index,Preis,Typ,Temparatur,Temperatur_USA,Luftfeuchtigkeit,Luftfeuchtigkeit_USA,Niederschlag,Niederschlag_USA,Jahr,Jahreszeit,Datum,Region,Längengrad,Breitengrad
+volume,volume_index,price_per_avocado,type,temperature,temperature_usa,humidity,humidity_usa,precipitation,precipitation_usa,year,season,date,region,longitude,latitude
 64236.62,4.11849471277832,1.33,conventional,6.06,9.29188679245283,95.04,84.6037735849057,9.72,8.09849056603774,2015,winter,2015-12-27,Albany,-73.75623,42.65258
 54876.98,3.99086525501535,1.35,conventional,-1.1,4.48358490566038,75.06,77.0588679245283,0.01,1.32169811320755,2015,winter,2015-12-20,Albany,-73.75623,42.65258
 118220.22,4.63226306567056,0.93,conventional,7.11,12.1984905660377,88.7,88.6645283018868,0.03,6.2877358490566,2015,winter,2015-12-13,Albany,-73.75623,42.65258

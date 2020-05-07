@@ -5,19 +5,19 @@ names(exp1)
 
 exp1 = exp1 %>% select(-Session, -Date,-Session.Length) %>%
   mutate(StartTime = hour(as_datetime(StartTime,format="%I:%M%p"))) %>%
-  rename(hour_of_day = StartTime,
-         gender = Participant.Sex,
-         age = Participant.Age,
-         depicted_gender  = ExpSex,
-         stimulus_seeking = Stimulus.Seeking,
+  rename(Uhrzeit = StartTime,
+         Geschlecht = Participant.Sex,
+         Alter = Participant.Age,
+         Geschlecht_präsentiert  = ExpSex,
+         Stimulus_seeking = Stimulus.Seeking,
          erotic = Erotic.Hits.PC,
          control = Control.Hits.PC) %>%
-  gather(condition, hit_rate, c(erotic, control)) %>%
-  mutate(n_trials = case_when(
+  gather(Bedingung, Trefferrate, c(erotic, control)) %>%
+  mutate(Anzahl_trials = case_when(
     condition == 'erotic' ~ 12,
     TRUE ~ 24
   )) %>%
-  select(gender, age, stimulus_seeking, hour_of_day,condition,depicted_gender,n_trials,hit_rate)
+  select(Geschlecht, Alter, Stimulus_seeking, Uhrzeit,Bedingung,Alter,Anzahl_trials,Trefferrate)
 
 
 # exp2 = readxl::read_excel('~/Downloads/exp2.xlsx')
@@ -39,8 +39,44 @@ exp2$hit_rate = sample(exp2$hit_rate)
 #t.test(exp2$hit_rate,mu = 50)
 
 
-write_csv(exp1,'_sessions/NewStats/1_Data/psi_exp1.csv')
-write_csv(exp2,'_sessions/NewStats/1_Data/psi_exp2.csv')
+write_csv(exp1,'_sessions/NewStats/1_Data/psi_exp1_en.csv')
+write_csv(exp2,'_sessions/NewStats/1_Data/psi_exp2_en.csv')
+
+require(tidyverse)
+exp1 = read_csv('../_sessions/NewStats/1_Data/psi_exp1_en.csv')
+exp2 = read_csv('../_sessions/NewStats/1_Data/psi_exp2_en.csv')
+
+exp1 = exp1 %>% rename(
+  Geschlecht= gender,
+  Alter= age,
+  Stimulus_seeking= stimulus_seeking,
+  Uhrzeit= hour_of_day,
+  Bedingung= condition,
+  Präsentiertes_geschlecht= depicted_gender,
+  Anzahl_trials= n_trials,
+  Trefferrate= hit_rate
+  )
+
+exp2 = exp2 %>% rename(
+  Geschlecht= gender,
+  Alter= age,
+  Stimulus_seeking= stimulus_seeking,
+  Uhrzeit= hour_of_day,
+  Bedingung= condition,
+  Präsentiertes_geschlecht= depicted_gender,
+  Anzahl_trials= n_trials,
+  Trefferrate= hit_rate
+)
+
+write_csv(exp1,'../_sessions/NewStats/1_Data/psi_exp1.csv')
+write_csv(exp2,'../_sessions/NewStats/1_Data/psi_exp2.csv')
+
+
+
+Geschlecht, Alter, Stimulus_seeking, Uhrzeit,Bedingung,Alter,Anzahl_trials,Trefferrate
+
+cat(paste0('= ',names(exp1),','),sep='\n')
+
 
 dim(exp1)
 dim(exp2)

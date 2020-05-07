@@ -1,4 +1,4 @@
-Geschlecht,Alter,Stimulus_seeking,Uhrzeit,Bedingung,Präsentiertes_geschlecht,Anzahl_trials,Trefferrate
+gender,age,stimulus_seeking,hour_of_day,condition,depicted_gender,n_trials,hit_rate
 Female,20,3,18,erotic,Female,12,50
 Male,20,4.5,12,erotic,Female,12,62.5
 Female,19,2,12,erotic,Female,12,44.4444444444444

@@ -1,5 +1,5 @@
 ---
-title: "Nächste Schritte"
+title: "Ausblick"
 author: "Statistik mit R<br>
   <a href='https://therbootcamp.github.io'>
     The R Bootcamp
