@@ -298,7 +298,7 @@ ggplot(data = wein %>% mutate_if(is.numeric, skaliere),
 
 10. Schaue dir nun die `summary()` an. Was hat sich verändert bzgl. t-Werten, Signifikanzen, und Standardfehlern, und R-squared? 
 
-11. Ein grosser und in diesem Fall der Einzige Einfluss besteht auf die Variable `Farbe`, welche als einzige nicht mit standardisiert wurde. Vor der Standardisierung von `Alcohol` war Farbe beinahe perfekt mit der Interaktion korreliert, was zu einem extrem aufgeblasenen Standardfehler geführt hat. Die Standardisierung hat diese Korrelation jedoch stark reduziert, so dass der Standardfehler auf das Niveau der anderen Prädiktoren gefallen ist. In der Konklusion lohnt es sich beinahe immer die die Prädiktoren (oder auch das Kriterium) zu standardisieren, wenn ein Vergleich der Gewichte und Signifikanzen von Interesse ist. 
+11. Ein grosser und in diesem Fall der Einzige Einfluss besteht auf die Variable `Farbe`, welche als einzige nicht mit standardisiert wurde. Vor der Standardisierung von `Alkohol` war Farbe beinahe perfekt mit der Interaktion korreliert, was zu einem extrem aufgeblasenen Standardfehler geführt hat. Die Standardisierung hat diese Korrelation jedoch stark reduziert, so dass der Standardfehler auf das Niveau der anderen Prädiktoren gefallen ist. In der Konklusion lohnt es sich beinahe immer die die Prädiktoren (oder auch das Kriterium) zu standardisieren, wenn ein Vergleich der Gewichte und Signifikanzen von Interesse ist. 
 
 
 ## Beispiele
