@@ -65,8 +65,6 @@ cr <- read_csv("1_Data/cancer_remission.csv")
 
 ## Overview
 
-In diesem Practical wirst du die Anwendung gemischter Modelle üben. Dazu verwenden wir die `lme4`, `performance`, `parameters`, `stats`, und `pbkrtest` Pakete.
-
 Am Ende dieses Practicals wirst du wissen, wie du:
 
 1. gemischte Modelle in R berechnen kannst.
@@ -104,18 +102,8 @@ library(parameters)
 ```
 
 4. Unter Verwendung des folgenden Codes, lese die `tomatometer.csv` und `schools.csv` Datensätze ein und speichere sie unter den Namen `tom` und `schools`.
-**Tipp**: Verwende RStudios Autovervollständigung indem du *Tab* drückst.
 
 ```{r, echo = TRUE, eval = FALSE}
-# Lese tomatometer.csv aus dem 1_Data Ordner
-XX <- read_csv(file = "XX/XX")
-
-# Lese school.csv aus dem 1_Data Ordner
-XX <- read_csv(file = "XX/XX")
-```
-
-
-```{r}
 # Lese tomatometer.csv aus dem 1_Data Ordner
 tom <- read_csv(file = "1_Data/tomatometer.csv")
 
@@ -123,43 +111,18 @@ tom <- read_csv(file = "1_Data/tomatometer.csv")
 schools <- read_csv(file = "1_Data/schools.csv")
 ```
 
-5. Inspiziere die ersten Zeilen der Datensätze.
+5. Printe die Datensätze. 
 
-```{r, echo = TRUE, eval = FALSE}
-# Printe die Objekte
-XXX
-XXX
+6. Verwende `names(XX)`, `summary(XX)`, und `View(XX)` um einen weiteren Überblick über die Daten zu bekommen.
+
+7. Wiederum, führe den Code unten aus um sicherzustellen, dass alle `character` Variablen als Faktoren vorliegen, was den statistischen Modellen hilft kategoriale Variablen richtig zu interpretieren. 
+
+```{r, echo = TRUE}
+# Konvertiere alle character zu factor
+tom <- tom %>% mutate_if(is.character, factor)
+schools <- schools %>% mutate_if(is.character, factor)
 ```
 
-```{r}
-# Printe die Objekte
-tom
-schools
-```
-
-7. Verwende die `summary()` Funktion um deskriptive Statistiken der Variablen der beiden Datensätze zu erhalten.
-
-```{r, echo=TRUE, eval = FALSE}
-summary(XXX)
-summary(XXX)
-```
-
-```{r}
-summary(tom)
-summary(schools)
-```
-
-8. Schaue dir die Datensätze mithilfe der `View()` Funktion an.
-
-```{r, echo = TRUE, eval = FALSE}
-View(XXX)
-View(XXX)
-```
-
-```{r eval = FALSE}
-View(tom)
-View(schools)
-```
 
 ### B - Rechnen Eines Linearen Gemischten Modells
 
@@ -185,7 +148,7 @@ FE_mod <- glm(formula = tomatometer ~ zustand,
 summary(FE_mod)
 ```
 
-2. Im Moment wird "betrunken" als Referenzkategorie verwendet, sodass der intercept den Mittelwert des Zustands "betrunken" angibt und der slope die Differenz der Mittelwerte der Bewertungen im Zustand "betrunken" und "nuechtern" angibt. Um ein intuitiveres Modell mit "nuechtern" als Referenzkategorie zu erhalten, können wir wir die Variable  `zustand` in einen Faktor umwandeln und dort die Abfolge der Levels bestimmen. Verwende dafür den untenstehenden Code.
+2. Im Moment wird "betrunken" als Referenzkategorie verwendet, sodass der intercept den Mittelwert des Zustands "betrunken" angibt und der slope die Differenz der Mittelwerte der Bewertungen im Zustand "betrunken" und "nuechtern" angibt. Um ein intuitiveres Modell mit "nuechtern" als Referenzkategorie zu erhalten, können wir die Variable  `zustand` erneut in einen Faktor umwandeln und dabei diesmal die Abfolge der Levels bestimmen. Verwende dafür den untenstehenden Code.
 
 ```{r, echo = TRUE}
 # Wandle die zustand variable in einen Faktor um, mit nuechtern als erstes Level
@@ -206,9 +169,7 @@ summary(FE_mod)
 
 4. Vergleiche die Outputs der Aufgaben B1 und B3. Wie haben sich die Koeffizienten verändert? Weshalb?
 
-5. Rechne ein gemischtes Modell mit Random Intercepts über die Rater (Rater ids sind in der `id` variable gespeichert).
-**Tipp**: Zufällige Effekte werden in Klammern in der Modell-`formula` in folgender Art spezifiziert `(`[Datenmatrix](https://de.wikipedia.org/wiki/Datenmatrix)`|Gruppierungsvariable)`.
-**Hinweis**: Das `REML = FALSE` im untenstehenden Code sagt R, dass das Model mit Maximum Likelihood (ML), statt mit Restricted Maximum Likelihood (REML) gefitted werden soll. Dies ist für die späteren Modellvergleiche wichtig, soll uns aber im Detail nicht weiter beschäftigen (für mehr Informationen in einem eher technischen Ansatz siehe [hier](https://projecteuclid.org/euclid.cbms/1462106081) und [hier](http://www.stats.net.au/Maths_REML_manual.pdf), für einen weniger technischen Ansatz siehe [hier](https://en.wikipedia.org/wiki/Restricted_maximum_likelihood)).
+5. Rechne ein gemischtes Modell mit Random Intercepts über die `id` der Rater. Zufällige Effekte werden in Klammern in der Modell-`formula` spezifiziert. Ein Modell mit nur Random Intercepts trägt allein eine `1` for dem Gruppierungsfactor. Das `REML = FALSE` im untenstehenden Code sagt R, dass das Model mit Maximum Likelihood (ML), statt mit Restricted Maximum Likelihood (REML) gefitted werden soll. Dies ist für die späteren Modellvergleiche wichtig, soll uns aber im Detail nicht weiter beschäftigen.
 
 ```{r echo = TRUE, eval = FALSE}
 # Gemischtes Modell mit random intercepts über ids
@@ -242,32 +203,9 @@ summary(FE_mod)
 # 50% gesunken).
 ```
 
-8. Manchmal (zum Beispiel für Plots, oder damit wir sie nicht abschreiben müssen) ist es hilfreich, die Koeffizienten aus dem Modelloutput zu extrahieren. Extrahiere die Koeffizienten der festen Effekte aus `subj_RI_mod` mithilfe der `fixef()` Funktion.
+8. Interessierst du dich wie die geschätzten Fixed und Random Effects aussehen. Du kannst sie mit `fixef(XX)` und `ranef(XX)` aus dem Modellobjekt extrahieren. Probiere es aus. 
 
-```{r echo = TRUE, eval = FALSE}
-# Extrahiere Koeffizienten der festen Effekte aus subj_RI_mod
-fixef(XXX)
-```
-
-```{r}
-# Extrahiere Koeffizienten der festen Effekte aus subj_RI_mod
-fixef(subj_RI_mod)
-```
-
-9. Extrahiere die Koeffizienten der zufälligen Effekte aus `subj_RI_mod` mithilfe der `ranef()` Funktion.
-
-```{r echo = TRUE, eval = FALSE}
-# Extrahiere Koeffizienten der zufälligen Effekte aus subj_RI_mod
-ranef(XXX)
-```
-
-```{r}
-# Extrahiere Koeffizienten der zufälligen Effekte aus subj_RI_mod
-ranef(subj_RI_mod)
-```
-
-10. Baue dein gemischtes Modell aus Aufgabe B5 aus, indem du Random Slopes für `zustand` über `id`s hinzufügst.
-**Tipp**: Füge die `zustand` Variable auf der Linken Seite der *Pipe* `|` in dem Teil der `formula`, in dem die zufälligen Effekte spezifiziert werden.
+9. Baue dein gemischtes Modell aus Aufgabe B5 aus, indem du Random Slopes für `zustand` über `id`s hinzufügst. Füge die `zustand` Variable auf der Linken Seite der *Pipe* `|` in dem Teil der `formula`, in dem die zufälligen Effekte spezifiziert werden.
 
 ```{r echo = TRUE, eval = FALSE}
 # Gemischtes Modell mit random intercepts über ids und random slopes für zustand
@@ -287,7 +225,7 @@ subj_RI_RS_mod <- lmer(formula = tomatometer ~ zustand + # Feste Effekte
                       REML = FALSE)
 ```
 
-11. Vergleiche die Outputs der drei bisherigen Modelle miteinander. Verwende dazu die `summary()` Funktion. Haben sich die Koeffizienten verändert? Was hat sich verändert?
+10. Vergleiche die Outputs der drei bisherigen Modelle miteinander. Verwende dazu die `summary()` Funktion. Haben sich die Koeffizienten verändert? Was hat sich verändert?
 
 ```{r}
 summary(subj_RI_RS_mod)
@@ -301,8 +239,7 @@ summary(FE_mod)
 # im Modell subj_RI_RS_mod  "nur" 51.81.
 ```
 
-12. Jeder Film wurde in beiden Zuständen Bewertet. Wir haben also nicht nur Abhängigkeiten in den Daten der Rater, sondern auch der Filme. Um für diese Abhängigkeit zu kontrollieren, können wir unser Modell aus der Aufgabe B10 mit weiteren zufälligen Effekten ausbauen. Füge Random Intercepts über `film` und Random Slopes für `zustand` über `film` zum Modell hinzu.
-**Hinweis**: Das zusätzliche Argument spezifiert einen anderen Optimierungsalgorithmus, mithilfe dessen das Modell konvergiert. Die details sollen uns für den Moment nicht kümmern; wir freuen uns einfach, dass das Modell konvergiert.
+11. Jeder Film wurde in beiden Zuständen Bewertet. Wir haben also nicht nur Abhängigkeiten in den Daten der Rater, sondern auch der Filme. Um für diese Abhängigkeit zu kontrollieren, können wir unser Modell aus der Aufgabe B10 mit weiteren zufälligen Effekten ausbauen. Füge Random Intercepts über `film` und Random Slopes für `zustand` über `film` zum Modell hinzu. Über das zusätzliche Argument `control` wird ein anderen Optimierungsalgorithmus spezifiert, mithilfe dessen das Modell konvergiert. Die details sollen uns für den Moment nicht kümmern; wir freuen uns einfach, dass das Modell konvergiert.
 
 ```{r echo = TRUE, eval = FALSE}
 # Gemischtes Modell mit random intercepts über ids und random slopes für zustand
@@ -326,13 +263,13 @@ max_mod <- lmer(formula = tomatometer ~ zustand +           # Feste Effekte
                control = lmerControl(optimizer = "bobyqa")) # Optimierungsalgorithmus
 ```
 
-13. Mit der `check_convergence()` Funktion des `performance` Paket können wir überprüfen, ob ein Modell konvergiert ist. Wenn die Funktion `TRUE` zurückgibt, ist alles in Ordnung. Teste, ob `max_mod` konvergiert ist.
+12. Mit der `check_convergence()` Funktion des `performance` Paket können wir überprüfen, ob ein Modell konvergiert ist. Wenn die Funktion `TRUE` zurückgibt, ist alles in Ordnung. Teste, ob `max_mod` konvergiert ist.
 
 ```{r}
 check_convergence(max_mod)
 ```
 
-14. `max_mod` ist das *maximale, vom Design gerechtfertigten Modell*. Was heisst das? Weshalb macht es Sinn, dieses Modell zu spezifizieren?
+13. `max_mod` ist das *maximale, vom Design gerechtfertigten Modell*. Was heisst das? Weshalb macht es Sinn, dieses Modell zu spezifizieren?
 
 ```{r}
 # Es heisst, dass alle zufälligen Effekte spezifiziert wurden, die gemäss unserer
@@ -343,7 +280,7 @@ check_convergence(max_mod)
 # doch dazu später mehr.
 ```
 
-15. Vergleiche mit `summary()` die Resultate der unterschiedlich Komplexen Modelle, die du bisher gerechnet hast.
+14. Vergleiche mit `summary()` die Resultate der unterschiedlich Komplexen Modelle, die du bisher gerechnet hast.
 ```{r}
 summary(max_mod)
 summary(subj_RI_RS_mod)
@@ -351,7 +288,7 @@ summary(subj_RI_mod)
 summary(FE_mod)
 ```
 
-16. Was hat sich mit der zunehmend komplexen Struktur der zufälligen Effekte verändert?
+15. Was hat sich mit der zunehmend komplexen Struktur der zufälligen Effekte verändert?
 
 ```{r}
 # Die t-Werte für den Effekt von "zustand" haben sich stark verändert. Jetzt ist
@@ -368,19 +305,13 @@ summary(FE_mod)
 
 Beim rechnen von statistischen Modellen sind wir häufig daran interessiert, einen wie grossen Anteil diese erklären können. In linearen (gemischten) Modellen, wird dies durch das Bestimmtheitsmass $R^2$ angegeben; for generalisierte (gemischte) Modelle, können wir Pseudo-$R^2$ Werte berechnen. 
 
-1. Wir werden die `r2()` Funktion aus dem `performance` Paket verwenden, um die $R^2$ Werte zu berechnen. Schaue dir zunächst die Hilfedatei dieser Funktion an, um einen Überblick zu erhalten, mit welchen Modellarten sie angewendet werden kann.
-
-```{r}
-?r2
-```
-
-2. Berechne das Bestimmtheitsmass des maximalen Modells.
+1. Verwende die `r2()` Funktion aus dem `performance` Paket, um den $R^2$ Werte des maximalen Modells zu berechnen.
 
 ```{r}
 r2(max_mod)
 ```
 
-3. Was bedeutet der Output der vorherigen Aufgabe? Was ist das *marginal $R^2$* und was ist das *conditional $R^2$*?
+2. Was bedeutet der Output der vorherigen Aufgabe? Was ist das *marginal $R^2$* und was ist das *conditional $R^2$*? 
 
 ```{r}
 # "marginal r-squared" gibt nur die erklärte Varianz der festen Effekte an.
@@ -393,7 +324,7 @@ r2(max_mod)
 
 ```
 
-4. Vergleiche die $R^2$ Werte von `max_mod` mit denen der weniger komplexen Modelle. Sind die Veränderungen gross? Welche $R^2$-Werte haben sich verändert?
+3. Vergleiche die $R^2$ Werte von `max_mod` mit denen der weniger komplexen Modelle. Sind die Veränderungen gross? Welche $R^2$-Werte haben sich verändert?
 
 ```{r}
 r2(max_mod)

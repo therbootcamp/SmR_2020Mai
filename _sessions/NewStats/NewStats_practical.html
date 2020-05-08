@@ -11,7 +11,7 @@
 
 
 
-<title>New Statistics</title>
+<title>Neue Statistik</title>
 
 <script src="NewStats_practical_files/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -70,9 +70,7 @@ h6 {
 
 <link rel="stylesheet" href="practical.css" type="text/css" />
 
-</head>
 
-<body>
 
 <style type = "text/css">
 .main-container {
@@ -97,16 +95,78 @@ img {
 button.code-folding-btn:focus {
   outline: none;
 }
+summary {
+  display: list-item;
+}
 </style>
 
 
 
-<div class="container-fluid main-container">
-
 <!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
 <script>
 $(document).ready(function () {
   window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
 });
 </script>
 
@@ -115,25 +175,33 @@ $(document).ready(function () {
 
 
 
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
 
 
 <div class="fluid-row" id="header">
 
 
 
-<h1 class="title toc-ignore">New Statistics</h1>
-<h4 class="author"><em><table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'>
+<h1 class="title toc-ignore">Neue Statistik</h1>
+<h4 class="author"><table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'>
 <col width='10%'>
 <col width='10%'>
 <tr style="border:none">
 <td style="display:block;width:100%;text-align:left;vertical-align:bottom;padding:0;margin:0;border:none" nowrap>
-<font style='font-style:normal'>Statistics with R</font><br> <a href='https://therbootcamp.github.io/SwR_2019Apr/'> <i class='fas fa-clock' style='font-size:.9em;' ></i> </a> <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;'></i> </a> <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a> <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a> <a href='https://therbootcamp.github.io'> <font style='font-style:normal'>Basel R Bootcamp</font> </a>
+<font style='font-style:normal'>Statistics with R</font><br> <a href='https://therbootcamp.github.io/SmR_2020Mai/'> <i class='fas fa-clock' style='font-size:.9em;' ></i> </a> <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;'></i> </a> <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a> <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a> <a href='https://therbootcamp.github.io'> <font style='font-style:normal'>The R Bootcamp</font> </a>
 </td>
 <td style="width:100%;vertical-align:bottom;text-align:right;padding:0;margin:0;border:none">
 <img src='https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png' style='height:15px;width:80px'/>
 </td>
 </tr>
-</table></em></h4>
+</table></h4>
 
 </div>
 
@@ -163,15 +231,9 @@ $(document).ready(function () {
 <div id="a---setup" class="section level3">
 <h3>A - Setup</h3>
 <ol style="list-style-type: decimal">
-<li>Open your <code>BaselRBootcamp</code> R project. It should already have the folders <code>1_Data</code> and <code>2_Code</code>. Make sure that the data files listed in the <code>Datasets</code> section above are in your <code>1_Data</code> folder</li>
-</ol>
-<pre class="r"><code># Done!</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Open a new R script. At the top of the script, using comments, write your name and the date. Save it as a new file called <code>newstats_practical.R</code> in the <code>2_Code</code> folder.</li>
-</ol>
-<pre class="r"><code># Done!</code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>Using <code>library()</code> load the <code>tidyverse</code> package (if you don’t have it, you’ll need to install it with <code>install.packages()</code>)!</li>
+<li><p>Open your <code>BaselRBootcamp</code> R project. It should already have the folders <code>1_Data</code> and <code>2_Code</code>. Make sure that the data files listed in the <code>Datasets</code> section above are in your <code>1_Data</code> folder</p></li>
+<li><p>Open a new R script. At the top of the script, using comments, write your name and the date. Save it as a new file called <code>newstats_practical.R</code> in the <code>2_Code</code> folder.</p></li>
+<li><p>Using <code>library()</code> load the <code>tidyverse</code> package (if you don’t have it, you’ll need to install it with <code>install.packages()</code>)!</p></li>
 </ol>
 <pre class="r"><code># Load packages necessary for this script
 library(tidyverse)
@@ -189,72 +251,14 @@ psi2 &lt;- read_csv(file = &quot;1_Data/psi_exp2.csv&quot;)</code></pre>
 <li>Take a look at the first few rows of the data sets by printing them to the console.</li>
 </ol>
 <pre class="r"><code># Print psi1 and psi2 object
-psi1</code></pre>
-<pre><code># A tibble: 200 x 8
-   gender   age stimulus_seeking hour_of_day condition depicted_gender
-   &lt;chr&gt;  &lt;int&gt;            &lt;dbl&gt;       &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;          
- 1 Female    20              3            18 erotic    Female         
- 2 Male      20              4.5          12 erotic    Female         
- 3 Female    19              2            12 erotic    Female         
- 4 Male      22              3            16 erotic    Female         
- 5 Female    22              3            16 erotic    Female         
- 6 Male      20              3            14 erotic    Female         
- 7 Male      19              3            13 erotic    Female         
- 8 Female    21              2            16 erotic    Female         
- 9 Male      19              2.5          12 erotic    Female         
-10 Female    21              4            12 erotic    Female         
-# … with 190 more rows, and 2 more variables: n_trials &lt;int&gt;,
-#   hit_rate &lt;dbl&gt;</code></pre>
-<pre class="r"><code>psi2</code></pre>
-<pre><code># A tibble: 200 x 8
-   gender   age stimulus_seeking hour_of_day condition depicted_gender
-   &lt;chr&gt;  &lt;int&gt;            &lt;dbl&gt;       &lt;int&gt; &lt;chr&gt;     &lt;chr&gt;          
- 1 Female    20              3            18 erotic    Female         
- 2 Male      20              4.5          12 erotic    Female         
- 3 Female    19              2            12 erotic    Female         
- 4 Male      22              3            16 erotic    Female         
- 5 Female    22              3            16 erotic    Female         
- 6 Male      20              3            14 erotic    Female         
- 7 Male      19              3            13 erotic    Female         
- 8 Female    21              2            16 erotic    Female         
- 9 Male      19              2.5          12 erotic    Female         
-10 Female    21              4            12 erotic    Female         
-# … with 190 more rows, and 2 more variables: n_trials &lt;int&gt;,
-#   hit_rate &lt;dbl&gt;</code></pre>
+psi1
+psi2</code></pre>
 <ol start="7" style="list-style-type: decimal">
 <li>Use the the <code>summary()</code> function to print more details on the columns of the data sets.</li>
 </ol>
 <pre class="r"><code># Show summaries for psi1 and psi2
-summary(psi1)</code></pre>
-<pre><code>    gender               age       stimulus_seeking  hour_of_day  
- Length:200         Min.   :17.0   Min.   :1.00     Min.   :10.0  
- Class :character   1st Qu.:18.8   1st Qu.:2.00     1st Qu.:11.0  
- Mode  :character   Median :19.0   Median :2.50     Median :12.0  
-                    Mean   :19.8   Mean   :2.65     Mean   :12.6  
-                    3rd Qu.:21.0   3rd Qu.:3.00     3rd Qu.:14.0  
-                    Max.   :27.0   Max.   :4.50     Max.   :18.0  
-  condition         depicted_gender       n_trials     hit_rate   
- Length:200         Length:200         Min.   :12   Min.   :25.0  
- Class :character   Class :character   1st Qu.:12   1st Qu.:44.4  
- Mode  :character   Mode  :character   Median :18   Median :50.0  
-                                       Mean   :18   Mean   :51.5  
-                                       3rd Qu.:24   3rd Qu.:58.3  
-                                       Max.   :24   Max.   :83.3  </code></pre>
-<pre class="r"><code>summary(psi2)</code></pre>
-<pre><code>    gender               age       stimulus_seeking  hour_of_day  
- Length:200         Min.   :17.0   Min.   :1.00     Min.   :10.0  
- Class :character   1st Qu.:18.8   1st Qu.:2.00     1st Qu.:11.0  
- Mode  :character   Median :19.0   Median :2.50     Median :12.0  
-                    Mean   :19.8   Mean   :2.65     Mean   :12.6  
-                    3rd Qu.:21.0   3rd Qu.:3.00     3rd Qu.:14.0  
-                    Max.   :27.0   Max.   :4.50     Max.   :18.0  
-  condition         depicted_gender       n_trials     hit_rate   
- Length:200         Length:200         Min.   :12   Min.   :25.0  
- Class :character   Class :character   1st Qu.:12   1st Qu.:44.4  
- Mode  :character   Mode  :character   Median :18   Median :50.0  
-                                       Mean   :18   Mean   :51.5  
-                                       3rd Qu.:24   3rd Qu.:58.3  
-                                       Max.   :24   Max.   :83.3  </code></pre>
+summary(psi1)
+summary(psi2)</code></pre>
 <ol start="8" style="list-style-type: decimal">
 <li>Use the <code>View()</code> function to view the entire data frames in new windows</li>
 </ol>
@@ -285,14 +289,6 @@ hit_rate_erotic_delta &lt;- XX - 50
 
 # calculate d
 d &lt;- mean(YY) / sd(YY)</code></pre>
-<pre class="r"><code># extract erotic hit rate
-hit_rate_erotic &lt;- psi1$hit_rate[psi1$condition == &quot;erotic&quot;]
-
-# calculate the deviance from H0
-hit_rate_erotic_delta &lt;- hit_rate_erotic - 50
-
-# calculate d
-d &lt;- mean(hit_rate_erotic_delta) / sd(hit_rate_erotic_delta)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>An effect size of <code>d = .25</code> is typically considered a small, but meaningful effect. Let us know take the perspective of rival researchers, who would like to replicate Bem’s effect. Specifically, we would like to conduct an experiment that has a small chance of false positives, e.g., <span class="math inline">\(\alpha = 0.05\)</span> (<code>sig.level</code>) and an equally low chance of missing the effect, i.e., <span class="math inline">\(\beta = .05\)</span> implying <span class="math inline">\(1-\beta = power = .95\)</span>. How many observations would we have to make to be able to conduct such a test? Use the template below.</li>
 </ol>
@@ -302,84 +298,11 @@ pa &lt;- pwr.t.test(d = XX,
                  power = XX, 
                  alternative = &quot;greater&quot;)
 pa</code></pre>
-<pre class="r"><code># N to test d=.25, alpha = .05, power = .95
-pa &lt;- pwr.t.test(d = .25, 
-                 sig.level = .05, 
-                 power = .95, 
-                 alternative = &quot;greater&quot;)
-pa</code></pre>
-<pre><code>
-     Two-sample t test power calculation 
-
-              n = 347
-              d = 0.25
-      sig.level = 0.05
-          power = 0.95
-    alternative = greater
-
-NOTE: n is number in *each* group</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li>The analysis shows that we would have to run a study with 347 individuals. You can also illustrate this using <code>plot.power.htest()</code>. Apply the function to <code>pa</code>.</li>
-</ol>
-<pre class="r"><code># sample size plot
-plot.power.htest(pa) </code></pre>
-<p><img src="NewStats_practical_files/figure-html/unnamed-chunk-12-1.png" width="576" style="display: block; margin: auto;" /></p>
-<ol start="4" style="list-style-type: decimal">
-<li>Using the plot, you can also already get an idea, how large the power, i.e., the probability of detecting an effect given that it is truly there to detect, was for Bem’s study. You can also again use the <code>pwr.t.test()</code> function. To do this, set <code>n = length(hit_rate_erotic)</code> and <code>power = NULL</code>. Call the result <code>pa_bem</code>.</li>
-</ol>
-<pre class="r"><code># Bems post-hoc power
-pa_bem &lt;- pwr.t.test(n = length(hit_rate_erotic), 
-                     d = .25, 
-                     sig.level = .05, 
-                     alternative = &quot;greater&quot;)
-pa_bem</code></pre>
-<pre><code>
-     Two-sample t test power calculation 
-
-              n = 100
-              d = 0.25
-      sig.level = 0.05
-          power = 0.547
-    alternative = greater
-
-NOTE: n is number in *each* group</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li>The previous analysis is called post-hoc (after the fact) power analysis, which should not be confused with an actual power analysis carried out before the data collection. In Bem’s case we find that the power was only <code>.547</code> meaning that there was almost only a 50-50 chance that an effect of the observed size could have been observed. Let’s now consider what would happen, if the effect was actually very small, say <code>d = .1</code>. What large would Bem’s post-hoc power have been and how large a sample size was necessary for <code>power = .95</code>.</li>
-</ol>
-<pre class="r"><code># Bems post-hoc power
-pa_bem.1 &lt;- pwr.t.test(n = length(hit_rate_erotic), 
-                       d = .1, 
-                       sig.level = .05, 
-                       alternative = &quot;greater&quot;)
-pa_bem.1</code></pre>
-<pre><code>
-     Two-sample t test power calculation 
-
-              n = 100
-              d = 0.1
-      sig.level = 0.05
-          power = 0.174
-    alternative = greater
-
-NOTE: n is number in *each* group</code></pre>
-<pre class="r"><code># Sample
-pa.1 &lt;- pwr.t.test(d = .1, 
-                  sig.level = .05, 
-                  power = .95, 
-                  alternative = &quot;greater&quot;)
-pa.1</code></pre>
-<pre><code>
-     Two-sample t test power calculation 
-
-              n = 2165
-              d = 0.1
-      sig.level = 0.05
-          power = 0.95
-    alternative = greater
-
-NOTE: n is number in *each* group</code></pre>
-<ol start="6" style="list-style-type: decimal">
-<li>Bem’s post-hoc power would have been a meager 17.4%, while the N necessary for a conclusive study lies upwards of 2000 individuals. This means that Bem either knew we would be finding a substantive effect, or he actually engaged in pretty poor study planning. Go explore, can you determine the post-hoc power and n necessary your analyses? Use <code>pwr.r.test()</code> for correlation tests and <code>pwr.chisq.test()</code> for chi-square tests. Unfortunately, there are no functions for regression models.</li>
+<li><p>The analysis shows that we would have to run a study with 347 individuals. You can also illustrate this using <code>plot.power.htest()</code>. Apply the function to <code>pa</code>.</p></li>
+<li><p>Using the plot, you can also already get an idea, how large the power, i.e., the probability of detecting an effect given that it is truly there to detect, was for Bem’s study. You can also again use the <code>pwr.t.test()</code> function. To do this, set <code>n = length(hit_rate_erotic)</code> and <code>power = NULL</code>. Call the result <code>pa_bem</code>.</p></li>
+<li><p>The previous analysis is called post-hoc (after the fact) power analysis, which should not be confused with an actual power analysis carried out before the data collection. In Bem’s case we find that the power was only <code>.547</code> meaning that there was almost only a 50-50 chance that an effect of the observed size could have been observed. Let’s now consider what would happen, if the effect was actually very small, say <code>d = .1</code>. What large would Bem’s post-hoc power have been and how large a sample size was necessary for <code>power = .95</code>.</p></li>
+<li><p>Bem’s post-hoc power would have been a meager 17.4%, while the N necessary for a conclusive study lies upwards of 2000 individuals. This means that Bem either knew we would be finding a substantive effect, or he actually engaged in pretty poor study planning. Go explore, can you determine the post-hoc power and n necessary your analyses? Use <code>pwr.r.test()</code> for correlation tests and <code>pwr.chisq.test()</code> for chi-square tests. Unfortunately, there are no functions for regression models.</p></li>
 </ol>
 </div>
 <div id="d---confidence-intervals" class="section level3">
@@ -395,57 +318,17 @@ hit_rate_neutral &lt;- psi1$hit_rate[psi1$condition != &quot;erotic&quot;]
 test &lt;- t.test(x = XX, 
                y = YY, 
                paired = TRUE)</code></pre>
-<pre class="r"><code># extract hit rates 
-hit_rate_erotic &lt;- psi1$hit_rate[psi1$condition == &quot;erotic&quot;]
-hit_rate_neutral &lt;- psi1$hit_rate[psi1$condition != &quot;erotic&quot;]
-
-# compute t-test
-test &lt;- t.test(x = hit_rate_erotic, 
-               y = hit_rate_neutral, 
-               paired = TRUE)</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Next inspect the names of the <code>test</code> object using <code>names()</code>.</li>
-</ol>
-<pre class="r"><code>names(test)</code></pre>
-<pre><code>[1] &quot;statistic&quot;   &quot;parameter&quot;   &quot;p.value&quot;     &quot;conf.int&quot;    &quot;estimate&quot;   
-[6] &quot;null.value&quot;  &quot;alternative&quot; &quot;method&quot;      &quot;data.name&quot;  </code></pre>
-<ol start="3" style="list-style-type: decimal">
-<li>The you will have observed that the t-test object actually already contains a <code>conf.in</code> object. Access it using <code>$</code> and print it to the console.</li>
-</ol>
-<pre class="r"><code>test$conf.int</code></pre>
-<pre><code>[1] -0.228  6.839
-attr(,&quot;conf.level&quot;)
-[1] 0.95</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>Let us now try to recreate the confidence interval. The first element we need for this is the average difference, which is simply the average of the differences between <code>hit_rate_erotic</code> and <code>hit_rate_neutral</code>. First, calculate the differences and store them as <code>hit_rate_diff</code>. Then calculate the mean of <code>hit_rate_diff</code> and call it <code>hit_rate_diff_mean</code>.</li>
-</ol>
-<pre class="r"><code># differences 
-hit_rate_diff &lt;- hit_rate_erotic - hit_rate_neutral
-
-# mean differences
-hit_rate_diff_mean &lt;- mean(hit_rate_diff)</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li>The second element is the standard error. In case of paired samples this is very easy to calculate. The standard error is the standard deviation (<code>sd()</code>) of the differences divided by the square root of the number of differences (<code>sqrt(length())</code>). Store the standard error as <code>hit_rate_diff_se</code>.</li>
-</ol>
-<pre class="r"><code># differences 
-hit_rate_diff_se &lt;- sd(hit_rate_diff) / sqrt(length(hit_rate_diff))</code></pre>
-<ol start="5" style="list-style-type: decimal">
-<li>The final element is the value in the t-distribution that corresponds to a certain confidence interval width, e.g., 95% or 99%. If the goal is to determine a 95% confidence interval then we need to identify the t-values that encapsulate this proportion of t-values in the t-distribution, which is the t-value at which 2.5% of t-values are smaller, i.e., <span class="math inline">\(t_{2.5\%}\)</span> and the t-value at which 97.5% are smaller, i.e., <span class="math inline">\(t_{97.5\%}\)</span>. See the figure below. Locate these values in the figure below.</li>
+<li><p>Next inspect the names of the <code>test</code> object using <code>names()</code>.</p></li>
+<li><p>The you will have observed that the t-test object actually already contains a <code>conf.in</code> object. Access it using <code>$</code> and print it to the console.</p></li>
+<li><p>Let us now try to recreate the confidence interval. The first element we need for this is the average difference, which is simply the average of the differences between <code>hit_rate_erotic</code> and <code>hit_rate_neutral</code>. First, calculate the differences and store them as <code>hit_rate_diff</code>. Then calculate the mean of <code>hit_rate_diff</code> and call it <code>hit_rate_diff_mean</code>.</p></li>
+<li><p>The second element is the standard error. In case of paired samples this is very easy to calculate. The standard error is the standard deviation (<code>sd()</code>) of the differences divided by the square root of the number of differences (<code>sqrt(length())</code>). Store the standard error as <code>hit_rate_diff_se</code>.</p></li>
+<li><p>The final element is the value in the t-distribution that corresponds to a certain confidence interval width, e.g., 95% or 99%. If the goal is to determine a 95% confidence interval then we need to identify the t-values that encapsulate this proportion of t-values in the t-distribution, which is the t-value at which 2.5% of t-values are smaller, i.e., <span class="math inline">\(t_{2.5\%}\)</span> and the t-value at which 97.5% are smaller, i.e., <span class="math inline">\(t_{97.5\%}\)</span>. See the figure below. Locate these values in the figure below.</p></li>
 </ol>
 <p><img src="image/tdistr.png"></img></p>
 <ol start="6" style="list-style-type: decimal">
-<li>We can calculate the precise t-values corresponding to certain probabilities using the cumulative distribution function of t <code>qt(p = XX, df = YY)</code>. To use it, you must provide the proportion <code>p</code> of t-values that should be smaller than the target value and the degrees of freedom <code>df</code>, which in this case must be set to <code>n-1</code>. Determine <span class="math inline">\(t_{2.5\%}\)</span> and <span class="math inline">\(t_{97.5\%}\)</span> and store them as <code>t.25</code> and <code>t97.5</code>.</li>
-</ol>
-<pre class="r"><code># t-values for p = 2.5% and p = 97.5%
-t.25 &lt;- qt(p = .025, df = length(hit_rate_diff) - 1)
-t97.5 &lt;- qt(p = .975, df = length(hit_rate_diff) - 1)</code></pre>
-<ol start="7" style="list-style-type: decimal">
-<li>Compare the two t-values. Anything surprising? Given the symmetric nature of the t-distribution the two values are their respective mirror image. Ok, now you have all the ingredients that you need to construct a confidence interval. To calculate the lower bound, you want to move exactly <code>t.25</code> times the standard error to the left of the mean hit rate difference. And to calculate the bound, you want to move exactly <code>t97.5</code> times the standard error to the right of the mean hit rate difference. Do this and name the lower and upper bounds <code>hit_rate_lowerb</code> and <code>hit_rate_upperb</code>.</li>
-</ol>
-<pre class="r"><code># confidence limits
-hit_rate_lowerb &lt;- hit_rate_diff_mean + t.25 * hit_rate_diff_se
-hit_rate_upperb &lt;- hit_rate_diff_mean + t97.5 * hit_rate_diff_se</code></pre>
-<ol start="8" style="list-style-type: decimal">
+<li><p>We can calculate the precise t-values corresponding to certain probabilities using the cumulative distribution function of t <code>qt(p = XX, df = YY)</code>. To use it, you must provide the proportion <code>p</code> of t-values that should be smaller than the target value and the degrees of freedom <code>df</code>, which in this case must be set to <code>n-1</code>. Determine <span class="math inline">\(t_{2.5\%}\)</span> and <span class="math inline">\(t_{97.5\%}\)</span> and store them as <code>t.25</code> and <code>t97.5</code>.</p></li>
+<li><p>Compare the two t-values. Anything surprising? Given the symmetric nature of the t-distribution the two values are their respective mirror image. Ok, now you have all the ingredients that you need to construct a confidence interval. To calculate the lower bound, you want to move exactly <code>t.25</code> times the standard error to the left of the mean hit rate difference. And to calculate the bound, you want to move exactly <code>t97.5</code> times the standard error to the right of the mean hit rate difference. Do this and name the lower and upper bounds <code>hit_rate_lowerb</code> and <code>hit_rate_upperb</code>.</p></li>
 <li><p>Now compare your calculated values against the confidence interval determined by the t-test. Are they the same? The confidence interval is many ways the better alternative to the classic inferential test because it prefers more information. A test is just significant or not. The confidence interval reveals this information too by including the 0 or not, but it also reveals the oftentimes considerable uncertainty inherent in our estimate, which is otherwise easily forgotten.</p></li>
 <li><p>Play around with the confidence intervals. How do the bounds change, when you choose higher (e.g., 99%) or lower (90%) percentages.</p></li>
 </ol>
@@ -458,106 +341,6 @@ hit_rate_upperb &lt;- hit_rate_diff_mean + t97.5 * hit_rate_diff_se</code></pre>
 <pre class="r"><code># Bayesian regression predicting hit_rate by gender and condition
 bm1 &lt;- stan_glm(formula = hit_rate ~ gender + condition, 
                 data = psi1)</code></pre>
-<pre><code>
-SAMPLING FOR MODEL &#39;continuous&#39; NOW (CHAIN 1).
-Chain 1: 
-Chain 1: Gradient evaluation took 0.000107 seconds
-Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 1.07 seconds.
-Chain 1: Adjust your expectations accordingly!
-Chain 1: 
-Chain 1: 
-Chain 1: Iteration:    1 / 2000 [  0%]  (Warmup)
-Chain 1: Iteration:  200 / 2000 [ 10%]  (Warmup)
-Chain 1: Iteration:  400 / 2000 [ 20%]  (Warmup)
-Chain 1: Iteration:  600 / 2000 [ 30%]  (Warmup)
-Chain 1: Iteration:  800 / 2000 [ 40%]  (Warmup)
-Chain 1: Iteration: 1000 / 2000 [ 50%]  (Warmup)
-Chain 1: Iteration: 1001 / 2000 [ 50%]  (Sampling)
-Chain 1: Iteration: 1200 / 2000 [ 60%]  (Sampling)
-Chain 1: Iteration: 1400 / 2000 [ 70%]  (Sampling)
-Chain 1: Iteration: 1600 / 2000 [ 80%]  (Sampling)
-Chain 1: Iteration: 1800 / 2000 [ 90%]  (Sampling)
-Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)
-Chain 1: 
-Chain 1:  Elapsed Time: 0.121502 seconds (Warm-up)
-Chain 1:                0.114164 seconds (Sampling)
-Chain 1:                0.235666 seconds (Total)
-Chain 1: 
-
-SAMPLING FOR MODEL &#39;continuous&#39; NOW (CHAIN 2).
-Chain 2: 
-Chain 2: Gradient evaluation took 3.2e-05 seconds
-Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.32 seconds.
-Chain 2: Adjust your expectations accordingly!
-Chain 2: 
-Chain 2: 
-Chain 2: Iteration:    1 / 2000 [  0%]  (Warmup)
-Chain 2: Iteration:  200 / 2000 [ 10%]  (Warmup)
-Chain 2: Iteration:  400 / 2000 [ 20%]  (Warmup)
-Chain 2: Iteration:  600 / 2000 [ 30%]  (Warmup)
-Chain 2: Iteration:  800 / 2000 [ 40%]  (Warmup)
-Chain 2: Iteration: 1000 / 2000 [ 50%]  (Warmup)
-Chain 2: Iteration: 1001 / 2000 [ 50%]  (Sampling)
-Chain 2: Iteration: 1200 / 2000 [ 60%]  (Sampling)
-Chain 2: Iteration: 1400 / 2000 [ 70%]  (Sampling)
-Chain 2: Iteration: 1600 / 2000 [ 80%]  (Sampling)
-Chain 2: Iteration: 1800 / 2000 [ 90%]  (Sampling)
-Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)
-Chain 2: 
-Chain 2:  Elapsed Time: 0.119953 seconds (Warm-up)
-Chain 2:                0.11033 seconds (Sampling)
-Chain 2:                0.230283 seconds (Total)
-Chain 2: 
-
-SAMPLING FOR MODEL &#39;continuous&#39; NOW (CHAIN 3).
-Chain 3: 
-Chain 3: Gradient evaluation took 2e-05 seconds
-Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.2 seconds.
-Chain 3: Adjust your expectations accordingly!
-Chain 3: 
-Chain 3: 
-Chain 3: Iteration:    1 / 2000 [  0%]  (Warmup)
-Chain 3: Iteration:  200 / 2000 [ 10%]  (Warmup)
-Chain 3: Iteration:  400 / 2000 [ 20%]  (Warmup)
-Chain 3: Iteration:  600 / 2000 [ 30%]  (Warmup)
-Chain 3: Iteration:  800 / 2000 [ 40%]  (Warmup)
-Chain 3: Iteration: 1000 / 2000 [ 50%]  (Warmup)
-Chain 3: Iteration: 1001 / 2000 [ 50%]  (Sampling)
-Chain 3: Iteration: 1200 / 2000 [ 60%]  (Sampling)
-Chain 3: Iteration: 1400 / 2000 [ 70%]  (Sampling)
-Chain 3: Iteration: 1600 / 2000 [ 80%]  (Sampling)
-Chain 3: Iteration: 1800 / 2000 [ 90%]  (Sampling)
-Chain 3: Iteration: 2000 / 2000 [100%]  (Sampling)
-Chain 3: 
-Chain 3:  Elapsed Time: 0.142752 seconds (Warm-up)
-Chain 3:                0.114845 seconds (Sampling)
-Chain 3:                0.257597 seconds (Total)
-Chain 3: 
-
-SAMPLING FOR MODEL &#39;continuous&#39; NOW (CHAIN 4).
-Chain 4: 
-Chain 4: Gradient evaluation took 2e-05 seconds
-Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.2 seconds.
-Chain 4: Adjust your expectations accordingly!
-Chain 4: 
-Chain 4: 
-Chain 4: Iteration:    1 / 2000 [  0%]  (Warmup)
-Chain 4: Iteration:  200 / 2000 [ 10%]  (Warmup)
-Chain 4: Iteration:  400 / 2000 [ 20%]  (Warmup)
-Chain 4: Iteration:  600 / 2000 [ 30%]  (Warmup)
-Chain 4: Iteration:  800 / 2000 [ 40%]  (Warmup)
-Chain 4: Iteration: 1000 / 2000 [ 50%]  (Warmup)
-Chain 4: Iteration: 1001 / 2000 [ 50%]  (Sampling)
-Chain 4: Iteration: 1200 / 2000 [ 60%]  (Sampling)
-Chain 4: Iteration: 1400 / 2000 [ 70%]  (Sampling)
-Chain 4: Iteration: 1600 / 2000 [ 80%]  (Sampling)
-Chain 4: Iteration: 1800 / 2000 [ 90%]  (Sampling)
-Chain 4: Iteration: 2000 / 2000 [100%]  (Sampling)
-Chain 4: 
-Chain 4:  Elapsed Time: 0.121122 seconds (Warm-up)
-Chain 4:                0.108948 seconds (Sampling)
-Chain 4:                0.23007 seconds (Total)
-Chain 4: </code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li>Print the object and inspect the output. You’ll see it looks different than the output of a regular regression. Focusing only on the part after the separating hyphens, there are three main parts:</li>
 </ol>
@@ -567,17 +350,8 @@ Chain 4: </code></pre>
 <li><p>The third part labeled <em>Sample avg. posterior predictive distribution of y</em> shows the mean value predicted by the model, which is, more or less, the average of the fitted values.</p></li>
 </ul>
 <ol start="3" style="list-style-type: decimal">
-<li>In order to make statistical decisions, Bayesian statistics commonly relies on intervals, which in Bayesian statistics are called <em>credible interval</em> rather than <em>confidence interval</em>. Credible intervals truly provide the ranges that encompass the true value with 95% probability, which cannot strictly be said about confidence intervals. You can compute these intervals using the <code>posterior_interval()</code> function on the <code>bm1</code> object.</li>
-</ol>
-<pre class="r"><code># Bayesian regression predicting hit_rate by gender and condition
-posterior_interval(bm1)</code></pre>
-<pre><code>                    5%   95%
-(Intercept)     46.710 51.47
-genderMale      -1.393  4.21
-conditionerotic  0.477  6.07
-sigma           11.083 13.04</code></pre>
-<ol start="4" style="list-style-type: decimal">
-<li>Now let’s run the same analysis using the <code>BayesFactor</code> package using the <code>regressionBF</code> function.</li>
+<li><p>In order to make statistical decisions, Bayesian statistics commonly relies on intervals, which in Bayesian statistics are called <em>credible interval</em> rather than <em>confidence interval</em>. Credible intervals truly provide the ranges that encompass the true value with 95% probability, which cannot strictly be said about confidence intervals. You can compute these intervals using the <code>posterior_interval()</code> function on the <code>bm1</code> object.</p></li>
+<li><p>Now let’s run the same analysis using the <code>BayesFactor</code> package using the <code>regressionBF</code> function.</p></li>
 </ol>
 <pre class="r"><code># Bayesian regression predicting hit_rate by gender and condition
 psi1$gender_dummy &lt;- as.numeric(psi1$gender == &#39;Male&#39;)
@@ -672,10 +446,10 @@ posterior(bm2, iterations = 1000)</code></pre>
 <p>The data sets stem from actual (para-) psychological investigation of people’s ability to <a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/NewStats/literature/Bem_Psi_2011.pdf">“Feel the future”</a>. The infamous study published in a respected Social Psychology journal was one of the main reasons that triggered the replication crisis and the associated efforts for better scientific practice in Psychology and beyond. The data sets contain the data of the first two experiments. Experiment 1 investigated whether people can successfully (better than chance) predict behind which of two occluding curtains a picture is hiding as a function of, among other things, whether the picture has erotic content. Experiment 2 is an attempt to replicate study 2. Both studies also measures how stimulus seeking (a variant of extraversion) individuals were, to see whether this influences individuals <em>psi</em> ability.</p>
 <div id="variable-description" class="section level4">
 <h4>Variable description</h4>
-<table style="width:75%;">
+<table>
 <colgroup>
-<col width="20%" />
-<col width="54%" />
+<col width="26%" />
+<col width="73%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -749,11 +523,11 @@ posterior(bm2, iterations = 1000)</code></pre>
 </div>
 <div id="functions-1" class="section level3">
 <h3>Functions</h3>
-<table style="width:83%;">
+<table>
 <colgroup>
-<col width="6%" />
-<col width="11%" />
-<col width="65%" />
+<col width="7%" />
+<col width="12%" />
+<col width="80%" />
 </colgroup>
 <thead>
 <tr class="header">

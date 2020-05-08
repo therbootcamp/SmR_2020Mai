@@ -1,10 +1,10 @@
 ---
-title: "New Statistics"
+title: "Neue Statistik"
 author: "<table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'><col width='10%'><col width='10%'>
   <tr style='border:none'>
     <td style='display:block;width:100%;text-align:left;vertical-align:bottom;padding:0;margin:0;border:none' nowrap>
       <font style='font-style:normal'>Statistics with R</font><br>
-      <a href='https://therbootcamp.github.io/SwR_2019Apr/'>
+      <a href='https://therbootcamp.github.io/SmR_2020Mai/'>
         <i class='fas fa-clock' style='font-size:.9em;' ></i>
       </a>
       <a href='https://therbootcamp.github.io'>
@@ -17,7 +17,7 @@ author: "<table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0
         <i class='fab fa-linkedin' style='font-size: .9em;'></i>
       </a>
       <a href='https://therbootcamp.github.io'>
-        <font style='font-style:normal'>Basel R Bootcamp</font>
+        <font style='font-style:normal'>The R Bootcamp</font>
       </a>
     </td>
     <td style='width:100%;vertical-align:bottom;text-align:right;padding:0;margin:0;border:none'>
@@ -35,21 +35,20 @@ knitr::opts_chunk$set(comment = NA,
                       fig.width = 6, 
                       fig.height = 6,
                       fig.align = 'center',
-                      echo = TRUE, 
-                      eval = TRUE, 
-                      warning = FALSE,
-                      message = FALSE)
+                      echo = FALSE, 
+                      eval = FALSE, 
+                      warning = FALSE)
 
 options(digits = 3)
 
 # Load packages
 library(tidyverse)
-library(pwr)
-library(rstanarm)
-library(BayesFactor)
 
 # Load packages
-#read_csv("1_Data/...")
+#wein <- read_csv("_sessions/LinearModelsIII/1_Data/wein.csv")
+#bigmart <- read_csv("_sessions/LinearModelsIII/1_Data/bigmart.csv")
+#avocado <- read_csv("TheRBootcamp/1_Data/avocado.csv")
+#avocado_cali <- read_csv("TheRBootcamp/1_Data/avocado_cali.csv")
 
 ```
 
@@ -75,76 +74,64 @@ library(BayesFactor)
 
 </p>
 
-In this practical, you will analyze Daryl Bem's infamous psychological study on human's *psi*-abilities and along the way practice everything around new statistics.
+In diesem Practical, analysierst du die Daten von Daryl Bem`s berüchtigter Studie über menschliche *psi*-Fähigkeieten und übst währendessen neue und neu-erlangten Statistikfähigkeiten. 
 
-By the end of this practical you will know how to:
+Am Ende des Practicals wirst du wissen...
 
-1. P-hack
-2. Determine appropriate sample sizes
-3. Compute confidence intervals
-4. Run simple Bayesian analyses
+1. Wie du <i>p</i>-Hacking betreibst.
+2. Wie du sample sizes bestimmsts. 
+3. Wie du Konfidenzintervalle berechnest. 
+4. Wie du Bayesianische Statistiken rechnest. 
 
-## Tasks
+## Aufgaben
 
 ### A - Setup
 
-1. Open your `BaselRBootcamp` R project. It should already have the folders `1_Data` and `2_Code`. Make sure that the data files listed in the `Datasets` section above are in your `1_Data` folder
+1. Öffne dein `TheRBootcamp` R project. Es sollte die Ordner `1_Data` und `2_Code` enthalten. Stelle sicher, dass du alle Datensätze, welche im `Datensätze` Tab aufgelisted sind, in deinem `1_Data` Ordner hast. 
 
-```{r}
-# Done!
+2. Öffne ein neues R Skript. Schreibe deinen Namen, das Datum und "Neue Statistik Practical" als Kommentare an den Anfang des Skripts.
+
+```{r, eval = FALSE, echo = TRUE}
+## NAME
+## DATUM
+## Neue Statistik Practical
 ```
 
-2. Open a new R script. At the top of the script, using comments, write your name and the date. Save it as a new file called `newstats_practical.R` in the `2_Code` folder.  
+3. Speichere das neue Skript unter dem Namen `neue_statistik_practical.R` im `2_Code` Ordner.
 
-```{r}
-# Done!
-```
+4. Lade die nötigen Pakete. Siehe unten. 
 
-3. Using `library()` load the `tidyverse` package (if you don't have it, you'll need to install it with `install.packages()`)!
-
-```{r, echo = TRUE, eval = FALSE}
-# Load packages necessary for this script
+```{r, echo = T}
+# Lade die nötigen Pakete
 library(tidyverse)
 library(pwr)
 library(rstanarm)
 library(BayesFactor)
+
 ```
 
-4. Using the following template, load the `psi_exp1.csv` and `psi_exp2.csv` data into R and store them as a new object called `psi1` and `psi2`, respectively (Hint: Don't type the path directly! Use the "tab" completion!).
+5. Verwende die `read_csv()` Funktion um `psi1`, die Daten des ersten Experiments, und `psi2`, die Daten des zweiten Experiments einzulesen.
 
-```{r, echo = TRUE}
-# Load XXX.csv from the 1_Data folder
-
+```{r, echo = T, message = F}
+# Lade die Daten
 psi1 <- read_csv(file = "1_Data/psi_exp1.csv")
 psi2 <- read_csv(file = "1_Data/psi_exp2.csv")
 ```
 
-5. Take a look at the first few rows of the data sets by printing them to the console.
+6. Printe die Datensätze. 
+
+7. Verwende `names(XX)`, `summary(XX)`, und `View(XX)` um einen weiteren Überblick über die Daten zu bekommen.
+
+8. Wiederum, führe den Code unten aus um sicherzustellen, dass alle `character` Variablen als Faktoren vorliegen, was den statistischen Modellen hilft kategoriale Variablen richtig zu interpretieren. 
 
 ```{r, echo = TRUE}
-# Print psi1 and psi2 object
-psi1
-psi2
-```
-
-7. Use the the `summary()` function to print more details on the columns of the data sets.
-
-```{r, echo = TRUE}
-# Show summaries for psi1 and psi2
-summary(psi1)
-summary(psi2)
-```
-
-8. Use the `View()` function to view the entire data frames in new windows
-
-```{r, echo = TRUE, eval = FALSE}
-# Show the full data for psi1 and psi2
-View(psi1)
-View(psi2)
+# Konvertiere alle character zu factor
+psi1 <- psi1 %>% mutate_if(is.character, factor)
+psi2 <- psi2 %>% mutate_if(is.character, factor)
 ```
 
 
-### B - p(si)-Hacking competitions
+### B - p(si)-Hacking Wettbewerb
 
 1. The first part of this practical consists of two p-hacking competitions. 
 

@@ -213,7 +213,6 @@ $(document).ready(function () {
 <h1></h1>
 <div id="overview" class="section level2">
 <h2>Overview</h2>
-<p>In diesem Practical wirst du die Anwendung gemischter Modelle üben. Dazu verwenden wir die <code>lme4</code>, <code>performance</code>, <code>parameters</code>, <code>stats</code>, und <code>pbkrtest</code> Pakete.</p>
 <p>Am Ende dieses Practicals wirst du wissen, wie du:</p>
 <ol style="list-style-type: decimal">
 <li>gemischte Modelle in R berechnen kannst.</li>
@@ -240,29 +239,21 @@ library(lme4)
 library(performance)
 library(parameters)</code></pre>
 <ol start="4" style="list-style-type: decimal">
-<li>Unter Verwendung des folgenden Codes, lese die <code>tomatometer.csv</code> und <code>schools.csv</code> Datensätze ein und speichere sie unter den Namen <code>tom</code> und <code>schools</code>. <strong>Tipp</strong>: Verwende RStudios Autovervollständigung indem du <em>Tab</em> drückst.</li>
+<li>Unter Verwendung des folgenden Codes, lese die <code>tomatometer.csv</code> und <code>schools.csv</code> Datensätze ein und speichere sie unter den Namen <code>tom</code> und <code>schools</code>.</li>
 </ol>
 <pre class="r"><code># Lese tomatometer.csv aus dem 1_Data Ordner
-XX &lt;- read_csv(file = &quot;XX/XX&quot;)
+tom &lt;- read_csv(file = &quot;1_Data/tomatometer.csv&quot;)
 
 # Lese school.csv aus dem 1_Data Ordner
-XX &lt;- read_csv(file = &quot;XX/XX&quot;)</code></pre>
+schools &lt;- read_csv(file = &quot;1_Data/schools.csv&quot;)</code></pre>
 <ol start="5" style="list-style-type: decimal">
-<li>Inspiziere die ersten Zeilen der Datensätze.</li>
+<li><p>Printe die Datensätze.</p></li>
+<li><p>Verwende <code>names(XX)</code>, <code>summary(XX)</code>, und <code>View(XX)</code> um einen weiteren Überblick über die Daten zu bekommen.</p></li>
+<li><p>Wiederum, führe den Code unten aus um sicherzustellen, dass alle <code>character</code> Variablen als Faktoren vorliegen, was den statistischen Modellen hilft kategoriale Variablen richtig zu interpretieren.</p></li>
 </ol>
-<pre class="r"><code># Printe die Objekte
-XXX
-XXX</code></pre>
-<ol start="7" style="list-style-type: decimal">
-<li>Verwende die <code>summary()</code> Funktion um deskriptive Statistiken der Variablen der beiden Datensätze zu erhalten.</li>
-</ol>
-<pre class="r"><code>summary(XXX)
-summary(XXX)</code></pre>
-<ol start="8" style="list-style-type: decimal">
-<li>Schaue dir die Datensätze mithilfe der <code>View()</code> Funktion an.</li>
-</ol>
-<pre class="r"><code>View(XXX)
-View(XXX)</code></pre>
+<pre class="r"><code># Konvertiere alle character zu factor
+tom &lt;- tom %&gt;% mutate_if(is.character, factor)
+schools &lt;- schools %&gt;% mutate_if(is.character, factor)</code></pre>
 </div>
 <div id="b---rechnen-eines-linearen-gemischten-modells" class="section level3">
 <h3>B - Rechnen Eines Linearen Gemischten Modells</h3>
@@ -277,7 +268,7 @@ FE_mod &lt;- glm(formula = XXX ~ XXX,
 # Inspiziere die Resultate
 summary(XXX)</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Im Moment wird “betrunken” als Referenzkategorie verwendet, sodass der intercept den Mittelwert des Zustands “betrunken” angibt und der slope die Differenz der Mittelwerte der Bewertungen im Zustand “betrunken” und “nuechtern” angibt. Um ein intuitiveres Modell mit “nuechtern” als Referenzkategorie zu erhalten, können wir wir die Variable <code>zustand</code> in einen Faktor umwandeln und dort die Abfolge der Levels bestimmen. Verwende dafür den untenstehenden Code.</li>
+<li>Im Moment wird “betrunken” als Referenzkategorie verwendet, sodass der intercept den Mittelwert des Zustands “betrunken” angibt und der slope die Differenz der Mittelwerte der Bewertungen im Zustand “betrunken” und “nuechtern” angibt. Um ein intuitiveres Modell mit “nuechtern” als Referenzkategorie zu erhalten, können wir die Variable <code>zustand</code> erneut in einen Faktor umwandeln und dabei diesmal die Abfolge der Levels bestimmen. Verwende dafür den untenstehenden Code.</li>
 </ol>
 <pre class="r"><code># Wandle die zustand variable in einen Faktor um, mit nuechtern als erstes Level
 tom &lt;- tom %&gt;%
@@ -285,7 +276,7 @@ tom &lt;- tom %&gt;%
 <ol start="3" style="list-style-type: decimal">
 <li><p>Rechne erneut das Modell der Aufgabe B1.</p></li>
 <li><p>Vergleiche die Outputs der Aufgaben B1 und B3. Wie haben sich die Koeffizienten verändert? Weshalb?</p></li>
-<li><p>Rechne ein gemischtes Modell mit Random Intercepts über die Rater (Rater ids sind in der <code>id</code> variable gespeichert). <strong>Tipp</strong>: Zufällige Effekte werden in Klammern in der Modell-<code>formula</code> in folgender Art spezifiziert <code>(</code><a href="https://de.wikipedia.org/wiki/Datenmatrix">Datenmatrix</a><code>|Gruppierungsvariable)</code>. <strong>Hinweis</strong>: Das <code>REML = FALSE</code> im untenstehenden Code sagt R, dass das Model mit Maximum Likelihood (ML), statt mit Restricted Maximum Likelihood (REML) gefitted werden soll. Dies ist für die späteren Modellvergleiche wichtig, soll uns aber im Detail nicht weiter beschäftigen (für mehr Informationen in einem eher technischen Ansatz siehe <a href="https://projecteuclid.org/euclid.cbms/1462106081">hier</a> und <a href="http://www.stats.net.au/Maths_REML_manual.pdf">hier</a>, für einen weniger technischen Ansatz siehe <a href="https://en.wikipedia.org/wiki/Restricted_maximum_likelihood">hier</a>).</p></li>
+<li><p>Rechne ein gemischtes Modell mit Random Intercepts über die <code>id</code> der Rater. Zufällige Effekte werden in Klammern in der Modell-<code>formula</code> spezifiziert. Ein Modell mit nur Random Intercepts trägt allein eine <code>1</code> for dem Gruppierungsfactor. Das <code>REML = FALSE</code> im untenstehenden Code sagt R, dass das Model mit Maximum Likelihood (ML), statt mit Restricted Maximum Likelihood (REML) gefitted werden soll. Dies ist für die späteren Modellvergleiche wichtig, soll uns aber im Detail nicht weiter beschäftigen.</p></li>
 </ol>
 <pre class="r"><code># Gemischtes Modell mit random intercepts über ids
 subj_RI_mod &lt;- lmer(formula = XXX ~ XXX + # Feste Effekte
@@ -295,17 +286,8 @@ subj_RI_mod &lt;- lmer(formula = XXX ~ XXX + # Feste Effekte
 <ol start="6" style="list-style-type: decimal">
 <li><p>Unter Verwendung der <code>summary()</code> Funktion, vergleiche die Outputs des gemischten Modells und des Modells aus B3.</p></li>
 <li><p>Hat sich der Effekt von <code>zustand</code> verändert? Was hat sich genau am Effekt von <code>zustand</code> auf die Bewertungen geändert?</p></li>
-<li><p>Manchmal (zum Beispiel für Plots, oder damit wir sie nicht abschreiben müssen) ist es hilfreich, die Koeffizienten aus dem Modelloutput zu extrahieren. Extrahiere die Koeffizienten der festen Effekte aus <code>subj_RI_mod</code> mithilfe der <code>fixef()</code> Funktion.</p></li>
-</ol>
-<pre class="r"><code># Extrahiere Koeffizienten der festen Effekte aus subj_RI_mod
-fixef(XXX)</code></pre>
-<ol start="9" style="list-style-type: decimal">
-<li>Extrahiere die Koeffizienten der zufälligen Effekte aus <code>subj_RI_mod</code> mithilfe der <code>ranef()</code> Funktion.</li>
-</ol>
-<pre class="r"><code># Extrahiere Koeffizienten der zufälligen Effekte aus subj_RI_mod
-ranef(XXX)</code></pre>
-<ol start="10" style="list-style-type: decimal">
-<li>Baue dein gemischtes Modell aus Aufgabe B5 aus, indem du Random Slopes für <code>zustand</code> über <code>id</code>s hinzufügst. <strong>Tipp</strong>: Füge die <code>zustand</code> Variable auf der Linken Seite der <em>Pipe</em> <code>|</code> in dem Teil der <code>formula</code>, in dem die zufälligen Effekte spezifiziert werden.</li>
+<li><p>Interessierst du dich wie die geschätzten Fixed und Random Effects aussehen. Du kannst sie mit <code>fixef(XX)</code> und <code>ranef(XX)</code> aus dem Modellobjekt extrahieren. Probiere es aus.</p></li>
+<li><p>Baue dein gemischtes Modell aus Aufgabe B5 aus, indem du Random Slopes für <code>zustand</code> über <code>id</code>s hinzufügst. Füge die <code>zustand</code> Variable auf der Linken Seite der <em>Pipe</em> <code>|</code> in dem Teil der <code>formula</code>, in dem die zufälligen Effekte spezifiziert werden.</p></li>
 </ol>
 <pre class="r"><code># Gemischtes Modell mit random intercepts über ids und random slopes für zustand
 # über ids
@@ -313,9 +295,9 @@ subj_RI_RS_mod &lt;- lmer(formula = XXX ~ XXX + # Feste Effekte
                       (XXX|XXX),             # Zufällige Effekte
                       data = XXX,            # Daten
                       REML = FALSE)</code></pre>
-<ol start="11" style="list-style-type: decimal">
+<ol start="10" style="list-style-type: decimal">
 <li><p>Vergleiche die Outputs der drei bisherigen Modelle miteinander. Verwende dazu die <code>summary()</code> Funktion. Haben sich die Koeffizienten verändert? Was hat sich verändert?</p></li>
-<li><p>Jeder Film wurde in beiden Zuständen Bewertet. Wir haben also nicht nur Abhängigkeiten in den Daten der Rater, sondern auch der Filme. Um für diese Abhängigkeit zu kontrollieren, können wir unser Modell aus der Aufgabe B10 mit weiteren zufälligen Effekten ausbauen. Füge Random Intercepts über <code>film</code> und Random Slopes für <code>zustand</code> über <code>film</code> zum Modell hinzu. <strong>Hinweis</strong>: Das zusätzliche Argument spezifiert einen anderen Optimierungsalgorithmus, mithilfe dessen das Modell konvergiert. Die details sollen uns für den Moment nicht kümmern; wir freuen uns einfach, dass das Modell konvergiert.</p></li>
+<li><p>Jeder Film wurde in beiden Zuständen Bewertet. Wir haben also nicht nur Abhängigkeiten in den Daten der Rater, sondern auch der Filme. Um für diese Abhängigkeit zu kontrollieren, können wir unser Modell aus der Aufgabe B10 mit weiteren zufälligen Effekten ausbauen. Füge Random Intercepts über <code>film</code> und Random Slopes für <code>zustand</code> über <code>film</code> zum Modell hinzu. Über das zusätzliche Argument <code>control</code> wird ein anderen Optimierungsalgorithmus spezifiert, mithilfe dessen das Modell konvergiert. Die details sollen uns für den Moment nicht kümmern; wir freuen uns einfach, dass das Modell konvergiert.</p></li>
 </ol>
 <pre class="r"><code># Gemischtes Modell mit random intercepts über ids und random slopes für zustand
 # über ids, sowie random intercepts über film und random slopes für zustand über 
@@ -325,7 +307,7 @@ max_mod &lt;- lmer(formula = XXX ~ XXX + # Feste Effekte
                data = XXX,            # Daten
                REML = FALSE,
                control = lmerControl(optimizer = &quot;bobyqa&quot;)) # Optimierungsalgorithmus</code></pre>
-<ol start="13" style="list-style-type: decimal">
+<ol start="12" style="list-style-type: decimal">
 <li><p>Mit der <code>check_convergence()</code> Funktion des <code>performance</code> Paket können wir überprüfen, ob ein Modell konvergiert ist. Wenn die Funktion <code>TRUE</code> zurückgibt, ist alles in Ordnung. Teste, ob <code>max_mod</code> konvergiert ist.</p></li>
 <li><p><code>max_mod</code> ist das <em>maximale, vom Design gerechtfertigten Modell</em>. Was heisst das? Weshalb macht es Sinn, dieses Modell zu spezifizieren?</p></li>
 <li><p>Vergleiche mit <code>summary()</code> die Resultate der unterschiedlich Komplexen Modelle, die du bisher gerechnet hast.</p></li>
@@ -336,8 +318,7 @@ max_mod &lt;- lmer(formula = XXX ~ XXX + # Feste Effekte
 <h3>C - <span class="math inline">\(R^2\)</span></h3>
 <p>Beim rechnen von statistischen Modellen sind wir häufig daran interessiert, einen wie grossen Anteil diese erklären können. In linearen (gemischten) Modellen, wird dies durch das Bestimmtheitsmass <span class="math inline">\(R^2\)</span> angegeben; for generalisierte (gemischte) Modelle, können wir Pseudo-<span class="math inline">\(R^2\)</span> Werte berechnen.</p>
 <ol style="list-style-type: decimal">
-<li><p>Wir werden die <code>r2()</code> Funktion aus dem <code>performance</code> Paket verwenden, um die <span class="math inline">\(R^2\)</span> Werte zu berechnen. Schaue dir zunächst die Hilfedatei dieser Funktion an, um einen Überblick zu erhalten, mit welchen Modellarten sie angewendet werden kann.</p></li>
-<li><p>Berechne das Bestimmtheitsmass des maximalen Modells.</p></li>
+<li><p>Verwende die <code>r2()</code> Funktion aus dem <code>performance</code> Paket, um den <span class="math inline">\(R^2\)</span> Werte des maximalen Modells zu berechnen.</p></li>
 <li><p>Was bedeutet der Output der vorherigen Aufgabe? Was ist das <em>marginal <span class="math inline">\(R^2\)</span></em> und was ist das <em>conditional <span class="math inline">\(R^2\)</span></em>?</p></li>
 <li><p>Vergleiche die <span class="math inline">\(R^2\)</span> Werte von <code>max_mod</code> mit denen der weniger komplexen Modelle. Sind die Veränderungen gross? Welche <span class="math inline">\(R^2\)</span>-Werte haben sich verändert?</p></li>
 </ol>
