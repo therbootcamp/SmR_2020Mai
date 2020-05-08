@@ -521,7 +521,6 @@ anova(mod)
   <li class="m2"><span>Kontrolliert für das <high>Problem des multiplen Testens</high></span></li>
   </ul>
 </ul>
-]
 
 <br>
 
