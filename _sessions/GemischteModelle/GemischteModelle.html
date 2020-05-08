@@ -72,7 +72,7 @@ layout: true
 # [IID](https://de.wikipedia.org/wiki/Unabh%C3%A4ngig_und_identisch_verteilte_Zufallsvariablen) Annahme
 
 .pull-left45[
-Bisherige Regressionsmodelle machen die Annahme, dass die Datenpunkte unabhängig und gleichverteilt sind (independent and identically distributed, &lt;high&gt;iid&lt;/high&gt;).
+Bisherige Regressionsmodelle machen die Annahme, dass die Residuen unabhängig und gleichverteilt sind (independent and identically distributed, &lt;high&gt;iid&lt;/high&gt;).
 
 &lt;ul&gt;
   &lt;li class="m1"&gt;&lt;span&gt;&lt;high&gt;Unabhängig&lt;/high&gt;: Das Auftreten eines Wertes hat keinen Einfluss auf das Auftreten anderer Werte.&lt;/span&gt;&lt;/li&gt;
@@ -147,7 +147,7 @@ So würden wir eine Regression über alle Zentren rechnen (aber ist dies eine gu
 
 
 ```r
-mod &lt;- lm(formula = Merkmahl ~ Dosis,
+mod &lt;- lm(formula = Merkmal ~ Dosis,
           data = DATEN_ZENTREN)
 ```
 
@@ -178,13 +178,13 @@ So würden wir eine Regression pro Zentrum rechnen (aber ist dies eine gute Idee
 
 
 ```r
-mod_s1 &lt;- lm(formula = Merkmahl ~ Dosis,
+mod_s1 &lt;- lm(formula = Merkmal ~ Dosis,
              data = DATEN_ZENTRUM1)
 
-mod_s2 &lt;- lm(formula = Merkmahl ~ Dosis,
+mod_s2 &lt;- lm(formula = Merkmal ~ Dosis,
              data = DATEN_ZENTRUM2)
 
-mod_s3 &lt;- lm(formula = Merkmahl ~ Dosis,
+mod_s3 &lt;- lm(formula = Merkmal ~ Dosis,
              data = DATEN_ZENTRUM3)
 ```
 
@@ -259,14 +259,14 @@ LMM &lt;- lmer(formula = y ~ FE1 + FE2 +
 .pull-left5[
 
 &lt;br&gt;
-Feste Effekte repräsentieren dieselben Gruppeneffekte wie bei den bisherigen Regressionsmodellen; zum Beispiel den Effekt eines Medikamentes auf ein relevantes Merkmahl.
+Feste Effekte repräsentieren dieselben Gruppeneffekte wie bei den bisherigen Regressionsmodellen; zum Beispiel den Effekt eines Medikamentes auf ein relevantes Merkmal.
 
 Bis jetzt haben wir ausschliesslich Modelle mit festen Effekten betrachtet.
 
 
 
 ```r
-mod &lt;- lm(formula = Merkmahl ~ Dosis,
+mod &lt;- lm(formula = Merkmal ~ Dosis,
           data = DATEN_ZENTREN)
 ```
 
@@ -291,7 +291,7 @@ mod &lt;- lm(formula = Merkmahl ~ Dosis,
 
 Wir möchten den Einfluss von Alkoholkonsum auf Filmrezensionen auf [Rotten Tomatoes](https://www.rottentomatoes.com/) untersuchen.
 
-Wir rekrutieren zwei Versuchspersonen, die je zwei Filme beurteilen, und zwar einmal im nüchternen Zustand und einmal nachdem sie 4 kleine Biere getrunken haben (mehr als 4 Biere würde als Binge Drinking zählen, wofür wir kein OK von der Ethikkommission erhalten würden).
+Wir rekrutieren zwei Versuchspersonen, die je zwei Filme beurteilen, und zwar einmal im nüchternen Zustand und einmal nachdem sie 4 kleine Biere getrunken haben.
 
 &lt;ul&gt;
   &lt;li class="m1"&gt;&lt;span&gt;Wiederholte Messung (&lt;i&gt;within subjects design&lt;/i&gt;).&lt;/span&gt;&lt;/li&gt;
@@ -745,7 +745,7 @@ summary(LMM)
 
 class: middle, center
 
-&lt;h1&gt;&lt;a href="https://therbootcamp.github.io/SmR_2020Mai/_sessions/GemischteModele/GemischteModelle_practical.html"&gt;Practical&lt;/a&gt;&lt;/h1&gt;
+&lt;h1&gt;&lt;a href="https://therbootcamp.github.io/SmR_2020Mai/_sessions/GemischteModelle/GemischteModelle_practical.html"&gt;Practical&lt;/a&gt;&lt;/h1&gt;
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

@@ -256,7 +256,7 @@ ggplot(d,
   <li class="m2"><span>Parameter:</span></li>
   <ul class="level">
     <li><span>&beta;<sub>0</sub>: <high>Intercept</high> oder y-Achsenabschnitt</span></li>
-    <li><span>&beta;<sub>0</sub>: <high>Slope</high> oder Steigung</span></li>
+    <li><span>&beta;<sub>1</sub>: <high>Slope</high> oder Steigung</span></li>
   </ul>
 </ul>
 
