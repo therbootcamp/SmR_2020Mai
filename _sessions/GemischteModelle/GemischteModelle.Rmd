@@ -914,5 +914,5 @@ summary(LMM)
 
 class: middle, center
 
-<h1><a href="https://therbootcamp.github.io/SmR_2020Mai/_sessions/GemischteModele/GemischteModelle_practical.html">Practical</a></h1>
+<h1><a href="https://therbootcamp.github.io/SmR_2020Mai/_sessions/GemischteModelle/GemischteModelle_practical.html">Practical</a></h1>
 
