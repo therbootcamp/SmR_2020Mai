@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -84,7 +84,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -146,6 +145,7 @@ summary {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -157,18 +157,6 @@ summary {
   display: none;
 }
 </style>
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
 
 <!-- code folding -->
 
@@ -195,7 +183,7 @@ $(document).ready(function () {
 <col width='10%'>
 <tr style="border:none">
 <td style="display:block;width:100%;text-align:left;vertical-align:bottom;padding:0;margin:0;border:none" nowrap>
-<font style='font-style:normal'>Statistics with R</font><br> <a href='https://therbootcamp.github.io/SmR_2020Mai/'> <i class='fas fa-clock' style='font-size:.9em;' ></i> </a> <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;'></i> </a> <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a> <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a> <a href='https://therbootcamp.github.io'> <font style='font-style:normal'>The R Bootcamp</font> </a>
+<font style='font-style:normal'>Statistik mit R</font><br> <a href='https://therbootcamp.github.io/SmR_2020Mai/'> <i class='fas fa-clock' style='font-size:.9em;' ></i> </a> <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;'></i> </a> <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a> <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a> <a href='https://therbootcamp.github.io'> <font style='font-style:normal'>The R Bootcamp</font> </a>
 </td>
 <td style="width:100%;vertical-align:bottom;text-align:right;padding:0;margin:0;border:none">
 <img src='https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png' style='height:15px;width:80px'/>
@@ -211,11 +199,11 @@ $(document).ready(function () {
 </p>
 <div id="section" class="section level1 tabset">
 <h1></h1>
-<div id="uberblick" class="section level2">
+<div id="überblick" class="section level2">
 <h2>Überblick</h2>
 <p>Am Ende des Practicals wirst du wissen…</p>
 <ol style="list-style-type: decimal">
-<li>Wie du kategorische Variablen als Prädiktoren in einer Regression verwendest und interpretierst.</li>
+<li>Wie du kategoriale Variablen als Prädiktoren in einer Regression verwendest und interpretierst.</li>
 <li>Wie du Interaktionen integrierst und warum es wichtig sein kann die Variablen zu standardisieren.</li>
 </ol>
 </div>
@@ -224,7 +212,7 @@ $(document).ready(function () {
 <div id="a---setup" class="section level3">
 <h3>A - Setup</h3>
 <ol style="list-style-type: decimal">
-<li><p>Öffne dein <code>TheRBootcamp</code> R project. Es sollte die Ordner <code>1_Data</code> und <code>2_Code</code> enthalten. Stelle sicher, dass du alle Datensätze, welche im <code>Datensätze</code> Tab aufgelisted sind, in deinem <code>1_Data</code> Ordner hast.</p></li>
+<li><p>Öffne dein <code>TheRBootcamp</code> R project. Es sollte die Ordner <code>1_Data</code> und <code>2_Code</code> enthalten. Stelle sicher, dass du alle Datensätze, welche im <code>Datensätze</code> Tab aufgelistet sind, in deinem <code>1_Data</code> Ordner hast.</p></li>
 <li><p>Öffne ein neues R Skript. Schreibe deinen Namen, das Datum und “Lineare Modelle II Practical” als Kommentare an den Anfang des Skripts.</p></li>
 </ol>
 <pre class="r"><code>## NAME
@@ -232,7 +220,7 @@ $(document).ready(function () {
 ## Lineare Modelle II Practical</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li><p>Speichere das neue Skript unter dem Namen <code>lineare_modelle_II_practical.R</code> im <code>2_Code</code> Ordner.</p></li>
-<li><p>Lade die Pakete <code>tidyverse</code>.</p></li>
+<li><p>Lade das Paket <code>tidyverse</code>.</p></li>
 <li><p>Verwende die <code>read_csv()</code> Funktion um <code>wein.csv</code> einzulesen.</p></li>
 </ol>
 <pre class="r"><code># Lese Daten ein
@@ -248,7 +236,7 @@ wein &lt;- wein %&gt;% mutate_if(is.character, factor)</code></pre>
 <div id="b---gruppenvergleiche-t.test-versus-regression" class="section level3">
 <h3>B - Gruppenvergleiche: t.test versus Regression</h3>
 <ol style="list-style-type: decimal">
-<li>In diesem Abschnitt geht es darum des Effekt der <code>Farbe</code> (Prädiktor) des Weins, rot oder weiss, auf die <code>Qualität</code> des Weines zu prüfen. Verwende hierzu zunächst den code unten um zwei Vektoren zu erstellen, die jeweils die Qualitätswerte für weisse und rote Weine beinhalten.</li>
+<li>In diesem Abschnitt geht es darum den Effekt der <code>Farbe</code> (Prädiktor) des Weins, rot oder weiss, auf die <code>Qualität</code> des Weines zu prüfen. Verwende hierzu zunächst den Code unten um zwei Vektoren zu erstellen, die jeweils die Qualitätswerte für weisse und rote Weine beinhalten.</li>
 </ol>
 <pre class="r"><code># Qualitätsvektoren nach Farbe
 weiss &lt;- wein %&gt;% filter(Farbe == &#39;weiss&#39;) %&gt;% pull(Qualität)
@@ -286,7 +274,7 @@ t.test(x = XX, y = XX, var.equal = )</code></pre>
 wein &lt;- wein %&gt;% mutate(Farbe_dummy = ifelse(Farbe == &#39;rot&#39;, 0, 1),
                         Farbe_effekt = ifelse(Farbe == &#39;rot&#39;, -1, 1))</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Rechne nun zwei Regression, jeweils eine mit einer der beiden Farbkodierungen als Prädiktor und speichere sie ab als <code>wein_dummy</code> und <code>wein_effekt</code>.</li>
+<li>Rechne nun zwei Regressionen, jeweils eine mit einer der beiden Farbkodierungen als Prädiktor und speichere sie ab als <code>wein_dummy</code> und <code>wein_effekt</code>.</li>
 </ol>
 <pre class="r"><code># Regression dummy
 wein_dummy &lt;- lm(formula = XX ~ XX, 
@@ -297,7 +285,7 @@ wein_effekt &lt;- lm(formula = XX ~ XX,
                   data = XX)</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li><p>Printe nun die beiden Objekte und vergleiche die Gewichte. Diejenigen der Dummy-Kodierung sollten dir bekannt vorkommen. Wie verhalten sich die Gewichte der Effektkodierung dagegen? Erkennst du den Zusammenhang?</p></li>
-<li><p>Der Effekt der Farbe unter der Effektkodierung entspricht genau der Hälfte des Effekts unter der Dummykodierung und um dies auszugleichen hat sich der Intercept auch um genau den selben Wert verändert, nur in die andere Richtung. Verifiziert die Gewichte mit den einfachen Rechnungen im Code unten.</p></li>
+<li><p>Der Effekt der Farbe unter der Effektkodierung entspricht genau der Hälfte des Effekts unter der Dummykodierung und um dies auszugleichen hat sich der Intercept auch um genau den selben Wert verändert, nur in die andere Richtung. Verifiziere die Gewichte mit den einfachen Rechnungen im Code unten.</p></li>
 </ol>
 <pre class="r"><code># Dummy-Kodierung
 mean(rot) # intercept
@@ -308,7 +296,7 @@ mean(weiss) - mean(rot) # gewicht farbe
 mean(weiss) - (mean(rot) + mean(weiss))/2 # gewicht farbe</code></pre>
 <ol start="5" style="list-style-type: decimal">
 <li><p>Vergleiche nun die <code>summary()</code> der beiden Modelle. Was unterscheidet sich, und was nicht?</p></li>
-<li><p>Die Kodierung hat ausgenommen die Skalierung des Regressionsgewichts und des zugehörigen Standardfehlers für Farbe keinen Einfluss. t-Wert und signifikanz sind identisch. Einzig der Intercept ändert sich wesentlich, da er unter der Effektkodierung tatsächlich weiter von Null entfernt ist.</p></li>
+<li><p>Die Kodierung hat ausgenommen die Skalierung des Regressionsgewichts und des zugehörigen Standardfehlers für Farbe keinen Einfluss. t-Wert und Signifikanz sind identisch. Einzig der Intercept ändert sich wesentlich, da er unter der Effektkodierung tatsächlich weiter von Null entfernt ist.</p></li>
 </ol>
 </div>
 <div id="c---interaktionen" class="section level3">
@@ -321,10 +309,9 @@ wein_lm &lt;- lm(formula = XX ~ XX * XX,
               data = XX)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li><p>Printe das Objekt und betrachte die Gewichte. Wie interpretierst du die einzelnen Werte?</p></li>
-<li><p>Folgendermassen lassen sich die Gewichte inetrpretieren: Unter Berücksichtigung von Alkohol und der Interaktion, werden weisse Weine um <code>.7</code> besser bewertet. Unter Berücksichtigung der Farbe (d.h. für Farbe == ‘rot’) und der Interaktion, hat führt ein Anstieg von einem Volumenprozent zu einer Verbesserung der wahrgenommenen Qualität von <code>.36</code>. Unter Berücksichtigung von Farbe und Alkohol, führt die Interaktion, also das Produkt der beiden Prädiktoren zu einer Veränderung von <code>-.05</code>. Dies ist so zu interpretieren, dass der Effekt von Alkohol unter Weissweinen um genau diese Grösse kleiner ist. Dies bedeutet im Umkerhschluss dass der Effekt von Farbe unter hoch-alkoholischen Weinen kleiner ausfällt. Verwendet den Code unten um diese Ergebnisse zu visualisieren. Gelb bedeutet Weisswein, lila Rotwein.</p></li>
-<li><p>Lasse dir nun die <code>summary()</code> und inspiziere die t-Werte und Signifikanzen. Welche Prädiktoren sind signifikant?</p></li>
-<li>Alle drei Prädiktoren sind signifikant. t-Wert und Signifikanz sind am extremsten für <code>Alkohol</code>, jedoch ist das Gewicht für <code>Alkohol</code> nur halb so gross. Wie ist dies zu erklären?<br />
-</li>
+<li><p>Folgendermassen lassen sich die Gewichte interpretieren: Unter Berücksichtigung von Alkohol und der Interaktion, werden weisse Weine um <code>.7</code> besser bewertet. Unter Berücksichtigung der Farbe (d.h. für Farbe == ‘rot’) und der Interaktion, führt ein Anstieg von einem Volumenprozent zu einer Verbesserung der wahrgenommenen Qualität von <code>.36</code>. Unter Berücksichtigung von Farbe und Alkohol, führt die Interaktion, also das Produkt der beiden Prädiktoren zu einer Veränderung von <code>-.05</code>. Dies ist so zu interpretieren, dass der Effekt von Alkohol unter Weissweinen um genau diese Grösse kleiner ist. Dies bedeutet im Umkehrschluss dass der Effekt von Farbe unter hoch-alkoholischen Weinen kleiner ausfällt. Verwendet den Code unten um diese Ergebnisse zu visualisieren. Gelb bedeutet Weisswein, lila Rotwein.</p></li>
+<li><p>Lasse dir nun die <code>summary()</code> anzeigen und inspiziere die t-Werte und Signifikanzen. Welche Prädiktoren sind signifikant?</p></li>
+<li><p>Alle drei Prädiktoren sind signifikant. t-Wert und Signifikanz sind am extremsten für <code>Alkohol</code>, jedoch ist das Gewicht für <code>Alkohol</code> nur halb so gross. Wie ist dies zu erklären?</p></li>
 <li><p>Genau die Gewichte hängen auch von der Skalierung der Prädiktoren ab. Rechne nun die Regression noch einmal, aber diesmal mit skalierten Prädiktoren. Siehe Code unten.</p></li>
 </ol>
 <pre class="r"><code># Skalierungsfunktion
@@ -334,11 +321,11 @@ skaliere = function(x) (x - mean(x))/sd(x)
 wein_lm &lt;- lm(formula = XX ~ XX * XX, 
               data = XX %&gt;% mutate_if(is.numeric, skaliere))</code></pre>
 <ol start="7" style="list-style-type: decimal">
-<li><p>Printe zunächst einmal das Objekt und betrachtet die Gewichte. Alle Werte haben sich substantiell verändert. Insbesondere hat nun Alkohol das zweifach höhre Gewicht. Wie sind diese neuen Gewichte zu interpretieren, wenn du bedenkst, dass nach der Skalierung alle Variablen eine Standardabweichung = 1 haben?</p></li>
+<li><p>Printe zunächst einmal das Objekt und betrachte die Gewichte. Alle Werte haben sich substantiell verändert. Insbesondere hat nun Alkohol das zweifach höhere Gewicht. Wie sind diese neuen Gewichte zu interpretieren, wenn du bedenkst, dass nach der Skalierung alle Variablen eine Standardabweichung = 1 haben?</p></li>
 <li><p>Nach Skalierung sind die Gewichte als Veränderungen in Standardabweichungen zu interpretieren. Z.B., eine Veränderung von einer Standardabweichungen in <code>Alkohol</code> führt demnach zu einer Veränderung von <code>.4928</code> Standardabweichungen in der Qualität. Am meisten hat sich der Intercept verändert. Wie interpretiert ihr diesen unter der Skalierung?</p></li>
-<li><p>Der Intercept ist der geschätzte Mittelwert des Kriteriums für den Fall in dem alle Prädiktoren Null sind. Ohne Skalierung ist dieser Fall schwer zu interpretieren, da Null nicht vorkommen muss in den Prädiktoren. Unter der Skalierung ändert sich dies aber, denn nun haben alle Prädiktoren, mit Ausnahme des Faktors <code>Farbe</code> einen Mittelwert von Null. Das heisst der Intercept spiegelt die Qualität für ein mittleres Level von Alkohol, rote Weine und keine Interaktion in Standardabweichungen wieder. Dies kannst du wiederum in per Visualisierung nachvollziehen. Benutze den Code unten und suche den Punkt auf der lila Linie für Alkohol = 0.</p></li>
+<li><p>Der Intercept ist der geschätzte Mittelwert des Kriteriums für den Fall in dem alle Prädiktoren Null sind. Ohne Skalierung ist dieser Fall schwer zu interpretieren, da Null nicht vorkommen muss in den Prädiktoren. Unter der Skalierung ändert sich dies aber, denn nun haben alle Prädiktoren, mit Ausnahme des Faktors <code>Farbe</code> einen Mittelwert von Null. Das heisst der Intercept spiegelt die Qualität für ein mittleres Level von Alkohol, rote Weine und keine Interaktion in Standardabweichungen wieder. Dies kannst du wiederum in der Visualisierung nachvollziehen. Benutze den Code unten und suche den Punkt auf der lila Linie für Alkohol = 0.</p></li>
 <li><p>Schaue dir nun die <code>summary()</code> an. Was hat sich verändert bzgl. t-Werten, Signifikanzen, und Standardfehlern, und R-squared?</p></li>
-<li><p>Ein grosser und in diesem Fall der Einzige Einfluss besteht auf die Variable <code>Farbe</code>, welche als einzige nicht mit standardisiert wurde. Vor der standardisierung von <code>Alcohol</code> war Farbe beinahe perfekt mit der Interaktion korreliert, was zu einem extrem aufgeblasenen Standardfehler geführt hat. Die Standardisierung hat diese Korrelation jedoch stark reduziert, so dass der Standardfehler auf das Niveau der anderen Prädiktoren gefallen ist. In der Konklusion lohnt es sich beinahe immer die die Prädiktoren (oder auch das Kriterium) zu standardisieren, wenn ein Vergleich der Gewichte und Signifikanzen von Interesse ist.</p></li>
+<li><p>Ein grosser und in diesem Fall der Einzige Einfluss besteht auf die Variable <code>Farbe</code>, welche als einzige nicht mit standardisiert wurde. Vor der Standardisierung von <code>Alcohol</code> war Farbe beinahe perfekt mit der Interaktion korreliert, was zu einem extrem aufgeblasenen Standardfehler geführt hat. Die Standardisierung hat diese Korrelation jedoch stark reduziert, so dass der Standardfehler auf das Niveau der anderen Prädiktoren gefallen ist. In der Konklusion lohnt es sich beinahe immer die die Prädiktoren (oder auch das Kriterium) zu standardisieren, wenn ein Vergleich der Gewichte und Signifikanzen von Interesse ist.</p></li>
 </ol>
 </div>
 </div>
@@ -351,7 +338,7 @@ library(tidyverse)
 # Model:
 # Sagt der Hubraum (displ) die pro gallone 
 # fahrbaren Meilen voraus?
-hwy_mod &lt;- glm(formula = hwy ~ displ,
+hwy_mod &lt;- lm(formula = hwy ~ displ,
                data = mpg)
 
 # Ergebnisse 
@@ -364,14 +351,9 @@ hwy_fit
 
 # Residuums 
 hwy_resid &lt;- residuals(hwy_mod)
-hwy_resid
-
-
-# R-squared value 
-
-hwy_mod$r.squared</code></pre>
+hwy_resid</code></pre>
 </div>
-<div id="datensatze" class="section level2">
+<div id="datensätze" class="section level2">
 <h2>Datensätze</h2>
 <table>
 <thead>
@@ -383,7 +365,7 @@ hwy_mod$r.squared</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><a href="https://raw.githubusercontent.com/therbootcamp/SmR_2020Mai/master/1_Data/wein.csv">wein.csv</a></td>
+<td align="left"><a href="https://raw.githubusercontent.com/therbootcamp/SmR_2020Mai/master/TheRBootcamp/1_Data/wein.csv">wein.csv</a></td>
 <td align="left">6497</td>
 <td align="left">13</td>
 </tr>
@@ -402,11 +384,11 @@ hwy_mod$r.squared</code></pre>
 <tbody>
 <tr class="odd">
 <td align="left">Qualität</td>
-<td align="left">Qualitätsurteil über den Weins von 1-9</td>
+<td align="left">Qualitätsurteil über den Wein von 1-9</td>
 </tr>
 <tr class="even">
 <td align="left">Farbe</td>
-<td align="left">Rotr oder weisser Wien</td>
+<td align="left">Roter oder weisser Wein</td>
 </tr>
 <tr class="odd">
 <td align="left">Gelöste_Säure</td>
@@ -414,7 +396,7 @@ hwy_mod$r.squared</code></pre>
 </tr>
 <tr class="even">
 <td align="left">Freie_Säure</td>
-<td align="left">Konzenetration der verflüchtigbaren Säuren</td>
+<td align="left">Konzentration der verflüchtigbaren Säuren</td>
 </tr>
 <tr class="odd">
 <td align="left">Citronensäure</td>
@@ -430,11 +412,11 @@ hwy_mod$r.squared</code></pre>
 </tr>
 <tr class="even">
 <td align="left">Freie_Schwefeldioxide</td>
-<td align="left">Konzenetration der verflüchtigbaren Schwefeldioxide</td>
+<td align="left">Konzentration der verflüchtigbaren Schwefeldioxide</td>
 </tr>
 <tr class="odd">
 <td align="left">Gesamt_Schwefeldioxide</td>
-<td align="left">Konzenetration der Schwefeldioxide insgesamt</td>
+<td align="left">Konzentration der Schwefeldioxide insgesamt</td>
 </tr>
 <tr class="even">
 <td align="left">Dichte</td>
@@ -442,7 +424,7 @@ hwy_mod$r.squared</code></pre>
 </tr>
 <tr class="odd">
 <td align="left">pH_Wert</td>
-<td align="left">pH-Wert des Weins. Je kleiner, desto sauerer.</td>
+<td align="left">pH-Wert des Weins. Je kleiner, desto saurer.</td>
 </tr>
 <tr class="even">
 <td align="left">Sulphate</td>
@@ -478,11 +460,6 @@ hwy_mod$r.squared</code></pre>
 <div id="funktionen-1" class="section level3">
 <h3>Funktionen</h3>
 <table>
-<colgroup>
-<col width="7%" />
-<col width="12%" />
-<col width="80%" />
-</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Function</th>
@@ -492,19 +469,19 @@ hwy_mod$r.squared</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><code>glm</code></td>
+<td align="left"><code>lm</code></td>
 <td align="left"><code>stats</code></td>
-<td align="left">Fit a generalized linear model</td>
+<td align="left">Fitte ein lineares Modell</td>
 </tr>
 <tr class="even">
 <td align="left"><code>fitted</code></td>
 <td align="left"><code>stats</code></td>
-<td align="left">Show fitted values from a statistical object</td>
+<td align="left">Extrahiere vorhergesagte Werte</td>
 </tr>
 <tr class="odd">
 <td align="left"><code>residuals</code></td>
 <td align="left"><code>stats</code></td>
-<td align="left">Show residuals (fitted minus true) values from a statistical object</td>
+<td align="left">Extrahiere Residuen</td>
 </tr>
 </tbody>
 </table>
@@ -515,7 +492,7 @@ hwy_mod$r.squared</code></pre>
 <div id="books" class="section level3">
 <h3>Books</h3>
 <ul>
-<li><a href="https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469">Discovering Statistics with R</a> von Andy Field is excellent</li>
+<li><a href="https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469">Discovering Statistics with R</a> von Andy Field ist sehr gut</li>
 <li><a href="https://bookdown.org/ndphillips/YaRrr/">YaRrr! The Pirate’s Guide to R</a> hat hilfreiche und unterhaltsame Kapitel zu Statistik mit R.</li>
 </ul>
 </div>
@@ -539,6 +516,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

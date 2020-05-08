@@ -3,7 +3,7 @@ title: "Lineare Modelle II"
 author: "<table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'><col width='10%'><col width='10%'>
   <tr style='border:none'>
     <td style='display:block;width:100%;text-align:left;vertical-align:bottom;padding:0;margin:0;border:none' nowrap>
-      <font style='font-style:normal'>Statistics with R</font><br>
+      <font style='font-style:normal'>Statistik mit R</font><br>
       <a href='https://therbootcamp.github.io/SmR_2020Mai/'>
         <i class='fas fa-clock' style='font-size:.9em;' ></i>
       </a>
@@ -45,7 +45,7 @@ options(digits = 3)
 library(tidyverse)
 
 # Load packages
-college <- read_csv("1_Data/wein.csv")
+wein <- read_csv("1_Data/wein.csv")
 
 ```
 
@@ -62,14 +62,14 @@ college <- read_csv("1_Data/wein.csv")
 
 Am Ende des Practicals wirst du wissen...
 
-1. Wie du kategorische Variablen als Prädiktoren in einer Regression verwendest und interpretierst. 
+1. Wie du kategoriale Variablen als Prädiktoren in einer Regression verwendest und interpretierst. 
 2. Wie du Interaktionen integrierst und warum es wichtig sein kann die Variablen zu standardisieren.
 
 ## Aufgaben
 
 ### A - Setup
 
-1. Öffne dein `TheRBootcamp` R project. Es sollte die Ordner `1_Data` und `2_Code` enthalten. Stelle sicher, dass du alle Datensätze, welche im `Datensätze` Tab aufgelisted sind, in deinem `1_Data` Ordner hast. 
+1. Öffne dein `TheRBootcamp` R project. Es sollte die Ordner `1_Data` und `2_Code` enthalten. Stelle sicher, dass du alle Datensätze, welche im `Datensätze` Tab aufgelistet sind, in deinem `1_Data` Ordner hast. 
 
 2. Öffne ein neues R Skript. Schreibe deinen Namen, das Datum und "Lineare Modelle II Practical" als Kommentare an den Anfang des Skripts.
 
@@ -81,7 +81,7 @@ Am Ende des Practicals wirst du wissen...
 
 3. Speichere das neue Skript unter dem Namen `lineare_modelle_II_practical.R` im `2_Code` Ordner.
 
-4. Lade die Pakete `tidyverse`.
+4. Lade das Paket `tidyverse`.
 
 ```{r}
 library(tidyverse)
@@ -108,7 +108,7 @@ wein <- wein %>% mutate_if(is.character, factor)
 
 ### B - Gruppenvergleiche: t.test versus Regression
 
-1. In diesem Abschnitt geht es darum des Effekt der `Farbe` (Prädiktor) des Weins, rot oder weiss, auf die `Qualität` des Weines zu prüfen. Verwende hierzu zunächst den code unten um zwei Vektoren zu erstellen, die jeweils die Qualitätswerte für weisse und rote Weine beinhalten. 
+1. In diesem Abschnitt geht es darum den Effekt der `Farbe` (Prädiktor) des Weins, rot oder weiss, auf die `Qualität` des Weines zu prüfen. Verwende hierzu zunächst den Code unten um zwei Vektoren zu erstellen, die jeweils die Qualitätswerte für weisse und rote Weine beinhalten. 
 
 ```{r, echo = TRUE}
 # Qualitätsvektoren nach Farbe
@@ -179,7 +179,7 @@ wein <- wein %>% mutate(Farbe_dummy = ifelse(Farbe == 'rot', 0, 1),
                         Farbe_effekt = ifelse(Farbe == 'rot', -1, 1))
 ```
 
-2. Rechne nun zwei Regression, jeweils eine mit einer der beiden Farbkodierungen als Prädiktor und speichere sie ab als `wein_dummy` und `wein_effekt`.   
+2. Rechne nun zwei Regressionen, jeweils eine mit einer der beiden Farbkodierungen als Prädiktor und speichere sie ab als `wein_dummy` und `wein_effekt`.   
 
 ```{r, eval = FALSE, echo = TRUE}
 # Regression dummy
@@ -203,7 +203,7 @@ wein_effekt <- lm(formula = Qualität ~ Farbe_effekt,
 
 3. Printe nun die beiden Objekte und vergleiche die Gewichte. Diejenigen der Dummy-Kodierung sollten dir bekannt vorkommen. Wie verhalten sich die Gewichte der Effektkodierung dagegen? Erkennst du den Zusammenhang?
 
-4. Der Effekt der Farbe unter der Effektkodierung entspricht genau der Hälfte des Effekts unter der Dummykodierung und um dies auszugleichen hat sich der Intercept auch um genau den selben Wert verändert, nur in die andere Richtung. Verifiziert die Gewichte mit den einfachen Rechnungen im Code unten. 
+4. Der Effekt der Farbe unter der Effektkodierung entspricht genau der Hälfte des Effekts unter der Dummykodierung und um dies auszugleichen hat sich der Intercept auch um genau den selben Wert verändert, nur in die andere Richtung. Verifiziere die Gewichte mit den einfachen Rechnungen im Code unten. 
 
 ```{r, echo = TRUE}
 # Dummy-Kodierung
@@ -225,7 +225,7 @@ summary(wein_dummy)
 summary(wein_effekt)
 ```
 
-6. Die Kodierung hat ausgenommen die Skalierung des Regressionsgewichts und des zugehörigen Standardfehlers für Farbe keinen Einfluss. t-Wert und signifikanz sind identisch. Einzig der Intercept ändert sich wesentlich, da er unter der Effektkodierung tatsächlich weiter von Null entfernt ist.
+6. Die Kodierung hat ausgenommen die Skalierung des Regressionsgewichts und des zugehörigen Standardfehlers für Farbe keinen Einfluss. t-Wert und Signifikanz sind identisch. Einzig der Intercept ändert sich wesentlich, da er unter der Effektkodierung tatsächlich weiter von Null entfernt ist.
 
 ### C - Interaktionen
 
@@ -245,7 +245,7 @@ wein_lm <- lm(formula = Qualität ~ Farbe * Alkohol,
 
 2. Printe das Objekt und betrachte die Gewichte. Wie interpretierst du die einzelnen Werte?
 
-3. Folgendermassen lassen sich die Gewichte inetrpretieren: Unter Berücksichtigung von Alkohol und der Interaktion, werden weisse Weine um `.7` besser bewertet. Unter Berücksichtigung der Farbe (d.h. für Farbe == 'rot') und der Interaktion, hat führt ein Anstieg von einem Volumenprozent zu einer Verbesserung der wahrgenommenen Qualität von `.36`. Unter Berücksichtigung von Farbe und Alkohol, führt die Interaktion, also das Produkt der beiden Prädiktoren zu einer Veränderung von `-.05`. Dies ist so zu interpretieren, dass der Effekt von Alkohol unter Weissweinen um genau diese Grösse kleiner ist. Dies bedeutet im Umkerhschluss dass der Effekt von Farbe unter hoch-alkoholischen Weinen kleiner ausfällt. Verwendet den Code unten um diese Ergebnisse zu visualisieren. Gelb bedeutet Weisswein, lila Rotwein.
+3. Folgendermassen lassen sich die Gewichte interpretieren: Unter Berücksichtigung von Alkohol und der Interaktion, werden weisse Weine um `.7` besser bewertet. Unter Berücksichtigung der Farbe (d.h. für Farbe == 'rot') und der Interaktion, führt ein Anstieg von einem Volumenprozent zu einer Verbesserung der wahrgenommenen Qualität von `.36`. Unter Berücksichtigung von Farbe und Alkohol, führt die Interaktion, also das Produkt der beiden Prädiktoren zu einer Veränderung von `-.05`. Dies ist so zu interpretieren, dass der Effekt von Alkohol unter Weissweinen um genau diese Grösse kleiner ist. Dies bedeutet im Umkehrschluss dass der Effekt von Farbe unter hoch-alkoholischen Weinen kleiner ausfällt. Verwendet den Code unten um diese Ergebnisse zu visualisieren. Gelb bedeutet Weisswein, lila Rotwein.
 
 ```{r}
 # Visualisierung
@@ -258,9 +258,10 @@ ggplot(data = wein,
 
 ```
 
-4. Lasse dir nun die `summary()` und inspiziere die t-Werte und Signifikanzen. Welche Prädiktoren sind signifikant?
+4. Lasse dir nun die `summary()` anzeigen und inspiziere die t-Werte und Signifikanzen. Welche Prädiktoren sind signifikant?
 
 5. Alle drei Prädiktoren sind signifikant. t-Wert und Signifikanz sind am extremsten für `Alkohol`, jedoch ist das Gewicht für `Alkohol` nur halb so gross. Wie ist dies zu erklären?  
+
 6. Genau die Gewichte hängen auch von der Skalierung der Prädiktoren ab. Rechne nun die Regression noch einmal, aber diesmal mit skalierten Prädiktoren. Siehe Code unten.
 
 ```{r, eval = FALSE, echo = TRUE}
@@ -278,11 +279,11 @@ wein_lm <- lm(formula = Qualität ~ Farbe * Alkohol,
               data = wein %>% mutate_if(is.numeric, skaliere))
 ```
 
-7. Printe zunächst einmal das Objekt und betrachtet die Gewichte. Alle Werte haben sich substantiell verändert. Insbesondere hat nun Alkohol das zweifach höhre Gewicht. Wie sind diese neuen Gewichte zu interpretieren, wenn du bedenkst, dass nach der Skalierung alle Variablen eine Standardabweichung = 1 haben? 
+7. Printe zunächst einmal das Objekt und betrachte die Gewichte. Alle Werte haben sich substantiell verändert. Insbesondere hat nun Alkohol das zweifach höhere Gewicht. Wie sind diese neuen Gewichte zu interpretieren, wenn du bedenkst, dass nach der Skalierung alle Variablen eine Standardabweichung = 1 haben? 
 
 8. Nach Skalierung sind die Gewichte als Veränderungen in Standardabweichungen zu interpretieren. Z.B., eine Veränderung von einer Standardabweichungen in `Alkohol` führt demnach zu einer Veränderung von `.4928` Standardabweichungen in der Qualität. Am meisten hat sich der Intercept verändert. Wie interpretiert ihr diesen unter der Skalierung?     
 
-9. Der Intercept ist der geschätzte Mittelwert des Kriteriums für den Fall in dem alle Prädiktoren Null sind. Ohne Skalierung ist dieser Fall schwer zu interpretieren, da Null nicht vorkommen muss in den Prädiktoren. Unter der Skalierung ändert sich dies aber, denn nun haben alle Prädiktoren, mit Ausnahme des Faktors `Farbe` einen Mittelwert von Null. Das heisst der Intercept spiegelt die Qualität für ein mittleres Level von Alkohol, rote Weine und keine Interaktion in Standardabweichungen wieder. Dies kannst du wiederum in per Visualisierung nachvollziehen. Benutze den Code unten und suche den Punkt auf der lila Linie für Alkohol = 0.    
+9. Der Intercept ist der geschätzte Mittelwert des Kriteriums für den Fall in dem alle Prädiktoren Null sind. Ohne Skalierung ist dieser Fall schwer zu interpretieren, da Null nicht vorkommen muss in den Prädiktoren. Unter der Skalierung ändert sich dies aber, denn nun haben alle Prädiktoren, mit Ausnahme des Faktors `Farbe` einen Mittelwert von Null. Das heisst der Intercept spiegelt die Qualität für ein mittleres Level von Alkohol, rote Weine und keine Interaktion in Standardabweichungen wieder. Dies kannst du wiederum in der Visualisierung nachvollziehen. Benutze den Code unten und suche den Punkt auf der lila Linie für Alkohol = 0.    
 
 ```{r}
 # Visualisierung
@@ -297,7 +298,7 @@ ggplot(data = wein %>% mutate_if(is.numeric, skaliere),
 
 10. Schaue dir nun die `summary()` an. Was hat sich verändert bzgl. t-Werten, Signifikanzen, und Standardfehlern, und R-squared? 
 
-11. Ein grosser und in diesem Fall der Einzige Einfluss besteht auf die Variable `Farbe`, welche als einzige nicht mit standardisiert wurde. Vor der standardisierung von `Alcohol` war Farbe beinahe perfekt mit der Interaktion korreliert, was zu einem extrem aufgeblasenen Standardfehler geführt hat. Die Standardisierung hat diese Korrelation jedoch stark reduziert, so dass der Standardfehler auf das Niveau der anderen Prädiktoren gefallen ist. In der Konklusion lohnt es sich beinahe immer die die Prädiktoren (oder auch das Kriterium) zu standardisieren, wenn ein Vergleich der Gewichte und Signifikanzen von Interesse ist. 
+11. Ein grosser und in diesem Fall der Einzige Einfluss besteht auf die Variable `Farbe`, welche als einzige nicht mit standardisiert wurde. Vor der Standardisierung von `Alcohol` war Farbe beinahe perfekt mit der Interaktion korreliert, was zu einem extrem aufgeblasenen Standardfehler geführt hat. Die Standardisierung hat diese Korrelation jedoch stark reduziert, so dass der Standardfehler auf das Niveau der anderen Prädiktoren gefallen ist. In der Konklusion lohnt es sich beinahe immer die die Prädiktoren (oder auch das Kriterium) zu standardisieren, wenn ein Vergleich der Gewichte und Signifikanzen von Interesse ist. 
 
 
 ## Beispiele
@@ -325,11 +326,6 @@ hwy_fit
 hwy_resid <- residuals(hwy_mod)
 hwy_resid
 
-
-# R-squared value 
-
-hwy_mod$r.squared
-
 ```
 
 
@@ -337,42 +333,27 @@ hwy_mod$r.squared
 
 |Datei | Zeile | Spalte |
 |:----|:-----|:------|
-|[wein.csv](https://raw.githubusercontent.com/therbootcamp/SmR_2020Mai/master/1_Data/wein.csv) | 6497 | 13 |
-|[wein.csv](https://raw.githubusercontent.com/therbootcamp/SmR_2020Mai/master/1_Data/bigmart.csv) | 8523 | 7 |
+|[wein.csv](https://raw.githubusercontent.com/therbootcamp/SmR_2020Mai/master/TheRBootcamp/1_Data/wein.csv) | 6497 | 13 |
 
 #### wein.csv
 
-Der `wein.csv` Datensatz enthält aus den Jahren 2004 bis 2007 des Comissão De Viticultura Da Região Dos Vinhos Verdes, der Offiziellen Zertifizierungsagentur des Vinho Verde in Portugal. 
+Der `wein.csv` Datensatz enthält aus den Jahren 2004 bis 2007 des Comissão De Viticultura Da Região Dos Vinhos Verdes, der Offiziellen Zertifizierungsagentur des Vinho Verde in Portugal.
 
 | Name | Beschreibung |
 |:-------------|:-------------------------------------|
-|Qualität | Qualitätsurteil über den Weins von 1-9 |
-|Farbe| Rotr oder weisser Wien |
+|Qualität | Qualitätsurteil über den Wein von 1-9 |
+|Farbe| Roter oder weisser Wein |
 |Gelöste_Säure| Konzentration der im Wein gelösten Säuren |
-|Freie_Säure| Konzenetration der verflüchtigbaren Säuren |
+|Freie_Säure| Konzentration der verflüchtigbaren Säuren |
 |Citronensäure| Citronensäurekonzentration im Wein |
 |Restzucker| Zuckerkonzentration im Wein|
 |Chloride| Chloridkonzentration im Wein|
-|Freie_Schwefeldioxide| Konzenetration der verflüchtigbaren Schwefeldioxide |
-|Gesamt_Schwefeldioxide| Konzenetration der Schwefeldioxide insgesamt |
+|Freie_Schwefeldioxide| Konzentration der verflüchtigbaren Schwefeldioxide |
+|Gesamt_Schwefeldioxide| Konzentration der Schwefeldioxide insgesamt |
 |Dichte|Dichte des Weins|
-|pH_Wert|pH-Wert des Weins. Je kleiner, desto sauerer. |
+|pH_Wert|pH-Wert des Weins. Je kleiner, desto saurer. |
 |Sulphate| Sulphatkontration im Wein |
 |Alkohol| Alkoholkonzentration im Wein in %|
-
-#### wein.csv
-
-Der `wein.csv` Datensatz enthält aus den Jahren 2004 bis 2007 des Comissão De Viticultura Da Região Dos Vinhos Verdes, der Offiziellen Zertifizierungsagentur des Vinho Verde in Portugal. 
-
-| Name | Beschreibung |
-|:-------------|:-------------------------------------|
-|Verkäufe||
-|Gewicht||
-|Fettgehalt||
-|Visibilität||
-|Typ||
-|Max_Preis||
-|Ladengrösse||
 
 ## Funktionen
 
@@ -381,20 +362,18 @@ Der `wein.csv` Datensatz enthält aus den Jahren 2004 bis 2007 des Comissão De 
 |Package| Installation|
 |:------|:------|
 |`tidyverse`|`install.packages("tidyverse")`|
-|`mosaic`|`install.packages("mosaic")`|
-|`MASS`|`install.packages("MASS")`|
 
 ### Funktionen
 
 | Function| Package | Description |
 |:---|:------|:---------------------------------------------|
-|   `glm`|`stats`| Fit a generalized linear model  | 
-|   `fitted`|`stats`| Show fitted values from a statistical object| 
-|   `residuals`|`stats`| Show residuals (fitted minus true) values from a statistical object| 
+|   `lm`|`stats`| Fitte ein lineares Modell  |
+|   `fitted`|`stats`| Extrahiere vorhergesagte Werte|
+|   `residuals`|`stats`| Extrahiere Residuen |
 
 ## Resourcen
 
 ### Books
 
-- [Discovering Statistics with R](https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469) von Andy Field is excellent
+- [Discovering Statistics with R](https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469) von Andy Field ist sehr gut
 - [YaRrr! The Pirate's Guide to R](https://bookdown.org/ndphillips/YaRrr/) hat hilfreiche und unterhaltsame Kapitel zu Statistik mit R.

@@ -317,7 +317,7 @@ hwy_resid
 
 |Datei | Zeile | Spalte |
 |:----|:-----|:------|
-|[wein.csv](https://raw.githubusercontent.com/therbootcamp/SmR_2020Mai/master/1_Data/wein.csv) | 6497 | 13 |
+|[wein.csv](https://raw.githubusercontent.com/therbootcamp/SmR_2020Mai/master/TheRBootcamp/1_Data/wein.csv) | 6497 | 13 |
 
 #### wein.csv
 
@@ -325,17 +325,17 @@ Der `wein.csv` Datensatz enthält aus den Jahren 2004 bis 2007 des Comissão De 
 
 | Name | Beschreibung |
 |:-------------|:-------------------------------------|
-|Qualität | Qualitätsurteil über den Weins von 1-9 |
+|Qualität | Qualitätsurteil über den Wein von 1-9 |
 |Farbe| Roter oder weisser Wein |
 |Gelöste_Säure| Konzentration der im Wein gelösten Säuren |
-|Freie_Säure| Konzenetration der verflüchtigbaren Säuren |
+|Freie_Säure| Konzentration der verflüchtigbaren Säuren |
 |Citronensäure| Citronensäurekonzentration im Wein |
 |Restzucker| Zuckerkonzentration im Wein|
 |Chloride| Chloridkonzentration im Wein|
-|Freie_Schwefeldioxide| Konzenetration der verflüchtigbaren Schwefeldioxide |
-|Gesamt_Schwefeldioxide| Konzenetration der Schwefeldioxide insgesamt |
+|Freie_Schwefeldioxide| Konzentration der verflüchtigbaren Schwefeldioxide |
+|Gesamt_Schwefeldioxide| Konzentration der Schwefeldioxide insgesamt |
 |Dichte|Dichte des Weins|
-|pH_Wert|pH-Wert des Weins. Je kleiner, desto sauerer. |
+|pH_Wert|pH-Wert des Weins. Je kleiner, desto saurer. |
 |Sulphate| Sulphatkontration im Wein |
 |Alkohol| Alkoholkonzentration im Wein in %|
 
