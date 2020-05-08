@@ -302,6 +302,8 @@ $$\large OR_x = \frac{\frac{p_{x+1}}{1-p_{x+1}}}{\frac{p_x}{1-p_x}}$$
 
 .pull-right55[
 
+<br>
+
 ```{r, echo =F}
 options(width=55)
 ```

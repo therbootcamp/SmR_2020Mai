@@ -274,6 +274,9 @@ wein_lm <- lm(formula = XX ~ XX * XX,
 ```
 
 ```{r}
+# Skalierungsfunktion
+skaliere = function(x) (x - mean(x))/sd(x)
+
 # Regression mit skalierten Prädiktoren
 wein_lm <- lm(formula = Qualität ~ Farbe * Alkohol, 
               data = wein %>% mutate_if(is.numeric, skaliere))
