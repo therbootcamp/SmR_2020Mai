@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -84,7 +84,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -146,6 +145,7 @@ summary {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -157,18 +157,6 @@ summary {
   display: none;
 }
 </style>
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
 
 <!-- code folding -->
 
@@ -211,7 +199,7 @@ $(document).ready(function () {
 </p>
 <div id="section" class="section level1 tabset">
 <h1></h1>
-<div id="uberblick" class="section level2">
+<div id="überblick" class="section level2">
 <h2>Überblick</h2>
 <p>Am Ende des Practicals wirst du wissen…</p>
 <ol style="list-style-type: decimal">
@@ -349,7 +337,7 @@ wein_lm &lt;- lm(formula = XX ~ XX * XX,
 <pre class="r"><code># Visualisierung
 ggplot(data = wein %&gt;% mutate_if(is.numeric, skaliere), 
        aes(x = Alkohol, y = Qualität, col = Farbe, alpha = .01)) + 
-  scale_color_manual(values = viridis::cividis(2))  + 
+  scale_color_manual(values = viridis::cividis(2))  +
   geom_jitter(width=2,height=1.5,size=.1) + theme_minimal() + theme(legend.position = &#39;none&#39;) +
   geom_smooth(data = wein %&gt;% mutate_if(is.numeric, skaliere) %&gt;% filter(Farbe == &#39;weiss&#39;), method = &#39;lm&#39;) + 
   geom_smooth(data = wein %&gt;% mutate_if(is.numeric, skaliere) %&gt;% filter(Farbe == &#39;rot&#39;), method = &#39;lm&#39;)</code></pre>
@@ -383,7 +371,7 @@ hwy_fit
 hwy_resid &lt;- residuals(hwy_mod)
 hwy_resid</code></pre>
 </div>
-<div id="datensatze" class="section level2">
+<div id="datensätze" class="section level2">
 <h2>Datensätze</h2>
 <table>
 <thead>
@@ -546,6 +534,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
