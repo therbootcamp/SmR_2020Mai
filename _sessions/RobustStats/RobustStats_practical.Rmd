@@ -100,7 +100,7 @@ library(Rfit)
 
 ```
 
-5. Verwende die `read_csv()` Funktion um `wein.csv` und `bigmart.csv` einzulesen.
+5. Verwende die `read_csv()` Funktion um `avocado` und `avocado_cali` einzulesen.
 
 ```{r, echo = T, message = F}
 # Lade die Daten
