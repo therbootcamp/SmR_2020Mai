@@ -6,13 +6,17 @@
 lm(formula = Qualität ~ Farbe_effekt, 
    data = wein)
 
+wein = read_csv('1_Data/wein.csv')
+
+skaliere = function(x) (x - mean(x))/sd(x)
+
 a = wein %>% select(Qualität, Alkohol, Farbe) %>% 
-  mutate(Farbe = as.numeric(Farbe == 'rot'), 
+  mutate(Farbe = as.numeric(Farbe == 'weiss'), 
          interakt = Farbe * Alkohol)
 
 b = wein %>% select(Qualität, Alkohol, Farbe) %>% 
-  mutate(Farbe = as.numeric(Farbe == 'rot'), 
-         Farbe = skaliere(Farbe),
+  mutate(Farbe = as.numeric(Farbe == 'weiss'), 
+         Farbe = Farbe,
          Alkohol = skaliere(Alkohol),
          interakt = Farbe * Alkohol)
 

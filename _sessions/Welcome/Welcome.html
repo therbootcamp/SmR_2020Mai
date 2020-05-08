@@ -232,7 +232,7 @@ Klicke auf &lt;high&gt;"....running..."&lt;/high&gt; auf unserer Website!
   &lt;li class="m1"&gt;&lt;span&gt;Wie heisst Du?&lt;/span&gt;&lt;/li&gt;
   &lt;li class="m2"&gt;&lt;span&gt;Was ist dein Beruf?&lt;/span&gt;&lt;/li&gt;
   &lt;li class="m3"&gt;&lt;span&gt;Hast du Programmiererfahrung mit R oder anderen Programmiersprachen?&lt;/span&gt;&lt;/li&gt;
-  &lt;li class="m4"&gt;&lt;span&gt;Wieso möchtest Du Statistik (mit R) lernen?&lt;/span&gt;&lt;/li&gt;
+  &lt;li class="m4"&gt;&lt;span&gt;Wieviel Erfahrung hast du mit Statistik und wieso möchtest Du Statistik (mit R) lernen?&lt;/span&gt;&lt;/li&gt;
   &lt;li class="m5"&gt;&lt;span&gt;Kaffee oder Tee?&lt;/span&gt;&lt;/li&gt;
   &lt;li class="m6"&gt;&lt;span&gt;Bier oder Wein?&lt;/span&gt;&lt;/li&gt;
   &lt;li class="m7"&gt;&lt;span&gt;Berlin oder Paris?&lt;/span&gt;&lt;/li&gt;
@@ -302,32 +302,6 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
-(function() {
-  "use strict"
-  // Replace <script> tags in slides area to make them executable
-  var scripts = document.querySelectorAll(
-    '.remark-slides-area .remark-slide-container script'
-  );
-  if (!scripts.length) return;
-  for (var i = 0; i < scripts.length; i++) {
-    var s = document.createElement('script');
-    var code = document.createTextNode(scripts[i].textContent);
-    s.appendChild(code);
-    var scriptAttrs = scripts[i].attributes;
-    for (var j = 0; j < scriptAttrs.length; j++) {
-      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
-    }
-    scripts[i].parentElement.replaceChild(s, scripts[i]);
-  }
-})();
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
 // adds .remark-code-has-line-highlighted class to <pre> parent elements
 // of code chunks containing highlighted lines with class .remark-code-line-highlighted
 (function(d) {
@@ -345,6 +319,17 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   }
   preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
 })(document);</script>
+
+<script>
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+</script>
 
 <script>
 slideshow._releaseMath = function(el) {
