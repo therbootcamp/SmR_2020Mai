@@ -289,7 +289,7 @@ wein_lm <- lm(formula = Qualität ~ Farbe * Alkohol,
 # Visualisierung
 ggplot(data = wein %>% mutate_if(is.numeric, skaliere), 
        aes(x = Alkohol, y = Qualität, col = Farbe, alpha = .01)) + 
-  scale_color_manual(values = viridis::cividis(2))  + 
+  scale_color_manual(values = viridis::cividis(2))  +
   geom_jitter(width=2,height=1.5,size=.1) + theme_minimal() + theme(legend.position = 'none') +
   geom_smooth(data = wein %>% mutate_if(is.numeric, skaliere) %>% filter(Farbe == 'weiss'), method = 'lm') + 
   geom_smooth(data = wein %>% mutate_if(is.numeric, skaliere) %>% filter(Farbe == 'rot'), method = 'lm')
