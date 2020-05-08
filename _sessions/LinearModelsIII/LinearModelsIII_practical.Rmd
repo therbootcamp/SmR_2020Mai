@@ -264,12 +264,12 @@ exp(6.71409 + 0.00715 - 2.11849) # Erwartete Häufigkeit wenn Max_Preis = 1 & Vi
 
 4. Evaluiere nun die `summary()`. Was beobachtest du?
 
-5. Alle Effekte sind trotz des teilweise kleinen Einflusses (im Fall von `Max_Preis`), was sicherlich der grossen Stichprobe zu schulden ist. Nichtsdestotrotz, zeigt die `Residual deviance` und der ein klar niedrigeren Wert als die `Null deviance`. Was sagt dir dies? 
+5. Alle Effekte sind signifikant, trotz des teilweise kleinen Einflusses (im Fall von `Max_Preis`), was sicherlich der grossen Stichprobe zu schulden ist. Nichtsdestotrotz, zeigt die `Residual deviance` und der ein klar niedrigeren Wert als die `Null deviance`. Was sagt dir dies? 
 
 
 ### D - Negative binomial Regression: Bigmart
 
-1. Heutzutage wird dem Poisson Modell oftmals das Negative Binomial Modell vorgezogen, welches eine Verallgemeinerung ersteren darstellt. Verwende die `glm.nb()` aus dem `MASS` Paket um eine solche Regression mit denselben Variablen wie zuletzt zu rechnen. Verwende das Template unten.
+1. Heutzutage wird dem Poisson Modell oftmals das Negative Binomial Modell vorgezogen, welches eine Verallgemeinerung des ersteren darstellt. Verwende die `glm.nb()` aus dem `MASS` Paket um eine solche Regression mit denselben Variablen wie zuletzt zu rechnen. Verwende das Template unten.
 
 ```{r, eval = FALSE, echo = TRUE}
 # Lade MASS
@@ -322,10 +322,6 @@ hwy_resid <- residuals(hwy_mod)
 hwy_resid
 
 
-# R-squared value 
-
-hwy_mod$r.squared
-
 ```
 
 
@@ -377,16 +373,15 @@ Der `bigmart.csv` Datensatz enthält Verkaufszahlen einer nationalen Supermarktk
 |Package| Installation|
 |:------|:------|
 |`tidyverse`|`install.packages("tidyverse")`|
-|`mosaic`|`install.packages("mosaic")`|
 |`MASS`|`install.packages("MASS")`|
 
 ### Funktionen
 
 | Function| Package | Description |
 |:---|:------|:---------------------------------------------|
-|   `lm`, s`glm`|`stats`| Fit a (generalized) linear model  | 
-|   `fitted`|`stats`| Show fitted values from a statistical object| 
-|   `residuals`|`stats`| Show residuals (fitted minus true) values from a statistical object| 
+|   `glm`|`stats`| Fitte ein generalisiertes lineares Modell  |
+|   `fitted`|`stats`| Extrahiere vorhergesagte Werte|
+|   `residuals`|`stats`| Extrahiere Residuen |
 |   `gml.nb`|`MASS`| Fit a (generalized) linear model with negative binomial links| 
 
 
@@ -394,7 +389,7 @@ Der `bigmart.csv` Datensatz enthält Verkaufszahlen einer nationalen Supermarktk
 
 ### Books
 
-- Hilfreiche [Vignette](https://cran.r-project.org/web/packages/pscl/vignettes/countreg.pdf) über Regressionen für Häufigkeiten mit R.s
+- Hilfreiche [Vignette](https://cran.r-project.org/web/packages/pscl/vignettes/countreg.pdf) über Regressionen für Häufigkeiten mit R.
 
-- [Discovering Statistics with R](https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469) von Andy Field is excellent
+- [Discovering Statistics with R](https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469) von Andy Field ist sehr gut
 - [YaRrr! The Pirate's Guide to R](https://bookdown.org/ndphillips/YaRrr/) hat hilfreiche und unterhaltsame Kapitel zu Statistik mit R.
