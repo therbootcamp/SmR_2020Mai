@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 
 <meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
-<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -84,6 +84,7 @@ code {
 }
 img {
   max-width:100%;
+  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -145,7 +146,6 @@ summary {
   border: none;
   display: inline-block;
   border-radius: 4px;
-  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -157,6 +157,18 @@ summary {
   display: none;
 }
 </style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
 
 <!-- code folding -->
 
@@ -195,7 +207,7 @@ summary {
 
 
 <p align="center" width="100%">
-<img src="image/rottentomatoes.png" alt="Trulli" style="width:100%;height:280px"> <br> <font style="font-size:10px">from <a href="https://www.rottentomatoes.com/">rottentomatoes.com</a></font>
+<img src="image/rottentomatoes.png" alt="Trulli" style="width:100%"> <br> <font style="font-size:10px">from <a href="https://www.rottentomatoes.com/">rottentomatoes.com</a></font>
 </p>
 <div id="section" class="section level1 tabset">
 <h1></h1>
@@ -367,7 +379,7 @@ LMM_plot &lt;- ggplot(tom, aes(zustand, tomatometer)) +
 
 LMM_plot</code></pre>
 </div>
-<div id="e---p-werte-für-feste-effekte-berechnen" class="section level3">
+<div id="e---p-werte-fur-feste-effekte-berechnen" class="section level3">
 <h3>E - p-Werte für Feste Effekte Berechnen</h3>
 <p>Wie du sicherlich festgestellt hast, enthält der <code>lmer()</code> output keine p-Werte. Das liegt nicht and der Faulheit der Autoren von <code>lme4</code>, sondern daran, dass es noch immer eine Diskussion darum gibt, wie p-Werte für gemischte Modelle am besten berechnet werden sollten. Es gibt jedoch mehrere Möglichkeiten zu testen, ob eine Variable ein signifikanter Prädiktor unserer abhängigen Variable ist. Wir werden uns nun einige davon anschauen.</p>
 <div id="likelihood-ratio-test" class="section level4">
@@ -424,7 +436,7 @@ p_value(XXX)</code></pre>
 p_value(RI_mod, method = &quot;kenward&quot;)</code></pre>
 </div>
 </div>
-<div id="f---signifikanz-von-zufälligen-effekten-modellselektion" class="section level3">
+<div id="f---signifikanz-von-zufalligen-effekten-modellselektion" class="section level3">
 <h3>F - Signifikanz von Zufälligen Effekten (Modellselektion)</h3>
 <p>Vielleicht erinnerst du dich and das <em>keep it maximal</em> Prinzip, welches besagt, dass wir immer das maximale Modell spezifizieren sollen (<a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3881361/">Barr, Levy, Scheepers, &amp; Tily, 2013</a>). Nun ist es aber so, dass das maximale Model einen Powerverlust bedeuten kann. Daher kann es sinnvoll sein, eine Datengetriebene Auswahl der Struktur der zufälligen Effekte durchzuführen (<a href="https://www.sciencedirect.com/science/article/pii/S0749596X17300013">Matuschek, Kliegl, Vasishth, Baayen, &amp; Bates, 2017</a>). Um es mit den Worten von Matuschek und Kollegen auszudrücken (frei übersetzt): “[Ein] sparsames gemischtes Modell […], welches nur Varianzkomponenten beinhaltet, die von den Daten gestützt werden, verbessert die Balance zwischen Typ I Fehler und Power” (p. 305). Um diese Balance zu finden, werden wir LRTs durchführen.</p>
 <p>Bei diesen LRTs sollten wir nicht das normale 5% <span class="math inline">\(\alpha\)</span>-Niveau verwenden. Eine Begründung finden wir wiederum in <a href="https://www.sciencedirect.com/science/article/pii/S0749596X17300013">Matuschek und Kollegen (2017; p. 308; wiederum frei übersetzt)</a>:</p>
@@ -482,7 +494,7 @@ kW &lt;- qchisq(1 - alpha, df = 2) # bestimme den kritischen Wert, ab dem ein Un
 </div>
 <div id="x---herausforderungen" class="section level3">
 <h3>X - Herausforderungen</h3>
-<div id="mehr-zu-p-werten-für-feste-effekte-parametrisches-bootstrapping" class="section level4">
+<div id="mehr-zu-p-werten-fur-feste-effekte-parametrisches-bootstrapping" class="section level4">
 <h4>Mehr zu p-Werten für feste Effekte: Parametrisches Bootstrapping</h4>
 <p>Ein weiterer Signifikanztest für feste Effekte ist das parametrische Bootstrapping. Dieses ist insbesondere dann sinnvoll anzuwenden, wenn sich der p-Wert am Rande des Alpha-Niveaus befindet. Beim parametrischen Bootstrapping werden aus den bestehenden Daten wiederholt Stichproben mit Zurücklegen gezogen (resampling mit Zurücklegen) und das Modell an jeder dieser Stichproben gerechnet. Damit erhalten wir eine empirische Verteilung des interessierenden Parameters oder Effekts. Der Nachteil dieser Methode ist, dass sie ziemlich lange dauern kann.</p>
 <ol style="list-style-type: decimal">
@@ -510,7 +522,7 @@ pb_mod &lt;- PBmodcomp(largeModel = XXX,
 <li><p>Vergleiche die Ergebnisse der beiden letzten Aufgaben. Hat sich etwas verändert? Überlege dir, was diese Änderungen zu bedeuten haben.</p></li>
 </ol>
 </div>
-<div id="gekreuzte-versus-geschachtelte-zufällige-effekte" class="section level4">
+<div id="gekreuzte-versus-geschachtelte-zufallige-effekte" class="section level4">
 <h4>Gekreuzte versus geschachtelte zufällige Effekte</h4>
 <p>Bisher haben wir uns ausschliesslich mit gekreuzten zufälligen Effekten beschäftigt. Nun werden wir uns auch Daten mit <em>geschachtelten zufälligen Effekten</em> anschauen, wo jedes Level eines geschachtelten Faktors nur innerhalb eines einzigen Levels eines übergeordneten Faktors auftritt. Ein beliebtes Beispiel dafür ist der Fall von Klassen innerhalb von Schulen. Jede Klasse ist nur Teil einer einzigen Schule, deshalb sind hier die Klassen geschachtelt innerhalb der Schulen.</p>
 <p>Um herauszufinden, ob zufällige Effekte gekreuzt oder geschachtelt sind, musst du normalerweise etwas über das Studiendesign wissen, da die Struktur oft nicht einfach aus den Faktor-Levels ersichtlich ist. In unserem Beispiel der Klassen geschachtelt in Schulen wäre ein potentiell problemantischer Fall beispielsweise die Bezeichnung der Klassen durch Nummerierung <em>innerhalb</em> der Schulen statt über alle Schulen hinweg. Zum Beispiel enthielte Schule 1 Klassen 1 bis 10 und Schule 2 Klassen 1 bis 6. Natürlich ist dann Klasse 1 der Schule 1 nicht dieselbe wie Klasse 1 der Schule 2. Was jedoch für dich offensichtich erscheinen mag, ist nicht offensichtlich für R. R weiss nichts über die Konzepte von Schulen und Klassen, deshalb muss du ihm sagen, ob die Faktoren geschachtelt sind oder nicht, indem du die entsprechende Syntax in der Formel verwendest. Jetzt stelle dir den Fall vor, wo Klassen in Schulen geschachtelt sind, nun aber über alle Schulen hinweg nummeriert sind, also von 1 bis zur totalen Anzahl an Klassen im Datensatz. Somit hat jede Klasse eine eindeutige Bezeichnung. Ist dies der Fall, spielt es keine Rolle wie du die Struktur spezifizierst.</p>
@@ -528,7 +540,7 @@ pb_mod &lt;- PBmodcomp(largeModel = XXX,
 <li><p>Haben sich die Resultate im Vergleich zu denjenigen mit geschachtelten zufälligen Effekten verändert?</p></li>
 </ol>
 </div>
-<div id="mehr-zur-auswahl-zufälliger-effekte" class="section level4">
+<div id="mehr-zur-auswahl-zufalliger-effekte" class="section level4">
 <h4>Mehr zur Auswahl zufälliger Effekte</h4>
 <ol style="list-style-type: decimal">
 <li><p>In Aufgabe D6 hast du herausgefunden, dass das eingeschränkte Modell, in welchem die Korrelationen zwischen den zufälligen Effekten auf Null gesetzt werden, nicht signifikant schlechter war als das maximale Modell. Wenn du also eine konfirmatorische Hypothese testen würdest, solltest du dieses Modell anstelle des maximalen Modells annehmen. Wir haben in dieser Aufgabe die Rückwärtselimination aber nicht weitergeführt. Dies wollen wir hier nachholen. Rechne nun ein Modell mit Random Intercepts und Slopes über die Rater, jedoch ohne Korrelationen dazwischen, und mit Random Intercepts über die Filme.</p></li>
@@ -991,23 +1003,6 @@ $(document).ready(function () {
 
 
 </script>
-
-<!-- tabsets -->
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
-<!-- code folding -->
-
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
