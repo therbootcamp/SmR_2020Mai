@@ -1,10 +1,10 @@
 ---
-title: "Robust Statistics"
+title: "Lineare Modelle III"
 author: "<table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'><col width='10%'><col width='10%'>
   <tr style='border:none'>
     <td style='display:block;width:100%;text-align:left;vertical-align:bottom;padding:0;margin:0;border:none' nowrap>
       <font style='font-style:normal'>Statistics with R</font><br>
-      <a href='https://therbootcamp.github.io/SwR_2019Apr/'>
+      <a href='https://therbootcamp.github.io/SmR_2020Mai/'>
         <i class='fas fa-clock' style='font-size:.9em;' ></i>
       </a>
       <a href='https://therbootcamp.github.io'>
@@ -17,7 +17,7 @@ author: "<table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0
         <i class='fab fa-linkedin' style='font-size: .9em;'></i>
       </a>
       <a href='https://therbootcamp.github.io'>
-        <font style='font-style:normal'>Basel R Bootcamp</font>
+        <font style='font-style:normal'>The R Bootcamp</font>
       </a>
     </td>
     <td style='width:100%;vertical-align:bottom;text-align:right;padding:0;margin:0;border:none'>
@@ -35,10 +35,9 @@ knitr::opts_chunk$set(comment = NA,
                       fig.width = 6, 
                       fig.height = 6,
                       fig.align = 'center',
-                      echo = TRUE, 
-                      eval = TRUE, 
-                      warning = FALSE,
-                      message = FALSE)
+                      echo = FALSE, 
+                      eval = FALSE, 
+                      warning = FALSE)
 
 options(digits = 3)
 
@@ -46,49 +45,50 @@ options(digits = 3)
 library(tidyverse)
 
 # Load packages
-#read_csv("1_Data/...")
+#wein <- read_csv("_sessions/LinearModelsIII/1_Data/wein.csv")
+#bigmart <- read_csv("_sessions/LinearModelsIII/1_Data/bigmart.csv")
 
 ```
 
 <p align="center" width="100%">
-  <img src="image/avocado_small.png" alt="Trulli" style="width:100%y">
+  <img src="image/bigmart.png" alt="Trulli" style="width:100%">
   <br>
-  <font style="font-size:10px">from <a href="https://www.self.com/story/how-to-pick-the-best-avocado-every-time">self.com</a></font>
+  <font style="font-size:10px">from <a href="http://seeksaurav.blogspot.com/2013/01/week-8.html">seeksaurav.blogspot.com</a></font>
 </p>
 
 
 # {.tabset}
 
-## Overview
+## Überblick
 
-In this practical you'll explore issues surrounding the topic of robust statistics using a variety of packages (see *Functions*) tab. You'll will explore sales of avocados across various locations in the US from 2015 to 2018. 
+In diesem Practical explorierst du verschiedene Aspekte im Kontext robuster Statistik. 
 
-By the end of this practical you will know how to:
+Am Ende des Practicals wirst du wissen...
 
-1. Evaluate regression assumptions.
-2. Run off-the-shelf non-parametric tests.
-3. Run bootstrap analyses.
+1. Wie du die Annahme der Gression überprüfst. 
+2. Wie du etablierte nicht-parametrische Statistiken implementierst und interpretirst.
+3. Wie du Bootstrap Analysen rechnest. 
 
-## Tasks
+## Aufgaben
 
 ### A - Setup
 
-1. Open your `BaselRBootcamp` R project. It should already have the folders `1_Data` and `2_Code`. Make sure that the data files listed in the `Datasets` section above are in your `1_Data` folder
+1. Öffne dein `TheRBootcamp` R project. Es sollte die Ordner `1_Data` und `2_Code` enthalten. Stelle sicher, dass du alle Datensätze, welche im `Datensätze` Tab aufgelisted sind, in deinem `1_Data` Ordner hast. 
 
-```{r}
-# Done!
+2. Öffne ein neues R Skript. Schreibe deinen Namen, das Datum und "Lineare Modelle III Practical" als Kommentare an den Anfang des Skripts.
+
+```{r, eval = FALSE, echo = TRUE}
+## NAME
+## DATUM
+## Lineare Modelle III Practical
 ```
 
-2. Open a new R script. At the top of the script, using comments, write your name and the date. Save it as a new file called `robuststats_practical.R` in the `2_Code` folder.  
+3. Speichere das neue Skript unter dem Namen `lineare_modelle_III_practical.R` im `2_Code` Ordner.
 
-```{r}
-# Done!
-```
+4. Lade die nötigen Pakete. Siehe unten. 
 
-3. Using `library()` load the `tidyverse` package (if you don't have it, you'll need to install it with `install.packages()`)!
-
-```{r, echo = TRUE}
-# Load packages necessary for this script
+```{r, echo = T}
+# Lade die nötigen Pakete
 library(tidyverse)
 library(lubridate)
 library(lme4)
@@ -97,65 +97,31 @@ library(moments)
 library(boot)
 library(quantreg)
 library(Rfit)
+
 ```
 
-4. Using the following template, load the `avocado.csv`, and `avocado_cali.csv` data sets into R and store them as a new objects called `avocado`, and `avocado_cali` (Hint: Don't type the path directly! Use the "tab" completion!).
+5. Verwende die `read_csv()` Funktion um `wein.csv` und `bigmart.csv` einzulesen.
 
-```{r, echo = TRUE, eval = FALSE}
-# Load XXX.csv from the 1_Data folder
-
-XX <- read_csv(file = "XX/XX")
-XX <- read_csv(file = "XX/XX")
-```
-
-```{r}
-# Load data sets from the 1_Data folder
-
+```{r, echo = T, message = F}
+# Lade die Daten
 avocado <- read_csv(file = "1_Data/avocado.csv")
 avocado_cali <- read_csv(file = "1_Data/avocado_cali.csv")
 ```
 
-5. Take a look at the first few rows of the data sets by printing them to the console.
+6. Printe die Datensätze. 
 
-```{r, echo = TRUE, eval = FALSE}
-# Print XXX object
-XXX
+7. Verwende `names(XX)`, `summary(XX)`, und `View(XX)` um einen weiteren Überblick über die Daten zu bekommen.
+
+8. Wiederum, führe den Code unten aus um sicherzustellen, dass alle `character` Variablen als Faktoren vorliegen, was den statistischen Modellen hilft kategoriale Variablen richtig zu interpretieren. 
+
+```{r, echo = TRUE}
+# Konvertiere alle character zu factor
+avocado <- avocado %>% mutate_if(is.character, factor)
+avocado_cali <- avocado_cali %>% mutate_if(is.character, factor)
 ```
 
-```{r}
-# Print XXX object
-avocado
-avocado_cali
-```
 
-7. Use the the `summary()` function to print more details on the columns of the data sets.
-
-```{r, echo = TRUE, eval = FALSE}
-# Show summary of XXX object
-summary(XXX)
-```
-
-```{r}
-# Show summary of XXX object
-summary(avocado)
-summary(avocado_cali)
-```
-
-8. Use the `View()` function to view the entire data sets in new windows
-
-```{r, echo = TRUE, eval = FALSE}
-# View data frame XXX 
-View(XXX)
-```
-
-```{r, eval = F}
-# View data frame XXX 
-View(avocado)
-View(avocado_cali)
-View(avocado_ny)
-```
-
-### B - Assumptions
+### B - Annahmen
 
 1. In this practical, you will be working with a data set containing information on the sales volume of avocados across various areas in the US and over the the last three years. Your initial goal is to predict, whether the sales `volume` is a function of the `price_per_avocado`. Begin by running a simple regression on the `avocado_cali` data set using `lm` and store the model as `m1`. See the template below.   
 
@@ -710,8 +676,6 @@ mm <- lmer(formula = volume_index ~ XX + (1 | region),
 # residual plot
 plot(x = predict(mm), y = residuals(mm))
 ```
-
-
 
 
 ## Examples
