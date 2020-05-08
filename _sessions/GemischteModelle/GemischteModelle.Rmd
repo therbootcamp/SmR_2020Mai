@@ -340,7 +340,7 @@ Gemischte Modelle kombinieren zwei Arten von Effekten, die unterschiedliche Zwec
 
 
 <ul>
-  <li class="m1"><span><high>Zufällige Effekte (random effects)</high>
+  <li class="m2"><span><high>Zufällige Effekte (random effects)</high>
   <br><br>
   <ul class="level">
     <li><span>Berücksichtigung der Abhängigkeiten in den Daten.</span></li>
