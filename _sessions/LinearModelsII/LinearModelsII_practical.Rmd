@@ -247,7 +247,7 @@ wein_lm <- lm(formula = Qualität ~ Farbe * Alkohol,
 
 3. Folgendermassen lassen sich die Gewichte interpretieren: Unter Berücksichtigung von Alkohol und der Interaktion, werden weisse Weine um `.7` besser bewertet. Unter Berücksichtigung der Farbe (d.h. für Farbe == 'rot') und der Interaktion, führt ein Anstieg von einem Volumenprozent zu einer Verbesserung der wahrgenommenen Qualität von `.36`. Unter Berücksichtigung von Farbe und Alkohol, führt die Interaktion, also das Produkt der beiden Prädiktoren zu einer Veränderung von `-.05`. Dies ist so zu interpretieren, dass der Effekt von Alkohol unter Weissweinen um genau diese Grösse kleiner ist. Dies bedeutet im Umkehrschluss dass der Effekt von Farbe unter hoch-alkoholischen Weinen kleiner ausfällt. Verwendet den Code unten um diese Ergebnisse zu visualisieren. Gelb bedeutet Weisswein, lila Rotwein.
 
-```{r}
+```{r, echo =T}
 # Visualisierung
 ggplot(data = wein, 
        aes(x = Alkohol, y = Qualität, col = Farbe, alpha = .01)) + 
