@@ -173,7 +173,7 @@ log_likelihood <- sum(log(wsk_weiss[wein$Farbe == 'weiss'])) +
 -2 * log_likelihood
 ```
 
-9. Die Deviance werte bzw. die log-Likelihoods lassen sich nur schwer absolut beurteilen. Das bedeutet auch, dass nicht ohne weiteres klar ist, ob `wein_glm` tatsächlich gut die `Farbe` erklärt. Bei standard Regression ist das leichter, da `R-squared` notwendigerweise zwischen `0` und `1` liegt. Um die Interpretation zu erleichtert, bietet R daher noch das Akaika Informationskriterium (`AIC`), welches die Deviance in Vergleich zur Anzahl der Parameter setzt, d.h., `AIC <- Deviance + 2*k`, wobei `k` die Anzahl der Parameter (Regressionsgewichte ist). Wenn das `AIC` niedriger ist als die Null-Deviance, dann kann man klar davon ausgehen, dass das Modell (`wein_glm`) besser ist. Hier ist dies der Fall, was nicht überraschend ist, da die Prädiktoren jeweils sehr starke Effekte aufweisen.       
+9. Die Deviance Werte bzw. die log-Likelihoods lassen sich nur schwer absolut beurteilen. Das bedeutet auch, dass nicht ohne weiteres klar ist, ob `wein_glm` tatsächlich gut die `Farbe` erklärt. Bei standard Regression ist das leichter, da `R-squared` notwendigerweise zwischen `0` und `1` liegt. Um die Interpretation zu erleichtert, bietet R daher noch das Akaike Informationskriterium (`AIC`), welches die Deviance in Vergleich zur Anzahl der Parameter setzt, d.h., `AIC <- Deviance + 2*k`, wobei `k` die Anzahl der Parameter (Regressionsgewichte ist). Wenn das `AIC` niedriger ist als die Null-Deviance, dann kann man klar davon ausgehen, dass das Modell (`wein_glm`) besser ist. Hier ist dies der Fall, was nicht überraschend ist, da die Prädiktoren jeweils sehr starke Effekte aufweisen.       
 
 10. Dass starke Effekte vorliegen, lässt sich über sogenannte Odds Ratios (OR) darstellen. ORs sind eine übliche Effektstärke in der logistischen Regression, die sich leicht aus Regressionsgewichten ableiten lässt und zwar gilt `OR = exp(b)`, wobei `b` das Regressionsgewicht ist. Berechne die ORs für die drei im Modell enthaltenen Prädiktoren. Es ist i.d.R. einfacher mit positiven Gewichten zu arbeiten, solange man die Richtung in Erinnerung behält. 
  
@@ -259,7 +259,7 @@ bigmart_glm <- glm(formula = Verkäufe ~ Max_Preis + Visibilität,
 exp(6.71409) # Erwartete Häufigkeit wenn Max_Preis = 0 & Visibilität = 0
 exp(6.71409 + 0.00715) # Erwartete Häufigkeit wenn Max_Preis = 1 & Visibilität = 0
 exp(6.71409 - 2.11849) # Erwartete Häufigkeit wenn Max_Preis = 0 & Visibilität = 1
-exp(6.71409 + 0.00715 - 2.11849) # Erwartete Häufigkeit wenn Max_Preis = 0 & Visibilität = 1
+exp(6.71409 + 0.00715 - 2.11849) # Erwartete Häufigkeit wenn Max_Preis = 1 & Visibilität = 1
 ```
 
 4. Evaluiere nun die `summary()`. Was beobachtest du?
