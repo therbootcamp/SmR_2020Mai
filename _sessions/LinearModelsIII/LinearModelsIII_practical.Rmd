@@ -96,11 +96,11 @@ wein <- read_csv(file = "1_Data/wein.csv")
 bigmart <- read_csv(file = "1_Data/bigmart.csv")
 ```
 
-3. Printe die Datensätze. 
+6. Printe die Datensätze. 
 
-4. Verwende `names(XX)`, `summary(XX)`, und `View()` um einen weiteren Überblick über die Daten zu bekommen.
+7. Verwende `names(XX)`, `summary(XX)`, und `View()` um einen weiteren Überblick über die Daten zu bekommen.
 
-5. Wiederum, führe den Code unten aus um sicherzustellen, dass alle `character` Variablen als Faktoren vorliegen, was den statistischen Modellen hilft kategoriale Variablen richtig zu interpretieren. 
+8. Wiederum, führe den Code unten aus um sicherzustellen, dass alle `character` Variablen als Faktoren vorliegen, was den statistischen Modellen hilft kategoriale Variablen richtig zu interpretieren. 
 
 ```{r, echo = TRUE}
 # Konvertiere alle character zu factor
