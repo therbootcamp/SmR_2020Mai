@@ -155,7 +155,7 @@ s_dat <- tibble(
 # [IID](https://de.wikipedia.org/wiki/Unabh%C3%A4ngig_und_identisch_verteilte_Zufallsvariablen) Annahme
 
 .pull-left45[
-Bisherige Regressionsmodelle machen die Annahme, dass die Datenpunkte unabhängig und gleichverteilt sind (independent and identically distributed, <high>iid</high>).
+Bisherige Regressionsmodelle machen die Annahme, dass die Residuen unabhängig und gleichverteilt sind (independent and identically distributed, <high>iid</high>).
 
 <ul>
   <li class="m1"><span><high>Unabhängig</high>: Das Auftreten eines Wertes hat keinen Einfluss auf das Auftreten anderer Werte.</span></li>
@@ -230,7 +230,7 @@ So würden wir eine Regression über alle Zentren rechnen (aber ist dies eine gu
 
 ```{r eval = FALSE}
 
-mod <- lm(formula = Merkmahl ~ Dosis,
+mod <- lm(formula = Merkmal ~ Dosis,
           data = DATEN_ZENTREN)
 
 ```
@@ -249,7 +249,7 @@ ggplot(s_dat, aes(x, y)) +
   geom_point(col = "#606061", alpha = .7) +
   geom_smooth(method = "lm", col = "#EA4B68", se = FALSE) +
   theme_classic() +
-  labs(y = "Merkmahl",
+  labs(y = "Merkmal",
        x = "Dosis") +
   theme(
     strip.text = element_text(size = 12, face = "bold"),
@@ -276,13 +276,13 @@ So würden wir eine Regression pro Zentrum rechnen (aber ist dies eine gute Idee
 
 ```{r eval = FALSE}
 
-mod_s1 <- lm(formula = Merkmahl ~ Dosis,
+mod_s1 <- lm(formula = Merkmal ~ Dosis,
              data = DATEN_ZENTRUM1)
 
-mod_s2 <- lm(formula = Merkmahl ~ Dosis,
+mod_s2 <- lm(formula = Merkmal ~ Dosis,
              data = DATEN_ZENTRUM2)
 
-mod_s3 <- lm(formula = Merkmahl ~ Dosis,
+mod_s3 <- lm(formula = Merkmal ~ Dosis,
              data = DATEN_ZENTRUM3)
 
 ```
@@ -302,7 +302,7 @@ ggplot(aes(x, y, col = Zentrum)) +
   geom_point(alpha = .7) +
   geom_smooth(method = "lm", se = FALSE) +
   theme_classic() +
-  labs(y = "Merkmahl",
+  labs(y = "Merkmal",
        x = "Dosis") +
   theme(
     strip.text = element_text(size = 12, face = "bold"),
@@ -416,14 +416,14 @@ ggplot(tomato_df, aes(State, tomatometer))+
 .pull-left5[
 
 <br>
-Feste Effekte repräsentieren dieselben Gruppeneffekte wie bei den bisherigen Regressionsmodellen; zum Beispiel den Effekt eines Medikamentes auf ein relevantes Merkmahl.
+Feste Effekte repräsentieren dieselben Gruppeneffekte wie bei den bisherigen Regressionsmodellen; zum Beispiel den Effekt eines Medikamentes auf ein relevantes Merkmal.
 
 Bis jetzt haben wir ausschliesslich Modelle mit festen Effekten betrachtet.
 
 
 ```{r eval = FALSE}
 
-mod <- lm(formula = Merkmahl ~ Dosis,
+mod <- lm(formula = Merkmal ~ Dosis,
           data = DATEN_ZENTREN)
 
 ```
@@ -441,7 +441,7 @@ ggplot(s_dat, aes(x, y)) +
   geom_point(col = "#606061", alpha = .7) +
   geom_smooth(method = "lm", col = "#EA4B68", se = FALSE) +
   theme_classic() +
-  labs(y = "Merkmahl",
+  labs(y = "Merkmal",
        x = "Dosis") +
   theme(
     strip.text = element_text(size = 12, face = "bold"),
@@ -463,7 +463,7 @@ ggplot(s_dat, aes(x, y)) +
 
 Wir möchten den Einfluss von Alkoholkonsum auf Filmrezensionen auf [Rotten Tomatoes](https://www.rottentomatoes.com/) untersuchen.
 
-Wir rekrutieren zwei Versuchspersonen, die je zwei Filme beurteilen, und zwar einmal im nüchternen Zustand und einmal nachdem sie 4 kleine Biere getrunken haben (mehr als 4 Biere würde als Binge Drinking zählen, wofür wir kein OK von der Ethikkommission erhalten würden).
+Wir rekrutieren zwei Versuchspersonen, die je zwei Filme beurteilen, und zwar einmal im nüchternen Zustand und einmal nachdem sie 4 kleine Biere getrunken haben.
 
 <ul>
   <li class="m1"><span>Wiederholte Messung (<i>within subjects design</i>).</span></li>

@@ -199,7 +199,7 @@ Klicke auf <high>"....running..."</high> auf unserer Website!
 
   <iframe src="https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsI/LinearModelsI_practical.html" height="480px" width = "500px"></iframe>
 
-  Beispiel:<a href="https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsI/LinearModelsI_practical.html"> Fitting </a>
+  Beispiel:<a href="https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsI/LinearModelsI_practical.html"> Lineare Modelle I </a>
 
 ]
 
