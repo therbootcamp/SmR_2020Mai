@@ -133,17 +133,57 @@ psi2 <- psi2 %>% mutate_if(is.character, factor)
 
 ### B - p(si)-Hacking Wettbewerb
 
-1. The first part of this practical consists of two p-hacking competitions. 
+1. Der erste Abschnitt besteht aus zwei <i>p</i>-Hacking Wettbewerben! Der Wettbewerb endet in
 
-1.1 The goal of both competitions is to achieve the smallest possible p-value by hacking the sh__ out of the Bem's experimental data. To do this find up to three analyses that either show that people actually have *psi* abilities (i.e., that `hit_rate` higher than chance) and that other variables can predict *psi* ability (i.e., `hit_rate`, implying the existence of *psi*). There are no rules. You can use any test. You are even permitted to use only parts of the data (e.g., using `data %>% filter(condition)`).  
+<font style="font-size:32px"><p id="demo" align="center"></p></font>
 
-1.2 For each of the two competitions you are permitted to submit up to 3 models. You work alone or join forces with other participants. For information on the data and variables see the *Datasets* tab. The key criterion is `hit_rate`. The person or group submitting the lowest p-value for a competition wins &#x1F36B;&#x1F36B;&#x1F36B;.  
+<script>
+// Set the date we're counting down to
+var countDownDate = new Date("May 9, 2020 16:45:00").getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get todays date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="demo"
+  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+  + minutes + "m " + seconds + "s ";
+
+  // If the count down is finished, write some text 
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("demo").innerHTML = "EXPIRED";
+  }
+}, 1000);
+</script>
+
+2. Das Zeil beider Wettbewerbe ist es den kleinstmöglichen <i>p</i>-Wert durch das fortwährende Massieren der experimentellen Daten von Bem's zu extrahieren. Finde dafür bis zu drei Analysen, die zeigen, dass a) Menschen *psi*-Fähigkeiten besitzen, d.h., dass die `hit_rate` höher als Chance ist und b) dass es andere Variablen gibt die *psi*-Fähigkeiten prädizieren, was ebenso ein Beleg für die Existenz solcher Fähigkeiten wäre. Es gibt keine Regeln, ausser dass `hit_rate` als Kriterium zu wählen ist. Du kannst jeden möglichen Test verwenden. Dir ist es auch erlaubt nur Komponenten der Daten mit `data %>% filter(condition)` auszuwählen.
+
+3. Für jede der beiden Wettbewerbe - jeweils ein Wettbewerb pro Experiment - darfst du drei Ergebnisse einreichen. Ihr könnt alleine arbeiten oder euch zusammenschliessen. Mehr Informationen über den Datensatz findet ihr unter dem  *Datasets* tab. Die Person oder Gruppe mit dem niedrigsten <i>p</i>-Wert gewinnt &#x1F36B;&#x1F36B;&#x1F36B;.  
+
+4. Reiche die Ergebnisse ein über:
 
 
-1.3 Submit your results using these links:
-
-<a href="https://docs.google.com/forms/d/e/1FAIpQLScw5MmBX9wnmv3YO7SzdqdWMWSSwdCjWu0EUM2kurLRJLpEOQ/viewform?usp=sf_link"><font color="#EA4B68" style="font-size:18px;font-weight:900">Submit competition 1</font></a>, 
-<a href="https://docs.google.com/forms/d/e/1FAIpQLSeJDsFtOSCFx7KmjzG4qq2bBMArPMWdaFKmUOqFfthspDhshQ/viewform?usp=sf_link"><font color="#EA4B68" style="font-size:18px;font-weight:900">Submit competition 2</font></a>
+<table align="center">
+  <tr>
+    <td>Wettbewerb 1</td>
+    <td><a href="https://docs.google.com/forms/d/e/1FAIpQLScw5MmBX9wnmv3YO7SzdqdWMWSSwdCjWu0EUM2kurLRJLpEOQ/viewform?usp=sf_link"><font style="font-size:18px;font-weight:900">Einreichen</font></a></td>
+  </tr>
+    <td>Wettbewerb 2</td>
+    <td><a href="https://docs.google.com/forms/d/e/1FAIpQLSeJDsFtOSCFx7KmjzG4qq2bBMArPMWdaFKmUOqFfthspDhshQ/viewform?usp=sf_link"><font style="font-size:18px;font-weight:900">Einreichen</font></a></td>
+  </tr>
+</table>
 
 
 ### C - Power analysis
