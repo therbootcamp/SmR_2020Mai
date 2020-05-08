@@ -322,6 +322,15 @@ wein_lm &lt;- lm(formula = XX ~ XX * XX,
 <ol start="2" style="list-style-type: decimal">
 <li><p>Printe das Objekt und betrachte die Gewichte. Wie interpretierst du die einzelnen Werte?</p></li>
 <li><p>Folgendermassen lassen sich die Gewichte interpretieren: Unter Berücksichtigung von Alkohol und der Interaktion, werden weisse Weine um <code>.7</code> besser bewertet. Unter Berücksichtigung der Farbe (d.h. für Farbe == ‘rot’) und der Interaktion, führt ein Anstieg von einem Volumenprozent zu einer Verbesserung der wahrgenommenen Qualität von <code>.36</code>. Unter Berücksichtigung von Farbe und Alkohol, führt die Interaktion, also das Produkt der beiden Prädiktoren zu einer Veränderung von <code>-.05</code>. Dies ist so zu interpretieren, dass der Effekt von Alkohol unter Weissweinen um genau diese Grösse kleiner ist. Dies bedeutet im Umkehrschluss dass der Effekt von Farbe unter hoch-alkoholischen Weinen kleiner ausfällt. Verwendet den Code unten um diese Ergebnisse zu visualisieren. Gelb bedeutet Weisswein, lila Rotwein.</p></li>
+</ol>
+<pre class="r"><code># Visualisierung
+ggplot(data = wein, 
+       aes(x = Alkohol, y = Qualität, col = Farbe, alpha = .01)) + 
+  scale_color_manual(values = viridis::cividis(2)) + xlim(c(7, 14)) + 
+  geom_jitter(width=2,height=1.5,size=.1) + theme_minimal() + theme(legend.position = &#39;none&#39;) +
+  geom_smooth(data = wein %&gt;% filter(Farbe == &#39;weiss&#39;), method = &#39;lm&#39;) + 
+  geom_smooth(data = wein %&gt;% filter(Farbe == &#39;rot&#39;), method = &#39;lm&#39;)</code></pre>
+<ol start="4" style="list-style-type: decimal">
 <li><p>Lasse dir nun die <code>summary()</code> anzeigen und inspiziere die t-Werte und Signifikanzen. Welche Prädiktoren sind signifikant?</p></li>
 <li><p>Alle drei Prädiktoren sind signifikant. t-Wert und Signifikanz sind am extremsten für <code>Alkohol</code>, jedoch ist das Gewicht für <code>Alkohol</code> nur halb so gross. Wie ist dies zu erklären?</p></li>
 <li><p>Genau die Gewichte hängen auch von der Skalierung der Prädiktoren ab. Rechne nun die Regression noch einmal, aber diesmal mit skalierten Prädiktoren. Siehe Code unten.</p></li>
