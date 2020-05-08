@@ -327,13 +327,13 @@ exp(6.71409 - 2.11849) # Erwartete Häufigkeit wenn Max_Preis = 0 &amp; Visibili
 exp(6.71409 + 0.00715 - 2.11849) # Erwartete Häufigkeit wenn Max_Preis = 1 &amp; Visibilität = 1</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li><p>Evaluiere nun die <code>summary()</code>. Was beobachtest du?</p></li>
-<li><p>Alle Effekte sind trotz des teilweise kleinen Einflusses (im Fall von <code>Max_Preis</code>), was sicherlich der grossen Stichprobe zu schulden ist. Nichtsdestotrotz, zeigt die <code>Residual deviance</code> und der ein klar niedrigeren Wert als die <code>Null deviance</code>. Was sagt dir dies?</p></li>
+<li><p>Alle Effekte sind signifikant, trotz des teilweise kleinen Einflusses (im Fall von <code>Max_Preis</code>), was sicherlich der grossen Stichprobe zu schulden ist. Nichtsdestotrotz, zeigt die <code>Residual deviance</code> und der ein klar niedrigeren Wert als die <code>Null deviance</code>. Was sagt dir dies?</p></li>
 </ol>
 </div>
 <div id="d---negative-binomial-regression-bigmart" class="section level3">
 <h3>D - Negative binomial Regression: Bigmart</h3>
 <ol style="list-style-type: decimal">
-<li>Heutzutage wird dem Poisson Modell oftmals das Negative Binomial Modell vorgezogen, welches eine Verallgemeinerung ersteren darstellt. Verwende die <code>glm.nb()</code> aus dem <code>MASS</code> Paket um eine solche Regression mit denselben Variablen wie zuletzt zu rechnen. Verwende das Template unten.</li>
+<li>Heutzutage wird dem Poisson Modell oftmals das Negative Binomial Modell vorgezogen, welches eine Verallgemeinerung des ersteren darstellt. Verwende die <code>glm.nb()</code> aus dem <code>MASS</code> Paket um eine solche Regression mit denselben Variablen wie zuletzt zu rechnen. Verwende das Template unten.</li>
 </ol>
 <pre class="r"><code># Lade MASS
 library(MASS)
@@ -370,12 +370,7 @@ hwy_fit
 
 # Residuums 
 hwy_resid &lt;- residuals(hwy_mod)
-hwy_resid
-
-
-# R-squared value 
-
-hwy_mod$r.squared</code></pre>
+hwy_resid</code></pre>
 </div>
 <div id="datensätze" class="section level2">
 <h2>Datensätze</h2>
@@ -521,10 +516,6 @@ hwy_mod$r.squared</code></pre>
 <td align="left"><code>install.packages(&quot;tidyverse&quot;)</code></td>
 </tr>
 <tr class="even">
-<td align="left"><code>mosaic</code></td>
-<td align="left"><code>install.packages(&quot;mosaic&quot;)</code></td>
-</tr>
-<tr class="odd">
 <td align="left"><code>MASS</code></td>
 <td align="left"><code>install.packages(&quot;MASS&quot;)</code></td>
 </tr>
@@ -534,11 +525,6 @@ hwy_mod$r.squared</code></pre>
 <div id="funktionen-1" class="section level3">
 <h3>Funktionen</h3>
 <table>
-<colgroup>
-<col width="7%" />
-<col width="12%" />
-<col width="80%" />
-</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Function</th>
@@ -548,19 +534,19 @@ hwy_mod$r.squared</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><code>lm</code>, s<code>glm</code></td>
+<td align="left"><code>glm</code></td>
 <td align="left"><code>stats</code></td>
-<td align="left">Fit a (generalized) linear model</td>
+<td align="left">Fitte ein generalisiertes lineares Modell</td>
 </tr>
 <tr class="even">
 <td align="left"><code>fitted</code></td>
 <td align="left"><code>stats</code></td>
-<td align="left">Show fitted values from a statistical object</td>
+<td align="left">Extrahiere vorhergesagte Werte</td>
 </tr>
 <tr class="odd">
 <td align="left"><code>residuals</code></td>
 <td align="left"><code>stats</code></td>
-<td align="left">Show residuals (fitted minus true) values from a statistical object</td>
+<td align="left">Extrahiere Residuen</td>
 </tr>
 <tr class="even">
 <td align="left"><code>gml.nb</code></td>
@@ -576,8 +562,8 @@ hwy_mod$r.squared</code></pre>
 <div id="books" class="section level3">
 <h3>Books</h3>
 <ul>
-<li><p>Hilfreiche <a href="https://cran.r-project.org/web/packages/pscl/vignettes/countreg.pdf">Vignette</a> über Regressionen für Häufigkeiten mit R.s</p></li>
-<li><a href="https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469">Discovering Statistics with R</a> von Andy Field is excellent</li>
+<li><p>Hilfreiche <a href="https://cran.r-project.org/web/packages/pscl/vignettes/countreg.pdf">Vignette</a> über Regressionen für Häufigkeiten mit R.</p></li>
+<li><a href="https://www.amazon.com/Discovering-Statistics-Using-Andy-Field/dp/1446200469">Discovering Statistics with R</a> von Andy Field ist sehr gut</li>
 <li><p><a href="https://bookdown.org/ndphillips/YaRrr/">YaRrr! The Pirate’s Guide to R</a> hat hilfreiche und unterhaltsame Kapitel zu Statistik mit R.</p></li>
 </ul>
 </div>
