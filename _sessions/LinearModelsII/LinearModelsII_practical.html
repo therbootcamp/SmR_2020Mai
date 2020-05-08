@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 
 <meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
-<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -84,6 +84,7 @@ code {
 }
 img {
   max-width:100%;
+  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -145,7 +146,6 @@ summary {
   border: none;
   display: inline-block;
   border-radius: 4px;
-  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -157,6 +157,18 @@ summary {
   display: none;
 }
 </style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
 
 <!-- code folding -->
 
@@ -199,7 +211,7 @@ summary {
 </p>
 <div id="section" class="section level1 tabset">
 <h1></h1>
-<div id="überblick" class="section level2">
+<div id="uberblick" class="section level2">
 <h2>Überblick</h2>
 <p>Am Ende des Practicals wirst du wissen…</p>
 <ol style="list-style-type: decimal">
@@ -225,7 +237,7 @@ summary {
 </ol>
 <pre class="r"><code># Lese Daten ein
 wein &lt;- read_csv(file = &quot;1_Data/wein.csv&quot;)</code></pre>
-<ol start="3" style="list-style-type: decimal">
+<ol start="6" style="list-style-type: decimal">
 <li><p>Printe den Datensatz.</p></li>
 <li><p>Verwende <code>names(XX)</code>, <code>summary(XX)</code>, und <code>View()</code> um einen weiteren Überblick über die Daten zu bekommen.</p></li>
 <li><p>Wiederum, führe den Code unten aus um sicherzustellen, dass alle <code>character</code> Variablen als Faktoren vorliegen, was den statistischen Modellen hilft kategoriale Variablen richtig zu interpretieren.</p></li>
@@ -353,7 +365,7 @@ hwy_fit
 hwy_resid &lt;- residuals(hwy_mod)
 hwy_resid</code></pre>
 </div>
-<div id="datensätze" class="section level2">
+<div id="datensatze" class="section level2">
 <h2>Datensätze</h2>
 <table>
 <thead>
@@ -516,23 +528,6 @@ $(document).ready(function () {
 
 
 </script>
-
-<!-- tabsets -->
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
-<!-- code folding -->
-
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
