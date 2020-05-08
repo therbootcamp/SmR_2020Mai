@@ -177,7 +177,7 @@ pt(q = -2.982, df = 6495)
 
 ### C - Multiple Regression
 
-1. Teste nun den Effekt mehrerer Prädiktoren auf die wahrgenommene `Qualität` (Kriterium) des Weines. Inkludiere neben `Restzucker` `pH_Wert`, `Alcohol`, und `Sulphate`. Verwende das template unten, um ein entsprechendes lineares Modell zu testen und in das Objekt `wein_lm` zu speichern.
+1. Teste nun den Effekt mehrerer Prädiktoren auf die wahrgenommene `Qualität` (Kriterium) des Weines. Inkludiere neben `Restzucker` `pH_Wert`, `Alkohol`, und `Sulphate`. Verwende das template unten, um ein entsprechendes lineares Modell zu testen und in das Objekt `wein_lm` zu speichern.
 
 ```{r, eval = FALSE, echo = TRUE}
 # Multiple Regression
