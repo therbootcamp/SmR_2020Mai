@@ -96,7 +96,7 @@ wein <- read_csv(file = "1_Data/wein.csv")
 
 6. Printe den Datensatz.
 
-7. Verwende `names(XX)`, `summary(XX)`, und `View()` um einen weiteren Überblick über die Daten zu bekommen.
+7. Verwende `names(XX)`, `summary(XX)`, und `View(XX)` um einen weiteren Überblick über die Daten zu bekommen.
 
 8. Führe den Code unten aus um sicherzustellen, dass alle `character` Variablen als Faktoren vorliegen. Das hilft den statistischen Modellen kategoriale Variablen richtig zu interpretieren.
 
