@@ -5,7 +5,7 @@ author: "Statistik mit R<br>
     The R Bootcamp
   </a>
   <br>
-  <a href='https://therbootcamp.github.io/SmR_2020Mar/'>
+  <a href='https://therbootcamp.github.io/SmR_2020Mai/'>
     <i class='fas fa-clock' style='font-size:.9em;'></i>
   </a>&#8239; 
   <a href='https://therbootcamp.github.io'>
@@ -17,7 +17,7 @@ author: "Statistik mit R<br>
   <a href='https://www.linkedin.com/company/basel-r-bootcamp/'>
     <i class='fab fa-linkedin' style='font-size: .9em;'></i>
   </a>"
-date: "März 2020"
+date: "Mai 2020"
 output:
   xaringan::moon_reader:
     css: ["default", "baselrbootcamp.css"]
@@ -76,7 +76,7 @@ Klicke auf <high>"....running..."</high> auf unserer Website!
 .pull-right5[
 
 <br><br>
-<iframe src="https://therbootcamp.github.io/ML_2020Apr/" width="500" height="500"></iframe>
+<iframe src="https://therbootcamp.github.io/SmR_2020Mai/" width="500" height="500"></iframe>
 
 ]
 
@@ -152,7 +152,7 @@ Klicke auf <high>"....running..."</high> auf unserer Website!
   <li class="m2"><span><high>Materialien</high>
   <br><br>
   <ul class="level">
-    <li><span>Immer <a href="https://therbootcamp.github.io/ML_2020Apr/">online verfügbar</a></span></li>
+    <li><span>Immer <a href="https://therbootcamp.github.io/SmR_2020Mai/">online verfügbar</a></span></li>
   </ul>
   </span></li>
 </ul>
@@ -197,9 +197,9 @@ Klicke auf <high>"....running..."</high> auf unserer Website!
 .pull-right5[
 <br>
 
-  <iframe src="https://therbootcamp.github.io/ML_2020Apr/_sessions/Fitting/Fitting_practical.html" height="480px" width = "500px"></iframe>
+  <iframe src="https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsI/LinearModelsI_practical.html" height="480px" width = "500px"></iframe>
 
-  Beispiel:<a href="https://therbootcamp.github.io/ML_2020Apr/_sessions/Fitting/Fitting_practical.html"> Fitting </a>
+  Beispiel:<a href="https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsI/LinearModelsI_practical.html"> Fitting </a>
 
 ]
 
@@ -270,4 +270,4 @@ Klicke auf <high>"....running..."</high> auf unserer Website!
 ---
 class: middle, center
 
-<h1><a href=https://therbootcamp.github.io/SmR_2020Apr/index.html>Agenda</a></h1>
+<h1><a href=https://therbootcamp.github.io/SmR_2020Mai/index.html>Agenda</a></h1>

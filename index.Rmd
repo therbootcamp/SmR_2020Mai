@@ -5,7 +5,7 @@ author: "
       <a href='https://therbootcamp.github.io'>
         <i class='fas fa-home' style='font-size:1em;'></i>
       </a>
-      <a href='https://therbootcamp.github.io/SwR_2020Mai/'>
+      <a href='https://therbootcamp.github.io/SmR_2020Mai/'>
         <i class='fas fa-clock' style='font-size:1em;' ></i>
       </a>
       <a href='mailto:therbootcamp@gmail.com'>
@@ -41,9 +41,9 @@ output:
 |:--|:-------------|:-------------|
 |0| Willkommen!<br>[slides](https://therbootcamp.github.io/SmR_2020Mai/_sessions/Welcome/Welcome.html) | Wiederholung |
 |1| Einführung in Statistik<br>[slides](https://therbootcamp.github.io/SmR_2020Mai/_sessions/Intro2Stats/Intro2Stats.html#1)| Gemischte Modelle|
-|2| Linear Models I<br>[slides](https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsI/LinearModelsI.html), [practical](https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsI/LinearModelsI_practical.html)| Robuste Statistik |
-|3| Linear Models II<br>[slides](https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsII/LinearModelsII.html), [practical](https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsII/LinearModelsII_practical.html)  | Neue Statistik |
-|3| Linear Models III<br>[slides](https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsIII/LinearModelsIII.html), [practical](https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsIII/LinearModelsIII_practical.html)  | Ausblick |
+|2| Lineare Modelle I<br>[slides](https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsI/LinearModelsI.html), [practical](https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsI/LinearModelsI_practical.html)| Robuste Statistik |
+|3| Lineare Modelle II<br>[slides](https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsII/LinearModelsII.html), [practical](https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsII/LinearModelsII_practical.html)  | Neue Statistik |
+|3| Lineare Modelle III<br>[slides](https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsIII/LinearModelsIII.html), [practical](https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsIII/LinearModelsIII_practical.html)  | Ausblick |
 <br>
 
 
