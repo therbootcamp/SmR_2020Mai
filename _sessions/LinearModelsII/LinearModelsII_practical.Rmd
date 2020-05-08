@@ -285,7 +285,7 @@ wein_lm <- lm(formula = Qualität ~ Farbe * Alkohol,
 
 9. Der Intercept ist der geschätzte Mittelwert des Kriteriums für den Fall in dem alle Prädiktoren Null sind. Ohne Skalierung ist dieser Fall schwer zu interpretieren, da Null nicht vorkommen muss in den Prädiktoren. Unter der Skalierung ändert sich dies aber, denn nun haben alle Prädiktoren, mit Ausnahme des Faktors `Farbe` einen Mittelwert von Null. Das heisst der Intercept spiegelt die Qualität für ein mittleres Level von Alkohol, rote Weine und keine Interaktion in Standardabweichungen wieder. Dies kannst du wiederum in der Visualisierung nachvollziehen. Benutze den Code unten und suche den Punkt auf der lila Linie für Alkohol = 0.    
 
-```{r}
+```{r, echo = T}
 # Visualisierung
 ggplot(data = wein %>% mutate_if(is.numeric, skaliere), 
        aes(x = Alkohol, y = Qualität, col = Farbe, alpha = .01)) + 

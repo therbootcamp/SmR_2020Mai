@@ -345,6 +345,15 @@ wein_lm &lt;- lm(formula = XX ~ XX * XX,
 <li><p>Printe zunächst einmal das Objekt und betrachte die Gewichte. Alle Werte haben sich substantiell verändert. Insbesondere hat nun Alkohol das zweifach höhere Gewicht. Wie sind diese neuen Gewichte zu interpretieren, wenn du bedenkst, dass nach der Skalierung alle Variablen eine Standardabweichung = 1 haben?</p></li>
 <li><p>Nach Skalierung sind die Gewichte als Veränderungen in Standardabweichungen zu interpretieren. Z.B., eine Veränderung von einer Standardabweichungen in <code>Alkohol</code> führt demnach zu einer Veränderung von <code>.4928</code> Standardabweichungen in der Qualität. Am meisten hat sich der Intercept verändert. Wie interpretiert ihr diesen unter der Skalierung?</p></li>
 <li><p>Der Intercept ist der geschätzte Mittelwert des Kriteriums für den Fall in dem alle Prädiktoren Null sind. Ohne Skalierung ist dieser Fall schwer zu interpretieren, da Null nicht vorkommen muss in den Prädiktoren. Unter der Skalierung ändert sich dies aber, denn nun haben alle Prädiktoren, mit Ausnahme des Faktors <code>Farbe</code> einen Mittelwert von Null. Das heisst der Intercept spiegelt die Qualität für ein mittleres Level von Alkohol, rote Weine und keine Interaktion in Standardabweichungen wieder. Dies kannst du wiederum in der Visualisierung nachvollziehen. Benutze den Code unten und suche den Punkt auf der lila Linie für Alkohol = 0.</p></li>
+</ol>
+<pre class="r"><code># Visualisierung
+ggplot(data = wein %&gt;% mutate_if(is.numeric, skaliere), 
+       aes(x = Alkohol, y = Qualität, col = Farbe, alpha = .01)) + 
+  scale_color_manual(values = viridis::cividis(2))  + 
+  geom_jitter(width=2,height=1.5,size=.1) + theme_minimal() + theme(legend.position = &#39;none&#39;) +
+  geom_smooth(data = wein %&gt;% mutate_if(is.numeric, skaliere) %&gt;% filter(Farbe == &#39;weiss&#39;), method = &#39;lm&#39;) + 
+  geom_smooth(data = wein %&gt;% mutate_if(is.numeric, skaliere) %&gt;% filter(Farbe == &#39;rot&#39;), method = &#39;lm&#39;)</code></pre>
+<ol start="10" style="list-style-type: decimal">
 <li><p>Schaue dir nun die <code>summary()</code> an. Was hat sich verändert bzgl. t-Werten, Signifikanzen, und Standardfehlern, und R-squared?</p></li>
 <li><p>Ein grosser und in diesem Fall der Einzige Einfluss besteht auf die Variable <code>Farbe</code>, welche als einzige nicht mit standardisiert wurde. Vor der Standardisierung von <code>Alkohol</code> war Farbe beinahe perfekt mit der Interaktion korreliert, was zu einem extrem aufgeblasenen Standardfehler geführt hat. Die Standardisierung hat diese Korrelation jedoch stark reduziert, so dass der Standardfehler auf das Niveau der anderen Prädiktoren gefallen ist. In der Konklusion lohnt es sich beinahe immer die die Prädiktoren (oder auch das Kriterium) zu standardisieren, wenn ein Vergleich der Gewichte und Signifikanzen von Interesse ist.</p></li>
 </ol>
