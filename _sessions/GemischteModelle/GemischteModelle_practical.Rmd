@@ -169,7 +169,7 @@ summary(FE_mod)
 
 4. Vergleiche die Outputs der Aufgaben B1 und B3. Wie haben sich die Koeffizienten verändert? Weshalb?
 
-5. Rechne ein gemischtes Modell mit Random Intercepts über die `id` der Rater. Zufällige Effekte werden in Klammern in der Modell-`formula` spezifiziert. Ein Modell mit nur Random Intercepts trägt allein eine `1` for dem Gruppierungsfactor. Das `REML = FALSE` im untenstehenden Code sagt R, dass das Model mit Maximum Likelihood (ML), statt mit Restricted Maximum Likelihood (REML) gefitted werden soll. Dies ist für die späteren Modellvergleiche wichtig, soll uns aber im Detail nicht weiter beschäftigen.
+5. Rechne ein gemischtes Modell mit Random Intercepts über die `id` der Rater. Zufällige Effekte werden in Klammern in der Modell-`formula` spezifiziert. Ein Modell mit nur Random Intercepts trägt allein eine `1` for dem Gruppierungsfaktor. Das `REML = FALSE` im untenstehenden Code sagt R, dass das Model mit Maximum Likelihood (ML), statt mit Restricted Maximum Likelihood (REML) gefitted werden soll. Dies ist für die späteren Modellvergleiche wichtig, soll uns aber im Detail nicht weiter beschäftigen.
 
 ```{r echo = TRUE, eval = FALSE}
 # Gemischtes Modell mit random intercepts über ids
@@ -203,7 +203,7 @@ summary(FE_mod)
 # 50% gesunken).
 ```
 
-8. Interessierst du dich wie die geschätzten Fixed und Random Effects aussehen. Du kannst sie mit `fixef(XX)` und `ranef(XX)` aus dem Modellobjekt extrahieren. Probiere es aus. 
+8. Interessierst du dich wie die geschätzten Fixed und Random Effects aussehen? Du kannst sie mit `fixef(XX)` und `ranef(XX)` aus dem Modellobjekt extrahieren. Probiere es aus. 
 
 9. Baue dein gemischtes Modell aus Aufgabe B5 aus, indem du Random Slopes für `zustand` über `id`s hinzufügst. Füge die `zustand` Variable auf der Linken Seite der *Pipe* `|` in dem Teil der `formula`, in dem die zufälligen Effekte spezifiziert werden.
 
@@ -239,7 +239,7 @@ summary(FE_mod)
 # im Modell subj_RI_RS_mod  "nur" 51.81.
 ```
 
-11. Jeder Film wurde in beiden Zuständen Bewertet. Wir haben also nicht nur Abhängigkeiten in den Daten der Rater, sondern auch der Filme. Um für diese Abhängigkeit zu kontrollieren, können wir unser Modell aus der Aufgabe B10 mit weiteren zufälligen Effekten ausbauen. Füge Random Intercepts über `film` und Random Slopes für `zustand` über `film` zum Modell hinzu. Über das zusätzliche Argument `control` wird ein anderen Optimierungsalgorithmus spezifiert, mithilfe dessen das Modell konvergiert. Die details sollen uns für den Moment nicht kümmern; wir freuen uns einfach, dass das Modell konvergiert.
+11. Jeder Film wurde in beiden Zuständen Bewertet. Wir haben also nicht nur Abhängigkeiten in den Daten der Rater, sondern auch der Filme. Um für diese Abhängigkeit zu kontrollieren, können wir unser Modell aus der Aufgabe B10 mit weiteren zufälligen Effekten ausbauen. Füge Random Intercepts über `film` und Random Slopes für `zustand` über `film` zum Modell hinzu. Über das zusätzliche Argument `control` wird ein anderer Optimierungsalgorithmus spezifiert, mithilfe dessen das Modell konvergiert. Die details sollen uns für den Moment nicht kümmern; wir freuen uns einfach, dass das Modell konvergiert.
 
 ```{r echo = TRUE, eval = FALSE}
 # Gemischtes Modell mit random intercepts über ids und random slopes für zustand
@@ -334,7 +334,7 @@ r2(subj_RI_mod)
 
 ### D - Visualisierung
 
-Häufig ist es hilfreich, unser Modell zu visualisieren. Führe den untenstehenden Code aus, um aus `max_mod` Koeffizienten zu extrahieren und zu visualieren. Da Plotting kein Schwerpunkt dieses Kurses ist, gehen wir hier nicht aber nicht weiter ins Detail. Falls du Fragen zum Code hast, kannst du uns gerne rufen.
+Häufig ist es hilfreich, unser Modell zu visualisieren. Führe den untenstehenden Code aus, um aus `max_mod` Koeffizienten zu extrahieren und zu visualieren. Da Plotting kein Schwerpunkt dieses Kurses ist, gehen wir hier aber nicht weiter ins Detail. Falls du Fragen zum Code hast, kannst du uns gerne rufen.
 
 1. Visualisiere mit dem untenstehenden Code dein `max_mod`.
 
@@ -443,12 +443,13 @@ anova(XXX, XXX)
 anova(IO_mod, RI_mod)
 
 # Der Unterschied ist signifikant. Das komplexere Modell ist also signifikant
-# besser darin, die Varianz zu erklären. "zustand" ist als 
+# besser darin, die Varianz zu erklären. "zustand" ist also ein signifikanter
+# Prädiktor
 ```
 
 #### Konfidenzintervall
 
-Diese Methode ist berechnet keinen p-Wert, sondern die Konfidenzintervalle um die Parameter. Dann testen wir, ob 0 in Konfidenzintervallen enthalten ist. Falls nicht, betrachten wir die jeweiligen Zusammenhänge als signifikant.
+Diese Methode berechnet keinen p-Wert, sondern die Konfidenzintervalle um die Parameter. Dann testen wir, ob 0 in den Konfidenzintervallen enthalten ist. Falls nicht, betrachten wir die jeweiligen Zusammenhänge als signifikant.
 
 6. Zur Berechnung von Konfidenzintervallen verwenden wir die `confint()` Funktion des `lme4` Pakets. Berechne damit die Konfidenzintervalle von `RI_mod` und speichere den Output als `ci_mod`. **Achtung**: Das Berechnen der Konfidenzintervalle dauert eine Weile. 
 
@@ -551,7 +552,7 @@ con_mod <- lmer(formula = tomatometer ~ zustand +  # Feste Effekte
 check_convergence(con_mod)
 ```
 
-4. Dieses Modell ist nicht konvergiert. Das kann passieren und es ist nicht immer einfach herauszufinden, weshalb ein Modell nicht konvergiert. Eine weiterführende Möglichkeit ist, Baysianische Methoden mit MCMC sampling zu verwenden (zum Beispiel mit dem `rstanarm` Paket), und zu schauen ob dieses Modell konvergiert. Wir beschränken uns hier aber auf frequentistische Analysen und werden hier daher nicht weiter forschen. In der Praxis kann es aber durchaus Sinn machen, weiter zu untersuchen, ob man das Modell mit einer anderen Methode zum konvergieren bringt. Um die Übung fortsetzen zu können, tun wir für den Moment so, als ob das Modell konvergiert wäre.
+4. Dieses Modell ist nicht konvergiert. Das kann passieren und es ist nicht immer einfach herauszufinden, weshalb ein Modell nicht konvergiert. Eine weiterführende Möglichkeit ist, Bayesianische Methoden mit MCMC sampling zu verwenden (zum Beispiel mit dem `rstanarm` Paket), und zu schauen ob dieses Modell konvergiert. Wir beschränken uns hier aber auf frequentistische Analysen und werden hier daher nicht weiter forschen. In der Praxis kann es aber durchaus Sinn machen, weiter zu untersuchen, ob man das Modell mit einer anderen Methode zum konvergieren bringt. Um die Übung fortsetzen zu können, tun wir für den Moment so, als ob das Modell konvergiert wäre.
 
 5. Jetzt ist es an der Zeit, den LRT vorzubereiten. Der Unterschied in der *deviance* (definiert als -2 * die LogLikelihood) zweier Modelle ist approximativ $\chi^2$-verteilt. Dadurch können wir die Signifikanz eines Unterschiedes testen, indem wir überprüfen, ob der erhaltene $\chi^2$ Wert grösser als ein bestimmter kritischer Wert ist. Wir verwenden unser $\alpha_{LRT}$ um den kritischen Wert zu erfahren. Führe dazu folgenden Code aus.
 
@@ -692,7 +693,7 @@ check_convergence(hier_mod)
 summary(hier_mod)
 ```
 
-5. Rechne nun dasselbe Modell nochmals, jedoch diesmal mit gekreuten random intercepts, wie in den vorherigen Abschnitten, anstelle der geschachtelten random intercepts. Speichere das Modell als `cross_mod`.
+5. Rechne nun dasselbe Modell nochmals, jedoch diesmal mit gekreuzten random intercepts, wie in den vorherigen Abschnitten, anstelle der geschachtelten random intercepts. Speichere das Modell als `cross_mod`.
 
 ```{r}
 # Hierarchisches gemischtes Modell
@@ -740,12 +741,12 @@ con_mod2 <- lmer(formula = tomatometer ~ zustand +  # Dies sind die festen Effek
                                                              # Probleme zu verhindern
 ```
 
-2. Führe nun das Vorgehen aus Abschnitt D durch um herauszufinden welches der beiden Modelle beibehalten werden sollte. **Hinweis**: Das Argument `df` in der `qchisq()` Funktion wird auf `df = 1` gesetzt, da diese beiden Modelle sich um nur einen Freiheitsgrad unterscheiden.
+2. Führe nun das Vorgehen aus Abschnitt D durch um herauszufinden welches der beiden Modelle beibehalten werden sollte. **Hinweis**: Das Argument `df` in der `qchisq()` Funktion wird hier auf `df = 1` gesetzt, da diese beiden Modelle sich um nur einen Freiheitsgrad unterscheiden.
 
 ```{r}
 # Alpha ist immer noch dasselbe
 alpha <- .2 # Spezifiziere das Alpha-Niveau
-st1 <- qchisq(1 - alpha, df = 1) # Ermittle den kritischen Wert über welchem die
+kW1 <- qchisq(1 - alpha, df = 1) # Ermittle den kritischen Wert über welchem die
                                  # Differenz signifikant ist. Diesmal haben wir 
                                  # nur einen Freiheitsgrad, da das komplexere
                                  # Modell nur einen Parameter mehr hat als das
@@ -756,7 +757,7 @@ d_diff <- deviance(con_mod2) - deviance(con_mod)
 
 # Teste, ob diese Differenz grösser als der zuvor ermittelte kritische Wert und
 # damit signifikant ist
-d_diff > st1
+d_diff > kW1
 ```
 
 3. Zu welcher Schlussfolgerung bist du gelangt? Welches Modell sollten wir beibehalten?
