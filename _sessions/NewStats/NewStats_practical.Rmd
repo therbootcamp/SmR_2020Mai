@@ -187,7 +187,7 @@ var x = setInterval(function() {
 </table>
 
 
-### C - Power analysis
+### C - Poweranalyse
 
 1. Bem's erste Analyse in seinem paper ist, ob `hit_rate` grösser ist als `50%`. Für diese Bedingung (`Bedingung == 'erotic'`) hat Bem eine durchschnittliche Trefferrate von `53.13%` beobachtet. Bestimme für Experiment 1, welcher Cohen's *d* Wert der implizierten Abweichung von `3.13%`-Punkte von der Trefferrate unter H0, nämlich `50%`, entspricht. Benutze das Template. 
 
@@ -240,179 +240,150 @@ stichprobe
 plot.power.htest(stichprobe) 
 ```
 
-4. Mittels des Plots könnt ihr nun auch evaluieren, wie gross die Power von Bem's ursprünglicher Studie war. In Bem's `'erotic'` condition waren $r length(Trefferrate_erotic)$ Beobachtungen. Finde den entsprechenden Punkt auf der x-Achse und gehe dann nach oben um die dazugehörige Power zu finden. Alternativ kannst du  
+4. Mittels des Plots könnt ihr nun auch evaluieren, wie gross die Power von Bem's ursprünglicher Studie war. In Bem's `'erotic'` condition waren $r length(Trefferrate_erotic)$ Beobachtungen. Finde den entsprechenden Punkt auf der x-Achse und gehe dann nach oben um die dazugehörige Power zu finden. Alternativ kannst du nochmals die `pwr.t.test()` Funktion verwenden und anstatt `power` die Stichprobengrösse `n` definieren. Siehe Template.    
 
-Using the plot, you can also already get an idea, how large the power, i.e., the probability of detecting an effect given that it is truly there to detect, was for Bem's study. You can also again use the `pwr.t.test()` function. To do this, set `n = length(hit_rate_erotic)` and `power = NULL`. Call the result `pa_bem`.
-
-```{r}
+```{r, echo = TRUE, eval = FALSE}
 # Bems post-hoc power
-pa_bem <- pwr.t.test(n = length(hit_rate_erotic), 
-                     d = .25, 
-                     sig.level = .05, 
-                     alternative = "greater")
-pa_bem
+power <- pwr.t.test(n = XX, 
+                    d = .25, 
+                    sig.level = .05, 
+                    alternative = "greater")
+power
 ```
 
-5. The previous analysis is called post-hoc (after the fact) power analysis, which should not be confused with an actual power analysis carried out before the data collection. In Bem's case we find that the power was only `.547` meaning that there was almost only a 50-50 chance that an effect of the observed size could have been observed. Let's now consider what would happen, if the effect was actually very small, say `d = .1`. What large would Bem's post-hoc power have been and how large a sample size was necessary for `power = .95`.
+```{r}
+# Bems post-hoc power
+power <- pwr.t.test(n = length(Trefferrate_erotic), 
+                    d = .25, 
+                    sig.level = .05, 
+                    alternative = "greater")
+power
+```
 
+5. Die letzte Analyse, das bestimmen der Power für einen gegebenen Effekt und Stichprobengrösse nennt man eine Post-hoc Poweranalyse, welche nicht mit einer eigentlichen Poweranalyse verwechselt werden darf. In Bem's Fall war die Power `.547`, das heisst das Bem nur ungefähr eine 50/50 Chance hatte einen Effekt von der gefundenen Stärke zu beobachten. Überprüfe nun was gewesen wäre, wenn der Effekt klein gewesen wäre, d.h., `d = .1`. Wiederhole die Powerberechnung für Bem's Stichprobengrösse und berechne die Stichprobengrlsse die nötig ist für eine $power = 1-\beta = .95$.      
 
 ```{r}
 # Bems post-hoc power
-pa_bem.1 <- pwr.t.test(n = length(hit_rate_erotic), 
-                       d = .1, 
-                       sig.level = .05, 
-                       alternative = "greater")
-pa_bem.1
+power <- pwr.t.test(n = length(hit_rate_erotic), 
+                    d = .1, 
+                    sig.level = .05, 
+                    alternative = "greater")
+power
 
 # Sample
-pa.1 <- pwr.t.test(d = .1, 
-                  sig.level = .05, 
-                  power = .95, 
-                  alternative = "greater")
-pa.1
+stichprobe <- pwr.t.test(d = .1, 
+                        sig.level = .05, 
+                        power = .95, 
+                        alternative = "greater")
+stichprobe
 ```
 
-6. Bem's post-hoc power would have been a meager 17.4%, while the N necessary for a conclusive study lies upwards of 2000 individuals. This means that Bem either knew we would be finding a substantive effect, or he actually engaged in pretty poor study planning. Go explore,  can you determine the post-hoc power and n necessary your analyses? Use `pwr.r.test()` for correlation tests and `pwr.chisq.test()` for chi-square tests. Unfortunately, there are no functions for regression models.  
+6. Für einen kleinen Effekt, welchen man vielleicht höchstens erwarten würde für etwas so ungewöhnliches wie menschliche *psi*-Fähigkeiten, hatte Bem's Studie nur eine power von `17.4%` und die Stichprobe die für eine hohe power notwendig war lag oberhalb von 2000 Personen. Das bedeutet, dass Bem entweder wusste, dass er einen grösseren Effekt beobachten würde oder, dass er eher schlechte Studienplanung betrieben hat. 
 
 
-### D - Confidence intervals
+### D - Konfidenzintervalle
 
-1. Confidence intervals are another way of using a significance test that places focus on the uncertainty inherent in the result. The basic idea is that rather than dividing an estimate by its standard error we assess the range spanned by the standard error to the left and right of the estimate. Let's begin by computing a standard paired t-test for the hit-rate using the template below and storing the result in an object called `test()`. 
+1. Konfidenzintervalle sind ein andere Weg Signifikanztests durchzuführen, welcher eher auf Schätzung als auf Testung von Effekten beruht. Die grundlegende Idee ist, dass man die Schätzgrössen (z.B. Regressionsgewichte) nicht durch den Standardfehler teilt, sondern den Standardfehler verwendet um eine Spannweite um die Schätzgrössen aufzuspannen. Rechnen wir zunächst einen `t.test()` für abhängigen Stichproben für `psi1`, welcher die `Trefferrate` für die beiden `Bedingung`en vergleicht. 
 
 ```{r, eval = FALSE, echo = TRUE}
-# extract hit rates 
-hit_rate_erotic <- psi1$hit_rate[psi1$condition == "erotic"]
-hit_rate_neutral <- psi1$hit_rate[psi1$condition != "erotic"]
+# t.test 
+psi_ttest <- t.test(XX ~ XX, data = XX, paired = TRUE)
 
-# compute t-test
-test <- t.test(x = XX, 
-               y = YY, 
-               paired = TRUE)
-
+# Testergebnisse
+psi_ttest
 ```
 
 ```{r}
-# extract hit rates 
-hit_rate_erotic <- psi1$hit_rate[psi1$condition == "erotic"]
-hit_rate_neutral <- psi1$hit_rate[psi1$condition != "erotic"]
+# t.test 
+psi_ttest <- t.test(Trefferrate ~ Bedingung, data = psi1, paired = TRUE)
 
-# compute t-test
-test <- t.test(x = hit_rate_erotic, 
-               y = hit_rate_neutral, 
-               paired = TRUE)
-
+# Testergebnisse
+psi_ttest
 ```
 
-2. Next inspect the names of the `test` object using `names()`. 
+2. Extrahiere nun das Konfidenzintervalle für den t-Test. 
+
+```{r, echo = TRUE}
+# Konfidenzintrval
+psi_ttest$conf.int
+```
+
+3. Das Konfidenezinterval für den Unterschied liegt zwischen zwischen `-6.84` und `.23`. Das Konfidenzintervalle enthält also die NUll. Das heisst, dass der obgleich der Mittelwert für die Erotic-Bedingung signifikant von `50%` verschieden ist die beiden Bedingungen sich nicht signifikant unterscheiden. Beginne nun die das Konfidenzinterval für den Unterschied der Gruppen nachzubauen. Extrahiere dafür zunächst dene Unterschied, den entsprechenden Standardfehler, und die Freiheitsgrade. 
+
+```{r, echo = TRUE}
+# Gewicht b und Standardfehler se
+delta <- psi_ttest$estimate
+se <- psi_ttest$stderr
+df <- psi_ttest$parameter
+```
+
+4. Jetzt benötigst du nur noch die entsprechenden t-Wert um das Konfidenzintervall auzuspanne. Da das Konfidenzinterval in beide Richtungen zu gleichen Teilen aufgespannt werden soll such wir nicht den t-Wert für $1-\alpha$ sondern für $1-\frac{\alpha}{2}$ und $\frac{\alpha}{2}$, d.h., wir suchen die kritischen t-Werte für einen zweiseitigen Test mit $\alpha = .05$. Verwende das Template
+
+```{r, echo = TRUE, eval = FALSE}
+# Kritische t-Werte
+t_25 <- qt(p = XX, df = XX)
+t_97.5 <- qt(p = XX, df = XX)
+```
 
 ```{r}
-names(test)
+# Kritische t-Werte
+t_.25 <- qt(p = .025, df = df)
+t_97.5 <- qt(p = .975, df = df)
 ```
 
-3. The you will have observed that the t-test object actually already contains a `conf.in` object. Access it using `$` and print it to the console. 
+5. Schaue dir zunächst die beiden t-Werte an. Überrascht, dass es die selben Werte sind nur einmal positiv und einmal negativ? Das ergibt sich daraus, dass die t-Verteilung symmetrisch um Null liegt. Um nun damit das Konfidenzinterval zu berechnen verwende das Template unten. Es geht darum `t*se` nach oben und `t*se` nach unten vom Unterschied `delta` zu gehen. Denkt an die unterschiedlichen Vorzeichen der beiden t-Werte.
 
-```{r}
-test$conf.int
+```{r, echo = TRUE, eval = FALSE}
+# confidence limits
+delta_lower <- XX + XX * XX
+delta_upper <- XX + XX * XX
 ```
-
-4. Let us now try to recreate the confidence interval. The first element we need for this is the average difference, which is simply the average of the differences between `hit_rate_erotic` and `hit_rate_neutral`. First, calculate the differences and store them as `hit_rate_diff`. Then calculate the mean of `hit_rate_diff` and call it `hit_rate_diff_mean`. 
-
-```{r}
-# differences 
-hit_rate_diff <- hit_rate_erotic - hit_rate_neutral
-
-# mean differences
-hit_rate_diff_mean <- mean(hit_rate_diff)
-```
-
-5. The second element is the standard error. In case of paired samples this is very easy to calculate. The standard error is the standard deviation (`sd()`) of the differences divided by the square root of the number of differences (`sqrt(length())`). Store the standard error as `hit_rate_diff_se`.
-
-```{r}
-# differences 
-hit_rate_diff_se <- sd(hit_rate_diff) / sqrt(length(hit_rate_diff))
-```
-
-5. The final element is the value in the t-distribution that corresponds to a certain confidence interval width, e.g., 95% or 99%. If the goal is to determine a 95% confidence interval then we need to identify the t-values that encapsulate this proportion of t-values in the t-distribution, which is the t-value at which 2.5% of t-values are smaller, i.e., $t_{2.5\%}$ and the t-value at which 97.5% are smaller, i.e., $t_{97.5\%}$. See the figure below. Locate these values in the figure below.  
-
-<img src="image/tdistr.png"></img>
-
-6. We can calculate the precise t-values corresponding to certain probabilities using the cumulative distribution function of t `qt(p = XX, df = YY)`. To use it, you must provide the proportion `p` of t-values that should be smaller than the target value and the degrees of freedom `df`, which in this case must be set to `n-1`. Determine $t_{2.5\%}$ and $t_{97.5\%}$ and store them as `t.25` and `t97.5`.     
-
-```{r}
-# t-values for p = 2.5% and p = 97.5%
-t.25 <- qt(p = .025, df = length(hit_rate_diff) - 1)
-t97.5 <- qt(p = .975, df = length(hit_rate_diff) - 1)
-```
-
-7. Compare the two t-values. Anything surprising? Given the symmetric nature of the t-distribution the two values are their respective mirror image. Ok, now you have all the ingredients that you need to construct a confidence interval. To calculate the lower bound, you want to move exactly `t.25` times the standard error to the left of the mean hit rate difference. And to calculate the bound, you want to move exactly `t97.5` times the standard error to the right of the mean hit rate difference. Do this and name the lower and upper bounds `hit_rate_lowerb` and `hit_rate_upperb`.
 
 ```{r}
 # confidence limits
-hit_rate_lowerb <- hit_rate_diff_mean + t.25 * hit_rate_diff_se
-hit_rate_upperb <- hit_rate_diff_mean + t97.5 * hit_rate_diff_se
+delta_lower <- t_.25 + XX * XX
+delta_upper <- t_97.5 + XX * XX
 ```
 
-8. Now compare your calculated values against the confidence interval determined by the t-test. Are they the same? The confidence interval is many ways the better alternative to the classic inferential test because it prefers more information. A test is just significant or not. The confidence interval reveals this information too by including the 0 or not, but it also reveals the oftentimes considerable uncertainty inherent in our estimate, which is otherwise easily forgotten.  
+8. Jetzt könnt ihr eurer Konfidenzinterval mit dem aus dem t-Wert vergleichen. Ist es identisch?
 
-9. Play around with the confidence intervals. How do the bounds change, when you choose higher (e.g., 99%) or lower (90%) percentages.
+9. Probiere andere Konfidenzintervalle aus. Wie verändern sich dei Grenzen, wenn $\alpha = .01$ oder $\alpha = .1$, d.h., wenn die Konfidenzintervalle 99% bzw. 90% umspannen.
 
-### X - Advanced: Bayesian statistics
+### E - Bayesianische Statistik
 
-1. Bayesian statistics have become readily available in R mainly through two R packages `rstanarm` and `Bayesfactor`. Both packages are great and allow you to do almost anything, but they do follow a slightly different philosophy. Let's begin with `rstanarm`. Use the template below to run a regression predicting `hit_rate` by  `gender` and `condition`. 
+1. Bayesianische Statistik kann in R mittlerweile ebenso leicht verwendet werden, wie klassische (frequentistische) Statistik durch Pakete wie `rstanarm` und `Bayesfactor`. Beide Pakete erlauben dir  beinahe identisch zur bekannten Form Modelle zu implementieren, die jedoch einer ganz anderen statistischen Philosophie. Verwende `rstanarm` im Template um die Trefferrate durch `Geschlecht` und `Stimulus_seeking` für die `'erotic'` Bedingung vorherzusagen. 
 
 ```{r, echo = TRUE, message=F, warning=F}
-# Bayesian regression predicting hit_rate by gender and condition
-bm1 <- stan_glm(formula = hit_rate ~ gender + condition, 
-                data = psi1)
+# Bayesianische Regression
+Trefferrate_bm <- stan_glm(formula = Trefferrate ~ Geschlecht + Stimulus_seeking, 
+                           data = psi1 %>% filter(Bedingung == 'erotic'))
 ```
 
-2. Print the object and inspect the output. You'll see it looks different than the output of a regular regression. Focusing only on the part after the separating hyphens, there are three main parts:
+2. Printe das Objekt und beetrachte den Output. Er sieht sehr anders aus als der Output der normalen Regression. Trotzddem solltest du einen Part wiedererkennen. Im Teil nach dem ersten mal `-----` stehen die Gewichte und deren Standardabweichung, welche du analog zum Standardfehler interpretieren kannst. Darüber stehen grundlegenden Informationen zum Modell, die du üblciherweise ignoriere kannst. Darunter stehen zu `Auxiliary parameter(s)` stehen Parameter, die das Modell zusätzlich geschätzt hat. Der eine Parameter `sigma` ist die Standardabweichung um die Regressionsgerade, welche im Bayesianischen Modell auch eine Standardabweichung besitzt. 
 
-- The first part shows the coefficients and their standard deviation. Different from a regular regression output, we do not receive any statistics or significance values. Moreover estimates are labeled Median and MAD_SD. This is because of the fact that in Bayesian statistics, we can more or less choose which centrality measure to compute from the posterior distribution. `rstanarm` chooses the median, because the median is typically more robust. 
-
-- The second part labeled *Auxiliary parameter(s)* lists another set of estimates (in this case only 1), which had to be computed in order to be able to fit the model. In this case this is a single standard deviation for the residual distribution (here you can see the importance of the homoscedascity assumption. Without it a lot more sigmas would have to be estimated).
-
-- The third part labeled *Sample avg. posterior predictive distribution of y* shows the mean value predicted by the model, which is, more or less, the average of the fitted values.  
-
-3. In order to make statistical decisions, Bayesian statistics commonly relies on intervals, which in Bayesian statistics are called *credible interval* rather than *confidence interval*. Credible intervals truly provide the ranges that encompass the true value with 95% probability, which cannot strictly be said about confidence intervals. You can compute these intervals using the `posterior_interval()` function on the `bm1` object.    
+3. Statistische Entscheidungen werden im Bayesianischen Ansatz auf unterschiedliche Weisen getroffen (je nachdem welcher Schule man angehört). Am verbreitesten ist jedoch das *credible interval*, welches analog zum Konfidenzintervall zu interprieren ist. Es ist dasjenige Interval in dem der wahre Populationsparameter mit 95%iger Wahrscheinlichkeit liegt, eine Aussage, die für das normale Konfidenzinterval nicht getroffene werden kann. Berechne die *credible intervals* mit der `posterior_interval()` Funktion für `Trefferrate_bm`.    
 
 ```{r, message=F, warning=F}
-# Bayesian regression predicting hit_rate by gender and condition
-posterior_interval(bm1)
+# Bayesian posterior credible interval
+posterior_interval(Trefferrate_bm)
 ```
 
-4. Now let's run the same analysis using the `BayesFactor` package using the `regressionBF` function.  
+4. Wenn Null nicht enthalten ist, dann ist die Wahrscheinlichkeit, dass ein Effekt Null ist tatsächlich kleiner als 5%. 
 
-```{r, echo = TRUE, message=F, warning=F}
-# Bayesian regression predicting hit_rate by gender and condition
-psi1$gender_dummy <- as.numeric(psi1$gender == 'Male')
-psi1$condition_dummy <- as.numeric(psi1$condition == "erotic")
 
-bm2 <- regressionBF(formula = hit_rate ~ gender_dummy + condition_dummy, 
-                    data = psi1)
-```
-
-5. Print `bm2` and inspect the output. You'll see it's very different. The `BayesFactor` focuses more on model comparisons than parameter estimation. Accordingly, the output informs you about a model comparison, in this case, between the regression model provided and a model only containing an intercept as a predictor, the `Intercept only` model. The results are what is known *BayesFactor*s. The `BayesFactor` quantifies the amount of evidence that the data provides in favor of the model in question, relative to the comparison model. Values larger than 1 mean that the data favors the model in question, although only values above 10 are considered meaningful. Values lower than 1 indicate that the comparison model is actually more likely. The output presents results independently for each predictor and their combination. So what is it in this case? Are the predictors any good. 
-
-6. The previous result illustrates one of several major benefits of Bayesian statistics and that is to be able to specify the evidence in favor of the Null-hypothesis. In general, everything can be done with either package. Go explore. 
-
-## Examples
+## Beispiele
 
 ```{r, eval = FALSE, echo = TRUE}
 
-# power analysis -----------
+# Poweranalyse -----------
 
-# N needed for one-sided test with a mean difference of
-# .3 standard deviations, a false positive error rate (sig.level)
-# of .05, and power of .95
+# N für einen einseitigen t.test auf Mittelwertsunterschiede
 pwr.t.test(d = .3, 
            sig.level = .05, 
            power = .95, 
            alternative = "greater")
 
-# Power obtained for one-sided test with mean difference of
-# .3 standard deviations, a false positive error rate (sig.level)
-# of .05, and a sample size of 100
+# Power für einen einseitigen t.test auf Mittelwertsunterschiede
 pwr.t.test(n = 100,
            d = .3, 
            sig.level = .05, 
@@ -420,34 +391,32 @@ pwr.t.test(n = 100,
            alternative = "greater")
 
 
-# confidence intervals -----------
+# Konfidenzintervalle -----------
 
-#  split data (not strictly necessary)
-mpg_suv     <- mpg %>% filter(class == 'suv')
-mpg_compact <- mpg %>% filter(class == 'compact')
+#  Berechne test
+t_test <- t.test(hwy ~ class, data = mpg %>% filter(class %in% c('suv','compact')))
 
-# mean difference and pooled standard deviation
-mpg_diff = mean(mpg_suv$hwy) - mean(mpg_compact$hwy)
-mpg_diff_sd = sqrt((var(mpg_suv$hwy) + var(mpg_compact$hwy))/2)
-df = length(mpg_suv$hwy) + length(mpg_compact$hwy) - 2
-mpg_diff_se = mpg_diff_sd / sqrt(df)
+# Extrahiere Werte
+delta <- diff(t_test$estimate)
+se <- t_test$stderr
+df <- t_test$parameter
 
-# upper and lower bounds
-mpg_diff + qt(.025, df) * mpg_diff_se
-mpg_diff + qt(.975, df) * mpg_diff_se
+# Obere und untere Grenze
+delta + qt(.025, df) * se
+delta + qt(.975, df) * se
 
-# both at the same time
-mpg_diff + qt(.975, df) * mpg_diff_se * c(-1,1)
+# Beide zur selben Zeit
+delta + qt(.975, df) * se * c(-1,1)
 
-# Bayesian regression -----------
+# Bayesianische Regression -----------
 
-# using rstanarm
+# mit rstanarm
 bm1 <- stan_glm(hwy ~ displ, data = mpg)
 
 # rstanarm credible intervals
 posterior_interval(bm1)
 
-# using BayesFactor
+# mit BayesFactor
 bm2 <- regressionBF(hwy ~ displ, data = mpg)
 
 # sample from posterior
@@ -457,14 +426,14 @@ posterior(bm2, iterations = 1000)
 
 ## Datasets
 
-|File | Rows | Columns |
+|Datei | Zeilen | Spalten |
 |:----|:-----|:------|
-|[psi_exp1.csv](https://therbootcamp.github.io/SwR_2019Apr/1_Data/psi_exp1.csv) | 200 | 7 |
-|[psi_exp2.csv](https://therbootcamp.github.io/SwR_2019Apr/1_Data/psi_exp2.csv)  | 150 | 5 |
+|[psi_exp1.csv](https://therbootcamp.github.io/SmR_2020Apr/1_Data/psi_exp1.csv) | 200 | 7 |
+|[psi_exp2.csv](https://therbootcamp.github.io/SmR_2029Apr/1_Data/psi_exp2.csv)  | 150 | 5 |
 
-The data sets stem from actual (para-) psychological investigation of people's ability to ["Feel the future"](https://therbootcamp.github.io/SwR_2019Apr/_sessions/NewStats/literature/Bem_Psi_2011.pdf). The infamous study published in a respected Social Psychology journal was one of the main reasons that triggered the replication crisis and the associated efforts for better scientific practice in Psychology and beyond. The data sets contain the data of the first two experiments. Experiment 1 investigated whether people can successfully (better than chance) predict behind which of two occluding curtains a picture is hiding as a function of, among other things, whether the picture has erotic content. Experiment 2 is an attempt to replicate study 2. Both studies also measures how stimulus seeking (a variant of extraversion) individuals were, to see whether this influences individuals *psi* ability.  
+Die Daten stammen von einer tatsächlichen (para-) psychologischen Studie, die die menschliche Fähigkeit in die Zukunft zu sehen überprüft hat (["Feel the future"](https://therbootcamp.github.io/SwR_2019Apr/_sessions/NewStats/literature/Bem_Psi_2011.pdf)). Die mittlerweile berüchtigte Studie wurde in einem etablierten Journal der Sozialpsychologie publiziert, was damit nicht unerheblich zum einer Bewegung der methodischen Revision in der Psychologie geführt hat. Die Dateien enthalten die Daten der ersten beiden Experimente. Das erste Experiment untersuchte ob Menschen besser als eine Zufallsrate von 50% vorhersagen können, hinter welchem von zwei Vorhängen ein Bild versteckt ist, insbesondere in dem Fall in dem sich ein erotischen Bild dahinter versteckt. Experiment zwei ist ein Replikationsversuch der erste Studie. Beide Studien haben auch das Konstruk *Stimulus seeking* mituntersucht, was ähnlich zu Extraversion zu interpetieren ist, um zu untersuchen, ob Leute mit hohem *Stimulus seeking* vielleicht höhere *psi* Fähigkeiten aufweisen. 
 
-#### Variable description
+#### psi_exp1.csv & psi_exp2.csv
 
 | Name | Description |
 |:-------------|:-------------------------------------|

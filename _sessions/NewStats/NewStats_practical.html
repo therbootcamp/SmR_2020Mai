@@ -323,54 +323,66 @@ Wettbewerb 2
 </tr>
 </table>
 </div>
-<div id="c---power-analysis" class="section level3">
-<h3>C - Power analysis</h3>
+<div id="c---poweranalyse" class="section level3">
+<h3>C - Poweranalyse</h3>
 <ol style="list-style-type: decimal">
-<li>In his paper, Bem’s first analysis is whether the hit rate for erotic pictures is on average larger than <code>50%</code>. For this condition he observed an average proportion of <code>53.13%</code>. Determine, for experiment 1, what this means in terms of Cohen’s effect size <em>d</em>, which is calculated by dividing the average deviance from <span class="math inline">\(H_0\)</span> (i.e., 50) by the standard deviation of the values the average is calculated from.</li>
+<li>Bem’s erste Analyse in seinem paper ist, ob <code>hit_rate</code> grösser ist als <code>50%</code>. Für diese Bedingung (<code>Bedingung == 'erotic'</code>) hat Bem eine durchschnittliche Trefferrate von <code>53.13%</code> beobachtet. Bestimme für Experiment 1, welcher Cohen’s <em>d</em> Wert der implizierten Abweichung von <code>3.13%</code>-Punkte von der Trefferrate unter H0, nämlich <code>50%</code>, entspricht. Benutze das Template.</li>
 </ol>
-<pre class="r"><code># extract erotic hit rate
-hit_rate_erotic &lt;- psi1$hit_rate[psi1$condition == &quot;erotic&quot;]
+<pre class="r"><code># Extrahiere die Trefferraten für erotic
+Trefferrate_erotic &lt;- psi1 %&gt;% filter(Bedingung == &quot;erotic&quot;) %&gt;% pull(Trefferrate)
 
-# calculate the deviance from H0
-hit_rate_erotic_delta &lt;- XX - 50
+# Berechne die Abweichung von H0
+Trefferrate_erotic_delta &lt;- mean(XX) - 50
 
-# calculate d
-d &lt;- mean(YY) / sd(YY)</code></pre>
+# Berechne d
+d &lt;- Trefferrate_erotic_delta / sd(XX)</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>An effect size of <code>d = .25</code> is typically considered a small, but meaningful effect. Let us know take the perspective of rival researchers, who would like to replicate Bem’s effect. Specifically, we would like to conduct an experiment that has a small chance of false positives, e.g., <span class="math inline">\(\alpha = 0.05\)</span> (<code>sig.level</code>) and an equally low chance of missing the effect, i.e., <span class="math inline">\(\beta = .05\)</span> implying <span class="math inline">\(1-\beta = power = .95\)</span>. How many observations would we have to make to be able to conduct such a test? Use the template below.</li>
+<li>Ein Cohen’s d von <code>.25</code> wird allgemein als klein, aber bedeutsam angesehen. Nimm nun die Perspektive eines rivalisierenden Forschers ein, der Bem’s Effekt von <code>d = .25</code> in einer neuen Studie mit einer Falsch-Positiv-Rate von <span class="math inline">\(\alpha = .05\)</span> einer hohen Power von <span class="math inline">\(power = 1-\beta = .95\)</span> replizieren möchtee. Welche Stichprobengrösse wäre nötig? Verwende das Template.</li>
 </ol>
-<pre class="r"><code># N to test d=.25, alpha = .05, power = .95
-pa &lt;- pwr.t.test(d = XX, 
-                 sig.level = XX, 
-                 power = XX, 
-                 alternative = &quot;greater&quot;)
-pa</code></pre>
+<pre class="r"><code># N um d=.25, alpha = .05, power = .95
+stichprobe &lt;- pwr.t.test(d = XX, 
+                         sig.level = XX, 
+                         power = XX, 
+                         alternative = &quot;greater&quot;)
+stichprobe</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li><p>The analysis shows that we would have to run a study with 347 individuals. You can also illustrate this using <code>plot.power.htest()</code>. Apply the function to <code>pa</code>.</p></li>
-<li><p>Using the plot, you can also already get an idea, how large the power, i.e., the probability of detecting an effect given that it is truly there to detect, was for Bem’s study. You can also again use the <code>pwr.t.test()</code> function. To do this, set <code>n = length(hit_rate_erotic)</code> and <code>power = NULL</code>. Call the result <code>pa_bem</code>.</p></li>
-<li><p>The previous analysis is called post-hoc (after the fact) power analysis, which should not be confused with an actual power analysis carried out before the data collection. In Bem’s case we find that the power was only <code>.547</code> meaning that there was almost only a 50-50 chance that an effect of the observed size could have been observed. Let’s now consider what would happen, if the effect was actually very small, say <code>d = .1</code>. What large would Bem’s post-hoc power have been and how large a sample size was necessary for <code>power = .95</code>.</p></li>
-<li><p>Bem’s post-hoc power would have been a meager 17.4%, while the N necessary for a conclusive study lies upwards of 2000 individuals. This means that Bem either knew we would be finding a substantive effect, or he actually engaged in pretty poor study planning. Go explore, can you determine the post-hoc power and n necessary your analyses? Use <code>pwr.r.test()</code> for correlation tests and <code>pwr.chisq.test()</code> for chi-square tests. Unfortunately, there are no functions for regression models.</p></li>
+<li><p>Laut Poweranalyse wäre eine Stichprobe von 347 Individuen nötig. Versuche dies einmal mit der <code>plot.power.htest()</code>-Funktion zu visualisieren. Wende sie einfach auf das <code>stichprobe</code> Objekt an.</p></li>
+<li><p>Mittels des Plots könnt ihr nun auch evaluieren, wie gross die Power von Bem’s ursprünglicher Studie war. In Bem’s <code>'erotic'</code> condition waren <span class="math inline">\(r length(Trefferrate_erotic)\)</span> Beobachtungen. Finde den entsprechenden Punkt auf der x-Achse und gehe dann nach oben um die dazugehörige Power zu finden. Alternativ kannst du nochmals die <code>pwr.t.test()</code> Funktion verwenden und anstatt <code>power</code> die Stichprobengrösse <code>n</code> definieren. Siehe Template.</p></li>
+</ol>
+<pre class="r"><code># Bems post-hoc power
+power &lt;- pwr.t.test(n = XX, 
+                    d = .25, 
+                    sig.level = .05, 
+                    alternative = &quot;greater&quot;)
+power</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li><p>Die letzte Analyse, das bestimmen der Power für einen gegebenen Effekt und Stichprobengrösse nennt man eine Post-hoc Poweranalyse, welche nicht mit einer eigentlichen Poweranalyse verwechselt werden darf. In Bem’s Fall war die Power <code>.547</code>, das heisst das Bem nur ungefähr eine 50/50 Chance hatte einen Effekt von der gefundenen Stärke zu beobachten. Überprüfe nun was gewesen wäre, wenn der Effekt klein gewesen wäre, d.h., <code>d = .1</code>. Wiederhole die Powerberechnung für Bem’s Stichprobengrösse und berechne die Stichprobengrlsse die nötig ist für eine <span class="math inline">\(power = 1-\beta = .95\)</span>.</p></li>
+<li><p>Für einen kleinen Effekt, welchen man vielleicht höchstens erwarten würde für etwas so ungewöhnliches wie menschliche <em>psi</em>-Fähigkeiten, hatte Bem’s Studie nur eine power von <code>17.4%</code> und die Stichprobe die für eine hohe power notwendig war lag oberhalb von 2000 Personen. Das bedeutet, dass Bem entweder wusste, dass er einen grösseren Effekt beobachten würde oder, dass er eher schlechte Studienplanung betrieben hat.</p></li>
 </ol>
 </div>
-<div id="d---confidence-intervals" class="section level3">
-<h3>D - Confidence intervals</h3>
+<div id="d---konfidenzintervalle" class="section level3">
+<h3>D - Konfidenzintervalle</h3>
 <ol style="list-style-type: decimal">
-<li>Confidence intervals are another way of using a significance test that places focus on the uncertainty inherent in the result. The basic idea is that rather than dividing an estimate by its standard error we assess the range spanned by the standard error to the left and right of the estimate. Let’s begin by computing a standard paired t-test for the hit-rate using the template below and storing the result in an object called <code>test()</code>.</li>
+<li>Konfidenzintervalle sind ein andere Weg Signifikanztests durchzuführen, welcher eher auf Schätzung als auf Testung von Effekten beruht. Die grundlegende Idee ist, dass man die Schätzgrössen (z.B. Regressionsgewichte) nicht durch den Standardfehler teilt, sondern den Standardfehler verwendet um eine Spannweite um die Schätzgrössen aufzuspannen. Rechnen wir zunächst ein einfaches lineares Modell für <code>psi1</code>, dass die <code>Trefferrate</code> durch die <code>Bedingung</code> vorhersagt.</li>
 </ol>
-<pre class="r"><code># extract hit rates 
-hit_rate_erotic &lt;- psi1$hit_rate[psi1$condition == &quot;erotic&quot;]
-hit_rate_neutral &lt;- psi1$hit_rate[psi1$condition != &quot;erotic&quot;]
+<pre class="r"><code># Regression 
+psi_lm &lt;- lm(XX ~ XX, data = XX)
 
-# compute t-test
-test &lt;- t.test(x = XX, 
-               y = YY, 
-               paired = TRUE)</code></pre>
+# Testergebnisse
+summary(psi_lm)</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li><p>Next inspect the names of the <code>test</code> object using <code>names()</code>.</p></li>
-<li><p>The you will have observed that the t-test object actually already contains a <code>conf.in</code> object. Access it using <code>$</code> and print it to the console.</p></li>
-<li><p>Let us now try to recreate the confidence interval. The first element we need for this is the average difference, which is simply the average of the differences between <code>hit_rate_erotic</code> and <code>hit_rate_neutral</code>. First, calculate the differences and store them as <code>hit_rate_diff</code>. Then calculate the mean of <code>hit_rate_diff</code> and call it <code>hit_rate_diff_mean</code>.</p></li>
-<li><p>The second element is the standard error. In case of paired samples this is very easy to calculate. The standard error is the standard deviation (<code>sd()</code>) of the differences divided by the square root of the number of differences (<code>sqrt(length())</code>). Store the standard error as <code>hit_rate_diff_se</code>.</p></li>
-<li><p>The final element is the value in the t-distribution that corresponds to a certain confidence interval width, e.g., 95% or 99%. If the goal is to determine a 95% confidence interval then we need to identify the t-values that encapsulate this proportion of t-values in the t-distribution, which is the t-value at which 2.5% of t-values are smaller, i.e., <span class="math inline">\(t_{2.5\%}\)</span> and the t-value at which 97.5% are smaller, i.e., <span class="math inline">\(t_{97.5\%}\)</span>. See the figure below. Locate these values in the figure below.</p></li>
+<li>Verwende nun die <code>confint()</code> Funktion um die Konfidenzintervalle für die Regression, d.h., den Intercept und das Gewicht für <code>Bedingung</code>, zu bestimmen.</li>
+</ol>
+<pre class="r"><code># Konfidenzintrval
+confint(XX)</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Das Konfidenezinterval für den Intercept lag zwischen <code>47.47</code> und <code>52.19</code>, während das Interval für das Gewicht zwischen <code>-.03</code> und <code>6.64</code>. Beide Konfidenzintervalle enthalten also die NUll. Das heisst inbesondere, dass der obgleich der Mittelwert für die Erotic-Bedingung signifikant von <code>50%</code> verschieden ist die beiden Bedingungen sich nicht signifikant unterscheiden. Beginne nun die das Konfidenzinterval für das Gewicht nachzubauen. Extrahiere dafür zunächst das Gewicht und den entsprechenden Standardfehler.</li>
+</ol>
+<pre class="r"><code># Gewicht b und Standardfehler se
+b &lt;- summary(psi_lm)$coef[2, 1]
+se &lt;- summary(psi_lm)$coef[2, 2]</code></pre>
+<ol start="4" style="list-style-type: decimal">
+<li>Jetzt benötigst du nur noch die entsprechenden t-Wert um das Konfidenzintervall auzuspanne. Da das Konfidenzinterval in beide Richtungen zu gleichen Teilen aufgespannt werden soll such wir nicht den t-Wert für <span class="math inline">\(1-\alpha\)</span> sondern für <span class="math inline">\(1-\frac{\alpha}{2}\)</span> und <span class="math inline">\(\frac{\alpha}{2}\)</span>, d.h., wir suchen die kritischen t-Werte für einen zweiseitigen Test. Locate these values in the figure below.</li>
 </ol>
 <p><img src="image/tdistr.png"></img></p>
 <ol start="6" style="list-style-type: decimal">

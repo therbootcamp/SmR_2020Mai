@@ -43,8 +43,8 @@ write_csv(exp1,'_sessions/NewStats/1_Data/psi_exp1_en.csv')
 write_csv(exp2,'_sessions/NewStats/1_Data/psi_exp2_en.csv')
 
 require(tidyverse)
-exp1 = read_csv('../_sessions/NewStats/1_Data/psi_exp1_en.csv')
-exp2 = read_csv('../_sessions/NewStats/1_Data/psi_exp2_en.csv')
+exp1 = read_csv('_sessions/NewStats/1_Data/psi_exp1_en.csv')
+exp2 = read_csv('_sessions/NewStats/1_Data/psi_exp2_en.csv')
 
 exp1 = exp1 %>% rename(
   Geschlecht= gender,
@@ -68,8 +68,8 @@ exp2 = exp2 %>% rename(
   Trefferrate= hit_rate
 )
 
-write_csv(exp1,'../_sessions/NewStats/1_Data/psi_exp1.csv')
-write_csv(exp2,'../_sessions/NewStats/1_Data/psi_exp2.csv')
+write_csv(exp1,'_sessions/NewStats/1_Data/psi_exp1.csv')
+write_csv(exp2,'_sessions/NewStats/1_Data/psi_exp2.csv')
 
 
 
