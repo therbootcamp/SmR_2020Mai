@@ -307,8 +307,8 @@ Auf Deutsch...
 ## Model 1: error_rate ~ stress
 ## Model 2: error_rate ~ stress + stress2
 ##   Res.Df   RSS Df Sum of Sq   F Pr(&gt;F)    
-## 1    298 258.1                            
-## 2    297  66.1  1       192 863 &lt;2e-16 ***
+## 1    298 224.2                            
+## 2    297  93.2  1       131 417 &lt;2e-16 ***
 ## ---
 ## Signif. codes:  
 ##   0 '***' 0.001 '**' 0.01 '*' 0.05 '.'
@@ -531,7 +531,7 @@ time_2 &lt;- c(27, 16, 23, 8, 15, 21)
 
 # sign test
 N &lt;- length(time_1)
-n_plus &lt;- sum(time_1 - time_2 &gt; 1)
+n_plus &lt;- sum(time_1 - time_2 &gt; 0)
 dbinom(x = n_plus : N, 
        size = N, 
        prob = .5) %&gt;% # H0

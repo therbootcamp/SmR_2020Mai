@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 
 <head>
 
 <meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -84,7 +84,6 @@ code {
 }
 img {
   max-width:100%;
-  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -146,6 +145,7 @@ summary {
   border: none;
   display: inline-block;
   border-radius: 4px;
+  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -157,18 +157,6 @@ summary {
   display: none;
 }
 </style>
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
 
 <!-- code folding -->
 
@@ -195,7 +183,7 @@ $(document).ready(function () {
 <col width='10%'>
 <tr style="border:none">
 <td style="display:block;width:100%;text-align:left;vertical-align:bottom;padding:0;margin:0;border:none" nowrap>
-<font style='font-style:normal'>Statistics with R</font><br> <a href='https://therbootcamp.github.io/SmR_2020Mai/'> <i class='fas fa-clock' style='font-size:.9em;' ></i> </a> <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;'></i> </a> <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a> <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a> <a href='https://therbootcamp.github.io'> <font style='font-style:normal'>The R Bootcamp</font> </a>
+<font style='font-style:normal'>Statistik mit R</font><br> <a href='https://therbootcamp.github.io/SmR_2020Mai/'> <i class='fas fa-clock' style='font-size:.9em;' ></i> </a> <a href='https://therbootcamp.github.io'> <i class='fas fa-home' style='font-size:.9em;'></i> </a> <a href='mailto:therbootcamp@gmail.com'> <i class='fas fa-envelope' style='font-size: .9em;'></i> </a> <a href='https://www.linkedin.com/company/basel-r-bootcamp/'> <i class='fab fa-linkedin' style='font-size: .9em;'></i> </a> <a href='https://therbootcamp.github.io'> <font style='font-style:normal'>The R Bootcamp</font> </a>
 </td>
 <td style="width:100%;vertical-align:bottom;text-align:right;padding:0;margin:0;border:none">
 <img src='https://raw.githubusercontent.com/therbootcamp/therbootcamp.github.io/master/_sessions/_image/by-sa.png' style='height:15px;width:80px'/>
@@ -231,7 +219,7 @@ $(document).ready(function () {
 <div id="a---setup" class="section level3">
 <h3>A - Setup</h3>
 <ol style="list-style-type: decimal">
-<li><p>Öffne dein <code>TheRBootcamp</code> R project. Es sollte die Ordner <code>1_Data</code> und <code>2_Code</code> enthalten. Stelle sicher, dass du alle Datensätze, welche im <code>Datensätze</code> Tab aufgelisted sind, in deinem <code>1_Data</code> Ordner hast.</p></li>
+<li><p>Öffne dein <code>TheRBootcamp</code> R project. Es sollte die Ordner <code>1_Data</code> und <code>2_Code</code> enthalten. Stelle sicher, dass du alle Datensätze, welche im <code>Datensätze</code> Tab aufgelistet sind, in deinem <code>1_Data</code> Ordner hast.</p></li>
 <li><p>Öffne ein neues R Skript. Schreibe deinen Namen, das Datum und “Neue Statistik Practical” als Kommentare an den Anfang des Skripts.</p></li>
 </ol>
 <pre class="r"><code>## NAME
@@ -301,7 +289,7 @@ var x = setInterval(function() {
 }, 1000);
 </script>
 <ol start="2" style="list-style-type: decimal">
-<li><p>Das Zeil beider Wettbewerbe ist es den kleinstmöglichen <i>p</i>-Wert durch das fortwährende Massieren der experimentellen Daten von Bem’s zu extrahieren. Finde dafür bis zu drei Analysen, die zeigen, dass a) Menschen <em>psi</em>-Fähigkeiten besitzen, d.h., dass die <code>hit_rate</code> höher als Chance ist und b) dass es andere Variablen gibt die <em>psi</em>-Fähigkeiten prädizieren, was ebenso ein Beleg für die Existenz solcher Fähigkeiten wäre. Es gibt keine Regeln, ausser dass <code>hit_rate</code> als Kriterium zu wählen ist. Du kannst jeden möglichen Test verwenden. Dir ist es auch erlaubt nur Komponenten der Daten mit <code>data %&gt;% filter(condition)</code> auszuwählen.</p></li>
+<li><p>Das Ziel beider Wettbewerbe ist es den kleinstmöglichen <i>p</i>-Wert durch das fortwährende Massieren Bem’s experimenteller Daten zu extrahieren. Finde dafür bis zu drei Analysen, die zeigen, dass a) Menschen <em>psi</em>-Fähigkeiten besitzen, d.h., dass die <code>Trefferrate</code> höher als Chance ist und b) dass es andere Variablen gibt die <em>psi</em>-Fähigkeiten prädizieren, was ebenso ein Beleg für die Existenz solcher Fähigkeiten wäre. Es gibt keine Regeln, ausser dass <code>Trefferrate</code> als Kriterium zu wählen ist. Du kannst jeden möglichen Test verwenden. Dir ist es auch erlaubt nur Komponenten der Daten mit <code>data %&gt;% filter(condition)</code> auszuwählen.</p></li>
 <li><p>Für jede der beiden Wettbewerbe - jeweils ein Wettbewerb pro Experiment - darfst du drei Ergebnisse einreichen. Ihr könnt alleine arbeiten oder euch zusammenschliessen. Mehr Informationen über den Datensatz findet ihr unter dem <em>Datasets</em> tab. Die Person oder Gruppe mit dem niedrigsten <i>p</i>-Wert gewinnt 🍫🍫🍫.</p></li>
 <li><p>Reiche die Ergebnisse ein über:</p></li>
 </ol>
@@ -326,7 +314,7 @@ Wettbewerb 2
 <div id="c---poweranalyse" class="section level3">
 <h3>C - Poweranalyse</h3>
 <ol style="list-style-type: decimal">
-<li>Bem’s erste Analyse in seinem paper ist, ob <code>hit_rate</code> grösser ist als <code>50%</code>. Für diese Bedingung (<code>Bedingung == 'erotic'</code>) hat Bem eine durchschnittliche Trefferrate von <code>53.13%</code> beobachtet. Bestimme für Experiment 1, welcher Cohen’s <em>d</em> Wert der implizierten Abweichung von <code>3.13%</code>-Punkte von der Trefferrate unter H0, nämlich <code>50%</code>, entspricht. Benutze das Template.</li>
+<li>Bem’s erste Analyse in seinem Paper ist, ob <code>Trefferrate</code> grösser ist als <code>50%</code>. Für diese Bedingung (<code>Bedingung == 'erotic'</code>) hat Bem eine durchschnittliche Trefferrate von <code>53.13%</code> beobachtet. Bestimme für Experiment 1, welcher Cohen’s <em>d</em> Wert der implizierten Abweichung von <code>3.13%</code>-Punkte von der Trefferrate unter H0, nämlich <code>50%</code>, entspricht. Benutze das Template.</li>
 </ol>
 <pre class="r"><code># Extrahiere die Trefferraten für erotic
 Trefferrate_erotic &lt;- psi1 %&gt;% filter(Bedingung == &quot;erotic&quot;) %&gt;% pull(Trefferrate)
@@ -337,7 +325,7 @@ Trefferrate_erotic_delta &lt;- mean(XX) - 50
 # Berechne d
 d &lt;- Trefferrate_erotic_delta / sd(XX)</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Ein Cohen’s d von <code>.25</code> wird allgemein als klein, aber bedeutsam angesehen. Nimm nun die Perspektive eines rivalisierenden Forschers ein, der Bem’s Effekt von <code>d = .25</code> in einer neuen Studie mit einer Falsch-Positiv-Rate von <span class="math inline">\(\alpha = .05\)</span> einer hohen Power von <span class="math inline">\(power = 1-\beta = .95\)</span> replizieren möchtee. Welche Stichprobengrösse wäre nötig? Verwende das Template.</li>
+<li>Ein Cohen’s d von <code>.25</code> wird allgemein als klein, aber bedeutsam angesehen. Nimm nun die Perspektive eines rivalisierenden Forschers ein, der Bem’s Effekt von <code>d = .25</code> in einer neuen Studie mit einer Falsch-Positiv-Rate von <span class="math inline">\(\alpha = .05\)</span> einer hohen Power von <span class="math inline">\(power = 1-\beta = .95\)</span> replizieren möchte. Welche Stichprobengrösse wäre nötig? Verwende das Template.</li>
 </ol>
 <pre class="r"><code># N um d=.25, alpha = .05, power = .95
 stichprobe &lt;- pwr.t.test(d = XX, 
@@ -356,14 +344,14 @@ power &lt;- pwr.t.test(n = XX,
                     alternative = &quot;greater&quot;)
 power</code></pre>
 <ol start="5" style="list-style-type: decimal">
-<li><p>Die letzte Analyse, das bestimmen der Power für einen gegebenen Effekt und Stichprobengrösse nennt man eine Post-hoc Poweranalyse, welche nicht mit einer eigentlichen Poweranalyse verwechselt werden darf. In Bem’s Fall war die Power <code>.547</code>, das heisst das Bem nur ungefähr eine 50/50 Chance hatte einen Effekt von der gefundenen Stärke zu beobachten. Überprüfe nun was gewesen wäre, wenn der Effekt klein gewesen wäre, d.h., <code>d = .1</code>. Wiederhole die Powerberechnung für Bem’s Stichprobengrösse und berechne die Stichprobengrlsse die nötig ist für eine <span class="math inline">\(power = 1-\beta = .95\)</span>.</p></li>
+<li><p>Die letzte Analyse, das bestimmen der Power für einen gegebenen Effekt und Stichprobengrösse nennt man eine Post-hoc Poweranalyse, welche nicht mit einer eigentlichen Poweranalyse verwechselt werden darf. In Bem’s Fall war die Power <code>.547</code>, das heisst, dass Bem nur ungefähr eine 50/50 Chance hatte einen Effekt von der gefundenen Stärke zu beobachten. Überprüfe nun was gewesen wäre, wenn der Effekt klein gewesen wäre, d.h., <code>d = .1</code>. Wiederhole die Powerberechnung für Bem’s Stichprobengrösse und berechne die Stichprobengrösse die nötig ist für eine <span class="math inline">\(power = 1-\beta = .95\)</span>.</p></li>
 <li><p>Für einen kleinen Effekt, welchen man vielleicht höchstens erwarten würde für etwas so ungewöhnliches wie menschliche <em>psi</em>-Fähigkeiten, hatte Bem’s Studie nur eine power von <code>17.4%</code> und die Stichprobe die für eine hohe power notwendig war lag oberhalb von 2000 Personen. Das bedeutet, dass Bem entweder wusste, dass er einen grösseren Effekt beobachten würde oder, dass er eher schlechte Studienplanung betrieben hat.</p></li>
 </ol>
 </div>
 <div id="d---konfidenzintervalle" class="section level3">
 <h3>D - Konfidenzintervalle</h3>
 <ol style="list-style-type: decimal">
-<li>Konfidenzintervalle sind ein andere Weg Signifikanztests durchzuführen, welcher eher auf Schätzung als auf Testung von Effekten beruht. Die grundlegende Idee ist, dass man die Schätzgrössen (z.B. Regressionsgewichte) nicht durch den Standardfehler teilt, sondern den Standardfehler verwendet um eine Spannweite um die Schätzgrössen aufzuspannen. Rechnen wir zunächst einen <code>t.test()</code> für abhängigen Stichproben für <code>psi1</code>, welcher die <code>Trefferrate</code> für die beiden <code>Bedingung</code>en vergleicht.</li>
+<li>Konfidenzintervalle sind ein anderer Weg Signifikanztests durchzuführen, welcher eher auf Schätzung als auf Testung von Effekten beruht. Die grundlegende Idee ist, dass man die Schätzgrössen (z.B. Regressionsgewichte) nicht durch den Standardfehler teilt, sondern den Standardfehler verwendet um eine Spannweite um die Schätzgrössen aufzuspannen. Rechnen wir zunächst einen <code>t.test()</code> für abhängigen Stichproben für <code>psi1</code>, welcher die <code>Trefferrate</code> für die beiden <code>Bedingung</code>en vergleicht.</li>
 </ol>
 <pre class="r"><code># t.test 
 psi_ttest &lt;- t.test(XX ~ XX, data = XX, paired = TRUE)
@@ -376,27 +364,27 @@ psi_ttest</code></pre>
 <pre class="r"><code># Konfidenzintrval
 psi_ttest$conf.int</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li>Das Konfidenezinterval für den Unterschied liegt zwischen zwischen <code>-6.84</code> und <code>.23</code>. Das Konfidenzintervalle enthält also die NUll. Das heisst, dass der obgleich der Mittelwert für die Erotic-Bedingung signifikant von <code>50%</code> verschieden ist die beiden Bedingungen sich nicht signifikant unterscheiden. Beginne nun die das Konfidenzinterval für den Unterschied der Gruppen nachzubauen. Extrahiere dafür zunächst dene Unterschied, den entsprechenden Standardfehler, und die Freiheitsgrade.</li>
+<li>Das Konfidenezinterval für den Unterschied liegt zwischen zwischen <code>-6.84</code> und <code>.23</code>. Das Konfidenzintervalle enthält also die NUll. Das heisst, dass obgleich der Mittelwert für die Erotic-Bedingung signifikant von <code>50%</code> verschieden ist die beiden Bedingungen sich nicht signifikant unterscheiden. Beginne nun das Konfidenzintervall für den Unterschied der Gruppen nachzubauen. Extrahiere dafür zunächst den Unterschied, den entsprechenden Standardfehler, und die Freiheitsgrade.</li>
 </ol>
 <pre class="r"><code># Gewicht b und Standardfehler se
 delta &lt;- psi_ttest$estimate
 se &lt;- psi_ttest$stderr
 df &lt;- psi_ttest$parameter</code></pre>
 <ol start="4" style="list-style-type: decimal">
-<li>Jetzt benötigst du nur noch die entsprechenden t-Wert um das Konfidenzintervall auzuspanne. Da das Konfidenzinterval in beide Richtungen zu gleichen Teilen aufgespannt werden soll such wir nicht den t-Wert für <span class="math inline">\(1-\alpha\)</span> sondern für <span class="math inline">\(1-\frac{\alpha}{2}\)</span> und <span class="math inline">\(\frac{\alpha}{2}\)</span>, d.h., wir suchen die kritischen t-Werte für einen zweiseitigen Test mit <span class="math inline">\(\alpha = .05\)</span>. Verwende das Template</li>
+<li>Jetzt benötigst du nur noch die entsprechenden t-Werte um das Konfidenzintervall aufzuspannen. Da das Konfidenzintervall in beide Richtungen zu gleichen Teilen aufgespannt werden soll suchen wir nicht den t-Wert für <span class="math inline">\(1-\alpha\)</span> sondern für <span class="math inline">\(1-\frac{\alpha}{2}\)</span> und <span class="math inline">\(\frac{\alpha}{2}\)</span>, d.h., wir suchen die kritischen t-Werte für einen zweiseitigen Test mit <span class="math inline">\(\alpha = .05\)</span>. Verwende das Template</li>
 </ol>
 <pre class="r"><code># Kritische t-Werte
 t_25 &lt;- qt(p = XX, df = XX)
 t_97.5 &lt;- qt(p = XX, df = XX)</code></pre>
 <ol start="5" style="list-style-type: decimal">
-<li>Schaue dir zunächst die beiden t-Werte an. Überrascht, dass es die selben Werte sind nur einmal positiv und einmal negativ? Das ergibt sich daraus, dass die t-Verteilung symmetrisch um Null liegt. Um nun damit das Konfidenzinterval zu berechnen verwende das Template unten. Es geht darum <code>t*se</code> nach oben und <code>t*se</code> nach unten vom Unterschied <code>delta</code> zu gehen. Denkt an die unterschiedlichen Vorzeichen der beiden t-Werte.</li>
+<li>Schaue dir zunächst die beiden t-Werte an. Überrascht, dass es die selben Werte sind nur einmal positiv und einmal negativ? Das ergibt sich daraus, dass die t-Verteilung symmetrisch um Null liegt. Um nun damit das Konfidenzintervall zu berechnen verwende das Template unten. Es geht darum <code>t*se</code> nach oben und <code>t*se</code> nach unten vom Unterschied <code>delta</code> zu gehen. Denkt an die unterschiedlichen Vorzeichen der beiden t-Werte.</li>
 </ol>
 <pre class="r"><code># confidence limits
 delta_lower &lt;- XX + XX * XX
 delta_upper &lt;- XX + XX * XX</code></pre>
 <ol start="8" style="list-style-type: decimal">
-<li><p>Jetzt könnt ihr eurer Konfidenzinterval mit dem aus dem t-Wert vergleichen. Ist es identisch?</p></li>
-<li><p>Probiere andere Konfidenzintervalle aus. Wie verändern sich dei Grenzen, wenn <span class="math inline">\(\alpha = .01\)</span> oder <span class="math inline">\(\alpha = .1\)</span>, d.h., wenn die Konfidenzintervalle 99% bzw. 90% umspannen.</p></li>
+<li><p>Jetzt könnt ihr eurer Konfidenzintervall mit dem aus dem t-Wert vergleichen. Ist es identisch?</p></li>
+<li><p>Probiere andere Konfidenzintervalle aus. Wie verändern sich dei Grenzen, wenn <span class="math inline">\(\alpha = .01\)</span> oder <span class="math inline">\(\alpha = .1\)</span>, d.h., wenn die Konfidenzintervalle 99% bzw. 90% umspannen?</p></li>
 </ol>
 </div>
 <div id="e---bayesianische-statistik" class="section level3">
@@ -408,8 +396,8 @@ delta_upper &lt;- XX + XX * XX</code></pre>
 Trefferrate_bm &lt;- stan_glm(formula = Trefferrate ~ Geschlecht + Stimulus_seeking, 
                            data = psi1 %&gt;% filter(Bedingung == &#39;erotic&#39;))</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li><p>Printe das Objekt und beetrachte den Output. Er sieht sehr anders aus als der Output der normalen Regression. Trotzddem solltest du einen Part wiedererkennen. Im Teil nach dem ersten mal <code>-----</code> stehen die Gewichte und deren Standardabweichung, welche du analog zum Standardfehler interpretieren kannst. Darüber stehen grundlegenden Informationen zum Modell, die du üblciherweise ignoriere kannst. Darunter stehen zu <code>Auxiliary parameter(s)</code> stehen Parameter, die das Modell zusätzlich geschätzt hat. Der eine Parameter <code>sigma</code> ist die Standardabweichung um die Regressionsgerade, welche im Bayesianischen Modell auch eine Standardabweichung besitzt.</p></li>
-<li><p>Statistische Entscheidungen werden im Bayesianischen Ansatz auf unterschiedliche Weisen getroffen (je nachdem welcher Schule man angehört). Am verbreitesten ist jedoch das <em>credible interval</em>, welches analog zum Konfidenzintervall zu interprieren ist. Es ist dasjenige Interval in dem der wahre Populationsparameter mit 95%iger Wahrscheinlichkeit liegt, eine Aussage, die für das normale Konfidenzinterval nicht getroffene werden kann. Berechne die <em>credible intervals</em> mit der <code>posterior_interval()</code> Funktion für <code>Trefferrate_bm</code>.</p></li>
+<li><p>Printe das Objekt und betrachte den Output. Er sieht sehr anders aus als der Output der normalen Regression. Trotzdem solltest du einen Part wiedererkennen. Im Teil nach dem ersten mal <code>-----</code> stehen die Gewichte und deren Standardabweichung, welche du analog zum Standardfehler interpretieren kannst. Darüber stehen grundlegenden Informationen zum Modell, die du üblicherweise ignoriere kannst. Darunter stehen zu <code>Auxiliary parameter(s)</code> stehen Parameter, die das Modell zusätzlich geschätzt hat. Der eine Parameter <code>sigma</code> ist die Standardabweichung um die Regressionsgerade, welche im Bayesianischen Modell auch eine Standardabweichung besitzt.</p></li>
+<li><p>Statistische Entscheidungen werden im Bayesianischen Ansatz auf unterschiedliche Weisen getroffen (je nachdem welcher Schule man angehört). Am verbreitetsten ist jedoch das <em>credible interval</em>, welches analog zum Konfidenzintervall zu interprieren ist. Es ist dasjenige Intervall in dem der wahre Populationsparameter mit 95%iger Wahrscheinlichkeit liegt, eine Aussage, die für das normale Konfidenzintervall nicht getroffene werden kann. Berechne die <em>credible intervals</em> mit der <code>posterior_interval()</code> Funktion für <code>Trefferrate_bm</code>.</p></li>
 <li><p>Wenn Null nicht enthalten ist, dann ist die Wahrscheinlichkeit, dass ein Effekt Null ist tatsächlich kleiner als 5%.</p></li>
 </ol>
 </div>
@@ -475,18 +463,18 @@ posterior(bm2, iterations = 1000)</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><a href="https://therbootcamp.github.io/SmR_2020Apr/1_Data/psi_exp1.csv">psi_exp1.csv</a></td>
+<td align="left"><a href="https://therbootcamp.github.io/SmR_2020Mai/1_Data/psi_exp1.csv">psi_exp1.csv</a></td>
 <td align="left">200</td>
 <td align="left">7</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://therbootcamp.github.io/SmR_2029Apr/1_Data/psi_exp2.csv">psi_exp2.csv</a></td>
+<td align="left"><a href="https://therbootcamp.github.io/SmR_2020Mai/1_Data/psi_exp2.csv">psi_exp2.csv</a></td>
 <td align="left">150</td>
 <td align="left">5</td>
 </tr>
 </tbody>
 </table>
-<p>Die Daten stammen von einer tatsächlichen (para-) psychologischen Studie, die die menschliche Fähigkeit in die Zukunft zu sehen überprüft hat (<a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/NewStats/literature/Bem_Psi_2011.pdf">“Feel the future”</a>). Die mittlerweile berüchtigte Studie wurde in einem etablierten Journal der Sozialpsychologie publiziert, was damit nicht unerheblich zum einer Bewegung der methodischen Revision in der Psychologie geführt hat. Die Dateien enthalten die Daten der ersten beiden Experimente. Das erste Experiment untersuchte ob Menschen besser als eine Zufallsrate von 50% vorhersagen können, hinter welchem von zwei Vorhängen ein Bild versteckt ist, insbesondere in dem Fall in dem sich ein erotischen Bild dahinter versteckt. Experiment zwei ist ein Replikationsversuch der erste Studie. Beide Studien haben auch das Konstruk <em>Stimulus seeking</em> mituntersucht, was ähnlich zu Extraversion zu interpetieren ist, um zu untersuchen, ob Leute mit hohem <em>Stimulus seeking</em> vielleicht höhere <em>psi</em> Fähigkeiten aufweisen.</p>
+<p>Die Daten stammen von einer tatsächlichen (para-) psychologischen Studie, die die menschliche Fähigkeit in die Zukunft zu sehen überprüft hat (<a href="https://therbootcamp.github.io/SwR_2020Mai/_sessions/NewStats/literature/Bem_Psi_2011.pdf">“Feel the future”</a>). Die mittlerweile berüchtigte Studie wurde in einem etablierten Journal der Sozialpsychologie publiziert, was damit nicht unerheblich zu einer Bewegung der methodischen Revision in der Psychologie geführt hat. Die Dateien enthalten die Daten der ersten beiden Experimente. Das erste Experiment untersuchte ob Menschen besser als eine Zufallsrate von 50% vorhersagen können, hinter welchem von zwei Vorhängen ein Bild versteckt ist, insbesondere in dem Fall in dem sich ein erotisches Bild dahinter versteckt. Experiment zwei ist ein Replikationsversuch der erste Studie. Beide Studien haben auch das Konstrukt <em>Stimulus seeking</em> mituntersucht, was ähnlich zu Extraversion zu interpetieren ist, um zu untersuchen, ob Leute mit hohem <em>Stimulus seeking</em> vielleicht höhere <em>psi</em> Fähigkeiten aufweisen.</p>
 <div id="psi_exp1.csv-psi_exp2.csv" class="section level4">
 <h4>psi_exp1.csv &amp; psi_exp2.csv</h4>
 <table>
@@ -640,6 +628,23 @@ $(document).ready(function () {
 
 
 </script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

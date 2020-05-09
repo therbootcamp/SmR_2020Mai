@@ -3,7 +3,7 @@ title: "Neue Statistik"
 author: "<table style='table-layout:fixed;width:100%;border:0;padding:0;margin:0'><col width='10%'><col width='10%'>
   <tr style='border:none'>
     <td style='display:block;width:100%;text-align:left;vertical-align:bottom;padding:0;margin:0;border:none' nowrap>
-      <font style='font-style:normal'>Statistics with R</font><br>
+      <font style='font-style:normal'>Statistik mit R</font><br>
       <a href='https://therbootcamp.github.io/SmR_2020Mai/'>
         <i class='fas fa-clock' style='font-size:.9em;' ></i>
       </a>
@@ -88,7 +88,7 @@ Am Ende des Practicals wirst du wissen...
 
 ### A - Setup
 
-1. Öffne dein `TheRBootcamp` R project. Es sollte die Ordner `1_Data` und `2_Code` enthalten. Stelle sicher, dass du alle Datensätze, welche im `Datensätze` Tab aufgelisted sind, in deinem `1_Data` Ordner hast. 
+1. Öffne dein `TheRBootcamp` R project. Es sollte die Ordner `1_Data` und `2_Code` enthalten. Stelle sicher, dass du alle Datensätze, welche im `Datensätze` Tab aufgelistet sind, in deinem `1_Data` Ordner hast. 
 
 2. Öffne ein neues R Skript. Schreibe deinen Namen, das Datum und "Neue Statistik Practical" als Kommentare an den Anfang des Skripts.
 
@@ -169,7 +169,7 @@ var x = setInterval(function() {
 }, 1000);
 </script>
 
-2. Das Zeil beider Wettbewerbe ist es den kleinstmöglichen <i>p</i>-Wert durch das fortwährende Massieren der experimentellen Daten von Bem's zu extrahieren. Finde dafür bis zu drei Analysen, die zeigen, dass a) Menschen *psi*-Fähigkeiten besitzen, d.h., dass die `hit_rate` höher als Chance ist und b) dass es andere Variablen gibt die *psi*-Fähigkeiten prädizieren, was ebenso ein Beleg für die Existenz solcher Fähigkeiten wäre. Es gibt keine Regeln, ausser dass `hit_rate` als Kriterium zu wählen ist. Du kannst jeden möglichen Test verwenden. Dir ist es auch erlaubt nur Komponenten der Daten mit `data %>% filter(condition)` auszuwählen.
+2. Das Ziel beider Wettbewerbe ist es den kleinstmöglichen <i>p</i>-Wert durch das fortwährende Massieren Bem's experimenteller Daten zu extrahieren. Finde dafür bis zu drei Analysen, die zeigen, dass a) Menschen *psi*-Fähigkeiten besitzen, d.h., dass die `Trefferrate` höher als Chance ist und b) dass es andere Variablen gibt die *psi*-Fähigkeiten prädizieren, was ebenso ein Beleg für die Existenz solcher Fähigkeiten wäre. Es gibt keine Regeln, ausser dass `Trefferrate` als Kriterium zu wählen ist. Du kannst jeden möglichen Test verwenden. Dir ist es auch erlaubt nur Komponenten der Daten mit `data %>% filter(condition)` auszuwählen.
 
 3. Für jede der beiden Wettbewerbe - jeweils ein Wettbewerb pro Experiment - darfst du drei Ergebnisse einreichen. Ihr könnt alleine arbeiten oder euch zusammenschliessen. Mehr Informationen über den Datensatz findet ihr unter dem  *Datasets* tab. Die Person oder Gruppe mit dem niedrigsten <i>p</i>-Wert gewinnt &#x1F36B;&#x1F36B;&#x1F36B;.  
 
@@ -189,7 +189,7 @@ var x = setInterval(function() {
 
 ### C - Poweranalyse
 
-1. Bem's erste Analyse in seinem paper ist, ob `hit_rate` grösser ist als `50%`. Für diese Bedingung (`Bedingung == 'erotic'`) hat Bem eine durchschnittliche Trefferrate von `53.13%` beobachtet. Bestimme für Experiment 1, welcher Cohen's *d* Wert der implizierten Abweichung von `3.13%`-Punkte von der Trefferrate unter H0, nämlich `50%`, entspricht. Benutze das Template. 
+1. Bem's erste Analyse in seinem Paper ist, ob `Trefferrate` grösser ist als `50%`. Für diese Bedingung (`Bedingung == 'erotic'`) hat Bem eine durchschnittliche Trefferrate von `53.13%` beobachtet. Bestimme für Experiment 1, welcher Cohen's *d* Wert der implizierten Abweichung von `3.13%`-Punkte von der Trefferrate unter H0, nämlich `50%`, entspricht. Benutze das Template. 
 
 ```{r, echo = TRUE, eval = FALSE}
 # Extrahiere die Trefferraten für erotic
@@ -213,7 +213,7 @@ Trefferrate_erotic_delta <- mean(Trefferrate_erotic) - 50
 d <- Trefferrate_erotic_delta / sd(Trefferrate_erotic)
 ```
 
-2. Ein Cohen's d von `.25` wird allgemein als klein, aber bedeutsam angesehen. Nimm nun die Perspektive eines rivalisierenden Forschers ein, der Bem's Effekt von `d = .25` in einer neuen Studie mit einer Falsch-Positiv-Rate von $\alpha = .05$ einer hohen Power von $power = 1-\beta = .95$ replizieren möchtee. Welche Stichprobengrösse wäre nötig? Verwende das Template.
+2. Ein Cohen's d von `.25` wird allgemein als klein, aber bedeutsam angesehen. Nimm nun die Perspektive eines rivalisierenden Forschers ein, der Bem's Effekt von `d = .25` in einer neuen Studie mit einer Falsch-Positiv-Rate von $\alpha = .05$ einer hohen Power von $power = 1-\beta = .95$ replizieren möchte. Welche Stichprobengrösse wäre nötig? Verwende das Template.
 
 ```{r, echo = TRUE, eval = FALSE}
 # N um d=.25, alpha = .05, power = .95
@@ -260,11 +260,11 @@ power <- pwr.t.test(n = length(Trefferrate_erotic),
 power
 ```
 
-5. Die letzte Analyse, das bestimmen der Power für einen gegebenen Effekt und Stichprobengrösse nennt man eine Post-hoc Poweranalyse, welche nicht mit einer eigentlichen Poweranalyse verwechselt werden darf. In Bem's Fall war die Power `.547`, das heisst das Bem nur ungefähr eine 50/50 Chance hatte einen Effekt von der gefundenen Stärke zu beobachten. Überprüfe nun was gewesen wäre, wenn der Effekt klein gewesen wäre, d.h., `d = .1`. Wiederhole die Powerberechnung für Bem's Stichprobengrösse und berechne die Stichprobengrlsse die nötig ist für eine $power = 1-\beta = .95$.      
+5. Die letzte Analyse, das bestimmen der Power für einen gegebenen Effekt und Stichprobengrösse nennt man eine Post-hoc Poweranalyse, welche nicht mit einer eigentlichen Poweranalyse verwechselt werden darf. In Bem's Fall war die Power `.547`, das heisst, dass Bem nur ungefähr eine 50/50 Chance hatte einen Effekt von der gefundenen Stärke zu beobachten. Überprüfe nun was gewesen wäre, wenn der Effekt klein gewesen wäre, d.h., `d = .1`. Wiederhole die Powerberechnung für Bem's Stichprobengrösse und berechne die Stichprobengrösse die nötig ist für eine $power = 1-\beta = .95$.      
 
 ```{r}
 # Bems post-hoc power
-power <- pwr.t.test(n = length(hit_rate_erotic), 
+power <- pwr.t.test(n = length(Trefferrate_erotic), 
                     d = .1, 
                     sig.level = .05, 
                     alternative = "greater")
@@ -283,7 +283,7 @@ stichprobe
 
 ### D - Konfidenzintervalle
 
-1. Konfidenzintervalle sind ein andere Weg Signifikanztests durchzuführen, welcher eher auf Schätzung als auf Testung von Effekten beruht. Die grundlegende Idee ist, dass man die Schätzgrössen (z.B. Regressionsgewichte) nicht durch den Standardfehler teilt, sondern den Standardfehler verwendet um eine Spannweite um die Schätzgrössen aufzuspannen. Rechnen wir zunächst einen `t.test()` für abhängigen Stichproben für `psi1`, welcher die `Trefferrate` für die beiden `Bedingung`en vergleicht. 
+1. Konfidenzintervalle sind ein anderer Weg Signifikanztests durchzuführen, welcher eher auf Schätzung als auf Testung von Effekten beruht. Die grundlegende Idee ist, dass man die Schätzgrössen (z.B. Regressionsgewichte) nicht durch den Standardfehler teilt, sondern den Standardfehler verwendet um eine Spannweite um die Schätzgrössen aufzuspannen. Rechnen wir zunächst einen `t.test()` für abhängigen Stichproben für `psi1`, welcher die `Trefferrate` für die beiden `Bedingung`en vergleicht. 
 
 ```{r, eval = FALSE, echo = TRUE}
 # t.test 
@@ -308,7 +308,7 @@ psi_ttest
 psi_ttest$conf.int
 ```
 
-3. Das Konfidenezinterval für den Unterschied liegt zwischen zwischen `-6.84` und `.23`. Das Konfidenzintervalle enthält also die NUll. Das heisst, dass der obgleich der Mittelwert für die Erotic-Bedingung signifikant von `50%` verschieden ist die beiden Bedingungen sich nicht signifikant unterscheiden. Beginne nun die das Konfidenzinterval für den Unterschied der Gruppen nachzubauen. Extrahiere dafür zunächst dene Unterschied, den entsprechenden Standardfehler, und die Freiheitsgrade. 
+3. Das Konfidenezinterval für den Unterschied liegt zwischen zwischen `-6.84` und `.23`. Das Konfidenzintervalle enthält also die NUll. Das heisst, dass obgleich der Mittelwert für die Erotic-Bedingung signifikant von `50%` verschieden ist die beiden Bedingungen sich nicht signifikant unterscheiden. Beginne nun das Konfidenzintervall für den Unterschied der Gruppen nachzubauen. Extrahiere dafür zunächst den Unterschied, den entsprechenden Standardfehler, und die Freiheitsgrade. 
 
 ```{r, echo = TRUE}
 # Gewicht b und Standardfehler se
@@ -317,7 +317,7 @@ se <- psi_ttest$stderr
 df <- psi_ttest$parameter
 ```
 
-4. Jetzt benötigst du nur noch die entsprechenden t-Wert um das Konfidenzintervall auzuspanne. Da das Konfidenzinterval in beide Richtungen zu gleichen Teilen aufgespannt werden soll such wir nicht den t-Wert für $1-\alpha$ sondern für $1-\frac{\alpha}{2}$ und $\frac{\alpha}{2}$, d.h., wir suchen die kritischen t-Werte für einen zweiseitigen Test mit $\alpha = .05$. Verwende das Template
+4. Jetzt benötigst du nur noch die entsprechenden t-Werte um das Konfidenzintervall aufzuspannen. Da das Konfidenzintervall in beide Richtungen zu gleichen Teilen aufgespannt werden soll suchen wir nicht den t-Wert für $1-\alpha$ sondern für $1-\frac{\alpha}{2}$ und $\frac{\alpha}{2}$, d.h., wir suchen die kritischen t-Werte für einen zweiseitigen Test mit $\alpha = .05$. Verwende das Template
 
 ```{r, echo = TRUE, eval = FALSE}
 # Kritische t-Werte
@@ -331,7 +331,7 @@ t_.25 <- qt(p = .025, df = df)
 t_97.5 <- qt(p = .975, df = df)
 ```
 
-5. Schaue dir zunächst die beiden t-Werte an. Überrascht, dass es die selben Werte sind nur einmal positiv und einmal negativ? Das ergibt sich daraus, dass die t-Verteilung symmetrisch um Null liegt. Um nun damit das Konfidenzinterval zu berechnen verwende das Template unten. Es geht darum `t*se` nach oben und `t*se` nach unten vom Unterschied `delta` zu gehen. Denkt an die unterschiedlichen Vorzeichen der beiden t-Werte.
+5. Schaue dir zunächst die beiden t-Werte an. Überrascht, dass es die selben Werte sind nur einmal positiv und einmal negativ? Das ergibt sich daraus, dass die t-Verteilung symmetrisch um Null liegt. Um nun damit das Konfidenzintervall zu berechnen verwende das Template unten. Es geht darum `t*se` nach oben und `t*se` nach unten vom Unterschied `delta` zu gehen. Denkt an die unterschiedlichen Vorzeichen der beiden t-Werte.
 
 ```{r, echo = TRUE, eval = FALSE}
 # confidence limits
@@ -341,13 +341,13 @@ delta_upper <- XX + XX * XX
 
 ```{r}
 # confidence limits
-delta_lower <- t_.25 + XX * XX
-delta_upper <- t_97.5 + XX * XX
+delta_lower <- delta + t_.25 * se
+delta_upper <- delta + t_97.5 * se
 ```
 
-8. Jetzt könnt ihr eurer Konfidenzinterval mit dem aus dem t-Wert vergleichen. Ist es identisch?
+8. Jetzt könnt ihr eurer Konfidenzintervall mit dem aus dem t-Wert vergleichen. Ist es identisch?
 
-9. Probiere andere Konfidenzintervalle aus. Wie verändern sich dei Grenzen, wenn $\alpha = .01$ oder $\alpha = .1$, d.h., wenn die Konfidenzintervalle 99% bzw. 90% umspannen.
+9. Probiere andere Konfidenzintervalle aus. Wie verändern sich dei Grenzen, wenn $\alpha = .01$ oder $\alpha = .1$, d.h., wenn die Konfidenzintervalle 99% bzw. 90% umspannen?
 
 ### E - Bayesianische Statistik
 
@@ -359,13 +359,13 @@ Trefferrate_bm <- stan_glm(formula = Trefferrate ~ Geschlecht + Stimulus_seeking
                            data = psi1 %>% filter(Bedingung == 'erotic'))
 ```
 
-2. Printe das Objekt und beetrachte den Output. Er sieht sehr anders aus als der Output der normalen Regression. Trotzddem solltest du einen Part wiedererkennen. Im Teil nach dem ersten mal `-----` stehen die Gewichte und deren Standardabweichung, welche du analog zum Standardfehler interpretieren kannst. Darüber stehen grundlegenden Informationen zum Modell, die du üblciherweise ignoriere kannst. Darunter stehen zu `Auxiliary parameter(s)` stehen Parameter, die das Modell zusätzlich geschätzt hat. Der eine Parameter `sigma` ist die Standardabweichung um die Regressionsgerade, welche im Bayesianischen Modell auch eine Standardabweichung besitzt. 
+2. Printe das Objekt und betrachte den Output. Er sieht sehr anders aus als der Output der normalen Regression. Trotzdem solltest du einen Part wiedererkennen. Im Teil nach dem ersten mal `-----` stehen die Gewichte und deren Standardabweichung, welche du analog zum Standardfehler interpretieren kannst. Darüber stehen grundlegenden Informationen zum Modell, die du üblicherweise ignoriere kannst. Darunter stehen zu `Auxiliary parameter(s)` stehen Parameter, die das Modell zusätzlich geschätzt hat. Der eine Parameter `sigma` ist die Standardabweichung um die Regressionsgerade, welche im Bayesianischen Modell auch eine Standardabweichung besitzt. 
 
-3. Statistische Entscheidungen werden im Bayesianischen Ansatz auf unterschiedliche Weisen getroffen (je nachdem welcher Schule man angehört). Am verbreitesten ist jedoch das *credible interval*, welches analog zum Konfidenzintervall zu interprieren ist. Es ist dasjenige Interval in dem der wahre Populationsparameter mit 95%iger Wahrscheinlichkeit liegt, eine Aussage, die für das normale Konfidenzinterval nicht getroffene werden kann. Berechne die *credible intervals* mit der `posterior_interval()` Funktion für `Trefferrate_bm`.    
+3. Statistische Entscheidungen werden im Bayesianischen Ansatz auf unterschiedliche Weisen getroffen (je nachdem welcher Schule man angehört). Am verbreitetsten ist jedoch das *credible interval*, welches analog zum Konfidenzintervall zu interprieren ist. Es ist dasjenige Intervall in dem der wahre Populationsparameter mit 95%iger Wahrscheinlichkeit liegt, eine Aussage, die für das normale Konfidenzintervall nicht getroffene werden kann. Berechne die *credible intervals* mit der `posterior_interval()` Funktion für `Trefferrate_bm`.    
 
 ```{r, message=F, warning=F}
 # Bayesian posterior credible interval
-posterior_interval(Trefferrate_bm)
+posterior_interval(Trefferrate_bm, prob = .95)
 ```
 
 4. Wenn Null nicht enthalten ist, dann ist die Wahrscheinlichkeit, dass ein Effekt Null ist tatsächlich kleiner als 5%. 
@@ -428,10 +428,10 @@ posterior(bm2, iterations = 1000)
 
 |Datei | Zeilen | Spalten |
 |:----|:-----|:------|
-|[psi_exp1.csv](https://therbootcamp.github.io/SmR_2020Apr/1_Data/psi_exp1.csv) | 200 | 7 |
-|[psi_exp2.csv](https://therbootcamp.github.io/SmR_2029Apr/1_Data/psi_exp2.csv)  | 150 | 5 |
+|[psi_exp1.csv](https://therbootcamp.github.io/SmR_2020Mai/1_Data/psi_exp1.csv) | 200 | 7 |
+|[psi_exp2.csv](https://therbootcamp.github.io/SmR_2020Mai/1_Data/psi_exp2.csv)  | 150 | 5 |
 
-Die Daten stammen von einer tatsächlichen (para-) psychologischen Studie, die die menschliche Fähigkeit in die Zukunft zu sehen überprüft hat (["Feel the future"](https://therbootcamp.github.io/SwR_2019Apr/_sessions/NewStats/literature/Bem_Psi_2011.pdf)). Die mittlerweile berüchtigte Studie wurde in einem etablierten Journal der Sozialpsychologie publiziert, was damit nicht unerheblich zum einer Bewegung der methodischen Revision in der Psychologie geführt hat. Die Dateien enthalten die Daten der ersten beiden Experimente. Das erste Experiment untersuchte ob Menschen besser als eine Zufallsrate von 50% vorhersagen können, hinter welchem von zwei Vorhängen ein Bild versteckt ist, insbesondere in dem Fall in dem sich ein erotischen Bild dahinter versteckt. Experiment zwei ist ein Replikationsversuch der erste Studie. Beide Studien haben auch das Konstruk *Stimulus seeking* mituntersucht, was ähnlich zu Extraversion zu interpetieren ist, um zu untersuchen, ob Leute mit hohem *Stimulus seeking* vielleicht höhere *psi* Fähigkeiten aufweisen. 
+Die Daten stammen von einer tatsächlichen (para-) psychologischen Studie, die die menschliche Fähigkeit in die Zukunft zu sehen überprüft hat (["Feel the future"](https://therbootcamp.github.io/SwR_2020Mai/_sessions/NewStats/literature/Bem_Psi_2011.pdf)). Die mittlerweile berüchtigte Studie wurde in einem etablierten Journal der Sozialpsychologie publiziert, was damit nicht unerheblich zu einer Bewegung der methodischen Revision in der Psychologie geführt hat. Die Dateien enthalten die Daten der ersten beiden Experimente. Das erste Experiment untersuchte ob Menschen besser als eine Zufallsrate von 50% vorhersagen können, hinter welchem von zwei Vorhängen ein Bild versteckt ist, insbesondere in dem Fall in dem sich ein erotisches Bild dahinter versteckt. Experiment zwei ist ein Replikationsversuch der erste Studie. Beide Studien haben auch das Konstrukt *Stimulus seeking* mituntersucht, was ähnlich zu Extraversion zu interpetieren ist, um zu untersuchen, ob Leute mit hohem *Stimulus seeking* vielleicht höhere *psi* Fähigkeiten aufweisen. 
 
 #### psi_exp1.csv & psi_exp2.csv
 

@@ -572,7 +572,7 @@ time_2 <- c(27, 16, 23, 8, 15, 21)
 
 # sign test
 N <- length(time_1)
-n_plus <- sum(time_1 - time_2 > 1)
+n_plus <- sum(time_1 - time_2 > 0)
 dbinom(x = n_plus : N, 
        size = N, 
        prob = .5) %>% # H0
@@ -586,7 +586,7 @@ time_1 <- c(18, 24, 29, 12, 11, 31)
 time_2 <- c(27, 16, 23, 8, 15, 21)
 
 N <- length(time_1)
-n_plus <- sum(time_1 - time_2 > 1)
+n_plus <- sum(time_1 - time_2 > 0)
 
 # Vorzeichentest per Binomialverteilung
 dbinom(x = n_plus : N, 
