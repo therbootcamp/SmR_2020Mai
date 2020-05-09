@@ -217,7 +217,7 @@ ggplot(mapping = aes(fitted(cali_lm), resid(cali_lm))) + geom_point()
 tapply(resid(cali_lm), fitted(cali_lm) > 7, sd)
 ```
 
-10. Versuche schlussendlich die Poisson Verteilung mit `Verkaufszahlen` (einer Häufigkeitsvariable) als Kriterium.
+10. Versuche schlussendlich die Poisson Verteilung mit `Verkaufszahlen` (einer Häufigkeitsvariable) als Kriterium. Achtung: Die Warnungen könnt ihr ignorieren. 
 
 ```{r, echo = TRUE, eval = FALSE}
 # Regression Verkausvolumen auf Preis & Typ

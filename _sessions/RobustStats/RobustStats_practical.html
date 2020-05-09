@@ -307,7 +307,7 @@ ggplot(mapping = aes(fitted(XX), resid(XX))) + geom_point()</code></pre>
 <pre class="r"><code># Regression Verkausvolumen auf Preis &amp; Typ
 tapply(resid(cali_lm), fitted(cali_lm) &gt; 7, sd)</code></pre>
 <ol start="10" style="list-style-type: decimal">
-<li>Versuche schlussendlich die Poisson Verteilung mit <code>Verkaufszahlen</code> (einer Häufigkeitsvariable) als Kriterium.</li>
+<li>Versuche schlussendlich die Poisson Verteilung mit <code>Verkaufszahlen</code> (einer Häufigkeitsvariable) als Kriterium. Achtung: Die Warnungen könnt ihr ignorieren.</li>
 </ol>
 <pre class="r"><code># Regression Verkausvolumen auf Preis &amp; Typ
 cali_glm &lt;- glm(formula = XX ~ XX + XX, data = XX, family = &#39;XX&#39;)
