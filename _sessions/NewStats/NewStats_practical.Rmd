@@ -49,7 +49,8 @@ library(tidyverse)
 #bigmart <- read_csv("_sessions/LinearModelsIII/1_Data/bigmart.csv")
 #avocado <- read_csv("TheRBootcamp/1_Data/avocado.csv")
 #avocado_cali <- read_csv("TheRBootcamp/1_Data/avocado_cali.csv")
-
+# psi1 <- read_csv("TheRBootcamp/1_Data/psi_exp1.csv")
+# psi2 <- read_csv("TheRBootcamp/1_Data/psi_exp2.csv")
 ```
 
 <p align="center" width="100%">
@@ -188,7 +189,10 @@ var x = setInterval(function() {
 
 ### C - Power analysis
 
-1. In his paper, Bem's first analysis is whether the hit rate for erotic pictures is on average larger than `50%`. For this condition he observed an average proportion of `53.13%`. Determine, for experiment 1, what this means in terms of Cohen's effect size *d*, which is calculated by dividing the average deviance from $H_0$ (i.e., 50) by the standard deviation of the values the average is calculated from. 
+1. Bem's erste Analyse in seinem paper ist, ob `hit_rate` grösser ist als `50%`. Für diese Bedingung (`condition == `) 
+
+
+In his paper, Bem's first analysis is whether the hit rate for erotic pictures is on average larger than `50%`. For this condition he observed an average proportion of `53.13%`. Determine, for experiment 1, what this means in terms of Cohen's effect size *d*, which is calculated by dividing the average deviance from $H_0$ (i.e., 50) by the standard deviation of the values the average is calculated from. 
 
 ```{r, echo = TRUE, eval = FALSE}
 # extract erotic hit rate
