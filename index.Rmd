@@ -41,11 +41,11 @@ output:
 ### Materials
 |  | Tag 1| Tag 2| 
 |:--|:-------------|:-------------|
-|0| Willkommen!<br>[slides](https://therbootcamp.github.io/SmR_2020Mai/_sessions/Welcome/Welcome.html) | Wiederholung |
-|1| Einführung in Statistik<br>[slides](https://therbootcamp.github.io/SmR_2020Mai/_sessions/Intro2Stats/Intro2Stats.html#1)| Gemischte Modelle|
-|2| Lineare Modelle I<br>[slides](https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsI/LinearModelsI.html), [practical](https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsI/LinearModelsI_practical.html)| Robuste Statistik |
-|3| Lineare Modelle II<br>[slides](https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsII/LinearModelsII.html), [practical](https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsII/LinearModelsII_practical.html)  | Neue Statistik |
-|3| Lineare Modelle III<br>[slides](https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsIII/LinearModelsIII.html), [practical](https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsIII/LinearModelsIII_practical.html)  | Ausblick |
+|0| Willkommen!<br>[slides](https://therbootcamp.github.io/SmR_2020Mai/_sessions/Welcome/Welcome.html) | Wiederholung<br>[slides](https://therbootcamp.github.io/SmR_2020Mai/_sessions/Recap/Recap.html) |
+|1| Einführung in Statistik<br>[slides](https://therbootcamp.github.io/SmR_2020Mai/_sessions/Intro2Stats/Intro2Stats.html#1)| Gemischte Modelle<br>[slides](https://therbootcamp.github.io/SmR_2020Mai/_sessions/GemischteModelle/GemischteModelle.html), [practical](https://therbootcamp.github.io/SmR_2020Mai/_sessions/GemischteModelle/GemischteModelle_practical.html) |
+|2| Lineare Modelle I<br>[slides](https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsI/LinearModelsI.html), [practical](https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsI/LinearModelsI_practical.html)| Robuste Statistik<br>[slides](https://therbootcamp.github.io/SmR_2020Mai/_sessions/RobustStats/RobustStats.html), [practical](https://therbootcamp.github.io/SmR_2020Mai/_sessions/RobustStats/RobustStats_practical.html) |
+|3| Lineare Modelle II<br>[slides](https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsII/LinearModelsII.html), [practical](https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsII/LinearModelsII_practical.html)  | Neue Statistik <br>[slides](https://therbootcamp.github.io/SmR_2020Mai/_sessions/NewStats/NewStats.html), practical |
+|3| Lineare Modelle III<br>[slides](https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsIII/LinearModelsIII.html), [practical](https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsIII/LinearModelsIII_practical.html)  | Ausblick[slides](https://therbootcamp.github.io/SmR_2020Mai/_sessions/NextSteps/NextSteps.html) |
 <br>
 
 
