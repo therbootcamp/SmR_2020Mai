@@ -164,7 +164,7 @@ ggplot(mapping = aes(fitted(cali_lm), resid(cali_lm))) + geom_point()
 ```{r, echo = TRUE, eval = FALSE}
 # Regression Verkausvolumen auf Preis & Typ
 cali_lm <- lm(formula = XX ~ XX + XX, data = XX)
-ggplot(mapping = aes(fitted(XX), resid(XX)))
+ggplot(mapping = aes(fitted(XX), resid(XX))) + geom_point()
 ```
 
 ```{r}
@@ -187,7 +187,7 @@ ggplot(avocado_cali, aes(log(Verkaufsvolumen))) + geom_histogram()
 ```{r, echo = TRUE, eval = FALSE}
 # Regression Verkausvolumen auf Preis & Typ
 cali_lm <- lm(formula = log(XX) ~ XX + XX, data = XX)
-ggplot(mapping = aes(fitted(XX), resid(XX)))
+ggplot(mapping = aes(fitted(XX), resid(XX))) + geom_point()
 ```
 
 ```{r}
@@ -202,7 +202,7 @@ ggplot(mapping = aes(fitted(cali_lm), resid(cali_lm))) + geom_point()
 ```{r, echo = TRUE, eval = FALSE}
 # Regression Verkausvolumen auf Preis & Typ
 cali_lm <- lm(formula = XX ~ XX + XX, data = XX)
-ggplot(mapping = aes(fitted(XX), resid(XX)))
+ggplot(mapping = aes(fitted(XX), resid(XX))) + geom_point()
 ```
 
 ```{r}
@@ -224,7 +224,7 @@ tapply(resid(cali_lm), fitted(cali_lm) > 7, sd)
 ```{r, echo = TRUE, eval = FALSE}
 # Regression Verkausvolumen auf Preis & Typ
 cali_glm <- glm(formula = XX ~ XX + XX, data = XX, family = 'XX')
-ggplot(mapping = aes(fitted(XX), resid(XX)))
+ggplot(mapping = aes(fitted(XX), resid(XX))) + geom_point()
 ```
 
 ```{r}

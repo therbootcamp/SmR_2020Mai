@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 
 <meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
-<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -84,6 +84,7 @@ code {
 }
 img {
   max-width:100%;
+  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -145,7 +146,6 @@ summary {
   border: none;
   display: inline-block;
   border-radius: 4px;
-  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -157,6 +157,18 @@ summary {
   display: none;
 }
 </style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
 
 <!-- code folding -->
 
@@ -199,7 +211,7 @@ summary {
 </p>
 <div id="section" class="section level1 tabset">
 <h1></h1>
-<div id="überblick" class="section level2">
+<div id="uberblick" class="section level2">
 <h2>Überblick</h2>
 <p>Am Ende des Practicals wirst du wissen…</p>
 <ol style="list-style-type: decimal">
@@ -272,7 +284,7 @@ ggplot(mapping = aes(fitted(cali_lm), resid(cali_lm))) + geom_point()</code></pr
 </ol>
 <pre class="r"><code># Regression Verkausvolumen auf Preis &amp; Typ
 cali_lm &lt;- lm(formula = XX ~ XX + XX, data = XX)
-ggplot(mapping = aes(fitted(XX), resid(XX)))</code></pre>
+ggplot(mapping = aes(fitted(XX), resid(XX))) + geom_point()</code></pre>
 <ol start="6" style="list-style-type: decimal">
 <li>Das hat geholfen! Aber die Sache sieht immer noch nicht ganz rund aus. Ein weiteres Problem, existiert in der sehr schiefen Verteilung von <code>Verkaufsvolumen</code>. Es gibt nun mehrere Wege damit umzugehen. 1) Transformation von <code>Verkaufsvolumen</code> z.B. mit <code>log()</code>, 2) Verwendung der alternativen Variable <code>Verkaufsvolumen_index</code>, oder 3) die Modellierung mit einer passenden Verteilung. Probiere alle drei aus. Beginne mit 1), der Transformation. Überprüfe zunächst mit dem Template wie sich die Schiefe darstellt und wie sie sich durch <code>log()</code> verändert.</li>
 </ol>
@@ -284,13 +296,13 @@ ggplot(avocado_cali, aes(log(Verkaufsvolumen))) + geom_histogram()</code></pre>
 </ol>
 <pre class="r"><code># Regression Verkausvolumen auf Preis &amp; Typ
 cali_lm &lt;- lm(formula = log(XX) ~ XX + XX, data = XX)
-ggplot(mapping = aes(fitted(XX), resid(XX)))</code></pre>
+ggplot(mapping = aes(fitted(XX), resid(XX))) + geom_point()</code></pre>
 <ol start="8" style="list-style-type: decimal">
 <li>Die Punkte streuen nun etwas gleichmässiger um die Null-Gerade. Ganz ideal ist das Bild aber immer noch nicht, denn offensichtlich ist die Varianz der Residuen im unteren Bereich höher als im oberen Bereich. Ergo ist Homoskedastizität verletzt. Rechne nun eine Regression mit <code>Verkaufsvolumen_index</code> (ohne <code>log()</code>) und überprüfe, ob das vielleicht die verbleibenden Probleme löst.</li>
 </ol>
 <pre class="r"><code># Regression Verkausvolumen auf Preis &amp; Typ
 cali_lm &lt;- lm(formula = XX ~ XX + XX, data = XX)
-ggplot(mapping = aes(fitted(XX), resid(XX)))</code></pre>
+ggplot(mapping = aes(fitted(XX), resid(XX))) + geom_point()</code></pre>
 <ol start="9" style="list-style-type: decimal">
 <li>Vielleicht ist jetzt die Varianz etwas ausgeglichener, ideal sieht es aber immer noch nicht aus. Ganz perfekt ist das aber immer noch nicht. Du kannst dies mit dem Code unten, welcher die Standardabweichung separat für die beiden Punktwolken bestimmt, überprüfen.</li>
 </ol>
@@ -301,7 +313,7 @@ tapply(resid(cali_lm), fitted(cali_lm) &gt; 7, sd)</code></pre>
 </ol>
 <pre class="r"><code># Regression Verkausvolumen auf Preis &amp; Typ
 cali_glm &lt;- glm(formula = XX ~ XX + XX, data = XX, family = &#39;XX&#39;)
-ggplot(mapping = aes(fitted(XX), resid(XX)))</code></pre>
+ggplot(mapping = aes(fitted(XX), resid(XX))) + geom_point()</code></pre>
 <ol start="11" style="list-style-type: decimal">
 <li>Man könnte annehmen dies hätte die Angelegenheit weiter verschlechtert. Tatsächlich ist dies aber nicht so. Die Poisson-Regression hat andere Annahmen, als die normale Regression. Die normale Regression nimmt an, dass die Varianz konstant um die Regressionsgerade verteilt ist, die Poisson-Regression dagegen, dass die Varianz mit zunehmendem vorhergesagtem Wert ansteigt. Dies entspricht in diesem Fall exakt dem beobachteten Plot, womit wir belegt hätten, dass man Häufigkeitsverteilungen vielleicht doch am besten mit der davor vorgesehenen Verteilung modelliert.</li>
 </ol>
@@ -492,7 +504,7 @@ m_q  &lt;- rq(hwy ~ displ, data = mpg)
 # Rang Regression
 m_rb &lt;- rfit(hwy ~ displ, data = mpg)</code></pre>
 </div>
-<div id="datensätze" class="section level2">
+<div id="datensatze" class="section level2">
 <h2>Datensätze</h2>
 <table>
 <thead>
@@ -721,23 +733,6 @@ $(document).ready(function () {
 
 
 </script>
-
-<!-- tabsets -->
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
-<!-- code folding -->
-
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
