@@ -91,7 +91,7 @@ Am Ende dieses Practicals wirst du wissen, wie du:
 # Gemacht!
 ```
 
-3. Lade mit `library()` die `tidyverse`, `lme4`, und `sjstats` Pakete.
+3. Lade mit `library()` die `tidyverse`, `lme4`, `performance`, und `parameters` Pakete.
 
 ```{r, echo = TRUE, eval = FALSE}
 # Lade benötigte Pakete
