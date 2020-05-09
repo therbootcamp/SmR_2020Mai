@@ -185,7 +185,7 @@ Auf Deutsch...
 </tr>
 <tr>
   <td bgcolor="white">
-    Homoskedaszitität
+    Homoskedastizität
   </td>
   <td bgcolor="white">
     <mono>bartlett.test</mono>
@@ -255,7 +255,7 @@ Auf Deutsch...
 </tr>
 <tr>
   <td bgcolor="white">
-    Homoskedaszitität
+    Homoskedastizität
   </td>
   <td bgcolor="white">
     <mono>bartlett.test</mono>
