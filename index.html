@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 
 <meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
-<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 <meta name="author" content="             The R Bootcamp    Mai 2020" />
@@ -85,6 +85,7 @@ code {
 }
 img {
   max-width:100%;
+  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -146,7 +147,6 @@ summary {
   border: none;
   display: inline-block;
   border-radius: 4px;
-  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -158,6 +158,18 @@ summary {
   display: none;
 }
 </style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
 
 <!-- code folding -->
 
@@ -192,6 +204,9 @@ summary {
 </div>
 <div id="cheatsheets" class="section level5">
 <h5><a href="https://www.dropbox.com/s/26kjubck26lbwnw/cheatsheets.pdf?dl=1"><strong>Cheatsheets</strong></a></h5>
+</div>
+<div id="psi_exp1.csv" class="section level5">
+<h5><a href="https://www.dropbox.com/s/0uwf7lvvotat0dl/psi_exp1.csv?dl=1"><strong>psi_exp1.csv</strong></a></h5>
 <p><br></p>
 </div>
 </div>
@@ -209,27 +224,27 @@ summary {
 <tr class="odd">
 <td align="left">0</td>
 <td align="left">Willkommen!<br><a href="https://therbootcamp.github.io/SmR_2020Mai/_sessions/Welcome/Welcome.html">slides</a></td>
-<td align="left">Wiederholung</td>
+<td align="left">Wiederholung<br><a href="https://therbootcamp.github.io/SmR_2020Mai/_sessions/Recap/Recap.html">slides</a></td>
 </tr>
 <tr class="even">
 <td align="left">1</td>
 <td align="left">Einführung in Statistik<br><a href="https://therbootcamp.github.io/SmR_2020Mai/_sessions/Intro2Stats/Intro2Stats.html#1">slides</a></td>
-<td align="left">Gemischte Modelle</td>
+<td align="left">Gemischte Modelle<br><a href="https://therbootcamp.github.io/SmR_2020Mai/_sessions/GemischteModelle/GemischteModelle.html">slides</a>, <a href="https://therbootcamp.github.io/SmR_2020Mai/_sessions/GemischteModelle/GemischteModelle_practical.html">practical</a></td>
 </tr>
 <tr class="odd">
 <td align="left">2</td>
 <td align="left">Lineare Modelle I<br><a href="https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsI/LinearModelsI.html">slides</a>, <a href="https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsI/LinearModelsI_practical.html">practical</a></td>
-<td align="left">Robuste Statistik</td>
+<td align="left">Robuste Statistik<br><a href="https://therbootcamp.github.io/SmR_2020Mai/_sessions/RobustStats/RobustStats.html">slides</a>, <a href="https://therbootcamp.github.io/SmR_2020Mai/_sessions/RobustStats/RobustStats_practical.html">practical</a></td>
 </tr>
 <tr class="even">
 <td align="left">3</td>
 <td align="left">Lineare Modelle II<br><a href="https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsII/LinearModelsII.html">slides</a>, <a href="https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsII/LinearModelsII_practical.html">practical</a></td>
-<td align="left">Neue Statistik</td>
+<td align="left">Neue Statistik <br><a href="https://therbootcamp.github.io/SmR_2020Mai/_sessions/NewStats/NewStats.html">slides</a>, practical</td>
 </tr>
 <tr class="odd">
 <td align="left">3</td>
 <td align="left">Lineare Modelle III<br><a href="https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsIII/LinearModelsIII.html">slides</a>, <a href="https://therbootcamp.github.io/SmR_2020Mai/_sessions/LinearModelsIII/LinearModelsIII_practical.html">practical</a></td>
-<td align="left">Ausblick</td>
+<td align="left">Ausblick<br><a href="https://therbootcamp.github.io/SmR_2020Mai/_sessions/NextSteps/NextSteps.html">slides</a></td>
 </tr>
 </tbody>
 </table>
@@ -271,23 +286,6 @@ $(document).ready(function () {
 
 
 </script>
-
-<!-- tabsets -->
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
-<!-- code folding -->
-
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>

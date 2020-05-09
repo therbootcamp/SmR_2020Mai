@@ -49,7 +49,8 @@ library(tidyverse)
 #bigmart <- read_csv("_sessions/LinearModelsIII/1_Data/bigmart.csv")
 #avocado <- read_csv("TheRBootcamp/1_Data/avocado.csv")
 #avocado_cali <- read_csv("TheRBootcamp/1_Data/avocado_cali.csv")
-
+# psi1 <- read_csv("TheRBootcamp/1_Data/psi_exp1.csv")
+# psi2 <- read_csv("TheRBootcamp/1_Data/psi_exp2.csv")
 ```
 
 <p align="center" width="100%">
@@ -188,58 +189,60 @@ var x = setInterval(function() {
 
 ### C - Power analysis
 
-1. In his paper, Bem's first analysis is whether the hit rate for erotic pictures is on average larger than `50%`. For this condition he observed an average proportion of `53.13%`. Determine, for experiment 1, what this means in terms of Cohen's effect size *d*, which is calculated by dividing the average deviance from $H_0$ (i.e., 50) by the standard deviation of the values the average is calculated from. 
+1. Bem's erste Analyse in seinem paper ist, ob `hit_rate` grösser ist als `50%`. Für diese Bedingung (`Bedingung == 'erotic'`) hat Bem eine durchschnittliche Trefferrate von `53.13%` beobachtet. Bestimme für Experiment 1, welcher Cohen's *d* Wert der implizierten Abweichung von `3.13%`-Punkte von der Trefferrate unter H0, nämlich `50%`, entspricht. Benutze das Template. 
 
 ```{r, echo = TRUE, eval = FALSE}
-# extract erotic hit rate
-hit_rate_erotic <- psi1$hit_rate[psi1$condition == "erotic"]
+# Extrahiere die Trefferraten für erotic
+Trefferrate_erotic <- psi1 %>% filter(Bedingung == "erotic") %>% pull(Trefferrate)
 
-# calculate the deviance from H0
-hit_rate_erotic_delta <- XX - 50
+# Berechne die Abweichung von H0
+Trefferrate_erotic_delta <- mean(XX) - 50
 
-# calculate d
-d <- mean(YY) / sd(YY)
+# Berechne d
+d <- Trefferrate_erotic_delta / sd(XX)
 ```
 
 ```{r}
-# extract erotic hit rate
-hit_rate_erotic <- psi1$hit_rate[psi1$condition == "erotic"]
+# Extrahiere die Trefferraten für erotic
+Trefferrate_erotic <- psi1 %>% filter(Bedingung == "erotic") %>% pull(Trefferrate)
 
-# calculate the deviance from H0
-hit_rate_erotic_delta <- hit_rate_erotic - 50
+# Berechne die Abweichung von H0
+Trefferrate_erotic_delta <- mean(Trefferrate_erotic) - 50
 
-# calculate d
-d <- mean(hit_rate_erotic_delta) / sd(hit_rate_erotic_delta)
+# Berechne d
+d <- Trefferrate_erotic_delta / sd(Trefferrate_erotic)
 ```
 
-2. An effect size of `d = .25` is typically considered a small, but meaningful effect. Let us know take the perspective of rival researchers, who would like to replicate Bem's effect. Specifically, we would like to conduct an experiment that has a small chance of false positives, e.g., $\alpha = 0.05$ (`sig.level`) and an equally low chance of missing the effect, i.e., $\beta = .05$ implying $1-\beta = power = .95$. How many observations would we have to make to be able to conduct such a test? Use the template below. 
+2. Ein Cohen's d von `.25` wird allgemein als klein, aber bedeutsam angesehen. Nimm nun die Perspektive eines rivalisierenden Forschers ein, der Bem's Effekt von `d = .25` in einer neuen Studie mit einer Falsch-Positiv-Rate von $\alpha = .05$ einer hohen Power von $power = 1-\beta = .95$ replizieren möchtee. Welche Stichprobengrösse wäre nötig? Verwende das Template.
 
 ```{r, echo = TRUE, eval = FALSE}
-# N to test d=.25, alpha = .05, power = .95
-pa <- pwr.t.test(d = XX, 
-                 sig.level = XX, 
-                 power = XX, 
-                 alternative = "greater")
-pa
+# N um d=.25, alpha = .05, power = .95
+stichprobe <- pwr.t.test(d = XX, 
+                         sig.level = XX, 
+                         power = XX, 
+                         alternative = "greater")
+stichprobe
 ```
 
 ```{r}
-# N to test d=.25, alpha = .05, power = .95
-pa <- pwr.t.test(d = .25, 
-                 sig.level = .05, 
-                 power = .95, 
-                 alternative = "greater")
-pa
+# N um d=.25, alpha = .05, power = .95
+stichprobe <- pwr.t.test(d = .25, 
+                         sig.level = .05, 
+                         power = .95, 
+                         alternative = "greater")
+stichprobe
 ```
 
-3. The analysis shows that we would have to run a study with 347 individuals. You can also illustrate this using `plot.power.htest()`. Apply the function to  `pa`. 
+3. Laut Poweranalyse wäre eine Stichprobe von 347 Individuen nötig. Versuche dies einmal mit der `plot.power.htest()`-Funktion zu visualisieren. Wende sie einfach auf das `stichprobe` Objekt an. 
 
 ```{r}
-# sample size plot
-plot.power.htest(pa) 
+# Stichprobe-Visualisierung
+plot.power.htest(stichprobe) 
 ```
 
-4. Using the plot, you can also already get an idea, how large the power, i.e., the probability of detecting an effect given that it is truly there to detect, was for Bem's study. You can also again use the `pwr.t.test()` function. To do this, set `n = length(hit_rate_erotic)` and `power = NULL`. Call the result `pa_bem`.
+4. Mittels des Plots könnt ihr nun auch evaluieren, wie gross die Power von Bem's ursprünglicher Studie war. In Bem's `'erotic'` condition waren $r length(Trefferrate_erotic)$ Beobachtungen. Finde den entsprechenden Punkt auf der x-Achse und gehe dann nach oben um die dazugehörige Power zu finden. Alternativ kannst du  
+
+Using the plot, you can also already get an idea, how large the power, i.e., the probability of detecting an effect given that it is truly there to detect, was for Bem's study. You can also again use the `pwr.t.test()` function. To do this, set `n = length(hit_rate_erotic)` and `power = NULL`. Call the result `pa_bem`.
 
 ```{r}
 # Bems post-hoc power
