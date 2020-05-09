@@ -437,42 +437,42 @@ Die Daten stammen von einer tatsächlichen (para-) psychologischen Studie, die d
 
 | Name | Description |
 |:-------------|:-------------------------------------|
-| `gender` | The gender of the participant. |
-| `age` | The age of the participant. |
-| `stimulus_seeking` | The degree of stimulus-seeking exhibited by the participant. |
-| `hour_of_day` | The hour of day at which the participant was tested. |
-| `condition` | The study condition: "erotic" or "control" (only psi1) |
-| `depicted_gender` | The gender on the presented photo: "Female" or "Male" (only psi1) |
-| `n_trials` | The number of choices made. |
-| `hit_rate` | %-correct choices (with regard to showing *psi*). |
+| `Geschlecht` | Das Geschlecht der Versuchsperson. |
+| `Alter` | Das Alter der Versuchsperson |
+| `Stimulus_seeking` | Der Grad des Stimululs seeking des Versuchsperson. |
+| `Uhrzeit` | Die Uhrzeit der Testung. |
+| `Bedingung` | Die Studienbedingung: "erotic" oder "control" für neutrale Bilder |
+| `Präsentiertes_geschlecht` | The gender on the presented photo: "Female" or "Male" (only psi1) |
+| `Anzahl_trials` | Die Anzahl korrekter Entscheidungen. |
+| `Trefferrate` | %-korrekte Entscheidungen (> 50% bedeutet *psi*). |
 
-## Functions
+## Funktion
 
-### Packages
+### Pakte
 
-|Package| Installation|
+|Pakete| Installation|
 |:------|:------|
 |`tidyverse`|`install.packages("tidyverse")`|
 | `pwr` | `install.packages("pwr")` |
 | `rstanarm` | `install.packages("rstanarm")` |
 
 
-### Functions
+### Funktionen
 
 | Function| Package | Description |
 |:---|:------|:---------------------------------------------|
-| `pwr.t.test`|`pwr`| t-test power analyses | 
-| `plot.power.htest`|`pwr`| Plot power analyses | 
-| `qt`, `anorm`, `qF`, etc. | `stats`| Functions needed to determine confidence intervals | 
-| `stan_lm` | `rstanarm`| Bayesian regression using `rstanarm` | 
-| `posterior_interval` | `rstanarm`| Bayesian credible interval using `rstanarm` | 
-| `regressionBF` | `BayesFactor`| Bayesian regression using `BayesFactor` | 
-| `posterior` | `BayesFactor`| Sample from the posterior using `BayesFactor` | 
+| `pwr.t.test`|`pwr`| Poweranalyse für t-Tests | 
+| `plot.power.htest`|`pwr`| Plotte Powerverlauf | 
+| `qt`, `anorm`, `qF`, etc. | `stats`| Verteilungsfunktionen für Konfidenzintervalle | 
+| `stan_lm` | `rstanarm`| Bayesianische Regression mit `rstanarm` | 
+| `posterior_interval` | `rstanarm`| Bayesianisches credible interval mit `rstanarm` | 
+| `regressionBF` | `BayesFactor`| Bayesianische Regression mit `BayesFactor` | 
+| `posterior` | `BayesFactor`| Sample aus der Posterior mit `BayesFactor` | 
 
 
-## Resources
+## Resourcen
 
-### vignettes
+### Vignetten
 
 Find vignettes to these packages: [pwr](https://cran.r-project.org/web/packages/pwr/vignettes/pwr-vignette.html), [rstanarm](http://mc-stan.org/rstanarm/articles/rstanarm.html), [BayesFactor](https://richarddmorey.github.io/BayesFactor/)
 

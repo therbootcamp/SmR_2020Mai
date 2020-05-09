@@ -363,82 +363,68 @@ power</code></pre>
 <div id="d---konfidenzintervalle" class="section level3">
 <h3>D - Konfidenzintervalle</h3>
 <ol style="list-style-type: decimal">
-<li>Konfidenzintervalle sind ein andere Weg Signifikanztests durchzuführen, welcher eher auf Schätzung als auf Testung von Effekten beruht. Die grundlegende Idee ist, dass man die Schätzgrössen (z.B. Regressionsgewichte) nicht durch den Standardfehler teilt, sondern den Standardfehler verwendet um eine Spannweite um die Schätzgrössen aufzuspannen. Rechnen wir zunächst ein einfaches lineares Modell für <code>psi1</code>, dass die <code>Trefferrate</code> durch die <code>Bedingung</code> vorhersagt.</li>
+<li>Konfidenzintervalle sind ein andere Weg Signifikanztests durchzuführen, welcher eher auf Schätzung als auf Testung von Effekten beruht. Die grundlegende Idee ist, dass man die Schätzgrössen (z.B. Regressionsgewichte) nicht durch den Standardfehler teilt, sondern den Standardfehler verwendet um eine Spannweite um die Schätzgrössen aufzuspannen. Rechnen wir zunächst einen <code>t.test()</code> für abhängigen Stichproben für <code>psi1</code>, welcher die <code>Trefferrate</code> für die beiden <code>Bedingung</code>en vergleicht.</li>
 </ol>
-<pre class="r"><code># Regression 
-psi_lm &lt;- lm(XX ~ XX, data = XX)
+<pre class="r"><code># t.test 
+psi_ttest &lt;- t.test(XX ~ XX, data = XX, paired = TRUE)
 
 # Testergebnisse
-summary(psi_lm)</code></pre>
+psi_ttest</code></pre>
 <ol start="2" style="list-style-type: decimal">
-<li>Verwende nun die <code>confint()</code> Funktion um die Konfidenzintervalle für die Regression, d.h., den Intercept und das Gewicht für <code>Bedingung</code>, zu bestimmen.</li>
+<li>Extrahiere nun das Konfidenzintervalle für den t-Test.</li>
 </ol>
 <pre class="r"><code># Konfidenzintrval
-confint(XX)</code></pre>
+psi_ttest$conf.int</code></pre>
 <ol start="3" style="list-style-type: decimal">
-<li>Das Konfidenezinterval für den Intercept lag zwischen <code>47.47</code> und <code>52.19</code>, während das Interval für das Gewicht zwischen <code>-.03</code> und <code>6.64</code>. Beide Konfidenzintervalle enthalten also die NUll. Das heisst inbesondere, dass der obgleich der Mittelwert für die Erotic-Bedingung signifikant von <code>50%</code> verschieden ist die beiden Bedingungen sich nicht signifikant unterscheiden. Beginne nun die das Konfidenzinterval für das Gewicht nachzubauen. Extrahiere dafür zunächst das Gewicht und den entsprechenden Standardfehler.</li>
+<li>Das Konfidenezinterval für den Unterschied liegt zwischen zwischen <code>-6.84</code> und <code>.23</code>. Das Konfidenzintervalle enthält also die NUll. Das heisst, dass der obgleich der Mittelwert für die Erotic-Bedingung signifikant von <code>50%</code> verschieden ist die beiden Bedingungen sich nicht signifikant unterscheiden. Beginne nun die das Konfidenzinterval für den Unterschied der Gruppen nachzubauen. Extrahiere dafür zunächst dene Unterschied, den entsprechenden Standardfehler, und die Freiheitsgrade.</li>
 </ol>
 <pre class="r"><code># Gewicht b und Standardfehler se
-b &lt;- summary(psi_lm)$coef[2, 1]
-se &lt;- summary(psi_lm)$coef[2, 2]</code></pre>
+delta &lt;- psi_ttest$estimate
+se &lt;- psi_ttest$stderr
+df &lt;- psi_ttest$parameter</code></pre>
 <ol start="4" style="list-style-type: decimal">
-<li>Jetzt benötigst du nur noch die entsprechenden t-Wert um das Konfidenzintervall auzuspanne. Da das Konfidenzinterval in beide Richtungen zu gleichen Teilen aufgespannt werden soll such wir nicht den t-Wert für <span class="math inline">\(1-\alpha\)</span> sondern für <span class="math inline">\(1-\frac{\alpha}{2}\)</span> und <span class="math inline">\(\frac{\alpha}{2}\)</span>, d.h., wir suchen die kritischen t-Werte für einen zweiseitigen Test. Locate these values in the figure below.</li>
+<li>Jetzt benötigst du nur noch die entsprechenden t-Wert um das Konfidenzintervall auzuspanne. Da das Konfidenzinterval in beide Richtungen zu gleichen Teilen aufgespannt werden soll such wir nicht den t-Wert für <span class="math inline">\(1-\alpha\)</span> sondern für <span class="math inline">\(1-\frac{\alpha}{2}\)</span> und <span class="math inline">\(\frac{\alpha}{2}\)</span>, d.h., wir suchen die kritischen t-Werte für einen zweiseitigen Test mit <span class="math inline">\(\alpha = .05\)</span>. Verwende das Template</li>
 </ol>
-<p><img src="image/tdistr.png"></img></p>
-<ol start="6" style="list-style-type: decimal">
-<li><p>We can calculate the precise t-values corresponding to certain probabilities using the cumulative distribution function of t <code>qt(p = XX, df = YY)</code>. To use it, you must provide the proportion <code>p</code> of t-values that should be smaller than the target value and the degrees of freedom <code>df</code>, which in this case must be set to <code>n-1</code>. Determine <span class="math inline">\(t_{2.5\%}\)</span> and <span class="math inline">\(t_{97.5\%}\)</span> and store them as <code>t.25</code> and <code>t97.5</code>.</p></li>
-<li><p>Compare the two t-values. Anything surprising? Given the symmetric nature of the t-distribution the two values are their respective mirror image. Ok, now you have all the ingredients that you need to construct a confidence interval. To calculate the lower bound, you want to move exactly <code>t.25</code> times the standard error to the left of the mean hit rate difference. And to calculate the bound, you want to move exactly <code>t97.5</code> times the standard error to the right of the mean hit rate difference. Do this and name the lower and upper bounds <code>hit_rate_lowerb</code> and <code>hit_rate_upperb</code>.</p></li>
-<li><p>Now compare your calculated values against the confidence interval determined by the t-test. Are they the same? The confidence interval is many ways the better alternative to the classic inferential test because it prefers more information. A test is just significant or not. The confidence interval reveals this information too by including the 0 or not, but it also reveals the oftentimes considerable uncertainty inherent in our estimate, which is otherwise easily forgotten.</p></li>
-<li><p>Play around with the confidence intervals. How do the bounds change, when you choose higher (e.g., 99%) or lower (90%) percentages.</p></li>
-</ol>
-</div>
-<div id="x---advanced-bayesian-statistics" class="section level3">
-<h3>X - Advanced: Bayesian statistics</h3>
-<ol style="list-style-type: decimal">
-<li>Bayesian statistics have become readily available in R mainly through two R packages <code>rstanarm</code> and <code>Bayesfactor</code>. Both packages are great and allow you to do almost anything, but they do follow a slightly different philosophy. Let’s begin with <code>rstanarm</code>. Use the template below to run a regression predicting <code>hit_rate</code> by <code>gender</code> and <code>condition</code>.</li>
-</ol>
-<pre class="r"><code># Bayesian regression predicting hit_rate by gender and condition
-bm1 &lt;- stan_glm(formula = hit_rate ~ gender + condition, 
-                data = psi1)</code></pre>
-<ol start="2" style="list-style-type: decimal">
-<li>Print the object and inspect the output. You’ll see it looks different than the output of a regular regression. Focusing only on the part after the separating hyphens, there are three main parts:</li>
-</ol>
-<ul>
-<li><p>The first part shows the coefficients and their standard deviation. Different from a regular regression output, we do not receive any statistics or significance values. Moreover estimates are labeled Median and MAD_SD. This is because of the fact that in Bayesian statistics, we can more or less choose which centrality measure to compute from the posterior distribution. <code>rstanarm</code> chooses the median, because the median is typically more robust.</p></li>
-<li><p>The second part labeled <em>Auxiliary parameter(s)</em> lists another set of estimates (in this case only 1), which had to be computed in order to be able to fit the model. In this case this is a single standard deviation for the residual distribution (here you can see the importance of the homoscedascity assumption. Without it a lot more sigmas would have to be estimated).</p></li>
-<li><p>The third part labeled <em>Sample avg. posterior predictive distribution of y</em> shows the mean value predicted by the model, which is, more or less, the average of the fitted values.</p></li>
-</ul>
-<ol start="3" style="list-style-type: decimal">
-<li><p>In order to make statistical decisions, Bayesian statistics commonly relies on intervals, which in Bayesian statistics are called <em>credible interval</em> rather than <em>confidence interval</em>. Credible intervals truly provide the ranges that encompass the true value with 95% probability, which cannot strictly be said about confidence intervals. You can compute these intervals using the <code>posterior_interval()</code> function on the <code>bm1</code> object.</p></li>
-<li><p>Now let’s run the same analysis using the <code>BayesFactor</code> package using the <code>regressionBF</code> function.</p></li>
-</ol>
-<pre class="r"><code># Bayesian regression predicting hit_rate by gender and condition
-psi1$gender_dummy &lt;- as.numeric(psi1$gender == &#39;Male&#39;)
-psi1$condition_dummy &lt;- as.numeric(psi1$condition == &quot;erotic&quot;)
-
-bm2 &lt;- regressionBF(formula = hit_rate ~ gender_dummy + condition_dummy, 
-                    data = psi1)</code></pre>
+<pre class="r"><code># Kritische t-Werte
+t_25 &lt;- qt(p = XX, df = XX)
+t_97.5 &lt;- qt(p = XX, df = XX)</code></pre>
 <ol start="5" style="list-style-type: decimal">
-<li><p>Print <code>bm2</code> and inspect the output. You’ll see it’s very different. The <code>BayesFactor</code> focuses more on model comparisons than parameter estimation. Accordingly, the output informs you about a model comparison, in this case, between the regression model provided and a model only containing an intercept as a predictor, the <code>Intercept only</code> model. The results are what is known <em>BayesFactor</em>s. The <code>BayesFactor</code> quantifies the amount of evidence that the data provides in favor of the model in question, relative to the comparison model. Values larger than 1 mean that the data favors the model in question, although only values above 10 are considered meaningful. Values lower than 1 indicate that the comparison model is actually more likely. The output presents results independently for each predictor and their combination. So what is it in this case? Are the predictors any good.</p></li>
-<li><p>The previous result illustrates one of several major benefits of Bayesian statistics and that is to be able to specify the evidence in favor of the Null-hypothesis. In general, everything can be done with either package. Go explore.</p></li>
+<li>Schaue dir zunächst die beiden t-Werte an. Überrascht, dass es die selben Werte sind nur einmal positiv und einmal negativ? Das ergibt sich daraus, dass die t-Verteilung symmetrisch um Null liegt. Um nun damit das Konfidenzinterval zu berechnen verwende das Template unten. Es geht darum <code>t*se</code> nach oben und <code>t*se</code> nach unten vom Unterschied <code>delta</code> zu gehen. Denkt an die unterschiedlichen Vorzeichen der beiden t-Werte.</li>
+</ol>
+<pre class="r"><code># confidence limits
+delta_lower &lt;- XX + XX * XX
+delta_upper &lt;- XX + XX * XX</code></pre>
+<ol start="8" style="list-style-type: decimal">
+<li><p>Jetzt könnt ihr eurer Konfidenzinterval mit dem aus dem t-Wert vergleichen. Ist es identisch?</p></li>
+<li><p>Probiere andere Konfidenzintervalle aus. Wie verändern sich dei Grenzen, wenn <span class="math inline">\(\alpha = .01\)</span> oder <span class="math inline">\(\alpha = .1\)</span>, d.h., wenn die Konfidenzintervalle 99% bzw. 90% umspannen.</p></li>
+</ol>
+</div>
+<div id="e---bayesianische-statistik" class="section level3">
+<h3>E - Bayesianische Statistik</h3>
+<ol style="list-style-type: decimal">
+<li>Bayesianische Statistik kann in R mittlerweile ebenso leicht verwendet werden, wie klassische (frequentistische) Statistik durch Pakete wie <code>rstanarm</code> und <code>Bayesfactor</code>. Beide Pakete erlauben dir beinahe identisch zur bekannten Form Modelle zu implementieren, die jedoch einer ganz anderen statistischen Philosophie. Verwende <code>rstanarm</code> im Template um die Trefferrate durch <code>Geschlecht</code> und <code>Stimulus_seeking</code> für die <code>'erotic'</code> Bedingung vorherzusagen.</li>
+</ol>
+<pre class="r"><code># Bayesianische Regression
+Trefferrate_bm &lt;- stan_glm(formula = Trefferrate ~ Geschlecht + Stimulus_seeking, 
+                           data = psi1 %&gt;% filter(Bedingung == &#39;erotic&#39;))</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Printe das Objekt und beetrachte den Output. Er sieht sehr anders aus als der Output der normalen Regression. Trotzddem solltest du einen Part wiedererkennen. Im Teil nach dem ersten mal <code>-----</code> stehen die Gewichte und deren Standardabweichung, welche du analog zum Standardfehler interpretieren kannst. Darüber stehen grundlegenden Informationen zum Modell, die du üblciherweise ignoriere kannst. Darunter stehen zu <code>Auxiliary parameter(s)</code> stehen Parameter, die das Modell zusätzlich geschätzt hat. Der eine Parameter <code>sigma</code> ist die Standardabweichung um die Regressionsgerade, welche im Bayesianischen Modell auch eine Standardabweichung besitzt.</p></li>
+<li><p>Statistische Entscheidungen werden im Bayesianischen Ansatz auf unterschiedliche Weisen getroffen (je nachdem welcher Schule man angehört). Am verbreitesten ist jedoch das <em>credible interval</em>, welches analog zum Konfidenzintervall zu interprieren ist. Es ist dasjenige Interval in dem der wahre Populationsparameter mit 95%iger Wahrscheinlichkeit liegt, eine Aussage, die für das normale Konfidenzinterval nicht getroffene werden kann. Berechne die <em>credible intervals</em> mit der <code>posterior_interval()</code> Funktion für <code>Trefferrate_bm</code>.</p></li>
+<li><p>Wenn Null nicht enthalten ist, dann ist die Wahrscheinlichkeit, dass ein Effekt Null ist tatsächlich kleiner als 5%.</p></li>
 </ol>
 </div>
 </div>
-<div id="examples" class="section level2">
-<h2>Examples</h2>
-<pre class="r"><code># power analysis -----------
+<div id="beispiele" class="section level2">
+<h2>Beispiele</h2>
+<pre class="r"><code># Poweranalyse -----------
 
-# N needed for one-sided test with a mean difference of
-# .3 standard deviations, a false positive error rate (sig.level)
-# of .05, and power of .95
+# N für einen einseitigen t.test auf Mittelwertsunterschiede
 pwr.t.test(d = .3, 
            sig.level = .05, 
            power = .95, 
            alternative = &quot;greater&quot;)
 
-# Power obtained for one-sided test with mean difference of
-# .3 standard deviations, a false positive error rate (sig.level)
-# of .05, and a sample size of 100
+# Power für einen einseitigen t.test auf Mittelwertsunterschiede
 pwr.t.test(n = 100,
            d = .3, 
            sig.level = .05, 
@@ -446,34 +432,32 @@ pwr.t.test(n = 100,
            alternative = &quot;greater&quot;)
 
 
-# confidence intervals -----------
+# Konfidenzintervalle -----------
 
-#  split data (not strictly necessary)
-mpg_suv     &lt;- mpg %&gt;% filter(class == &#39;suv&#39;)
-mpg_compact &lt;- mpg %&gt;% filter(class == &#39;compact&#39;)
+#  Berechne test
+t_test &lt;- t.test(hwy ~ class, data = mpg %&gt;% filter(class %in% c(&#39;suv&#39;,&#39;compact&#39;)))
 
-# mean difference and pooled standard deviation
-mpg_diff = mean(mpg_suv$hwy) - mean(mpg_compact$hwy)
-mpg_diff_sd = sqrt((var(mpg_suv$hwy) + var(mpg_compact$hwy))/2)
-df = length(mpg_suv$hwy) + length(mpg_compact$hwy) - 2
-mpg_diff_se = mpg_diff_sd / sqrt(df)
+# Extrahiere Werte
+delta &lt;- diff(t_test$estimate)
+se &lt;- t_test$stderr
+df &lt;- t_test$parameter
 
-# upper and lower bounds
-mpg_diff + qt(.025, df) * mpg_diff_se
-mpg_diff + qt(.975, df) * mpg_diff_se
+# Obere und untere Grenze
+delta + qt(.025, df) * se
+delta + qt(.975, df) * se
 
-# both at the same time
-mpg_diff + qt(.975, df) * mpg_diff_se * c(-1,1)
+# Beide zur selben Zeit
+delta + qt(.975, df) * se * c(-1,1)
 
-# Bayesian regression -----------
+# Bayesianische Regression -----------
 
-# using rstanarm
+# mit rstanarm
 bm1 &lt;- stan_glm(hwy ~ displ, data = mpg)
 
 # rstanarm credible intervals
 posterior_interval(bm1)
 
-# using BayesFactor
+# mit BayesFactor
 bm2 &lt;- regressionBF(hwy ~ displ, data = mpg)
 
 # sample from posterior
@@ -484,27 +468,27 @@ posterior(bm2, iterations = 1000)</code></pre>
 <table>
 <thead>
 <tr class="header">
-<th align="left">File</th>
-<th align="left">Rows</th>
-<th align="left">Columns</th>
+<th align="left">Datei</th>
+<th align="left">Zeilen</th>
+<th align="left">Spalten</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><a href="https://therbootcamp.github.io/SwR_2019Apr/1_Data/psi_exp1.csv">psi_exp1.csv</a></td>
+<td align="left"><a href="https://therbootcamp.github.io/SmR_2020Apr/1_Data/psi_exp1.csv">psi_exp1.csv</a></td>
 <td align="left">200</td>
 <td align="left">7</td>
 </tr>
 <tr class="even">
-<td align="left"><a href="https://therbootcamp.github.io/SwR_2019Apr/1_Data/psi_exp2.csv">psi_exp2.csv</a></td>
+<td align="left"><a href="https://therbootcamp.github.io/SmR_2029Apr/1_Data/psi_exp2.csv">psi_exp2.csv</a></td>
 <td align="left">150</td>
 <td align="left">5</td>
 </tr>
 </tbody>
 </table>
-<p>The data sets stem from actual (para-) psychological investigation of people’s ability to <a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/NewStats/literature/Bem_Psi_2011.pdf">“Feel the future”</a>. The infamous study published in a respected Social Psychology journal was one of the main reasons that triggered the replication crisis and the associated efforts for better scientific practice in Psychology and beyond. The data sets contain the data of the first two experiments. Experiment 1 investigated whether people can successfully (better than chance) predict behind which of two occluding curtains a picture is hiding as a function of, among other things, whether the picture has erotic content. Experiment 2 is an attempt to replicate study 2. Both studies also measures how stimulus seeking (a variant of extraversion) individuals were, to see whether this influences individuals <em>psi</em> ability.</p>
-<div id="variable-description" class="section level4">
-<h4>Variable description</h4>
+<p>Die Daten stammen von einer tatsächlichen (para-) psychologischen Studie, die die menschliche Fähigkeit in die Zukunft zu sehen überprüft hat (<a href="https://therbootcamp.github.io/SwR_2019Apr/_sessions/NewStats/literature/Bem_Psi_2011.pdf">“Feel the future”</a>). Die mittlerweile berüchtigte Studie wurde in einem etablierten Journal der Sozialpsychologie publiziert, was damit nicht unerheblich zum einer Bewegung der methodischen Revision in der Psychologie geführt hat. Die Dateien enthalten die Daten der ersten beiden Experimente. Das erste Experiment untersuchte ob Menschen besser als eine Zufallsrate von 50% vorhersagen können, hinter welchem von zwei Vorhängen ein Bild versteckt ist, insbesondere in dem Fall in dem sich ein erotischen Bild dahinter versteckt. Experiment zwei ist ein Replikationsversuch der erste Studie. Beide Studien haben auch das Konstruk <em>Stimulus seeking</em> mituntersucht, was ähnlich zu Extraversion zu interpetieren ist, um zu untersuchen, ob Leute mit hohem <em>Stimulus seeking</em> vielleicht höhere <em>psi</em> Fähigkeiten aufweisen.</p>
+<div id="psi_exp1.csv-psi_exp2.csv" class="section level4">
+<h4>psi_exp1.csv &amp; psi_exp2.csv</h4>
 <table>
 <colgroup>
 <col width="26%" />
@@ -518,49 +502,49 @@ posterior(bm2, iterations = 1000)</code></pre>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left"><code>gender</code></td>
-<td align="left">The gender of the participant.</td>
+<td align="left"><code>Geschlecht</code></td>
+<td align="left">Das Geschlecht der Versuchsperson.</td>
 </tr>
 <tr class="even">
-<td align="left"><code>age</code></td>
-<td align="left">The age of the participant.</td>
+<td align="left"><code>Alter</code></td>
+<td align="left">Das Alter der Versuchsperson</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>stimulus_seeking</code></td>
-<td align="left">The degree of stimulus-seeking exhibited by the participant.</td>
+<td align="left"><code>Stimulus_seeking</code></td>
+<td align="left">Der Grad des Stimululs seeking des Versuchsperson.</td>
 </tr>
 <tr class="even">
-<td align="left"><code>hour_of_day</code></td>
-<td align="left">The hour of day at which the participant was tested.</td>
+<td align="left"><code>Uhrzeit</code></td>
+<td align="left">Die Uhrzeit der Testung.</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>condition</code></td>
-<td align="left">The study condition: “erotic” or “control” (only psi1)</td>
+<td align="left"><code>Bedingung</code></td>
+<td align="left">Die Studienbedingung: “erotic” oder “control” für neutrale Bilder</td>
 </tr>
 <tr class="even">
-<td align="left"><code>depicted_gender</code></td>
+<td align="left"><code>Präsentiertes_geschlecht</code></td>
 <td align="left">The gender on the presented photo: “Female” or “Male” (only psi1)</td>
 </tr>
 <tr class="odd">
-<td align="left"><code>n_trials</code></td>
-<td align="left">The number of choices made.</td>
+<td align="left"><code>Anzahl_trials</code></td>
+<td align="left">Die Anzahl korrekter Entscheidungen.</td>
 </tr>
 <tr class="even">
-<td align="left"><code>hit_rate</code></td>
-<td align="left">%-correct choices (with regard to showing <em>psi</em>).</td>
+<td align="left"><code>Trefferrate</code></td>
+<td align="left">%-korrekte Entscheidungen (&gt; 50% bedeutet <em>psi</em>).</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<div id="functions" class="section level2">
-<h2>Functions</h2>
-<div id="packages" class="section level3">
-<h3>Packages</h3>
+<div id="funktion" class="section level2">
+<h2>Funktion</h2>
+<div id="pakte" class="section level3">
+<h3>Pakte</h3>
 <table>
 <thead>
 <tr class="header">
-<th align="left">Package</th>
+<th align="left">Pakete</th>
 <th align="left">Installation</th>
 </tr>
 </thead>
@@ -580,14 +564,9 @@ posterior(bm2, iterations = 1000)</code></pre>
 </tbody>
 </table>
 </div>
-<div id="functions-1" class="section level3">
-<h3>Functions</h3>
+<div id="funktionen" class="section level3">
+<h3>Funktionen</h3>
 <table>
-<colgroup>
-<col width="7%" />
-<col width="12%" />
-<col width="80%" />
-</colgroup>
 <thead>
 <tr class="header">
 <th align="left">Function</th>
@@ -599,46 +578,46 @@ posterior(bm2, iterations = 1000)</code></pre>
 <tr class="odd">
 <td align="left"><code>pwr.t.test</code></td>
 <td align="left"><code>pwr</code></td>
-<td align="left">t-test power analyses</td>
+<td align="left">Poweranalyse für t-Tests</td>
 </tr>
 <tr class="even">
 <td align="left"><code>plot.power.htest</code></td>
 <td align="left"><code>pwr</code></td>
-<td align="left">Plot power analyses</td>
+<td align="left">Plotte Powerverlauf</td>
 </tr>
 <tr class="odd">
 <td align="left"><code>qt</code>, <code>anorm</code>, <code>qF</code>, etc.</td>
 <td align="left"><code>stats</code></td>
-<td align="left">Functions needed to determine confidence intervals</td>
+<td align="left">Verteilungsfunktionen für Konfidenzintervalle</td>
 </tr>
 <tr class="even">
 <td align="left"><code>stan_lm</code></td>
 <td align="left"><code>rstanarm</code></td>
-<td align="left">Bayesian regression using <code>rstanarm</code></td>
+<td align="left">Bayesianische Regression mit <code>rstanarm</code></td>
 </tr>
 <tr class="odd">
 <td align="left"><code>posterior_interval</code></td>
 <td align="left"><code>rstanarm</code></td>
-<td align="left">Bayesian credible interval using <code>rstanarm</code></td>
+<td align="left">Bayesianisches credible interval mit <code>rstanarm</code></td>
 </tr>
 <tr class="even">
 <td align="left"><code>regressionBF</code></td>
 <td align="left"><code>BayesFactor</code></td>
-<td align="left">Bayesian regression using <code>BayesFactor</code></td>
+<td align="left">Bayesianische Regression mit <code>BayesFactor</code></td>
 </tr>
 <tr class="odd">
 <td align="left"><code>posterior</code></td>
 <td align="left"><code>BayesFactor</code></td>
-<td align="left">Sample from the posterior using <code>BayesFactor</code></td>
+<td align="left">Sample aus der Posterior mit <code>BayesFactor</code></td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<div id="resources" class="section level2">
-<h2>Resources</h2>
-<div id="vignettes" class="section level3">
-<h3>vignettes</h3>
+<div id="resourcen" class="section level2">
+<h2>Resourcen</h2>
+<div id="vignetten" class="section level3">
+<h3>Vignetten</h3>
 <p>Find vignettes to these packages: <a href="https://cran.r-project.org/web/packages/pwr/vignettes/pwr-vignette.html">pwr</a>, <a href="http://mc-stan.org/rstanarm/articles/rstanarm.html">rstanarm</a>, <a href="https://richarddmorey.github.io/BayesFactor/">BayesFactor</a></p>
 </div>
 </div>
