@@ -173,7 +173,7 @@ var x = setInterval(function() {
 
 3. Für jede der beiden Wettbewerbe - jeweils ein Wettbewerb pro Experiment - darfst du drei Ergebnisse einreichen. Ihr könnt alleine arbeiten oder euch zusammenschliessen. Mehr Informationen über den Datensatz findet ihr unter dem  *Datasets* tab. Die Person oder Gruppe mit dem niedrigsten <i>p</i>-Wert gewinnt &#x1F36B;&#x1F36B;&#x1F36B;.  
 
-4. Reiche die Ergebnisse ein über:
+4. Reiche als Ergebnisse ein Pseudonym, den p-Wert und den Code-Schnipsel des Tests (inkl. Datenvorverarbeitung, falls relevant) ein über:
 
 
 <table align="center">
