@@ -92,8 +92,6 @@ Am Ende des Practicals wirst du wissen...
 library(tidyverse)
 library(lubridate)
 library(lme4)
-library(rsq)
-library(moments)
 library(boot)
 library(quantreg)
 library(Rfit)
@@ -565,7 +563,6 @@ Die Datensätze entstammen der [Hass](https://en.wikipedia.org/wiki/Hass_avocado
 |:------|:------|
 |`tidyverse`|`install.packages("tidyverse")`|
 |`lubridate`|`install.packages("lubridate")`|
-|`moments`|`install.packages("moments")`|
 |`quantreg`|`install.packages("quantreg")`|
 |`boot`|`install.packages("boot")`|
 |`Rfit`|`install.packages("Rfit")`|
