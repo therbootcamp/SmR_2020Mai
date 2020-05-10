@@ -35,8 +35,8 @@ knitr::opts_chunk$set(comment = NA,
                       fig.width = 6, 
                       fig.height = 6,
                       fig.align = 'center',
-                      echo = FALSE, 
-                      eval = FALSE, 
+                      echo = TRUE, 
+                      eval = TRUE, 
                       warning = FALSE)
 
 options(digits = 3)
@@ -455,7 +455,6 @@ summary(lm(Verkaufsvolumen ~ Preis + Typ, avocado_cali))
 ```
 
 
-
 ### F - Annahmen Teil 2
 
 1. In dieser letzten Sektion, hast du die Möglichkeit nochmal gemischte Modelle zu wiederholen. Unten steht ein template um ein gemischtes Modell für den gesamten Avocado Datensatz zu rechnen in dem du berücksichtigst, dass die Daten aus verschiedenen Regionen stammen. Have fun! 
@@ -468,6 +467,16 @@ avocado_lmer <- lmer(formula = Verkaufsvolumen ~ XX + (1 + XX | Region),
 # residual plot
 plot(x = fitted(avocado_lmer), y = residuals(avocado_lmer))
 ```
+
+```{r}
+# model
+avocado_lmer <- lmer(formula = Verkaufsvolumen ~ Preis + (1 + Preis | Region), 
+                     data = avocado)
+
+# residual plot
+plot(x = fitted(avocado_lmer), y = residuals(avocado_lmer))
+```
+
 
 2. Natürlich kannst du auch wiederum den Residualplot überprüfen. Diesmal separat für jede Region. 
 

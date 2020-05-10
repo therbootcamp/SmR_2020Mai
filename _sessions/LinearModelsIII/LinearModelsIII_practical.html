@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 
 <meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
-<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
 
@@ -84,6 +84,7 @@ code {
 }
 img {
   max-width:100%;
+  height: auto;
 }
 .tabbed-pane {
   padding-top: 12px;
@@ -145,7 +146,6 @@ summary {
   border: none;
   display: inline-block;
   border-radius: 4px;
-  background-color: transparent;
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li {
@@ -157,6 +157,18 @@ summary {
   display: none;
 }
 </style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
 
 <!-- code folding -->
 
@@ -199,7 +211,7 @@ summary {
 </p>
 <div id="section" class="section level1 tabset">
 <h1></h1>
-<div id="überblick" class="section level2">
+<div id="uberblick" class="section level2">
 <h2>Überblick</h2>
 <p>Am Ende des Practicals wirst du wissen…</p>
 <ol style="list-style-type: decimal">
@@ -221,7 +233,16 @@ summary {
 <ol start="3" style="list-style-type: decimal">
 <li><p>Speichere das neue Skript unter dem Namen <code>lineare_modelle_III_practical.R</code> im <code>2_Code</code> Ordner.</p></li>
 <li><p>Lade die Pakete <code>tidyverse</code> und <code>MASS</code>.</p></li>
-<li><p>Verwende die <code>read_csv()</code> Funktion um <code>wein.csv</code> und <code>bigmart.csv</code> einzulesen.</p></li>
+</ol>
+<pre class="r"><code>library(tidyverse)
+library(MASS)</code></pre>
+<pre><code>
+Attaching package: &#39;MASS&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:dplyr&#39;:
+
+    select</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Verwende die <code>read_csv()</code> Funktion um <code>wein.csv</code> und <code>bigmart.csv</code> einzulesen.</li>
 </ol>
 <pre class="r"><code># Lese Daten ein
 wein &lt;- read_csv(file = &quot;1_Data/wein.csv&quot;)
@@ -250,6 +271,10 @@ wein_lm &lt;- lm(formula = XX ~ XX + XX + XX,
 wein_glm &lt;- glm(formula = XX ~ XX + XX + XX, 
                 data = XX,
                 family = &#39;XX&#39;)</code></pre>
+<pre class="r"><code># Logistische Regression
+wein_glm &lt;- glm(formula = Farbe ~ Alkohol + Dichte + Sulphate, 
+               data = wein,
+               family = &#39;binomial&#39;)</code></pre>
 <ol start="3" style="list-style-type: decimal">
 <li><p>Printe <code>wein_glm</code>. Was verrät dir der Output?</p></li>
 <li><p>Zu allererst ist dir vielleicht aufgefallen, dass einige der Gewichte sehr gross sind. Vor allem der Intercept ist erstaunlich hoch, wenn man bedenkt dass Farbe eigentlich nur Werte zwischen 0 und 1 annehmen kann. Dies hat natürlich mit dem Link-Funktion zu tun. Das bedeutet, im generalisierten linearen Modell muss nun auch noch die Link-Funktion mitberücksichtigt werden.</p></li>
@@ -266,6 +291,7 @@ log_likelihood &lt;- sum(log(wsk_weiss) * sum(wein$Farbe == &#39;weiss&#39;)) +
 
 # Deviance Null-Modell
 -2 * log_likelihood</code></pre>
+<pre><code>[1] 7251</code></pre>
 <ol start="8" style="list-style-type: decimal">
 <li>Analog kannst du die Performanzwert für das <code>wein_glm</code> Modell bestimmen, nur musst du hier die eigentlichen vom Modell vorhergesagten Werte verwenden, die du mit <code>fitted()</code> extrahieren kannst.</li>
 </ol>
@@ -278,6 +304,7 @@ log_likelihood &lt;- sum(log(wsk_weiss[wein$Farbe == &#39;weiss&#39;])) +
 
 # Deviance wein_glm
 -2 * log_likelihood</code></pre>
+<pre><code>[1] 4507</code></pre>
 <ol start="9" style="list-style-type: decimal">
 <li><p>Die Deviance Werte bzw. die log-Likelihoods lassen sich nur schwer absolut beurteilen. Das bedeutet auch, dass nicht ohne weiteres klar ist, ob <code>wein_glm</code> tatsächlich gut die <code>Farbe</code> erklärt. Bei standard Regression ist das leichter, da <code>R-squared</code> notwendigerweise zwischen <code>0</code> und <code>1</code> liegt. Um die Interpretation zu erleichtert, bietet R daher noch das Akaike Informationskriterium (<code>AIC</code>), welches die Deviance in Vergleich zur Anzahl der Parameter setzt, d.h., <code>AIC &lt;- Deviance + 2*k</code>, wobei <code>k</code> die Anzahl der Parameter (Regressionsgewichte ist). Wenn das <code>AIC</code> niedriger ist als die Null-Deviance, dann kann man klar davon ausgehen, dass das Modell (<code>wein_glm</code>) besser ist. Hier ist dies der Fall, was nicht überraschend ist, da die Prädiktoren jeweils sehr starke Effekte aufweisen.</p></li>
 <li><p>Dass starke Effekte vorliegen, lässt sich über sogenannte Odds Ratios (OR) darstellen. ORs sind eine übliche Effektstärke in der logistischen Regression, die sich leicht aus Regressionsgewichten ableiten lässt und zwar gilt <code>OR = exp(b)</code>, wobei <code>b</code> das Regressionsgewicht ist. Berechne die ORs für die drei im Modell enthaltenen Prädiktoren. Es ist i.d.R. einfacher mit positiven Gewichten zu arbeiten, solange man die Richtung in Erinnerung behält.</p></li>
@@ -286,6 +313,13 @@ log_likelihood &lt;- sum(log(wsk_weiss[wein$Farbe == &#39;weiss&#39;])) +
 exp(abs(XX))
 exp(abs(XX))
 exp(abs(XX))</code></pre>
+<pre class="r"><code># Odds ratios
+exp(abs(-0.95293))</code></pre>
+<pre><code>[1] 2.59</code></pre>
+<pre class="r"><code>exp(abs(-642.70591))</code></pre>
+<pre><code>[1] 1.33e+279</code></pre>
+<pre class="r"><code>exp(abs(-7.81487))</code></pre>
+<pre><code>[1] 2477</code></pre>
 <ol start="11" style="list-style-type: decimal">
 <li>Die ORs zeigen, dass die odds (<code>p / (1-p)</code>) dafür, dass ein Wein rot ist, um das <code>2.59</code> fache steigen, wenn man Alkohol um 1 Volumenprozent zunimmt, um das <code>1.33e+279</code> (fast unzählbar) fache, wenn Dichte um einen Wert von 1 steigt, und um das <code>2477</code> fache, wenn die Sulphatkonzentration um 1 steigt. Ziemlich extreme Werte oder? Könnte vielleicht wiederum mit der Skalierung zu tun haben. Rechne die logistische Regression erneut, diesmal mit skalierten Variablen.</li>
 </ol>
@@ -296,6 +330,13 @@ skaliere = function(x) (x - mean(x))/sd(x)
 wein_glm &lt;- glm(formula = XX ~ XX + XX + XX, 
                 data = XX %&gt;% mutate_if(is.numeric, skaliere),
                 family = &#39;XX&#39;)</code></pre>
+<pre class="r"><code># Skalierungsfunktion
+skaliere = function(x) (x - mean(x))/sd(x)
+
+# Logistische Regression
+wein_glm &lt;- glm(formula = Farbe ~ Alkohol + Dichte + Sulphate, 
+                data = wein %&gt;% mutate_if(is.numeric, skaliere),
+               family = &#39;binomial&#39;)</code></pre>
 <ol start="12" style="list-style-type: decimal">
 <li>Nun berechne die ORs noch einmal mit den neuen Gewichten. Sind sie immer noch so extrem?</li>
 </ol>
@@ -303,6 +344,13 @@ wein_glm &lt;- glm(formula = XX ~ XX + XX + XX,
 exp(abs(XX))
 exp(abs(XX))
 exp(abs(XX))</code></pre>
+<pre class="r"><code># Odds ratios
+exp(abs(-1.1366))</code></pre>
+<pre><code>[1] 3.12</code></pre>
+<pre class="r"><code>exp(abs(-1.9273))</code></pre>
+<pre><code>[1] 6.87</code></pre>
+<pre class="r"><code>exp(abs(-1.1629))</code></pre>
+<pre><code>[1] 3.2</code></pre>
 <ol start="13" style="list-style-type: decimal">
 <li>Die ORs sollten sich etwas beruhigt haben. Der Grund für die extreme OR für <code>Dichte</code> war, dass die Werte in <code>Dichte</code> nur zwischen <code>0.987</code> und <code>1.039</code>, was bedeutet, dass eine Veränderung von 1 eine Veränderung weit über den eigentlichen Wertebereich der Variablen hinausgeht. Wiederum, wenn es um den Vergleich der Gewichte geht und diese leicht interpretierbar werden sollen, erwäge zu standardisieren.</li>
 </ol>
@@ -316,15 +364,23 @@ exp(abs(XX))</code></pre>
 bigmart_glm &lt;- glm(formula = XX ~ XX + XX, 
                    data = XX,
                    family = &#39;XX&#39;)</code></pre>
+<pre class="r"><code># Poisson Regression
+bigmart_glm &lt;- glm(formula = Verkäufe ~ Max_Preis + Visibilität, 
+                   data = bigmart,
+                   family = &#39;poisson&#39;)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li><p>Printe zunächst das Modell. Wie interpretierst du den Output?</p></li>
 <li><p>Der Output ist genauso aufgebaut wie bei der logistischen Regression. Entgegen was man intuitiv meinen könnte zeigt sich das Preis einen positiven Einfluss auf die Verkäufe hat und Visibilität einen negativen. Die Gewichte der Poisson-Regression sind ebenfalls per <code>exp()</code>-Funktion zu transformieren, um sie richtig interpretieren zu können. In diesem Fall ist es aber nicht einfach die Gewichte separat von einander zu betrachten. Siehe die Beispiele unten.</p></li>
 </ol>
 <pre class="r"><code># Interpretation der Gewichte
-exp(6.71409) # Erwartete Häufigkeit wenn Max_Preis = 0 &amp; Visibilität = 0
-exp(6.71409 + 0.00715) # Erwartete Häufigkeit wenn Max_Preis = 1 &amp; Visibilität = 0
-exp(6.71409 - 2.11849) # Erwartete Häufigkeit wenn Max_Preis = 0 &amp; Visibilität = 1
-exp(6.71409 + 0.00715 - 2.11849) # Erwartete Häufigkeit wenn Max_Preis = 1 &amp; Visibilität = 1</code></pre>
+exp(6.71409) # Erwartete Häufigkeit wenn Max_Preis = 0 &amp; Visibilität = 0</code></pre>
+<pre><code>[1] 824</code></pre>
+<pre class="r"><code>exp(6.71409 + 0.00715) # Erwartete Häufigkeit wenn Max_Preis = 1 &amp; Visibilität = 0</code></pre>
+<pre><code>[1] 830</code></pre>
+<pre class="r"><code>exp(6.71409 - 2.11849) # Erwartete Häufigkeit wenn Max_Preis = 0 &amp; Visibilität = 1</code></pre>
+<pre><code>[1] 99</code></pre>
+<pre class="r"><code>exp(6.71409 + 0.00715 - 2.11849) # Erwartete Häufigkeit wenn Max_Preis = 1 &amp; Visibilität = 1</code></pre>
+<pre><code>[1] 99.8</code></pre>
 <ol start="4" style="list-style-type: decimal">
 <li><p>Evaluiere nun die <code>summary()</code>. Was beobachtest du?</p></li>
 <li><p>Alle Effekte sind signifikant, trotz des teilweise kleinen Einflusses (im Fall von <code>Max_Preis</code>), was sicherlich der grossen Stichprobe zu schulden ist. Nichtsdestotrotz, zeigt die <code>Residual deviance</code> und der ein klar niedrigeren Wert als die <code>Null deviance</code>. Was sagt dir dies?</p></li>
@@ -341,6 +397,12 @@ library(MASS)
 # Negative Binomial Regression
 bigmart_glm.nb &lt;- glm.nb(formula = XX ~ XX + XX, 
                          data = XX)</code></pre>
+<pre class="r"><code># Lade MASS
+library(MASS)
+
+# Poisson Regression
+bigmart_glm.nb &lt;- glm.nb(formula = Verkäufe ~ Max_Preis + Visibilität, 
+                      data = bigmart)</code></pre>
 <ol start="2" style="list-style-type: decimal">
 <li><p>Printe das Objekt und vergleiche die Regressionsgewichte mit denen der Poisson Regression. Hat sich was verändert?</p></li>
 <li><p>Nein, die Regressionsgewichte sind sehr stabil geblieben. Print die <code>summary()</code>. Was beobachtest du?</p></li>
@@ -372,7 +434,7 @@ hwy_fit
 hwy_resid &lt;- residuals(hwy_mod)
 hwy_resid</code></pre>
 </div>
-<div id="datensätze" class="section level2">
+<div id="datensatze" class="section level2">
 <h2>Datensätze</h2>
 <table>
 <thead>
@@ -587,23 +649,6 @@ $(document).ready(function () {
 
 
 </script>
-
-<!-- tabsets -->
-
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
-
-<!-- code folding -->
-
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
